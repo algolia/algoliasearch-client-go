@@ -8,8 +8,8 @@ import (
 
 // SearchRecommendRulesResponse struct for SearchRecommendRulesResponse.
 type SearchRecommendRulesResponse struct {
-	// Fetched rules.
-	Hits []RuleResponse `json:"hits"`
+	// Recommend rules that match the search criteria.
+	Hits []RecommendRule `json:"hits"`
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 	// Page of search results to retrieve.
@@ -22,7 +22,7 @@ type SearchRecommendRulesResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchRecommendRulesResponse(hits []RuleResponse, nbHits int32, page int32, nbPages int32) *SearchRecommendRulesResponse {
+func NewSearchRecommendRulesResponse(hits []RecommendRule, nbHits int32, page int32, nbPages int32) *SearchRecommendRulesResponse {
 	this := &SearchRecommendRulesResponse{}
 	this.Hits = hits
 	this.NbHits = nbHits
@@ -37,9 +37,9 @@ func NewEmptySearchRecommendRulesResponse() *SearchRecommendRulesResponse {
 }
 
 // GetHits returns the Hits field value.
-func (o *SearchRecommendRulesResponse) GetHits() []RuleResponse {
+func (o *SearchRecommendRulesResponse) GetHits() []RecommendRule {
 	if o == nil {
-		var ret []RuleResponse
+		var ret []RecommendRule
 		return ret
 	}
 
@@ -48,7 +48,7 @@ func (o *SearchRecommendRulesResponse) GetHits() []RuleResponse {
 
 // GetHitsOk returns a tuple with the Hits field value
 // and a boolean to check if the value has been set.
-func (o *SearchRecommendRulesResponse) GetHitsOk() ([]RuleResponse, bool) {
+func (o *SearchRecommendRulesResponse) GetHitsOk() ([]RecommendRule, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -56,7 +56,7 @@ func (o *SearchRecommendRulesResponse) GetHitsOk() ([]RuleResponse, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchRecommendRulesResponse) SetHits(v []RuleResponse) *SearchRecommendRulesResponse {
+func (o *SearchRecommendRulesResponse) SetHits(v []RecommendRule) *SearchRecommendRulesResponse {
 	o.Hits = v
 	return o
 }

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TrendingFacetsModel Trending facets model.
+// TrendingFacetsModel Trending facet values model.  This model recommends trending facet values for the specified facet attribute.
 type TrendingFacetsModel string
 
 // List of trendingFacetsModel.

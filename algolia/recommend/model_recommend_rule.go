@@ -6,13 +6,12 @@ import (
 	"fmt"
 )
 
-// RuleResponse Rule object.
-type RuleResponse struct {
-	Metadata *RuleResponseMetadata `json:"_metadata,omitempty"`
-	// Unique identifier for a rule object.
-	ObjectID string `json:"objectID"`
-	// [Conditions](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#conditions) required to activate a rule. You can use up to 25 conditions per rule.
-	Conditions  []Condition  `json:"conditions,omitempty"`
+// RecommendRule Recommend rule.
+type RecommendRule struct {
+	Metadata *RecommendRuleMetadata `json:"_metadata,omitempty"`
+	// Unique identifier of a rule object.
+	ObjectID    *string      `json:"objectID,omitempty"`
+	Condition   *Condition   `json:"condition,omitempty"`
 	Consequence *Consequence `json:"consequence,omitempty"`
 	// Description of the rule's purpose. This can be helpful for display in the Algolia dashboard.
 	Description *string `json:"description,omitempty"`
@@ -20,60 +19,65 @@ type RuleResponse struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-type RuleResponseOption func(f *RuleResponse)
+type RecommendRuleOption func(f *RecommendRule)
 
-func WithRuleResponseMetadata(val RuleResponseMetadata) RuleResponseOption {
-	return func(f *RuleResponse) {
+func WithRecommendRuleMetadata(val RecommendRuleMetadata) RecommendRuleOption {
+	return func(f *RecommendRule) {
 		f.Metadata = &val
 	}
 }
 
-func WithRuleResponseConditions(val []Condition) RuleResponseOption {
-	return func(f *RuleResponse) {
-		f.Conditions = val
+func WithRecommendRuleObjectID(val string) RecommendRuleOption {
+	return func(f *RecommendRule) {
+		f.ObjectID = &val
 	}
 }
 
-func WithRuleResponseConsequence(val Consequence) RuleResponseOption {
-	return func(f *RuleResponse) {
+func WithRecommendRuleCondition(val Condition) RecommendRuleOption {
+	return func(f *RecommendRule) {
+		f.Condition = &val
+	}
+}
+
+func WithRecommendRuleConsequence(val Consequence) RecommendRuleOption {
+	return func(f *RecommendRule) {
 		f.Consequence = &val
 	}
 }
 
-func WithRuleResponseDescription(val string) RuleResponseOption {
-	return func(f *RuleResponse) {
+func WithRecommendRuleDescription(val string) RecommendRuleOption {
+	return func(f *RecommendRule) {
 		f.Description = &val
 	}
 }
 
-func WithRuleResponseEnabled(val bool) RuleResponseOption {
-	return func(f *RuleResponse) {
+func WithRecommendRuleEnabled(val bool) RecommendRuleOption {
+	return func(f *RecommendRule) {
 		f.Enabled = &val
 	}
 }
 
-// NewRuleResponse instantiates a new RuleResponse object
+// NewRecommendRule instantiates a new RecommendRule object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRuleResponse(objectID string, opts ...RuleResponseOption) *RuleResponse {
-	this := &RuleResponse{}
-	this.ObjectID = objectID
+func NewRecommendRule(opts ...RecommendRuleOption) *RecommendRule {
+	this := &RecommendRule{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyRuleResponse return a pointer to an empty RuleResponse object.
-func NewEmptyRuleResponse() *RuleResponse {
-	return &RuleResponse{}
+// NewEmptyRecommendRule return a pointer to an empty RecommendRule object.
+func NewEmptyRecommendRule() *RecommendRule {
+	return &RecommendRule{}
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *RuleResponse) GetMetadata() RuleResponseMetadata {
+func (o *RecommendRule) GetMetadata() RecommendRuleMetadata {
 	if o == nil || o.Metadata == nil {
-		var ret RuleResponseMetadata
+		var ret RecommendRuleMetadata
 		return ret
 	}
 	return *o.Metadata
@@ -81,7 +85,7 @@ func (o *RuleResponse) GetMetadata() RuleResponseMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleResponse) GetMetadataOk() (*RuleResponseMetadata, bool) {
+func (o *RecommendRule) GetMetadataOk() (*RecommendRuleMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -89,7 +93,7 @@ func (o *RuleResponse) GetMetadataOk() (*RuleResponseMetadata, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *RuleResponse) HasMetadata() bool {
+func (o *RecommendRule) HasMetadata() bool {
 	if o != nil && o.Metadata != nil {
 		return true
 	}
@@ -97,72 +101,80 @@ func (o *RuleResponse) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given RuleResponseMetadata and assigns it to the Metadata field.
-func (o *RuleResponse) SetMetadata(v *RuleResponseMetadata) *RuleResponse {
+// SetMetadata gets a reference to the given RecommendRuleMetadata and assigns it to the Metadata field.
+func (o *RecommendRule) SetMetadata(v *RecommendRuleMetadata) *RecommendRule {
 	o.Metadata = v
 	return o
 }
 
-// GetObjectID returns the ObjectID field value.
-func (o *RuleResponse) GetObjectID() string {
-	if o == nil {
+// GetObjectID returns the ObjectID field value if set, zero value otherwise.
+func (o *RecommendRule) GetObjectID() string {
+	if o == nil || o.ObjectID == nil {
 		var ret string
 		return ret
 	}
-
-	return o.ObjectID
+	return *o.ObjectID
 }
 
-// GetObjectIDOk returns a tuple with the ObjectID field value
+// GetObjectIDOk returns a tuple with the ObjectID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleResponse) GetObjectIDOk() (*string, bool) {
-	if o == nil {
+func (o *RecommendRule) GetObjectIDOk() (*string, bool) {
+	if o == nil || o.ObjectID == nil {
 		return nil, false
 	}
-	return &o.ObjectID, true
+	return o.ObjectID, true
 }
 
-// SetObjectID sets field value.
-func (o *RuleResponse) SetObjectID(v string) *RuleResponse {
-	o.ObjectID = v
-	return o
-}
-
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *RuleResponse) GetConditions() []Condition {
-	if o == nil || o.Conditions == nil {
-		var ret []Condition
-		return ret
-	}
-	return o.Conditions
-}
-
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleResponse) GetConditionsOk() ([]Condition, bool) {
-	if o == nil || o.Conditions == nil {
-		return nil, false
-	}
-	return o.Conditions, true
-}
-
-// HasConditions returns a boolean if a field has been set.
-func (o *RuleResponse) HasConditions() bool {
-	if o != nil && o.Conditions != nil {
+// HasObjectID returns a boolean if a field has been set.
+func (o *RecommendRule) HasObjectID() bool {
+	if o != nil && o.ObjectID != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
-func (o *RuleResponse) SetConditions(v []Condition) *RuleResponse {
-	o.Conditions = v
+// SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
+func (o *RecommendRule) SetObjectID(v string) *RecommendRule {
+	o.ObjectID = &v
+	return o
+}
+
+// GetCondition returns the Condition field value if set, zero value otherwise.
+func (o *RecommendRule) GetCondition() Condition {
+	if o == nil || o.Condition == nil {
+		var ret Condition
+		return ret
+	}
+	return *o.Condition
+}
+
+// GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendRule) GetConditionOk() (*Condition, bool) {
+	if o == nil || o.Condition == nil {
+		return nil, false
+	}
+	return o.Condition, true
+}
+
+// HasCondition returns a boolean if a field has been set.
+func (o *RecommendRule) HasCondition() bool {
+	if o != nil && o.Condition != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCondition gets a reference to the given Condition and assigns it to the Condition field.
+func (o *RecommendRule) SetCondition(v *Condition) *RecommendRule {
+	o.Condition = v
 	return o
 }
 
 // GetConsequence returns the Consequence field value if set, zero value otherwise.
-func (o *RuleResponse) GetConsequence() Consequence {
+func (o *RecommendRule) GetConsequence() Consequence {
 	if o == nil || o.Consequence == nil {
 		var ret Consequence
 		return ret
@@ -172,7 +184,7 @@ func (o *RuleResponse) GetConsequence() Consequence {
 
 // GetConsequenceOk returns a tuple with the Consequence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleResponse) GetConsequenceOk() (*Consequence, bool) {
+func (o *RecommendRule) GetConsequenceOk() (*Consequence, bool) {
 	if o == nil || o.Consequence == nil {
 		return nil, false
 	}
@@ -180,7 +192,7 @@ func (o *RuleResponse) GetConsequenceOk() (*Consequence, bool) {
 }
 
 // HasConsequence returns a boolean if a field has been set.
-func (o *RuleResponse) HasConsequence() bool {
+func (o *RecommendRule) HasConsequence() bool {
 	if o != nil && o.Consequence != nil {
 		return true
 	}
@@ -189,13 +201,13 @@ func (o *RuleResponse) HasConsequence() bool {
 }
 
 // SetConsequence gets a reference to the given Consequence and assigns it to the Consequence field.
-func (o *RuleResponse) SetConsequence(v *Consequence) *RuleResponse {
+func (o *RecommendRule) SetConsequence(v *Consequence) *RecommendRule {
 	o.Consequence = v
 	return o
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *RuleResponse) GetDescription() string {
+func (o *RecommendRule) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -205,7 +217,7 @@ func (o *RuleResponse) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleResponse) GetDescriptionOk() (*string, bool) {
+func (o *RecommendRule) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -213,7 +225,7 @@ func (o *RuleResponse) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *RuleResponse) HasDescription() bool {
+func (o *RecommendRule) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -222,13 +234,13 @@ func (o *RuleResponse) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *RuleResponse) SetDescription(v string) *RuleResponse {
+func (o *RecommendRule) SetDescription(v string) *RecommendRule {
 	o.Description = &v
 	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
-func (o *RuleResponse) GetEnabled() bool {
+func (o *RecommendRule) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
 		return ret
@@ -238,7 +250,7 @@ func (o *RuleResponse) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RuleResponse) GetEnabledOk() (*bool, bool) {
+func (o *RecommendRule) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
@@ -246,7 +258,7 @@ func (o *RuleResponse) GetEnabledOk() (*bool, bool) {
 }
 
 // HasEnabled returns a boolean if a field has been set.
-func (o *RuleResponse) HasEnabled() bool {
+func (o *RecommendRule) HasEnabled() bool {
 	if o != nil && o.Enabled != nil {
 		return true
 	}
@@ -255,21 +267,21 @@ func (o *RuleResponse) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *RuleResponse) SetEnabled(v bool) *RuleResponse {
+func (o *RecommendRule) SetEnabled(v bool) *RecommendRule {
 	o.Enabled = &v
 	return o
 }
 
-func (o RuleResponse) MarshalJSON() ([]byte, error) {
+func (o RecommendRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Metadata != nil {
 		toSerialize["_metadata"] = o.Metadata
 	}
-	if true {
+	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
-	if o.Conditions != nil {
-		toSerialize["conditions"] = o.Conditions
+	if o.Condition != nil {
+		toSerialize["condition"] = o.Condition
 	}
 	if o.Consequence != nil {
 		toSerialize["consequence"] = o.Consequence
@@ -282,55 +294,55 @@ func (o RuleResponse) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal RuleResponse: %w", err)
+		return nil, fmt.Errorf("failed to marshal RecommendRule: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o RuleResponse) String() string {
+func (o RecommendRule) String() string {
 	out := ""
 	out += fmt.Sprintf("  _metadata=%v\n", o.Metadata)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
-	out += fmt.Sprintf("  conditions=%v\n", o.Conditions)
+	out += fmt.Sprintf("  condition=%v\n", o.Condition)
 	out += fmt.Sprintf("  consequence=%v\n", o.Consequence)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
-	return fmt.Sprintf("RuleResponse {\n%s}", out)
+	return fmt.Sprintf("RecommendRule {\n%s}", out)
 }
 
-type NullableRuleResponse struct {
-	value *RuleResponse
+type NullableRecommendRule struct {
+	value *RecommendRule
 	isSet bool
 }
 
-func (v NullableRuleResponse) Get() *RuleResponse {
+func (v NullableRecommendRule) Get() *RecommendRule {
 	return v.value
 }
 
-func (v *NullableRuleResponse) Set(val *RuleResponse) {
+func (v *NullableRecommendRule) Set(val *RecommendRule) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRuleResponse) IsSet() bool {
+func (v NullableRecommendRule) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRuleResponse) Unset() {
+func (v *NullableRecommendRule) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRuleResponse(val *RuleResponse) *NullableRuleResponse {
-	return &NullableRuleResponse{value: val, isSet: true}
+func NewNullableRecommendRule(val *RecommendRule) *NullableRecommendRule {
+	return &NullableRecommendRule{value: val, isSet: true}
 }
 
-func (v NullableRuleResponse) MarshalJSON() ([]byte, error) {
+func (v NullableRecommendRule) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableRuleResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableRecommendRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

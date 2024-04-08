@@ -10,22 +10,16 @@ import (
 type RecommendedForYouQuery struct {
 	// Index name.
 	IndexName string `json:"indexName"`
-	// Recommendations with a confidence score lower than `threshold` won't appear in results. > **Note**: Each recommendation has a confidence score of 0 to 100. The closer the score is to 100, the more relevant the recommendations are.
-	Threshold *int32 `json:"threshold,omitempty"`
-	// Maximum number of recommendations to retrieve. If 0, all recommendations will be returned.
-	MaxRecommendations *int32                            `json:"maxRecommendations,omitempty"`
-	Model              RecommendedForYouModel            `json:"model"`
-	QueryParameters    *RecommendedForYouQueryParameters `json:"queryParameters,omitempty"`
-	FallbackParameters *RecommendedForYouQueryParameters `json:"fallbackParameters,omitempty"`
+	// Minimum score a recommendation must have to be included in the response.
+	Threshold float64 `json:"threshold"`
+	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
+	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
+	QueryParameters    *SearchParams          `json:"queryParameters,omitempty"`
+	Model              RecommendedForYouModel `json:"model"`
+	FallbackParameters *FallbackParams        `json:"fallbackParameters,omitempty"`
 }
 
 type RecommendedForYouQueryOption func(f *RecommendedForYouQuery)
-
-func WithRecommendedForYouQueryThreshold(val int32) RecommendedForYouQueryOption {
-	return func(f *RecommendedForYouQuery) {
-		f.Threshold = &val
-	}
-}
 
 func WithRecommendedForYouQueryMaxRecommendations(val int32) RecommendedForYouQueryOption {
 	return func(f *RecommendedForYouQuery) {
@@ -33,13 +27,13 @@ func WithRecommendedForYouQueryMaxRecommendations(val int32) RecommendedForYouQu
 	}
 }
 
-func WithRecommendedForYouQueryQueryParameters(val RecommendedForYouQueryParameters) RecommendedForYouQueryOption {
+func WithRecommendedForYouQueryQueryParameters(val SearchParams) RecommendedForYouQueryOption {
 	return func(f *RecommendedForYouQuery) {
 		f.QueryParameters = &val
 	}
 }
 
-func WithRecommendedForYouQueryFallbackParameters(val RecommendedForYouQueryParameters) RecommendedForYouQueryOption {
+func WithRecommendedForYouQueryFallbackParameters(val FallbackParams) RecommendedForYouQueryOption {
 	return func(f *RecommendedForYouQuery) {
 		f.FallbackParameters = &val
 	}
@@ -49,9 +43,10 @@ func WithRecommendedForYouQueryFallbackParameters(val RecommendedForYouQueryPara
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendedForYouQuery(indexName string, model RecommendedForYouModel, opts ...RecommendedForYouQueryOption) *RecommendedForYouQuery {
+func NewRecommendedForYouQuery(indexName string, threshold float64, model RecommendedForYouModel, opts ...RecommendedForYouQueryOption) *RecommendedForYouQuery {
 	this := &RecommendedForYouQuery{}
 	this.IndexName = indexName
+	this.Threshold = threshold
 	this.Model = model
 	for _, opt := range opts {
 		opt(this)
@@ -89,36 +84,28 @@ func (o *RecommendedForYouQuery) SetIndexName(v string) *RecommendedForYouQuery 
 	return o
 }
 
-// GetThreshold returns the Threshold field value if set, zero value otherwise.
-func (o *RecommendedForYouQuery) GetThreshold() int32 {
-	if o == nil || o.Threshold == nil {
-		var ret int32
+// GetThreshold returns the Threshold field value.
+func (o *RecommendedForYouQuery) GetThreshold() float64 {
+	if o == nil {
+		var ret float64
 		return ret
 	}
-	return *o.Threshold
+
+	return o.Threshold
 }
 
-// GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
+// GetThresholdOk returns a tuple with the Threshold field value
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQuery) GetThresholdOk() (*int32, bool) {
-	if o == nil || o.Threshold == nil {
+func (o *RecommendedForYouQuery) GetThresholdOk() (*float64, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Threshold, true
+	return &o.Threshold, true
 }
 
-// HasThreshold returns a boolean if a field has been set.
-func (o *RecommendedForYouQuery) HasThreshold() bool {
-	if o != nil && o.Threshold != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *RecommendedForYouQuery) SetThreshold(v int32) *RecommendedForYouQuery {
-	o.Threshold = &v
+// SetThreshold sets field value.
+func (o *RecommendedForYouQuery) SetThreshold(v float64) *RecommendedForYouQuery {
+	o.Threshold = v
 	return o
 }
 
@@ -155,6 +142,39 @@ func (o *RecommendedForYouQuery) SetMaxRecommendations(v int32) *RecommendedForY
 	return o
 }
 
+// GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
+func (o *RecommendedForYouQuery) GetQueryParameters() SearchParams {
+	if o == nil || o.QueryParameters == nil {
+		var ret SearchParams
+		return ret
+	}
+	return *o.QueryParameters
+}
+
+// GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendedForYouQuery) GetQueryParametersOk() (*SearchParams, bool) {
+	if o == nil || o.QueryParameters == nil {
+		return nil, false
+	}
+	return o.QueryParameters, true
+}
+
+// HasQueryParameters returns a boolean if a field has been set.
+func (o *RecommendedForYouQuery) HasQueryParameters() bool {
+	if o != nil && o.QueryParameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
+func (o *RecommendedForYouQuery) SetQueryParameters(v *SearchParams) *RecommendedForYouQuery {
+	o.QueryParameters = v
+	return o
+}
+
 // GetModel returns the Model field value.
 func (o *RecommendedForYouQuery) GetModel() RecommendedForYouModel {
 	if o == nil {
@@ -180,43 +200,10 @@ func (o *RecommendedForYouQuery) SetModel(v RecommendedForYouModel) *Recommended
 	return o
 }
 
-// GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *RecommendedForYouQuery) GetQueryParameters() RecommendedForYouQueryParameters {
-	if o == nil || o.QueryParameters == nil {
-		var ret RecommendedForYouQueryParameters
-		return ret
-	}
-	return *o.QueryParameters
-}
-
-// GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendedForYouQuery) GetQueryParametersOk() (*RecommendedForYouQueryParameters, bool) {
-	if o == nil || o.QueryParameters == nil {
-		return nil, false
-	}
-	return o.QueryParameters, true
-}
-
-// HasQueryParameters returns a boolean if a field has been set.
-func (o *RecommendedForYouQuery) HasQueryParameters() bool {
-	if o != nil && o.QueryParameters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQueryParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the QueryParameters field.
-func (o *RecommendedForYouQuery) SetQueryParameters(v *RecommendedForYouQueryParameters) *RecommendedForYouQuery {
-	o.QueryParameters = v
-	return o
-}
-
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
-func (o *RecommendedForYouQuery) GetFallbackParameters() RecommendedForYouQueryParameters {
+func (o *RecommendedForYouQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
-		var ret RecommendedForYouQueryParameters
+		var ret FallbackParams
 		return ret
 	}
 	return *o.FallbackParameters
@@ -224,7 +211,7 @@ func (o *RecommendedForYouQuery) GetFallbackParameters() RecommendedForYouQueryP
 
 // GetFallbackParametersOk returns a tuple with the FallbackParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQuery) GetFallbackParametersOk() (*RecommendedForYouQueryParameters, bool) {
+func (o *RecommendedForYouQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
@@ -240,8 +227,8 @@ func (o *RecommendedForYouQuery) HasFallbackParameters() bool {
 	return false
 }
 
-// SetFallbackParameters gets a reference to the given RecommendedForYouQueryParameters and assigns it to the FallbackParameters field.
-func (o *RecommendedForYouQuery) SetFallbackParameters(v *RecommendedForYouQueryParameters) *RecommendedForYouQuery {
+// SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
+func (o *RecommendedForYouQuery) SetFallbackParameters(v *FallbackParams) *RecommendedForYouQuery {
 	o.FallbackParameters = v
 	return o
 }
@@ -251,17 +238,17 @@ func (o RecommendedForYouQuery) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["indexName"] = o.IndexName
 	}
-	if o.Threshold != nil {
+	if true {
 		toSerialize["threshold"] = o.Threshold
 	}
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
-	if true {
-		toSerialize["model"] = o.Model
-	}
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
+	}
+	if true {
+		toSerialize["model"] = o.Model
 	}
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
@@ -279,8 +266,8 @@ func (o RecommendedForYouQuery) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
 	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
-	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
+	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("RecommendedForYouQuery {\n%s}", out)
 }

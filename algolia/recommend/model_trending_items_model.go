@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TrendingItemsModel Trending items model.
+// TrendingItemsModel Trending items model.  Trending items are determined from the number of conversion events collected on them.
 type TrendingItemsModel string
 
 // List of trendingItemsModel.

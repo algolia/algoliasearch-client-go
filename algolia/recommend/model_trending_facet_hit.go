@@ -10,9 +10,9 @@ import (
 type TrendingFacetHit struct {
 	// Recommendation score.
 	Score float64 `json:"_score"`
-	// Facet name for trending models.
+	// Facet attribute. To be used in combination with `facetValue`. If specified, only recommendations matching the facet filter will be returned.
 	FacetName string `json:"facetName"`
-	// Facet value for trending models.
+	// Facet value. To be used in combination with `facetName`. If specified, only recommendations matching the facet filter will be returned.
 	FacetValue string `json:"facetValue"`
 }
 

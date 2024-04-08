@@ -6,48 +6,25 @@ import (
 	"fmt"
 )
 
-// Condition struct for Condition.
+// Condition Condition that triggers the rule. If not specified, the rule is triggered for all recommendations.
 type Condition struct {
-	// Query pattern that triggers the rule.  You can use either a literal string, or a special pattern `{facet:ATTRIBUTE}`, where `ATTRIBUTE` is a facet name. The rule is triggered if the query matches the literal string or a value of the specified facet. For example, with `pattern: {facet:genre}`, the rule is triggered when users search for a genre, such as \"comedy\".
-	Pattern   *string    `json:"pattern,omitempty"`
-	Anchoring *Anchoring `json:"anchoring,omitempty"`
-	// Whether the pattern should match plurals, synonyms, and typos.
-	Alternatives *bool `json:"alternatives,omitempty"`
+	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
+	Filters *string `json:"filters,omitempty"`
 	// An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter. For example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`. A rule context must only contain alphanumeric characters.
 	Context *string `json:"context,omitempty"`
-	// Filters that trigger the rule.  You can add add filters using the syntax `facet:value` so that the rule is triggered, when the specific filter is selected. You can use `filters` on its own or combine it with the `pattern` parameter.
-	Filters *string `json:"filters,omitempty"`
 }
 
 type ConditionOption func(f *Condition)
 
-func WithConditionPattern(val string) ConditionOption {
+func WithConditionFilters(val string) ConditionOption {
 	return func(f *Condition) {
-		f.Pattern = &val
-	}
-}
-
-func WithConditionAnchoring(val Anchoring) ConditionOption {
-	return func(f *Condition) {
-		f.Anchoring = &val
-	}
-}
-
-func WithConditionAlternatives(val bool) ConditionOption {
-	return func(f *Condition) {
-		f.Alternatives = &val
+		f.Filters = &val
 	}
 }
 
 func WithConditionContext(val string) ConditionOption {
 	return func(f *Condition) {
 		f.Context = &val
-	}
-}
-
-func WithConditionFilters(val string) ConditionOption {
-	return func(f *Condition) {
-		f.Filters = &val
 	}
 }
 
@@ -68,102 +45,36 @@ func NewEmptyCondition() *Condition {
 	return &Condition{}
 }
 
-// GetPattern returns the Pattern field value if set, zero value otherwise.
-func (o *Condition) GetPattern() string {
-	if o == nil || o.Pattern == nil {
+// GetFilters returns the Filters field value if set, zero value otherwise.
+func (o *Condition) GetFilters() string {
+	if o == nil || o.Filters == nil {
 		var ret string
 		return ret
 	}
-	return *o.Pattern
+	return *o.Filters
 }
 
-// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Condition) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+func (o *Condition) GetFiltersOk() (*string, bool) {
+	if o == nil || o.Filters == nil {
 		return nil, false
 	}
-	return o.Pattern, true
+	return o.Filters, true
 }
 
-// HasPattern returns a boolean if a field has been set.
-func (o *Condition) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+// HasFilters returns a boolean if a field has been set.
+func (o *Condition) HasFilters() bool {
+	if o != nil && o.Filters != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPattern gets a reference to the given string and assigns it to the Pattern field.
-func (o *Condition) SetPattern(v string) *Condition {
-	o.Pattern = &v
-	return o
-}
-
-// GetAnchoring returns the Anchoring field value if set, zero value otherwise.
-func (o *Condition) GetAnchoring() Anchoring {
-	if o == nil || o.Anchoring == nil {
-		var ret Anchoring
-		return ret
-	}
-	return *o.Anchoring
-}
-
-// GetAnchoringOk returns a tuple with the Anchoring field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Condition) GetAnchoringOk() (*Anchoring, bool) {
-	if o == nil || o.Anchoring == nil {
-		return nil, false
-	}
-	return o.Anchoring, true
-}
-
-// HasAnchoring returns a boolean if a field has been set.
-func (o *Condition) HasAnchoring() bool {
-	if o != nil && o.Anchoring != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
-func (o *Condition) SetAnchoring(v Anchoring) *Condition {
-	o.Anchoring = &v
-	return o
-}
-
-// GetAlternatives returns the Alternatives field value if set, zero value otherwise.
-func (o *Condition) GetAlternatives() bool {
-	if o == nil || o.Alternatives == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Alternatives
-}
-
-// GetAlternativesOk returns a tuple with the Alternatives field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Condition) GetAlternativesOk() (*bool, bool) {
-	if o == nil || o.Alternatives == nil {
-		return nil, false
-	}
-	return o.Alternatives, true
-}
-
-// HasAlternatives returns a boolean if a field has been set.
-func (o *Condition) HasAlternatives() bool {
-	if o != nil && o.Alternatives != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAlternatives gets a reference to the given bool and assigns it to the Alternatives field.
-func (o *Condition) SetAlternatives(v bool) *Condition {
-	o.Alternatives = &v
+// SetFilters gets a reference to the given string and assigns it to the Filters field.
+func (o *Condition) SetFilters(v string) *Condition {
+	o.Filters = &v
 	return o
 }
 
@@ -200,55 +111,13 @@ func (o *Condition) SetContext(v string) *Condition {
 	return o
 }
 
-// GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *Condition) GetFilters() string {
-	if o == nil || o.Filters == nil {
-		var ret string
-		return ret
-	}
-	return *o.Filters
-}
-
-// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Condition) GetFiltersOk() (*string, bool) {
-	if o == nil || o.Filters == nil {
-		return nil, false
-	}
-	return o.Filters, true
-}
-
-// HasFilters returns a boolean if a field has been set.
-func (o *Condition) HasFilters() bool {
-	if o != nil && o.Filters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *Condition) SetFilters(v string) *Condition {
-	o.Filters = &v
-	return o
-}
-
 func (o Condition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
-	}
-	if o.Anchoring != nil {
-		toSerialize["anchoring"] = o.Anchoring
-	}
-	if o.Alternatives != nil {
-		toSerialize["alternatives"] = o.Alternatives
+	if o.Filters != nil {
+		toSerialize["filters"] = o.Filters
 	}
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
-	}
-	if o.Filters != nil {
-		toSerialize["filters"] = o.Filters
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -260,11 +129,8 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 
 func (o Condition) String() string {
 	out := ""
-	out += fmt.Sprintf("  pattern=%v\n", o.Pattern)
-	out += fmt.Sprintf("  anchoring=%v\n", o.Anchoring)
-	out += fmt.Sprintf("  alternatives=%v\n", o.Alternatives)
-	out += fmt.Sprintf("  context=%v\n", o.Context)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
+	out += fmt.Sprintf("  context=%v\n", o.Context)
 	return fmt.Sprintf("Condition {\n%s}", out)
 }
 

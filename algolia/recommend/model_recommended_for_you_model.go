@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// RecommendedForYouModel Recommended for you model.
+// RecommendedForYouModel \"Recommend for you\" model.
 type RecommendedForYouModel string
 
 // List of recommendedForYouModel.

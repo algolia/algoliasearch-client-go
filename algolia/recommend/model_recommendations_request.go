@@ -8,10 +8,26 @@ import (
 
 // RecommendationsRequest - struct for RecommendationsRequest.
 type RecommendationsRequest struct {
-	RecommendationsQuery   *RecommendationsQuery
+	BoughtTogetherQuery    *BoughtTogetherQuery
+	LookingSimilarQuery    *LookingSimilarQuery
 	RecommendedForYouQuery *RecommendedForYouQuery
+	RelatedQuery           *RelatedQuery
 	TrendingFacetsQuery    *TrendingFacetsQuery
 	TrendingItemsQuery     *TrendingItemsQuery
+}
+
+// BoughtTogetherQueryAsRecommendationsRequest is a convenience function that returns BoughtTogetherQuery wrapped in RecommendationsRequest.
+func BoughtTogetherQueryAsRecommendationsRequest(v *BoughtTogetherQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
+		BoughtTogetherQuery: v,
+	}
+}
+
+// RelatedQueryAsRecommendationsRequest is a convenience function that returns RelatedQuery wrapped in RecommendationsRequest.
+func RelatedQueryAsRecommendationsRequest(v *RelatedQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
+		RelatedQuery: v,
+	}
 }
 
 // TrendingItemsQueryAsRecommendationsRequest is a convenience function that returns TrendingItemsQuery wrapped in RecommendationsRequest.
@@ -28,10 +44,10 @@ func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) *Recomm
 	}
 }
 
-// RecommendationsQueryAsRecommendationsRequest is a convenience function that returns RecommendationsQuery wrapped in RecommendationsRequest.
-func RecommendationsQueryAsRecommendationsRequest(v *RecommendationsQuery) *RecommendationsRequest {
+// LookingSimilarQueryAsRecommendationsRequest is a convenience function that returns LookingSimilarQuery wrapped in RecommendationsRequest.
+func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *RecommendationsRequest {
 	return &RecommendationsRequest{
-		RecommendationsQuery: v,
+		LookingSimilarQuery: v,
 	}
 }
 
@@ -45,17 +61,30 @@ func RecommendedForYouQueryAsRecommendationsRequest(v *RecommendedForYouQuery) *
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into RecommendationsQuery
-	err = newStrictDecoder(data).Decode(&dst.RecommendationsQuery)
-	if err == nil && validateStruct(dst.RecommendationsQuery) == nil {
-		jsonRecommendationsQuery, _ := json.Marshal(dst.RecommendationsQuery)
-		if string(jsonRecommendationsQuery) == "{}" { // empty struct
-			dst.RecommendationsQuery = nil
+	// try to unmarshal data into BoughtTogetherQuery
+	err = newStrictDecoder(data).Decode(&dst.BoughtTogetherQuery)
+	if err == nil && validateStruct(dst.BoughtTogetherQuery) == nil {
+		jsonBoughtTogetherQuery, _ := json.Marshal(dst.BoughtTogetherQuery)
+		if string(jsonBoughtTogetherQuery) == "{}" { // empty struct
+			dst.BoughtTogetherQuery = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.RecommendationsQuery = nil
+		dst.BoughtTogetherQuery = nil
+	}
+
+	// try to unmarshal data into LookingSimilarQuery
+	err = newStrictDecoder(data).Decode(&dst.LookingSimilarQuery)
+	if err == nil && validateStruct(dst.LookingSimilarQuery) == nil {
+		jsonLookingSimilarQuery, _ := json.Marshal(dst.LookingSimilarQuery)
+		if string(jsonLookingSimilarQuery) == "{}" { // empty struct
+			dst.LookingSimilarQuery = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.LookingSimilarQuery = nil
 	}
 
 	// try to unmarshal data into RecommendedForYouQuery
@@ -69,6 +98,19 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.RecommendedForYouQuery = nil
+	}
+
+	// try to unmarshal data into RelatedQuery
+	err = newStrictDecoder(data).Decode(&dst.RelatedQuery)
+	if err == nil && validateStruct(dst.RelatedQuery) == nil {
+		jsonRelatedQuery, _ := json.Marshal(dst.RelatedQuery)
+		if string(jsonRelatedQuery) == "{}" { // empty struct
+			dst.RelatedQuery = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.RelatedQuery = nil
 	}
 
 	// try to unmarshal data into TrendingFacetsQuery
@@ -102,10 +144,19 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
-	if src.RecommendationsQuery != nil {
-		serialized, err := json.Marshal(&src.RecommendationsQuery)
+	if src.BoughtTogetherQuery != nil {
+		serialized, err := json.Marshal(&src.BoughtTogetherQuery)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of RecommendationsQuery of RecommendationsRequest: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of BoughtTogetherQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	if src.LookingSimilarQuery != nil {
+		serialized, err := json.Marshal(&src.LookingSimilarQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of LookingSimilarQuery of RecommendationsRequest: %w", err)
 		}
 
 		return serialized, nil
@@ -115,6 +166,15 @@ func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 		serialized, err := json.Marshal(&src.RecommendedForYouQuery)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal one of RecommendedForYouQuery of RecommendationsRequest: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	if src.RelatedQuery != nil {
+		serialized, err := json.Marshal(&src.RelatedQuery)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of RelatedQuery of RecommendationsRequest: %w", err)
 		}
 
 		return serialized, nil
@@ -143,12 +203,20 @@ func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj RecommendationsRequest) GetActualInstance() any {
-	if obj.RecommendationsQuery != nil {
-		return *obj.RecommendationsQuery
+	if obj.BoughtTogetherQuery != nil {
+		return *obj.BoughtTogetherQuery
+	}
+
+	if obj.LookingSimilarQuery != nil {
+		return *obj.LookingSimilarQuery
 	}
 
 	if obj.RecommendedForYouQuery != nil {
 		return *obj.RecommendedForYouQuery
+	}
+
+	if obj.RelatedQuery != nil {
+		return *obj.RelatedQuery
 	}
 
 	if obj.TrendingFacetsQuery != nil {

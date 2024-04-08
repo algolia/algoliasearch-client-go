@@ -4,22 +4,26 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// SearchRecommendRulesParams Recommend rules search parameters.
+// SearchRecommendRulesParams Recommend rules parameters.
 type SearchRecommendRulesParams struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
-	// Restricts responses to the specified [contextual rule](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#creating-contextual-rules).
+	// Only search for rules with matching context.
 	Context *string `json:"context,omitempty"`
 	// Requested page of the API response.
 	Page *int32 `json:"page,omitempty"`
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
-	// Restricts responses to enabled rules. When absent (default), _all_ rules are retrieved.
-	Enabled utils.NullableBool `json:"enabled,omitempty"`
+	// Whether to only show rules where the value of their `enabled` property matches this parameter. If absent, show all rules, regardless of their `enabled` property.
+	Enabled *bool `json:"enabled,omitempty"`
+	// Filter expression. This only searches for rules matching the filter expression.
+	Filters *string `json:"filters,omitempty"`
+	// Include facets and facet values in the response. Use `['*']` to include all facets.
+	Facets []string `json:"facets,omitempty"`
+	// Maximum number of values to return for each facet.
+	MaxValuesPerFacet *int32 `json:"maxValuesPerFacet,omitempty"`
 }
 
 type SearchRecommendRulesParamsOption func(f *SearchRecommendRulesParams)
@@ -48,9 +52,27 @@ func WithSearchRecommendRulesParamsHitsPerPage(val int32) SearchRecommendRulesPa
 	}
 }
 
-func WithSearchRecommendRulesParamsEnabled(val utils.NullableBool) SearchRecommendRulesParamsOption {
+func WithSearchRecommendRulesParamsEnabled(val bool) SearchRecommendRulesParamsOption {
 	return func(f *SearchRecommendRulesParams) {
-		f.Enabled = val
+		f.Enabled = &val
+	}
+}
+
+func WithSearchRecommendRulesParamsFilters(val string) SearchRecommendRulesParamsOption {
+	return func(f *SearchRecommendRulesParams) {
+		f.Filters = &val
+	}
+}
+
+func WithSearchRecommendRulesParamsFacets(val []string) SearchRecommendRulesParamsOption {
+	return func(f *SearchRecommendRulesParams) {
+		f.Facets = val
+	}
+}
+
+func WithSearchRecommendRulesParamsMaxValuesPerFacet(val int32) SearchRecommendRulesParamsOption {
+	return func(f *SearchRecommendRulesParams) {
+		f.MaxValuesPerFacet = &val
 	}
 }
 
@@ -203,48 +225,136 @@ func (o *SearchRecommendRulesParams) SetHitsPerPage(v int32) *SearchRecommendRul
 	return o
 }
 
-// GetEnabled returns the Enabled field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *SearchRecommendRulesParams) GetEnabled() bool {
-	if o == nil || o.Enabled.Get() == nil {
+	if o == nil || o.Enabled == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Enabled.Get()
+	return *o.Enabled
 }
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *SearchRecommendRulesParams) GetEnabledOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
-	return o.Enabled.Get(), o.Enabled.IsSet()
+	return o.Enabled, true
 }
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *SearchRecommendRulesParams) HasEnabled() bool {
-	if o != nil && o.Enabled.IsSet() {
+	if o != nil && o.Enabled != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetEnabled gets a reference to the given utils.NullableBool and assigns it to the Enabled field.
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *SearchRecommendRulesParams) SetEnabled(v bool) *SearchRecommendRulesParams {
-	o.Enabled.Set(&v)
+	o.Enabled = &v
 	return o
 }
 
-// SetEnabledNil sets the value for Enabled to be an explicit nil.
-func (o *SearchRecommendRulesParams) SetEnabledNil() {
-	o.Enabled.Set(nil)
+// GetFilters returns the Filters field value if set, zero value otherwise.
+func (o *SearchRecommendRulesParams) GetFilters() string {
+	if o == nil || o.Filters == nil {
+		var ret string
+		return ret
+	}
+	return *o.Filters
 }
 
-// UnsetEnabled ensures that no value is present for Enabled, not even an explicit nil.
-func (o *SearchRecommendRulesParams) UnsetEnabled() {
-	o.Enabled.Unset()
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchRecommendRulesParams) GetFiltersOk() (*string, bool) {
+	if o == nil || o.Filters == nil {
+		return nil, false
+	}
+	return o.Filters, true
+}
+
+// HasFilters returns a boolean if a field has been set.
+func (o *SearchRecommendRulesParams) HasFilters() bool {
+	if o != nil && o.Filters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given string and assigns it to the Filters field.
+func (o *SearchRecommendRulesParams) SetFilters(v string) *SearchRecommendRulesParams {
+	o.Filters = &v
+	return o
+}
+
+// GetFacets returns the Facets field value if set, zero value otherwise.
+func (o *SearchRecommendRulesParams) GetFacets() []string {
+	if o == nil || o.Facets == nil {
+		var ret []string
+		return ret
+	}
+	return o.Facets
+}
+
+// GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchRecommendRulesParams) GetFacetsOk() ([]string, bool) {
+	if o == nil || o.Facets == nil {
+		return nil, false
+	}
+	return o.Facets, true
+}
+
+// HasFacets returns a boolean if a field has been set.
+func (o *SearchRecommendRulesParams) HasFacets() bool {
+	if o != nil && o.Facets != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacets gets a reference to the given []string and assigns it to the Facets field.
+func (o *SearchRecommendRulesParams) SetFacets(v []string) *SearchRecommendRulesParams {
+	o.Facets = v
+	return o
+}
+
+// GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
+func (o *SearchRecommendRulesParams) GetMaxValuesPerFacet() int32 {
+	if o == nil || o.MaxValuesPerFacet == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MaxValuesPerFacet
+}
+
+// GetMaxValuesPerFacetOk returns a tuple with the MaxValuesPerFacet field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchRecommendRulesParams) GetMaxValuesPerFacetOk() (*int32, bool) {
+	if o == nil || o.MaxValuesPerFacet == nil {
+		return nil, false
+	}
+	return o.MaxValuesPerFacet, true
+}
+
+// HasMaxValuesPerFacet returns a boolean if a field has been set.
+func (o *SearchRecommendRulesParams) HasMaxValuesPerFacet() bool {
+	if o != nil && o.MaxValuesPerFacet != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
+func (o *SearchRecommendRulesParams) SetMaxValuesPerFacet(v int32) *SearchRecommendRulesParams {
+	o.MaxValuesPerFacet = &v
+	return o
 }
 
 func (o SearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
@@ -261,8 +371,17 @@ func (o SearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
-	if o.Enabled.IsSet() {
-		toSerialize["enabled"] = o.Enabled.Get()
+	if o.Enabled != nil {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if o.Filters != nil {
+		toSerialize["filters"] = o.Filters
+	}
+	if o.Facets != nil {
+		toSerialize["facets"] = o.Facets
+	}
+	if o.MaxValuesPerFacet != nil {
+		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -279,6 +398,9 @@ func (o SearchRecommendRulesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+	out += fmt.Sprintf("  filters=%v\n", o.Filters)
+	out += fmt.Sprintf("  facets=%v\n", o.Facets)
+	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
 	return fmt.Sprintf("SearchRecommendRulesParams {\n%s}", out)
 }
 

@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// TrendingFacetsQuery struct for TrendingFacetsQuery.
-type TrendingFacetsQuery struct {
+// RelatedQuery struct for RelatedQuery.
+type RelatedQuery struct {
 	// Index name.
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
@@ -15,55 +15,55 @@ type TrendingFacetsQuery struct {
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
 	MaxRecommendations *int32        `json:"maxRecommendations,omitempty"`
 	QueryParameters    *SearchParams `json:"queryParameters,omitempty"`
-	// Facet attribute for which to retrieve trending facet values.
-	FacetName          map[string]interface{} `json:"facetName"`
-	Model              TrendingFacetsModel    `json:"model"`
-	FallbackParameters *FallbackParams        `json:"fallbackParameters,omitempty"`
+	Model              RelatedModel  `json:"model"`
+	// Unique record identifier.
+	ObjectID           string          `json:"objectID"`
+	FallbackParameters *FallbackParams `json:"fallbackParameters,omitempty"`
 }
 
-type TrendingFacetsQueryOption func(f *TrendingFacetsQuery)
+type RelatedQueryOption func(f *RelatedQuery)
 
-func WithTrendingFacetsQueryMaxRecommendations(val int32) TrendingFacetsQueryOption {
-	return func(f *TrendingFacetsQuery) {
+func WithRelatedQueryMaxRecommendations(val int32) RelatedQueryOption {
+	return func(f *RelatedQuery) {
 		f.MaxRecommendations = &val
 	}
 }
 
-func WithTrendingFacetsQueryQueryParameters(val SearchParams) TrendingFacetsQueryOption {
-	return func(f *TrendingFacetsQuery) {
+func WithRelatedQueryQueryParameters(val SearchParams) RelatedQueryOption {
+	return func(f *RelatedQuery) {
 		f.QueryParameters = &val
 	}
 }
 
-func WithTrendingFacetsQueryFallbackParameters(val FallbackParams) TrendingFacetsQueryOption {
-	return func(f *TrendingFacetsQuery) {
+func WithRelatedQueryFallbackParameters(val FallbackParams) RelatedQueryOption {
+	return func(f *RelatedQuery) {
 		f.FallbackParameters = &val
 	}
 }
 
-// NewTrendingFacetsQuery instantiates a new TrendingFacetsQuery object
+// NewRelatedQuery instantiates a new RelatedQuery object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingFacetsQuery(indexName string, threshold float64, facetName map[string]interface{}, model TrendingFacetsModel, opts ...TrendingFacetsQueryOption) *TrendingFacetsQuery {
-	this := &TrendingFacetsQuery{}
+func NewRelatedQuery(indexName string, threshold float64, model RelatedModel, objectID string, opts ...RelatedQueryOption) *RelatedQuery {
+	this := &RelatedQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
-	this.FacetName = facetName
 	this.Model = model
+	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyTrendingFacetsQuery return a pointer to an empty TrendingFacetsQuery object.
-func NewEmptyTrendingFacetsQuery() *TrendingFacetsQuery {
-	return &TrendingFacetsQuery{}
+// NewEmptyRelatedQuery return a pointer to an empty RelatedQuery object.
+func NewEmptyRelatedQuery() *RelatedQuery {
+	return &RelatedQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
-func (o *TrendingFacetsQuery) GetIndexName() string {
+func (o *RelatedQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -74,7 +74,7 @@ func (o *TrendingFacetsQuery) GetIndexName() string {
 
 // GetIndexNameOk returns a tuple with the IndexName field value
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetIndexNameOk() (*string, bool) {
+func (o *RelatedQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -82,13 +82,13 @@ func (o *TrendingFacetsQuery) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *TrendingFacetsQuery) SetIndexName(v string) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetIndexName(v string) *RelatedQuery {
 	o.IndexName = v
 	return o
 }
 
 // GetThreshold returns the Threshold field value.
-func (o *TrendingFacetsQuery) GetThreshold() float64 {
+func (o *RelatedQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
 		return ret
@@ -99,7 +99,7 @@ func (o *TrendingFacetsQuery) GetThreshold() float64 {
 
 // GetThresholdOk returns a tuple with the Threshold field value
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetThresholdOk() (*float64, bool) {
+func (o *RelatedQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -107,13 +107,13 @@ func (o *TrendingFacetsQuery) GetThresholdOk() (*float64, bool) {
 }
 
 // SetThreshold sets field value.
-func (o *TrendingFacetsQuery) SetThreshold(v float64) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetThreshold(v float64) *RelatedQuery {
 	o.Threshold = v
 	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
-func (o *TrendingFacetsQuery) GetMaxRecommendations() int32 {
+func (o *RelatedQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
 		return ret
@@ -123,7 +123,7 @@ func (o *TrendingFacetsQuery) GetMaxRecommendations() int32 {
 
 // GetMaxRecommendationsOk returns a tuple with the MaxRecommendations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetMaxRecommendationsOk() (*int32, bool) {
+func (o *RelatedQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *TrendingFacetsQuery) GetMaxRecommendationsOk() (*int32, bool) {
 }
 
 // HasMaxRecommendations returns a boolean if a field has been set.
-func (o *TrendingFacetsQuery) HasMaxRecommendations() bool {
+func (o *RelatedQuery) HasMaxRecommendations() bool {
 	if o != nil && o.MaxRecommendations != nil {
 		return true
 	}
@@ -140,13 +140,13 @@ func (o *TrendingFacetsQuery) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *TrendingFacetsQuery) SetMaxRecommendations(v int32) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetMaxRecommendations(v int32) *RelatedQuery {
 	o.MaxRecommendations = &v
 	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *TrendingFacetsQuery) GetQueryParameters() SearchParams {
+func (o *RelatedQuery) GetQueryParameters() SearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret SearchParams
 		return ret
@@ -156,7 +156,7 @@ func (o *TrendingFacetsQuery) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *RelatedQuery) GetQueryParametersOk() (*SearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -164,7 +164,7 @@ func (o *TrendingFacetsQuery) GetQueryParametersOk() (*SearchParams, bool) {
 }
 
 // HasQueryParameters returns a boolean if a field has been set.
-func (o *TrendingFacetsQuery) HasQueryParameters() bool {
+func (o *RelatedQuery) HasQueryParameters() bool {
 	if o != nil && o.QueryParameters != nil {
 		return true
 	}
@@ -173,40 +173,15 @@ func (o *TrendingFacetsQuery) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *TrendingFacetsQuery) SetQueryParameters(v *SearchParams) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetQueryParameters(v *SearchParams) *RelatedQuery {
 	o.QueryParameters = v
 	return o
 }
 
-// GetFacetName returns the FacetName field value.
-func (o *TrendingFacetsQuery) GetFacetName() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-
-	return o.FacetName
-}
-
-// GetFacetNameOk returns a tuple with the FacetName field value
-// and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetFacetNameOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.FacetName, true
-}
-
-// SetFacetName sets field value.
-func (o *TrendingFacetsQuery) SetFacetName(v map[string]interface{}) *TrendingFacetsQuery {
-	o.FacetName = v
-	return o
-}
-
 // GetModel returns the Model field value.
-func (o *TrendingFacetsQuery) GetModel() TrendingFacetsModel {
+func (o *RelatedQuery) GetModel() RelatedModel {
 	if o == nil {
-		var ret TrendingFacetsModel
+		var ret RelatedModel
 		return ret
 	}
 
@@ -215,7 +190,7 @@ func (o *TrendingFacetsQuery) GetModel() TrendingFacetsModel {
 
 // GetModelOk returns a tuple with the Model field value
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetModelOk() (*TrendingFacetsModel, bool) {
+func (o *RelatedQuery) GetModelOk() (*RelatedModel, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -223,13 +198,38 @@ func (o *TrendingFacetsQuery) GetModelOk() (*TrendingFacetsModel, bool) {
 }
 
 // SetModel sets field value.
-func (o *TrendingFacetsQuery) SetModel(v TrendingFacetsModel) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetModel(v RelatedModel) *RelatedQuery {
 	o.Model = v
 	return o
 }
 
+// GetObjectID returns the ObjectID field value.
+func (o *RelatedQuery) GetObjectID() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ObjectID
+}
+
+// GetObjectIDOk returns a tuple with the ObjectID field value
+// and a boolean to check if the value has been set.
+func (o *RelatedQuery) GetObjectIDOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ObjectID, true
+}
+
+// SetObjectID sets field value.
+func (o *RelatedQuery) SetObjectID(v string) *RelatedQuery {
+	o.ObjectID = v
+	return o
+}
+
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
-func (o *TrendingFacetsQuery) GetFallbackParameters() FallbackParams {
+func (o *RelatedQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
 		var ret FallbackParams
 		return ret
@@ -239,7 +239,7 @@ func (o *TrendingFacetsQuery) GetFallbackParameters() FallbackParams {
 
 // GetFallbackParametersOk returns a tuple with the FallbackParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
+func (o *RelatedQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
@@ -247,7 +247,7 @@ func (o *TrendingFacetsQuery) GetFallbackParametersOk() (*FallbackParams, bool) 
 }
 
 // HasFallbackParameters returns a boolean if a field has been set.
-func (o *TrendingFacetsQuery) HasFallbackParameters() bool {
+func (o *RelatedQuery) HasFallbackParameters() bool {
 	if o != nil && o.FallbackParameters != nil {
 		return true
 	}
@@ -256,12 +256,12 @@ func (o *TrendingFacetsQuery) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
-func (o *TrendingFacetsQuery) SetFallbackParameters(v *FallbackParams) *TrendingFacetsQuery {
+func (o *RelatedQuery) SetFallbackParameters(v *FallbackParams) *RelatedQuery {
 	o.FallbackParameters = v
 	return o
 }
 
-func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
+func (o RelatedQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["indexName"] = o.IndexName
@@ -276,66 +276,66 @@ func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
 	if true {
-		toSerialize["facetName"] = o.FacetName
+		toSerialize["model"] = o.Model
 	}
 	if true {
-		toSerialize["model"] = o.Model
+		toSerialize["objectID"] = o.ObjectID
 	}
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal TrendingFacetsQuery: %w", err)
+		return nil, fmt.Errorf("failed to marshal RelatedQuery: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o TrendingFacetsQuery) String() string {
+func (o RelatedQuery) String() string {
 	out := ""
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
 	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
-	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
+	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
-	return fmt.Sprintf("TrendingFacetsQuery {\n%s}", out)
+	return fmt.Sprintf("RelatedQuery {\n%s}", out)
 }
 
-type NullableTrendingFacetsQuery struct {
-	value *TrendingFacetsQuery
+type NullableRelatedQuery struct {
+	value *RelatedQuery
 	isSet bool
 }
 
-func (v NullableTrendingFacetsQuery) Get() *TrendingFacetsQuery {
+func (v NullableRelatedQuery) Get() *RelatedQuery {
 	return v.value
 }
 
-func (v *NullableTrendingFacetsQuery) Set(val *TrendingFacetsQuery) {
+func (v *NullableRelatedQuery) Set(val *RelatedQuery) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTrendingFacetsQuery) IsSet() bool {
+func (v NullableRelatedQuery) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTrendingFacetsQuery) Unset() {
+func (v *NullableRelatedQuery) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTrendingFacetsQuery(val *TrendingFacetsQuery) *NullableTrendingFacetsQuery {
-	return &NullableTrendingFacetsQuery{value: val, isSet: true}
+func NewNullableRelatedQuery(val *RelatedQuery) *NullableRelatedQuery {
+	return &NullableRelatedQuery{value: val, isSet: true}
 }
 
-func (v NullableTrendingFacetsQuery) MarshalJSON() ([]byte, error) {
+func (v NullableRelatedQuery) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableTrendingFacetsQuery) UnmarshalJSON(src []byte) error {
+func (v *NullableRelatedQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

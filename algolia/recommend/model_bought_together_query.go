@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// BaseRecommendRequest struct for BaseRecommendRequest.
-type BaseRecommendRequest struct {
+// BoughtTogetherQuery struct for BoughtTogetherQuery.
+type BoughtTogetherQuery struct {
 	// Index name.
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
@@ -15,43 +15,48 @@ type BaseRecommendRequest struct {
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
 	MaxRecommendations *int32        `json:"maxRecommendations,omitempty"`
 	QueryParameters    *SearchParams `json:"queryParameters,omitempty"`
+	Model              FbtModel      `json:"model"`
+	// Unique record identifier.
+	ObjectID string `json:"objectID"`
 }
 
-type BaseRecommendRequestOption func(f *BaseRecommendRequest)
+type BoughtTogetherQueryOption func(f *BoughtTogetherQuery)
 
-func WithBaseRecommendRequestMaxRecommendations(val int32) BaseRecommendRequestOption {
-	return func(f *BaseRecommendRequest) {
+func WithBoughtTogetherQueryMaxRecommendations(val int32) BoughtTogetherQueryOption {
+	return func(f *BoughtTogetherQuery) {
 		f.MaxRecommendations = &val
 	}
 }
 
-func WithBaseRecommendRequestQueryParameters(val SearchParams) BaseRecommendRequestOption {
-	return func(f *BaseRecommendRequest) {
+func WithBoughtTogetherQueryQueryParameters(val SearchParams) BoughtTogetherQueryOption {
+	return func(f *BoughtTogetherQuery) {
 		f.QueryParameters = &val
 	}
 }
 
-// NewBaseRecommendRequest instantiates a new BaseRecommendRequest object
+// NewBoughtTogetherQuery instantiates a new BoughtTogetherQuery object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBaseRecommendRequest(indexName string, threshold float64, opts ...BaseRecommendRequestOption) *BaseRecommendRequest {
-	this := &BaseRecommendRequest{}
+func NewBoughtTogetherQuery(indexName string, threshold float64, model FbtModel, objectID string, opts ...BoughtTogetherQueryOption) *BoughtTogetherQuery {
+	this := &BoughtTogetherQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
+	this.Model = model
+	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyBaseRecommendRequest return a pointer to an empty BaseRecommendRequest object.
-func NewEmptyBaseRecommendRequest() *BaseRecommendRequest {
-	return &BaseRecommendRequest{}
+// NewEmptyBoughtTogetherQuery return a pointer to an empty BoughtTogetherQuery object.
+func NewEmptyBoughtTogetherQuery() *BoughtTogetherQuery {
+	return &BoughtTogetherQuery{}
 }
 
 // GetIndexName returns the IndexName field value.
-func (o *BaseRecommendRequest) GetIndexName() string {
+func (o *BoughtTogetherQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -62,7 +67,7 @@ func (o *BaseRecommendRequest) GetIndexName() string {
 
 // GetIndexNameOk returns a tuple with the IndexName field value
 // and a boolean to check if the value has been set.
-func (o *BaseRecommendRequest) GetIndexNameOk() (*string, bool) {
+func (o *BoughtTogetherQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,13 +75,13 @@ func (o *BaseRecommendRequest) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *BaseRecommendRequest) SetIndexName(v string) *BaseRecommendRequest {
+func (o *BoughtTogetherQuery) SetIndexName(v string) *BoughtTogetherQuery {
 	o.IndexName = v
 	return o
 }
 
 // GetThreshold returns the Threshold field value.
-func (o *BaseRecommendRequest) GetThreshold() float64 {
+func (o *BoughtTogetherQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
 		return ret
@@ -87,7 +92,7 @@ func (o *BaseRecommendRequest) GetThreshold() float64 {
 
 // GetThresholdOk returns a tuple with the Threshold field value
 // and a boolean to check if the value has been set.
-func (o *BaseRecommendRequest) GetThresholdOk() (*float64, bool) {
+func (o *BoughtTogetherQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,13 +100,13 @@ func (o *BaseRecommendRequest) GetThresholdOk() (*float64, bool) {
 }
 
 // SetThreshold sets field value.
-func (o *BaseRecommendRequest) SetThreshold(v float64) *BaseRecommendRequest {
+func (o *BoughtTogetherQuery) SetThreshold(v float64) *BoughtTogetherQuery {
 	o.Threshold = v
 	return o
 }
 
 // GetMaxRecommendations returns the MaxRecommendations field value if set, zero value otherwise.
-func (o *BaseRecommendRequest) GetMaxRecommendations() int32 {
+func (o *BoughtTogetherQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
 		return ret
@@ -111,7 +116,7 @@ func (o *BaseRecommendRequest) GetMaxRecommendations() int32 {
 
 // GetMaxRecommendationsOk returns a tuple with the MaxRecommendations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseRecommendRequest) GetMaxRecommendationsOk() (*int32, bool) {
+func (o *BoughtTogetherQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
@@ -119,7 +124,7 @@ func (o *BaseRecommendRequest) GetMaxRecommendationsOk() (*int32, bool) {
 }
 
 // HasMaxRecommendations returns a boolean if a field has been set.
-func (o *BaseRecommendRequest) HasMaxRecommendations() bool {
+func (o *BoughtTogetherQuery) HasMaxRecommendations() bool {
 	if o != nil && o.MaxRecommendations != nil {
 		return true
 	}
@@ -128,13 +133,13 @@ func (o *BaseRecommendRequest) HasMaxRecommendations() bool {
 }
 
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
-func (o *BaseRecommendRequest) SetMaxRecommendations(v int32) *BaseRecommendRequest {
+func (o *BoughtTogetherQuery) SetMaxRecommendations(v int32) *BoughtTogetherQuery {
 	o.MaxRecommendations = &v
 	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *BaseRecommendRequest) GetQueryParameters() SearchParams {
+func (o *BoughtTogetherQuery) GetQueryParameters() SearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret SearchParams
 		return ret
@@ -144,7 +149,7 @@ func (o *BaseRecommendRequest) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseRecommendRequest) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *BoughtTogetherQuery) GetQueryParametersOk() (*SearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -152,7 +157,7 @@ func (o *BaseRecommendRequest) GetQueryParametersOk() (*SearchParams, bool) {
 }
 
 // HasQueryParameters returns a boolean if a field has been set.
-func (o *BaseRecommendRequest) HasQueryParameters() bool {
+func (o *BoughtTogetherQuery) HasQueryParameters() bool {
 	if o != nil && o.QueryParameters != nil {
 		return true
 	}
@@ -161,12 +166,62 @@ func (o *BaseRecommendRequest) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *BaseRecommendRequest) SetQueryParameters(v *SearchParams) *BaseRecommendRequest {
+func (o *BoughtTogetherQuery) SetQueryParameters(v *SearchParams) *BoughtTogetherQuery {
 	o.QueryParameters = v
 	return o
 }
 
-func (o BaseRecommendRequest) MarshalJSON() ([]byte, error) {
+// GetModel returns the Model field value.
+func (o *BoughtTogetherQuery) GetModel() FbtModel {
+	if o == nil {
+		var ret FbtModel
+		return ret
+	}
+
+	return o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value
+// and a boolean to check if the value has been set.
+func (o *BoughtTogetherQuery) GetModelOk() (*FbtModel, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Model, true
+}
+
+// SetModel sets field value.
+func (o *BoughtTogetherQuery) SetModel(v FbtModel) *BoughtTogetherQuery {
+	o.Model = v
+	return o
+}
+
+// GetObjectID returns the ObjectID field value.
+func (o *BoughtTogetherQuery) GetObjectID() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ObjectID
+}
+
+// GetObjectIDOk returns a tuple with the ObjectID field value
+// and a boolean to check if the value has been set.
+func (o *BoughtTogetherQuery) GetObjectIDOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ObjectID, true
+}
+
+// SetObjectID sets field value.
+func (o *BoughtTogetherQuery) SetObjectID(v string) *BoughtTogetherQuery {
+	o.ObjectID = v
+	return o
+}
+
+func (o BoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["indexName"] = o.IndexName
@@ -180,55 +235,63 @@ func (o BaseRecommendRequest) MarshalJSON() ([]byte, error) {
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+	if true {
+		toSerialize["model"] = o.Model
+	}
+	if true {
+		toSerialize["objectID"] = o.ObjectID
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal BaseRecommendRequest: %w", err)
+		return nil, fmt.Errorf("failed to marshal BoughtTogetherQuery: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o BaseRecommendRequest) String() string {
+func (o BoughtTogetherQuery) String() string {
 	out := ""
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  threshold=%v\n", o.Threshold)
 	out += fmt.Sprintf("  maxRecommendations=%v\n", o.MaxRecommendations)
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
-	return fmt.Sprintf("BaseRecommendRequest {\n%s}", out)
+	out += fmt.Sprintf("  model=%v\n", o.Model)
+	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+	return fmt.Sprintf("BoughtTogetherQuery {\n%s}", out)
 }
 
-type NullableBaseRecommendRequest struct {
-	value *BaseRecommendRequest
+type NullableBoughtTogetherQuery struct {
+	value *BoughtTogetherQuery
 	isSet bool
 }
 
-func (v NullableBaseRecommendRequest) Get() *BaseRecommendRequest {
+func (v NullableBoughtTogetherQuery) Get() *BoughtTogetherQuery {
 	return v.value
 }
 
-func (v *NullableBaseRecommendRequest) Set(val *BaseRecommendRequest) {
+func (v *NullableBoughtTogetherQuery) Set(val *BoughtTogetherQuery) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBaseRecommendRequest) IsSet() bool {
+func (v NullableBoughtTogetherQuery) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBaseRecommendRequest) Unset() {
+func (v *NullableBoughtTogetherQuery) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBaseRecommendRequest(val *BaseRecommendRequest) *NullableBaseRecommendRequest {
-	return &NullableBaseRecommendRequest{value: val, isSet: true}
+func NewNullableBoughtTogetherQuery(val *BoughtTogetherQuery) *NullableBoughtTogetherQuery {
+	return &NullableBoughtTogetherQuery{value: val, isSet: true}
 }
 
-func (v NullableBaseRecommendRequest) MarshalJSON() ([]byte, error) {
+func (v NullableBoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableBaseRecommendRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableBoughtTogetherQuery) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

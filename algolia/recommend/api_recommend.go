@@ -702,7 +702,7 @@ func (c *APIClient) NewApiDeleteRecommendRuleRequest(indexName string, model Rec
 /*
 DeleteRecommendRule Wraps DeleteRecommendRuleWithContext using context.Background.
 
-Delete a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Deletes a Recommend rule from a recommendation scenario.
 
 Required API Key ACLs:
   - editSettings
@@ -710,7 +710,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
@@ -721,7 +721,7 @@ func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ..
 /*
 DeleteRecommendRule
 
-Delete a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Deletes a Recommend rule from a recommendation scenario.
 
 Required API Key ACLs:
   - editSettings
@@ -729,7 +729,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
@@ -857,7 +857,7 @@ func (c *APIClient) NewApiGetRecommendRuleRequest(indexName string, model Recomm
 /*
 GetRecommendRule Wraps GetRecommendRuleWithContext using context.Background.
 
-Return a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Retrieves a Recommend rule that you previously created in the Algolia dashboard.
 
 Required API Key ACLs:
   - settings
@@ -865,18 +865,18 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param objectID string - Unique record identifier.
-	@return RuleResponse
+	@return RecommendRule
 */
-func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Option) (*RuleResponse, error) {
+func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Option) (*RecommendRule, error) {
 	return c.GetRecommendRuleWithContext(context.Background(), r, opts...)
 }
 
 /*
 GetRecommendRule
 
-Return a [Recommend rule](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Retrieves a Recommend rule that you previously created in the Algolia dashboard.
 
 Required API Key ACLs:
   - settings
@@ -884,14 +884,14 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param objectID string - Unique record identifier.
-	@return RuleResponse
+	@return RecommendRule
 */
-func (c *APIClient) GetRecommendRuleWithContext(ctx context.Context, r ApiGetRecommendRuleRequest, opts ...Option) (*RuleResponse, error) {
+func (c *APIClient) GetRecommendRuleWithContext(ctx context.Context, r ApiGetRecommendRuleRequest, opts ...Option) (*RecommendRule, error) {
 	var (
 		postBody    any
-		returnValue *RuleResponse
+		returnValue *RecommendRule
 	)
 
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/{objectID}"
@@ -1012,7 +1012,11 @@ func (c *APIClient) NewApiGetRecommendStatusRequest(indexName string, model Reco
 /*
 GetRecommendStatus Wraps GetRecommendStatusWithContext using context.Background.
 
-Some operations, such as deleting a Recommend rule, will respond with a `taskID` value. Use this value here to check the status of that task.
+Checks the status of a given task.
+
+Deleting a Recommend rule is asynchronous.
+When you delete a rule, a task is created on a queue and completed depending on the load on the server.
+The API response includes a task ID that you can use to check the status.
 
 Required API Key ACLs:
   - editSettings
@@ -1020,8 +1024,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param taskID int64 - Unique identifier of a task. Numeric value (up to 64bits).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param taskID int64 - Unique task identifier.
 	@return GetRecommendTaskResponse
 */
 func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...Option) (*GetRecommendTaskResponse, error) {
@@ -1031,7 +1035,11 @@ func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...O
 /*
 GetRecommendStatus
 
-Some operations, such as deleting a Recommend rule, will respond with a `taskID` value. Use this value here to check the status of that task.
+Checks the status of a given task.
+
+Deleting a Recommend rule is asynchronous.
+When you delete a rule, a task is created on a queue and completed depending on the load on the server.
+The API response includes a task ID that you can use to check the status.
 
 Required API Key ACLs:
   - editSettings
@@ -1039,8 +1047,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param taskID int64 - Unique identifier of a task. Numeric value (up to 64bits).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param taskID int64 - Unique task identifier.
 	@return GetRecommendTaskResponse
 */
 func (c *APIClient) GetRecommendStatusWithContext(ctx context.Context, r ApiGetRecommendStatusRequest, opts ...Option) (*GetRecommendTaskResponse, error) {
@@ -1146,10 +1154,7 @@ func (c *APIClient) NewApiGetRecommendationsRequest(getRecommendationsParams *Ge
 /*
 GetRecommendations Wraps GetRecommendationsWithContext using context.Background.
 
-Returns results from either recommendation or trending models:
-
-  - **Recommendations** are provided by the [Related Products](https://www.algolia.com/doc/guides/algolia-recommend/overview/#related-products-and-related-content) and [Frequently Bought Together](https://www.algolia.com/doc/guides/algolia-recommend/overview/#frequently-bought-together) models
-  - **Trending** models are [Trending Items and Trending Facet Values](https://www.algolia.com/doc/guides/algolia-recommend/overview/#trending-items-and-trending-facet-values).
+Retrieves recommendations from selected AI models.
 
 Required API Key ACLs:
   - search
@@ -1166,10 +1171,7 @@ func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...O
 /*
 GetRecommendations
 
-Returns results from either recommendation or trending models:
-
-  - **Recommendations** are provided by the [Related Products](https://www.algolia.com/doc/guides/algolia-recommend/overview/#related-products-and-related-content) and [Frequently Bought Together](https://www.algolia.com/doc/guides/algolia-recommend/overview/#frequently-bought-together) models
-  - **Trending** models are [Trending Items and Trending Facet Values](https://www.algolia.com/doc/guides/algolia-recommend/overview/#trending-items-and-trending-facet-values).
+Retrieves recommendations from selected AI models.
 
 Required API Key ACLs:
   - search
@@ -1304,7 +1306,9 @@ func (r ApiSearchRecommendRulesRequest) WithSearchRecommendRulesParams(searchRec
 /*
 SearchRecommendRules Wraps SearchRecommendRulesWithContext using context.Background.
 
-List [Recommend rules](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Searches for Recommend rules.
+
+Use an empty query to list all rules for this recommendation scenario.
 
 Required API Key ACLs:
   - settings
@@ -1312,7 +1316,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param searchRecommendRulesParams SearchRecommendRulesParams
 	@return SearchRecommendRulesResponse
 */
@@ -1323,7 +1327,9 @@ func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts 
 /*
 SearchRecommendRules
 
-List [Recommend rules](https://www.algolia.com/doc/guides/algolia-recommend/how-to/rules/).
+Searches for Recommend rules.
+
+Use an empty query to list all rules for this recommendation scenario.
 
 Required API Key ACLs:
   - settings
@@ -1331,7 +1337,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend models](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	@param searchRecommendRulesParams SearchRecommendRulesParams
 	@return SearchRecommendRulesResponse
 */

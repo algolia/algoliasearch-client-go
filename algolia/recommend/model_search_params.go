@@ -6,11 +6,13 @@ import (
 	"fmt"
 )
 
-// ConsequenceParams struct for ConsequenceParams.
-type ConsequenceParams struct {
+// SearchParams struct for SearchParams.
+type SearchParams struct {
+	// Search query.
+	Query *string `json:"query,omitempty"`
 	// Keywords to be used instead of the search query to conduct a more broader search.  Using the `similarQuery` parameter changes other settings:  - `queryType` is set to `prefixNone`. - `removeStopWords` is set to true. - `words` is set as the first ranking criterion. - All remaining words are treated as `optionalWords`.  Since the `similarQuery` is supposed to do a broad search, they usually return many results. Combine it with `filters` to narrow down the list of results.
 	SimilarQuery *string `json:"similarQuery,omitempty"`
-	// Filter the search so that only records with matching values are included in the results.  These filters are supported:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
+	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
 	Filters         *string          `json:"filters,omitempty"`
 	FacetFilters    *FacetFilters    `json:"facetFilters,omitempty"`
 	OptionalFilters *OptionalFilters `json:"optionalFilters,omitempty"`
@@ -139,502 +141,520 @@ type ConsequenceParams struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking               *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter          NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
-	Query                         *ConsequenceQuery            `json:"query,omitempty"`
-	AutomaticFacetFilters         *AutomaticFacetFilters       `json:"automaticFacetFilters,omitempty"`
-	AutomaticOptionalFacetFilters *AutomaticFacetFilters       `json:"automaticOptionalFacetFilters,omitempty"`
+	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 }
 
-type ConsequenceParamsOption func(f *ConsequenceParams)
+type SearchParamsOption func(f *SearchParams)
 
-func WithConsequenceParamsSimilarQuery(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.SimilarQuery = &val
-	}
-}
-
-func WithConsequenceParamsFilters(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Filters = &val
-	}
-}
-
-func WithConsequenceParamsFacetFilters(val FacetFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.FacetFilters = &val
-	}
-}
-
-func WithConsequenceParamsOptionalFilters(val OptionalFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.OptionalFilters = &val
-	}
-}
-
-func WithConsequenceParamsNumericFilters(val NumericFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.NumericFilters = &val
-	}
-}
-
-func WithConsequenceParamsTagFilters(val TagFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.TagFilters = &val
-	}
-}
-
-func WithConsequenceParamsSumOrFiltersScores(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.SumOrFiltersScores = &val
-	}
-}
-
-func WithConsequenceParamsRestrictSearchableAttributes(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RestrictSearchableAttributes = val
-	}
-}
-
-func WithConsequenceParamsFacets(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Facets = val
-	}
-}
-
-func WithConsequenceParamsFacetingAfterDistinct(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.FacetingAfterDistinct = &val
-	}
-}
-
-func WithConsequenceParamsPage(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Page = &val
-	}
-}
-
-func WithConsequenceParamsOffset(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Offset = &val
-	}
-}
-
-func WithConsequenceParamsLength(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Length = &val
-	}
-}
-
-func WithConsequenceParamsAroundLatLng(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AroundLatLng = &val
-	}
-}
-
-func WithConsequenceParamsAroundLatLngViaIP(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AroundLatLngViaIP = &val
-	}
-}
-
-func WithConsequenceParamsAroundRadius(val AroundRadius) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AroundRadius = &val
-	}
-}
-
-func WithConsequenceParamsAroundPrecision(val AroundPrecision) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AroundPrecision = &val
-	}
-}
-
-func WithConsequenceParamsMinimumAroundRadius(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MinimumAroundRadius = &val
-	}
-}
-
-func WithConsequenceParamsInsideBoundingBox(val [][]float64) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.InsideBoundingBox = val
-	}
-}
-
-func WithConsequenceParamsInsidePolygon(val [][]float64) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.InsidePolygon = val
-	}
-}
-
-func WithConsequenceParamsNaturalLanguages(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.NaturalLanguages = val
-	}
-}
-
-func WithConsequenceParamsRuleContexts(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RuleContexts = val
-	}
-}
-
-func WithConsequenceParamsPersonalizationImpact(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.PersonalizationImpact = &val
-	}
-}
-
-func WithConsequenceParamsUserToken(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.UserToken = &val
-	}
-}
-
-func WithConsequenceParamsGetRankingInfo(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.GetRankingInfo = &val
-	}
-}
-
-func WithConsequenceParamsSynonyms(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Synonyms = &val
-	}
-}
-
-func WithConsequenceParamsClickAnalytics(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.ClickAnalytics = &val
-	}
-}
-
-func WithConsequenceParamsAnalytics(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Analytics = &val
-	}
-}
-
-func WithConsequenceParamsAnalyticsTags(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AnalyticsTags = val
-	}
-}
-
-func WithConsequenceParamsPercentileComputation(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.PercentileComputation = &val
-	}
-}
-
-func WithConsequenceParamsEnableABTest(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.EnableABTest = &val
-	}
-}
-
-func WithConsequenceParamsAttributesToRetrieve(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AttributesToRetrieve = val
-	}
-}
-
-func WithConsequenceParamsRanking(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Ranking = val
-	}
-}
-
-func WithConsequenceParamsCustomRanking(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.CustomRanking = val
-	}
-}
-
-func WithConsequenceParamsRelevancyStrictness(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RelevancyStrictness = &val
-	}
-}
-
-func WithConsequenceParamsAttributesToHighlight(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AttributesToHighlight = val
-	}
-}
-
-func WithConsequenceParamsAttributesToSnippet(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AttributesToSnippet = val
-	}
-}
-
-func WithConsequenceParamsHighlightPreTag(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.HighlightPreTag = &val
-	}
-}
-
-func WithConsequenceParamsHighlightPostTag(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.HighlightPostTag = &val
-	}
-}
-
-func WithConsequenceParamsSnippetEllipsisText(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.SnippetEllipsisText = &val
-	}
-}
-
-func WithConsequenceParamsRestrictHighlightAndSnippetArrays(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RestrictHighlightAndSnippetArrays = &val
-	}
-}
-
-func WithConsequenceParamsHitsPerPage(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.HitsPerPage = &val
-	}
-}
-
-func WithConsequenceParamsMinWordSizefor1Typo(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MinWordSizefor1Typo = &val
-	}
-}
-
-func WithConsequenceParamsMinWordSizefor2Typos(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MinWordSizefor2Typos = &val
-	}
-}
-
-func WithConsequenceParamsTypoTolerance(val TypoTolerance) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.TypoTolerance = &val
-	}
-}
-
-func WithConsequenceParamsAllowTyposOnNumericTokens(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AllowTyposOnNumericTokens = &val
-	}
-}
-
-func WithConsequenceParamsDisableTypoToleranceOnAttributes(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.DisableTypoToleranceOnAttributes = val
-	}
-}
-
-func WithConsequenceParamsIgnorePlurals(val IgnorePlurals) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.IgnorePlurals = &val
-	}
-}
-
-func WithConsequenceParamsRemoveStopWords(val RemoveStopWords) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RemoveStopWords = &val
-	}
-}
-
-func WithConsequenceParamsKeepDiacriticsOnCharacters(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.KeepDiacriticsOnCharacters = &val
-	}
-}
-
-func WithConsequenceParamsQueryLanguages(val []SupportedLanguage) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.QueryLanguages = val
-	}
-}
-
-func WithConsequenceParamsDecompoundQuery(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.DecompoundQuery = &val
-	}
-}
-
-func WithConsequenceParamsEnableRules(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.EnableRules = &val
-	}
-}
-
-func WithConsequenceParamsEnablePersonalization(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.EnablePersonalization = &val
-	}
-}
-
-func WithConsequenceParamsQueryType(val QueryType) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.QueryType = &val
-	}
-}
-
-func WithConsequenceParamsRemoveWordsIfNoResults(val RemoveWordsIfNoResults) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RemoveWordsIfNoResults = &val
-	}
-}
-
-func WithConsequenceParamsMode(val Mode) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Mode = &val
-	}
-}
-
-func WithConsequenceParamsSemanticSearch(val SemanticSearch) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.SemanticSearch = &val
-	}
-}
-
-func WithConsequenceParamsAdvancedSyntax(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AdvancedSyntax = &val
-	}
-}
-
-func WithConsequenceParamsOptionalWords(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.OptionalWords = val
-	}
-}
-
-func WithConsequenceParamsDisableExactOnAttributes(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.DisableExactOnAttributes = val
-	}
-}
-
-func WithConsequenceParamsExactOnSingleWordQuery(val ExactOnSingleWordQuery) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.ExactOnSingleWordQuery = &val
-	}
-}
-
-func WithConsequenceParamsAlternativesAsExact(val []AlternativesAsExact) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AlternativesAsExact = val
-	}
-}
-
-func WithConsequenceParamsAdvancedSyntaxFeatures(val []AdvancedSyntaxFeatures) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AdvancedSyntaxFeatures = val
-	}
-}
-
-func WithConsequenceParamsDistinct(val Distinct) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.Distinct = &val
-	}
-}
-
-func WithConsequenceParamsReplaceSynonymsInHighlight(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.ReplaceSynonymsInHighlight = &val
-	}
-}
-
-func WithConsequenceParamsMinProximity(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MinProximity = &val
-	}
-}
-
-func WithConsequenceParamsResponseFields(val []string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.ResponseFields = val
-	}
-}
-
-func WithConsequenceParamsMaxFacetHits(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MaxFacetHits = &val
-	}
-}
-
-func WithConsequenceParamsMaxValuesPerFacet(val int32) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.MaxValuesPerFacet = &val
-	}
-}
-
-func WithConsequenceParamsSortFacetValuesBy(val string) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.SortFacetValuesBy = &val
-	}
-}
-
-func WithConsequenceParamsAttributeCriteriaComputedByMinProximity(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AttributeCriteriaComputedByMinProximity = &val
-	}
-}
-
-func WithConsequenceParamsRenderingContent(val RenderingContent) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.RenderingContent = &val
-	}
-}
-
-func WithConsequenceParamsEnableReRanking(val bool) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.EnableReRanking = &val
-	}
-}
-
-func WithConsequenceParamsReRankingApplyFilter(val NullableReRankingApplyFilter) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.ReRankingApplyFilter = val
-	}
-}
-
-func WithConsequenceParamsQuery(val ConsequenceQuery) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
+func WithSearchParamsQuery(val string) SearchParamsOption {
+	return func(f *SearchParams) {
 		f.Query = &val
 	}
 }
 
-func WithConsequenceParamsAutomaticFacetFilters(val AutomaticFacetFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AutomaticFacetFilters = &val
+func WithSearchParamsSimilarQuery(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.SimilarQuery = &val
 	}
 }
 
-func WithConsequenceParamsAutomaticOptionalFacetFilters(val AutomaticFacetFilters) ConsequenceParamsOption {
-	return func(f *ConsequenceParams) {
-		f.AutomaticOptionalFacetFilters = &val
+func WithSearchParamsFilters(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Filters = &val
 	}
 }
 
-// NewConsequenceParams instantiates a new ConsequenceParams object
+func WithSearchParamsFacetFilters(val FacetFilters) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.FacetFilters = &val
+	}
+}
+
+func WithSearchParamsOptionalFilters(val OptionalFilters) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.OptionalFilters = &val
+	}
+}
+
+func WithSearchParamsNumericFilters(val NumericFilters) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.NumericFilters = &val
+	}
+}
+
+func WithSearchParamsTagFilters(val TagFilters) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.TagFilters = &val
+	}
+}
+
+func WithSearchParamsSumOrFiltersScores(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.SumOrFiltersScores = &val
+	}
+}
+
+func WithSearchParamsRestrictSearchableAttributes(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RestrictSearchableAttributes = val
+	}
+}
+
+func WithSearchParamsFacets(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Facets = val
+	}
+}
+
+func WithSearchParamsFacetingAfterDistinct(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.FacetingAfterDistinct = &val
+	}
+}
+
+func WithSearchParamsPage(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Page = &val
+	}
+}
+
+func WithSearchParamsOffset(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Offset = &val
+	}
+}
+
+func WithSearchParamsLength(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Length = &val
+	}
+}
+
+func WithSearchParamsAroundLatLng(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AroundLatLng = &val
+	}
+}
+
+func WithSearchParamsAroundLatLngViaIP(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AroundLatLngViaIP = &val
+	}
+}
+
+func WithSearchParamsAroundRadius(val AroundRadius) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AroundRadius = &val
+	}
+}
+
+func WithSearchParamsAroundPrecision(val AroundPrecision) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AroundPrecision = &val
+	}
+}
+
+func WithSearchParamsMinimumAroundRadius(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MinimumAroundRadius = &val
+	}
+}
+
+func WithSearchParamsInsideBoundingBox(val [][]float64) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.InsideBoundingBox = val
+	}
+}
+
+func WithSearchParamsInsidePolygon(val [][]float64) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.InsidePolygon = val
+	}
+}
+
+func WithSearchParamsNaturalLanguages(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.NaturalLanguages = val
+	}
+}
+
+func WithSearchParamsRuleContexts(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RuleContexts = val
+	}
+}
+
+func WithSearchParamsPersonalizationImpact(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.PersonalizationImpact = &val
+	}
+}
+
+func WithSearchParamsUserToken(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.UserToken = &val
+	}
+}
+
+func WithSearchParamsGetRankingInfo(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.GetRankingInfo = &val
+	}
+}
+
+func WithSearchParamsSynonyms(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Synonyms = &val
+	}
+}
+
+func WithSearchParamsClickAnalytics(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.ClickAnalytics = &val
+	}
+}
+
+func WithSearchParamsAnalytics(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Analytics = &val
+	}
+}
+
+func WithSearchParamsAnalyticsTags(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AnalyticsTags = val
+	}
+}
+
+func WithSearchParamsPercentileComputation(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.PercentileComputation = &val
+	}
+}
+
+func WithSearchParamsEnableABTest(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.EnableABTest = &val
+	}
+}
+
+func WithSearchParamsAttributesToRetrieve(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AttributesToRetrieve = val
+	}
+}
+
+func WithSearchParamsRanking(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Ranking = val
+	}
+}
+
+func WithSearchParamsCustomRanking(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.CustomRanking = val
+	}
+}
+
+func WithSearchParamsRelevancyStrictness(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RelevancyStrictness = &val
+	}
+}
+
+func WithSearchParamsAttributesToHighlight(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AttributesToHighlight = val
+	}
+}
+
+func WithSearchParamsAttributesToSnippet(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AttributesToSnippet = val
+	}
+}
+
+func WithSearchParamsHighlightPreTag(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.HighlightPreTag = &val
+	}
+}
+
+func WithSearchParamsHighlightPostTag(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.HighlightPostTag = &val
+	}
+}
+
+func WithSearchParamsSnippetEllipsisText(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.SnippetEllipsisText = &val
+	}
+}
+
+func WithSearchParamsRestrictHighlightAndSnippetArrays(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RestrictHighlightAndSnippetArrays = &val
+	}
+}
+
+func WithSearchParamsHitsPerPage(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.HitsPerPage = &val
+	}
+}
+
+func WithSearchParamsMinWordSizefor1Typo(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MinWordSizefor1Typo = &val
+	}
+}
+
+func WithSearchParamsMinWordSizefor2Typos(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MinWordSizefor2Typos = &val
+	}
+}
+
+func WithSearchParamsTypoTolerance(val TypoTolerance) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.TypoTolerance = &val
+	}
+}
+
+func WithSearchParamsAllowTyposOnNumericTokens(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AllowTyposOnNumericTokens = &val
+	}
+}
+
+func WithSearchParamsDisableTypoToleranceOnAttributes(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.DisableTypoToleranceOnAttributes = val
+	}
+}
+
+func WithSearchParamsIgnorePlurals(val IgnorePlurals) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.IgnorePlurals = &val
+	}
+}
+
+func WithSearchParamsRemoveStopWords(val RemoveStopWords) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RemoveStopWords = &val
+	}
+}
+
+func WithSearchParamsKeepDiacriticsOnCharacters(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.KeepDiacriticsOnCharacters = &val
+	}
+}
+
+func WithSearchParamsQueryLanguages(val []SupportedLanguage) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.QueryLanguages = val
+	}
+}
+
+func WithSearchParamsDecompoundQuery(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.DecompoundQuery = &val
+	}
+}
+
+func WithSearchParamsEnableRules(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.EnableRules = &val
+	}
+}
+
+func WithSearchParamsEnablePersonalization(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.EnablePersonalization = &val
+	}
+}
+
+func WithSearchParamsQueryType(val QueryType) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.QueryType = &val
+	}
+}
+
+func WithSearchParamsRemoveWordsIfNoResults(val RemoveWordsIfNoResults) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RemoveWordsIfNoResults = &val
+	}
+}
+
+func WithSearchParamsMode(val Mode) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Mode = &val
+	}
+}
+
+func WithSearchParamsSemanticSearch(val SemanticSearch) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.SemanticSearch = &val
+	}
+}
+
+func WithSearchParamsAdvancedSyntax(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AdvancedSyntax = &val
+	}
+}
+
+func WithSearchParamsOptionalWords(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.OptionalWords = val
+	}
+}
+
+func WithSearchParamsDisableExactOnAttributes(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.DisableExactOnAttributes = val
+	}
+}
+
+func WithSearchParamsExactOnSingleWordQuery(val ExactOnSingleWordQuery) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.ExactOnSingleWordQuery = &val
+	}
+}
+
+func WithSearchParamsAlternativesAsExact(val []AlternativesAsExact) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AlternativesAsExact = val
+	}
+}
+
+func WithSearchParamsAdvancedSyntaxFeatures(val []AdvancedSyntaxFeatures) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AdvancedSyntaxFeatures = val
+	}
+}
+
+func WithSearchParamsDistinct(val Distinct) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.Distinct = &val
+	}
+}
+
+func WithSearchParamsReplaceSynonymsInHighlight(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.ReplaceSynonymsInHighlight = &val
+	}
+}
+
+func WithSearchParamsMinProximity(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MinProximity = &val
+	}
+}
+
+func WithSearchParamsResponseFields(val []string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.ResponseFields = val
+	}
+}
+
+func WithSearchParamsMaxFacetHits(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MaxFacetHits = &val
+	}
+}
+
+func WithSearchParamsMaxValuesPerFacet(val int32) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.MaxValuesPerFacet = &val
+	}
+}
+
+func WithSearchParamsSortFacetValuesBy(val string) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.SortFacetValuesBy = &val
+	}
+}
+
+func WithSearchParamsAttributeCriteriaComputedByMinProximity(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.AttributeCriteriaComputedByMinProximity = &val
+	}
+}
+
+func WithSearchParamsRenderingContent(val RenderingContent) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.RenderingContent = &val
+	}
+}
+
+func WithSearchParamsEnableReRanking(val bool) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.EnableReRanking = &val
+	}
+}
+
+func WithSearchParamsReRankingApplyFilter(val NullableReRankingApplyFilter) SearchParamsOption {
+	return func(f *SearchParams) {
+		f.ReRankingApplyFilter = val
+	}
+}
+
+// NewSearchParams instantiates a new SearchParams object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewConsequenceParams(opts ...ConsequenceParamsOption) *ConsequenceParams {
-	this := &ConsequenceParams{}
+func NewSearchParams(opts ...SearchParamsOption) *SearchParams {
+	this := &SearchParams{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyConsequenceParams return a pointer to an empty ConsequenceParams object.
-func NewEmptyConsequenceParams() *ConsequenceParams {
-	return &ConsequenceParams{}
+// NewEmptySearchParams return a pointer to an empty SearchParams object.
+func NewEmptySearchParams() *SearchParams {
+	return &SearchParams{}
+}
+
+// GetQuery returns the Query field value if set, zero value otherwise.
+func (o *SearchParams) GetQuery() string {
+	if o == nil || o.Query == nil {
+		var ret string
+		return ret
+	}
+	return *o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchParams) GetQueryOk() (*string, bool) {
+	if o == nil || o.Query == nil {
+		return nil, false
+	}
+	return o.Query, true
+}
+
+// HasQuery returns a boolean if a field has been set.
+func (o *SearchParams) HasQuery() bool {
+	if o != nil && o.Query != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQuery gets a reference to the given string and assigns it to the Query field.
+func (o *SearchParams) SetQuery(v string) *SearchParams {
+	o.Query = &v
+	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSimilarQuery() string {
+func (o *SearchParams) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
 		return ret
@@ -644,7 +664,7 @@ func (o *ConsequenceParams) GetSimilarQuery() string {
 
 // GetSimilarQueryOk returns a tuple with the SimilarQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSimilarQueryOk() (*string, bool) {
+func (o *SearchParams) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
@@ -652,7 +672,7 @@ func (o *ConsequenceParams) GetSimilarQueryOk() (*string, bool) {
 }
 
 // HasSimilarQuery returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSimilarQuery() bool {
+func (o *SearchParams) HasSimilarQuery() bool {
 	if o != nil && o.SimilarQuery != nil {
 		return true
 	}
@@ -661,13 +681,13 @@ func (o *ConsequenceParams) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *ConsequenceParams) SetSimilarQuery(v string) *ConsequenceParams {
+func (o *SearchParams) SetSimilarQuery(v string) *SearchParams {
 	o.SimilarQuery = &v
 	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetFilters() string {
+func (o *SearchParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
 		return ret
@@ -677,7 +697,7 @@ func (o *ConsequenceParams) GetFilters() string {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetFiltersOk() (*string, bool) {
+func (o *SearchParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
@@ -685,7 +705,7 @@ func (o *ConsequenceParams) GetFiltersOk() (*string, bool) {
 }
 
 // HasFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasFilters() bool {
+func (o *SearchParams) HasFilters() bool {
 	if o != nil && o.Filters != nil {
 		return true
 	}
@@ -694,13 +714,13 @@ func (o *ConsequenceParams) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *ConsequenceParams) SetFilters(v string) *ConsequenceParams {
+func (o *SearchParams) SetFilters(v string) *SearchParams {
 	o.Filters = &v
 	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetFacetFilters() FacetFilters {
+func (o *SearchParams) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
 		return ret
@@ -710,7 +730,7 @@ func (o *ConsequenceParams) GetFacetFilters() FacetFilters {
 
 // GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetFacetFiltersOk() (*FacetFilters, bool) {
+func (o *SearchParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
@@ -718,7 +738,7 @@ func (o *ConsequenceParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 }
 
 // HasFacetFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasFacetFilters() bool {
+func (o *SearchParams) HasFacetFilters() bool {
 	if o != nil && o.FacetFilters != nil {
 		return true
 	}
@@ -727,13 +747,13 @@ func (o *ConsequenceParams) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *ConsequenceParams) SetFacetFilters(v *FacetFilters) *ConsequenceParams {
+func (o *SearchParams) SetFacetFilters(v *FacetFilters) *SearchParams {
 	o.FacetFilters = v
 	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetOptionalFilters() OptionalFilters {
+func (o *SearchParams) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
 		return ret
@@ -743,7 +763,7 @@ func (o *ConsequenceParams) GetOptionalFilters() OptionalFilters {
 
 // GetOptionalFiltersOk returns a tuple with the OptionalFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetOptionalFiltersOk() (*OptionalFilters, bool) {
+func (o *SearchParams) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
@@ -751,7 +771,7 @@ func (o *ConsequenceParams) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 }
 
 // HasOptionalFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasOptionalFilters() bool {
+func (o *SearchParams) HasOptionalFilters() bool {
 	if o != nil && o.OptionalFilters != nil {
 		return true
 	}
@@ -760,13 +780,13 @@ func (o *ConsequenceParams) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *ConsequenceParams) SetOptionalFilters(v *OptionalFilters) *ConsequenceParams {
+func (o *SearchParams) SetOptionalFilters(v *OptionalFilters) *SearchParams {
 	o.OptionalFilters = v
 	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetNumericFilters() NumericFilters {
+func (o *SearchParams) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
 		return ret
@@ -776,7 +796,7 @@ func (o *ConsequenceParams) GetNumericFilters() NumericFilters {
 
 // GetNumericFiltersOk returns a tuple with the NumericFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetNumericFiltersOk() (*NumericFilters, bool) {
+func (o *SearchParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
@@ -784,7 +804,7 @@ func (o *ConsequenceParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 }
 
 // HasNumericFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasNumericFilters() bool {
+func (o *SearchParams) HasNumericFilters() bool {
 	if o != nil && o.NumericFilters != nil {
 		return true
 	}
@@ -793,13 +813,13 @@ func (o *ConsequenceParams) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *ConsequenceParams) SetNumericFilters(v *NumericFilters) *ConsequenceParams {
+func (o *SearchParams) SetNumericFilters(v *NumericFilters) *SearchParams {
 	o.NumericFilters = v
 	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetTagFilters() TagFilters {
+func (o *SearchParams) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
 		return ret
@@ -809,7 +829,7 @@ func (o *ConsequenceParams) GetTagFilters() TagFilters {
 
 // GetTagFiltersOk returns a tuple with the TagFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetTagFiltersOk() (*TagFilters, bool) {
+func (o *SearchParams) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
@@ -817,7 +837,7 @@ func (o *ConsequenceParams) GetTagFiltersOk() (*TagFilters, bool) {
 }
 
 // HasTagFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasTagFilters() bool {
+func (o *SearchParams) HasTagFilters() bool {
 	if o != nil && o.TagFilters != nil {
 		return true
 	}
@@ -826,13 +846,13 @@ func (o *ConsequenceParams) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *ConsequenceParams) SetTagFilters(v *TagFilters) *ConsequenceParams {
+func (o *SearchParams) SetTagFilters(v *TagFilters) *SearchParams {
 	o.TagFilters = v
 	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSumOrFiltersScores() bool {
+func (o *SearchParams) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
 		return ret
@@ -842,7 +862,7 @@ func (o *ConsequenceParams) GetSumOrFiltersScores() bool {
 
 // GetSumOrFiltersScoresOk returns a tuple with the SumOrFiltersScores field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSumOrFiltersScoresOk() (*bool, bool) {
+func (o *SearchParams) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
@@ -850,7 +870,7 @@ func (o *ConsequenceParams) GetSumOrFiltersScoresOk() (*bool, bool) {
 }
 
 // HasSumOrFiltersScores returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSumOrFiltersScores() bool {
+func (o *SearchParams) HasSumOrFiltersScores() bool {
 	if o != nil && o.SumOrFiltersScores != nil {
 		return true
 	}
@@ -859,13 +879,13 @@ func (o *ConsequenceParams) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *ConsequenceParams) SetSumOrFiltersScores(v bool) *ConsequenceParams {
+func (o *SearchParams) SetSumOrFiltersScores(v bool) *SearchParams {
 	o.SumOrFiltersScores = &v
 	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRestrictSearchableAttributes() []string {
+func (o *SearchParams) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
 		return ret
@@ -875,7 +895,7 @@ func (o *ConsequenceParams) GetRestrictSearchableAttributes() []string {
 
 // GetRestrictSearchableAttributesOk returns a tuple with the RestrictSearchableAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRestrictSearchableAttributesOk() ([]string, bool) {
+func (o *SearchParams) GetRestrictSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
@@ -883,7 +903,7 @@ func (o *ConsequenceParams) GetRestrictSearchableAttributesOk() ([]string, bool)
 }
 
 // HasRestrictSearchableAttributes returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRestrictSearchableAttributes() bool {
+func (o *SearchParams) HasRestrictSearchableAttributes() bool {
 	if o != nil && o.RestrictSearchableAttributes != nil {
 		return true
 	}
@@ -892,13 +912,13 @@ func (o *ConsequenceParams) HasRestrictSearchableAttributes() bool {
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *ConsequenceParams) SetRestrictSearchableAttributes(v []string) *ConsequenceParams {
+func (o *SearchParams) SetRestrictSearchableAttributes(v []string) *SearchParams {
 	o.RestrictSearchableAttributes = v
 	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetFacets() []string {
+func (o *SearchParams) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
 		return ret
@@ -908,7 +928,7 @@ func (o *ConsequenceParams) GetFacets() []string {
 
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetFacetsOk() ([]string, bool) {
+func (o *SearchParams) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
@@ -916,7 +936,7 @@ func (o *ConsequenceParams) GetFacetsOk() ([]string, bool) {
 }
 
 // HasFacets returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasFacets() bool {
+func (o *SearchParams) HasFacets() bool {
 	if o != nil && o.Facets != nil {
 		return true
 	}
@@ -925,13 +945,13 @@ func (o *ConsequenceParams) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *ConsequenceParams) SetFacets(v []string) *ConsequenceParams {
+func (o *SearchParams) SetFacets(v []string) *SearchParams {
 	o.Facets = v
 	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetFacetingAfterDistinct() bool {
+func (o *SearchParams) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
 		return ret
@@ -941,7 +961,7 @@ func (o *ConsequenceParams) GetFacetingAfterDistinct() bool {
 
 // GetFacetingAfterDistinctOk returns a tuple with the FacetingAfterDistinct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetFacetingAfterDistinctOk() (*bool, bool) {
+func (o *SearchParams) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
@@ -949,7 +969,7 @@ func (o *ConsequenceParams) GetFacetingAfterDistinctOk() (*bool, bool) {
 }
 
 // HasFacetingAfterDistinct returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasFacetingAfterDistinct() bool {
+func (o *SearchParams) HasFacetingAfterDistinct() bool {
 	if o != nil && o.FacetingAfterDistinct != nil {
 		return true
 	}
@@ -958,13 +978,13 @@ func (o *ConsequenceParams) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *ConsequenceParams) SetFacetingAfterDistinct(v bool) *ConsequenceParams {
+func (o *SearchParams) SetFacetingAfterDistinct(v bool) *SearchParams {
 	o.FacetingAfterDistinct = &v
 	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetPage() int32 {
+func (o *SearchParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
 		return ret
@@ -974,7 +994,7 @@ func (o *ConsequenceParams) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetPageOk() (*int32, bool) {
+func (o *SearchParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
@@ -982,7 +1002,7 @@ func (o *ConsequenceParams) GetPageOk() (*int32, bool) {
 }
 
 // HasPage returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasPage() bool {
+func (o *SearchParams) HasPage() bool {
 	if o != nil && o.Page != nil {
 		return true
 	}
@@ -991,13 +1011,13 @@ func (o *ConsequenceParams) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *ConsequenceParams) SetPage(v int32) *ConsequenceParams {
+func (o *SearchParams) SetPage(v int32) *SearchParams {
 	o.Page = &v
 	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetOffset() int32 {
+func (o *SearchParams) GetOffset() int32 {
 	if o == nil || o.Offset == nil {
 		var ret int32
 		return ret
@@ -1007,7 +1027,7 @@ func (o *ConsequenceParams) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetOffsetOk() (*int32, bool) {
+func (o *SearchParams) GetOffsetOk() (*int32, bool) {
 	if o == nil || o.Offset == nil {
 		return nil, false
 	}
@@ -1015,7 +1035,7 @@ func (o *ConsequenceParams) GetOffsetOk() (*int32, bool) {
 }
 
 // HasOffset returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasOffset() bool {
+func (o *SearchParams) HasOffset() bool {
 	if o != nil && o.Offset != nil {
 		return true
 	}
@@ -1024,13 +1044,13 @@ func (o *ConsequenceParams) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *ConsequenceParams) SetOffset(v int32) *ConsequenceParams {
+func (o *SearchParams) SetOffset(v int32) *SearchParams {
 	o.Offset = &v
 	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetLength() int32 {
+func (o *SearchParams) GetLength() int32 {
 	if o == nil || o.Length == nil {
 		var ret int32
 		return ret
@@ -1040,7 +1060,7 @@ func (o *ConsequenceParams) GetLength() int32 {
 
 // GetLengthOk returns a tuple with the Length field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetLengthOk() (*int32, bool) {
+func (o *SearchParams) GetLengthOk() (*int32, bool) {
 	if o == nil || o.Length == nil {
 		return nil, false
 	}
@@ -1048,7 +1068,7 @@ func (o *ConsequenceParams) GetLengthOk() (*int32, bool) {
 }
 
 // HasLength returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasLength() bool {
+func (o *SearchParams) HasLength() bool {
 	if o != nil && o.Length != nil {
 		return true
 	}
@@ -1057,13 +1077,13 @@ func (o *ConsequenceParams) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *ConsequenceParams) SetLength(v int32) *ConsequenceParams {
+func (o *SearchParams) SetLength(v int32) *SearchParams {
 	o.Length = &v
 	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAroundLatLng() string {
+func (o *SearchParams) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
 		return ret
@@ -1073,7 +1093,7 @@ func (o *ConsequenceParams) GetAroundLatLng() string {
 
 // GetAroundLatLngOk returns a tuple with the AroundLatLng field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAroundLatLngOk() (*string, bool) {
+func (o *SearchParams) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
@@ -1081,7 +1101,7 @@ func (o *ConsequenceParams) GetAroundLatLngOk() (*string, bool) {
 }
 
 // HasAroundLatLng returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAroundLatLng() bool {
+func (o *SearchParams) HasAroundLatLng() bool {
 	if o != nil && o.AroundLatLng != nil {
 		return true
 	}
@@ -1090,13 +1110,13 @@ func (o *ConsequenceParams) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *ConsequenceParams) SetAroundLatLng(v string) *ConsequenceParams {
+func (o *SearchParams) SetAroundLatLng(v string) *SearchParams {
 	o.AroundLatLng = &v
 	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAroundLatLngViaIP() bool {
+func (o *SearchParams) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
 		return ret
@@ -1106,7 +1126,7 @@ func (o *ConsequenceParams) GetAroundLatLngViaIP() bool {
 
 // GetAroundLatLngViaIPOk returns a tuple with the AroundLatLngViaIP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAroundLatLngViaIPOk() (*bool, bool) {
+func (o *SearchParams) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
@@ -1114,7 +1134,7 @@ func (o *ConsequenceParams) GetAroundLatLngViaIPOk() (*bool, bool) {
 }
 
 // HasAroundLatLngViaIP returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAroundLatLngViaIP() bool {
+func (o *SearchParams) HasAroundLatLngViaIP() bool {
 	if o != nil && o.AroundLatLngViaIP != nil {
 		return true
 	}
@@ -1123,13 +1143,13 @@ func (o *ConsequenceParams) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *ConsequenceParams) SetAroundLatLngViaIP(v bool) *ConsequenceParams {
+func (o *SearchParams) SetAroundLatLngViaIP(v bool) *SearchParams {
 	o.AroundLatLngViaIP = &v
 	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAroundRadius() AroundRadius {
+func (o *SearchParams) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
 		return ret
@@ -1139,7 +1159,7 @@ func (o *ConsequenceParams) GetAroundRadius() AroundRadius {
 
 // GetAroundRadiusOk returns a tuple with the AroundRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAroundRadiusOk() (*AroundRadius, bool) {
+func (o *SearchParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
@@ -1147,7 +1167,7 @@ func (o *ConsequenceParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 }
 
 // HasAroundRadius returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAroundRadius() bool {
+func (o *SearchParams) HasAroundRadius() bool {
 	if o != nil && o.AroundRadius != nil {
 		return true
 	}
@@ -1156,13 +1176,13 @@ func (o *ConsequenceParams) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *ConsequenceParams) SetAroundRadius(v *AroundRadius) *ConsequenceParams {
+func (o *SearchParams) SetAroundRadius(v *AroundRadius) *SearchParams {
 	o.AroundRadius = v
 	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAroundPrecision() AroundPrecision {
+func (o *SearchParams) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
 		return ret
@@ -1172,7 +1192,7 @@ func (o *ConsequenceParams) GetAroundPrecision() AroundPrecision {
 
 // GetAroundPrecisionOk returns a tuple with the AroundPrecision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAroundPrecisionOk() (*AroundPrecision, bool) {
+func (o *SearchParams) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
@@ -1180,7 +1200,7 @@ func (o *ConsequenceParams) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 }
 
 // HasAroundPrecision returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAroundPrecision() bool {
+func (o *SearchParams) HasAroundPrecision() bool {
 	if o != nil && o.AroundPrecision != nil {
 		return true
 	}
@@ -1189,13 +1209,13 @@ func (o *ConsequenceParams) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *ConsequenceParams) SetAroundPrecision(v *AroundPrecision) *ConsequenceParams {
+func (o *SearchParams) SetAroundPrecision(v *AroundPrecision) *SearchParams {
 	o.AroundPrecision = v
 	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMinimumAroundRadius() int32 {
+func (o *SearchParams) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
 		return ret
@@ -1205,7 +1225,7 @@ func (o *ConsequenceParams) GetMinimumAroundRadius() int32 {
 
 // GetMinimumAroundRadiusOk returns a tuple with the MinimumAroundRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMinimumAroundRadiusOk() (*int32, bool) {
+func (o *SearchParams) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
@@ -1213,7 +1233,7 @@ func (o *ConsequenceParams) GetMinimumAroundRadiusOk() (*int32, bool) {
 }
 
 // HasMinimumAroundRadius returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMinimumAroundRadius() bool {
+func (o *SearchParams) HasMinimumAroundRadius() bool {
 	if o != nil && o.MinimumAroundRadius != nil {
 		return true
 	}
@@ -1222,13 +1242,13 @@ func (o *ConsequenceParams) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *ConsequenceParams) SetMinimumAroundRadius(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMinimumAroundRadius(v int32) *SearchParams {
 	o.MinimumAroundRadius = &v
 	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetInsideBoundingBox() [][]float64 {
+func (o *SearchParams) GetInsideBoundingBox() [][]float64 {
 	if o == nil || o.InsideBoundingBox == nil {
 		var ret [][]float64
 		return ret
@@ -1238,7 +1258,7 @@ func (o *ConsequenceParams) GetInsideBoundingBox() [][]float64 {
 
 // GetInsideBoundingBoxOk returns a tuple with the InsideBoundingBox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetInsideBoundingBoxOk() ([][]float64, bool) {
+func (o *SearchParams) GetInsideBoundingBoxOk() ([][]float64, bool) {
 	if o == nil || o.InsideBoundingBox == nil {
 		return nil, false
 	}
@@ -1246,7 +1266,7 @@ func (o *ConsequenceParams) GetInsideBoundingBoxOk() ([][]float64, bool) {
 }
 
 // HasInsideBoundingBox returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasInsideBoundingBox() bool {
+func (o *SearchParams) HasInsideBoundingBox() bool {
 	if o != nil && o.InsideBoundingBox != nil {
 		return true
 	}
@@ -1255,13 +1275,13 @@ func (o *ConsequenceParams) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *ConsequenceParams) SetInsideBoundingBox(v [][]float64) *ConsequenceParams {
+func (o *SearchParams) SetInsideBoundingBox(v [][]float64) *SearchParams {
 	o.InsideBoundingBox = v
 	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetInsidePolygon() [][]float64 {
+func (o *SearchParams) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
 		return ret
@@ -1271,7 +1291,7 @@ func (o *ConsequenceParams) GetInsidePolygon() [][]float64 {
 
 // GetInsidePolygonOk returns a tuple with the InsidePolygon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetInsidePolygonOk() ([][]float64, bool) {
+func (o *SearchParams) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
@@ -1279,7 +1299,7 @@ func (o *ConsequenceParams) GetInsidePolygonOk() ([][]float64, bool) {
 }
 
 // HasInsidePolygon returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasInsidePolygon() bool {
+func (o *SearchParams) HasInsidePolygon() bool {
 	if o != nil && o.InsidePolygon != nil {
 		return true
 	}
@@ -1288,13 +1308,13 @@ func (o *ConsequenceParams) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *ConsequenceParams) SetInsidePolygon(v [][]float64) *ConsequenceParams {
+func (o *SearchParams) SetInsidePolygon(v [][]float64) *SearchParams {
 	o.InsidePolygon = v
 	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetNaturalLanguages() []string {
+func (o *SearchParams) GetNaturalLanguages() []string {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []string
 		return ret
@@ -1304,7 +1324,7 @@ func (o *ConsequenceParams) GetNaturalLanguages() []string {
 
 // GetNaturalLanguagesOk returns a tuple with the NaturalLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetNaturalLanguagesOk() ([]string, bool) {
+func (o *SearchParams) GetNaturalLanguagesOk() ([]string, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
@@ -1312,7 +1332,7 @@ func (o *ConsequenceParams) GetNaturalLanguagesOk() ([]string, bool) {
 }
 
 // HasNaturalLanguages returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasNaturalLanguages() bool {
+func (o *SearchParams) HasNaturalLanguages() bool {
 	if o != nil && o.NaturalLanguages != nil {
 		return true
 	}
@@ -1321,13 +1341,13 @@ func (o *ConsequenceParams) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *ConsequenceParams) SetNaturalLanguages(v []string) *ConsequenceParams {
+func (o *SearchParams) SetNaturalLanguages(v []string) *SearchParams {
 	o.NaturalLanguages = v
 	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRuleContexts() []string {
+func (o *SearchParams) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
 		return ret
@@ -1337,7 +1357,7 @@ func (o *ConsequenceParams) GetRuleContexts() []string {
 
 // GetRuleContextsOk returns a tuple with the RuleContexts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRuleContextsOk() ([]string, bool) {
+func (o *SearchParams) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
@@ -1345,7 +1365,7 @@ func (o *ConsequenceParams) GetRuleContextsOk() ([]string, bool) {
 }
 
 // HasRuleContexts returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRuleContexts() bool {
+func (o *SearchParams) HasRuleContexts() bool {
 	if o != nil && o.RuleContexts != nil {
 		return true
 	}
@@ -1354,13 +1374,13 @@ func (o *ConsequenceParams) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *ConsequenceParams) SetRuleContexts(v []string) *ConsequenceParams {
+func (o *SearchParams) SetRuleContexts(v []string) *SearchParams {
 	o.RuleContexts = v
 	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetPersonalizationImpact() int32 {
+func (o *SearchParams) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
 		return ret
@@ -1370,7 +1390,7 @@ func (o *ConsequenceParams) GetPersonalizationImpact() int32 {
 
 // GetPersonalizationImpactOk returns a tuple with the PersonalizationImpact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetPersonalizationImpactOk() (*int32, bool) {
+func (o *SearchParams) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
@@ -1378,7 +1398,7 @@ func (o *ConsequenceParams) GetPersonalizationImpactOk() (*int32, bool) {
 }
 
 // HasPersonalizationImpact returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasPersonalizationImpact() bool {
+func (o *SearchParams) HasPersonalizationImpact() bool {
 	if o != nil && o.PersonalizationImpact != nil {
 		return true
 	}
@@ -1387,13 +1407,13 @@ func (o *ConsequenceParams) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *ConsequenceParams) SetPersonalizationImpact(v int32) *ConsequenceParams {
+func (o *SearchParams) SetPersonalizationImpact(v int32) *SearchParams {
 	o.PersonalizationImpact = &v
 	return o
 }
 
 // GetUserToken returns the UserToken field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetUserToken() string {
+func (o *SearchParams) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
 		return ret
@@ -1403,7 +1423,7 @@ func (o *ConsequenceParams) GetUserToken() string {
 
 // GetUserTokenOk returns a tuple with the UserToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetUserTokenOk() (*string, bool) {
+func (o *SearchParams) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
@@ -1411,7 +1431,7 @@ func (o *ConsequenceParams) GetUserTokenOk() (*string, bool) {
 }
 
 // HasUserToken returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasUserToken() bool {
+func (o *SearchParams) HasUserToken() bool {
 	if o != nil && o.UserToken != nil {
 		return true
 	}
@@ -1420,13 +1440,13 @@ func (o *ConsequenceParams) HasUserToken() bool {
 }
 
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
-func (o *ConsequenceParams) SetUserToken(v string) *ConsequenceParams {
+func (o *SearchParams) SetUserToken(v string) *SearchParams {
 	o.UserToken = &v
 	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetGetRankingInfo() bool {
+func (o *SearchParams) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
 		return ret
@@ -1436,7 +1456,7 @@ func (o *ConsequenceParams) GetGetRankingInfo() bool {
 
 // GetGetRankingInfoOk returns a tuple with the GetRankingInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetGetRankingInfoOk() (*bool, bool) {
+func (o *SearchParams) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
@@ -1444,7 +1464,7 @@ func (o *ConsequenceParams) GetGetRankingInfoOk() (*bool, bool) {
 }
 
 // HasGetRankingInfo returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasGetRankingInfo() bool {
+func (o *SearchParams) HasGetRankingInfo() bool {
 	if o != nil && o.GetRankingInfo != nil {
 		return true
 	}
@@ -1453,13 +1473,13 @@ func (o *ConsequenceParams) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *ConsequenceParams) SetGetRankingInfo(v bool) *ConsequenceParams {
+func (o *SearchParams) SetGetRankingInfo(v bool) *SearchParams {
 	o.GetRankingInfo = &v
 	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSynonyms() bool {
+func (o *SearchParams) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
 		return ret
@@ -1469,7 +1489,7 @@ func (o *ConsequenceParams) GetSynonyms() bool {
 
 // GetSynonymsOk returns a tuple with the Synonyms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSynonymsOk() (*bool, bool) {
+func (o *SearchParams) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
@@ -1477,7 +1497,7 @@ func (o *ConsequenceParams) GetSynonymsOk() (*bool, bool) {
 }
 
 // HasSynonyms returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSynonyms() bool {
+func (o *SearchParams) HasSynonyms() bool {
 	if o != nil && o.Synonyms != nil {
 		return true
 	}
@@ -1486,13 +1506,13 @@ func (o *ConsequenceParams) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *ConsequenceParams) SetSynonyms(v bool) *ConsequenceParams {
+func (o *SearchParams) SetSynonyms(v bool) *SearchParams {
 	o.Synonyms = &v
 	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetClickAnalytics() bool {
+func (o *SearchParams) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
 		return ret
@@ -1502,7 +1522,7 @@ func (o *ConsequenceParams) GetClickAnalytics() bool {
 
 // GetClickAnalyticsOk returns a tuple with the ClickAnalytics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetClickAnalyticsOk() (*bool, bool) {
+func (o *SearchParams) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
@@ -1510,7 +1530,7 @@ func (o *ConsequenceParams) GetClickAnalyticsOk() (*bool, bool) {
 }
 
 // HasClickAnalytics returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasClickAnalytics() bool {
+func (o *SearchParams) HasClickAnalytics() bool {
 	if o != nil && o.ClickAnalytics != nil {
 		return true
 	}
@@ -1519,13 +1539,13 @@ func (o *ConsequenceParams) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *ConsequenceParams) SetClickAnalytics(v bool) *ConsequenceParams {
+func (o *SearchParams) SetClickAnalytics(v bool) *SearchParams {
 	o.ClickAnalytics = &v
 	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAnalytics() bool {
+func (o *SearchParams) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
 		return ret
@@ -1535,7 +1555,7 @@ func (o *ConsequenceParams) GetAnalytics() bool {
 
 // GetAnalyticsOk returns a tuple with the Analytics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAnalyticsOk() (*bool, bool) {
+func (o *SearchParams) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
@@ -1543,7 +1563,7 @@ func (o *ConsequenceParams) GetAnalyticsOk() (*bool, bool) {
 }
 
 // HasAnalytics returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAnalytics() bool {
+func (o *SearchParams) HasAnalytics() bool {
 	if o != nil && o.Analytics != nil {
 		return true
 	}
@@ -1552,13 +1572,13 @@ func (o *ConsequenceParams) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *ConsequenceParams) SetAnalytics(v bool) *ConsequenceParams {
+func (o *SearchParams) SetAnalytics(v bool) *SearchParams {
 	o.Analytics = &v
 	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAnalyticsTags() []string {
+func (o *SearchParams) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
 		return ret
@@ -1568,7 +1588,7 @@ func (o *ConsequenceParams) GetAnalyticsTags() []string {
 
 // GetAnalyticsTagsOk returns a tuple with the AnalyticsTags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAnalyticsTagsOk() ([]string, bool) {
+func (o *SearchParams) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
@@ -1576,7 +1596,7 @@ func (o *ConsequenceParams) GetAnalyticsTagsOk() ([]string, bool) {
 }
 
 // HasAnalyticsTags returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAnalyticsTags() bool {
+func (o *SearchParams) HasAnalyticsTags() bool {
 	if o != nil && o.AnalyticsTags != nil {
 		return true
 	}
@@ -1585,13 +1605,13 @@ func (o *ConsequenceParams) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *ConsequenceParams) SetAnalyticsTags(v []string) *ConsequenceParams {
+func (o *SearchParams) SetAnalyticsTags(v []string) *SearchParams {
 	o.AnalyticsTags = v
 	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetPercentileComputation() bool {
+func (o *SearchParams) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
 		return ret
@@ -1601,7 +1621,7 @@ func (o *ConsequenceParams) GetPercentileComputation() bool {
 
 // GetPercentileComputationOk returns a tuple with the PercentileComputation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetPercentileComputationOk() (*bool, bool) {
+func (o *SearchParams) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
@@ -1609,7 +1629,7 @@ func (o *ConsequenceParams) GetPercentileComputationOk() (*bool, bool) {
 }
 
 // HasPercentileComputation returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasPercentileComputation() bool {
+func (o *SearchParams) HasPercentileComputation() bool {
 	if o != nil && o.PercentileComputation != nil {
 		return true
 	}
@@ -1618,13 +1638,13 @@ func (o *ConsequenceParams) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *ConsequenceParams) SetPercentileComputation(v bool) *ConsequenceParams {
+func (o *SearchParams) SetPercentileComputation(v bool) *SearchParams {
 	o.PercentileComputation = &v
 	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetEnableABTest() bool {
+func (o *SearchParams) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
 		return ret
@@ -1634,7 +1654,7 @@ func (o *ConsequenceParams) GetEnableABTest() bool {
 
 // GetEnableABTestOk returns a tuple with the EnableABTest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetEnableABTestOk() (*bool, bool) {
+func (o *SearchParams) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
@@ -1642,7 +1662,7 @@ func (o *ConsequenceParams) GetEnableABTestOk() (*bool, bool) {
 }
 
 // HasEnableABTest returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasEnableABTest() bool {
+func (o *SearchParams) HasEnableABTest() bool {
 	if o != nil && o.EnableABTest != nil {
 		return true
 	}
@@ -1651,13 +1671,13 @@ func (o *ConsequenceParams) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *ConsequenceParams) SetEnableABTest(v bool) *ConsequenceParams {
+func (o *SearchParams) SetEnableABTest(v bool) *SearchParams {
 	o.EnableABTest = &v
 	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAttributesToRetrieve() []string {
+func (o *SearchParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
 		return ret
@@ -1667,7 +1687,7 @@ func (o *ConsequenceParams) GetAttributesToRetrieve() []string {
 
 // GetAttributesToRetrieveOk returns a tuple with the AttributesToRetrieve field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAttributesToRetrieveOk() ([]string, bool) {
+func (o *SearchParams) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
@@ -1675,7 +1695,7 @@ func (o *ConsequenceParams) GetAttributesToRetrieveOk() ([]string, bool) {
 }
 
 // HasAttributesToRetrieve returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAttributesToRetrieve() bool {
+func (o *SearchParams) HasAttributesToRetrieve() bool {
 	if o != nil && o.AttributesToRetrieve != nil {
 		return true
 	}
@@ -1684,13 +1704,13 @@ func (o *ConsequenceParams) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *ConsequenceParams) SetAttributesToRetrieve(v []string) *ConsequenceParams {
+func (o *SearchParams) SetAttributesToRetrieve(v []string) *SearchParams {
 	o.AttributesToRetrieve = v
 	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRanking() []string {
+func (o *SearchParams) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
 		return ret
@@ -1700,7 +1720,7 @@ func (o *ConsequenceParams) GetRanking() []string {
 
 // GetRankingOk returns a tuple with the Ranking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRankingOk() ([]string, bool) {
+func (o *SearchParams) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
@@ -1708,7 +1728,7 @@ func (o *ConsequenceParams) GetRankingOk() ([]string, bool) {
 }
 
 // HasRanking returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRanking() bool {
+func (o *SearchParams) HasRanking() bool {
 	if o != nil && o.Ranking != nil {
 		return true
 	}
@@ -1717,13 +1737,13 @@ func (o *ConsequenceParams) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *ConsequenceParams) SetRanking(v []string) *ConsequenceParams {
+func (o *SearchParams) SetRanking(v []string) *SearchParams {
 	o.Ranking = v
 	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetCustomRanking() []string {
+func (o *SearchParams) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
 		return ret
@@ -1733,7 +1753,7 @@ func (o *ConsequenceParams) GetCustomRanking() []string {
 
 // GetCustomRankingOk returns a tuple with the CustomRanking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetCustomRankingOk() ([]string, bool) {
+func (o *SearchParams) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
@@ -1741,7 +1761,7 @@ func (o *ConsequenceParams) GetCustomRankingOk() ([]string, bool) {
 }
 
 // HasCustomRanking returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasCustomRanking() bool {
+func (o *SearchParams) HasCustomRanking() bool {
 	if o != nil && o.CustomRanking != nil {
 		return true
 	}
@@ -1750,13 +1770,13 @@ func (o *ConsequenceParams) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *ConsequenceParams) SetCustomRanking(v []string) *ConsequenceParams {
+func (o *SearchParams) SetCustomRanking(v []string) *SearchParams {
 	o.CustomRanking = v
 	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRelevancyStrictness() int32 {
+func (o *SearchParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
 		return ret
@@ -1766,7 +1786,7 @@ func (o *ConsequenceParams) GetRelevancyStrictness() int32 {
 
 // GetRelevancyStrictnessOk returns a tuple with the RelevancyStrictness field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRelevancyStrictnessOk() (*int32, bool) {
+func (o *SearchParams) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
@@ -1774,7 +1794,7 @@ func (o *ConsequenceParams) GetRelevancyStrictnessOk() (*int32, bool) {
 }
 
 // HasRelevancyStrictness returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRelevancyStrictness() bool {
+func (o *SearchParams) HasRelevancyStrictness() bool {
 	if o != nil && o.RelevancyStrictness != nil {
 		return true
 	}
@@ -1783,13 +1803,13 @@ func (o *ConsequenceParams) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *ConsequenceParams) SetRelevancyStrictness(v int32) *ConsequenceParams {
+func (o *SearchParams) SetRelevancyStrictness(v int32) *SearchParams {
 	o.RelevancyStrictness = &v
 	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAttributesToHighlight() []string {
+func (o *SearchParams) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
 		return ret
@@ -1799,7 +1819,7 @@ func (o *ConsequenceParams) GetAttributesToHighlight() []string {
 
 // GetAttributesToHighlightOk returns a tuple with the AttributesToHighlight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAttributesToHighlightOk() ([]string, bool) {
+func (o *SearchParams) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
@@ -1807,7 +1827,7 @@ func (o *ConsequenceParams) GetAttributesToHighlightOk() ([]string, bool) {
 }
 
 // HasAttributesToHighlight returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAttributesToHighlight() bool {
+func (o *SearchParams) HasAttributesToHighlight() bool {
 	if o != nil && o.AttributesToHighlight != nil {
 		return true
 	}
@@ -1816,13 +1836,13 @@ func (o *ConsequenceParams) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *ConsequenceParams) SetAttributesToHighlight(v []string) *ConsequenceParams {
+func (o *SearchParams) SetAttributesToHighlight(v []string) *SearchParams {
 	o.AttributesToHighlight = v
 	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAttributesToSnippet() []string {
+func (o *SearchParams) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
 		return ret
@@ -1832,7 +1852,7 @@ func (o *ConsequenceParams) GetAttributesToSnippet() []string {
 
 // GetAttributesToSnippetOk returns a tuple with the AttributesToSnippet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAttributesToSnippetOk() ([]string, bool) {
+func (o *SearchParams) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
@@ -1840,7 +1860,7 @@ func (o *ConsequenceParams) GetAttributesToSnippetOk() ([]string, bool) {
 }
 
 // HasAttributesToSnippet returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAttributesToSnippet() bool {
+func (o *SearchParams) HasAttributesToSnippet() bool {
 	if o != nil && o.AttributesToSnippet != nil {
 		return true
 	}
@@ -1849,13 +1869,13 @@ func (o *ConsequenceParams) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *ConsequenceParams) SetAttributesToSnippet(v []string) *ConsequenceParams {
+func (o *SearchParams) SetAttributesToSnippet(v []string) *SearchParams {
 	o.AttributesToSnippet = v
 	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetHighlightPreTag() string {
+func (o *SearchParams) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
 		return ret
@@ -1865,7 +1885,7 @@ func (o *ConsequenceParams) GetHighlightPreTag() string {
 
 // GetHighlightPreTagOk returns a tuple with the HighlightPreTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetHighlightPreTagOk() (*string, bool) {
+func (o *SearchParams) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
@@ -1873,7 +1893,7 @@ func (o *ConsequenceParams) GetHighlightPreTagOk() (*string, bool) {
 }
 
 // HasHighlightPreTag returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasHighlightPreTag() bool {
+func (o *SearchParams) HasHighlightPreTag() bool {
 	if o != nil && o.HighlightPreTag != nil {
 		return true
 	}
@@ -1882,13 +1902,13 @@ func (o *ConsequenceParams) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *ConsequenceParams) SetHighlightPreTag(v string) *ConsequenceParams {
+func (o *SearchParams) SetHighlightPreTag(v string) *SearchParams {
 	o.HighlightPreTag = &v
 	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetHighlightPostTag() string {
+func (o *SearchParams) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
 		return ret
@@ -1898,7 +1918,7 @@ func (o *ConsequenceParams) GetHighlightPostTag() string {
 
 // GetHighlightPostTagOk returns a tuple with the HighlightPostTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetHighlightPostTagOk() (*string, bool) {
+func (o *SearchParams) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
@@ -1906,7 +1926,7 @@ func (o *ConsequenceParams) GetHighlightPostTagOk() (*string, bool) {
 }
 
 // HasHighlightPostTag returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasHighlightPostTag() bool {
+func (o *SearchParams) HasHighlightPostTag() bool {
 	if o != nil && o.HighlightPostTag != nil {
 		return true
 	}
@@ -1915,13 +1935,13 @@ func (o *ConsequenceParams) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *ConsequenceParams) SetHighlightPostTag(v string) *ConsequenceParams {
+func (o *SearchParams) SetHighlightPostTag(v string) *SearchParams {
 	o.HighlightPostTag = &v
 	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSnippetEllipsisText() string {
+func (o *SearchParams) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
 		return ret
@@ -1931,7 +1951,7 @@ func (o *ConsequenceParams) GetSnippetEllipsisText() string {
 
 // GetSnippetEllipsisTextOk returns a tuple with the SnippetEllipsisText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSnippetEllipsisTextOk() (*string, bool) {
+func (o *SearchParams) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
@@ -1939,7 +1959,7 @@ func (o *ConsequenceParams) GetSnippetEllipsisTextOk() (*string, bool) {
 }
 
 // HasSnippetEllipsisText returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSnippetEllipsisText() bool {
+func (o *SearchParams) HasSnippetEllipsisText() bool {
 	if o != nil && o.SnippetEllipsisText != nil {
 		return true
 	}
@@ -1948,13 +1968,13 @@ func (o *ConsequenceParams) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *ConsequenceParams) SetSnippetEllipsisText(v string) *ConsequenceParams {
+func (o *SearchParams) SetSnippetEllipsisText(v string) *SearchParams {
 	o.SnippetEllipsisText = &v
 	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRestrictHighlightAndSnippetArrays() bool {
+func (o *SearchParams) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
 		return ret
@@ -1964,7 +1984,7 @@ func (o *ConsequenceParams) GetRestrictHighlightAndSnippetArrays() bool {
 
 // GetRestrictHighlightAndSnippetArraysOk returns a tuple with the RestrictHighlightAndSnippetArrays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) {
+func (o *SearchParams) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
@@ -1972,7 +1992,7 @@ func (o *ConsequenceParams) GetRestrictHighlightAndSnippetArraysOk() (*bool, boo
 }
 
 // HasRestrictHighlightAndSnippetArrays returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRestrictHighlightAndSnippetArrays() bool {
+func (o *SearchParams) HasRestrictHighlightAndSnippetArrays() bool {
 	if o != nil && o.RestrictHighlightAndSnippetArrays != nil {
 		return true
 	}
@@ -1981,13 +2001,13 @@ func (o *ConsequenceParams) HasRestrictHighlightAndSnippetArrays() bool {
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *ConsequenceParams) SetRestrictHighlightAndSnippetArrays(v bool) *ConsequenceParams {
+func (o *SearchParams) SetRestrictHighlightAndSnippetArrays(v bool) *SearchParams {
 	o.RestrictHighlightAndSnippetArrays = &v
 	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetHitsPerPage() int32 {
+func (o *SearchParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
 		return ret
@@ -1997,7 +2017,7 @@ func (o *ConsequenceParams) GetHitsPerPage() int32 {
 
 // GetHitsPerPageOk returns a tuple with the HitsPerPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetHitsPerPageOk() (*int32, bool) {
+func (o *SearchParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
@@ -2005,7 +2025,7 @@ func (o *ConsequenceParams) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // HasHitsPerPage returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasHitsPerPage() bool {
+func (o *SearchParams) HasHitsPerPage() bool {
 	if o != nil && o.HitsPerPage != nil {
 		return true
 	}
@@ -2014,13 +2034,13 @@ func (o *ConsequenceParams) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *ConsequenceParams) SetHitsPerPage(v int32) *ConsequenceParams {
+func (o *SearchParams) SetHitsPerPage(v int32) *SearchParams {
 	o.HitsPerPage = &v
 	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMinWordSizefor1Typo() int32 {
+func (o *SearchParams) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
 		return ret
@@ -2030,7 +2050,7 @@ func (o *ConsequenceParams) GetMinWordSizefor1Typo() int32 {
 
 // GetMinWordSizefor1TypoOk returns a tuple with the MinWordSizefor1Typo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
+func (o *SearchParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
@@ -2038,7 +2058,7 @@ func (o *ConsequenceParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
 }
 
 // HasMinWordSizefor1Typo returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMinWordSizefor1Typo() bool {
+func (o *SearchParams) HasMinWordSizefor1Typo() bool {
 	if o != nil && o.MinWordSizefor1Typo != nil {
 		return true
 	}
@@ -2047,13 +2067,13 @@ func (o *ConsequenceParams) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *ConsequenceParams) SetMinWordSizefor1Typo(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMinWordSizefor1Typo(v int32) *SearchParams {
 	o.MinWordSizefor1Typo = &v
 	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMinWordSizefor2Typos() int32 {
+func (o *SearchParams) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
 		return ret
@@ -2063,7 +2083,7 @@ func (o *ConsequenceParams) GetMinWordSizefor2Typos() int32 {
 
 // GetMinWordSizefor2TyposOk returns a tuple with the MinWordSizefor2Typos field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
+func (o *SearchParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
@@ -2071,7 +2091,7 @@ func (o *ConsequenceParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
 }
 
 // HasMinWordSizefor2Typos returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMinWordSizefor2Typos() bool {
+func (o *SearchParams) HasMinWordSizefor2Typos() bool {
 	if o != nil && o.MinWordSizefor2Typos != nil {
 		return true
 	}
@@ -2080,13 +2100,13 @@ func (o *ConsequenceParams) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *ConsequenceParams) SetMinWordSizefor2Typos(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMinWordSizefor2Typos(v int32) *SearchParams {
 	o.MinWordSizefor2Typos = &v
 	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetTypoTolerance() TypoTolerance {
+func (o *SearchParams) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
 		return ret
@@ -2096,7 +2116,7 @@ func (o *ConsequenceParams) GetTypoTolerance() TypoTolerance {
 
 // GetTypoToleranceOk returns a tuple with the TypoTolerance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
+func (o *SearchParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
@@ -2104,7 +2124,7 @@ func (o *ConsequenceParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
 }
 
 // HasTypoTolerance returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasTypoTolerance() bool {
+func (o *SearchParams) HasTypoTolerance() bool {
 	if o != nil && o.TypoTolerance != nil {
 		return true
 	}
@@ -2113,13 +2133,13 @@ func (o *ConsequenceParams) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *ConsequenceParams) SetTypoTolerance(v *TypoTolerance) *ConsequenceParams {
+func (o *SearchParams) SetTypoTolerance(v *TypoTolerance) *SearchParams {
 	o.TypoTolerance = v
 	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAllowTyposOnNumericTokens() bool {
+func (o *SearchParams) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
 		return ret
@@ -2129,7 +2149,7 @@ func (o *ConsequenceParams) GetAllowTyposOnNumericTokens() bool {
 
 // GetAllowTyposOnNumericTokensOk returns a tuple with the AllowTyposOnNumericTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
+func (o *SearchParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
@@ -2137,7 +2157,7 @@ func (o *ConsequenceParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 }
 
 // HasAllowTyposOnNumericTokens returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAllowTyposOnNumericTokens() bool {
+func (o *SearchParams) HasAllowTyposOnNumericTokens() bool {
 	if o != nil && o.AllowTyposOnNumericTokens != nil {
 		return true
 	}
@@ -2146,13 +2166,13 @@ func (o *ConsequenceParams) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *ConsequenceParams) SetAllowTyposOnNumericTokens(v bool) *ConsequenceParams {
+func (o *SearchParams) SetAllowTyposOnNumericTokens(v bool) *SearchParams {
 	o.AllowTyposOnNumericTokens = &v
 	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetDisableTypoToleranceOnAttributes() []string {
+func (o *SearchParams) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
 		return ret
@@ -2162,7 +2182,7 @@ func (o *ConsequenceParams) GetDisableTypoToleranceOnAttributes() []string {
 
 // GetDisableTypoToleranceOnAttributesOk returns a tuple with the DisableTypoToleranceOnAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetDisableTypoToleranceOnAttributesOk() ([]string, bool) {
+func (o *SearchParams) GetDisableTypoToleranceOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
@@ -2170,7 +2190,7 @@ func (o *ConsequenceParams) GetDisableTypoToleranceOnAttributesOk() ([]string, b
 }
 
 // HasDisableTypoToleranceOnAttributes returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasDisableTypoToleranceOnAttributes() bool {
+func (o *SearchParams) HasDisableTypoToleranceOnAttributes() bool {
 	if o != nil && o.DisableTypoToleranceOnAttributes != nil {
 		return true
 	}
@@ -2179,13 +2199,13 @@ func (o *ConsequenceParams) HasDisableTypoToleranceOnAttributes() bool {
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *ConsequenceParams) SetDisableTypoToleranceOnAttributes(v []string) *ConsequenceParams {
+func (o *SearchParams) SetDisableTypoToleranceOnAttributes(v []string) *SearchParams {
 	o.DisableTypoToleranceOnAttributes = v
 	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetIgnorePlurals() IgnorePlurals {
+func (o *SearchParams) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
 		return ret
@@ -2195,7 +2215,7 @@ func (o *ConsequenceParams) GetIgnorePlurals() IgnorePlurals {
 
 // GetIgnorePluralsOk returns a tuple with the IgnorePlurals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
+func (o *SearchParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
@@ -2203,7 +2223,7 @@ func (o *ConsequenceParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 }
 
 // HasIgnorePlurals returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasIgnorePlurals() bool {
+func (o *SearchParams) HasIgnorePlurals() bool {
 	if o != nil && o.IgnorePlurals != nil {
 		return true
 	}
@@ -2212,13 +2232,13 @@ func (o *ConsequenceParams) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *ConsequenceParams) SetIgnorePlurals(v *IgnorePlurals) *ConsequenceParams {
+func (o *SearchParams) SetIgnorePlurals(v *IgnorePlurals) *SearchParams {
 	o.IgnorePlurals = v
 	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRemoveStopWords() RemoveStopWords {
+func (o *SearchParams) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
 		return ret
@@ -2228,7 +2248,7 @@ func (o *ConsequenceParams) GetRemoveStopWords() RemoveStopWords {
 
 // GetRemoveStopWordsOk returns a tuple with the RemoveStopWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
+func (o *SearchParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
@@ -2236,7 +2256,7 @@ func (o *ConsequenceParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 }
 
 // HasRemoveStopWords returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRemoveStopWords() bool {
+func (o *SearchParams) HasRemoveStopWords() bool {
 	if o != nil && o.RemoveStopWords != nil {
 		return true
 	}
@@ -2245,13 +2265,13 @@ func (o *ConsequenceParams) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *ConsequenceParams) SetRemoveStopWords(v *RemoveStopWords) *ConsequenceParams {
+func (o *SearchParams) SetRemoveStopWords(v *RemoveStopWords) *SearchParams {
 	o.RemoveStopWords = v
 	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetKeepDiacriticsOnCharacters() string {
+func (o *SearchParams) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
 		return ret
@@ -2261,7 +2281,7 @@ func (o *ConsequenceParams) GetKeepDiacriticsOnCharacters() string {
 
 // GetKeepDiacriticsOnCharactersOk returns a tuple with the KeepDiacriticsOnCharacters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
+func (o *SearchParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
@@ -2269,7 +2289,7 @@ func (o *ConsequenceParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 }
 
 // HasKeepDiacriticsOnCharacters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasKeepDiacriticsOnCharacters() bool {
+func (o *SearchParams) HasKeepDiacriticsOnCharacters() bool {
 	if o != nil && o.KeepDiacriticsOnCharacters != nil {
 		return true
 	}
@@ -2278,13 +2298,13 @@ func (o *ConsequenceParams) HasKeepDiacriticsOnCharacters() bool {
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *ConsequenceParams) SetKeepDiacriticsOnCharacters(v string) *ConsequenceParams {
+func (o *SearchParams) SetKeepDiacriticsOnCharacters(v string) *SearchParams {
 	o.KeepDiacriticsOnCharacters = &v
 	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetQueryLanguages() []SupportedLanguage {
+func (o *SearchParams) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
 		return ret
@@ -2294,7 +2314,7 @@ func (o *ConsequenceParams) GetQueryLanguages() []SupportedLanguage {
 
 // GetQueryLanguagesOk returns a tuple with the QueryLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
+func (o *SearchParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
@@ -2302,7 +2322,7 @@ func (o *ConsequenceParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 }
 
 // HasQueryLanguages returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasQueryLanguages() bool {
+func (o *SearchParams) HasQueryLanguages() bool {
 	if o != nil && o.QueryLanguages != nil {
 		return true
 	}
@@ -2311,13 +2331,13 @@ func (o *ConsequenceParams) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
-func (o *ConsequenceParams) SetQueryLanguages(v []SupportedLanguage) *ConsequenceParams {
+func (o *SearchParams) SetQueryLanguages(v []SupportedLanguage) *SearchParams {
 	o.QueryLanguages = v
 	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetDecompoundQuery() bool {
+func (o *SearchParams) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
 		return ret
@@ -2327,7 +2347,7 @@ func (o *ConsequenceParams) GetDecompoundQuery() bool {
 
 // GetDecompoundQueryOk returns a tuple with the DecompoundQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetDecompoundQueryOk() (*bool, bool) {
+func (o *SearchParams) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
@@ -2335,7 +2355,7 @@ func (o *ConsequenceParams) GetDecompoundQueryOk() (*bool, bool) {
 }
 
 // HasDecompoundQuery returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasDecompoundQuery() bool {
+func (o *SearchParams) HasDecompoundQuery() bool {
 	if o != nil && o.DecompoundQuery != nil {
 		return true
 	}
@@ -2344,13 +2364,13 @@ func (o *ConsequenceParams) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *ConsequenceParams) SetDecompoundQuery(v bool) *ConsequenceParams {
+func (o *SearchParams) SetDecompoundQuery(v bool) *SearchParams {
 	o.DecompoundQuery = &v
 	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetEnableRules() bool {
+func (o *SearchParams) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
 		return ret
@@ -2360,7 +2380,7 @@ func (o *ConsequenceParams) GetEnableRules() bool {
 
 // GetEnableRulesOk returns a tuple with the EnableRules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetEnableRulesOk() (*bool, bool) {
+func (o *SearchParams) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
@@ -2368,7 +2388,7 @@ func (o *ConsequenceParams) GetEnableRulesOk() (*bool, bool) {
 }
 
 // HasEnableRules returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasEnableRules() bool {
+func (o *SearchParams) HasEnableRules() bool {
 	if o != nil && o.EnableRules != nil {
 		return true
 	}
@@ -2377,13 +2397,13 @@ func (o *ConsequenceParams) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *ConsequenceParams) SetEnableRules(v bool) *ConsequenceParams {
+func (o *SearchParams) SetEnableRules(v bool) *SearchParams {
 	o.EnableRules = &v
 	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetEnablePersonalization() bool {
+func (o *SearchParams) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
 		return ret
@@ -2393,7 +2413,7 @@ func (o *ConsequenceParams) GetEnablePersonalization() bool {
 
 // GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetEnablePersonalizationOk() (*bool, bool) {
+func (o *SearchParams) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
@@ -2401,7 +2421,7 @@ func (o *ConsequenceParams) GetEnablePersonalizationOk() (*bool, bool) {
 }
 
 // HasEnablePersonalization returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasEnablePersonalization() bool {
+func (o *SearchParams) HasEnablePersonalization() bool {
 	if o != nil && o.EnablePersonalization != nil {
 		return true
 	}
@@ -2410,13 +2430,13 @@ func (o *ConsequenceParams) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *ConsequenceParams) SetEnablePersonalization(v bool) *ConsequenceParams {
+func (o *SearchParams) SetEnablePersonalization(v bool) *SearchParams {
 	o.EnablePersonalization = &v
 	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetQueryType() QueryType {
+func (o *SearchParams) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
 		return ret
@@ -2426,7 +2446,7 @@ func (o *ConsequenceParams) GetQueryType() QueryType {
 
 // GetQueryTypeOk returns a tuple with the QueryType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetQueryTypeOk() (*QueryType, bool) {
+func (o *SearchParams) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
@@ -2434,7 +2454,7 @@ func (o *ConsequenceParams) GetQueryTypeOk() (*QueryType, bool) {
 }
 
 // HasQueryType returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasQueryType() bool {
+func (o *SearchParams) HasQueryType() bool {
 	if o != nil && o.QueryType != nil {
 		return true
 	}
@@ -2443,13 +2463,13 @@ func (o *ConsequenceParams) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *ConsequenceParams) SetQueryType(v QueryType) *ConsequenceParams {
+func (o *SearchParams) SetQueryType(v QueryType) *SearchParams {
 	o.QueryType = &v
 	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
+func (o *SearchParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
 		return ret
@@ -2459,7 +2479,7 @@ func (o *ConsequenceParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 
 // GetRemoveWordsIfNoResultsOk returns a tuple with the RemoveWordsIfNoResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults, bool) {
+func (o *SearchParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults, bool) {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
@@ -2467,7 +2487,7 @@ func (o *ConsequenceParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResul
 }
 
 // HasRemoveWordsIfNoResults returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRemoveWordsIfNoResults() bool {
+func (o *SearchParams) HasRemoveWordsIfNoResults() bool {
 	if o != nil && o.RemoveWordsIfNoResults != nil {
 		return true
 	}
@@ -2476,13 +2496,13 @@ func (o *ConsequenceParams) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *ConsequenceParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *ConsequenceParams {
+func (o *SearchParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *SearchParams {
 	o.RemoveWordsIfNoResults = &v
 	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMode() Mode {
+func (o *SearchParams) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
 		return ret
@@ -2492,7 +2512,7 @@ func (o *ConsequenceParams) GetMode() Mode {
 
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetModeOk() (*Mode, bool) {
+func (o *SearchParams) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
@@ -2500,7 +2520,7 @@ func (o *ConsequenceParams) GetModeOk() (*Mode, bool) {
 }
 
 // HasMode returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMode() bool {
+func (o *SearchParams) HasMode() bool {
 	if o != nil && o.Mode != nil {
 		return true
 	}
@@ -2509,13 +2529,13 @@ func (o *ConsequenceParams) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *ConsequenceParams) SetMode(v Mode) *ConsequenceParams {
+func (o *SearchParams) SetMode(v Mode) *SearchParams {
 	o.Mode = &v
 	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSemanticSearch() SemanticSearch {
+func (o *SearchParams) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
 		return ret
@@ -2525,7 +2545,7 @@ func (o *ConsequenceParams) GetSemanticSearch() SemanticSearch {
 
 // GetSemanticSearchOk returns a tuple with the SemanticSearch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSemanticSearchOk() (*SemanticSearch, bool) {
+func (o *SearchParams) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
@@ -2533,7 +2553,7 @@ func (o *ConsequenceParams) GetSemanticSearchOk() (*SemanticSearch, bool) {
 }
 
 // HasSemanticSearch returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSemanticSearch() bool {
+func (o *SearchParams) HasSemanticSearch() bool {
 	if o != nil && o.SemanticSearch != nil {
 		return true
 	}
@@ -2542,13 +2562,13 @@ func (o *ConsequenceParams) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *ConsequenceParams) SetSemanticSearch(v *SemanticSearch) *ConsequenceParams {
+func (o *SearchParams) SetSemanticSearch(v *SemanticSearch) *SearchParams {
 	o.SemanticSearch = v
 	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAdvancedSyntax() bool {
+func (o *SearchParams) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
 		return ret
@@ -2558,7 +2578,7 @@ func (o *ConsequenceParams) GetAdvancedSyntax() bool {
 
 // GetAdvancedSyntaxOk returns a tuple with the AdvancedSyntax field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAdvancedSyntaxOk() (*bool, bool) {
+func (o *SearchParams) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
@@ -2566,7 +2586,7 @@ func (o *ConsequenceParams) GetAdvancedSyntaxOk() (*bool, bool) {
 }
 
 // HasAdvancedSyntax returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAdvancedSyntax() bool {
+func (o *SearchParams) HasAdvancedSyntax() bool {
 	if o != nil && o.AdvancedSyntax != nil {
 		return true
 	}
@@ -2575,13 +2595,13 @@ func (o *ConsequenceParams) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *ConsequenceParams) SetAdvancedSyntax(v bool) *ConsequenceParams {
+func (o *SearchParams) SetAdvancedSyntax(v bool) *SearchParams {
 	o.AdvancedSyntax = &v
 	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetOptionalWords() []string {
+func (o *SearchParams) GetOptionalWords() []string {
 	if o == nil || o.OptionalWords == nil {
 		var ret []string
 		return ret
@@ -2591,7 +2611,7 @@ func (o *ConsequenceParams) GetOptionalWords() []string {
 
 // GetOptionalWordsOk returns a tuple with the OptionalWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetOptionalWordsOk() ([]string, bool) {
+func (o *SearchParams) GetOptionalWordsOk() ([]string, bool) {
 	if o == nil || o.OptionalWords == nil {
 		return nil, false
 	}
@@ -2599,7 +2619,7 @@ func (o *ConsequenceParams) GetOptionalWordsOk() ([]string, bool) {
 }
 
 // HasOptionalWords returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasOptionalWords() bool {
+func (o *SearchParams) HasOptionalWords() bool {
 	if o != nil && o.OptionalWords != nil {
 		return true
 	}
@@ -2608,13 +2628,13 @@ func (o *ConsequenceParams) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *ConsequenceParams) SetOptionalWords(v []string) *ConsequenceParams {
+func (o *SearchParams) SetOptionalWords(v []string) *SearchParams {
 	o.OptionalWords = v
 	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetDisableExactOnAttributes() []string {
+func (o *SearchParams) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
 		return ret
@@ -2624,7 +2644,7 @@ func (o *ConsequenceParams) GetDisableExactOnAttributes() []string {
 
 // GetDisableExactOnAttributesOk returns a tuple with the DisableExactOnAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetDisableExactOnAttributesOk() ([]string, bool) {
+func (o *SearchParams) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
@@ -2632,7 +2652,7 @@ func (o *ConsequenceParams) GetDisableExactOnAttributesOk() ([]string, bool) {
 }
 
 // HasDisableExactOnAttributes returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasDisableExactOnAttributes() bool {
+func (o *SearchParams) HasDisableExactOnAttributes() bool {
 	if o != nil && o.DisableExactOnAttributes != nil {
 		return true
 	}
@@ -2641,13 +2661,13 @@ func (o *ConsequenceParams) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *ConsequenceParams) SetDisableExactOnAttributes(v []string) *ConsequenceParams {
+func (o *SearchParams) SetDisableExactOnAttributes(v []string) *SearchParams {
 	o.DisableExactOnAttributes = v
 	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
+func (o *SearchParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
 		return ret
@@ -2657,7 +2677,7 @@ func (o *ConsequenceParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 
 // GetExactOnSingleWordQueryOk returns a tuple with the ExactOnSingleWordQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery, bool) {
+func (o *SearchParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery, bool) {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
@@ -2665,7 +2685,7 @@ func (o *ConsequenceParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQue
 }
 
 // HasExactOnSingleWordQuery returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasExactOnSingleWordQuery() bool {
+func (o *SearchParams) HasExactOnSingleWordQuery() bool {
 	if o != nil && o.ExactOnSingleWordQuery != nil {
 		return true
 	}
@@ -2674,13 +2694,13 @@ func (o *ConsequenceParams) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *ConsequenceParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *ConsequenceParams {
+func (o *SearchParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *SearchParams {
 	o.ExactOnSingleWordQuery = &v
 	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAlternativesAsExact() []AlternativesAsExact {
+func (o *SearchParams) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
 		return ret
@@ -2690,7 +2710,7 @@ func (o *ConsequenceParams) GetAlternativesAsExact() []AlternativesAsExact {
 
 // GetAlternativesAsExactOk returns a tuple with the AlternativesAsExact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool) {
+func (o *SearchParams) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool) {
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
@@ -2698,7 +2718,7 @@ func (o *ConsequenceParams) GetAlternativesAsExactOk() ([]AlternativesAsExact, b
 }
 
 // HasAlternativesAsExact returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAlternativesAsExact() bool {
+func (o *SearchParams) HasAlternativesAsExact() bool {
 	if o != nil && o.AlternativesAsExact != nil {
 		return true
 	}
@@ -2707,13 +2727,13 @@ func (o *ConsequenceParams) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *ConsequenceParams) SetAlternativesAsExact(v []AlternativesAsExact) *ConsequenceParams {
+func (o *SearchParams) SetAlternativesAsExact(v []AlternativesAsExact) *SearchParams {
 	o.AlternativesAsExact = v
 	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
+func (o *SearchParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
 		return ret
@@ -2723,7 +2743,7 @@ func (o *ConsequenceParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures
 
 // GetAdvancedSyntaxFeaturesOk returns a tuple with the AdvancedSyntaxFeatures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures, bool) {
+func (o *SearchParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures, bool) {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
@@ -2731,7 +2751,7 @@ func (o *ConsequenceParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatu
 }
 
 // HasAdvancedSyntaxFeatures returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAdvancedSyntaxFeatures() bool {
+func (o *SearchParams) HasAdvancedSyntaxFeatures() bool {
 	if o != nil && o.AdvancedSyntaxFeatures != nil {
 		return true
 	}
@@ -2740,13 +2760,13 @@ func (o *ConsequenceParams) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *ConsequenceParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *ConsequenceParams {
+func (o *SearchParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *SearchParams {
 	o.AdvancedSyntaxFeatures = v
 	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetDistinct() Distinct {
+func (o *SearchParams) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
 		return ret
@@ -2756,7 +2776,7 @@ func (o *ConsequenceParams) GetDistinct() Distinct {
 
 // GetDistinctOk returns a tuple with the Distinct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetDistinctOk() (*Distinct, bool) {
+func (o *SearchParams) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
@@ -2764,7 +2784,7 @@ func (o *ConsequenceParams) GetDistinctOk() (*Distinct, bool) {
 }
 
 // HasDistinct returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasDistinct() bool {
+func (o *SearchParams) HasDistinct() bool {
 	if o != nil && o.Distinct != nil {
 		return true
 	}
@@ -2773,13 +2793,13 @@ func (o *ConsequenceParams) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *ConsequenceParams) SetDistinct(v *Distinct) *ConsequenceParams {
+func (o *SearchParams) SetDistinct(v *Distinct) *SearchParams {
 	o.Distinct = v
 	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetReplaceSynonymsInHighlight() bool {
+func (o *SearchParams) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
 		return ret
@@ -2789,7 +2809,7 @@ func (o *ConsequenceParams) GetReplaceSynonymsInHighlight() bool {
 
 // GetReplaceSynonymsInHighlightOk returns a tuple with the ReplaceSynonymsInHighlight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
+func (o *SearchParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
@@ -2797,7 +2817,7 @@ func (o *ConsequenceParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 }
 
 // HasReplaceSynonymsInHighlight returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasReplaceSynonymsInHighlight() bool {
+func (o *SearchParams) HasReplaceSynonymsInHighlight() bool {
 	if o != nil && o.ReplaceSynonymsInHighlight != nil {
 		return true
 	}
@@ -2806,13 +2826,13 @@ func (o *ConsequenceParams) HasReplaceSynonymsInHighlight() bool {
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *ConsequenceParams) SetReplaceSynonymsInHighlight(v bool) *ConsequenceParams {
+func (o *SearchParams) SetReplaceSynonymsInHighlight(v bool) *SearchParams {
 	o.ReplaceSynonymsInHighlight = &v
 	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMinProximity() int32 {
+func (o *SearchParams) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
 		return ret
@@ -2822,7 +2842,7 @@ func (o *ConsequenceParams) GetMinProximity() int32 {
 
 // GetMinProximityOk returns a tuple with the MinProximity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMinProximityOk() (*int32, bool) {
+func (o *SearchParams) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
@@ -2830,7 +2850,7 @@ func (o *ConsequenceParams) GetMinProximityOk() (*int32, bool) {
 }
 
 // HasMinProximity returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMinProximity() bool {
+func (o *SearchParams) HasMinProximity() bool {
 	if o != nil && o.MinProximity != nil {
 		return true
 	}
@@ -2839,13 +2859,13 @@ func (o *ConsequenceParams) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *ConsequenceParams) SetMinProximity(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMinProximity(v int32) *SearchParams {
 	o.MinProximity = &v
 	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetResponseFields() []string {
+func (o *SearchParams) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
 		return ret
@@ -2855,7 +2875,7 @@ func (o *ConsequenceParams) GetResponseFields() []string {
 
 // GetResponseFieldsOk returns a tuple with the ResponseFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetResponseFieldsOk() ([]string, bool) {
+func (o *SearchParams) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
@@ -2863,7 +2883,7 @@ func (o *ConsequenceParams) GetResponseFieldsOk() ([]string, bool) {
 }
 
 // HasResponseFields returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasResponseFields() bool {
+func (o *SearchParams) HasResponseFields() bool {
 	if o != nil && o.ResponseFields != nil {
 		return true
 	}
@@ -2872,13 +2892,13 @@ func (o *ConsequenceParams) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *ConsequenceParams) SetResponseFields(v []string) *ConsequenceParams {
+func (o *SearchParams) SetResponseFields(v []string) *SearchParams {
 	o.ResponseFields = v
 	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMaxFacetHits() int32 {
+func (o *SearchParams) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
 		return ret
@@ -2888,7 +2908,7 @@ func (o *ConsequenceParams) GetMaxFacetHits() int32 {
 
 // GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMaxFacetHitsOk() (*int32, bool) {
+func (o *SearchParams) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
@@ -2896,7 +2916,7 @@ func (o *ConsequenceParams) GetMaxFacetHitsOk() (*int32, bool) {
 }
 
 // HasMaxFacetHits returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMaxFacetHits() bool {
+func (o *SearchParams) HasMaxFacetHits() bool {
 	if o != nil && o.MaxFacetHits != nil {
 		return true
 	}
@@ -2905,13 +2925,13 @@ func (o *ConsequenceParams) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *ConsequenceParams) SetMaxFacetHits(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMaxFacetHits(v int32) *SearchParams {
 	o.MaxFacetHits = &v
 	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetMaxValuesPerFacet() int32 {
+func (o *SearchParams) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
 		return ret
@@ -2921,7 +2941,7 @@ func (o *ConsequenceParams) GetMaxValuesPerFacet() int32 {
 
 // GetMaxValuesPerFacetOk returns a tuple with the MaxValuesPerFacet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetMaxValuesPerFacetOk() (*int32, bool) {
+func (o *SearchParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
@@ -2929,7 +2949,7 @@ func (o *ConsequenceParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 }
 
 // HasMaxValuesPerFacet returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasMaxValuesPerFacet() bool {
+func (o *SearchParams) HasMaxValuesPerFacet() bool {
 	if o != nil && o.MaxValuesPerFacet != nil {
 		return true
 	}
@@ -2938,13 +2958,13 @@ func (o *ConsequenceParams) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *ConsequenceParams) SetMaxValuesPerFacet(v int32) *ConsequenceParams {
+func (o *SearchParams) SetMaxValuesPerFacet(v int32) *SearchParams {
 	o.MaxValuesPerFacet = &v
 	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetSortFacetValuesBy() string {
+func (o *SearchParams) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
 		return ret
@@ -2954,7 +2974,7 @@ func (o *ConsequenceParams) GetSortFacetValuesBy() string {
 
 // GetSortFacetValuesByOk returns a tuple with the SortFacetValuesBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetSortFacetValuesByOk() (*string, bool) {
+func (o *SearchParams) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
@@ -2962,7 +2982,7 @@ func (o *ConsequenceParams) GetSortFacetValuesByOk() (*string, bool) {
 }
 
 // HasSortFacetValuesBy returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasSortFacetValuesBy() bool {
+func (o *SearchParams) HasSortFacetValuesBy() bool {
 	if o != nil && o.SortFacetValuesBy != nil {
 		return true
 	}
@@ -2971,13 +2991,13 @@ func (o *ConsequenceParams) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *ConsequenceParams) SetSortFacetValuesBy(v string) *ConsequenceParams {
+func (o *SearchParams) SetSortFacetValuesBy(v string) *SearchParams {
 	o.SortFacetValuesBy = &v
 	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAttributeCriteriaComputedByMinProximity() bool {
+func (o *SearchParams) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
 		return ret
@@ -2987,7 +3007,7 @@ func (o *ConsequenceParams) GetAttributeCriteriaComputedByMinProximity() bool {
 
 // GetAttributeCriteriaComputedByMinProximityOk returns a tuple with the AttributeCriteriaComputedByMinProximity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAttributeCriteriaComputedByMinProximityOk() (*bool, bool) {
+func (o *SearchParams) GetAttributeCriteriaComputedByMinProximityOk() (*bool, bool) {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
@@ -2995,7 +3015,7 @@ func (o *ConsequenceParams) GetAttributeCriteriaComputedByMinProximityOk() (*boo
 }
 
 // HasAttributeCriteriaComputedByMinProximity returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAttributeCriteriaComputedByMinProximity() bool {
+func (o *SearchParams) HasAttributeCriteriaComputedByMinProximity() bool {
 	if o != nil && o.AttributeCriteriaComputedByMinProximity != nil {
 		return true
 	}
@@ -3004,13 +3024,13 @@ func (o *ConsequenceParams) HasAttributeCriteriaComputedByMinProximity() bool {
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *ConsequenceParams) SetAttributeCriteriaComputedByMinProximity(v bool) *ConsequenceParams {
+func (o *SearchParams) SetAttributeCriteriaComputedByMinProximity(v bool) *SearchParams {
 	o.AttributeCriteriaComputedByMinProximity = &v
 	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetRenderingContent() RenderingContent {
+func (o *SearchParams) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
 		return ret
@@ -3020,7 +3040,7 @@ func (o *ConsequenceParams) GetRenderingContent() RenderingContent {
 
 // GetRenderingContentOk returns a tuple with the RenderingContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetRenderingContentOk() (*RenderingContent, bool) {
+func (o *SearchParams) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
@@ -3028,7 +3048,7 @@ func (o *ConsequenceParams) GetRenderingContentOk() (*RenderingContent, bool) {
 }
 
 // HasRenderingContent returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasRenderingContent() bool {
+func (o *SearchParams) HasRenderingContent() bool {
 	if o != nil && o.RenderingContent != nil {
 		return true
 	}
@@ -3037,13 +3057,13 @@ func (o *ConsequenceParams) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *ConsequenceParams) SetRenderingContent(v *RenderingContent) *ConsequenceParams {
+func (o *SearchParams) SetRenderingContent(v *RenderingContent) *SearchParams {
 	o.RenderingContent = v
 	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetEnableReRanking() bool {
+func (o *SearchParams) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
 		return ret
@@ -3053,7 +3073,7 @@ func (o *ConsequenceParams) GetEnableReRanking() bool {
 
 // GetEnableReRankingOk returns a tuple with the EnableReRanking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetEnableReRankingOk() (*bool, bool) {
+func (o *SearchParams) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
@@ -3061,7 +3081,7 @@ func (o *ConsequenceParams) GetEnableReRankingOk() (*bool, bool) {
 }
 
 // HasEnableReRanking returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasEnableReRanking() bool {
+func (o *SearchParams) HasEnableReRanking() bool {
 	if o != nil && o.EnableReRanking != nil {
 		return true
 	}
@@ -3070,13 +3090,13 @@ func (o *ConsequenceParams) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *ConsequenceParams) SetEnableReRanking(v bool) *ConsequenceParams {
+func (o *SearchParams) SetEnableReRanking(v bool) *SearchParams {
 	o.EnableReRanking = &v
 	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ConsequenceParams) GetReRankingApplyFilter() ReRankingApplyFilter {
+func (o *SearchParams) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 		return ret
@@ -3087,7 +3107,7 @@ func (o *ConsequenceParams) GetReRankingApplyFilter() ReRankingApplyFilter {
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *ConsequenceParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
+func (o *SearchParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -3095,7 +3115,7 @@ func (o *ConsequenceParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, 
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasReRankingApplyFilter() bool {
+func (o *SearchParams) HasReRankingApplyFilter() bool {
 	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
@@ -3104,122 +3124,26 @@ func (o *ConsequenceParams) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *ConsequenceParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *ConsequenceParams {
+func (o *SearchParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchParams {
 	o.ReRankingApplyFilter.Set(v)
 	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
-func (o *ConsequenceParams) SetReRankingApplyFilterNil() {
+func (o *SearchParams) SetReRankingApplyFilterNil() {
 	o.ReRankingApplyFilter.Set(nil)
 }
 
 // UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
-func (o *ConsequenceParams) UnsetReRankingApplyFilter() {
+func (o *SearchParams) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
-// GetQuery returns the Query field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetQuery() ConsequenceQuery {
-	if o == nil || o.Query == nil {
-		var ret ConsequenceQuery
-		return ret
-	}
-	return *o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetQueryOk() (*ConsequenceQuery, bool) {
-	if o == nil || o.Query == nil {
-		return nil, false
-	}
-	return o.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasQuery() bool {
-	if o != nil && o.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery gets a reference to the given ConsequenceQuery and assigns it to the Query field.
-func (o *ConsequenceParams) SetQuery(v *ConsequenceQuery) *ConsequenceParams {
-	o.Query = v
-	return o
-}
-
-// GetAutomaticFacetFilters returns the AutomaticFacetFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAutomaticFacetFilters() AutomaticFacetFilters {
-	if o == nil || o.AutomaticFacetFilters == nil {
-		var ret AutomaticFacetFilters
-		return ret
-	}
-	return *o.AutomaticFacetFilters
-}
-
-// GetAutomaticFacetFiltersOk returns a tuple with the AutomaticFacetFilters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAutomaticFacetFiltersOk() (*AutomaticFacetFilters, bool) {
-	if o == nil || o.AutomaticFacetFilters == nil {
-		return nil, false
-	}
-	return o.AutomaticFacetFilters, true
-}
-
-// HasAutomaticFacetFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAutomaticFacetFilters() bool {
-	if o != nil && o.AutomaticFacetFilters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAutomaticFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticFacetFilters field.
-func (o *ConsequenceParams) SetAutomaticFacetFilters(v *AutomaticFacetFilters) *ConsequenceParams {
-	o.AutomaticFacetFilters = v
-	return o
-}
-
-// GetAutomaticOptionalFacetFilters returns the AutomaticOptionalFacetFilters field value if set, zero value otherwise.
-func (o *ConsequenceParams) GetAutomaticOptionalFacetFilters() AutomaticFacetFilters {
-	if o == nil || o.AutomaticOptionalFacetFilters == nil {
-		var ret AutomaticFacetFilters
-		return ret
-	}
-	return *o.AutomaticOptionalFacetFilters
-}
-
-// GetAutomaticOptionalFacetFiltersOk returns a tuple with the AutomaticOptionalFacetFilters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConsequenceParams) GetAutomaticOptionalFacetFiltersOk() (*AutomaticFacetFilters, bool) {
-	if o == nil || o.AutomaticOptionalFacetFilters == nil {
-		return nil, false
-	}
-	return o.AutomaticOptionalFacetFilters, true
-}
-
-// HasAutomaticOptionalFacetFilters returns a boolean if a field has been set.
-func (o *ConsequenceParams) HasAutomaticOptionalFacetFilters() bool {
-	if o != nil && o.AutomaticOptionalFacetFilters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAutomaticOptionalFacetFilters gets a reference to the given AutomaticFacetFilters and assigns it to the AutomaticOptionalFacetFilters field.
-func (o *ConsequenceParams) SetAutomaticOptionalFacetFilters(v *AutomaticFacetFilters) *ConsequenceParams {
-	o.AutomaticOptionalFacetFilters = v
-	return o
-}
-
-func (o ConsequenceParams) MarshalJSON() ([]byte, error) {
+func (o SearchParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if o.Query != nil {
+		toSerialize["query"] = o.Query
+	}
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
@@ -3445,25 +3369,17 @@ func (o ConsequenceParams) MarshalJSON() ([]byte, error) {
 	if o.ReRankingApplyFilter.IsSet() {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
-	if o.Query != nil {
-		toSerialize["query"] = o.Query
-	}
-	if o.AutomaticFacetFilters != nil {
-		toSerialize["automaticFacetFilters"] = o.AutomaticFacetFilters
-	}
-	if o.AutomaticOptionalFacetFilters != nil {
-		toSerialize["automaticOptionalFacetFilters"] = o.AutomaticOptionalFacetFilters
-	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal ConsequenceParams: %w", err)
+		return nil, fmt.Errorf("failed to marshal SearchParams: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o ConsequenceParams) String() string {
+func (o SearchParams) String() string {
 	out := ""
+	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  similarQuery=%v\n", o.SimilarQuery)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
@@ -3539,44 +3455,41 @@ func (o ConsequenceParams) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
-	out += fmt.Sprintf("  query=%v\n", o.Query)
-	out += fmt.Sprintf("  automaticFacetFilters=%v\n", o.AutomaticFacetFilters)
-	out += fmt.Sprintf("  automaticOptionalFacetFilters=%v\n", o.AutomaticOptionalFacetFilters)
-	return fmt.Sprintf("ConsequenceParams {\n%s}", out)
+	return fmt.Sprintf("SearchParams {\n%s}", out)
 }
 
-type NullableConsequenceParams struct {
-	value *ConsequenceParams
+type NullableSearchParams struct {
+	value *SearchParams
 	isSet bool
 }
 
-func (v NullableConsequenceParams) Get() *ConsequenceParams {
+func (v NullableSearchParams) Get() *SearchParams {
 	return v.value
 }
 
-func (v *NullableConsequenceParams) Set(val *ConsequenceParams) {
+func (v *NullableSearchParams) Set(val *SearchParams) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableConsequenceParams) IsSet() bool {
+func (v NullableSearchParams) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableConsequenceParams) Unset() {
+func (v *NullableSearchParams) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableConsequenceParams(val *ConsequenceParams) *NullableConsequenceParams {
-	return &NullableConsequenceParams{value: val, isSet: true}
+func NewNullableSearchParams(val *SearchParams) *NullableSearchParams {
+	return &NullableSearchParams{value: val, isSet: true}
 }
 
-func (v NullableConsequenceParams) MarshalJSON() ([]byte, error) {
+func (v NullableSearchParams) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableConsequenceParams) UnmarshalJSON(src []byte) error {
+func (v *NullableSearchParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

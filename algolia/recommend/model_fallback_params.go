@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// RecommendedForYouQueryParameters struct for RecommendedForYouQueryParameters.
-type RecommendedForYouQueryParameters struct {
+// FallbackParams struct for FallbackParams.
+type FallbackParams struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Keywords to be used instead of the search query to conduct a more broader search.  Using the `similarQuery` parameter changes other settings:  - `queryType` is set to `prefixNone`. - `removeStopWords` is set to true. - `words` is set as the first ranking criterion. - All remaining words are treated as `optionalWords`.  Since the `similarQuery` is supposed to do a broad search, they usually return many results. Combine it with `filters` to narrow down the list of results.
 	SimilarQuery *string `json:"similarQuery,omitempty"`
-	// Filter the search so that only records with matching values are included in the results.  These filters are supported:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
+	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
 	Filters         *string          `json:"filters,omitempty"`
 	FacetFilters    *FacetFilters    `json:"facetFilters,omitempty"`
 	OptionalFilters *OptionalFilters `json:"optionalFilters,omitempty"`
@@ -51,7 +51,7 @@ type RecommendedForYouQueryParameters struct {
 	// Impact that Personalization should have on this search.  The higher this value is, the more Personalization determines the ranking compared to other factors. For more information, see [Understanding Personalization impact](https://www.algolia.com/doc/guides/personalization/personalizing-results/in-depth/configuring-personalization/#understanding-personalization-impact).
 	PersonalizationImpact *int32 `json:"personalizationImpact,omitempty"`
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
-	UserToken string `json:"userToken"`
+	UserToken *string `json:"userToken,omitempty"`
 	// Whether the search response should include detailed ranking information.
 	GetRankingInfo *bool `json:"getRankingInfo,omitempty"`
 	// Whether to take into account an index's synonyms for this search.
@@ -145,478 +145,483 @@ type RecommendedForYouQueryParameters struct {
 	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 }
 
-type RecommendedForYouQueryParametersOption func(f *RecommendedForYouQueryParameters)
+type FallbackParamsOption func(f *FallbackParams)
 
-func WithRecommendedForYouQueryParametersQuery(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsQuery(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Query = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSimilarQuery(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSimilarQuery(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.SimilarQuery = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersFilters(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsFilters(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Filters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersFacetFilters(val FacetFilters) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsFacetFilters(val FacetFilters) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.FacetFilters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersOptionalFilters(val OptionalFilters) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsOptionalFilters(val OptionalFilters) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.OptionalFilters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersNumericFilters(val NumericFilters) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsNumericFilters(val NumericFilters) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.NumericFilters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersTagFilters(val TagFilters) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsTagFilters(val TagFilters) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.TagFilters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSumOrFiltersScores(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSumOrFiltersScores(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.SumOrFiltersScores = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRestrictSearchableAttributes(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRestrictSearchableAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RestrictSearchableAttributes = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersFacets(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsFacets(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Facets = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersFacetingAfterDistinct(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsFacetingAfterDistinct(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.FacetingAfterDistinct = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersPage(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsPage(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Page = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersOffset(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsOffset(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Offset = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersLength(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsLength(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Length = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAroundLatLng(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAroundLatLng(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AroundLatLng = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAroundLatLngViaIP(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAroundLatLngViaIP(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AroundLatLngViaIP = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAroundRadius(val AroundRadius) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAroundRadius(val AroundRadius) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AroundRadius = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAroundPrecision(val AroundPrecision) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAroundPrecision(val AroundPrecision) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AroundPrecision = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMinimumAroundRadius(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMinimumAroundRadius(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MinimumAroundRadius = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersInsideBoundingBox(val [][]float64) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsInsideBoundingBox(val [][]float64) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.InsideBoundingBox = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersInsidePolygon(val [][]float64) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsInsidePolygon(val [][]float64) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.InsidePolygon = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersNaturalLanguages(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsNaturalLanguages(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.NaturalLanguages = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRuleContexts(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRuleContexts(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RuleContexts = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersPersonalizationImpact(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsPersonalizationImpact(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.PersonalizationImpact = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersGetRankingInfo(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsUserToken(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.UserToken = &val
+	}
+}
+
+func WithFallbackParamsGetRankingInfo(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.GetRankingInfo = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSynonyms(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSynonyms(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Synonyms = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersClickAnalytics(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsClickAnalytics(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.ClickAnalytics = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAnalytics(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAnalytics(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Analytics = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAnalyticsTags(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAnalyticsTags(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AnalyticsTags = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersPercentileComputation(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsPercentileComputation(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.PercentileComputation = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersEnableABTest(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsEnableABTest(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.EnableABTest = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAttributesToRetrieve(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAttributesToRetrieve(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AttributesToRetrieve = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRanking(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRanking(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Ranking = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersCustomRanking(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsCustomRanking(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.CustomRanking = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRelevancyStrictness(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRelevancyStrictness(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RelevancyStrictness = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAttributesToHighlight(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAttributesToHighlight(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AttributesToHighlight = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAttributesToSnippet(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAttributesToSnippet(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AttributesToSnippet = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersHighlightPreTag(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsHighlightPreTag(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.HighlightPreTag = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersHighlightPostTag(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsHighlightPostTag(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.HighlightPostTag = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSnippetEllipsisText(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSnippetEllipsisText(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.SnippetEllipsisText = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRestrictHighlightAndSnippetArrays(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRestrictHighlightAndSnippetArrays(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RestrictHighlightAndSnippetArrays = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersHitsPerPage(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsHitsPerPage(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.HitsPerPage = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMinWordSizefor1Typo(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMinWordSizefor1Typo(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MinWordSizefor1Typo = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMinWordSizefor2Typos(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMinWordSizefor2Typos(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MinWordSizefor2Typos = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersTypoTolerance(val TypoTolerance) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsTypoTolerance(val TypoTolerance) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.TypoTolerance = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAllowTyposOnNumericTokens(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAllowTyposOnNumericTokens(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AllowTyposOnNumericTokens = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersDisableTypoToleranceOnAttributes(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsDisableTypoToleranceOnAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.DisableTypoToleranceOnAttributes = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersIgnorePlurals(val IgnorePlurals) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsIgnorePlurals(val IgnorePlurals) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.IgnorePlurals = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRemoveStopWords(val RemoveStopWords) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRemoveStopWords(val RemoveStopWords) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RemoveStopWords = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersKeepDiacriticsOnCharacters(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsKeepDiacriticsOnCharacters(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.KeepDiacriticsOnCharacters = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersQueryLanguages(val []SupportedLanguage) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsQueryLanguages(val []SupportedLanguage) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.QueryLanguages = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersDecompoundQuery(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsDecompoundQuery(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.DecompoundQuery = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersEnableRules(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsEnableRules(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.EnableRules = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersEnablePersonalization(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsEnablePersonalization(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.EnablePersonalization = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersQueryType(val QueryType) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsQueryType(val QueryType) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.QueryType = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRemoveWordsIfNoResults(val RemoveWordsIfNoResults) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRemoveWordsIfNoResults(val RemoveWordsIfNoResults) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RemoveWordsIfNoResults = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMode(val Mode) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMode(val Mode) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Mode = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSemanticSearch(val SemanticSearch) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSemanticSearch(val SemanticSearch) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.SemanticSearch = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAdvancedSyntax(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAdvancedSyntax(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AdvancedSyntax = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersOptionalWords(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsOptionalWords(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.OptionalWords = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersDisableExactOnAttributes(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsDisableExactOnAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.DisableExactOnAttributes = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersExactOnSingleWordQuery(val ExactOnSingleWordQuery) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsExactOnSingleWordQuery(val ExactOnSingleWordQuery) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.ExactOnSingleWordQuery = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAlternativesAsExact(val []AlternativesAsExact) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAlternativesAsExact(val []AlternativesAsExact) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AlternativesAsExact = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAdvancedSyntaxFeatures(val []AdvancedSyntaxFeatures) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAdvancedSyntaxFeatures(val []AdvancedSyntaxFeatures) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AdvancedSyntaxFeatures = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersDistinct(val Distinct) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsDistinct(val Distinct) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.Distinct = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersReplaceSynonymsInHighlight(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsReplaceSynonymsInHighlight(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.ReplaceSynonymsInHighlight = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMinProximity(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMinProximity(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MinProximity = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersResponseFields(val []string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsResponseFields(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.ResponseFields = val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMaxFacetHits(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMaxFacetHits(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MaxFacetHits = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersMaxValuesPerFacet(val int32) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsMaxValuesPerFacet(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.MaxValuesPerFacet = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersSortFacetValuesBy(val string) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsSortFacetValuesBy(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.SortFacetValuesBy = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersAttributeCriteriaComputedByMinProximity(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsAttributeCriteriaComputedByMinProximity(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.AttributeCriteriaComputedByMinProximity = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersRenderingContent(val RenderingContent) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsRenderingContent(val RenderingContent) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.RenderingContent = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersEnableReRanking(val bool) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsEnableReRanking(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.EnableReRanking = &val
 	}
 }
 
-func WithRecommendedForYouQueryParametersReRankingApplyFilter(val NullableReRankingApplyFilter) RecommendedForYouQueryParametersOption {
-	return func(f *RecommendedForYouQueryParameters) {
+func WithFallbackParamsReRankingApplyFilter(val NullableReRankingApplyFilter) FallbackParamsOption {
+	return func(f *FallbackParams) {
 		f.ReRankingApplyFilter = val
 	}
 }
 
-// NewRecommendedForYouQueryParameters instantiates a new RecommendedForYouQueryParameters object
+// NewFallbackParams instantiates a new FallbackParams object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendedForYouQueryParameters(userToken string, opts ...RecommendedForYouQueryParametersOption) *RecommendedForYouQueryParameters {
-	this := &RecommendedForYouQueryParameters{}
-	this.UserToken = userToken
+func NewFallbackParams(opts ...FallbackParamsOption) *FallbackParams {
+	this := &FallbackParams{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyRecommendedForYouQueryParameters return a pointer to an empty RecommendedForYouQueryParameters object.
-func NewEmptyRecommendedForYouQueryParameters() *RecommendedForYouQueryParameters {
-	return &RecommendedForYouQueryParameters{}
+// NewEmptyFallbackParams return a pointer to an empty FallbackParams object.
+func NewEmptyFallbackParams() *FallbackParams {
+	return &FallbackParams{}
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetQuery() string {
+func (o *FallbackParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
 		return ret
@@ -626,7 +631,7 @@ func (o *RecommendedForYouQueryParameters) GetQuery() string {
 
 // GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetQueryOk() (*string, bool) {
+func (o *FallbackParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
@@ -634,7 +639,7 @@ func (o *RecommendedForYouQueryParameters) GetQueryOk() (*string, bool) {
 }
 
 // HasQuery returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasQuery() bool {
+func (o *FallbackParams) HasQuery() bool {
 	if o != nil && o.Query != nil {
 		return true
 	}
@@ -643,13 +648,13 @@ func (o *RecommendedForYouQueryParameters) HasQuery() bool {
 }
 
 // SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendedForYouQueryParameters) SetQuery(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetQuery(v string) *FallbackParams {
 	o.Query = &v
 	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSimilarQuery() string {
+func (o *FallbackParams) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
 		return ret
@@ -659,7 +664,7 @@ func (o *RecommendedForYouQueryParameters) GetSimilarQuery() string {
 
 // GetSimilarQueryOk returns a tuple with the SimilarQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSimilarQueryOk() (*string, bool) {
+func (o *FallbackParams) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
@@ -667,7 +672,7 @@ func (o *RecommendedForYouQueryParameters) GetSimilarQueryOk() (*string, bool) {
 }
 
 // HasSimilarQuery returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSimilarQuery() bool {
+func (o *FallbackParams) HasSimilarQuery() bool {
 	if o != nil && o.SimilarQuery != nil {
 		return true
 	}
@@ -676,13 +681,13 @@ func (o *RecommendedForYouQueryParameters) HasSimilarQuery() bool {
 }
 
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
-func (o *RecommendedForYouQueryParameters) SetSimilarQuery(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSimilarQuery(v string) *FallbackParams {
 	o.SimilarQuery = &v
 	return o
 }
 
 // GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetFilters() string {
+func (o *FallbackParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
 		return ret
@@ -692,7 +697,7 @@ func (o *RecommendedForYouQueryParameters) GetFilters() string {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetFiltersOk() (*string, bool) {
+func (o *FallbackParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
@@ -700,7 +705,7 @@ func (o *RecommendedForYouQueryParameters) GetFiltersOk() (*string, bool) {
 }
 
 // HasFilters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasFilters() bool {
+func (o *FallbackParams) HasFilters() bool {
 	if o != nil && o.Filters != nil {
 		return true
 	}
@@ -709,13 +714,13 @@ func (o *RecommendedForYouQueryParameters) HasFilters() bool {
 }
 
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
-func (o *RecommendedForYouQueryParameters) SetFilters(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetFilters(v string) *FallbackParams {
 	o.Filters = &v
 	return o
 }
 
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetFacetFilters() FacetFilters {
+func (o *FallbackParams) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
 		return ret
@@ -725,7 +730,7 @@ func (o *RecommendedForYouQueryParameters) GetFacetFilters() FacetFilters {
 
 // GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetFacetFiltersOk() (*FacetFilters, bool) {
+func (o *FallbackParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
@@ -733,7 +738,7 @@ func (o *RecommendedForYouQueryParameters) GetFacetFiltersOk() (*FacetFilters, b
 }
 
 // HasFacetFilters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasFacetFilters() bool {
+func (o *FallbackParams) HasFacetFilters() bool {
 	if o != nil && o.FacetFilters != nil {
 		return true
 	}
@@ -742,13 +747,13 @@ func (o *RecommendedForYouQueryParameters) HasFacetFilters() bool {
 }
 
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *RecommendedForYouQueryParameters) SetFacetFilters(v *FacetFilters) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetFacetFilters(v *FacetFilters) *FallbackParams {
 	o.FacetFilters = v
 	return o
 }
 
 // GetOptionalFilters returns the OptionalFilters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetOptionalFilters() OptionalFilters {
+func (o *FallbackParams) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
 		return ret
@@ -758,7 +763,7 @@ func (o *RecommendedForYouQueryParameters) GetOptionalFilters() OptionalFilters 
 
 // GetOptionalFiltersOk returns a tuple with the OptionalFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetOptionalFiltersOk() (*OptionalFilters, bool) {
+func (o *FallbackParams) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
@@ -766,7 +771,7 @@ func (o *RecommendedForYouQueryParameters) GetOptionalFiltersOk() (*OptionalFilt
 }
 
 // HasOptionalFilters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasOptionalFilters() bool {
+func (o *FallbackParams) HasOptionalFilters() bool {
 	if o != nil && o.OptionalFilters != nil {
 		return true
 	}
@@ -775,13 +780,13 @@ func (o *RecommendedForYouQueryParameters) HasOptionalFilters() bool {
 }
 
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
-func (o *RecommendedForYouQueryParameters) SetOptionalFilters(v *OptionalFilters) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetOptionalFilters(v *OptionalFilters) *FallbackParams {
 	o.OptionalFilters = v
 	return o
 }
 
 // GetNumericFilters returns the NumericFilters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetNumericFilters() NumericFilters {
+func (o *FallbackParams) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
 		return ret
@@ -791,7 +796,7 @@ func (o *RecommendedForYouQueryParameters) GetNumericFilters() NumericFilters {
 
 // GetNumericFiltersOk returns a tuple with the NumericFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetNumericFiltersOk() (*NumericFilters, bool) {
+func (o *FallbackParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
@@ -799,7 +804,7 @@ func (o *RecommendedForYouQueryParameters) GetNumericFiltersOk() (*NumericFilter
 }
 
 // HasNumericFilters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasNumericFilters() bool {
+func (o *FallbackParams) HasNumericFilters() bool {
 	if o != nil && o.NumericFilters != nil {
 		return true
 	}
@@ -808,13 +813,13 @@ func (o *RecommendedForYouQueryParameters) HasNumericFilters() bool {
 }
 
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
-func (o *RecommendedForYouQueryParameters) SetNumericFilters(v *NumericFilters) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetNumericFilters(v *NumericFilters) *FallbackParams {
 	o.NumericFilters = v
 	return o
 }
 
 // GetTagFilters returns the TagFilters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetTagFilters() TagFilters {
+func (o *FallbackParams) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
 		return ret
@@ -824,7 +829,7 @@ func (o *RecommendedForYouQueryParameters) GetTagFilters() TagFilters {
 
 // GetTagFiltersOk returns a tuple with the TagFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetTagFiltersOk() (*TagFilters, bool) {
+func (o *FallbackParams) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
@@ -832,7 +837,7 @@ func (o *RecommendedForYouQueryParameters) GetTagFiltersOk() (*TagFilters, bool)
 }
 
 // HasTagFilters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasTagFilters() bool {
+func (o *FallbackParams) HasTagFilters() bool {
 	if o != nil && o.TagFilters != nil {
 		return true
 	}
@@ -841,13 +846,13 @@ func (o *RecommendedForYouQueryParameters) HasTagFilters() bool {
 }
 
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
-func (o *RecommendedForYouQueryParameters) SetTagFilters(v *TagFilters) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetTagFilters(v *TagFilters) *FallbackParams {
 	o.TagFilters = v
 	return o
 }
 
 // GetSumOrFiltersScores returns the SumOrFiltersScores field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSumOrFiltersScores() bool {
+func (o *FallbackParams) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
 		return ret
@@ -857,7 +862,7 @@ func (o *RecommendedForYouQueryParameters) GetSumOrFiltersScores() bool {
 
 // GetSumOrFiltersScoresOk returns a tuple with the SumOrFiltersScores field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSumOrFiltersScoresOk() (*bool, bool) {
+func (o *FallbackParams) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
@@ -865,7 +870,7 @@ func (o *RecommendedForYouQueryParameters) GetSumOrFiltersScoresOk() (*bool, boo
 }
 
 // HasSumOrFiltersScores returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSumOrFiltersScores() bool {
+func (o *FallbackParams) HasSumOrFiltersScores() bool {
 	if o != nil && o.SumOrFiltersScores != nil {
 		return true
 	}
@@ -874,13 +879,13 @@ func (o *RecommendedForYouQueryParameters) HasSumOrFiltersScores() bool {
 }
 
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
-func (o *RecommendedForYouQueryParameters) SetSumOrFiltersScores(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSumOrFiltersScores(v bool) *FallbackParams {
 	o.SumOrFiltersScores = &v
 	return o
 }
 
 // GetRestrictSearchableAttributes returns the RestrictSearchableAttributes field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRestrictSearchableAttributes() []string {
+func (o *FallbackParams) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
 		return ret
@@ -890,7 +895,7 @@ func (o *RecommendedForYouQueryParameters) GetRestrictSearchableAttributes() []s
 
 // GetRestrictSearchableAttributesOk returns a tuple with the RestrictSearchableAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRestrictSearchableAttributesOk() ([]string, bool) {
+func (o *FallbackParams) GetRestrictSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
@@ -898,7 +903,7 @@ func (o *RecommendedForYouQueryParameters) GetRestrictSearchableAttributesOk() (
 }
 
 // HasRestrictSearchableAttributes returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRestrictSearchableAttributes() bool {
+func (o *FallbackParams) HasRestrictSearchableAttributes() bool {
 	if o != nil && o.RestrictSearchableAttributes != nil {
 		return true
 	}
@@ -907,13 +912,13 @@ func (o *RecommendedForYouQueryParameters) HasRestrictSearchableAttributes() boo
 }
 
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
-func (o *RecommendedForYouQueryParameters) SetRestrictSearchableAttributes(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRestrictSearchableAttributes(v []string) *FallbackParams {
 	o.RestrictSearchableAttributes = v
 	return o
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetFacets() []string {
+func (o *FallbackParams) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
 		return ret
@@ -923,7 +928,7 @@ func (o *RecommendedForYouQueryParameters) GetFacets() []string {
 
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetFacetsOk() ([]string, bool) {
+func (o *FallbackParams) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
@@ -931,7 +936,7 @@ func (o *RecommendedForYouQueryParameters) GetFacetsOk() ([]string, bool) {
 }
 
 // HasFacets returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasFacets() bool {
+func (o *FallbackParams) HasFacets() bool {
 	if o != nil && o.Facets != nil {
 		return true
 	}
@@ -940,13 +945,13 @@ func (o *RecommendedForYouQueryParameters) HasFacets() bool {
 }
 
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *RecommendedForYouQueryParameters) SetFacets(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetFacets(v []string) *FallbackParams {
 	o.Facets = v
 	return o
 }
 
 // GetFacetingAfterDistinct returns the FacetingAfterDistinct field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetFacetingAfterDistinct() bool {
+func (o *FallbackParams) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
 		return ret
@@ -956,7 +961,7 @@ func (o *RecommendedForYouQueryParameters) GetFacetingAfterDistinct() bool {
 
 // GetFacetingAfterDistinctOk returns a tuple with the FacetingAfterDistinct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetFacetingAfterDistinctOk() (*bool, bool) {
+func (o *FallbackParams) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
@@ -964,7 +969,7 @@ func (o *RecommendedForYouQueryParameters) GetFacetingAfterDistinctOk() (*bool, 
 }
 
 // HasFacetingAfterDistinct returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasFacetingAfterDistinct() bool {
+func (o *FallbackParams) HasFacetingAfterDistinct() bool {
 	if o != nil && o.FacetingAfterDistinct != nil {
 		return true
 	}
@@ -973,13 +978,13 @@ func (o *RecommendedForYouQueryParameters) HasFacetingAfterDistinct() bool {
 }
 
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
-func (o *RecommendedForYouQueryParameters) SetFacetingAfterDistinct(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetFacetingAfterDistinct(v bool) *FallbackParams {
 	o.FacetingAfterDistinct = &v
 	return o
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetPage() int32 {
+func (o *FallbackParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
 		return ret
@@ -989,7 +994,7 @@ func (o *RecommendedForYouQueryParameters) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetPageOk() (*int32, bool) {
+func (o *FallbackParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
@@ -997,7 +1002,7 @@ func (o *RecommendedForYouQueryParameters) GetPageOk() (*int32, bool) {
 }
 
 // HasPage returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasPage() bool {
+func (o *FallbackParams) HasPage() bool {
 	if o != nil && o.Page != nil {
 		return true
 	}
@@ -1006,13 +1011,13 @@ func (o *RecommendedForYouQueryParameters) HasPage() bool {
 }
 
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *RecommendedForYouQueryParameters) SetPage(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetPage(v int32) *FallbackParams {
 	o.Page = &v
 	return o
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetOffset() int32 {
+func (o *FallbackParams) GetOffset() int32 {
 	if o == nil || o.Offset == nil {
 		var ret int32
 		return ret
@@ -1022,7 +1027,7 @@ func (o *RecommendedForYouQueryParameters) GetOffset() int32 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetOffsetOk() (*int32, bool) {
+func (o *FallbackParams) GetOffsetOk() (*int32, bool) {
 	if o == nil || o.Offset == nil {
 		return nil, false
 	}
@@ -1030,7 +1035,7 @@ func (o *RecommendedForYouQueryParameters) GetOffsetOk() (*int32, bool) {
 }
 
 // HasOffset returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasOffset() bool {
+func (o *FallbackParams) HasOffset() bool {
 	if o != nil && o.Offset != nil {
 		return true
 	}
@@ -1039,13 +1044,13 @@ func (o *RecommendedForYouQueryParameters) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *RecommendedForYouQueryParameters) SetOffset(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetOffset(v int32) *FallbackParams {
 	o.Offset = &v
 	return o
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetLength() int32 {
+func (o *FallbackParams) GetLength() int32 {
 	if o == nil || o.Length == nil {
 		var ret int32
 		return ret
@@ -1055,7 +1060,7 @@ func (o *RecommendedForYouQueryParameters) GetLength() int32 {
 
 // GetLengthOk returns a tuple with the Length field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetLengthOk() (*int32, bool) {
+func (o *FallbackParams) GetLengthOk() (*int32, bool) {
 	if o == nil || o.Length == nil {
 		return nil, false
 	}
@@ -1063,7 +1068,7 @@ func (o *RecommendedForYouQueryParameters) GetLengthOk() (*int32, bool) {
 }
 
 // HasLength returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasLength() bool {
+func (o *FallbackParams) HasLength() bool {
 	if o != nil && o.Length != nil {
 		return true
 	}
@@ -1072,13 +1077,13 @@ func (o *RecommendedForYouQueryParameters) HasLength() bool {
 }
 
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *RecommendedForYouQueryParameters) SetLength(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetLength(v int32) *FallbackParams {
 	o.Length = &v
 	return o
 }
 
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAroundLatLng() string {
+func (o *FallbackParams) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
 		return ret
@@ -1088,7 +1093,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundLatLng() string {
 
 // GetAroundLatLngOk returns a tuple with the AroundLatLng field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAroundLatLngOk() (*string, bool) {
+func (o *FallbackParams) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
@@ -1096,7 +1101,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundLatLngOk() (*string, bool) {
 }
 
 // HasAroundLatLng returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAroundLatLng() bool {
+func (o *FallbackParams) HasAroundLatLng() bool {
 	if o != nil && o.AroundLatLng != nil {
 		return true
 	}
@@ -1105,13 +1110,13 @@ func (o *RecommendedForYouQueryParameters) HasAroundLatLng() bool {
 }
 
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
-func (o *RecommendedForYouQueryParameters) SetAroundLatLng(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAroundLatLng(v string) *FallbackParams {
 	o.AroundLatLng = &v
 	return o
 }
 
 // GetAroundLatLngViaIP returns the AroundLatLngViaIP field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAroundLatLngViaIP() bool {
+func (o *FallbackParams) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
 		return ret
@@ -1121,7 +1126,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundLatLngViaIP() bool {
 
 // GetAroundLatLngViaIPOk returns a tuple with the AroundLatLngViaIP field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAroundLatLngViaIPOk() (*bool, bool) {
+func (o *FallbackParams) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
@@ -1129,7 +1134,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundLatLngViaIPOk() (*bool, bool
 }
 
 // HasAroundLatLngViaIP returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAroundLatLngViaIP() bool {
+func (o *FallbackParams) HasAroundLatLngViaIP() bool {
 	if o != nil && o.AroundLatLngViaIP != nil {
 		return true
 	}
@@ -1138,13 +1143,13 @@ func (o *RecommendedForYouQueryParameters) HasAroundLatLngViaIP() bool {
 }
 
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
-func (o *RecommendedForYouQueryParameters) SetAroundLatLngViaIP(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAroundLatLngViaIP(v bool) *FallbackParams {
 	o.AroundLatLngViaIP = &v
 	return o
 }
 
 // GetAroundRadius returns the AroundRadius field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAroundRadius() AroundRadius {
+func (o *FallbackParams) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
 		return ret
@@ -1154,7 +1159,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundRadius() AroundRadius {
 
 // GetAroundRadiusOk returns a tuple with the AroundRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAroundRadiusOk() (*AroundRadius, bool) {
+func (o *FallbackParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
@@ -1162,7 +1167,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundRadiusOk() (*AroundRadius, b
 }
 
 // HasAroundRadius returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAroundRadius() bool {
+func (o *FallbackParams) HasAroundRadius() bool {
 	if o != nil && o.AroundRadius != nil {
 		return true
 	}
@@ -1171,13 +1176,13 @@ func (o *RecommendedForYouQueryParameters) HasAroundRadius() bool {
 }
 
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
-func (o *RecommendedForYouQueryParameters) SetAroundRadius(v *AroundRadius) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAroundRadius(v *AroundRadius) *FallbackParams {
 	o.AroundRadius = v
 	return o
 }
 
 // GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAroundPrecision() AroundPrecision {
+func (o *FallbackParams) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
 		return ret
@@ -1187,7 +1192,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundPrecision() AroundPrecision 
 
 // GetAroundPrecisionOk returns a tuple with the AroundPrecision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAroundPrecisionOk() (*AroundPrecision, bool) {
+func (o *FallbackParams) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
@@ -1195,7 +1200,7 @@ func (o *RecommendedForYouQueryParameters) GetAroundPrecisionOk() (*AroundPrecis
 }
 
 // HasAroundPrecision returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAroundPrecision() bool {
+func (o *FallbackParams) HasAroundPrecision() bool {
 	if o != nil && o.AroundPrecision != nil {
 		return true
 	}
@@ -1204,13 +1209,13 @@ func (o *RecommendedForYouQueryParameters) HasAroundPrecision() bool {
 }
 
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
-func (o *RecommendedForYouQueryParameters) SetAroundPrecision(v *AroundPrecision) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAroundPrecision(v *AroundPrecision) *FallbackParams {
 	o.AroundPrecision = v
 	return o
 }
 
 // GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMinimumAroundRadius() int32 {
+func (o *FallbackParams) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
 		return ret
@@ -1220,7 +1225,7 @@ func (o *RecommendedForYouQueryParameters) GetMinimumAroundRadius() int32 {
 
 // GetMinimumAroundRadiusOk returns a tuple with the MinimumAroundRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMinimumAroundRadiusOk() (*int32, bool) {
+func (o *FallbackParams) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
@@ -1228,7 +1233,7 @@ func (o *RecommendedForYouQueryParameters) GetMinimumAroundRadiusOk() (*int32, b
 }
 
 // HasMinimumAroundRadius returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMinimumAroundRadius() bool {
+func (o *FallbackParams) HasMinimumAroundRadius() bool {
 	if o != nil && o.MinimumAroundRadius != nil {
 		return true
 	}
@@ -1237,13 +1242,13 @@ func (o *RecommendedForYouQueryParameters) HasMinimumAroundRadius() bool {
 }
 
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
-func (o *RecommendedForYouQueryParameters) SetMinimumAroundRadius(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMinimumAroundRadius(v int32) *FallbackParams {
 	o.MinimumAroundRadius = &v
 	return o
 }
 
 // GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetInsideBoundingBox() [][]float64 {
+func (o *FallbackParams) GetInsideBoundingBox() [][]float64 {
 	if o == nil || o.InsideBoundingBox == nil {
 		var ret [][]float64
 		return ret
@@ -1253,7 +1258,7 @@ func (o *RecommendedForYouQueryParameters) GetInsideBoundingBox() [][]float64 {
 
 // GetInsideBoundingBoxOk returns a tuple with the InsideBoundingBox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetInsideBoundingBoxOk() ([][]float64, bool) {
+func (o *FallbackParams) GetInsideBoundingBoxOk() ([][]float64, bool) {
 	if o == nil || o.InsideBoundingBox == nil {
 		return nil, false
 	}
@@ -1261,7 +1266,7 @@ func (o *RecommendedForYouQueryParameters) GetInsideBoundingBoxOk() ([][]float64
 }
 
 // HasInsideBoundingBox returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasInsideBoundingBox() bool {
+func (o *FallbackParams) HasInsideBoundingBox() bool {
 	if o != nil && o.InsideBoundingBox != nil {
 		return true
 	}
@@ -1270,13 +1275,13 @@ func (o *RecommendedForYouQueryParameters) HasInsideBoundingBox() bool {
 }
 
 // SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *RecommendedForYouQueryParameters) SetInsideBoundingBox(v [][]float64) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetInsideBoundingBox(v [][]float64) *FallbackParams {
 	o.InsideBoundingBox = v
 	return o
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetInsidePolygon() [][]float64 {
+func (o *FallbackParams) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
 		return ret
@@ -1286,7 +1291,7 @@ func (o *RecommendedForYouQueryParameters) GetInsidePolygon() [][]float64 {
 
 // GetInsidePolygonOk returns a tuple with the InsidePolygon field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetInsidePolygonOk() ([][]float64, bool) {
+func (o *FallbackParams) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
@@ -1294,7 +1299,7 @@ func (o *RecommendedForYouQueryParameters) GetInsidePolygonOk() ([][]float64, bo
 }
 
 // HasInsidePolygon returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasInsidePolygon() bool {
+func (o *FallbackParams) HasInsidePolygon() bool {
 	if o != nil && o.InsidePolygon != nil {
 		return true
 	}
@@ -1303,13 +1308,13 @@ func (o *RecommendedForYouQueryParameters) HasInsidePolygon() bool {
 }
 
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
-func (o *RecommendedForYouQueryParameters) SetInsidePolygon(v [][]float64) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetInsidePolygon(v [][]float64) *FallbackParams {
 	o.InsidePolygon = v
 	return o
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetNaturalLanguages() []string {
+func (o *FallbackParams) GetNaturalLanguages() []string {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []string
 		return ret
@@ -1319,7 +1324,7 @@ func (o *RecommendedForYouQueryParameters) GetNaturalLanguages() []string {
 
 // GetNaturalLanguagesOk returns a tuple with the NaturalLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetNaturalLanguagesOk() ([]string, bool) {
+func (o *FallbackParams) GetNaturalLanguagesOk() ([]string, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
@@ -1327,7 +1332,7 @@ func (o *RecommendedForYouQueryParameters) GetNaturalLanguagesOk() ([]string, bo
 }
 
 // HasNaturalLanguages returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasNaturalLanguages() bool {
+func (o *FallbackParams) HasNaturalLanguages() bool {
 	if o != nil && o.NaturalLanguages != nil {
 		return true
 	}
@@ -1336,13 +1341,13 @@ func (o *RecommendedForYouQueryParameters) HasNaturalLanguages() bool {
 }
 
 // SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *RecommendedForYouQueryParameters) SetNaturalLanguages(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetNaturalLanguages(v []string) *FallbackParams {
 	o.NaturalLanguages = v
 	return o
 }
 
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRuleContexts() []string {
+func (o *FallbackParams) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
 		return ret
@@ -1352,7 +1357,7 @@ func (o *RecommendedForYouQueryParameters) GetRuleContexts() []string {
 
 // GetRuleContextsOk returns a tuple with the RuleContexts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRuleContextsOk() ([]string, bool) {
+func (o *FallbackParams) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
@@ -1360,7 +1365,7 @@ func (o *RecommendedForYouQueryParameters) GetRuleContextsOk() ([]string, bool) 
 }
 
 // HasRuleContexts returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRuleContexts() bool {
+func (o *FallbackParams) HasRuleContexts() bool {
 	if o != nil && o.RuleContexts != nil {
 		return true
 	}
@@ -1369,13 +1374,13 @@ func (o *RecommendedForYouQueryParameters) HasRuleContexts() bool {
 }
 
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
-func (o *RecommendedForYouQueryParameters) SetRuleContexts(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRuleContexts(v []string) *FallbackParams {
 	o.RuleContexts = v
 	return o
 }
 
 // GetPersonalizationImpact returns the PersonalizationImpact field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetPersonalizationImpact() int32 {
+func (o *FallbackParams) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
 		return ret
@@ -1385,7 +1390,7 @@ func (o *RecommendedForYouQueryParameters) GetPersonalizationImpact() int32 {
 
 // GetPersonalizationImpactOk returns a tuple with the PersonalizationImpact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetPersonalizationImpactOk() (*int32, bool) {
+func (o *FallbackParams) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
@@ -1393,7 +1398,7 @@ func (o *RecommendedForYouQueryParameters) GetPersonalizationImpactOk() (*int32,
 }
 
 // HasPersonalizationImpact returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasPersonalizationImpact() bool {
+func (o *FallbackParams) HasPersonalizationImpact() bool {
 	if o != nil && o.PersonalizationImpact != nil {
 		return true
 	}
@@ -1402,38 +1407,46 @@ func (o *RecommendedForYouQueryParameters) HasPersonalizationImpact() bool {
 }
 
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
-func (o *RecommendedForYouQueryParameters) SetPersonalizationImpact(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetPersonalizationImpact(v int32) *FallbackParams {
 	o.PersonalizationImpact = &v
 	return o
 }
 
-// GetUserToken returns the UserToken field value.
-func (o *RecommendedForYouQueryParameters) GetUserToken() string {
-	if o == nil {
+// GetUserToken returns the UserToken field value if set, zero value otherwise.
+func (o *FallbackParams) GetUserToken() string {
+	if o == nil || o.UserToken == nil {
 		var ret string
 		return ret
 	}
-
-	return o.UserToken
+	return *o.UserToken
 }
 
-// GetUserTokenOk returns a tuple with the UserToken field value
+// GetUserTokenOk returns a tuple with the UserToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetUserTokenOk() (*string, bool) {
-	if o == nil {
+func (o *FallbackParams) GetUserTokenOk() (*string, bool) {
+	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
-	return &o.UserToken, true
+	return o.UserToken, true
 }
 
-// SetUserToken sets field value.
-func (o *RecommendedForYouQueryParameters) SetUserToken(v string) *RecommendedForYouQueryParameters {
-	o.UserToken = v
+// HasUserToken returns a boolean if a field has been set.
+func (o *FallbackParams) HasUserToken() bool {
+	if o != nil && o.UserToken != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserToken gets a reference to the given string and assigns it to the UserToken field.
+func (o *FallbackParams) SetUserToken(v string) *FallbackParams {
+	o.UserToken = &v
 	return o
 }
 
 // GetGetRankingInfo returns the GetRankingInfo field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetGetRankingInfo() bool {
+func (o *FallbackParams) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
 		return ret
@@ -1443,7 +1456,7 @@ func (o *RecommendedForYouQueryParameters) GetGetRankingInfo() bool {
 
 // GetGetRankingInfoOk returns a tuple with the GetRankingInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetGetRankingInfoOk() (*bool, bool) {
+func (o *FallbackParams) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
@@ -1451,7 +1464,7 @@ func (o *RecommendedForYouQueryParameters) GetGetRankingInfoOk() (*bool, bool) {
 }
 
 // HasGetRankingInfo returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasGetRankingInfo() bool {
+func (o *FallbackParams) HasGetRankingInfo() bool {
 	if o != nil && o.GetRankingInfo != nil {
 		return true
 	}
@@ -1460,13 +1473,13 @@ func (o *RecommendedForYouQueryParameters) HasGetRankingInfo() bool {
 }
 
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
-func (o *RecommendedForYouQueryParameters) SetGetRankingInfo(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetGetRankingInfo(v bool) *FallbackParams {
 	o.GetRankingInfo = &v
 	return o
 }
 
 // GetSynonyms returns the Synonyms field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSynonyms() bool {
+func (o *FallbackParams) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
 		return ret
@@ -1476,7 +1489,7 @@ func (o *RecommendedForYouQueryParameters) GetSynonyms() bool {
 
 // GetSynonymsOk returns a tuple with the Synonyms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSynonymsOk() (*bool, bool) {
+func (o *FallbackParams) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
@@ -1484,7 +1497,7 @@ func (o *RecommendedForYouQueryParameters) GetSynonymsOk() (*bool, bool) {
 }
 
 // HasSynonyms returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSynonyms() bool {
+func (o *FallbackParams) HasSynonyms() bool {
 	if o != nil && o.Synonyms != nil {
 		return true
 	}
@@ -1493,13 +1506,13 @@ func (o *RecommendedForYouQueryParameters) HasSynonyms() bool {
 }
 
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
-func (o *RecommendedForYouQueryParameters) SetSynonyms(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSynonyms(v bool) *FallbackParams {
 	o.Synonyms = &v
 	return o
 }
 
 // GetClickAnalytics returns the ClickAnalytics field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetClickAnalytics() bool {
+func (o *FallbackParams) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
 		return ret
@@ -1509,7 +1522,7 @@ func (o *RecommendedForYouQueryParameters) GetClickAnalytics() bool {
 
 // GetClickAnalyticsOk returns a tuple with the ClickAnalytics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetClickAnalyticsOk() (*bool, bool) {
+func (o *FallbackParams) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
@@ -1517,7 +1530,7 @@ func (o *RecommendedForYouQueryParameters) GetClickAnalyticsOk() (*bool, bool) {
 }
 
 // HasClickAnalytics returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasClickAnalytics() bool {
+func (o *FallbackParams) HasClickAnalytics() bool {
 	if o != nil && o.ClickAnalytics != nil {
 		return true
 	}
@@ -1526,13 +1539,13 @@ func (o *RecommendedForYouQueryParameters) HasClickAnalytics() bool {
 }
 
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
-func (o *RecommendedForYouQueryParameters) SetClickAnalytics(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetClickAnalytics(v bool) *FallbackParams {
 	o.ClickAnalytics = &v
 	return o
 }
 
 // GetAnalytics returns the Analytics field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAnalytics() bool {
+func (o *FallbackParams) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
 		return ret
@@ -1542,7 +1555,7 @@ func (o *RecommendedForYouQueryParameters) GetAnalytics() bool {
 
 // GetAnalyticsOk returns a tuple with the Analytics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAnalyticsOk() (*bool, bool) {
+func (o *FallbackParams) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
@@ -1550,7 +1563,7 @@ func (o *RecommendedForYouQueryParameters) GetAnalyticsOk() (*bool, bool) {
 }
 
 // HasAnalytics returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAnalytics() bool {
+func (o *FallbackParams) HasAnalytics() bool {
 	if o != nil && o.Analytics != nil {
 		return true
 	}
@@ -1559,13 +1572,13 @@ func (o *RecommendedForYouQueryParameters) HasAnalytics() bool {
 }
 
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *RecommendedForYouQueryParameters) SetAnalytics(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAnalytics(v bool) *FallbackParams {
 	o.Analytics = &v
 	return o
 }
 
 // GetAnalyticsTags returns the AnalyticsTags field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAnalyticsTags() []string {
+func (o *FallbackParams) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
 		return ret
@@ -1575,7 +1588,7 @@ func (o *RecommendedForYouQueryParameters) GetAnalyticsTags() []string {
 
 // GetAnalyticsTagsOk returns a tuple with the AnalyticsTags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAnalyticsTagsOk() ([]string, bool) {
+func (o *FallbackParams) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
@@ -1583,7 +1596,7 @@ func (o *RecommendedForYouQueryParameters) GetAnalyticsTagsOk() ([]string, bool)
 }
 
 // HasAnalyticsTags returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAnalyticsTags() bool {
+func (o *FallbackParams) HasAnalyticsTags() bool {
 	if o != nil && o.AnalyticsTags != nil {
 		return true
 	}
@@ -1592,13 +1605,13 @@ func (o *RecommendedForYouQueryParameters) HasAnalyticsTags() bool {
 }
 
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
-func (o *RecommendedForYouQueryParameters) SetAnalyticsTags(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAnalyticsTags(v []string) *FallbackParams {
 	o.AnalyticsTags = v
 	return o
 }
 
 // GetPercentileComputation returns the PercentileComputation field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetPercentileComputation() bool {
+func (o *FallbackParams) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
 		return ret
@@ -1608,7 +1621,7 @@ func (o *RecommendedForYouQueryParameters) GetPercentileComputation() bool {
 
 // GetPercentileComputationOk returns a tuple with the PercentileComputation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetPercentileComputationOk() (*bool, bool) {
+func (o *FallbackParams) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
@@ -1616,7 +1629,7 @@ func (o *RecommendedForYouQueryParameters) GetPercentileComputationOk() (*bool, 
 }
 
 // HasPercentileComputation returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasPercentileComputation() bool {
+func (o *FallbackParams) HasPercentileComputation() bool {
 	if o != nil && o.PercentileComputation != nil {
 		return true
 	}
@@ -1625,13 +1638,13 @@ func (o *RecommendedForYouQueryParameters) HasPercentileComputation() bool {
 }
 
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
-func (o *RecommendedForYouQueryParameters) SetPercentileComputation(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetPercentileComputation(v bool) *FallbackParams {
 	o.PercentileComputation = &v
 	return o
 }
 
 // GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetEnableABTest() bool {
+func (o *FallbackParams) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
 		return ret
@@ -1641,7 +1654,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableABTest() bool {
 
 // GetEnableABTestOk returns a tuple with the EnableABTest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetEnableABTestOk() (*bool, bool) {
+func (o *FallbackParams) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
@@ -1649,7 +1662,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableABTestOk() (*bool, bool) {
 }
 
 // HasEnableABTest returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasEnableABTest() bool {
+func (o *FallbackParams) HasEnableABTest() bool {
 	if o != nil && o.EnableABTest != nil {
 		return true
 	}
@@ -1658,13 +1671,13 @@ func (o *RecommendedForYouQueryParameters) HasEnableABTest() bool {
 }
 
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *RecommendedForYouQueryParameters) SetEnableABTest(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetEnableABTest(v bool) *FallbackParams {
 	o.EnableABTest = &v
 	return o
 }
 
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAttributesToRetrieve() []string {
+func (o *FallbackParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
 		return ret
@@ -1674,7 +1687,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToRetrieve() []string {
 
 // GetAttributesToRetrieveOk returns a tuple with the AttributesToRetrieve field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAttributesToRetrieveOk() ([]string, bool) {
+func (o *FallbackParams) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
@@ -1682,7 +1695,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToRetrieveOk() ([]string
 }
 
 // HasAttributesToRetrieve returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAttributesToRetrieve() bool {
+func (o *FallbackParams) HasAttributesToRetrieve() bool {
 	if o != nil && o.AttributesToRetrieve != nil {
 		return true
 	}
@@ -1691,13 +1704,13 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToRetrieve() bool {
 }
 
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToRetrieve(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAttributesToRetrieve(v []string) *FallbackParams {
 	o.AttributesToRetrieve = v
 	return o
 }
 
 // GetRanking returns the Ranking field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRanking() []string {
+func (o *FallbackParams) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
 		return ret
@@ -1707,7 +1720,7 @@ func (o *RecommendedForYouQueryParameters) GetRanking() []string {
 
 // GetRankingOk returns a tuple with the Ranking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRankingOk() ([]string, bool) {
+func (o *FallbackParams) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
@@ -1715,7 +1728,7 @@ func (o *RecommendedForYouQueryParameters) GetRankingOk() ([]string, bool) {
 }
 
 // HasRanking returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRanking() bool {
+func (o *FallbackParams) HasRanking() bool {
 	if o != nil && o.Ranking != nil {
 		return true
 	}
@@ -1724,13 +1737,13 @@ func (o *RecommendedForYouQueryParameters) HasRanking() bool {
 }
 
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *RecommendedForYouQueryParameters) SetRanking(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRanking(v []string) *FallbackParams {
 	o.Ranking = v
 	return o
 }
 
 // GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetCustomRanking() []string {
+func (o *FallbackParams) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
 		return ret
@@ -1740,7 +1753,7 @@ func (o *RecommendedForYouQueryParameters) GetCustomRanking() []string {
 
 // GetCustomRankingOk returns a tuple with the CustomRanking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetCustomRankingOk() ([]string, bool) {
+func (o *FallbackParams) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
@@ -1748,7 +1761,7 @@ func (o *RecommendedForYouQueryParameters) GetCustomRankingOk() ([]string, bool)
 }
 
 // HasCustomRanking returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasCustomRanking() bool {
+func (o *FallbackParams) HasCustomRanking() bool {
 	if o != nil && o.CustomRanking != nil {
 		return true
 	}
@@ -1757,13 +1770,13 @@ func (o *RecommendedForYouQueryParameters) HasCustomRanking() bool {
 }
 
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *RecommendedForYouQueryParameters) SetCustomRanking(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetCustomRanking(v []string) *FallbackParams {
 	o.CustomRanking = v
 	return o
 }
 
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRelevancyStrictness() int32 {
+func (o *FallbackParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
 		return ret
@@ -1773,7 +1786,7 @@ func (o *RecommendedForYouQueryParameters) GetRelevancyStrictness() int32 {
 
 // GetRelevancyStrictnessOk returns a tuple with the RelevancyStrictness field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRelevancyStrictnessOk() (*int32, bool) {
+func (o *FallbackParams) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
@@ -1781,7 +1794,7 @@ func (o *RecommendedForYouQueryParameters) GetRelevancyStrictnessOk() (*int32, b
 }
 
 // HasRelevancyStrictness returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRelevancyStrictness() bool {
+func (o *FallbackParams) HasRelevancyStrictness() bool {
 	if o != nil && o.RelevancyStrictness != nil {
 		return true
 	}
@@ -1790,13 +1803,13 @@ func (o *RecommendedForYouQueryParameters) HasRelevancyStrictness() bool {
 }
 
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *RecommendedForYouQueryParameters) SetRelevancyStrictness(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRelevancyStrictness(v int32) *FallbackParams {
 	o.RelevancyStrictness = &v
 	return o
 }
 
 // GetAttributesToHighlight returns the AttributesToHighlight field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAttributesToHighlight() []string {
+func (o *FallbackParams) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
 		return ret
@@ -1806,7 +1819,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToHighlight() []string {
 
 // GetAttributesToHighlightOk returns a tuple with the AttributesToHighlight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAttributesToHighlightOk() ([]string, bool) {
+func (o *FallbackParams) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
@@ -1814,7 +1827,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToHighlightOk() ([]strin
 }
 
 // HasAttributesToHighlight returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAttributesToHighlight() bool {
+func (o *FallbackParams) HasAttributesToHighlight() bool {
 	if o != nil && o.AttributesToHighlight != nil {
 		return true
 	}
@@ -1823,13 +1836,13 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToHighlight() bool {
 }
 
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToHighlight(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAttributesToHighlight(v []string) *FallbackParams {
 	o.AttributesToHighlight = v
 	return o
 }
 
 // GetAttributesToSnippet returns the AttributesToSnippet field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAttributesToSnippet() []string {
+func (o *FallbackParams) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
 		return ret
@@ -1839,7 +1852,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToSnippet() []string {
 
 // GetAttributesToSnippetOk returns a tuple with the AttributesToSnippet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAttributesToSnippetOk() ([]string, bool) {
+func (o *FallbackParams) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
@@ -1847,7 +1860,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributesToSnippetOk() ([]string,
 }
 
 // HasAttributesToSnippet returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAttributesToSnippet() bool {
+func (o *FallbackParams) HasAttributesToSnippet() bool {
 	if o != nil && o.AttributesToSnippet != nil {
 		return true
 	}
@@ -1856,13 +1869,13 @@ func (o *RecommendedForYouQueryParameters) HasAttributesToSnippet() bool {
 }
 
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
-func (o *RecommendedForYouQueryParameters) SetAttributesToSnippet(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAttributesToSnippet(v []string) *FallbackParams {
 	o.AttributesToSnippet = v
 	return o
 }
 
 // GetHighlightPreTag returns the HighlightPreTag field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetHighlightPreTag() string {
+func (o *FallbackParams) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
 		return ret
@@ -1872,7 +1885,7 @@ func (o *RecommendedForYouQueryParameters) GetHighlightPreTag() string {
 
 // GetHighlightPreTagOk returns a tuple with the HighlightPreTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetHighlightPreTagOk() (*string, bool) {
+func (o *FallbackParams) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
@@ -1880,7 +1893,7 @@ func (o *RecommendedForYouQueryParameters) GetHighlightPreTagOk() (*string, bool
 }
 
 // HasHighlightPreTag returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasHighlightPreTag() bool {
+func (o *FallbackParams) HasHighlightPreTag() bool {
 	if o != nil && o.HighlightPreTag != nil {
 		return true
 	}
@@ -1889,13 +1902,13 @@ func (o *RecommendedForYouQueryParameters) HasHighlightPreTag() bool {
 }
 
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
-func (o *RecommendedForYouQueryParameters) SetHighlightPreTag(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetHighlightPreTag(v string) *FallbackParams {
 	o.HighlightPreTag = &v
 	return o
 }
 
 // GetHighlightPostTag returns the HighlightPostTag field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetHighlightPostTag() string {
+func (o *FallbackParams) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
 		return ret
@@ -1905,7 +1918,7 @@ func (o *RecommendedForYouQueryParameters) GetHighlightPostTag() string {
 
 // GetHighlightPostTagOk returns a tuple with the HighlightPostTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetHighlightPostTagOk() (*string, bool) {
+func (o *FallbackParams) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
@@ -1913,7 +1926,7 @@ func (o *RecommendedForYouQueryParameters) GetHighlightPostTagOk() (*string, boo
 }
 
 // HasHighlightPostTag returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasHighlightPostTag() bool {
+func (o *FallbackParams) HasHighlightPostTag() bool {
 	if o != nil && o.HighlightPostTag != nil {
 		return true
 	}
@@ -1922,13 +1935,13 @@ func (o *RecommendedForYouQueryParameters) HasHighlightPostTag() bool {
 }
 
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
-func (o *RecommendedForYouQueryParameters) SetHighlightPostTag(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetHighlightPostTag(v string) *FallbackParams {
 	o.HighlightPostTag = &v
 	return o
 }
 
 // GetSnippetEllipsisText returns the SnippetEllipsisText field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSnippetEllipsisText() string {
+func (o *FallbackParams) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
 		return ret
@@ -1938,7 +1951,7 @@ func (o *RecommendedForYouQueryParameters) GetSnippetEllipsisText() string {
 
 // GetSnippetEllipsisTextOk returns a tuple with the SnippetEllipsisText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSnippetEllipsisTextOk() (*string, bool) {
+func (o *FallbackParams) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
@@ -1946,7 +1959,7 @@ func (o *RecommendedForYouQueryParameters) GetSnippetEllipsisTextOk() (*string, 
 }
 
 // HasSnippetEllipsisText returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSnippetEllipsisText() bool {
+func (o *FallbackParams) HasSnippetEllipsisText() bool {
 	if o != nil && o.SnippetEllipsisText != nil {
 		return true
 	}
@@ -1955,13 +1968,13 @@ func (o *RecommendedForYouQueryParameters) HasSnippetEllipsisText() bool {
 }
 
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
-func (o *RecommendedForYouQueryParameters) SetSnippetEllipsisText(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSnippetEllipsisText(v string) *FallbackParams {
 	o.SnippetEllipsisText = &v
 	return o
 }
 
 // GetRestrictHighlightAndSnippetArrays returns the RestrictHighlightAndSnippetArrays field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRestrictHighlightAndSnippetArrays() bool {
+func (o *FallbackParams) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
 		return ret
@@ -1971,7 +1984,7 @@ func (o *RecommendedForYouQueryParameters) GetRestrictHighlightAndSnippetArrays(
 
 // GetRestrictHighlightAndSnippetArraysOk returns a tuple with the RestrictHighlightAndSnippetArrays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) {
+func (o *FallbackParams) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
@@ -1979,7 +1992,7 @@ func (o *RecommendedForYouQueryParameters) GetRestrictHighlightAndSnippetArraysO
 }
 
 // HasRestrictHighlightAndSnippetArrays returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRestrictHighlightAndSnippetArrays() bool {
+func (o *FallbackParams) HasRestrictHighlightAndSnippetArrays() bool {
 	if o != nil && o.RestrictHighlightAndSnippetArrays != nil {
 		return true
 	}
@@ -1988,13 +2001,13 @@ func (o *RecommendedForYouQueryParameters) HasRestrictHighlightAndSnippetArrays(
 }
 
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
-func (o *RecommendedForYouQueryParameters) SetRestrictHighlightAndSnippetArrays(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRestrictHighlightAndSnippetArrays(v bool) *FallbackParams {
 	o.RestrictHighlightAndSnippetArrays = &v
 	return o
 }
 
 // GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetHitsPerPage() int32 {
+func (o *FallbackParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
 		return ret
@@ -2004,7 +2017,7 @@ func (o *RecommendedForYouQueryParameters) GetHitsPerPage() int32 {
 
 // GetHitsPerPageOk returns a tuple with the HitsPerPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetHitsPerPageOk() (*int32, bool) {
+func (o *FallbackParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
@@ -2012,7 +2025,7 @@ func (o *RecommendedForYouQueryParameters) GetHitsPerPageOk() (*int32, bool) {
 }
 
 // HasHitsPerPage returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasHitsPerPage() bool {
+func (o *FallbackParams) HasHitsPerPage() bool {
 	if o != nil && o.HitsPerPage != nil {
 		return true
 	}
@@ -2021,13 +2034,13 @@ func (o *RecommendedForYouQueryParameters) HasHitsPerPage() bool {
 }
 
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *RecommendedForYouQueryParameters) SetHitsPerPage(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetHitsPerPage(v int32) *FallbackParams {
 	o.HitsPerPage = &v
 	return o
 }
 
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMinWordSizefor1Typo() int32 {
+func (o *FallbackParams) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
 		return ret
@@ -2037,7 +2050,7 @@ func (o *RecommendedForYouQueryParameters) GetMinWordSizefor1Typo() int32 {
 
 // GetMinWordSizefor1TypoOk returns a tuple with the MinWordSizefor1Typo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMinWordSizefor1TypoOk() (*int32, bool) {
+func (o *FallbackParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
@@ -2045,7 +2058,7 @@ func (o *RecommendedForYouQueryParameters) GetMinWordSizefor1TypoOk() (*int32, b
 }
 
 // HasMinWordSizefor1Typo returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMinWordSizefor1Typo() bool {
+func (o *FallbackParams) HasMinWordSizefor1Typo() bool {
 	if o != nil && o.MinWordSizefor1Typo != nil {
 		return true
 	}
@@ -2054,13 +2067,13 @@ func (o *RecommendedForYouQueryParameters) HasMinWordSizefor1Typo() bool {
 }
 
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
-func (o *RecommendedForYouQueryParameters) SetMinWordSizefor1Typo(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMinWordSizefor1Typo(v int32) *FallbackParams {
 	o.MinWordSizefor1Typo = &v
 	return o
 }
 
 // GetMinWordSizefor2Typos returns the MinWordSizefor2Typos field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMinWordSizefor2Typos() int32 {
+func (o *FallbackParams) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
 		return ret
@@ -2070,7 +2083,7 @@ func (o *RecommendedForYouQueryParameters) GetMinWordSizefor2Typos() int32 {
 
 // GetMinWordSizefor2TyposOk returns a tuple with the MinWordSizefor2Typos field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMinWordSizefor2TyposOk() (*int32, bool) {
+func (o *FallbackParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
@@ -2078,7 +2091,7 @@ func (o *RecommendedForYouQueryParameters) GetMinWordSizefor2TyposOk() (*int32, 
 }
 
 // HasMinWordSizefor2Typos returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMinWordSizefor2Typos() bool {
+func (o *FallbackParams) HasMinWordSizefor2Typos() bool {
 	if o != nil && o.MinWordSizefor2Typos != nil {
 		return true
 	}
@@ -2087,13 +2100,13 @@ func (o *RecommendedForYouQueryParameters) HasMinWordSizefor2Typos() bool {
 }
 
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
-func (o *RecommendedForYouQueryParameters) SetMinWordSizefor2Typos(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMinWordSizefor2Typos(v int32) *FallbackParams {
 	o.MinWordSizefor2Typos = &v
 	return o
 }
 
 // GetTypoTolerance returns the TypoTolerance field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetTypoTolerance() TypoTolerance {
+func (o *FallbackParams) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
 		return ret
@@ -2103,7 +2116,7 @@ func (o *RecommendedForYouQueryParameters) GetTypoTolerance() TypoTolerance {
 
 // GetTypoToleranceOk returns a tuple with the TypoTolerance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetTypoToleranceOk() (*TypoTolerance, bool) {
+func (o *FallbackParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
@@ -2111,7 +2124,7 @@ func (o *RecommendedForYouQueryParameters) GetTypoToleranceOk() (*TypoTolerance,
 }
 
 // HasTypoTolerance returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasTypoTolerance() bool {
+func (o *FallbackParams) HasTypoTolerance() bool {
 	if o != nil && o.TypoTolerance != nil {
 		return true
 	}
@@ -2120,13 +2133,13 @@ func (o *RecommendedForYouQueryParameters) HasTypoTolerance() bool {
 }
 
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
-func (o *RecommendedForYouQueryParameters) SetTypoTolerance(v *TypoTolerance) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetTypoTolerance(v *TypoTolerance) *FallbackParams {
 	o.TypoTolerance = v
 	return o
 }
 
 // GetAllowTyposOnNumericTokens returns the AllowTyposOnNumericTokens field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAllowTyposOnNumericTokens() bool {
+func (o *FallbackParams) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
 		return ret
@@ -2136,7 +2149,7 @@ func (o *RecommendedForYouQueryParameters) GetAllowTyposOnNumericTokens() bool {
 
 // GetAllowTyposOnNumericTokensOk returns a tuple with the AllowTyposOnNumericTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
+func (o *FallbackParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
@@ -2144,7 +2157,7 @@ func (o *RecommendedForYouQueryParameters) GetAllowTyposOnNumericTokensOk() (*bo
 }
 
 // HasAllowTyposOnNumericTokens returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAllowTyposOnNumericTokens() bool {
+func (o *FallbackParams) HasAllowTyposOnNumericTokens() bool {
 	if o != nil && o.AllowTyposOnNumericTokens != nil {
 		return true
 	}
@@ -2153,13 +2166,13 @@ func (o *RecommendedForYouQueryParameters) HasAllowTyposOnNumericTokens() bool {
 }
 
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
-func (o *RecommendedForYouQueryParameters) SetAllowTyposOnNumericTokens(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAllowTyposOnNumericTokens(v bool) *FallbackParams {
 	o.AllowTyposOnNumericTokens = &v
 	return o
 }
 
 // GetDisableTypoToleranceOnAttributes returns the DisableTypoToleranceOnAttributes field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetDisableTypoToleranceOnAttributes() []string {
+func (o *FallbackParams) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
 		return ret
@@ -2169,7 +2182,7 @@ func (o *RecommendedForYouQueryParameters) GetDisableTypoToleranceOnAttributes()
 
 // GetDisableTypoToleranceOnAttributesOk returns a tuple with the DisableTypoToleranceOnAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetDisableTypoToleranceOnAttributesOk() ([]string, bool) {
+func (o *FallbackParams) GetDisableTypoToleranceOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
@@ -2177,7 +2190,7 @@ func (o *RecommendedForYouQueryParameters) GetDisableTypoToleranceOnAttributesOk
 }
 
 // HasDisableTypoToleranceOnAttributes returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasDisableTypoToleranceOnAttributes() bool {
+func (o *FallbackParams) HasDisableTypoToleranceOnAttributes() bool {
 	if o != nil && o.DisableTypoToleranceOnAttributes != nil {
 		return true
 	}
@@ -2186,13 +2199,13 @@ func (o *RecommendedForYouQueryParameters) HasDisableTypoToleranceOnAttributes()
 }
 
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
-func (o *RecommendedForYouQueryParameters) SetDisableTypoToleranceOnAttributes(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetDisableTypoToleranceOnAttributes(v []string) *FallbackParams {
 	o.DisableTypoToleranceOnAttributes = v
 	return o
 }
 
 // GetIgnorePlurals returns the IgnorePlurals field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetIgnorePlurals() IgnorePlurals {
+func (o *FallbackParams) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
 		return ret
@@ -2202,7 +2215,7 @@ func (o *RecommendedForYouQueryParameters) GetIgnorePlurals() IgnorePlurals {
 
 // GetIgnorePluralsOk returns a tuple with the IgnorePlurals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
+func (o *FallbackParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
@@ -2210,7 +2223,7 @@ func (o *RecommendedForYouQueryParameters) GetIgnorePluralsOk() (*IgnorePlurals,
 }
 
 // HasIgnorePlurals returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasIgnorePlurals() bool {
+func (o *FallbackParams) HasIgnorePlurals() bool {
 	if o != nil && o.IgnorePlurals != nil {
 		return true
 	}
@@ -2219,13 +2232,13 @@ func (o *RecommendedForYouQueryParameters) HasIgnorePlurals() bool {
 }
 
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
-func (o *RecommendedForYouQueryParameters) SetIgnorePlurals(v *IgnorePlurals) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetIgnorePlurals(v *IgnorePlurals) *FallbackParams {
 	o.IgnorePlurals = v
 	return o
 }
 
 // GetRemoveStopWords returns the RemoveStopWords field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRemoveStopWords() RemoveStopWords {
+func (o *FallbackParams) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
 		return ret
@@ -2235,7 +2248,7 @@ func (o *RecommendedForYouQueryParameters) GetRemoveStopWords() RemoveStopWords 
 
 // GetRemoveStopWordsOk returns a tuple with the RemoveStopWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
+func (o *FallbackParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
@@ -2243,7 +2256,7 @@ func (o *RecommendedForYouQueryParameters) GetRemoveStopWordsOk() (*RemoveStopWo
 }
 
 // HasRemoveStopWords returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRemoveStopWords() bool {
+func (o *FallbackParams) HasRemoveStopWords() bool {
 	if o != nil && o.RemoveStopWords != nil {
 		return true
 	}
@@ -2252,13 +2265,13 @@ func (o *RecommendedForYouQueryParameters) HasRemoveStopWords() bool {
 }
 
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
-func (o *RecommendedForYouQueryParameters) SetRemoveStopWords(v *RemoveStopWords) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRemoveStopWords(v *RemoveStopWords) *FallbackParams {
 	o.RemoveStopWords = v
 	return o
 }
 
 // GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetKeepDiacriticsOnCharacters() string {
+func (o *FallbackParams) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
 		return ret
@@ -2268,7 +2281,7 @@ func (o *RecommendedForYouQueryParameters) GetKeepDiacriticsOnCharacters() strin
 
 // GetKeepDiacriticsOnCharactersOk returns a tuple with the KeepDiacriticsOnCharacters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
+func (o *FallbackParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
@@ -2276,7 +2289,7 @@ func (o *RecommendedForYouQueryParameters) GetKeepDiacriticsOnCharactersOk() (*s
 }
 
 // HasKeepDiacriticsOnCharacters returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasKeepDiacriticsOnCharacters() bool {
+func (o *FallbackParams) HasKeepDiacriticsOnCharacters() bool {
 	if o != nil && o.KeepDiacriticsOnCharacters != nil {
 		return true
 	}
@@ -2285,13 +2298,13 @@ func (o *RecommendedForYouQueryParameters) HasKeepDiacriticsOnCharacters() bool 
 }
 
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *RecommendedForYouQueryParameters) SetKeepDiacriticsOnCharacters(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetKeepDiacriticsOnCharacters(v string) *FallbackParams {
 	o.KeepDiacriticsOnCharacters = &v
 	return o
 }
 
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetQueryLanguages() []SupportedLanguage {
+func (o *FallbackParams) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
 		return ret
@@ -2301,7 +2314,7 @@ func (o *RecommendedForYouQueryParameters) GetQueryLanguages() []SupportedLangua
 
 // GetQueryLanguagesOk returns a tuple with the QueryLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
+func (o *FallbackParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
@@ -2309,7 +2322,7 @@ func (o *RecommendedForYouQueryParameters) GetQueryLanguagesOk() ([]SupportedLan
 }
 
 // HasQueryLanguages returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasQueryLanguages() bool {
+func (o *FallbackParams) HasQueryLanguages() bool {
 	if o != nil && o.QueryLanguages != nil {
 		return true
 	}
@@ -2318,13 +2331,13 @@ func (o *RecommendedForYouQueryParameters) HasQueryLanguages() bool {
 }
 
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
-func (o *RecommendedForYouQueryParameters) SetQueryLanguages(v []SupportedLanguage) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetQueryLanguages(v []SupportedLanguage) *FallbackParams {
 	o.QueryLanguages = v
 	return o
 }
 
 // GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetDecompoundQuery() bool {
+func (o *FallbackParams) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
 		return ret
@@ -2334,7 +2347,7 @@ func (o *RecommendedForYouQueryParameters) GetDecompoundQuery() bool {
 
 // GetDecompoundQueryOk returns a tuple with the DecompoundQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetDecompoundQueryOk() (*bool, bool) {
+func (o *FallbackParams) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
@@ -2342,7 +2355,7 @@ func (o *RecommendedForYouQueryParameters) GetDecompoundQueryOk() (*bool, bool) 
 }
 
 // HasDecompoundQuery returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasDecompoundQuery() bool {
+func (o *FallbackParams) HasDecompoundQuery() bool {
 	if o != nil && o.DecompoundQuery != nil {
 		return true
 	}
@@ -2351,13 +2364,13 @@ func (o *RecommendedForYouQueryParameters) HasDecompoundQuery() bool {
 }
 
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *RecommendedForYouQueryParameters) SetDecompoundQuery(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetDecompoundQuery(v bool) *FallbackParams {
 	o.DecompoundQuery = &v
 	return o
 }
 
 // GetEnableRules returns the EnableRules field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetEnableRules() bool {
+func (o *FallbackParams) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
 		return ret
@@ -2367,7 +2380,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableRules() bool {
 
 // GetEnableRulesOk returns a tuple with the EnableRules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetEnableRulesOk() (*bool, bool) {
+func (o *FallbackParams) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
@@ -2375,7 +2388,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableRulesOk() (*bool, bool) {
 }
 
 // HasEnableRules returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasEnableRules() bool {
+func (o *FallbackParams) HasEnableRules() bool {
 	if o != nil && o.EnableRules != nil {
 		return true
 	}
@@ -2384,13 +2397,13 @@ func (o *RecommendedForYouQueryParameters) HasEnableRules() bool {
 }
 
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *RecommendedForYouQueryParameters) SetEnableRules(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetEnableRules(v bool) *FallbackParams {
 	o.EnableRules = &v
 	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetEnablePersonalization() bool {
+func (o *FallbackParams) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
 		return ret
@@ -2400,7 +2413,7 @@ func (o *RecommendedForYouQueryParameters) GetEnablePersonalization() bool {
 
 // GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetEnablePersonalizationOk() (*bool, bool) {
+func (o *FallbackParams) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
@@ -2408,7 +2421,7 @@ func (o *RecommendedForYouQueryParameters) GetEnablePersonalizationOk() (*bool, 
 }
 
 // HasEnablePersonalization returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasEnablePersonalization() bool {
+func (o *FallbackParams) HasEnablePersonalization() bool {
 	if o != nil && o.EnablePersonalization != nil {
 		return true
 	}
@@ -2417,13 +2430,13 @@ func (o *RecommendedForYouQueryParameters) HasEnablePersonalization() bool {
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *RecommendedForYouQueryParameters) SetEnablePersonalization(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetEnablePersonalization(v bool) *FallbackParams {
 	o.EnablePersonalization = &v
 	return o
 }
 
 // GetQueryType returns the QueryType field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetQueryType() QueryType {
+func (o *FallbackParams) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
 		return ret
@@ -2433,7 +2446,7 @@ func (o *RecommendedForYouQueryParameters) GetQueryType() QueryType {
 
 // GetQueryTypeOk returns a tuple with the QueryType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetQueryTypeOk() (*QueryType, bool) {
+func (o *FallbackParams) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
@@ -2441,7 +2454,7 @@ func (o *RecommendedForYouQueryParameters) GetQueryTypeOk() (*QueryType, bool) {
 }
 
 // HasQueryType returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasQueryType() bool {
+func (o *FallbackParams) HasQueryType() bool {
 	if o != nil && o.QueryType != nil {
 		return true
 	}
@@ -2450,13 +2463,13 @@ func (o *RecommendedForYouQueryParameters) HasQueryType() bool {
 }
 
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
-func (o *RecommendedForYouQueryParameters) SetQueryType(v QueryType) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetQueryType(v QueryType) *FallbackParams {
 	o.QueryType = &v
 	return o
 }
 
 // GetRemoveWordsIfNoResults returns the RemoveWordsIfNoResults field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
+func (o *FallbackParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
 		return ret
@@ -2466,7 +2479,7 @@ func (o *RecommendedForYouQueryParameters) GetRemoveWordsIfNoResults() RemoveWor
 
 // GetRemoveWordsIfNoResultsOk returns a tuple with the RemoveWordsIfNoResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults, bool) {
+func (o *FallbackParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults, bool) {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
@@ -2474,7 +2487,7 @@ func (o *RecommendedForYouQueryParameters) GetRemoveWordsIfNoResultsOk() (*Remov
 }
 
 // HasRemoveWordsIfNoResults returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRemoveWordsIfNoResults() bool {
+func (o *FallbackParams) HasRemoveWordsIfNoResults() bool {
 	if o != nil && o.RemoveWordsIfNoResults != nil {
 		return true
 	}
@@ -2483,13 +2496,13 @@ func (o *RecommendedForYouQueryParameters) HasRemoveWordsIfNoResults() bool {
 }
 
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
-func (o *RecommendedForYouQueryParameters) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *FallbackParams {
 	o.RemoveWordsIfNoResults = &v
 	return o
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMode() Mode {
+func (o *FallbackParams) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
 		return ret
@@ -2499,7 +2512,7 @@ func (o *RecommendedForYouQueryParameters) GetMode() Mode {
 
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetModeOk() (*Mode, bool) {
+func (o *FallbackParams) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
@@ -2507,7 +2520,7 @@ func (o *RecommendedForYouQueryParameters) GetModeOk() (*Mode, bool) {
 }
 
 // HasMode returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMode() bool {
+func (o *FallbackParams) HasMode() bool {
 	if o != nil && o.Mode != nil {
 		return true
 	}
@@ -2516,13 +2529,13 @@ func (o *RecommendedForYouQueryParameters) HasMode() bool {
 }
 
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *RecommendedForYouQueryParameters) SetMode(v Mode) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMode(v Mode) *FallbackParams {
 	o.Mode = &v
 	return o
 }
 
 // GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSemanticSearch() SemanticSearch {
+func (o *FallbackParams) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
 		return ret
@@ -2532,7 +2545,7 @@ func (o *RecommendedForYouQueryParameters) GetSemanticSearch() SemanticSearch {
 
 // GetSemanticSearchOk returns a tuple with the SemanticSearch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSemanticSearchOk() (*SemanticSearch, bool) {
+func (o *FallbackParams) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
@@ -2540,7 +2553,7 @@ func (o *RecommendedForYouQueryParameters) GetSemanticSearchOk() (*SemanticSearc
 }
 
 // HasSemanticSearch returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSemanticSearch() bool {
+func (o *FallbackParams) HasSemanticSearch() bool {
 	if o != nil && o.SemanticSearch != nil {
 		return true
 	}
@@ -2549,13 +2562,13 @@ func (o *RecommendedForYouQueryParameters) HasSemanticSearch() bool {
 }
 
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *RecommendedForYouQueryParameters) SetSemanticSearch(v *SemanticSearch) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSemanticSearch(v *SemanticSearch) *FallbackParams {
 	o.SemanticSearch = v
 	return o
 }
 
 // GetAdvancedSyntax returns the AdvancedSyntax field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAdvancedSyntax() bool {
+func (o *FallbackParams) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
 		return ret
@@ -2565,7 +2578,7 @@ func (o *RecommendedForYouQueryParameters) GetAdvancedSyntax() bool {
 
 // GetAdvancedSyntaxOk returns a tuple with the AdvancedSyntax field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxOk() (*bool, bool) {
+func (o *FallbackParams) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
@@ -2573,7 +2586,7 @@ func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxOk() (*bool, bool) {
 }
 
 // HasAdvancedSyntax returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAdvancedSyntax() bool {
+func (o *FallbackParams) HasAdvancedSyntax() bool {
 	if o != nil && o.AdvancedSyntax != nil {
 		return true
 	}
@@ -2582,13 +2595,13 @@ func (o *RecommendedForYouQueryParameters) HasAdvancedSyntax() bool {
 }
 
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
-func (o *RecommendedForYouQueryParameters) SetAdvancedSyntax(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAdvancedSyntax(v bool) *FallbackParams {
 	o.AdvancedSyntax = &v
 	return o
 }
 
 // GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetOptionalWords() []string {
+func (o *FallbackParams) GetOptionalWords() []string {
 	if o == nil || o.OptionalWords == nil {
 		var ret []string
 		return ret
@@ -2598,7 +2611,7 @@ func (o *RecommendedForYouQueryParameters) GetOptionalWords() []string {
 
 // GetOptionalWordsOk returns a tuple with the OptionalWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetOptionalWordsOk() ([]string, bool) {
+func (o *FallbackParams) GetOptionalWordsOk() ([]string, bool) {
 	if o == nil || o.OptionalWords == nil {
 		return nil, false
 	}
@@ -2606,7 +2619,7 @@ func (o *RecommendedForYouQueryParameters) GetOptionalWordsOk() ([]string, bool)
 }
 
 // HasOptionalWords returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasOptionalWords() bool {
+func (o *FallbackParams) HasOptionalWords() bool {
 	if o != nil && o.OptionalWords != nil {
 		return true
 	}
@@ -2615,13 +2628,13 @@ func (o *RecommendedForYouQueryParameters) HasOptionalWords() bool {
 }
 
 // SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *RecommendedForYouQueryParameters) SetOptionalWords(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetOptionalWords(v []string) *FallbackParams {
 	o.OptionalWords = v
 	return o
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetDisableExactOnAttributes() []string {
+func (o *FallbackParams) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
 		return ret
@@ -2631,7 +2644,7 @@ func (o *RecommendedForYouQueryParameters) GetDisableExactOnAttributes() []strin
 
 // GetDisableExactOnAttributesOk returns a tuple with the DisableExactOnAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetDisableExactOnAttributesOk() ([]string, bool) {
+func (o *FallbackParams) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
@@ -2639,7 +2652,7 @@ func (o *RecommendedForYouQueryParameters) GetDisableExactOnAttributesOk() ([]st
 }
 
 // HasDisableExactOnAttributes returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasDisableExactOnAttributes() bool {
+func (o *FallbackParams) HasDisableExactOnAttributes() bool {
 	if o != nil && o.DisableExactOnAttributes != nil {
 		return true
 	}
@@ -2648,13 +2661,13 @@ func (o *RecommendedForYouQueryParameters) HasDisableExactOnAttributes() bool {
 }
 
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
-func (o *RecommendedForYouQueryParameters) SetDisableExactOnAttributes(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetDisableExactOnAttributes(v []string) *FallbackParams {
 	o.DisableExactOnAttributes = v
 	return o
 }
 
 // GetExactOnSingleWordQuery returns the ExactOnSingleWordQuery field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
+func (o *FallbackParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
 		return ret
@@ -2664,7 +2677,7 @@ func (o *RecommendedForYouQueryParameters) GetExactOnSingleWordQuery() ExactOnSi
 
 // GetExactOnSingleWordQueryOk returns a tuple with the ExactOnSingleWordQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery, bool) {
+func (o *FallbackParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery, bool) {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
@@ -2672,7 +2685,7 @@ func (o *RecommendedForYouQueryParameters) GetExactOnSingleWordQueryOk() (*Exact
 }
 
 // HasExactOnSingleWordQuery returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasExactOnSingleWordQuery() bool {
+func (o *FallbackParams) HasExactOnSingleWordQuery() bool {
 	if o != nil && o.ExactOnSingleWordQuery != nil {
 		return true
 	}
@@ -2681,13 +2694,13 @@ func (o *RecommendedForYouQueryParameters) HasExactOnSingleWordQuery() bool {
 }
 
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
-func (o *RecommendedForYouQueryParameters) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *FallbackParams {
 	o.ExactOnSingleWordQuery = &v
 	return o
 }
 
 // GetAlternativesAsExact returns the AlternativesAsExact field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAlternativesAsExact() []AlternativesAsExact {
+func (o *FallbackParams) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
 		return ret
@@ -2697,7 +2710,7 @@ func (o *RecommendedForYouQueryParameters) GetAlternativesAsExact() []Alternativ
 
 // GetAlternativesAsExactOk returns a tuple with the AlternativesAsExact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool) {
+func (o *FallbackParams) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool) {
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
@@ -2705,7 +2718,7 @@ func (o *RecommendedForYouQueryParameters) GetAlternativesAsExactOk() ([]Alterna
 }
 
 // HasAlternativesAsExact returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAlternativesAsExact() bool {
+func (o *FallbackParams) HasAlternativesAsExact() bool {
 	if o != nil && o.AlternativesAsExact != nil {
 		return true
 	}
@@ -2714,13 +2727,13 @@ func (o *RecommendedForYouQueryParameters) HasAlternativesAsExact() bool {
 }
 
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
-func (o *RecommendedForYouQueryParameters) SetAlternativesAsExact(v []AlternativesAsExact) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAlternativesAsExact(v []AlternativesAsExact) *FallbackParams {
 	o.AlternativesAsExact = v
 	return o
 }
 
 // GetAdvancedSyntaxFeatures returns the AdvancedSyntaxFeatures field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
+func (o *FallbackParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
 		return ret
@@ -2730,7 +2743,7 @@ func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxFeatures() []Advance
 
 // GetAdvancedSyntaxFeaturesOk returns a tuple with the AdvancedSyntaxFeatures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures, bool) {
+func (o *FallbackParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures, bool) {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
@@ -2738,7 +2751,7 @@ func (o *RecommendedForYouQueryParameters) GetAdvancedSyntaxFeaturesOk() ([]Adva
 }
 
 // HasAdvancedSyntaxFeatures returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAdvancedSyntaxFeatures() bool {
+func (o *FallbackParams) HasAdvancedSyntaxFeatures() bool {
 	if o != nil && o.AdvancedSyntaxFeatures != nil {
 		return true
 	}
@@ -2747,13 +2760,13 @@ func (o *RecommendedForYouQueryParameters) HasAdvancedSyntaxFeatures() bool {
 }
 
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
-func (o *RecommendedForYouQueryParameters) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *FallbackParams {
 	o.AdvancedSyntaxFeatures = v
 	return o
 }
 
 // GetDistinct returns the Distinct field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetDistinct() Distinct {
+func (o *FallbackParams) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
 		return ret
@@ -2763,7 +2776,7 @@ func (o *RecommendedForYouQueryParameters) GetDistinct() Distinct {
 
 // GetDistinctOk returns a tuple with the Distinct field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetDistinctOk() (*Distinct, bool) {
+func (o *FallbackParams) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
@@ -2771,7 +2784,7 @@ func (o *RecommendedForYouQueryParameters) GetDistinctOk() (*Distinct, bool) {
 }
 
 // HasDistinct returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasDistinct() bool {
+func (o *FallbackParams) HasDistinct() bool {
 	if o != nil && o.Distinct != nil {
 		return true
 	}
@@ -2780,13 +2793,13 @@ func (o *RecommendedForYouQueryParameters) HasDistinct() bool {
 }
 
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
-func (o *RecommendedForYouQueryParameters) SetDistinct(v *Distinct) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetDistinct(v *Distinct) *FallbackParams {
 	o.Distinct = v
 	return o
 }
 
 // GetReplaceSynonymsInHighlight returns the ReplaceSynonymsInHighlight field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetReplaceSynonymsInHighlight() bool {
+func (o *FallbackParams) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
 		return ret
@@ -2796,7 +2809,7 @@ func (o *RecommendedForYouQueryParameters) GetReplaceSynonymsInHighlight() bool 
 
 // GetReplaceSynonymsInHighlightOk returns a tuple with the ReplaceSynonymsInHighlight field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
+func (o *FallbackParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
@@ -2804,7 +2817,7 @@ func (o *RecommendedForYouQueryParameters) GetReplaceSynonymsInHighlightOk() (*b
 }
 
 // HasReplaceSynonymsInHighlight returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasReplaceSynonymsInHighlight() bool {
+func (o *FallbackParams) HasReplaceSynonymsInHighlight() bool {
 	if o != nil && o.ReplaceSynonymsInHighlight != nil {
 		return true
 	}
@@ -2813,13 +2826,13 @@ func (o *RecommendedForYouQueryParameters) HasReplaceSynonymsInHighlight() bool 
 }
 
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
-func (o *RecommendedForYouQueryParameters) SetReplaceSynonymsInHighlight(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetReplaceSynonymsInHighlight(v bool) *FallbackParams {
 	o.ReplaceSynonymsInHighlight = &v
 	return o
 }
 
 // GetMinProximity returns the MinProximity field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMinProximity() int32 {
+func (o *FallbackParams) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
 		return ret
@@ -2829,7 +2842,7 @@ func (o *RecommendedForYouQueryParameters) GetMinProximity() int32 {
 
 // GetMinProximityOk returns a tuple with the MinProximity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMinProximityOk() (*int32, bool) {
+func (o *FallbackParams) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
@@ -2837,7 +2850,7 @@ func (o *RecommendedForYouQueryParameters) GetMinProximityOk() (*int32, bool) {
 }
 
 // HasMinProximity returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMinProximity() bool {
+func (o *FallbackParams) HasMinProximity() bool {
 	if o != nil && o.MinProximity != nil {
 		return true
 	}
@@ -2846,13 +2859,13 @@ func (o *RecommendedForYouQueryParameters) HasMinProximity() bool {
 }
 
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
-func (o *RecommendedForYouQueryParameters) SetMinProximity(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMinProximity(v int32) *FallbackParams {
 	o.MinProximity = &v
 	return o
 }
 
 // GetResponseFields returns the ResponseFields field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetResponseFields() []string {
+func (o *FallbackParams) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
 		return ret
@@ -2862,7 +2875,7 @@ func (o *RecommendedForYouQueryParameters) GetResponseFields() []string {
 
 // GetResponseFieldsOk returns a tuple with the ResponseFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetResponseFieldsOk() ([]string, bool) {
+func (o *FallbackParams) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
@@ -2870,7 +2883,7 @@ func (o *RecommendedForYouQueryParameters) GetResponseFieldsOk() ([]string, bool
 }
 
 // HasResponseFields returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasResponseFields() bool {
+func (o *FallbackParams) HasResponseFields() bool {
 	if o != nil && o.ResponseFields != nil {
 		return true
 	}
@@ -2879,13 +2892,13 @@ func (o *RecommendedForYouQueryParameters) HasResponseFields() bool {
 }
 
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
-func (o *RecommendedForYouQueryParameters) SetResponseFields(v []string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetResponseFields(v []string) *FallbackParams {
 	o.ResponseFields = v
 	return o
 }
 
 // GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMaxFacetHits() int32 {
+func (o *FallbackParams) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
 		return ret
@@ -2895,7 +2908,7 @@ func (o *RecommendedForYouQueryParameters) GetMaxFacetHits() int32 {
 
 // GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMaxFacetHitsOk() (*int32, bool) {
+func (o *FallbackParams) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
@@ -2903,7 +2916,7 @@ func (o *RecommendedForYouQueryParameters) GetMaxFacetHitsOk() (*int32, bool) {
 }
 
 // HasMaxFacetHits returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMaxFacetHits() bool {
+func (o *FallbackParams) HasMaxFacetHits() bool {
 	if o != nil && o.MaxFacetHits != nil {
 		return true
 	}
@@ -2912,13 +2925,13 @@ func (o *RecommendedForYouQueryParameters) HasMaxFacetHits() bool {
 }
 
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *RecommendedForYouQueryParameters) SetMaxFacetHits(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMaxFacetHits(v int32) *FallbackParams {
 	o.MaxFacetHits = &v
 	return o
 }
 
 // GetMaxValuesPerFacet returns the MaxValuesPerFacet field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetMaxValuesPerFacet() int32 {
+func (o *FallbackParams) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
 		return ret
@@ -2928,7 +2941,7 @@ func (o *RecommendedForYouQueryParameters) GetMaxValuesPerFacet() int32 {
 
 // GetMaxValuesPerFacetOk returns a tuple with the MaxValuesPerFacet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetMaxValuesPerFacetOk() (*int32, bool) {
+func (o *FallbackParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
@@ -2936,7 +2949,7 @@ func (o *RecommendedForYouQueryParameters) GetMaxValuesPerFacetOk() (*int32, boo
 }
 
 // HasMaxValuesPerFacet returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasMaxValuesPerFacet() bool {
+func (o *FallbackParams) HasMaxValuesPerFacet() bool {
 	if o != nil && o.MaxValuesPerFacet != nil {
 		return true
 	}
@@ -2945,13 +2958,13 @@ func (o *RecommendedForYouQueryParameters) HasMaxValuesPerFacet() bool {
 }
 
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
-func (o *RecommendedForYouQueryParameters) SetMaxValuesPerFacet(v int32) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetMaxValuesPerFacet(v int32) *FallbackParams {
 	o.MaxValuesPerFacet = &v
 	return o
 }
 
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetSortFacetValuesBy() string {
+func (o *FallbackParams) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
 		return ret
@@ -2961,7 +2974,7 @@ func (o *RecommendedForYouQueryParameters) GetSortFacetValuesBy() string {
 
 // GetSortFacetValuesByOk returns a tuple with the SortFacetValuesBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetSortFacetValuesByOk() (*string, bool) {
+func (o *FallbackParams) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
@@ -2969,7 +2982,7 @@ func (o *RecommendedForYouQueryParameters) GetSortFacetValuesByOk() (*string, bo
 }
 
 // HasSortFacetValuesBy returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasSortFacetValuesBy() bool {
+func (o *FallbackParams) HasSortFacetValuesBy() bool {
 	if o != nil && o.SortFacetValuesBy != nil {
 		return true
 	}
@@ -2978,13 +2991,13 @@ func (o *RecommendedForYouQueryParameters) HasSortFacetValuesBy() bool {
 }
 
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
-func (o *RecommendedForYouQueryParameters) SetSortFacetValuesBy(v string) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetSortFacetValuesBy(v string) *FallbackParams {
 	o.SortFacetValuesBy = &v
 	return o
 }
 
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetAttributeCriteriaComputedByMinProximity() bool {
+func (o *FallbackParams) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
 		return ret
@@ -2994,7 +3007,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributeCriteriaComputedByMinProx
 
 // GetAttributeCriteriaComputedByMinProximityOk returns a tuple with the AttributeCriteriaComputedByMinProximity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetAttributeCriteriaComputedByMinProximityOk() (*bool, bool) {
+func (o *FallbackParams) GetAttributeCriteriaComputedByMinProximityOk() (*bool, bool) {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
@@ -3002,7 +3015,7 @@ func (o *RecommendedForYouQueryParameters) GetAttributeCriteriaComputedByMinProx
 }
 
 // HasAttributeCriteriaComputedByMinProximity returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasAttributeCriteriaComputedByMinProximity() bool {
+func (o *FallbackParams) HasAttributeCriteriaComputedByMinProximity() bool {
 	if o != nil && o.AttributeCriteriaComputedByMinProximity != nil {
 		return true
 	}
@@ -3011,13 +3024,13 @@ func (o *RecommendedForYouQueryParameters) HasAttributeCriteriaComputedByMinProx
 }
 
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
-func (o *RecommendedForYouQueryParameters) SetAttributeCriteriaComputedByMinProximity(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetAttributeCriteriaComputedByMinProximity(v bool) *FallbackParams {
 	o.AttributeCriteriaComputedByMinProximity = &v
 	return o
 }
 
 // GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetRenderingContent() RenderingContent {
+func (o *FallbackParams) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
 		return ret
@@ -3027,7 +3040,7 @@ func (o *RecommendedForYouQueryParameters) GetRenderingContent() RenderingConten
 
 // GetRenderingContentOk returns a tuple with the RenderingContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetRenderingContentOk() (*RenderingContent, bool) {
+func (o *FallbackParams) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
@@ -3035,7 +3048,7 @@ func (o *RecommendedForYouQueryParameters) GetRenderingContentOk() (*RenderingCo
 }
 
 // HasRenderingContent returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasRenderingContent() bool {
+func (o *FallbackParams) HasRenderingContent() bool {
 	if o != nil && o.RenderingContent != nil {
 		return true
 	}
@@ -3044,13 +3057,13 @@ func (o *RecommendedForYouQueryParameters) HasRenderingContent() bool {
 }
 
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
-func (o *RecommendedForYouQueryParameters) SetRenderingContent(v *RenderingContent) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetRenderingContent(v *RenderingContent) *FallbackParams {
 	o.RenderingContent = v
 	return o
 }
 
 // GetEnableReRanking returns the EnableReRanking field value if set, zero value otherwise.
-func (o *RecommendedForYouQueryParameters) GetEnableReRanking() bool {
+func (o *FallbackParams) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
 		return ret
@@ -3060,7 +3073,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableReRanking() bool {
 
 // GetEnableReRankingOk returns a tuple with the EnableReRanking field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQueryParameters) GetEnableReRankingOk() (*bool, bool) {
+func (o *FallbackParams) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
@@ -3068,7 +3081,7 @@ func (o *RecommendedForYouQueryParameters) GetEnableReRankingOk() (*bool, bool) 
 }
 
 // HasEnableReRanking returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasEnableReRanking() bool {
+func (o *FallbackParams) HasEnableReRanking() bool {
 	if o != nil && o.EnableReRanking != nil {
 		return true
 	}
@@ -3077,13 +3090,13 @@ func (o *RecommendedForYouQueryParameters) HasEnableReRanking() bool {
 }
 
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
-func (o *RecommendedForYouQueryParameters) SetEnableReRanking(v bool) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetEnableReRanking(v bool) *FallbackParams {
 	o.EnableReRanking = &v
 	return o
 }
 
 // GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RecommendedForYouQueryParameters) GetReRankingApplyFilter() ReRankingApplyFilter {
+func (o *FallbackParams) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 		return ret
@@ -3094,7 +3107,7 @@ func (o *RecommendedForYouQueryParameters) GetReRankingApplyFilter() ReRankingAp
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *RecommendedForYouQueryParameters) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
+func (o *FallbackParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -3102,7 +3115,7 @@ func (o *RecommendedForYouQueryParameters) GetReRankingApplyFilterOk() (*ReRanki
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
-func (o *RecommendedForYouQueryParameters) HasReRankingApplyFilter() bool {
+func (o *FallbackParams) HasReRankingApplyFilter() bool {
 	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
@@ -3111,22 +3124,22 @@ func (o *RecommendedForYouQueryParameters) HasReRankingApplyFilter() bool {
 }
 
 // SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
-func (o *RecommendedForYouQueryParameters) SetReRankingApplyFilter(v *ReRankingApplyFilter) *RecommendedForYouQueryParameters {
+func (o *FallbackParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *FallbackParams {
 	o.ReRankingApplyFilter.Set(v)
 	return o
 }
 
 // SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
-func (o *RecommendedForYouQueryParameters) SetReRankingApplyFilterNil() {
+func (o *FallbackParams) SetReRankingApplyFilterNil() {
 	o.ReRankingApplyFilter.Set(nil)
 }
 
 // UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
-func (o *RecommendedForYouQueryParameters) UnsetReRankingApplyFilter() {
+func (o *FallbackParams) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
-func (o RecommendedForYouQueryParameters) MarshalJSON() ([]byte, error) {
+func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
@@ -3200,7 +3213,7 @@ func (o RecommendedForYouQueryParameters) MarshalJSON() ([]byte, error) {
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
-	if true {
+	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
 	if o.GetRankingInfo != nil {
@@ -3358,13 +3371,13 @@ func (o RecommendedForYouQueryParameters) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal RecommendedForYouQueryParameters: %w", err)
+		return nil, fmt.Errorf("failed to marshal FallbackParams: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o RecommendedForYouQueryParameters) String() string {
+func (o FallbackParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  similarQuery=%v\n", o.SimilarQuery)
@@ -3442,41 +3455,41 @@ func (o RecommendedForYouQueryParameters) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
-	return fmt.Sprintf("RecommendedForYouQueryParameters {\n%s}", out)
+	return fmt.Sprintf("FallbackParams {\n%s}", out)
 }
 
-type NullableRecommendedForYouQueryParameters struct {
-	value *RecommendedForYouQueryParameters
+type NullableFallbackParams struct {
+	value *FallbackParams
 	isSet bool
 }
 
-func (v NullableRecommendedForYouQueryParameters) Get() *RecommendedForYouQueryParameters {
+func (v NullableFallbackParams) Get() *FallbackParams {
 	return v.value
 }
 
-func (v *NullableRecommendedForYouQueryParameters) Set(val *RecommendedForYouQueryParameters) {
+func (v *NullableFallbackParams) Set(val *FallbackParams) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRecommendedForYouQueryParameters) IsSet() bool {
+func (v NullableFallbackParams) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRecommendedForYouQueryParameters) Unset() {
+func (v *NullableFallbackParams) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRecommendedForYouQueryParameters(val *RecommendedForYouQueryParameters) *NullableRecommendedForYouQueryParameters {
-	return &NullableRecommendedForYouQueryParameters{value: val, isSet: true}
+func NewNullableFallbackParams(val *FallbackParams) *NullableFallbackParams {
+	return &NullableFallbackParams{value: val, isSet: true}
 }
 
-func (v NullableRecommendedForYouQueryParameters) MarshalJSON() ([]byte, error) {
+func (v NullableFallbackParams) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value) //nolint:wrapcheck
 }
 
-func (v *NullableRecommendedForYouQueryParameters) UnmarshalJSON(src []byte) error {
+func (v *NullableFallbackParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

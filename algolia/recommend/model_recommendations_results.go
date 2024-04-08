@@ -65,10 +65,6 @@ type RecommendationsResults struct {
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string              `json:"queryID,omitempty"`
 	Hits    []RecommendationsHit `json:"hits"`
-	// Search query.
-	Query *string `json:"query,omitempty"`
-	// URL-encoded string of all search parameters.
-	Params *string `json:"params,omitempty"`
 }
 
 type RecommendationsResultsOption func(f *RecommendationsResults)
@@ -208,18 +204,6 @@ func WithRecommendationsResultsUserData(val map[string]interface{}) Recommendati
 func WithRecommendationsResultsQueryID(val string) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.QueryID = &val
-	}
-}
-
-func WithRecommendationsResultsQuery(val string) RecommendationsResultsOption {
-	return func(f *RecommendationsResults) {
-		f.Query = &val
-	}
-}
-
-func WithRecommendationsResultsParams(val string) RecommendationsResultsOption {
-	return func(f *RecommendationsResults) {
-		f.Params = &val
 	}
 }
 
@@ -1164,72 +1148,6 @@ func (o *RecommendationsResults) SetHits(v []RecommendationsHit) *Recommendation
 	return o
 }
 
-// GetQuery returns the Query field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetQuery() string {
-	if o == nil || o.Query == nil {
-		var ret string
-		return ret
-	}
-	return *o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetQueryOk() (*string, bool) {
-	if o == nil || o.Query == nil {
-		return nil, false
-	}
-	return o.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (o *RecommendationsResults) HasQuery() bool {
-	if o != nil && o.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *RecommendationsResults) SetQuery(v string) *RecommendationsResults {
-	o.Query = &v
-	return o
-}
-
-// GetParams returns the Params field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetParams() string {
-	if o == nil || o.Params == nil {
-		var ret string
-		return ret
-	}
-	return *o.Params
-}
-
-// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetParamsOk() (*string, bool) {
-	if o == nil || o.Params == nil {
-		return nil, false
-	}
-	return o.Params, true
-}
-
-// HasParams returns a boolean if a field has been set.
-func (o *RecommendationsResults) HasParams() bool {
-	if o != nil && o.Params != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParams gets a reference to the given string and assigns it to the Params field.
-func (o *RecommendationsResults) SetParams(v string) *RecommendationsResults {
-	o.Params = &v
-	return o
-}
-
 func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.AbTestID != nil {
@@ -1319,12 +1237,6 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["hits"] = o.Hits
 	}
-	if o.Query != nil {
-		toSerialize["query"] = o.Query
-	}
-	if o.Params != nil {
-		toSerialize["params"] = o.Params
-	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendationsResults: %w", err)
@@ -1364,8 +1276,6 @@ func (o RecommendationsResults) String() string {
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
-	out += fmt.Sprintf("  query=%v\n", o.Query)
-	out += fmt.Sprintf("  params=%v\n", o.Params)
 	return fmt.Sprintf("RecommendationsResults {\n%s}", out)
 }
 
