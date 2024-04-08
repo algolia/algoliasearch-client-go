@@ -536,7 +536,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 
-	@param xAlgoliaUserID string - User ID to assign.
+	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param assignUserIdParams AssignUserIdParams
 	@return CreatedAtResponse
 */
@@ -556,7 +556,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 
-	@param xAlgoliaUserID string - User ID to assign.
+	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param assignUserIdParams AssignUserIdParams
 	@return CreatedAtResponse
 */
@@ -839,7 +839,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters below.
 
-	@param xAlgoliaUserID string - User ID to assign.
+	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param batchAssignUserIdsParams BatchAssignUserIdsParams
 	@return CreatedAtResponse
 */
@@ -859,7 +859,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters below.
 
-	@param xAlgoliaUserID string - User ID to assign.
+	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param batchAssignUserIdsParams BatchAssignUserIdsParams
 	@return CreatedAtResponse
 */
@@ -4849,7 +4849,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetUserIdRequest with parameters below.
 
-	@param userID string - User ID to assign.
+	@param userID string - Unique identifier of the user who makes the search request.
 	@return UserId
 */
 func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...Option) (*UserId, error) {
@@ -4869,7 +4869,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetUserIdRequest with parameters below.
 
-	@param userID string - User ID to assign.
+	@param userID string - Unique identifier of the user who makes the search request.
 	@return UserId
 */
 func (c *APIClient) GetUserIdWithContext(ctx context.Context, r ApiGetUserIdRequest, opts ...Option) (*UserId, error) {
@@ -6098,7 +6098,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 
-	@param userID string - User ID to assign.
+	@param userID string - Unique identifier of the user who makes the search request.
 	@return RemoveUserIdResponse
 */
 func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...Option) (*RemoveUserIdResponse, error) {
@@ -6115,7 +6115,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 
-	@param userID string - User ID to assign.
+	@param userID string - Unique identifier of the user who makes the search request.
 	@return RemoveUserIdResponse
 */
 func (c *APIClient) RemoveUserIdWithContext(ctx context.Context, r ApiRemoveUserIdRequest, opts ...Option) (*RemoveUserIdResponse, error) {

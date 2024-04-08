@@ -8,7 +8,7 @@ import (
 
 // UserId Unique user ID.
 type UserId struct {
-	// User ID.
+	// Unique identifier of the user who makes the search request.
 	UserID string `json:"userID"`
 	// Cluster to which the user is assigned.
 	ClusterName string `json:"clusterName"`

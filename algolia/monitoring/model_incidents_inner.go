@@ -8,7 +8,7 @@ import (
 
 // IncidentsInner struct for IncidentsInner.
 type IncidentsInner struct {
-	// Timestamp in [Unix epoch time](https://wikipedia.org/wiki/Unix_time) in milliseconds.
+	// Timestamp, measured in milliseconds since the Unix epoch.
 	T *int64    `json:"t,omitempty"`
 	V *Incident `json:"v,omitempty"`
 }

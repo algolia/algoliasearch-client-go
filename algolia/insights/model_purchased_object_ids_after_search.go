@@ -24,7 +24,7 @@ type PurchasedObjectIDsAfterSearch struct {
 	Currency *string `json:"currency,omitempty"`
 	// Extra information about the records involved in a purchase or add-to-cart events.  If provided, it must be the same length as `objectIDs`.
 	ObjectData []ObjectDataAfterSearch `json:"objectData"`
-	// Timestamp of the event in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time). By default, the Insights API uses the time it receives an event as its timestamp.
+	// Timestamp of the event, measured in milliseconds since the Unix epoch. By default, the Insights API uses the time it receives an event as its timestamp.
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	Value     *Value `json:"value,omitempty"`
 }

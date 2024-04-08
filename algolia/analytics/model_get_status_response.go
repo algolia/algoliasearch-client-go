@@ -10,7 +10,7 @@ import (
 
 // GetStatusResponse struct for GetStatusResponse.
 type GetStatusResponse struct {
-	// Timestamp of the last update in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format. If null, no update was performed yet.
+	// Date and time when the object was updated, in RFC 3339 format.
 	UpdatedAt utils.NullableString `json:"updatedAt"`
 }
 

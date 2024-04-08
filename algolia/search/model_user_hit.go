@@ -8,7 +8,7 @@ import (
 
 // UserHit struct for UserHit.
 type UserHit struct {
-	// User ID.
+	// Unique identifier of the user who makes the search request.
 	UserID string `json:"userID"`
 	// Cluster name.
 	ClusterName string `json:"clusterName"`

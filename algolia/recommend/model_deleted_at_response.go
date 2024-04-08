@@ -10,7 +10,7 @@ import (
 type DeletedAtResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](#tag/Indices/operation/getTask) and this `taskID`.
 	TaskID int64 `json:"taskID"`
-	// Timestamp of deletion in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Date and time when the object was deleted, in RFC 3339 format.
 	DeletedAt string `json:"deletedAt"`
 }
 

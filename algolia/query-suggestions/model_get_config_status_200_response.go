@@ -12,9 +12,9 @@ type GetConfigStatus200Response struct {
 	IndexName *string `json:"indexName,omitempty"`
 	// Whether the creation or update of the Query Suggestions index is in progress.
 	IsRunning *bool `json:"isRunning,omitempty"`
-	// Timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format when the Query Suggestions index was last built.
+	// Date and time when the Query Suggestions index was last built, in RFC 3339 format.
 	LastBuiltAt *string `json:"lastBuiltAt,omitempty"`
-	// Timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format when the Query Suggestions index was last updated successfully.
+	// Date and time when the Query Suggestions index was last updated successfully.
 	LastSuccessfulBuiltAt *string `json:"lastSuccessfulBuiltAt,omitempty"`
 	// Duration of the last successful build in seconds.
 	LastSuccessfulBuildDuration *string `json:"lastSuccessfulBuildDuration,omitempty"`

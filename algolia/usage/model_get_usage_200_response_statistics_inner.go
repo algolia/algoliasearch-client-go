@@ -8,7 +8,7 @@ import (
 
 // GetUsage200ResponseStatisticsInner struct for GetUsage200ResponseStatisticsInner.
 type GetUsage200ResponseStatisticsInner struct {
-	// Timestamp in milliseconds in Unix epoch time.
+	// Timestamp, measured in milliseconds since the Unix epoch.
 	T *int32          `json:"t,omitempty"`
 	V *StatisticValue `json:"v,omitempty"`
 }

@@ -12,7 +12,7 @@ type FetchedIndex struct {
 	Name string `json:"name"`
 	// Index creation date. An empty string means that the index has no records.
 	CreatedAt string `json:"createdAt"`
-	// Timestamp of the last update in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Date and time when the object was updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 	// Number of records contained in the index.
 	Entries int32 `json:"entries"`

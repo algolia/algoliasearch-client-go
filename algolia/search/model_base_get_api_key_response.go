@@ -10,7 +10,7 @@ import (
 type BaseGetApiKeyResponse struct {
 	// API key.
 	Value *string `json:"value,omitempty"`
-	// Timestamp of creation in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time).
+	// Timestamp when the object was created, in milliseconds since the Unix epoch.
 	CreatedAt int64 `json:"createdAt"`
 }
 

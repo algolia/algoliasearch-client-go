@@ -10,7 +10,7 @@ import (
 type AddApiKeyResponse struct {
 	// API key.
 	Key string `json:"key"`
-	// Timestamp of creation in [ISO 8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Date and time when the object was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

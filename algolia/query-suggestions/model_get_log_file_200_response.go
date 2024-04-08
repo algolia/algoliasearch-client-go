@@ -8,7 +8,7 @@ import (
 
 // GetLogFile200Response struct for GetLogFile200Response.
 type GetLogFile200Response struct {
-	// Timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Date and time of the log entry, in RFC 3339 format.
 	Timestamp *string   `json:"timestamp,omitempty"`
 	Level     *LogLevel `json:"level,omitempty"`
 	// Details about this log entry.

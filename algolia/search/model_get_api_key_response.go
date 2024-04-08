@@ -10,7 +10,7 @@ import (
 type GetApiKeyResponse struct {
 	// API key.
 	Value *string `json:"value,omitempty"`
-	// Timestamp of creation in milliseconds in [Unix epoch time](https://wikipedia.org/wiki/Unix_time).
+	// Timestamp when the object was created, in milliseconds since the Unix epoch.
 	CreatedAt int64 `json:"createdAt"`
 	// Permissions that determine the type of API requests this key can make. The required ACL is listed in each endpoint's reference. For more information, see [access control list](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
 	Acl []Acl `json:"acl"`

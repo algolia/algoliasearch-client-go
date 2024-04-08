@@ -738,8 +738,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetAddToCartRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetAddToCartRateResponse
 */
@@ -760,8 +760,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetAddToCartRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetAddToCartRateResponse
 */
@@ -931,8 +931,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetAverageClickPositionResponse
 */
@@ -955,8 +955,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetAverageClickPositionRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetAverageClickPositionResponse
 */
@@ -1124,8 +1124,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetClickPositionsResponse
 */
@@ -1146,8 +1146,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetClickPositionsRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetClickPositionsResponse
 */
@@ -1315,8 +1315,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetClickThroughRateResponse
 */
@@ -1337,8 +1337,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetClickThroughRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetClickThroughRateResponse
 */
@@ -1506,8 +1506,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetConversionRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetConversionRateResponse
 */
@@ -1528,8 +1528,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetConversionRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetConversionRateResponse
 */
@@ -1697,8 +1697,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetNoClickRateResponse
 */
@@ -1719,8 +1719,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetNoClickRateResponse
 */
@@ -1888,8 +1888,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetNoResultsRateResponse
 */
@@ -1910,8 +1910,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetNoResultsRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetNoResultsRateResponse
 */
@@ -2079,8 +2079,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetPurchaseRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetPurchaseRateResponse
 */
@@ -2101,8 +2101,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetPurchaseRateRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetPurchaseRateResponse
 */
@@ -2271,8 +2271,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRevenueRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetRevenue
 */
@@ -2294,8 +2294,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetRevenueRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetRevenue
 */
@@ -2463,8 +2463,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetSearchesCountResponse
 */
@@ -2485,8 +2485,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesCountRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetSearchesCountResponse
 */
@@ -2684,8 +2684,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -2706,8 +2706,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -2913,8 +2913,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -2935,8 +2935,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3270,8 +3270,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3292,8 +3292,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetTopCountriesRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3518,8 +3518,8 @@ Request can be constructed by NewApiGetTopFilterAttributesRequest with parameter
 
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3543,8 +3543,8 @@ Request can be constructed by NewApiGetTopFilterAttributesRequest with parameter
 
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3784,8 +3784,8 @@ Request can be constructed by NewApiGetTopFilterForAttributeRequest with paramet
 	@param attribute string - Attribute name.
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -3810,8 +3810,8 @@ Request can be constructed by NewApiGetTopFilterForAttributeRequest with paramet
 	@param attribute string - Attribute name.
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -4043,8 +4043,8 @@ Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameter
 
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -4068,8 +4068,8 @@ Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameter
 
 	@param index string - Index name.
 	@param search string - Search query.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -4329,8 +4329,8 @@ Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 	@param search string - Search query.
 	@param clickAnalytics bool - Whether to include metrics related to click and conversion events in the response.
 	@param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -4354,8 +4354,8 @@ Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 	@param search string - Search query.
 	@param clickAnalytics bool - Whether to include metrics related to click and conversion events in the response.
 	@param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
@@ -4636,8 +4636,8 @@ Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 	@param index string - Index name.
 	@param clickAnalytics bool - Whether to include metrics related to click and conversion events in the response.
 	@param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
 	@param limit int32 - Number of items to return.
@@ -4662,8 +4662,8 @@ Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 	@param index string - Index name.
 	@param clickAnalytics bool - Whether to include metrics related to click and conversion events in the response.
 	@param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
 	@param limit int32 - Number of items to return.
@@ -4856,8 +4856,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetUsersCountResponse
 */
@@ -4881,8 +4881,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 
 	@param index string - Index name.
-	@param startDate string - Start date (`YYYY-MM-DD`) of the period to analyze.
-	@param endDate string - End date (`YYYY-MM-DD`) of the period to analyze.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetUsersCountResponse
 */

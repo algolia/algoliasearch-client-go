@@ -8,7 +8,7 @@ import (
 
 // TimeInner struct for TimeInner.
 type TimeInner struct {
-	// Timestamp in [Unix epoch time](https://wikipedia.org/wiki/Unix_time) in milliseconds.
+	// Timestamp, measured in milliseconds since the Unix epoch.
 	T *int64 `json:"t,omitempty"`
 	// Time in ms.
 	V *int32 `json:"v,omitempty"`

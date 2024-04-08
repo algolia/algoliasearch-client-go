@@ -8,7 +8,7 @@ import (
 
 // Log struct for Log.
 type Log struct {
-	// Timestamp of the API request in ISO 8601 format.
+	// Date and time of the API request, in RFC 3339 format.
 	Timestamp string `json:"timestamp"`
 	// HTTP method of the request.
 	Method string `json:"method"`

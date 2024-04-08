@@ -8,7 +8,7 @@ import (
 
 // ProbesMetric struct for ProbesMetric.
 type ProbesMetric struct {
-	// Timestamp in [Unix epoch time](https://wikipedia.org/wiki/Unix_time) in milliseconds.
+	// Timestamp, measured in milliseconds since the Unix epoch.
 	T *int64 `json:"t,omitempty"`
 	// Value of the metric.
 	V *int32 `json:"v,omitempty"`

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TriggerType Task trigger, describing when a task should run.  <dl> <dt><code>onDemand</code></dt> <dd>  Manually trigger the task with the `/run` endpoint.  </dd> <dt><code>schedule</code></dt> <dd>  Regularly trigger the task on a `cron` schedule.  </dd>  <dt><code>subscription</code></dt>  <dd>  Trigger the task after an event is received, such as, a webhook.  </dd>  <dt><code>streaming</code></dt>  <dd>  Run the task continuously.  </dd> </dl>.
+// TriggerType Task trigger, describing when a task should run.  - `onDemand`.   Manually trigger the task with the `/run` endpoint.  - `schedule`.   Regularly trigger the task on a `cron` schedule.  - `subscription`.   Trigger the task after an event is received, such as, a webhook.  - `streaming`.   Run the task continuously.
 type TriggerType string
 
 // List of TriggerType.
