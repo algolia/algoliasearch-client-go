@@ -10,37 +10,40 @@ import (
 
 // ABTest struct for ABTest.
 type ABTest struct {
-	// Unique A/B test ID.
-	AbTestID int32 `json:"abTestID"`
-	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on click data. A value of 0.95 or over is considered to be _significant_.
-	ClickSignificance utils.NullableFloat64 `json:"clickSignificance"`
-	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on conversion. A value of 0.95 or over is considered to be _significant_.
+	// Unique A/B test identifier.
+	AbTestID               int32                 `json:"abTestID"`
+	ClickSignificance      utils.NullableFloat64 `json:"clickSignificance"`
 	ConversionSignificance utils.NullableFloat64 `json:"conversionSignificance"`
-	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on add-to-cart data. A value of 0.95 or over is considered to be _significant_.
-	AddToCartSignificance utils.NullableFloat64 `json:"addToCartSignificance"`
-	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on purchase data. A value of 0.95 or over is considered to be _significant_.
-	PurchaseSignificance utils.NullableFloat64 `json:"purchaseSignificance"`
-	// [A/B test significance](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/in-depth/how-ab-test-scores-are-calculated/#statistical-significance-or-chance) based on revenue data. A value of 0.95 or over is considered to be _significant_.
-	RevenueSignificance map[string]float64 `json:"revenueSignificance"`
-	// Update date timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	AddToCartSignificance  utils.NullableFloat64 `json:"addToCartSignificance"`
+	PurchaseSignificance   utils.NullableFloat64 `json:"purchaseSignificance"`
+	RevenueSignificance    map[string]float64    `json:"revenueSignificance"`
+	// Date and time when the A/B test was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
-	// Creation date timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// Date and time when the A/B test was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// End date timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// End date and time of the A/B test, in RFC 3339 format.
 	EndAt string `json:"endAt"`
 	// A/B test name.
-	Name string `json:"name"`
-	// A/B test status.
-	Status string `json:"status"`
-	// A/B test variants.
-	Variants []Variant `json:"variants"`
+	Name   string `json:"name"`
+	Status Status `json:"status"`
+	// A/B test variants.  The first variant is your _control_ index, typically your production index. The second variant is an index with changed settings that you want to test against the control.
+	Variants      []Variant            `json:"variants"`
+	Configuration *ABTestConfiguration `json:"configuration,omitempty"`
+}
+
+type ABTestOption func(f *ABTest)
+
+func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
+	return func(f *ABTest) {
+		f.Configuration = &val
+	}
 }
 
 // NewABTest instantiates a new ABTest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, clickSignificance utils.NullableFloat64, conversionSignificance utils.NullableFloat64, addToCartSignificance utils.NullableFloat64, purchaseSignificance utils.NullableFloat64, revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status string, variants []Variant) *ABTest {
+func NewABTest(abTestID int32, clickSignificance utils.NullableFloat64, conversionSignificance utils.NullableFloat64, addToCartSignificance utils.NullableFloat64, purchaseSignificance utils.NullableFloat64, revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
 	this.ClickSignificance = clickSignificance
@@ -54,6 +57,9 @@ func NewABTest(abTestID int32, clickSignificance utils.NullableFloat64, conversi
 	this.Name = name
 	this.Status = status
 	this.Variants = variants
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -323,9 +329,9 @@ func (o *ABTest) SetName(v string) *ABTest {
 }
 
 // GetStatus returns the Status field value.
-func (o *ABTest) GetStatus() string {
+func (o *ABTest) GetStatus() Status {
 	if o == nil {
-		var ret string
+		var ret Status
 		return ret
 	}
 
@@ -334,7 +340,7 @@ func (o *ABTest) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *ABTest) GetStatusOk() (*string, bool) {
+func (o *ABTest) GetStatusOk() (*Status, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -342,7 +348,7 @@ func (o *ABTest) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value.
-func (o *ABTest) SetStatus(v string) *ABTest {
+func (o *ABTest) SetStatus(v Status) *ABTest {
 	o.Status = v
 	return o
 }
@@ -369,6 +375,39 @@ func (o *ABTest) GetVariantsOk() ([]Variant, bool) {
 // SetVariants sets field value.
 func (o *ABTest) SetVariants(v []Variant) *ABTest {
 	o.Variants = v
+	return o
+}
+
+// GetConfiguration returns the Configuration field value if set, zero value otherwise.
+func (o *ABTest) GetConfiguration() ABTestConfiguration {
+	if o == nil || o.Configuration == nil {
+		var ret ABTestConfiguration
+		return ret
+	}
+	return *o.Configuration
+}
+
+// GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ABTest) GetConfigurationOk() (*ABTestConfiguration, bool) {
+	if o == nil || o.Configuration == nil {
+		return nil, false
+	}
+	return o.Configuration, true
+}
+
+// HasConfiguration returns a boolean if a field has been set.
+func (o *ABTest) HasConfiguration() bool {
+	if o != nil && o.Configuration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetConfiguration gets a reference to the given ABTestConfiguration and assigns it to the Configuration field.
+func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
+	o.Configuration = v
 	return o
 }
 
@@ -410,6 +449,9 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["variants"] = o.Variants
 	}
+	if o.Configuration != nil {
+		toSerialize["configuration"] = o.Configuration
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTest: %w", err)
@@ -432,6 +474,7 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
+	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	return fmt.Sprintf("ABTest {\n%s}", out)
 }
 

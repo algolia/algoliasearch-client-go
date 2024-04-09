@@ -3,6 +3,7 @@ api_abtesting.go
 client.go
 configuration.go
 model_ab_test_.go
+model_ab_test_configuration.go
 model_ab_test_response.go
 model_ab_tests_variant.go
 model_ab_tests_variant_search_params.go
@@ -10,9 +11,14 @@ model_add_ab_tests_request.go
 model_add_ab_tests_variant.go
 model_currency.go
 model_custom_search_params.go
+model_effect.go
+model_empty_search.go
 model_error_base.go
 model_filter_effects.go
 model_filter_effects_empty_search.go
 model_filter_effects_outliers.go
 model_list_ab_tests_response.go
+model_minimum_detectable_effect.go
+model_outliers.go
+model_status.go
 model_variant.go

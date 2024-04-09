@@ -12,42 +12,42 @@ import (
 type Variant struct {
 	// Number of add-to-cart events for this variant.
 	AddToCartCount int32 `json:"addToCartCount"`
-	// Variant's [add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate).
+	// [Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.
 	AddToCartRate utils.NullableFloat64 `json:"addToCartRate"`
-	// Variant's [average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position).
+	// [Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.
 	AverageClickPosition utils.NullableInt32 `json:"averageClickPosition"`
 	// Number of click events for this variant.
 	ClickCount int32 `json:"clickCount"`
-	// Variant's [click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate).
+	// [Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.
 	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
 	// Number of click events for this variant.
 	ConversionCount int32 `json:"conversionCount"`
-	// Variant's [conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate).
+	// [Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.
 	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
 	// A/B test currencies.
 	Currencies *map[string]Currency `json:"currencies,omitempty"`
-	// A/B test description.
+	// Description for this variant.
 	Description string `json:"description"`
-	// The estimated number of searches that will need to be run to achieve the desired confidence level and statistical power. A `minimumDetectableEffect` must be set in the `configuration` object for this to be used.
+	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `mininmumDetectableEffect` setting for this number to be included in the response.
 	EstimatedSampleSize *int32         `json:"estimatedSampleSize,omitempty"`
 	FilterEffects       *FilterEffects `json:"filterEffects,omitempty"`
 	// A/B test index.
 	Index string `json:"index"`
-	// Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for that variant.
+	// Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.
 	NoResultCount utils.NullableInt32 `json:"noResultCount"`
 	// Number of purchase events for this variant.
 	PurchaseCount int32 `json:"purchaseCount"`
-	// Variant's [purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate).
+	// [Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.
 	PurchaseRate utils.NullableFloat64 `json:"purchaseRate"`
-	// Number of searches carried out during the A/B test.
+	// Number of searches for this variant.
 	SearchCount utils.NullableInt32 `json:"searchCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount *int32 `json:"trackedSearchCount,omitempty"`
-	// A/B test traffic percentage.
+	// Percentage of search requests each variant receives.
 	TrafficPercentage int32 `json:"trafficPercentage"`
-	// Number of users during the A/B test.
+	// Number of users that made searches to this variant.
 	UserCount utils.NullableInt32 `json:"userCount"`
-	// Number of users that performed a tracked search during the A/B test.
+	// Number of users that made tracked searches to this variant.
 	TrackedUserCount utils.NullableInt32 `json:"trackedUserCount"`
 }
 

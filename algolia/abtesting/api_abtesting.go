@@ -73,7 +73,7 @@ func (c *APIClient) NewApiAddABTestsRequest(addABTestsRequest *AddABTestsRequest
 /*
 AddABTests Wraps AddABTestsWithContext using context.Background.
 
-Creates an A/B test.
+Creates a new A/B test.
 
 Required API Key ACLs:
   - editSettings
@@ -90,7 +90,7 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...Option) (*ABTestR
 /*
 AddABTests
 
-Creates an A/B test.
+Creates a new A/B test.
 
 Required API Key ACLs:
   - editSettings
@@ -810,15 +810,14 @@ func (c *APIClient) NewApiDeleteABTestRequest(id int32) ApiDeleteABTestRequest {
 /*
 DeleteABTest Wraps DeleteABTestWithContext using context.Background.
 
-Delete an A/B test.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Deletes an A/B test by its ID.
 
 Required API Key ACLs:
   - editSettings
 
 Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
 func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...Option) (*ABTestResponse, error) {
@@ -828,15 +827,14 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...Option) (*ABT
 /*
 DeleteABTest
 
-Delete an A/B test.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Deletes an A/B test by its ID.
 
 Required API Key ACLs:
   - editSettings
 
 Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
 func (c *APIClient) DeleteABTestWithContext(ctx context.Context, r ApiDeleteABTestRequest, opts ...Option) (*ABTestResponse, error) {
@@ -932,15 +930,14 @@ func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 /*
 GetABTest Wraps GetABTestWithContext using context.Background.
 
-Get specific details for an A/B test.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Retrieves the details for an A/B test by its ID.
 
 Required API Key ACLs:
   - analytics
 
 Request can be constructed by NewApiGetABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTest
 */
 func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...Option) (*ABTest, error) {
@@ -950,15 +947,14 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...Option) (*ABTest, e
 /*
 GetABTest
 
-Get specific details for an A/B test.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Retrieves the details for an A/B test by its ID.
 
 Required API Key ACLs:
   - analytics
 
 Request can be constructed by NewApiGetABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTest
 */
 func (c *APIClient) GetABTestWithContext(ctx context.Context, r ApiGetABTestRequest, opts ...Option) (*ABTest, error) {
@@ -1106,7 +1102,7 @@ func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTest
 /*
 ListABTests Wraps ListABTestsWithContext using context.Background.
 
-List all A/B tests.
+Lists all A/B tests you configured for this application.
 
 Required API Key ACLs:
   - analytics
@@ -1115,8 +1111,8 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 
 	@param offset int32 - Position of the first item to return.
 	@param limit int32 - Number of items to return.
-	@param indexPrefix string - Only return A/B tests for indices starting with this prefix.
-	@param indexSuffix string - Only return A/B tests for indices ending with this suffix.
+	@param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
+	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
 	@return ListABTestsResponse
 */
 func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...Option) (*ListABTestsResponse, error) {
@@ -1126,7 +1122,7 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...Option) (*ListA
 /*
 ListABTests
 
-List all A/B tests.
+Lists all A/B tests you configured for this application.
 
 Required API Key ACLs:
   - analytics
@@ -1135,8 +1131,8 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 
 	@param offset int32 - Position of the first item to return.
 	@param limit int32 - Number of items to return.
-	@param indexPrefix string - Only return A/B tests for indices starting with this prefix.
-	@param indexSuffix string - Only return A/B tests for indices ending with this suffix.
+	@param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
+	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
 	@return ListABTestsResponse
 */
 func (c *APIClient) ListABTestsWithContext(ctx context.Context, r ApiListABTestsRequest, opts ...Option) (*ListABTestsResponse, error) {
@@ -1244,16 +1240,16 @@ func (c *APIClient) NewApiStopABTestRequest(id int32) ApiStopABTestRequest {
 /*
 StopABTest Wraps StopABTestWithContext using context.Background.
 
-If stopped, the test is over and can't be restarted. There is now only one index, receiving 100% of all search requests.
-The data gathered for stopped A/B tests is retained.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Stops an A/B test by its ID.
+
+You can't restart stopped A/B tests.
 
 Required API Key ACLs:
   - editSettings
 
 Request can be constructed by NewApiStopABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
 func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...Option) (*ABTestResponse, error) {
@@ -1263,16 +1259,16 @@ func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...Option) (*ABTestR
 /*
 StopABTest
 
-If stopped, the test is over and can't be restarted. There is now only one index, receiving 100% of all search requests.
-The data gathered for stopped A/B tests is retained.
-To determine the `id` for an A/B test, use the [`listABTests` operation](#tag/abtest/operation/listABTests).
+Stops an A/B test by its ID.
+
+You can't restart stopped A/B tests.
 
 Required API Key ACLs:
   - editSettings
 
 Request can be constructed by NewApiStopABTestRequest with parameters below.
 
-	@param id int32 - Unique A/B test ID.
+	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
 func (c *APIClient) StopABTestWithContext(ctx context.Context, r ApiStopABTestRequest, opts ...Option) (*ABTestResponse, error) {

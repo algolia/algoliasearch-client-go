@@ -10,9 +10,9 @@ import (
 type AbTestsVariantSearchParams struct {
 	// A/B test index.
 	Index string `json:"index"`
-	// A/B test traffic percentage.
+	// Percentage of search requests each variant receives.
 	TrafficPercentage int32 `json:"trafficPercentage"`
-	// A/B test description.
+	// Description for this variant.
 	Description            *string                `json:"description,omitempty"`
 	CustomSearchParameters map[string]interface{} `json:"customSearchParameters"`
 }

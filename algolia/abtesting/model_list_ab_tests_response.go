@@ -10,7 +10,7 @@ import (
 type ListABTestsResponse struct {
 	// A/B tests.
 	Abtests []ABTest `json:"abtests"`
-	// Number of A/B tests implemented.
+	// Number of A/B tests.
 	Count int32 `json:"count"`
 	// Number of retrievable A/B tests.
 	Total int32 `json:"total"`

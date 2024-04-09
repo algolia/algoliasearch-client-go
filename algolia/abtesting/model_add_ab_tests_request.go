@@ -12,7 +12,7 @@ type AddABTestsRequest struct {
 	Name string `json:"name"`
 	// A/B test variants.
 	Variants []AddABTestsVariant `json:"variants"`
-	// End date timestamp in [ISO-8601](https://wikipedia.org/wiki/ISO_8601) format.
+	// End date and time of the A/B test, in RFC 3339 format.
 	EndAt string `json:"endAt"`
 }
 
