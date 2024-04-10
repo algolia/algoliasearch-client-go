@@ -8,19 +8,18 @@ import (
 
 // EventScoring struct for EventScoring.
 type EventScoring struct {
-	// The score for the event.
+	// Event score.
 	Score int32 `json:"score"`
-	// The name of the event.
-	EventName string `json:"eventName"`
-	// The type of the event.
-	EventType string `json:"eventType"`
+	// Event name.
+	EventName string    `json:"eventName"`
+	EventType EventType `json:"eventType"`
 }
 
 // NewEventScoring instantiates a new EventScoring object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewEventScoring(score int32, eventName string, eventType string) *EventScoring {
+func NewEventScoring(score int32, eventName string, eventType EventType) *EventScoring {
 	this := &EventScoring{}
 	this.Score = score
 	this.EventName = eventName
@@ -84,9 +83,9 @@ func (o *EventScoring) SetEventName(v string) *EventScoring {
 }
 
 // GetEventType returns the EventType field value.
-func (o *EventScoring) GetEventType() string {
+func (o *EventScoring) GetEventType() EventType {
 	if o == nil {
-		var ret string
+		var ret EventType
 		return ret
 	}
 
@@ -95,7 +94,7 @@ func (o *EventScoring) GetEventType() string {
 
 // GetEventTypeOk returns a tuple with the EventType field value
 // and a boolean to check if the value has been set.
-func (o *EventScoring) GetEventTypeOk() (*string, bool) {
+func (o *EventScoring) GetEventTypeOk() (*EventType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,7 +102,7 @@ func (o *EventScoring) GetEventTypeOk() (*string, bool) {
 }
 
 // SetEventType sets field value.
-func (o *EventScoring) SetEventType(v string) *EventScoring {
+func (o *EventScoring) SetEventType(v EventType) *EventScoring {
 	o.EventType = v
 	return o
 }

@@ -8,9 +8,9 @@ import (
 
 // FacetScoring struct for FacetScoring.
 type FacetScoring struct {
-	// The score for the event.
+	// Event score.
 	Score int32 `json:"score"`
-	// The name of the facet.
+	// Facet attribute name.
 	FacetName string `json:"facetName"`
 }
 

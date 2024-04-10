@@ -5,6 +5,7 @@ configuration.go
 model_delete_user_profile_response.go
 model_error_base.go
 model_event_scoring.go
+model_event_type.go
 model_facet_scoring.go
 model_get_user_token_response.go
 model_personalization_strategy_params.go

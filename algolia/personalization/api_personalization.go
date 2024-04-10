@@ -680,18 +680,16 @@ func (c *APIClient) NewApiDeleteUserProfileRequest(userToken string) ApiDeleteUs
 /*
 DeleteUserProfile Wraps DeleteUserProfileWithContext using context.Background.
 
-Delete the user profile and all its associated data.
+Deletes a user profile.
 
-Returns, as part of the response, a date until which the data can safely be considered as deleted for the given user. This means if you send events for the given user before this date, they will be ignored. Any data received after the deletedUntil date will start building a new user profile.
-
-It might take a couple hours for the deletion request to be fully processed.
+The response includes a date and time when the user profile can safely be considered deleted.
 
 Required API Key ACLs:
   - recommendation
 
 Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
 
-	@param userToken string - userToken representing the user for which to fetch the Personalization profile.
+	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return DeleteUserProfileResponse
 */
 func (c *APIClient) DeleteUserProfile(r ApiDeleteUserProfileRequest, opts ...Option) (*DeleteUserProfileResponse, error) {
@@ -701,18 +699,16 @@ func (c *APIClient) DeleteUserProfile(r ApiDeleteUserProfileRequest, opts ...Opt
 /*
 DeleteUserProfile
 
-Delete the user profile and all its associated data.
+Deletes a user profile.
 
-Returns, as part of the response, a date until which the data can safely be considered as deleted for the given user. This means if you send events for the given user before this date, they will be ignored. Any data received after the deletedUntil date will start building a new user profile.
-
-It might take a couple hours for the deletion request to be fully processed.
+The response includes a date and time when the user profile can safely be considered deleted.
 
 Required API Key ACLs:
   - recommendation
 
 Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
 
-	@param userToken string - userToken representing the user for which to fetch the Personalization profile.
+	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return DeleteUserProfileResponse
 */
 func (c *APIClient) DeleteUserProfileWithContext(ctx context.Context, r ApiDeleteUserProfileRequest, opts ...Option) (*DeleteUserProfileResponse, error) {
@@ -780,7 +776,7 @@ func (c *APIClient) DeleteUserProfileWithContext(ctx context.Context, r ApiDelet
 /*
 GetPersonalizationStrategy Wraps GetPersonalizationStrategyWithContext using context.Background.
 
-The strategy contains information on the events and facets that impact user profiles and personalized search results.
+Retrieves the current personalization strategy.
 
 Required API Key ACLs:
   - recommendation
@@ -796,7 +792,7 @@ func (c *APIClient) GetPersonalizationStrategy(opts ...Option) (*Personalization
 /*
 GetPersonalizationStrategy
 
-The strategy contains information on the events and facets that impact user profiles and personalized search results.
+Retrieves the current personalization strategy.
 
 Required API Key ACLs:
   - recommendation
@@ -897,16 +893,14 @@ func (c *APIClient) NewApiGetUserTokenProfileRequest(userToken string) ApiGetUse
 /*
 GetUserTokenProfile Wraps GetUserTokenProfileWithContext using context.Background.
 
-Get the user profile built from Personalization strategy.
-
-The profile is structured by facet name used in the strategy. Each facet value is mapped to its score. Each score represents the user affinity for a specific facet value given the userToken past events and the Personalization strategy defined. Scores are bounded to 20. The last processed event timestamp is provided using the ISO 8601 format for debugging purposes.
+Retrieves a user profile and their affinities for different facets.
 
 Required API Key ACLs:
   - recommendation
 
 Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
 
-	@param userToken string - userToken representing the user for which to fetch the Personalization profile.
+	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return GetUserTokenResponse
 */
 func (c *APIClient) GetUserTokenProfile(r ApiGetUserTokenProfileRequest, opts ...Option) (*GetUserTokenResponse, error) {
@@ -916,16 +910,14 @@ func (c *APIClient) GetUserTokenProfile(r ApiGetUserTokenProfileRequest, opts ..
 /*
 GetUserTokenProfile
 
-Get the user profile built from Personalization strategy.
-
-The profile is structured by facet name used in the strategy. Each facet value is mapped to its score. Each score represents the user affinity for a specific facet value given the userToken past events and the Personalization strategy defined. Scores are bounded to 20. The last processed event timestamp is provided using the ISO 8601 format for debugging purposes.
+Retrieves a user profile and their affinities for different facets.
 
 Required API Key ACLs:
   - recommendation
 
 Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
 
-	@param userToken string - userToken representing the user for which to fetch the Personalization profile.
+	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return GetUserTokenResponse
 */
 func (c *APIClient) GetUserTokenProfileWithContext(ctx context.Context, r ApiGetUserTokenProfileRequest, opts ...Option) (*GetUserTokenResponse, error) {
@@ -1029,7 +1021,7 @@ func (c *APIClient) NewApiSetPersonalizationStrategyRequest(personalizationStrat
 /*
 SetPersonalizationStrategy Wraps SetPersonalizationStrategyWithContext using context.Background.
 
-A strategy defines the events and facets that impact user profiles and personalized search results.
+Creates a new personalization strategy.
 
 Required API Key ACLs:
   - recommendation
@@ -1046,7 +1038,7 @@ func (c *APIClient) SetPersonalizationStrategy(r ApiSetPersonalizationStrategyRe
 /*
 SetPersonalizationStrategy
 
-A strategy defines the events and facets that impact user profiles and personalized search results.
+Creates a new personalization strategy.
 
 Required API Key ACLs:
   - recommendation

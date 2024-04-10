@@ -8,11 +8,11 @@ import (
 
 // PersonalizationStrategyParams struct for PersonalizationStrategyParams.
 type PersonalizationStrategyParams struct {
-	// Scores associated with the events.
+	// Scores associated with each event.  The higher the scores, the higher the impact of those events on the personalization of search results.
 	EventScoring []EventScoring `json:"eventScoring"`
-	// Scores associated with the facets.
+	// Scores associated with each facet.  The higher the scores, the higher the impact of those events on the personalization of search results.
 	FacetScoring []FacetScoring `json:"facetScoring"`
-	// The impact that personalization has on search results: a number between 0 (personalization disabled) and 100 (personalization fully enabled).
+	// Impact of personalization on the search results.  If set to 0, personalization has no impact on the search results.
 	PersonalizationImpact int32 `json:"personalizationImpact"`
 }
 
