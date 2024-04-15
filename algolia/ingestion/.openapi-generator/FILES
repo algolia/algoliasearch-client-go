@@ -84,6 +84,9 @@ model_schedule_date_utils_input.go
 model_schedule_trigger.go
 model_schedule_trigger_input.go
 model_schedule_trigger_type.go
+model_shopify_input.go
+model_shopify_market.go
+model_shopify_metafield.go
 model_source.go
 model_source_big_commerce.go
 model_source_big_query.go
@@ -96,6 +99,8 @@ model_source_ga4_big_query_export.go
 model_source_input.go
 model_source_json.go
 model_source_search.go
+model_source_shopify.go
+model_source_shopify_base.go
 model_source_sort_keys.go
 model_source_type.go
 model_source_update.go
@@ -103,6 +108,7 @@ model_source_update_commercetools.go
 model_source_update_docker.go
 model_source_update_input.go
 model_source_update_response.go
+model_source_update_shopify.go
 model_streaming_trigger.go
 model_streaming_trigger_type.go
 model_streaming_utils_input.go

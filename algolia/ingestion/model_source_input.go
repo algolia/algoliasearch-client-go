@@ -15,6 +15,7 @@ type SourceInput struct {
 	SourceDocker            *SourceDocker
 	SourceGA4BigQueryExport *SourceGA4BigQueryExport
 	SourceJSON              *SourceJSON
+	SourceShopify           *SourceShopify
 }
 
 // SourceCommercetoolsAsSourceInput is a convenience function that returns SourceCommercetools wrapped in SourceInput.
@@ -63,6 +64,13 @@ func SourceGA4BigQueryExportAsSourceInput(v *SourceGA4BigQueryExport) *SourceInp
 func SourceDockerAsSourceInput(v *SourceDocker) *SourceInput {
 	return &SourceInput{
 		SourceDocker: v,
+	}
+}
+
+// SourceShopifyAsSourceInput is a convenience function that returns SourceShopify wrapped in SourceInput.
+func SourceShopifyAsSourceInput(v *SourceShopify) *SourceInput {
+	return &SourceInput{
+		SourceShopify: v,
 	}
 }
 
@@ -235,6 +243,19 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 		dst.SourceJSON = nil
 	}
 
+	// try to unmarshal data into SourceShopify
+	err = newStrictDecoder(data).Decode(&dst.SourceShopify)
+	if err == nil && validateStruct(dst.SourceShopify) == nil {
+		jsonSourceShopify, _ := json.Marshal(dst.SourceShopify)
+		if string(jsonSourceShopify) == "{}" { // empty struct
+			dst.SourceShopify = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.SourceShopify = nil
+	}
+
 	return fmt.Errorf("Data failed to match schemas in oneOf(SourceInput)")
 }
 
@@ -303,6 +324,15 @@ func (src SourceInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.SourceShopify != nil {
+		serialized, err := json.Marshal(&src.SourceShopify)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceShopify of SourceInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -334,6 +364,10 @@ func (obj SourceInput) GetActualInstance() any {
 
 	if obj.SourceJSON != nil {
 		return *obj.SourceJSON
+	}
+
+	if obj.SourceShopify != nil {
+		return *obj.SourceShopify
 	}
 
 	// all schemas are nil

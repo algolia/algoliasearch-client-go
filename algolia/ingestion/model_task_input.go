@@ -10,6 +10,7 @@ import (
 type TaskInput struct {
 	OnDemandDateUtilsInput *OnDemandDateUtilsInput
 	ScheduleDateUtilsInput *ScheduleDateUtilsInput
+	ShopifyInput           *ShopifyInput
 	StreamingUtilsInput    *StreamingUtilsInput
 }
 
@@ -31,6 +32,13 @@ func ScheduleDateUtilsInputAsTaskInput(v *ScheduleDateUtilsInput) *TaskInput {
 func StreamingUtilsInputAsTaskInput(v *StreamingUtilsInput) *TaskInput {
 	return &TaskInput{
 		StreamingUtilsInput: v,
+	}
+}
+
+// ShopifyInputAsTaskInput is a convenience function that returns ShopifyInput wrapped in TaskInput.
+func ShopifyInputAsTaskInput(v *ShopifyInput) *TaskInput {
+	return &TaskInput{
+		ShopifyInput: v,
 	}
 }
 
@@ -61,6 +69,19 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 		}
 	} else {
 		dst.ScheduleDateUtilsInput = nil
+	}
+
+	// try to unmarshal data into ShopifyInput
+	err = newStrictDecoder(data).Decode(&dst.ShopifyInput)
+	if err == nil && validateStruct(dst.ShopifyInput) == nil {
+		jsonShopifyInput, _ := json.Marshal(dst.ShopifyInput)
+		if string(jsonShopifyInput) == "{}" { // empty struct
+			dst.ShopifyInput = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.ShopifyInput = nil
 	}
 
 	// try to unmarshal data into StreamingUtilsInput
@@ -99,6 +120,15 @@ func (src TaskInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.ShopifyInput != nil {
+		serialized, err := json.Marshal(&src.ShopifyInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of ShopifyInput of TaskInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.StreamingUtilsInput != nil {
 		serialized, err := json.Marshal(&src.StreamingUtilsInput)
 		if err != nil {
@@ -119,6 +149,10 @@ func (obj TaskInput) GetActualInstance() any {
 
 	if obj.ScheduleDateUtilsInput != nil {
 		return *obj.ScheduleDateUtilsInput
+	}
+
+	if obj.ShopifyInput != nil {
+		return *obj.ShopifyInput
 	}
 
 	if obj.StreamingUtilsInput != nil {

@@ -14,6 +14,7 @@ type SourceUpdateInput struct {
 	SourceJSON                *SourceJSON
 	SourceUpdateCommercetools *SourceUpdateCommercetools
 	SourceUpdateDocker        *SourceUpdateDocker
+	SourceUpdateShopify       *SourceUpdateShopify
 }
 
 // SourceUpdateCommercetoolsAsSourceUpdateInput is a convenience function that returns SourceUpdateCommercetools wrapped in SourceUpdateInput.
@@ -55,6 +56,13 @@ func SourceGA4BigQueryExportAsSourceUpdateInput(v *SourceGA4BigQueryExport) *Sou
 func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateInput {
 	return &SourceUpdateInput{
 		SourceUpdateDocker: v,
+	}
+}
+
+// SourceUpdateShopifyAsSourceUpdateInput is a convenience function that returns SourceUpdateShopify wrapped in SourceUpdateInput.
+func SourceUpdateShopifyAsSourceUpdateInput(v *SourceUpdateShopify) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceUpdateShopify: v,
 	}
 }
 
@@ -190,6 +198,19 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 		dst.SourceUpdateDocker = nil
 	}
 
+	// try to unmarshal data into SourceUpdateShopify
+	err = newStrictDecoder(data).Decode(&dst.SourceUpdateShopify)
+	if err == nil && validateStruct(dst.SourceUpdateShopify) == nil {
+		jsonSourceUpdateShopify, _ := json.Marshal(dst.SourceUpdateShopify)
+		if string(jsonSourceUpdateShopify) == "{}" { // empty struct
+			dst.SourceUpdateShopify = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.SourceUpdateShopify = nil
+	}
+
 	return fmt.Errorf("Data failed to match schemas in oneOf(SourceUpdateInput)")
 }
 
@@ -249,6 +270,15 @@ func (src SourceUpdateInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.SourceUpdateShopify != nil {
+		serialized, err := json.Marshal(&src.SourceUpdateShopify)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceUpdateShopify of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -276,6 +306,10 @@ func (obj SourceUpdateInput) GetActualInstance() any {
 
 	if obj.SourceUpdateDocker != nil {
 		return *obj.SourceUpdateDocker
+	}
+
+	if obj.SourceUpdateShopify != nil {
+		return *obj.SourceUpdateShopify
 	}
 
 	// all schemas are nil
