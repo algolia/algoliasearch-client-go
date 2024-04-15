@@ -12,7 +12,7 @@ type AddedToCartObjectIDsAfterSearch struct {
 	EventName    string          `json:"eventName"`
 	EventType    ConversionEvent `json:"eventType"`
 	EventSubtype AddToCartEvent  `json:"eventSubtype"`
-	// Index name to which the event's items belong.
+	// Index name (case-sensitive) to which the event's items belong.
 	Index string `json:"index"`
 	// Unique identifier for a search query.  The query ID is required for events related to search or browse requests. If you add `clickAnalytics: true` as a search request parameter, the query ID is included in the API response.
 	QueryID string `json:"queryID"`

@@ -20,7 +20,7 @@ type BaseSearchParams struct {
 	TagFilters      *TagFilters      `json:"tagFilters,omitempty"`
 	// Whether to sum all filter scores.  If true, all filter scores are summed. Otherwise, the maximum filter score is kept. For more information, see [filter scores](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/in-depth/filter-scoring/#accumulating-scores-with-sumorfiltersscores).
 	SumOrFiltersScores *bool `json:"sumOrFiltersScores,omitempty"`
-	// Restricts a search to a subset of your searchable attributes.
+	// Restricts a search to a subset of your searchable attributes. Attribute names are case-sensitive.
 	RestrictSearchableAttributes []string `json:"restrictSearchableAttributes,omitempty"`
 	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values.  To retrieve all facets, use the wildcard character `*`. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts).
 	Facets []string `json:"facets,omitempty"`
@@ -42,10 +42,10 @@ type BaseSearchParams struct {
 	MinimumAroundRadius *int32 `json:"minimumAroundRadius,omitempty"`
 	// Coordinates for a rectangular area in which to search.  Each bounding box is defined by the two opposite points of its diagonal, and expressed as latitude and longitude pair: `[p1 lat, p1 long, p2 lat, p2 long]`. Provide multiple bounding boxes as nested arrays. For more information, see [rectangular area](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).
 	InsideBoundingBox [][]float64 `json:"insideBoundingBox,omitempty"`
-	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored, if you also specify `insideBoundingBox`.
+	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 	// ISO language codes that adjust settings that are useful for processing natural language queries (as opposed to keyword searches):  - Sets `removeStopWords` and `ignorePlurals` to the list of provided languages. - Sets `removeWordsIfNoResults` to `allOptional`. - Adds a `natural_language` attribute to `ruleContexts` and `analyticsTags`.
-	NaturalLanguages []string `json:"naturalLanguages,omitempty"`
+	NaturalLanguages []SupportedLanguage `json:"naturalLanguages,omitempty"`
 	// Assigns a rule context to the search query.  [Rule contexts](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#whats-a-context) are strings that you can use to trigger matching rules.
 	RuleContexts []string `json:"ruleContexts,omitempty"`
 	// Impact that Personalization should have on this search.  The higher this value is, the more Personalization determines the ranking compared to other factors. For more information, see [Understanding Personalization impact](https://www.algolia.com/doc/guides/personalization/personalizing-results/in-depth/configuring-personalization/#understanding-personalization-impact).
@@ -196,7 +196,7 @@ func WithBaseSearchParamsInsidePolygon(val [][]float64) BaseSearchParamsOption {
 	}
 }
 
-func WithBaseSearchParamsNaturalLanguages(val []string) BaseSearchParamsOption {
+func WithBaseSearchParamsNaturalLanguages(val []SupportedLanguage) BaseSearchParamsOption {
 	return func(f *BaseSearchParams) {
 		f.NaturalLanguages = val
 	}
@@ -973,9 +973,9 @@ func (o *BaseSearchParams) SetInsidePolygon(v [][]float64) *BaseSearchParams {
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
-func (o *BaseSearchParams) GetNaturalLanguages() []string {
+func (o *BaseSearchParams) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
-		var ret []string
+		var ret []SupportedLanguage
 		return ret
 	}
 	return o.NaturalLanguages
@@ -983,7 +983,7 @@ func (o *BaseSearchParams) GetNaturalLanguages() []string {
 
 // GetNaturalLanguagesOk returns a tuple with the NaturalLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSearchParams) GetNaturalLanguagesOk() ([]string, bool) {
+func (o *BaseSearchParams) GetNaturalLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
@@ -999,8 +999,8 @@ func (o *BaseSearchParams) HasNaturalLanguages() bool {
 	return false
 }
 
-// SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *BaseSearchParams) SetNaturalLanguages(v []string) *BaseSearchParams {
+// SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
+func (o *BaseSearchParams) SetNaturalLanguages(v []SupportedLanguage) *BaseSearchParams {
 	o.NaturalLanguages = v
 	return o
 }

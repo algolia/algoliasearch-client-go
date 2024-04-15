@@ -12,7 +12,7 @@ type PurchasedObjectIDs struct {
 	EventName    string          `json:"eventName"`
 	EventType    ConversionEvent `json:"eventType"`
 	EventSubtype PurchaseEvent   `json:"eventSubtype"`
-	// Index name to which the event's items belong.
+	// Index name (case-sensitive) to which the event's items belong.
 	Index string `json:"index"`
 	// Object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`

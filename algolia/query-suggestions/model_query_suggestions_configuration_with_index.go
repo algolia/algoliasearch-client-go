@@ -16,7 +16,7 @@ type QuerySuggestionsConfigurationWithIndex struct {
 	EnablePersonalization *bool `json:"enablePersonalization,omitempty"`
 	// Whether to include suggestions with special characters.
 	AllowSpecialCharacters *bool `json:"allowSpecialCharacters,omitempty"`
-	// Name of the Query Suggestions index.
+	// Name of the Query Suggestions index (case-sensitive).
 	IndexName string `json:"indexName"`
 }
 

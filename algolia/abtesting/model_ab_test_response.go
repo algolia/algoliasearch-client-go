@@ -8,7 +8,7 @@ import (
 
 // ABTestResponse struct for ABTestResponse.
 type ABTestResponse struct {
-	// A/B test index.
+	// Index name of the A/B test variant (case-sensitive).
 	Index string `json:"index"`
 	// Unique A/B test identifier.
 	AbTestID int32 `json:"abTestID"`

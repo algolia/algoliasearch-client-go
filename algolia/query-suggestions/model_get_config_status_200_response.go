@@ -8,7 +8,7 @@ import (
 
 // GetConfigStatus200Response struct for GetConfigStatus200Response.
 type GetConfigStatus200Response struct {
-	// Name of the Query Suggestions index.
+	// Name of the Query Suggestions index (case-sensitive).
 	IndexName *string `json:"indexName,omitempty"`
 	// Whether the creation or update of the Query Suggestions index is in progress.
 	IsRunning *bool `json:"isRunning,omitempty"`

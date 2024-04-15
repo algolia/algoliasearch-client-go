@@ -11,7 +11,7 @@ type MultipleBatchRequest struct {
 	Action Action `json:"action"`
 	// Operation arguments (varies with specified `action`).
 	Body map[string]interface{} `json:"body"`
-	// Index to target for this operation.
+	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
 }
 

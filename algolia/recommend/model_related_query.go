@@ -8,7 +8,7 @@ import (
 
 // RelatedQuery struct for RelatedQuery.
 type RelatedQuery struct {
-	// Index name.
+	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`

@@ -8,7 +8,7 @@ import (
 
 // DestinationIndexName struct for DestinationIndexName.
 type DestinationIndexName struct {
-	// Algolia index name.
+	// Algolia index name (case-sensitive).
 	IndexName  string      `json:"indexName"`
 	RecordType *RecordType `json:"recordType,omitempty"`
 	// Attributes from your source to exclude from Algolia records.  Not all your data attributes will be useful for searching. Keeping your Algolia records small increases indexing and search performance.  - Exclude nested attributes with `.` notation. For example, `foo.bar` indexes the `foo` attribute and all its children **except** the `bar` attribute. - Exclude attributes from arrays with `[i]`, where `i` is the index of the array element.   For example, `foo.[0].bar` only excludes the `bar` attribute from the first element of the `foo` array, but indexes the complete `foo` attribute for all other elements.   Use `*` as wildcard: `foo.[*].bar` excludes `bar` from all elements of the `foo` array.

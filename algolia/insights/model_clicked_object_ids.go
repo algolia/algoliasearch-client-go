@@ -11,7 +11,7 @@ type ClickedObjectIDs struct {
 	// Event name, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string     `json:"eventName"`
 	EventType ClickEvent `json:"eventType"`
-	// Index name to which the event's items belong.
+	// Index name (case-sensitive) to which the event's items belong.
 	Index string `json:"index"`
 	// Object IDs of the records that are part of the event.
 	ObjectIDs []string `json:"objectIDs"`

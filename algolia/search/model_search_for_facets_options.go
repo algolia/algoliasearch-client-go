@@ -10,7 +10,7 @@ import (
 type SearchForFacetsOptions struct {
 	// Facet name.
 	Facet string `json:"facet"`
-	// Index name.
+	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
 	// Text to search inside the facet's values.
 	FacetQuery *string `json:"facetQuery,omitempty"`

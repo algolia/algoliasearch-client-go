@@ -8,7 +8,7 @@ import (
 
 // AbTestsVariant struct for AbTestsVariant.
 type AbTestsVariant struct {
-	// A/B test index.
+	// Index name of the A/B test variant (case-sensitive).
 	Index string `json:"index"`
 	// Percentage of search requests each variant receives.
 	TrafficPercentage int32 `json:"trafficPercentage"`

@@ -9,7 +9,7 @@ import (
 // OperationIndexParams struct for OperationIndexParams.
 type OperationIndexParams struct {
 	Operation OperationType `json:"operation"`
-	// Index name.
+	// Index name (case-sensitive).
 	Destination string `json:"destination"`
 	// **Only for copying.**  If you specify a scope, only the selected scopes are copied. Records and the other scopes are left unchanged. If you omit the `scope` parameter, everything is copied: records, settings, synonyms, and rules.
 	Scope []ScopeType `json:"scope,omitempty"`

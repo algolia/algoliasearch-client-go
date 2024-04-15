@@ -11,7 +11,7 @@ type ViewedFilters struct {
 	// Event name, up to 64 ASCII characters.  Consider naming events consistently—for example, by adopting Segment's [object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework) framework.
 	EventName string    `json:"eventName"`
 	EventType ViewEvent `json:"eventType"`
-	// Index name to which the event's items belong.
+	// Index name (case-sensitive) to which the event's items belong.
 	Index string `json:"index"`
 	// Applied facet filters.  Facet filters are `facet:value` pairs. Facet values must be URL-encoded, such as, `discount:10%25`.
 	Filters []string `json:"filters"`

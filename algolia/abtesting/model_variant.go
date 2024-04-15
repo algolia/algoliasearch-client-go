@@ -31,7 +31,7 @@ type Variant struct {
 	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `mininmumDetectableEffect` setting for this number to be included in the response.
 	EstimatedSampleSize *int32         `json:"estimatedSampleSize,omitempty"`
 	FilterEffects       *FilterEffects `json:"filterEffects,omitempty"`
-	// A/B test index.
+	// Index name of the A/B test variant (case-sensitive).
 	Index string `json:"index"`
 	// Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.
 	NoResultCount utils.NullableInt32 `json:"noResultCount"`

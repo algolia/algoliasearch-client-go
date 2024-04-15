@@ -10,7 +10,7 @@ import (
 type QuerySuggestionsConfigurationResponse struct {
 	// Algolia application ID to which this Query Suggestions configuration belongs.
 	AppID string `json:"appID"`
-	// Name of the Query Suggestions index.
+	// Name of the Query Suggestions index (case-sensitive).
 	IndexName string `json:"indexName"`
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`

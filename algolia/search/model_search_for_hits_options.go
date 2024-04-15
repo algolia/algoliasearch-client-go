@@ -8,7 +8,7 @@ import (
 
 // SearchForHitsOptions struct for SearchForHitsOptions.
 type SearchForHitsOptions struct {
-	// Index name.
+	// Index name (case-sensitive).
 	IndexName string             `json:"indexName"`
 	Type      *SearchTypeDefault `json:"type,omitempty"`
 }

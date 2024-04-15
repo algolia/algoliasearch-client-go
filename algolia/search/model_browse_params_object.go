@@ -20,7 +20,7 @@ type BrowseParamsObject struct {
 	TagFilters      *TagFilters      `json:"tagFilters,omitempty"`
 	// Whether to sum all filter scores.  If true, all filter scores are summed. Otherwise, the maximum filter score is kept. For more information, see [filter scores](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/in-depth/filter-scoring/#accumulating-scores-with-sumorfiltersscores).
 	SumOrFiltersScores *bool `json:"sumOrFiltersScores,omitempty"`
-	// Restricts a search to a subset of your searchable attributes.
+	// Restricts a search to a subset of your searchable attributes. Attribute names are case-sensitive.
 	RestrictSearchableAttributes []string `json:"restrictSearchableAttributes,omitempty"`
 	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values.  To retrieve all facets, use the wildcard character `*`. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts).
 	Facets []string `json:"facets,omitempty"`
@@ -42,10 +42,10 @@ type BrowseParamsObject struct {
 	MinimumAroundRadius *int32 `json:"minimumAroundRadius,omitempty"`
 	// Coordinates for a rectangular area in which to search.  Each bounding box is defined by the two opposite points of its diagonal, and expressed as latitude and longitude pair: `[p1 lat, p1 long, p2 lat, p2 long]`. Provide multiple bounding boxes as nested arrays. For more information, see [rectangular area](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).
 	InsideBoundingBox [][]float64 `json:"insideBoundingBox,omitempty"`
-	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored, if you also specify `insideBoundingBox`.
+	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 	// ISO language codes that adjust settings that are useful for processing natural language queries (as opposed to keyword searches):  - Sets `removeStopWords` and `ignorePlurals` to the list of provided languages. - Sets `removeWordsIfNoResults` to `allOptional`. - Adds a `natural_language` attribute to `ruleContexts` and `analyticsTags`.
-	NaturalLanguages []string `json:"naturalLanguages,omitempty"`
+	NaturalLanguages []SupportedLanguage `json:"naturalLanguages,omitempty"`
 	// Assigns a rule context to the search query.  [Rule contexts](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#whats-a-context) are strings that you can use to trigger matching rules.
 	RuleContexts []string `json:"ruleContexts,omitempty"`
 	// Impact that Personalization should have on this search.  The higher this value is, the more Personalization determines the ranking compared to other factors. For more information, see [Understanding Personalization impact](https://www.algolia.com/doc/guides/personalization/personalizing-results/in-depth/configuring-personalization/#understanding-personalization-impact).
@@ -66,17 +66,17 @@ type BrowseParamsObject struct {
 	PercentileComputation *bool `json:"percentileComputation,omitempty"`
 	// Whether to enable A/B testing for this search.
 	EnableABTest *bool `json:"enableABTest,omitempty"`
-	// Attributes to include in the API response.  To reduce the size of your response, you can retrieve only some of the attributes.  - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
+	// Attributes to include in the API response.  To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive.  - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute/), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, you should test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/).
 	Ranking []string `json:"ranking,omitempty"`
-	// Attributes to use as [custom ranking](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/).  The custom ranking attributes decide which items are shown first if the other ranking criteria are equal.  Records with missing values for your selected custom ranking attributes are always sorted last. Boolean attributes are sorted based on their alphabetical order.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order.  - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  If you use two or more custom ranking attributes, [reduce the precision](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/how-to/controlling-custom-ranking-metrics-precision/) of your first attributes, or the other attributes will never be applied.
+	// Attributes to use as [custom ranking](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/). Attribute names are case-sensitive.  The custom ranking attributes decide which items are shown first if the other ranking criteria are equal.  Records with missing values for your selected custom ranking attributes are always sorted last. Boolean attributes are sorted based on their alphabetical order.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order.  - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  If you use two or more custom ranking attributes, [reduce the precision](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/how-to/controlling-custom-ranking-metrics-precision/) of your first attributes, or the other attributes will never be applied.
 	CustomRanking []string `json:"customRanking,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results.  You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
-	// Attributes to highlight.  By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting.  With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI.  For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js/).
+	// Attributes to highlight.  By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive.  With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI.  For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js/).
 	AttributesToHighlight []string `json:"attributesToHighlight,omitempty"`
-	// Attributes for which to enable snippets.  Snippets provide additional context to matched words. If you enable snippets, they include 10 words, including the matched word. The matched word will also be wrapped by HTML tags for highlighting. You can adjust the number of words with the following notation: `ATTRIBUTE:NUMBER`, where `NUMBER` is the number of words to be extracted.
+	// Attributes for which to enable snippets. Attribute names are case-sensitive.  Snippets provide additional context to matched words. If you enable snippets, they include 10 words, including the matched word. The matched word will also be wrapped by HTML tags for highlighting. You can adjust the number of words with the following notation: `ATTRIBUTE:NUMBER`, where `NUMBER` is the number of words to be extracted.
 	AttributesToSnippet []string `json:"attributesToSnippet,omitempty"`
 	// HTML tag to insert before the highlighted parts in all highlighted results and snippets.
 	HighlightPreTag *string `json:"highlightPreTag,omitempty"`
@@ -95,7 +95,7 @@ type BrowseParamsObject struct {
 	TypoTolerance        *TypoTolerance `json:"typoTolerance,omitempty"`
 	// Whether to allow typos on numbers in the search query.  Turn off this setting to reduce the number of irrelevant matches when searching in large sets of similar numbers.
 	AllowTyposOnNumericTokens *bool `json:"allowTyposOnNumericTokens,omitempty"`
-	// Attributes for which you want to turn off [typo tolerance](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/).  Returning only exact matches can help when:  - [Searching in hyphenated attributes](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/how-to/how-to-search-in-hyphenated-attributes/). - Reducing the number of matches when you have too many.   This can happen with attributes that are long blocks of text, such as product descriptions.  Consider alternatives such as `disableTypoToleranceOnWords` or adding synonyms if your attributes have intentional unusual spellings that might look like typos.
+	// Attributes for which you want to turn off [typo tolerance](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/). Attribute names are case-sensitive.  Returning only exact matches can help when:  - [Searching in hyphenated attributes](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/how-to/how-to-search-in-hyphenated-attributes/). - Reducing the number of matches when you have too many.   This can happen with attributes that are long blocks of text, such as product descriptions.  Consider alternatives such as `disableTypoToleranceOnWords` or adding synonyms if your attributes have intentional unusual spellings that might look like typos.
 	DisableTypoToleranceOnAttributes []string         `json:"disableTypoToleranceOnAttributes,omitempty"`
 	IgnorePlurals                    *IgnorePlurals   `json:"ignorePlurals,omitempty"`
 	RemoveStopWords                  *RemoveStopWords `json:"removeStopWords,omitempty"`
@@ -117,7 +117,7 @@ type BrowseParamsObject struct {
 	AdvancedSyntax *bool `json:"advancedSyntax,omitempty"`
 	// Words that should be considered optional when found in the query.  By default, records must match all words in the search query to be included in the search results. Adding optional words can help to increase the number of search results by running an additional search query that doesn't include the optional words. For example, if the search query is \"action video\" and \"video\" is an optional word, the search engine runs two queries. One for \"action video\" and one for \"action\". Records that match all words are ranked higher.  For a search query with 4 or more words **and** all its words are optional, the number of matched words required for a record to be included in the search results increases for every 1,000 records:  - If `optionalWords` has less than 10 words, the required number of matched words increases by 1:   results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 2 matched words. - If `optionalWords` has 10 or more words, the number of required matched words increases by the number of optional words dividied by 5 (rounded down).   For example, with 18 optional words: results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 4 matched words.  For more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#creating-a-list-of-optional-words).
 	OptionalWords []string `json:"optionalWords,omitempty"`
-	// Searchable attributes for which you want to [turn off the Exact ranking criterion](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/in-depth/adjust-exact-settings/#turn-off-exact-for-some-attributes).  This can be useful for attributes with long values, where the likelihood of an exact match is high, such as product descriptions. Turning off the Exact ranking criterion for these attributes favors exact matching on other attributes. This reduces the impact of individual attributes with a lot of content on ranking.
+	// Searchable attributes for which you want to [turn off the Exact ranking criterion](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/in-depth/adjust-exact-settings/#turn-off-exact-for-some-attributes). Attribute names are case-sensitive.  This can be useful for attributes with long values, where the likelihood of an exact match is high, such as product descriptions. Turning off the Exact ranking criterion for these attributes favors exact matching on other attributes. This reduces the impact of individual attributes with a lot of content on ranking.
 	DisableExactOnAttributes []string                `json:"disableExactOnAttributes,omitempty"`
 	ExactOnSingleWordQuery   *ExactOnSingleWordQuery `json:"exactOnSingleWordQuery,omitempty"`
 	// Alternatives of query words that should be considered as exact matches by the Exact ranking criterion.  - `ignorePlurals`.   Plurals and similar declensions added by the `ignorePlurals` setting are considered exact matches.  - `singleWordSynonym`.   Single-word synonyms, such as \"NY/NYC\" are considered exact matches.  - `multiWordsSynonym`.   Multi-word synonyms, such as \"NY/New York\" are considered exact matches.
@@ -275,7 +275,7 @@ func WithBrowseParamsObjectInsidePolygon(val [][]float64) BrowseParamsObjectOpti
 	}
 }
 
-func WithBrowseParamsObjectNaturalLanguages(val []string) BrowseParamsObjectOption {
+func WithBrowseParamsObjectNaturalLanguages(val []SupportedLanguage) BrowseParamsObjectOption {
 	return func(f *BrowseParamsObject) {
 		f.NaturalLanguages = val
 	}
@@ -1322,9 +1322,9 @@ func (o *BrowseParamsObject) SetInsidePolygon(v [][]float64) *BrowseParamsObject
 }
 
 // GetNaturalLanguages returns the NaturalLanguages field value if set, zero value otherwise.
-func (o *BrowseParamsObject) GetNaturalLanguages() []string {
+func (o *BrowseParamsObject) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
-		var ret []string
+		var ret []SupportedLanguage
 		return ret
 	}
 	return o.NaturalLanguages
@@ -1332,7 +1332,7 @@ func (o *BrowseParamsObject) GetNaturalLanguages() []string {
 
 // GetNaturalLanguagesOk returns a tuple with the NaturalLanguages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BrowseParamsObject) GetNaturalLanguagesOk() ([]string, bool) {
+func (o *BrowseParamsObject) GetNaturalLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
@@ -1348,8 +1348,8 @@ func (o *BrowseParamsObject) HasNaturalLanguages() bool {
 	return false
 }
 
-// SetNaturalLanguages gets a reference to the given []string and assigns it to the NaturalLanguages field.
-func (o *BrowseParamsObject) SetNaturalLanguages(v []string) *BrowseParamsObject {
+// SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
+func (o *BrowseParamsObject) SetNaturalLanguages(v []SupportedLanguage) *BrowseParamsObject {
 	o.NaturalLanguages = v
 	return o
 }
