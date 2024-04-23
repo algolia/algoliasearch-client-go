@@ -1,6 +1,7 @@
 package transport
 
 import (
+	"bytes"
 	"compress/gzip"
 	"context"
 	"encoding/json"
@@ -204,22 +205,16 @@ func mergeHeaders(defaultHeaders http.Header, extraHeaders map[string]string) ht
 	return headers
 }
 
-func wrapJSONEncoder(in interface{}) io.ReadCloser {
-	pr, pw := io.Pipe()
-	go func() {
-		errEncode := json.NewEncoder(pw).Encode(in)
-		errClose := pw.Close()
-		if errEncode != nil {
-			debug.Printf("cannot JSON encode request body: %v", errEncode)
-		}
-		if errClose != nil {
-			debug.Printf("cannot close JSON encoder writer for request body: %v", errClose)
-		}
-	}()
-	return pr
+func wrapJSONEncoder(in interface{}) io.Reader {
+	b := new(bytes.Buffer)
+	errEncode := json.NewEncoder(b).Encode(in)
+	if errEncode != nil {
+		debug.Printf("cannot JSON encode request body: %v", errEncode)
+	}
+	return b
 }
 
-func wrapGZIPEncoder(in io.ReadCloser) io.ReadCloser {
+func wrapGZIPEncoder(in io.Reader) io.Reader {
 	pr, pw := io.Pipe()
 	go func() {
 		gw := gzip.NewWriter(pw)
@@ -244,7 +239,7 @@ func buildRequestWithoutBody(method, url string) (*http.Request, error) {
 }
 
 func buildRequestWithBody(method, url string, body interface{}, c compression.Compression) (*http.Request, error) {
-	var r io.ReadCloser
+	var r io.Reader
 	jsonEncoder := wrapJSONEncoder(body)
 	switch c {
 	case compression.GZIP:
