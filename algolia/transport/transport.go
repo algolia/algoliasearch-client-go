@@ -308,6 +308,9 @@ func unmarshalTo(r io.ReadCloser, v interface{}) error {
 	if err != nil {
 		return fmt.Errorf("cannot read body: %v", err)
 	}
+	if len(body) == 0 {
+		return nil
+	}
 	err = json.Unmarshal(body, &v)
 	if err != nil {
 		return fmt.Errorf("cannot deserialize response's body: %v: %s", err, string(body))
