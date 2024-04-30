@@ -8,14 +8,14 @@ import (
 
 // FacetFilters - Filter the search by facet values, so that only records with the same facet values are retrieved.  **Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**  - `[filter1, filter2]` is interpreted as `filter1 AND filter2`. - `[[filter1, filter2], filter3]` is interpreted as `filter1 OR filter2 AND filter3`. - `facet:-value` is interpreted as `NOT facet:value`.  While it's best to avoid attributes that start with a `-`, you can still filter them by escaping with a backslash: `facet:\\-value`.
 type FacetFilters struct {
-	ArrayOfMixedSearchFilters *[]MixedSearchFilters
-	String                    *string
+	ArrayOfFacetFilters *[]FacetFilters
+	String              *string
 }
 
-// []MixedSearchFiltersAsFacetFilters is a convenience function that returns []MixedSearchFilters wrapped in FacetFilters.
-func ArrayOfMixedSearchFiltersAsFacetFilters(v []MixedSearchFilters) *FacetFilters {
+// []FacetFiltersAsFacetFilters is a convenience function that returns []FacetFilters wrapped in FacetFilters.
+func ArrayOfFacetFiltersAsFacetFilters(v []FacetFilters) *FacetFilters {
 	return &FacetFilters{
-		ArrayOfMixedSearchFilters: &v,
+		ArrayOfFacetFilters: &v,
 	}
 }
 
@@ -29,17 +29,17 @@ func StringAsFacetFilters(v string) *FacetFilters {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *FacetFilters) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into ArrayOfMixedSearchFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfMixedSearchFilters)
-	if err == nil && validateStruct(dst.ArrayOfMixedSearchFilters) == nil {
-		jsonArrayOfMixedSearchFilters, _ := json.Marshal(dst.ArrayOfMixedSearchFilters)
-		if string(jsonArrayOfMixedSearchFilters) == "{}" { // empty struct
-			dst.ArrayOfMixedSearchFilters = nil
+	// try to unmarshal data into ArrayOfFacetFilters
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfFacetFilters)
+	if err == nil && validateStruct(dst.ArrayOfFacetFilters) == nil {
+		jsonArrayOfFacetFilters, _ := json.Marshal(dst.ArrayOfFacetFilters)
+		if string(jsonArrayOfFacetFilters) == "{}" { // empty struct
+			dst.ArrayOfFacetFilters = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfMixedSearchFilters = nil
+		dst.ArrayOfFacetFilters = nil
 	}
 
 	// try to unmarshal data into String
@@ -60,10 +60,10 @@ func (dst *FacetFilters) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src FacetFilters) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfMixedSearchFilters != nil {
-		serialized, err := json.Marshal(&src.ArrayOfMixedSearchFilters)
+	if src.ArrayOfFacetFilters != nil {
+		serialized, err := json.Marshal(&src.ArrayOfFacetFilters)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfMixedSearchFilters of FacetFilters: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfFacetFilters of FacetFilters: %w", err)
 		}
 
 		return serialized, nil
@@ -83,8 +83,8 @@ func (src FacetFilters) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj FacetFilters) GetActualInstance() any {
-	if obj.ArrayOfMixedSearchFilters != nil {
-		return *obj.ArrayOfMixedSearchFilters
+	if obj.ArrayOfFacetFilters != nil {
+		return *obj.ArrayOfFacetFilters
 	}
 
 	if obj.String != nil {

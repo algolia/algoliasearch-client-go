@@ -8,14 +8,14 @@ import (
 
 // TagFilters - Filter the search by values of the special `_tags` attribute.  **Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**  Different from regular facets, `_tags` can only be used for filtering (including or excluding records). You won't get a facet count. The same combination and escaping rules apply as for `facetFilters`.
 type TagFilters struct {
-	ArrayOfMixedSearchFilters *[]MixedSearchFilters
-	String                    *string
+	ArrayOfTagFilters *[]TagFilters
+	String            *string
 }
 
-// []MixedSearchFiltersAsTagFilters is a convenience function that returns []MixedSearchFilters wrapped in TagFilters.
-func ArrayOfMixedSearchFiltersAsTagFilters(v []MixedSearchFilters) *TagFilters {
+// []TagFiltersAsTagFilters is a convenience function that returns []TagFilters wrapped in TagFilters.
+func ArrayOfTagFiltersAsTagFilters(v []TagFilters) *TagFilters {
 	return &TagFilters{
-		ArrayOfMixedSearchFilters: &v,
+		ArrayOfTagFilters: &v,
 	}
 }
 
@@ -29,17 +29,17 @@ func StringAsTagFilters(v string) *TagFilters {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TagFilters) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into ArrayOfMixedSearchFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfMixedSearchFilters)
-	if err == nil && validateStruct(dst.ArrayOfMixedSearchFilters) == nil {
-		jsonArrayOfMixedSearchFilters, _ := json.Marshal(dst.ArrayOfMixedSearchFilters)
-		if string(jsonArrayOfMixedSearchFilters) == "{}" { // empty struct
-			dst.ArrayOfMixedSearchFilters = nil
+	// try to unmarshal data into ArrayOfTagFilters
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfTagFilters)
+	if err == nil && validateStruct(dst.ArrayOfTagFilters) == nil {
+		jsonArrayOfTagFilters, _ := json.Marshal(dst.ArrayOfTagFilters)
+		if string(jsonArrayOfTagFilters) == "{}" { // empty struct
+			dst.ArrayOfTagFilters = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfMixedSearchFilters = nil
+		dst.ArrayOfTagFilters = nil
 	}
 
 	// try to unmarshal data into String
@@ -60,10 +60,10 @@ func (dst *TagFilters) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src TagFilters) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfMixedSearchFilters != nil {
-		serialized, err := json.Marshal(&src.ArrayOfMixedSearchFilters)
+	if src.ArrayOfTagFilters != nil {
+		serialized, err := json.Marshal(&src.ArrayOfTagFilters)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfMixedSearchFilters of TagFilters: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfTagFilters of TagFilters: %w", err)
 		}
 
 		return serialized, nil
@@ -83,8 +83,8 @@ func (src TagFilters) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj TagFilters) GetActualInstance() any {
-	if obj.ArrayOfMixedSearchFilters != nil {
-		return *obj.ArrayOfMixedSearchFilters
+	if obj.ArrayOfTagFilters != nil {
+		return *obj.ArrayOfTagFilters
 	}
 
 	if obj.String != nil {

@@ -90,7 +90,6 @@ model_log_query.go
 model_log_type.go
 model_match_level.go
 model_matched_geo_location.go
-model_mixed_search_filters.go
 model_mode.go
 model_multiple_batch_request.go
 model_multiple_batch_response.go

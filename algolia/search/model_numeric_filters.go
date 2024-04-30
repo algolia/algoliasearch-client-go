@@ -8,14 +8,14 @@ import (
 
 // NumericFilters - Filter by numeric facets.  **Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**  You can use numeric comparison operators: `<`, `<=`, `=`, `!=`, `>`, `>=`. Comparisons are precise up to 3 decimals. You can also provide ranges: `facet:<lower> TO <upper>`. The range includes the lower and upper boundaries. The same combination rules apply as for `facetFilters`.
 type NumericFilters struct {
-	ArrayOfMixedSearchFilters *[]MixedSearchFilters
-	String                    *string
+	ArrayOfNumericFilters *[]NumericFilters
+	String                *string
 }
 
-// []MixedSearchFiltersAsNumericFilters is a convenience function that returns []MixedSearchFilters wrapped in NumericFilters.
-func ArrayOfMixedSearchFiltersAsNumericFilters(v []MixedSearchFilters) *NumericFilters {
+// []NumericFiltersAsNumericFilters is a convenience function that returns []NumericFilters wrapped in NumericFilters.
+func ArrayOfNumericFiltersAsNumericFilters(v []NumericFilters) *NumericFilters {
 	return &NumericFilters{
-		ArrayOfMixedSearchFilters: &v,
+		ArrayOfNumericFilters: &v,
 	}
 }
 
@@ -29,17 +29,17 @@ func StringAsNumericFilters(v string) *NumericFilters {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *NumericFilters) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into ArrayOfMixedSearchFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfMixedSearchFilters)
-	if err == nil && validateStruct(dst.ArrayOfMixedSearchFilters) == nil {
-		jsonArrayOfMixedSearchFilters, _ := json.Marshal(dst.ArrayOfMixedSearchFilters)
-		if string(jsonArrayOfMixedSearchFilters) == "{}" { // empty struct
-			dst.ArrayOfMixedSearchFilters = nil
+	// try to unmarshal data into ArrayOfNumericFilters
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfNumericFilters)
+	if err == nil && validateStruct(dst.ArrayOfNumericFilters) == nil {
+		jsonArrayOfNumericFilters, _ := json.Marshal(dst.ArrayOfNumericFilters)
+		if string(jsonArrayOfNumericFilters) == "{}" { // empty struct
+			dst.ArrayOfNumericFilters = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfMixedSearchFilters = nil
+		dst.ArrayOfNumericFilters = nil
 	}
 
 	// try to unmarshal data into String
@@ -60,10 +60,10 @@ func (dst *NumericFilters) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src NumericFilters) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfMixedSearchFilters != nil {
-		serialized, err := json.Marshal(&src.ArrayOfMixedSearchFilters)
+	if src.ArrayOfNumericFilters != nil {
+		serialized, err := json.Marshal(&src.ArrayOfNumericFilters)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfMixedSearchFilters of NumericFilters: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfNumericFilters of NumericFilters: %w", err)
 		}
 
 		return serialized, nil
@@ -83,8 +83,8 @@ func (src NumericFilters) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj NumericFilters) GetActualInstance() any {
-	if obj.ArrayOfMixedSearchFilters != nil {
-		return *obj.ArrayOfMixedSearchFilters
+	if obj.ArrayOfNumericFilters != nil {
+		return *obj.ArrayOfNumericFilters
 	}
 
 	if obj.String != nil {

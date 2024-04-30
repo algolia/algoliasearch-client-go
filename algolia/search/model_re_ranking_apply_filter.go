@@ -8,14 +8,14 @@ import (
 
 // ReRankingApplyFilter - Restrict [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/) to records that match these filters.
 type ReRankingApplyFilter struct {
-	ArrayOfMixedSearchFilters *[]MixedSearchFilters
-	String                    *string
+	ArrayOfReRankingApplyFilter *[]ReRankingApplyFilter
+	String                      *string
 }
 
-// []MixedSearchFiltersAsReRankingApplyFilter is a convenience function that returns []MixedSearchFilters wrapped in ReRankingApplyFilter.
-func ArrayOfMixedSearchFiltersAsReRankingApplyFilter(v []MixedSearchFilters) *ReRankingApplyFilter {
+// []ReRankingApplyFilterAsReRankingApplyFilter is a convenience function that returns []ReRankingApplyFilter wrapped in ReRankingApplyFilter.
+func ArrayOfReRankingApplyFilterAsReRankingApplyFilter(v []ReRankingApplyFilter) *ReRankingApplyFilter {
 	return &ReRankingApplyFilter{
-		ArrayOfMixedSearchFilters: &v,
+		ArrayOfReRankingApplyFilter: &v,
 	}
 }
 
@@ -29,22 +29,17 @@ func StringAsReRankingApplyFilter(v string) *ReRankingApplyFilter {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *ReRankingApplyFilter) UnmarshalJSON(data []byte) error {
 	var err error
-	// this object is nullable so check if the payload is null or empty string
-	if string(data) == "" || string(data) == "{}" {
-		return nil
-	}
-
-	// try to unmarshal data into ArrayOfMixedSearchFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfMixedSearchFilters)
-	if err == nil && validateStruct(dst.ArrayOfMixedSearchFilters) == nil {
-		jsonArrayOfMixedSearchFilters, _ := json.Marshal(dst.ArrayOfMixedSearchFilters)
-		if string(jsonArrayOfMixedSearchFilters) == "{}" { // empty struct
-			dst.ArrayOfMixedSearchFilters = nil
+	// try to unmarshal data into ArrayOfReRankingApplyFilter
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfReRankingApplyFilter)
+	if err == nil && validateStruct(dst.ArrayOfReRankingApplyFilter) == nil {
+		jsonArrayOfReRankingApplyFilter, _ := json.Marshal(dst.ArrayOfReRankingApplyFilter)
+		if string(jsonArrayOfReRankingApplyFilter) == "{}" { // empty struct
+			dst.ArrayOfReRankingApplyFilter = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfMixedSearchFilters = nil
+		dst.ArrayOfReRankingApplyFilter = nil
 	}
 
 	// try to unmarshal data into String
@@ -65,10 +60,10 @@ func (dst *ReRankingApplyFilter) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src ReRankingApplyFilter) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfMixedSearchFilters != nil {
-		serialized, err := json.Marshal(&src.ArrayOfMixedSearchFilters)
+	if src.ArrayOfReRankingApplyFilter != nil {
+		serialized, err := json.Marshal(&src.ArrayOfReRankingApplyFilter)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfMixedSearchFilters of ReRankingApplyFilter: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfReRankingApplyFilter of ReRankingApplyFilter: %w", err)
 		}
 
 		return serialized, nil
@@ -88,8 +83,8 @@ func (src ReRankingApplyFilter) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj ReRankingApplyFilter) GetActualInstance() any {
-	if obj.ArrayOfMixedSearchFilters != nil {
-		return *obj.ArrayOfMixedSearchFilters
+	if obj.ArrayOfReRankingApplyFilter != nil {
+		return *obj.ArrayOfReRankingApplyFilter
 	}
 
 	if obj.String != nil {

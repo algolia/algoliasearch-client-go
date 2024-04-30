@@ -41,7 +41,6 @@ model_looking_similar_model.go
 model_looking_similar_query.go
 model_match_level.go
 model_matched_geo_location.go
-model_mixed_search_filters.go
 model_mode.go
 model_numeric_filters.go
 model_optional_filters.go
