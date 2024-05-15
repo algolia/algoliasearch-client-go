@@ -3,11 +3,11 @@ package search
 import "encoding/json"
 
 type RuleCondition struct {
-	Anchoring    RulePatternAnchoring
-	Pattern      string
-	Context      string
-	Alternatives *Alternatives
-	Filters      string
+	Anchoring    RulePatternAnchoring `json:"anchoring"`
+	Pattern      string               `json:"pattern"`
+	Context      string               `json:"context"`
+	Alternatives *Alternatives        `json:"alternatives"`
+	Filters      string               `json:"filters"`
 }
 
 func (c RuleCondition) MarshalJSON() ([]byte, error) {

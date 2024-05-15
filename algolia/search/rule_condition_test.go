@@ -121,3 +121,86 @@ func TestRuleCondition_MarshalJSON(t *testing.T) {
 
 	}
 }
+
+func TestRuleCondition_UnmarshalJSON(t *testing.T) {
+	for _, c := range []struct {
+		jsonPayload string
+		expected    RuleCondition
+	}{
+		{
+			`{}`,
+			RuleCondition{},
+		},
+		{
+			`{"anchoring": "is", "pattern": ""}`,
+			RuleCondition{
+				Anchoring:    Is,
+				Pattern:      "",
+				Context:      "",
+				Alternatives: nil,
+				Filters:      "",
+			},
+		},
+		{
+			`{"anchoring": "is", "pattern": "Pattern", "context": "Context", "alternatives": true}`,
+			RuleCondition{
+				Anchoring:    Is,
+				Pattern:      "Pattern",
+				Context:      "Context",
+				Alternatives: AlternativesEnabled(),
+				Filters:      "",
+			},
+		},
+		{
+			`{"anchoring": "is", "pattern": "Pattern", "context": "Context", "alternatives": false}`,
+			RuleCondition{
+				Anchoring:    Is,
+				Pattern:      "Pattern",
+				Context:      "Context",
+				Alternatives: AlternativesDisabled(),
+				Filters:      "",
+			},
+		},
+		{
+			`{"filters": "type:house AND (amenity:fireplace OR amenity:place)"}`,
+			RuleCondition{
+				Anchoring:    "",
+				Pattern:      "",
+				Context:      "",
+				Alternatives: nil,
+				Filters:      "type:house AND (amenity:fireplace OR amenity:place)",
+			},
+		},
+		{
+			`{"anchoring": "is", "pattern": "", "context": "Context", "filters": "type:house AND (amenity:fireplace OR amenity:place)"}`,
+			RuleCondition{
+				Anchoring:    Is,
+				Pattern:      "",
+				Context:      "Context",
+				Alternatives: nil,
+				Filters:      "type:house AND (amenity:fireplace OR amenity:place)",
+			},
+		},
+	} {
+		// Encode the JSON to RuleCondition
+		var condition RuleCondition
+		err := json.Unmarshal([]byte(c.jsonPayload), &condition)
+		require.NoError(t, err, "should unmarshal %s without error", c.jsonPayload)
+
+		// Compare the two RuleConditions
+		require.Equal(t, c.expected.Anchoring, condition.Anchoring)
+		if c.expected.Anchoring == "" {
+			require.Equal(t, condition.Pattern, "")
+		} else {
+			require.Equal(t, c.expected.Pattern, condition.Pattern)
+		}
+		require.Equal(t, c.expected.Context, condition.Context)
+		require.Equal(t, c.expected.Filters, condition.Filters)
+		if c.expected.Alternatives == nil {
+			require.Nil(t, condition.Alternatives)
+		} else {
+			require.NotNil(t, condition.Alternatives)
+			require.Equal(t, *c.expected.Alternatives, *condition.Alternatives)
+		}
+	}
+}
