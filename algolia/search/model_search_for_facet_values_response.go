@@ -10,8 +10,7 @@ import (
 type SearchForFacetValuesResponse struct {
 	// Matching facet values.
 	FacetHits []FacetHits `json:"facetHits"`
-	// See the `facetsCount` field of the `exhaustive` object in the response.
-	// Deprecated
+	// Whether the facet count is exhaustive (true) or approximate (false). For more information, see [Why are my facet and hit counts not accurate](https://support.algolia.com/hc/en-us/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate-).
 	ExhaustiveFacetsCount bool `json:"exhaustiveFacetsCount"`
 	// Time the server took to process the request, in milliseconds.
 	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
@@ -70,7 +69,6 @@ func (o *SearchForFacetValuesResponse) SetFacetHits(v []FacetHits) *SearchForFac
 }
 
 // GetExhaustiveFacetsCount returns the ExhaustiveFacetsCount field value.
-// Deprecated.
 func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCount() bool {
 	if o == nil {
 		var ret bool
@@ -82,7 +80,6 @@ func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCount() bool {
 
 // GetExhaustiveFacetsCountOk returns a tuple with the ExhaustiveFacetsCount field value
 // and a boolean to check if the value has been set.
-// Deprecated.
 func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCountOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
@@ -91,7 +88,6 @@ func (o *SearchForFacetValuesResponse) GetExhaustiveFacetsCountOk() (*bool, bool
 }
 
 // SetExhaustiveFacetsCount sets field value.
-// Deprecated.
 func (o *SearchForFacetValuesResponse) SetExhaustiveFacetsCount(v bool) *SearchForFacetValuesResponse {
 	o.ExhaustiveFacetsCount = v
 	return o
