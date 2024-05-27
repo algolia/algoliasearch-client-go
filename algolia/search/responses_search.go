@@ -41,6 +41,36 @@ type QueryRes struct {
 	ABTestVariantID            int                               `json:"abTestVariantID"`
 	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
+	Merge                      *Merge                            `json:"merge,omitempty"`
+}
+
+type Merge struct {
+	NbSearchers        int             `json:"nbSearchers"`
+	NbHitslimit        int             `json:"nbHitslimit"`
+	NbHitsMax          int             `json:"nbHitsMax"`
+	LastHitToDisplay   int             `json:"lastHitToDisplay"`
+	NbHitsNumberingEnd int             `json:"nbHitsNumberingEnd"`
+	NbHitsProcessed    int             `json:"nbHitsProcessed"`
+	Personalization    Personalization `json:"personalization"`
+}
+
+type Personalization struct {
+	Enabled            bool    `json:"enabled"`
+	Impact             int     `json:"impact"`
+	NbPersoScanned     int     `json:"nbPersoScanned"`
+	NbPersoSelected    int     `json:"nbPersoSelected"`
+	NbPersoReranked    int     `json:"nbPersoReranked"`
+	NbPersoReturned    int     `json:"nbPersoReturned"`
+	NbPersoSkipped     int     `json:"nbPersoSkipped"`
+	Percentile         int     `json:"percentile"`
+	NbRelevanceBuckets int     `json:"nbRelevanceBuckets"`
+	Profile            Profile `json:"profile"`
+}
+
+type Profile struct {
+	TaskID int            `json:"taskID"`
+	Time   int            `json:"time"`
+	Facets map[string]int `json:"facets"`
 }
 
 type AppliedRule struct {
