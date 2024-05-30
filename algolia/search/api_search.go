@@ -5721,7 +5721,7 @@ OperationIndex Wraps OperationIndexWithContext using context.Background.
 
 Copies or moves (renames) an index within the same Algolia application.
 
-- Existing destination indices are overwritten, except for index-specific API keys and analytics data.
+- Existing destination indices are overwritten, except for their analytics data.
 - If the destination index doesn't exist yet, it'll be created.
 
 **Copy**
@@ -5759,7 +5759,7 @@ OperationIndex
 
 Copies or moves (renames) an index within the same Algolia application.
 
-- Existing destination indices are overwritten, except for index-specific API keys and analytics data.
+- Existing destination indices are overwritten, except for their analytics data.
 - If the destination index doesn't exist yet, it'll be created.
 
 **Copy**
