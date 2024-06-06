@@ -1,12 +1,10 @@
 linters-settings:
   govet:
-    check-shadowing: true
     enable-all: true
     disable:
       - fieldalignment
 
   revive:
-    min-confidence: 0.8
     rules:
       - name: var-naming
         disabled: true
@@ -54,20 +52,17 @@ linters:
     - wastedassign
     - gocyclo
     - maintidx
+    - copyloopvar
+    - intrange
+    - canonicalheader
+    - mnd
+    - perfsprint
 
     # Deprecated
-    - deadcode
-    - exhaustivestruct
-    - golint
-    - ifshort
-    - interfacer
-    - maligned
-    - nosnakecase
-    - scopelint
-    - structcheck
-    - varcheck
-service:
-  golangci-lint-version: 1.55.2
+    - execinquery
+
+issues:
+  exclude-generated: disable
 
 run:
   concurrency: 2
