@@ -7,7 +7,7 @@ import (
 )
 
 type QueryRes struct {
-	AIReRanking               *AIReRanking                 `json:"aiReRanking"`
+	AIReRanking                *AIReRanking                      `json:"aiReRanking"`
 	AppliedRules               []AppliedRule                     `json:"appliedRules"`
 	AppliedRelevancyStrictness int                               `json:"appliedRelevancyStrictness"`
 	AroundLatLng               string                            `json:"aroundLatLng"`
@@ -23,7 +23,7 @@ type QueryRes struct {
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
 	Length                     int                               `json:"length"`
-	Merge                      *Merge                  `json:"merge"`
+	Merge                      *Merge                            `json:"merge"`
 	Message                    string                            `json:"message"`
 	NbHits                     int                               `json:"nbHits"`
 	NbPages                    int                               `json:"nbPages"`
@@ -91,14 +91,6 @@ func (r QueryRes) UnmarshalUserData(v interface{}) error {
 		return fmt.Errorf("cannot unmarshal UserData from search response: %v", err)
 	}
 	return json.Unmarshal(userDataPayload, &v)
-}
-
-func (r QueryRes) UnmarshalMerge(v interface{}) error {
-	return json.Unmarshal(r.Merge, v)
-}
-
-func (r QueryRes) UnmarshalAIReRanking(v interface{}) error {
-	return json.Unmarshal(r.AIReRanking, v)
 }
 
 // GetObjectPosition returns the position (0-based) within the `Hits`
