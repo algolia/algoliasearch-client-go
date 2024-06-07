@@ -26,5 +26,5 @@ type Personalization struct {
 type PersonalizationProfile struct {
 	TaskID int64 `json:"taskID"`
 	Time   int64 `json:"time"`
-	Facets map[string]int
+	Facets map[string]int `json:"facets"`
 }

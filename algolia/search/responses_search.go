@@ -7,7 +7,7 @@ import (
 )
 
 type QueryRes struct {
-	AIReRanking                json.RawMessage                   `json:"aiReRanking"`
+	AIReRanking               *AIReRanking                 `json:"aiReRanking"`
 	AppliedRules               []AppliedRule                     `json:"appliedRules"`
 	AppliedRelevancyStrictness int                               `json:"appliedRelevancyStrictness"`
 	AroundLatLng               string                            `json:"aroundLatLng"`
@@ -23,7 +23,7 @@ type QueryRes struct {
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
 	Length                     int                               `json:"length"`
-	Merge                      json.RawMessage                   `json:"merge"`
+	Merge                      *Merge                  `json:"merge"`
 	Message                    string                            `json:"message"`
 	NbHits                     int                               `json:"nbHits"`
 	NbPages                    int                               `json:"nbPages"`
