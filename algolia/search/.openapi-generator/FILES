@@ -112,6 +112,7 @@ model_remove_stop_words.go
 model_remove_user_id_response.go
 model_remove_words_if_no_results.go
 model_rendering_content.go
+model_replace_all_objects_response.go
 model_replace_source_response.go
 model_rule.go
 model_save_object_response.go

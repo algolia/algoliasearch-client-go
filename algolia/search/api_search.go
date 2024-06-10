@@ -9314,12 +9314,6 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 	return responses, nil
 }
 
-type ReplaceAllObjectsResponse struct {
-	CopyOperationResponse *UpdatedAtResponse
-	BatchResponses        []BatchResponse
-	MoveOperationResponse *UpdatedAtResponse
-}
-
 // ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
 func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, batchSize *int) (*ReplaceAllObjectsResponse, error) {
 	tmpIndex := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
@@ -9352,8 +9346,8 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 	}
 
 	return &ReplaceAllObjectsResponse{
-		CopyOperationResponse: copyResp,
+		CopyOperationResponse: *copyResp,
 		BatchResponses:        batchResp,
-		MoveOperationResponse: moveResp,
+		MoveOperationResponse: *moveResp,
 	}, nil
 }
