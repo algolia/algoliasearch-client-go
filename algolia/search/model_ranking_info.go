@@ -9,7 +9,7 @@ import (
 // RankingInfo Object with detailed information about the record's ranking.
 type RankingInfo struct {
 	// Whether a filter matched the query.
-	Filters int32 `json:"filters"`
+	Filters *int32 `json:"filters,omitempty"`
 	// Position of the first matched word in the best matching attribute of the record.
 	FirstMatchedWord int32 `json:"firstMatchedWord"`
 	// Distance between the geo location in the search query and the best matching geo location in the record, divided by the geo precision (in meters).
@@ -23,18 +23,24 @@ type RankingInfo struct {
 	// Number of typos encountered when matching the record.
 	NbTypos int32 `json:"nbTypos"`
 	// Whether the record was promoted by a rule.
-	Promoted bool `json:"promoted"`
+	Promoted *bool `json:"promoted,omitempty"`
 	// Number of words between multiple matches in the query plus 1. For single word queries, `proximityDistance` is 0.
 	ProximityDistance *int32 `json:"proximityDistance,omitempty"`
 	// Overall ranking of the record, expressed as a single integer. This attribute is internal.
 	UserScore int32 `json:"userScore"`
 	// Number of matched words.
-	Words int32 `json:"words"`
+	Words *int32 `json:"words,omitempty"`
 	// Whether the record is re-ranked.
 	PromotedByReRanking *bool `json:"promotedByReRanking,omitempty"`
 }
 
 type RankingInfoOption func(f *RankingInfo)
+
+func WithRankingInfoFilters(val int32) RankingInfoOption {
+	return func(f *RankingInfo) {
+		f.Filters = &val
+	}
+}
 
 func WithRankingInfoGeoPrecision(val int32) RankingInfoOption {
 	return func(f *RankingInfo) {
@@ -54,9 +60,21 @@ func WithRankingInfoPersonalization(val Personalization) RankingInfoOption {
 	}
 }
 
+func WithRankingInfoPromoted(val bool) RankingInfoOption {
+	return func(f *RankingInfo) {
+		f.Promoted = &val
+	}
+}
+
 func WithRankingInfoProximityDistance(val int32) RankingInfoOption {
 	return func(f *RankingInfo) {
 		f.ProximityDistance = &val
+	}
+}
+
+func WithRankingInfoWords(val int32) RankingInfoOption {
+	return func(f *RankingInfo) {
+		f.Words = &val
 	}
 }
 
@@ -70,16 +88,13 @@ func WithRankingInfoPromotedByReRanking(val bool) RankingInfoOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRankingInfo(filters int32, firstMatchedWord int32, geoDistance int32, nbExactWords int32, nbTypos int32, promoted bool, userScore int32, words int32, opts ...RankingInfoOption) *RankingInfo {
+func NewRankingInfo(firstMatchedWord int32, geoDistance int32, nbExactWords int32, nbTypos int32, userScore int32, opts ...RankingInfoOption) *RankingInfo {
 	this := &RankingInfo{}
-	this.Filters = filters
 	this.FirstMatchedWord = firstMatchedWord
 	this.GeoDistance = geoDistance
 	this.NbExactWords = nbExactWords
 	this.NbTypos = nbTypos
-	this.Promoted = promoted
 	this.UserScore = userScore
-	this.Words = words
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -91,28 +106,36 @@ func NewEmptyRankingInfo() *RankingInfo {
 	return &RankingInfo{}
 }
 
-// GetFilters returns the Filters field value.
+// GetFilters returns the Filters field value if set, zero value otherwise.
 func (o *RankingInfo) GetFilters() int32 {
-	if o == nil {
+	if o == nil || o.Filters == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.Filters
+	return *o.Filters
 }
 
-// GetFiltersOk returns a tuple with the Filters field value
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RankingInfo) GetFiltersOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.Filters == nil {
 		return nil, false
 	}
-	return &o.Filters, true
+	return o.Filters, true
 }
 
-// SetFilters sets field value.
+// HasFilters returns a boolean if a field has been set.
+func (o *RankingInfo) HasFilters() bool {
+	if o != nil && o.Filters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given int32 and assigns it to the Filters field.
 func (o *RankingInfo) SetFilters(v int32) *RankingInfo {
-	o.Filters = v
+	o.Filters = &v
 	return o
 }
 
@@ -315,28 +338,36 @@ func (o *RankingInfo) SetNbTypos(v int32) *RankingInfo {
 	return o
 }
 
-// GetPromoted returns the Promoted field value.
+// GetPromoted returns the Promoted field value if set, zero value otherwise.
 func (o *RankingInfo) GetPromoted() bool {
-	if o == nil {
+	if o == nil || o.Promoted == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.Promoted
+	return *o.Promoted
 }
 
-// GetPromotedOk returns a tuple with the Promoted field value
+// GetPromotedOk returns a tuple with the Promoted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RankingInfo) GetPromotedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || o.Promoted == nil {
 		return nil, false
 	}
-	return &o.Promoted, true
+	return o.Promoted, true
 }
 
-// SetPromoted sets field value.
+// HasPromoted returns a boolean if a field has been set.
+func (o *RankingInfo) HasPromoted() bool {
+	if o != nil && o.Promoted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPromoted gets a reference to the given bool and assigns it to the Promoted field.
 func (o *RankingInfo) SetPromoted(v bool) *RankingInfo {
-	o.Promoted = v
+	o.Promoted = &v
 	return o
 }
 
@@ -398,28 +429,36 @@ func (o *RankingInfo) SetUserScore(v int32) *RankingInfo {
 	return o
 }
 
-// GetWords returns the Words field value.
+// GetWords returns the Words field value if set, zero value otherwise.
 func (o *RankingInfo) GetWords() int32 {
-	if o == nil {
+	if o == nil || o.Words == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.Words
+	return *o.Words
 }
 
-// GetWordsOk returns a tuple with the Words field value
+// GetWordsOk returns a tuple with the Words field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RankingInfo) GetWordsOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.Words == nil {
 		return nil, false
 	}
-	return &o.Words, true
+	return o.Words, true
 }
 
-// SetWords sets field value.
+// HasWords returns a boolean if a field has been set.
+func (o *RankingInfo) HasWords() bool {
+	if o != nil && o.Words != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWords gets a reference to the given int32 and assigns it to the Words field.
 func (o *RankingInfo) SetWords(v int32) *RankingInfo {
-	o.Words = v
+	o.Words = &v
 	return o
 }
 
@@ -458,7 +497,7 @@ func (o *RankingInfo) SetPromotedByReRanking(v bool) *RankingInfo {
 
 func (o RankingInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
 	if true {
@@ -482,7 +521,7 @@ func (o RankingInfo) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["nbTypos"] = o.NbTypos
 	}
-	if true {
+	if o.Promoted != nil {
 		toSerialize["promoted"] = o.Promoted
 	}
 	if o.ProximityDistance != nil {
@@ -491,7 +530,7 @@ func (o RankingInfo) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["userScore"] = o.UserScore
 	}
-	if true {
+	if o.Words != nil {
 		toSerialize["words"] = o.Words
 	}
 	if o.PromotedByReRanking != nil {
