@@ -9079,6 +9079,84 @@ func (c *APIClient) WaitForTaskWithContext(
 }
 
 /*
+WaitForAppTask waits for an application-level task to be published.
+Wraps WaitForAppTask with context.Background().
+It returns the task response if the operation was successful.
+It returns an error if the operation failed.
+
+The maxRetries parameter is the maximum number of retries.
+The initialDelay parameter is the initial delay between each retry.
+The maxDelay parameter is the maximum delay between each retry.
+
+	@param taskID int64 - Task ID.
+	@param maxRetries *int - Maximum number of retries.
+	@param initialDelay *time.Duration - Initial delay between retries.
+	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param opts ...Option - Optional parameters for the request.
+	@return *GetTaskResponse - Task response.
+	@return error - Error if any.
+*/
+func (c *APIClient) WaitForAppTask(
+	taskID int64,
+	maxRetries *int,
+	initialDelay *time.Duration,
+	maxDelay *time.Duration,
+	opts ...Option,
+) (*GetTaskResponse, error) {
+	return c.WaitForAppTaskWithContext(
+		context.Background(),
+		taskID,
+		maxRetries,
+		initialDelay,
+		maxDelay,
+		opts...,
+	)
+}
+
+/*
+WaitForAppTaskWithContext waits for an application-level task to be published.
+It returns the task response if the operation was successful.
+It returns an error if the operation failed.
+
+The maxRetries parameter is the maximum number of retries.
+The initialDelay parameter is the initial delay between each retry.
+The maxDelay parameter is the maximum delay between each retry.
+
+	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param taskID int64 - Task ID.
+	@param maxRetries *int - Maximum number of retries.
+	@param initialDelay *time.Duration - Initial delay between retries.
+	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param opts ...Option - Optional parameters for the request.
+	@return *GetTaskResponse - Task response.
+	@return error - Error if any.
+*/
+func (c *APIClient) WaitForAppTaskWithContext(
+	ctx context.Context,
+	taskID int64,
+	maxRetries *int,
+	initialDelay *time.Duration,
+	maxDelay *time.Duration,
+	opts ...Option,
+) (*GetTaskResponse, error) {
+	return utils.RetryUntil( //nolint:wrapcheck
+		func() (*GetTaskResponse, error) {
+			return c.GetAppTaskWithContext(ctx, c.NewApiGetAppTaskRequest(taskID), opts...)
+		},
+		func(response *GetTaskResponse, err error) bool {
+			if err != nil || response == nil {
+				return false
+			}
+
+			return response.Status == TASKSTATUS_PUBLISHED
+		},
+		maxRetries,
+		initialDelay,
+		maxDelay,
+	)
+}
+
+/*
 WaitForApiKey waits for an API key to be created, deleted or updated.
 It returns the API key response if the operation was successful.
 It returns an error if the operation failed.
