@@ -3399,6 +3399,126 @@ func (c *APIClient) GetApiKeyWithContext(ctx context.Context, r ApiGetApiKeyRequ
 	return returnValue, nil
 }
 
+func (r *ApiGetAppTaskRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetAppTaskRequest represents the request with all the parameters for the API call.
+type ApiGetAppTaskRequest struct {
+	taskID int64
+}
+
+// NewApiGetAppTaskRequest creates an instance of the ApiGetAppTaskRequest to be used for the API call.
+func (c *APIClient) NewApiGetAppTaskRequest(taskID int64) ApiGetAppTaskRequest {
+	return ApiGetAppTaskRequest{
+		taskID: taskID,
+	}
+}
+
+/*
+GetAppTask Wraps GetAppTaskWithContext using context.Background.
+
+Checks the status of a given application task.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiGetAppTaskRequest with parameters below.
+
+	@param taskID int64 - Unique task identifier.
+	@return GetTaskResponse
+*/
+func (c *APIClient) GetAppTask(r ApiGetAppTaskRequest, opts ...Option) (*GetTaskResponse, error) {
+	return c.GetAppTaskWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetAppTask
+
+Checks the status of a given application task.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiGetAppTaskRequest with parameters below.
+
+	@param taskID int64 - Unique task identifier.
+	@return GetTaskResponse
+*/
+func (c *APIClient) GetAppTaskWithContext(ctx context.Context, r ApiGetAppTaskRequest, opts ...Option) (*GetTaskResponse, error) {
+	var (
+		postBody    any
+		returnValue *GetTaskResponse
+	)
+
+	requestPath := "/1/task/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(parameterToString(r.taskID)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 /*
 GetDictionaryLanguages Wraps GetDictionaryLanguagesWithContext using context.Background.
 
