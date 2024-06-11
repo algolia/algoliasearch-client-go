@@ -9411,7 +9411,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 	for i, obj := range objects {
 		requests = append(requests, *NewBatchRequest(*action, obj))
 
-		if i%*batchSize == 0 {
+		if len(requests) == *batchSize || i == len(objects)-1 {
 			resp, err := c.Batch(c.NewApiBatchRequest(indexName, NewBatchWriteParams(requests)))
 			if err != nil {
 				return nil, err
