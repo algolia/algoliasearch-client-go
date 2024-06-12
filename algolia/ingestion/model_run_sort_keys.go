@@ -11,9 +11,9 @@ type RunSortKeys string
 
 // List of runSortKeys.
 const (
-	RUNSORTKEYS_STATUS     RunSortKeys = "status"
-	RUNSORTKEYS_UPDATED_AT RunSortKeys = "updatedAt"
-	RUNSORTKEYS_CREATED_AT RunSortKeys = "createdAt"
+	RUN_SORT_KEYS_STATUS     RunSortKeys = "status"
+	RUN_SORT_KEYS_UPDATED_AT RunSortKeys = "updatedAt"
+	RUN_SORT_KEYS_CREATED_AT RunSortKeys = "createdAt"
 )
 
 // All allowed values of RunSortKeys enum.

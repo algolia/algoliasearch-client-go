@@ -11,11 +11,11 @@ type AuthenticationSortKeys string
 
 // List of authenticationSortKeys.
 const (
-	AUTHENTICATIONSORTKEYS_NAME       AuthenticationSortKeys = "name"
-	AUTHENTICATIONSORTKEYS_AUTH_TYPE  AuthenticationSortKeys = "auth_type"
-	AUTHENTICATIONSORTKEYS_PLATFORM   AuthenticationSortKeys = "platform"
-	AUTHENTICATIONSORTKEYS_UPDATED_AT AuthenticationSortKeys = "updatedAt"
-	AUTHENTICATIONSORTKEYS_CREATED_AT AuthenticationSortKeys = "createdAt"
+	AUTHENTICATION_SORT_KEYS_NAME       AuthenticationSortKeys = "name"
+	AUTHENTICATION_SORT_KEYS_AUTH_TYPE  AuthenticationSortKeys = "auth_type"
+	AUTHENTICATION_SORT_KEYS_PLATFORM   AuthenticationSortKeys = "platform"
+	AUTHENTICATION_SORT_KEYS_UPDATED_AT AuthenticationSortKeys = "updatedAt"
+	AUTHENTICATION_SORT_KEYS_CREATED_AT AuthenticationSortKeys = "createdAt"
 )
 
 // All allowed values of AuthenticationSortKeys enum.

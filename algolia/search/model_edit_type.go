@@ -11,8 +11,8 @@ type EditType string
 
 // List of editType.
 const (
-	EDITTYPE_REMOVE  EditType = "remove"
-	EDITTYPE_REPLACE EditType = "replace"
+	EDIT_TYPE_REMOVE  EditType = "remove"
+	EDIT_TYPE_REPLACE EditType = "replace"
 )
 
 // All allowed values of EditType enum.

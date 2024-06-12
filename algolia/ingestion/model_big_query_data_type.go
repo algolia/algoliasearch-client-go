@@ -11,8 +11,8 @@ type BigQueryDataType string
 
 // List of BigQueryDataType.
 const (
-	BIGQUERYDATATYPE_GA4   BigQueryDataType = "ga4"
-	BIGQUERYDATATYPE_GA360 BigQueryDataType = "ga360"
+	BIG_QUERY_DATA_TYPE_GA4   BigQueryDataType = "ga4"
+	BIG_QUERY_DATA_TYPE_GA360 BigQueryDataType = "ga360"
 )
 
 // All allowed values of BigQueryDataType enum.

@@ -11,8 +11,8 @@ type DestinationType string
 
 // List of DestinationType.
 const (
-	DESTINATIONTYPE_SEARCH   DestinationType = "search"
-	DESTINATIONTYPE_INSIGHTS DestinationType = "insights"
+	DESTINATION_TYPE_SEARCH   DestinationType = "search"
+	DESTINATION_TYPE_INSIGHTS DestinationType = "insights"
 )
 
 // All allowed values of DestinationType enum.

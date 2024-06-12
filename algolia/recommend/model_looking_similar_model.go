@@ -11,7 +11,7 @@ type LookingSimilarModel string
 
 // List of lookingSimilarModel.
 const (
-	LOOKINGSIMILARMODEL_LOOKING_SIMILAR LookingSimilarModel = "looking-similar"
+	LOOKING_SIMILAR_MODEL_LOOKING_SIMILAR LookingSimilarModel = "looking-similar"
 )
 
 // All allowed values of LookingSimilarModel enum.

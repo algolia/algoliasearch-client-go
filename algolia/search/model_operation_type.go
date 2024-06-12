@@ -11,8 +11,8 @@ type OperationType string
 
 // List of operationType.
 const (
-	OPERATIONTYPE_MOVE OperationType = "move"
-	OPERATIONTYPE_COPY OperationType = "copy"
+	OPERATION_TYPE_MOVE OperationType = "move"
+	OPERATION_TYPE_COPY OperationType = "copy"
 )
 
 // All allowed values of OperationType enum.

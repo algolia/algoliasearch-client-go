@@ -11,10 +11,10 @@ type OrderBy string
 
 // List of orderBy.
 const (
-	ORDERBY_SEARCH_COUNT           OrderBy = "searchCount"
-	ORDERBY_CLICK_THROUGH_RATE     OrderBy = "clickThroughRate"
-	ORDERBY_CONVERSION_RATE        OrderBy = "conversionRate"
-	ORDERBY_AVERAGE_CLICK_POSITION OrderBy = "averageClickPosition"
+	ORDER_BY_SEARCH_COUNT           OrderBy = "searchCount"
+	ORDER_BY_CLICK_THROUGH_RATE     OrderBy = "clickThroughRate"
+	ORDER_BY_CONVERSION_RATE        OrderBy = "conversionRate"
+	ORDER_BY_AVERAGE_CLICK_POSITION OrderBy = "averageClickPosition"
 )
 
 // All allowed values of OrderBy enum.

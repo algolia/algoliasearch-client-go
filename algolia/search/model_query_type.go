@@ -11,9 +11,9 @@ type QueryType string
 
 // List of queryType.
 const (
-	QUERYTYPE_PREFIX_LAST QueryType = "prefixLast"
-	QUERYTYPE_PREFIX_ALL  QueryType = "prefixAll"
-	QUERYTYPE_PREFIX_NONE QueryType = "prefixNone"
+	QUERY_TYPE_PREFIX_LAST QueryType = "prefixLast"
+	QUERY_TYPE_PREFIX_ALL  QueryType = "prefixAll"
+	QUERY_TYPE_PREFIX_NONE QueryType = "prefixNone"
 )
 
 // All allowed values of QueryType enum.

@@ -11,9 +11,9 @@ type EventSortKeys string
 
 // List of eventSortKeys.
 const (
-	EVENTSORTKEYS_STATUS       EventSortKeys = "status"
-	EVENTSORTKEYS_TYPE         EventSortKeys = "type"
-	EVENTSORTKEYS_PUBLISHED_AT EventSortKeys = "publishedAt"
+	EVENT_SORT_KEYS_STATUS       EventSortKeys = "status"
+	EVENT_SORT_KEYS_TYPE         EventSortKeys = "type"
+	EVENT_SORT_KEYS_PUBLISHED_AT EventSortKeys = "publishedAt"
 )
 
 // All allowed values of EventSortKeys enum.

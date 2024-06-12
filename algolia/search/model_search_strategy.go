@@ -11,8 +11,8 @@ type SearchStrategy string
 
 // List of searchStrategy.
 const (
-	SEARCHSTRATEGY_NONE                   SearchStrategy = "none"
-	SEARCHSTRATEGY_STOP_IF_ENOUGH_MATCHES SearchStrategy = "stopIfEnoughMatches"
+	SEARCH_STRATEGY_NONE                   SearchStrategy = "none"
+	SEARCH_STRATEGY_STOP_IF_ENOUGH_MATCHES SearchStrategy = "stopIfEnoughMatches"
 )
 
 // All allowed values of SearchStrategy enum.

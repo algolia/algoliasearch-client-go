@@ -11,11 +11,11 @@ type TaskSortKeys string
 
 // List of taskSortKeys.
 const (
-	TASKSORTKEYS_ENABLED      TaskSortKeys = "enabled"
-	TASKSORTKEYS_TRIGGER_TYPE TaskSortKeys = "triggerType"
-	TASKSORTKEYS_ACTION       TaskSortKeys = "action"
-	TASKSORTKEYS_UPDATED_AT   TaskSortKeys = "updatedAt"
-	TASKSORTKEYS_CREATED_AT   TaskSortKeys = "createdAt"
+	TASK_SORT_KEYS_ENABLED      TaskSortKeys = "enabled"
+	TASK_SORT_KEYS_TRIGGER_TYPE TaskSortKeys = "triggerType"
+	TASK_SORT_KEYS_ACTION       TaskSortKeys = "action"
+	TASK_SORT_KEYS_UPDATED_AT   TaskSortKeys = "updatedAt"
+	TASK_SORT_KEYS_CREATED_AT   TaskSortKeys = "createdAt"
 )
 
 // All allowed values of TaskSortKeys enum.

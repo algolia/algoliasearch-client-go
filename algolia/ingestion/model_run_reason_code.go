@@ -11,13 +11,13 @@ type RunReasonCode string
 
 // List of RunReasonCode.
 const (
-	RUNREASONCODE_INTERNAL        RunReasonCode = "internal"
-	RUNREASONCODE_CRITICAL        RunReasonCode = "critical"
-	RUNREASONCODE_NO_EVENTS       RunReasonCode = "no_events"
-	RUNREASONCODE_TOO_MANY_ERRORS RunReasonCode = "too_many_errors"
-	RUNREASONCODE_OK              RunReasonCode = "ok"
-	RUNREASONCODE_DISCARDED       RunReasonCode = "discarded"
-	RUNREASONCODE_BLOCKING        RunReasonCode = "blocking"
+	RUN_REASON_CODE_INTERNAL        RunReasonCode = "internal"
+	RUN_REASON_CODE_CRITICAL        RunReasonCode = "critical"
+	RUN_REASON_CODE_NO_EVENTS       RunReasonCode = "no_events"
+	RUN_REASON_CODE_TOO_MANY_ERRORS RunReasonCode = "too_many_errors"
+	RUN_REASON_CODE_OK              RunReasonCode = "ok"
+	RUN_REASON_CODE_DISCARDED       RunReasonCode = "discarded"
+	RUN_REASON_CODE_BLOCKING        RunReasonCode = "blocking"
 )
 
 // All allowed values of RunReasonCode enum.

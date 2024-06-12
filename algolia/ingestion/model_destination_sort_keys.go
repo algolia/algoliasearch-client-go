@@ -11,10 +11,10 @@ type DestinationSortKeys string
 
 // List of destinationSortKeys.
 const (
-	DESTINATIONSORTKEYS_NAME       DestinationSortKeys = "name"
-	DESTINATIONSORTKEYS_TYPE       DestinationSortKeys = "type"
-	DESTINATIONSORTKEYS_UPDATED_AT DestinationSortKeys = "updatedAt"
-	DESTINATIONSORTKEYS_CREATED_AT DestinationSortKeys = "createdAt"
+	DESTINATION_SORT_KEYS_NAME       DestinationSortKeys = "name"
+	DESTINATION_SORT_KEYS_TYPE       DestinationSortKeys = "type"
+	DESTINATION_SORT_KEYS_UPDATED_AT DestinationSortKeys = "updatedAt"
+	DESTINATION_SORT_KEYS_CREATED_AT DestinationSortKeys = "createdAt"
 )
 
 // All allowed values of DestinationSortKeys enum.

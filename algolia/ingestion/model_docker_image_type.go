@@ -11,9 +11,9 @@ type DockerImageType string
 
 // List of DockerImageType.
 const (
-	DOCKERIMAGETYPE_SINGER  DockerImageType = "singer"
-	DOCKERIMAGETYPE_CUSTOM  DockerImageType = "custom"
-	DOCKERIMAGETYPE_AIRBYTE DockerImageType = "airbyte"
+	DOCKER_IMAGE_TYPE_SINGER  DockerImageType = "singer"
+	DOCKER_IMAGE_TYPE_CUSTOM  DockerImageType = "custom"
+	DOCKER_IMAGE_TYPE_AIRBYTE DockerImageType = "airbyte"
 )
 
 // All allowed values of DockerImageType enum.

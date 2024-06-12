@@ -11,8 +11,8 @@ type AdvancedSyntaxFeatures string
 
 // List of advancedSyntaxFeatures.
 const (
-	ADVANCEDSYNTAXFEATURES_EXACT_PHRASE  AdvancedSyntaxFeatures = "exactPhrase"
-	ADVANCEDSYNTAXFEATURES_EXCLUDE_WORDS AdvancedSyntaxFeatures = "excludeWords"
+	ADVANCED_SYNTAX_FEATURES_EXACT_PHRASE  AdvancedSyntaxFeatures = "exactPhrase"
+	ADVANCED_SYNTAX_FEATURES_EXCLUDE_WORDS AdvancedSyntaxFeatures = "excludeWords"
 )
 
 // All allowed values of AdvancedSyntaxFeatures enum.

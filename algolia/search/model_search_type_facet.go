@@ -11,7 +11,7 @@ type SearchTypeFacet string
 
 // List of searchTypeFacet.
 const (
-	SEARCHTYPEFACET_FACET SearchTypeFacet = "facet"
+	SEARCH_TYPE_FACET_FACET SearchTypeFacet = "facet"
 )
 
 // All allowed values of SearchTypeFacet enum.

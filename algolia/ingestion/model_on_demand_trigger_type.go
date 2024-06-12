@@ -11,7 +11,7 @@ type OnDemandTriggerType string
 
 // List of OnDemandTriggerType.
 const (
-	ONDEMANDTRIGGERTYPE_ON_DEMAND OnDemandTriggerType = "onDemand"
+	ON_DEMAND_TRIGGER_TYPE_ON_DEMAND OnDemandTriggerType = "onDemand"
 )
 
 // All allowed values of OnDemandTriggerType enum.

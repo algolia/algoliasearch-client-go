@@ -11,10 +11,10 @@ type SourceSortKeys string
 
 // List of sourceSortKeys.
 const (
-	SOURCESORTKEYS_NAME       SourceSortKeys = "name"
-	SOURCESORTKEYS_TYPE       SourceSortKeys = "type"
-	SOURCESORTKEYS_UPDATED_AT SourceSortKeys = "updatedAt"
-	SOURCESORTKEYS_CREATED_AT SourceSortKeys = "createdAt"
+	SOURCE_SORT_KEYS_NAME       SourceSortKeys = "name"
+	SOURCE_SORT_KEYS_TYPE       SourceSortKeys = "type"
+	SOURCE_SORT_KEYS_UPDATED_AT SourceSortKeys = "updatedAt"
+	SOURCE_SORT_KEYS_CREATED_AT SourceSortKeys = "createdAt"
 )
 
 // All allowed values of SourceSortKeys enum.

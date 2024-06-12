@@ -11,7 +11,7 @@ type ConversionEvent string
 
 // List of ConversionEvent.
 const (
-	CONVERSIONEVENT_CONVERSION ConversionEvent = "conversion"
+	CONVERSION_EVENT_CONVERSION ConversionEvent = "conversion"
 )
 
 // All allowed values of ConversionEvent enum.

@@ -11,10 +11,10 @@ type EventType string
 
 // List of EventType.
 const (
-	EVENTTYPE_FETCH     EventType = "fetch"
-	EVENTTYPE_RECORD    EventType = "record"
-	EVENTTYPE_LOG       EventType = "log"
-	EVENTTYPE_TRANSFORM EventType = "transform"
+	EVENT_TYPE_FETCH     EventType = "fetch"
+	EVENT_TYPE_RECORD    EventType = "record"
+	EVENT_TYPE_LOG       EventType = "log"
+	EVENT_TYPE_TRANSFORM EventType = "transform"
 )
 
 // All allowed values of EventType enum.

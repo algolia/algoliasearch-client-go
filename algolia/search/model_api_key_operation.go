@@ -11,9 +11,9 @@ type ApiKeyOperation string
 
 // List of apiKeyOperation.
 const (
-	APIKEYOPERATION_ADD    ApiKeyOperation = "add"
-	APIKEYOPERATION_DELETE ApiKeyOperation = "delete"
-	APIKEYOPERATION_UPDATE ApiKeyOperation = "update"
+	API_KEY_OPERATION_ADD    ApiKeyOperation = "add"
+	API_KEY_OPERATION_DELETE ApiKeyOperation = "delete"
+	API_KEY_OPERATION_UPDATE ApiKeyOperation = "update"
 )
 
 // All allowed values of ApiKeyOperation enum.

@@ -11,8 +11,8 @@ type MethodType string
 
 // List of MethodType.
 const (
-	METHODTYPE_GET  MethodType = "GET"
-	METHODTYPE_POST MethodType = "POST"
+	METHOD_TYPE_GET  MethodType = "GET"
+	METHOD_TYPE_POST MethodType = "POST"
 )
 
 // All allowed values of MethodType enum.

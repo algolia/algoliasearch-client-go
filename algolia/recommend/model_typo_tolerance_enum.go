@@ -11,8 +11,8 @@ type TypoToleranceEnum string
 
 // List of typoToleranceEnum.
 const (
-	TYPOTOLERANCEENUM_MIN    TypoToleranceEnum = "min"
-	TYPOTOLERANCEENUM_STRICT TypoToleranceEnum = "strict"
+	TYPO_TOLERANCE_ENUM_MIN    TypoToleranceEnum = "min"
+	TYPO_TOLERANCE_ENUM_STRICT TypoToleranceEnum = "strict"
 )
 
 // All allowed values of TypoToleranceEnum enum.

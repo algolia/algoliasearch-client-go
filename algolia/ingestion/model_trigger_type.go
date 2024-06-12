@@ -11,10 +11,10 @@ type TriggerType string
 
 // List of TriggerType.
 const (
-	TRIGGERTYPE_ON_DEMAND    TriggerType = "onDemand"
-	TRIGGERTYPE_SCHEDULE     TriggerType = "schedule"
-	TRIGGERTYPE_SUBSCRIPTION TriggerType = "subscription"
-	TRIGGERTYPE_STREAMING    TriggerType = "streaming"
+	TRIGGER_TYPE_ON_DEMAND    TriggerType = "onDemand"
+	TRIGGER_TYPE_SCHEDULE     TriggerType = "schedule"
+	TRIGGER_TYPE_SUBSCRIPTION TriggerType = "subscription"
+	TRIGGER_TYPE_STREAMING    TriggerType = "streaming"
 )
 
 // All allowed values of TriggerType enum.

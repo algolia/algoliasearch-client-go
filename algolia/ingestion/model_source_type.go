@@ -11,15 +11,15 @@ type SourceType string
 
 // List of SourceType.
 const (
-	SOURCETYPE_BIGCOMMERCE         SourceType = "bigcommerce"
-	SOURCETYPE_BIGQUERY            SourceType = "bigquery"
-	SOURCETYPE_COMMERCETOOLS       SourceType = "commercetools"
-	SOURCETYPE_CSV                 SourceType = "csv"
-	SOURCETYPE_DOCKER              SourceType = "docker"
-	SOURCETYPE_GA4_BIGQUERY_EXPORT SourceType = "ga4BigqueryExport"
-	SOURCETYPE_JSON                SourceType = "json"
-	SOURCETYPE_SHOPIFY             SourceType = "shopify"
-	SOURCETYPE_SFCC                SourceType = "sfcc"
+	SOURCE_TYPE_BIGCOMMERCE         SourceType = "bigcommerce"
+	SOURCE_TYPE_BIGQUERY            SourceType = "bigquery"
+	SOURCE_TYPE_COMMERCETOOLS       SourceType = "commercetools"
+	SOURCE_TYPE_CSV                 SourceType = "csv"
+	SOURCE_TYPE_DOCKER              SourceType = "docker"
+	SOURCE_TYPE_GA4_BIGQUERY_EXPORT SourceType = "ga4BigqueryExport"
+	SOURCE_TYPE_JSON                SourceType = "json"
+	SOURCE_TYPE_SHOPIFY             SourceType = "shopify"
+	SOURCE_TYPE_SFCC                SourceType = "sfcc"
 )
 
 // All allowed values of SourceType enum.

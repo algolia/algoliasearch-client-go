@@ -11,9 +11,9 @@ type RunOutcome string
 
 // List of RunOutcome.
 const (
-	RUNOUTCOME_SUCCESS    RunOutcome = "success"
-	RUNOUTCOME_FAILURE    RunOutcome = "failure"
-	RUNOUTCOME_PROCESSING RunOutcome = "processing"
+	RUN_OUTCOME_SUCCESS    RunOutcome = "success"
+	RUN_OUTCOME_FAILURE    RunOutcome = "failure"
+	RUN_OUTCOME_PROCESSING RunOutcome = "processing"
 )
 
 // All allowed values of RunOutcome enum.

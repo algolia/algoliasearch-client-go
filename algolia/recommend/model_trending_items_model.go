@@ -11,7 +11,7 @@ type TrendingItemsModel string
 
 // List of trendingItemsModel.
 const (
-	TRENDINGITEMSMODEL_TRENDING_ITEMS TrendingItemsModel = "trending-items"
+	TRENDING_ITEMS_MODEL_TRENDING_ITEMS TrendingItemsModel = "trending-items"
 )
 
 // All allowed values of TrendingItemsModel enum.

@@ -11,11 +11,11 @@ type RunStatus string
 
 // List of RunStatus.
 const (
-	RUNSTATUS_CREATED  RunStatus = "created"
-	RUNSTATUS_STARTED  RunStatus = "started"
-	RUNSTATUS_IDLED    RunStatus = "idled"
-	RUNSTATUS_FINISHED RunStatus = "finished"
-	RUNSTATUS_SKIPPED  RunStatus = "skipped"
+	RUN_STATUS_CREATED  RunStatus = "created"
+	RUN_STATUS_STARTED  RunStatus = "started"
+	RUN_STATUS_IDLED    RunStatus = "idled"
+	RUN_STATUS_FINISHED RunStatus = "finished"
+	RUN_STATUS_SKIPPED  RunStatus = "skipped"
 )
 
 // All allowed values of RunStatus enum.

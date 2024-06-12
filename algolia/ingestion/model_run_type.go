@@ -11,9 +11,9 @@ type RunType string
 
 // List of RunType.
 const (
-	RUNTYPE_REINDEX  RunType = "reindex"
-	RUNTYPE_UPDATE   RunType = "update"
-	RUNTYPE_DISCOVER RunType = "discover"
+	RUN_TYPE_REINDEX  RunType = "reindex"
+	RUN_TYPE_UPDATE   RunType = "update"
+	RUN_TYPE_DISCOVER RunType = "discover"
 )
 
 // All allowed values of RunType enum.

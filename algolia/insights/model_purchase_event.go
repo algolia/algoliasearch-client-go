@@ -11,7 +11,7 @@ type PurchaseEvent string
 
 // List of PurchaseEvent.
 const (
-	PURCHASEEVENT_PURCHASE PurchaseEvent = "purchase"
+	PURCHASE_EVENT_PURCHASE PurchaseEvent = "purchase"
 )
 
 // All allowed values of PurchaseEvent enum.

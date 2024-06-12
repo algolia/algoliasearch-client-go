@@ -11,10 +11,10 @@ type LogType string
 
 // List of logType.
 const (
-	LOGTYPE_ALL   LogType = "all"
-	LOGTYPE_QUERY LogType = "query"
-	LOGTYPE_BUILD LogType = "build"
-	LOGTYPE_ERROR LogType = "error"
+	LOG_TYPE_ALL   LogType = "all"
+	LOG_TYPE_QUERY LogType = "query"
+	LOG_TYPE_BUILD LogType = "build"
+	LOG_TYPE_ERROR LogType = "error"
 )
 
 // All allowed values of LogType enum.

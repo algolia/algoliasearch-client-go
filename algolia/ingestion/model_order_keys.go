@@ -11,8 +11,8 @@ type OrderKeys string
 
 // List of orderKeys.
 const (
-	ORDERKEYS_ASC  OrderKeys = "asc"
-	ORDERKEYS_DESC OrderKeys = "desc"
+	ORDER_KEYS_ASC  OrderKeys = "asc"
+	ORDER_KEYS_DESC OrderKeys = "desc"
 )
 
 // All allowed values of OrderKeys enum.

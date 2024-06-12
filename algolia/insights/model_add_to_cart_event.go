@@ -11,7 +11,7 @@ type AddToCartEvent string
 
 // List of AddToCartEvent.
 const (
-	ADDTOCARTEVENT_ADD_TO_CART AddToCartEvent = "addToCart"
+	ADD_TO_CART_EVENT_ADD_TO_CART AddToCartEvent = "addToCart"
 )
 
 // All allowed values of AddToCartEvent enum.

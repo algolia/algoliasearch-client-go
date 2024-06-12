@@ -11,8 +11,8 @@ type TaskStatus string
 
 // List of taskStatus.
 const (
-	TASKSTATUS_PUBLISHED     TaskStatus = "published"
-	TASKSTATUS_NOT_PUBLISHED TaskStatus = "notPublished"
+	TASK_STATUS_PUBLISHED     TaskStatus = "published"
+	TASK_STATUS_NOT_PUBLISHED TaskStatus = "notPublished"
 )
 
 // All allowed values of TaskStatus enum.

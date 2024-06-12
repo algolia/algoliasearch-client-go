@@ -11,7 +11,7 @@ type ViewEvent string
 
 // List of ViewEvent.
 const (
-	VIEWEVENT_VIEW ViewEvent = "view"
+	VIEW_EVENT_VIEW ViewEvent = "view"
 )
 
 // All allowed values of ViewEvent enum.

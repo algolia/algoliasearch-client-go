@@ -11,9 +11,9 @@ type ExactOnSingleWordQuery string
 
 // List of exactOnSingleWordQuery.
 const (
-	EXACTONSINGLEWORDQUERY_ATTRIBUTE ExactOnSingleWordQuery = "attribute"
-	EXACTONSINGLEWORDQUERY_NONE      ExactOnSingleWordQuery = "none"
-	EXACTONSINGLEWORDQUERY_WORD      ExactOnSingleWordQuery = "word"
+	EXACT_ON_SINGLE_WORD_QUERY_ATTRIBUTE ExactOnSingleWordQuery = "attribute"
+	EXACT_ON_SINGLE_WORD_QUERY_NONE      ExactOnSingleWordQuery = "none"
+	EXACT_ON_SINGLE_WORD_QUERY_WORD      ExactOnSingleWordQuery = "word"
 )
 
 // All allowed values of ExactOnSingleWordQuery enum.

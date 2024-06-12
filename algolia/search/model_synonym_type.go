@@ -11,11 +11,11 @@ type SynonymType string
 
 // List of SynonymType.
 const (
-	SYNONYMTYPE_SYNONYM        SynonymType = "synonym"
-	SYNONYMTYPE_ONEWAYSYNONYM  SynonymType = "onewaysynonym"
-	SYNONYMTYPE_ALTCORRECTION1 SynonymType = "altcorrection1"
-	SYNONYMTYPE_ALTCORRECTION2 SynonymType = "altcorrection2"
-	SYNONYMTYPE_PLACEHOLDER    SynonymType = "placeholder"
+	SYNONYM_TYPE_SYNONYM        SynonymType = "synonym"
+	SYNONYM_TYPE_ONEWAYSYNONYM  SynonymType = "onewaysynonym"
+	SYNONYM_TYPE_ALTCORRECTION1 SynonymType = "altcorrection1"
+	SYNONYM_TYPE_ALTCORRECTION2 SynonymType = "altcorrection2"
+	SYNONYM_TYPE_PLACEHOLDER    SynonymType = "placeholder"
 )
 
 // All allowed values of SynonymType enum.

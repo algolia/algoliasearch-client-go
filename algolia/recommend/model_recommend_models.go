@@ -11,10 +11,10 @@ type RecommendModels string
 
 // List of recommendModels.
 const (
-	RECOMMENDMODELS_RELATED_PRODUCTS RecommendModels = "related-products"
-	RECOMMENDMODELS_BOUGHT_TOGETHER  RecommendModels = "bought-together"
-	RECOMMENDMODELS_TRENDING_FACETS  RecommendModels = "trending-facets"
-	RECOMMENDMODELS_TRENDING_ITEMS   RecommendModels = "trending-items"
+	RECOMMEND_MODELS_RELATED_PRODUCTS RecommendModels = "related-products"
+	RECOMMEND_MODELS_BOUGHT_TOGETHER  RecommendModels = "bought-together"
+	RECOMMEND_MODELS_TRENDING_FACETS  RecommendModels = "trending-facets"
+	RECOMMEND_MODELS_TRENDING_ITEMS   RecommendModels = "trending-items"
 )
 
 // All allowed values of RecommendModels enum.

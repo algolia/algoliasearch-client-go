@@ -11,7 +11,7 @@ type TrendingFacetsModel string
 
 // List of trendingFacetsModel.
 const (
-	TRENDINGFACETSMODEL_TRENDING_FACETS TrendingFacetsModel = "trending-facets"
+	TRENDING_FACETS_MODEL_TRENDING_FACETS TrendingFacetsModel = "trending-facets"
 )
 
 // All allowed values of TrendingFacetsModel enum.

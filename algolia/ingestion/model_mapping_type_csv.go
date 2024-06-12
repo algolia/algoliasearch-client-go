@@ -11,11 +11,11 @@ type MappingTypeCSV string
 
 // List of MappingTypeCSV.
 const (
-	MAPPINGTYPECSV_STRING  MappingTypeCSV = "string"
-	MAPPINGTYPECSV_INTEGER MappingTypeCSV = "integer"
-	MAPPINGTYPECSV_FLOAT   MappingTypeCSV = "float"
-	MAPPINGTYPECSV_BOOLEAN MappingTypeCSV = "boolean"
-	MAPPINGTYPECSV_JSON    MappingTypeCSV = "json"
+	MAPPING_TYPE_CS_V_STRING  MappingTypeCSV = "string"
+	MAPPING_TYPE_CS_V_INTEGER MappingTypeCSV = "integer"
+	MAPPING_TYPE_CS_V_FLOAT   MappingTypeCSV = "float"
+	MAPPING_TYPE_CS_V_BOOLEAN MappingTypeCSV = "boolean"
+	MAPPING_TYPE_CS_V_JSON    MappingTypeCSV = "json"
 )
 
 // All allowed values of MappingTypeCSV enum.

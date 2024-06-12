@@ -11,7 +11,7 @@ type ServerStatus string
 
 // List of ServerStatus.
 const (
-	SERVERSTATUS_PRODUCTION ServerStatus = "PRODUCTION"
+	SERVER_STATUS_PRODUCTION ServerStatus = "PRODUCTION"
 )
 
 // All allowed values of ServerStatus enum.

@@ -11,12 +11,12 @@ type AuthenticationType string
 
 // List of AuthenticationType.
 const (
-	AUTHENTICATIONTYPE_GOOGLE_SERVICE_ACCOUNT AuthenticationType = "googleServiceAccount"
-	AUTHENTICATIONTYPE_BASIC                  AuthenticationType = "basic"
-	AUTHENTICATIONTYPE_API_KEY                AuthenticationType = "apiKey"
-	AUTHENTICATIONTYPE_OAUTH                  AuthenticationType = "oauth"
-	AUTHENTICATIONTYPE_ALGOLIA                AuthenticationType = "algolia"
-	AUTHENTICATIONTYPE_ALGOLIA_INSIGHTS       AuthenticationType = "algoliaInsights"
+	AUTHENTICATION_TYPE_GOOGLE_SERVICE_ACCOUNT AuthenticationType = "googleServiceAccount"
+	AUTHENTICATION_TYPE_BASIC                  AuthenticationType = "basic"
+	AUTHENTICATION_TYPE_API_KEY                AuthenticationType = "apiKey"
+	AUTHENTICATION_TYPE_OAUTH                  AuthenticationType = "oauth"
+	AUTHENTICATION_TYPE_ALGOLIA                AuthenticationType = "algolia"
+	AUTHENTICATION_TYPE_ALGOLIA_INSIGHTS       AuthenticationType = "algoliaInsights"
 )
 
 // All allowed values of AuthenticationType enum.

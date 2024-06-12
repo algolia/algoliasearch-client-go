@@ -11,7 +11,7 @@ type ClickEvent string
 
 // List of ClickEvent.
 const (
-	CLICKEVENT_CLICK ClickEvent = "click"
+	CLICK_EVENT_CLICK ClickEvent = "click"
 )
 
 // All allowed values of ClickEvent enum.

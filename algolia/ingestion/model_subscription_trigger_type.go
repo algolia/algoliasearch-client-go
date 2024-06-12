@@ -11,7 +11,7 @@ type SubscriptionTriggerType string
 
 // List of SubscriptionTriggerType.
 const (
-	SUBSCRIPTIONTRIGGERTYPE_SUBSCRIPTION SubscriptionTriggerType = "subscription"
+	SUBSCRIPTION_TRIGGER_TYPE_SUBSCRIPTION SubscriptionTriggerType = "subscription"
 )
 
 // All allowed values of SubscriptionTriggerType enum.

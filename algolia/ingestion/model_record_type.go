@@ -11,8 +11,8 @@ type RecordType string
 
 // List of RecordType.
 const (
-	RECORDTYPE_PRODUCT RecordType = "product"
-	RECORDTYPE_VARIANT RecordType = "variant"
+	RECORD_TYPE_PRODUCT RecordType = "product"
+	RECORD_TYPE_VARIANT RecordType = "variant"
 )
 
 // All allowed values of RecordType enum.

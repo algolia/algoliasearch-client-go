@@ -11,7 +11,7 @@ type MappingFormatSchema string
 
 // List of MappingFormatSchema.
 const (
-	MAPPINGFORMATSCHEMA_MAPPINGKIT_V1 MappingFormatSchema = "mappingkit/v1"
+	MAPPING_FORMAT_SCHEMA_MAPPINGKIT_V1 MappingFormatSchema = "mappingkit/v1"
 )
 
 // All allowed values of MappingFormatSchema enum.

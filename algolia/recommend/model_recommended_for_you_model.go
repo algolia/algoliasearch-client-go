@@ -11,7 +11,7 @@ type RecommendedForYouModel string
 
 // List of recommendedForYouModel.
 const (
-	RECOMMENDEDFORYOUMODEL_RECOMMENDED_FOR_YOU RecommendedForYouModel = "recommended-for-you"
+	RECOMMENDED_FOR_YOU_MODEL_RECOMMENDED_FOR_YOU RecommendedForYouModel = "recommended-for-you"
 )
 
 // All allowed values of RecommendedForYouModel enum.

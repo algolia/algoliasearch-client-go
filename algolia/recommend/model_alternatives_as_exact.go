@@ -11,9 +11,9 @@ type AlternativesAsExact string
 
 // List of alternativesAsExact.
 const (
-	ALTERNATIVESASEXACT_IGNORE_PLURALS      AlternativesAsExact = "ignorePlurals"
-	ALTERNATIVESASEXACT_SINGLE_WORD_SYNONYM AlternativesAsExact = "singleWordSynonym"
-	ALTERNATIVESASEXACT_MULTI_WORDS_SYNONYM AlternativesAsExact = "multiWordsSynonym"
+	ALTERNATIVES_AS_EXACT_IGNORE_PLURALS      AlternativesAsExact = "ignorePlurals"
+	ALTERNATIVES_AS_EXACT_SINGLE_WORD_SYNONYM AlternativesAsExact = "singleWordSynonym"
+	ALTERNATIVES_AS_EXACT_MULTI_WORDS_SYNONYM AlternativesAsExact = "multiWordsSynonym"
 )
 
 // All allowed values of AlternativesAsExact enum.

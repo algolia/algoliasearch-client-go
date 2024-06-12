@@ -11,12 +11,12 @@ type EventStatus string
 
 // List of EventStatus.
 const (
-	EVENTSTATUS_CREATED   EventStatus = "created"
-	EVENTSTATUS_STARTED   EventStatus = "started"
-	EVENTSTATUS_RETRIED   EventStatus = "retried"
-	EVENTSTATUS_FAILED    EventStatus = "failed"
-	EVENTSTATUS_SUCCEEDED EventStatus = "succeeded"
-	EVENTSTATUS_CRITICAL  EventStatus = "critical"
+	EVENT_STATUS_CREATED   EventStatus = "created"
+	EVENT_STATUS_STARTED   EventStatus = "started"
+	EVENT_STATUS_RETRIED   EventStatus = "retried"
+	EVENT_STATUS_FAILED    EventStatus = "failed"
+	EVENT_STATUS_SUCCEEDED EventStatus = "succeeded"
+	EVENT_STATUS_CRITICAL  EventStatus = "critical"
 )
 
 // All allowed values of EventStatus enum.

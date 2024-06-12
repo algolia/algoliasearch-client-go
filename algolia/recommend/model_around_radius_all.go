@@ -11,7 +11,7 @@ type AroundRadiusAll string
 
 // List of aroundRadiusAll.
 const (
-	AROUNDRADIUSALL_ALL AroundRadiusAll = "all"
+	AROUND_RADIUS_ALL_ALL AroundRadiusAll = "all"
 )
 
 // All allowed values of AroundRadiusAll enum.

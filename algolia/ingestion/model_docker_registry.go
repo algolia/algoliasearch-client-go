@@ -11,8 +11,8 @@ type DockerRegistry string
 
 // List of DockerRegistry.
 const (
-	DOCKERREGISTRY_DOCKERHUB DockerRegistry = "dockerhub"
-	DOCKERREGISTRY_GHCR      DockerRegistry = "ghcr"
+	DOCKER_REGISTRY_DOCKERHUB DockerRegistry = "dockerhub"
+	DOCKER_REGISTRY_GHCR      DockerRegistry = "ghcr"
 )
 
 // All allowed values of DockerRegistry enum.

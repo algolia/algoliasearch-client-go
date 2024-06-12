@@ -11,9 +11,9 @@ type MatchLevel string
 
 // List of matchLevel.
 const (
-	MATCHLEVEL_NONE    MatchLevel = "none"
-	MATCHLEVEL_PARTIAL MatchLevel = "partial"
-	MATCHLEVEL_FULL    MatchLevel = "full"
+	MATCH_LEVEL_NONE    MatchLevel = "none"
+	MATCH_LEVEL_PARTIAL MatchLevel = "partial"
+	MATCH_LEVEL_FULL    MatchLevel = "full"
 )
 
 // All allowed values of MatchLevel enum.

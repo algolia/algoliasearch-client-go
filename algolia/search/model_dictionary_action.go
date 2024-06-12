@@ -11,8 +11,8 @@ type DictionaryAction string
 
 // List of dictionaryAction.
 const (
-	DICTIONARYACTION_ADD_ENTRY    DictionaryAction = "addEntry"
-	DICTIONARYACTION_DELETE_ENTRY DictionaryAction = "deleteEntry"
+	DICTIONARY_ACTION_ADD_ENTRY    DictionaryAction = "addEntry"
+	DICTIONARY_ACTION_DELETE_ENTRY DictionaryAction = "deleteEntry"
 )
 
 // All allowed values of DictionaryAction enum.

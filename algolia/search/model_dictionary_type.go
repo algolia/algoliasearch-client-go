@@ -11,9 +11,9 @@ type DictionaryType string
 
 // List of dictionaryType.
 const (
-	DICTIONARYTYPE_PLURALS   DictionaryType = "plurals"
-	DICTIONARYTYPE_STOPWORDS DictionaryType = "stopwords"
-	DICTIONARYTYPE_COMPOUNDS DictionaryType = "compounds"
+	DICTIONARY_TYPE_PLURALS   DictionaryType = "plurals"
+	DICTIONARY_TYPE_STOPWORDS DictionaryType = "stopwords"
+	DICTIONARY_TYPE_COMPOUNDS DictionaryType = "compounds"
 )
 
 // All allowed values of DictionaryType enum.

@@ -11,7 +11,7 @@ type StreamingTriggerType string
 
 // List of StreamingTriggerType.
 const (
-	STREAMINGTRIGGERTYPE_STREAMING StreamingTriggerType = "streaming"
+	STREAMING_TRIGGER_TYPE_STREAMING StreamingTriggerType = "streaming"
 )
 
 // All allowed values of StreamingTriggerType enum.

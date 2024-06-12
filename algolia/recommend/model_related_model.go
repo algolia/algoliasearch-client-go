@@ -11,7 +11,7 @@ type RelatedModel string
 
 // List of relatedModel.
 const (
-	RELATEDMODEL_RELATED_PRODUCTS RelatedModel = "related-products"
+	RELATED_MODEL_RELATED_PRODUCTS RelatedModel = "related-products"
 )
 
 // All allowed values of RelatedModel enum.

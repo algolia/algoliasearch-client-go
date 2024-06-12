@@ -9070,7 +9070,7 @@ func (c *APIClient) WaitForTaskWithContext(
 				return false
 			}
 
-			return response.Status == TASKSTATUS_PUBLISHED
+			return response.Status == TASK_STATUS_PUBLISHED
 		},
 		maxRetries,
 		initialDelay,
@@ -9148,7 +9148,7 @@ func (c *APIClient) WaitForAppTaskWithContext(
 				return false
 			}
 
-			return response.Status == TASKSTATUS_PUBLISHED
+			return response.Status == TASK_STATUS_PUBLISHED
 		},
 		maxRetries,
 		initialDelay,
@@ -9281,11 +9281,11 @@ func (c *APIClient) WaitForApiKeyWithContext(
 	maxDelay *time.Duration,
 	opts ...Option,
 ) (*GetApiKeyResponse, error) {
-	if operation != APIKEYOPERATION_ADD && operation != APIKEYOPERATION_DELETE && operation != APIKEYOPERATION_UPDATE {
+	if operation != API_KEY_OPERATION_ADD && operation != API_KEY_OPERATION_DELETE && operation != API_KEY_OPERATION_UPDATE {
 		return nil, &errs.WaitKeyOperationError{}
 	}
 
-	if operation == APIKEYOPERATION_UPDATE {
+	if operation == API_KEY_OPERATION_UPDATE {
 		if apiKey == nil {
 			return nil, &errs.WaitKeyUpdateError{}
 		}
@@ -9350,9 +9350,9 @@ func (c *APIClient) WaitForApiKeyWithContext(
 		},
 		func(response *GetApiKeyResponse, err error) bool {
 			switch operation {
-			case APIKEYOPERATION_ADD:
+			case API_KEY_OPERATION_ADD:
 				return err == nil && response != nil && response.CreatedAt > 0
-			case APIKEYOPERATION_DELETE:
+			case API_KEY_OPERATION_DELETE:
 				if _, ok := err.(*APIError); ok {
 					apiErr := err.(*APIError)
 
@@ -9517,7 +9517,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, batchSize *int) (*ReplaceAllObjectsResponse, error) {
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_RULES, SCOPE_TYPE_SETTINGS, SCOPE_TYPE_SYNONYMS}))))
 	if err != nil {
 		return nil, err
 	}
@@ -9534,7 +9534,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
+	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_RULES, SCOPE_TYPE_SETTINGS, SCOPE_TYPE_SYNONYMS}))))
 	if err != nil {
 		return nil, err
 	}
@@ -9544,7 +9544,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATIONTYPE_MOVE, indexName)))
+	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)))
 	if err != nil {
 		return nil, err
 	}

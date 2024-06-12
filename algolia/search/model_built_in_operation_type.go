@@ -11,13 +11,13 @@ type BuiltInOperationType string
 
 // List of builtInOperationType.
 const (
-	BUILTINOPERATIONTYPE_INCREMENT      BuiltInOperationType = "Increment"
-	BUILTINOPERATIONTYPE_DECREMENT      BuiltInOperationType = "Decrement"
-	BUILTINOPERATIONTYPE_ADD            BuiltInOperationType = "Add"
-	BUILTINOPERATIONTYPE_REMOVE         BuiltInOperationType = "Remove"
-	BUILTINOPERATIONTYPE_ADD_UNIQUE     BuiltInOperationType = "AddUnique"
-	BUILTINOPERATIONTYPE_INCREMENT_FROM BuiltInOperationType = "IncrementFrom"
-	BUILTINOPERATIONTYPE_INCREMENT_SET  BuiltInOperationType = "IncrementSet"
+	BUILT_IN_OPERATION_TYPE_INCREMENT      BuiltInOperationType = "Increment"
+	BUILT_IN_OPERATION_TYPE_DECREMENT      BuiltInOperationType = "Decrement"
+	BUILT_IN_OPERATION_TYPE_ADD            BuiltInOperationType = "Add"
+	BUILT_IN_OPERATION_TYPE_REMOVE         BuiltInOperationType = "Remove"
+	BUILT_IN_OPERATION_TYPE_ADD_UNIQUE     BuiltInOperationType = "AddUnique"
+	BUILT_IN_OPERATION_TYPE_INCREMENT_FROM BuiltInOperationType = "IncrementFrom"
+	BUILT_IN_OPERATION_TYPE_INCREMENT_SET  BuiltInOperationType = "IncrementSet"
 )
 
 // All allowed values of BuiltInOperationType enum.

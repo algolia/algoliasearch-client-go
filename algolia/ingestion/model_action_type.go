@@ -11,10 +11,10 @@ type ActionType string
 
 // List of ActionType.
 const (
-	ACTIONTYPE_REPLACE ActionType = "replace"
-	ACTIONTYPE_SAVE    ActionType = "save"
-	ACTIONTYPE_PARTIAL ActionType = "partial"
-	ACTIONTYPE_APPEND  ActionType = "append"
+	ACTION_TYPE_REPLACE ActionType = "replace"
+	ACTION_TYPE_SAVE    ActionType = "save"
+	ACTION_TYPE_PARTIAL ActionType = "partial"
+	ACTION_TYPE_APPEND  ActionType = "append"
 )
 
 // All allowed values of ActionType enum.

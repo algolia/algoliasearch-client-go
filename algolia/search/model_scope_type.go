@@ -11,9 +11,9 @@ type ScopeType string
 
 // List of scopeType.
 const (
-	SCOPETYPE_SETTINGS ScopeType = "settings"
-	SCOPETYPE_SYNONYMS ScopeType = "synonyms"
-	SCOPETYPE_RULES    ScopeType = "rules"
+	SCOPE_TYPE_SETTINGS ScopeType = "settings"
+	SCOPE_TYPE_SYNONYMS ScopeType = "synonyms"
+	SCOPE_TYPE_RULES    ScopeType = "rules"
 )
 
 // All allowed values of ScopeType enum.

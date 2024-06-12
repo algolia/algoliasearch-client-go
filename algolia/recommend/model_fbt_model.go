@@ -11,7 +11,7 @@ type FbtModel string
 
 // List of fbtModel.
 const (
-	FBTMODEL_BOUGHT_TOGETHER FbtModel = "bought-together"
+	FBT_MODEL_BOUGHT_TOGETHER FbtModel = "bought-together"
 )
 
 // All allowed values of FbtModel enum.

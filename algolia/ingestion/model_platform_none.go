@@ -11,7 +11,7 @@ type PlatformNone string
 
 // List of platformNone.
 const (
-	PLATFORMNONE_NONE PlatformNone = "none"
+	PLATFORM_NONE_NONE PlatformNone = "none"
 )
 
 // All allowed values of PlatformNone enum.

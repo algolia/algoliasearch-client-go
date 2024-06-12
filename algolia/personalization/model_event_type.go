@@ -11,9 +11,9 @@ type EventType string
 
 // List of EventType.
 const (
-	EVENTTYPE_CLICK      EventType = "click"
-	EVENTTYPE_CONVERSION EventType = "conversion"
-	EVENTTYPE_VIEW       EventType = "view"
+	EVENT_TYPE_CLICK      EventType = "click"
+	EVENT_TYPE_CONVERSION EventType = "conversion"
+	EVENT_TYPE_VIEW       EventType = "view"
 )
 
 // All allowed values of EventType enum.

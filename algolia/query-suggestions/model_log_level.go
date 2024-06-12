@@ -11,9 +11,9 @@ type LogLevel string
 
 // List of LogLevel.
 const (
-	LOGLEVEL_SKIP  LogLevel = "SKIP"
-	LOGLEVEL_INFO  LogLevel = "INFO"
-	LOGLEVEL_ERROR LogLevel = "ERROR"
+	LOG_LEVEL_SKIP  LogLevel = "SKIP"
+	LOG_LEVEL_INFO  LogLevel = "INFO"
+	LOG_LEVEL_ERROR LogLevel = "ERROR"
 )
 
 // All allowed values of LogLevel enum.

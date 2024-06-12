@@ -11,10 +11,10 @@ type RemoveWordsIfNoResults string
 
 // List of removeWordsIfNoResults.
 const (
-	REMOVEWORDSIFNORESULTS_NONE         RemoveWordsIfNoResults = "none"
-	REMOVEWORDSIFNORESULTS_LAST_WORDS   RemoveWordsIfNoResults = "lastWords"
-	REMOVEWORDSIFNORESULTS_FIRST_WORDS  RemoveWordsIfNoResults = "firstWords"
-	REMOVEWORDSIFNORESULTS_ALL_OPTIONAL RemoveWordsIfNoResults = "allOptional"
+	REMOVE_WORDS_IF_NO_RESULTS_NONE         RemoveWordsIfNoResults = "none"
+	REMOVE_WORDS_IF_NO_RESULTS_LAST_WORDS   RemoveWordsIfNoResults = "lastWords"
+	REMOVE_WORDS_IF_NO_RESULTS_FIRST_WORDS  RemoveWordsIfNoResults = "firstWords"
+	REMOVE_WORDS_IF_NO_RESULTS_ALL_OPTIONAL RemoveWordsIfNoResults = "allOptional"
 )
 
 // All allowed values of RemoveWordsIfNoResults enum.

@@ -11,7 +11,7 @@ type ScheduleTriggerType string
 
 // List of ScheduleTriggerType.
 const (
-	SCHEDULETRIGGERTYPE_SCHEDULE ScheduleTriggerType = "schedule"
+	SCHEDULE_TRIGGER_TYPE_SCHEDULE ScheduleTriggerType = "schedule"
 )
 
 // All allowed values of ScheduleTriggerType enum.

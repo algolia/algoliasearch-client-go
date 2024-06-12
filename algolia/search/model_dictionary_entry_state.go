@@ -11,8 +11,8 @@ type DictionaryEntryState string
 
 // List of dictionaryEntryState.
 const (
-	DICTIONARYENTRYSTATE_ENABLED  DictionaryEntryState = "enabled"
-	DICTIONARYENTRYSTATE_DISABLED DictionaryEntryState = "disabled"
+	DICTIONARY_ENTRY_STATE_ENABLED  DictionaryEntryState = "enabled"
+	DICTIONARY_ENTRY_STATE_DISABLED DictionaryEntryState = "disabled"
 )
 
 // All allowed values of DictionaryEntryState enum.

@@ -11,7 +11,7 @@ type SearchTypeDefault string
 
 // List of searchTypeDefault.
 const (
-	SEARCHTYPEDEFAULT_DEFAULT SearchTypeDefault = "default"
+	SEARCH_TYPE_DEFAULT_DEFAULT SearchTypeDefault = "default"
 )
 
 // All allowed values of SearchTypeDefault enum.

@@ -11,9 +11,9 @@ type SortRemainingBy string
 
 // List of sortRemainingBy.
 const (
-	SORTREMAININGBY_COUNT  SortRemainingBy = "count"
-	SORTREMAININGBY_ALPHA  SortRemainingBy = "alpha"
-	SORTREMAININGBY_HIDDEN SortRemainingBy = "hidden"
+	SORT_REMAINING_BY_COUNT  SortRemainingBy = "count"
+	SORT_REMAINING_BY_ALPHA  SortRemainingBy = "alpha"
+	SORT_REMAINING_BY_HIDDEN SortRemainingBy = "hidden"
 )
 
 // All allowed values of SortRemainingBy enum.
