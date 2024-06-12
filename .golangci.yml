@@ -22,7 +22,7 @@ linters:
     - wsl
     - varnamelen
     - nlreturn
-    - goerr113
+    - err113
     - gochecknoglobals
     - exhaustruct
     - exhaustive

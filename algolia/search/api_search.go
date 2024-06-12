@@ -9513,32 +9513,43 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 }
 
 // ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
+// See https://api-clients-automation.netlify.app/docs/contributing/add-new-api-client#5-helpers for implementation details.
 func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, batchSize *int) (*ReplaceAllObjectsResponse, error) {
-	tmpIndex := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
+	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndex, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
-	if err != nil {
-		return nil, err
-	}
-
-	_, err = c.WaitForTask(indexName, copyResp.TaskID, nil, nil, nil)
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
 	if err != nil {
 		return nil, err
 	}
 
 	waitForTask := true
 
-	batchResp, err := c.ChunkedBatch(tmpIndex, objects, nil, &waitForTask, batchSize)
+	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, nil, &waitForTask, batchSize)
 	if err != nil {
 		return nil, err
 	}
 
-	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndex, NewOperationIndexParams(OPERATIONTYPE_MOVE, indexName)))
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(indexName, moveResp.TaskID, nil, nil, nil)
+	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATIONTYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPETYPE_RULES, SCOPETYPE_SETTINGS, SCOPETYPE_SYNONYMS}))))
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATIONTYPE_MOVE, indexName)))
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}
