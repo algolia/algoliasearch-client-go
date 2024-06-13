@@ -1,3 +1,9 @@
+## [4.0.0-beta.16](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.15...4.0.0-beta.16)
+
+- [b2a464a2b](https://github.com/algolia/api-clients-automation/commit/b2a464a2b) feat(clients): add generate_secured_api_key to ruby ([#3166](https://github.com/algolia/api-clients-automation/pull/3166)) by [@millotp](https://github.com/millotp/)
+- [39eb92beb](https://github.com/algolia/api-clients-automation/commit/39eb92beb) chore(go): update enum casing ([#3163](https://github.com/algolia/api-clients-automation/pull/3163)) by [@Fluf22](https://github.com/Fluf22/)
+- [de4090789](https://github.com/algolia/api-clients-automation/commit/de4090789) fix(clients): safer replaceAllObjects + metis compliant ([#3164](https://github.com/algolia/api-clients-automation/pull/3164)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-beta.15](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.14...4.0.0-beta.15)
 
 - [072c38b9a](https://github.com/algolia/api-clients-automation/commit/072c38b9a) fix(clients): remove unused models from lite clients ([#3159](https://github.com/algolia/api-clients-automation/pull/3159)) by [@shortcuts](https://github.com/shortcuts/)
