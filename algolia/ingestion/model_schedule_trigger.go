@@ -11,9 +11,9 @@ type ScheduleTrigger struct {
 	Type ScheduleTriggerType `json:"type"`
 	// Cron expression for the task's schedule.
 	Cron string `json:"cron"`
-	// The last time the scheduled task ran in RFC3339 format.
+	// The last time the scheduled task ran in RFC 3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
-	// The next scheduled run of the task in RFC3339 format.
+	// The next scheduled run of the task in RFC 3339 format.
 	NextRun string `json:"nextRun"`
 }
 

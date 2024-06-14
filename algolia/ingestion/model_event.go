@@ -19,7 +19,7 @@ type Event struct {
 	// The extracted record batch size.
 	BatchSize int32                  `json:"batchSize"`
 	Data      map[string]interface{} `json:"data,omitempty"`
-	// Date of publish RFC3339 format.
+	// Date of publish RFC 3339 format.
 	PublishedAt string `json:"publishedAt"`
 }
 

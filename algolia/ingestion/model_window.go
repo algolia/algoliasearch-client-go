@@ -8,9 +8,9 @@ import (
 
 // Window Time window by which to filter the observability data.
 type Window struct {
-	// Date in RFC3339 format representing the oldest data in the time window.
+	// Date in RFC 3339 format representing the oldest data in the time window.
 	StartDate string `json:"startDate"`
-	// Date in RFC3339 format representing the newest data in the time window.
+	// Date in RFC 3339 format representing the newest data in the time window.
 	EndDate string `json:"endDate"`
 }
 

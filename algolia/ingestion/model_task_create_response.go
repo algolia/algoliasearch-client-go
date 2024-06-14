@@ -10,7 +10,7 @@ import (
 type TaskCreateResponse struct {
 	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
-	// Date of creation in RFC3339 format.
+	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

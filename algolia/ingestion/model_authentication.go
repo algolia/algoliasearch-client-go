@@ -15,9 +15,9 @@ type Authentication struct {
 	Name     string           `json:"name"`
 	Platform NullablePlatform `json:"platform,omitempty"`
 	Input    AuthInputPartial `json:"input"`
-	// Date of creation in RFC3339 format.
+	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update in RFC3339 format.
+	// Date of last update in RFC 3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 

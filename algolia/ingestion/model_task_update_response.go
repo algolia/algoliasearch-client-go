@@ -10,7 +10,7 @@ import (
 type TaskUpdateResponse struct {
 	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
-	// Date of last update in RFC3339 format.
+	// Date of last update in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

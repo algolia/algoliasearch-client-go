@@ -8,9 +8,9 @@ import (
 
 // OnDemandDateUtilsInput Input for a manually-triggered task whose source is of type `bigquery` and for which extracted data spans a given time range.
 type OnDemandDateUtilsInput struct {
-	// Earliest date in RFC3339 format of the extracted data from Big Query.
+	// Earliest date in RFC 3339 format of the extracted data from Big Query.
 	StartDate string `json:"startDate"`
-	// Latest date in RFC3339 format of the extracted data from Big Query.
+	// Latest date in RFC 3339 format of the extracted data from Big Query.
 	EndDate string        `json:"endDate"`
 	Mapping *MappingInput `json:"mapping,omitempty"`
 }

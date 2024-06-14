@@ -3103,8 +3103,8 @@ Request can be constructed by NewApiGetEventsRequest with parameters below.
 	@param type_ []EventType - Event type for filtering the list of task runs.
 	@param sort EventSortKeys - Property by which to sort the list of task run events.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date and time in RFC3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
-	@param endDate string - Date and time in RFC3339 format for the latest events to retrieve. By default, the current time is used.
+	@param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	@param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
 	@return ListEventsResponse
 */
 func (c *APIClient) GetEvents(r ApiGetEventsRequest, opts ...Option) (*ListEventsResponse, error) {
@@ -3130,8 +3130,8 @@ Request can be constructed by NewApiGetEventsRequest with parameters below.
 	@param type_ []EventType - Event type for filtering the list of task runs.
 	@param sort EventSortKeys - Property by which to sort the list of task run events.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date and time in RFC3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
-	@param endDate string - Date and time in RFC3339 format for the latest events to retrieve. By default, the current time is used.
+	@param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	@param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
 	@return ListEventsResponse
 */
 func (c *APIClient) GetEventsWithContext(ctx context.Context, r ApiGetEventsRequest, opts ...Option) (*ListEventsResponse, error) {
@@ -3513,8 +3513,8 @@ Request can be constructed by NewApiGetRunsRequest with parameters below.
 	@param taskID string - Task ID for filtering the list of task runs.
 	@param sort RunSortKeys - Property by which to sort the list of task runs.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date in RFC3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	@param endDate string - Date in RFC3339 format for the latest run to retrieve. By default, the current day is used.
+	@param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	@param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
 	@return RunListResponse
 */
 func (c *APIClient) GetRuns(r ApiGetRunsRequest, opts ...Option) (*RunListResponse, error) {
@@ -3539,8 +3539,8 @@ Request can be constructed by NewApiGetRunsRequest with parameters below.
 	@param taskID string - Task ID for filtering the list of task runs.
 	@param sort RunSortKeys - Property by which to sort the list of task runs.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date in RFC3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	@param endDate string - Date in RFC3339 format for the latest run to retrieve. By default, the current day is used.
+	@param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	@param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
 	@return RunListResponse
 */
 func (c *APIClient) GetRunsWithContext(ctx context.Context, r ApiGetRunsRequest, opts ...Option) (*RunListResponse, error) {

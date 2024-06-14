@@ -21,9 +21,9 @@ type Task struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Action           ActionType `json:"action"`
-	// Date of creation in RFC3339 format.
+	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update in RFC3339 format.
+	// Date of last update in RFC 3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
