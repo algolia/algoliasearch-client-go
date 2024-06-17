@@ -9369,7 +9369,7 @@ func (c *APIClient) WaitForApiKeyWithContext(
 	)
 }
 
-func encodeRestrictions(restrictions *SecuredAPIKeyRestrictions) (string, error) {
+func encodeRestrictions(restrictions *SecuredApiKeyRestrictions) (string, error) {
 	if restrictions == nil {
 		return "", nil
 	}
@@ -9420,7 +9420,7 @@ func encodeRestrictions(restrictions *SecuredAPIKeyRestrictions) (string, error)
 // GenerateSecuredApiKey generates a public API key intended to restrict access
 // to certain records. This new key is built upon the existing key named
 // `parentApiKey` and the following options.
-func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *SecuredAPIKeyRestrictions) (string, error) {
+func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *SecuredApiKeyRestrictions) (string, error) {
 	h := hmac.New(sha256.New, []byte(parentApiKey))
 
 	message, err := encodeRestrictions(restrictions)
