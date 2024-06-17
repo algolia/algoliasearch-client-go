@@ -23,7 +23,7 @@ type IndexSettings struct {
 	// Attributes for which to split [camel case](https://wikipedia.org/wiki/Camel_case) words. Attribute names are case-sensitive.
 	CamelCaseAttributes []string `json:"camelCaseAttributes,omitempty"`
 	// Searchable attributes to which Algolia should apply [word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) (decompounding). Attribute names are case-sensitive.  Compound words are formed by combining two or more individual words, and are particularly prevalent in Germanic languages—for example, \"firefighter\". With decompounding, the individual components are indexed separately.  You can specify different lists for different languages. Decompounding is supported for these languages: Dutch (`nl`), German (`de`), Finnish (`fi`), Danish (`da`), Swedish (`sv`), and Norwegian (`no`).
-	DecompoundedAttributes map[string]interface{} `json:"decompoundedAttributes,omitempty"`
+	DecompoundedAttributes map[string]any `json:"decompoundedAttributes,omitempty"`
 	// Languages for language-specific processing steps, such as word detection and dictionary settings.  **You should always specify an indexing language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
 	IndexLanguages []SupportedLanguage `json:"indexLanguages,omitempty"`
 	// Searchable attributes for which you want to turn off [prefix matching](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/#adjusting-prefix-search). Attribute names are case-sensitive.
@@ -36,8 +36,8 @@ type IndexSettings struct {
 	SeparatorsToIndex *string `json:"separatorsToIndex,omitempty"`
 	// Attributes used for searching. Attribute names are case-sensitive.  By default, all attributes are searchable and the [Attribute](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#attribute) ranking criterion is turned off. With a non-empty list, Algolia only returns results with matches in the selected attributes. In addition, the Attribute ranking criterion is turned on: matches in attributes that are higher in the list of `searchableAttributes` rank first. To make matches in two attributes rank equally, include them in a comma-separated string, such as `\"title,alternate_title\"`. Attributes with the same priority are always unordered.  For more information, see [Searchable attributes](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/setting-searchable-attributes/).  **Modifier**  - `unordered(\"ATTRIBUTE\")`.   Ignore the position of a match within the attribute.  Without modifier, matches at the beginning of an attribute rank higher than matches at the end.
 	SearchableAttributes []string `json:"searchableAttributes,omitempty"`
-	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
-	UserData map[string]interface{} `json:"userData,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
 	// Characters and their normalized replacements. This overrides Algolia's default [normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/).
 	CustomNormalization *map[string]map[string]string `json:"customNormalization,omitempty"`
 	// Attribute that should be used to establish groups of results. Attribute names are case-sensitive.  All records with the same value for this attribute are considered a group. You can combine `attributeForDistinct` with the `distinct` search parameter to control how many items per group are included in the search results.  If you want to use the same attribute also for faceting, use the `afterDistinct` modifier of the `attributesForFaceting` setting. This applies faceting _after_ deduplication, which will result in accurate facet counts.
@@ -117,8 +117,8 @@ type IndexSettings struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                 `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter *ReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 }
 
 type IndexSettingsOption func(f *IndexSettings)
@@ -165,7 +165,7 @@ func WithIndexSettingsCamelCaseAttributes(val []string) IndexSettingsOption {
 	}
 }
 
-func WithIndexSettingsDecompoundedAttributes(val map[string]interface{}) IndexSettingsOption {
+func WithIndexSettingsDecompoundedAttributes(val map[string]any) IndexSettingsOption {
 	return func(f *IndexSettings) {
 		f.DecompoundedAttributes = val
 	}
@@ -207,7 +207,7 @@ func WithIndexSettingsSearchableAttributes(val []string) IndexSettingsOption {
 	}
 }
 
-func WithIndexSettingsUserData(val map[string]interface{}) IndexSettingsOption {
+func WithIndexSettingsUserData(val map[string]any) IndexSettingsOption {
 	return func(f *IndexSettings) {
 		f.UserData = val
 	}
@@ -483,9 +483,9 @@ func WithIndexSettingsEnableReRanking(val bool) IndexSettingsOption {
 	}
 }
 
-func WithIndexSettingsReRankingApplyFilter(val ReRankingApplyFilter) IndexSettingsOption {
+func WithIndexSettingsReRankingApplyFilter(val NullableReRankingApplyFilter) IndexSettingsOption {
 	return func(f *IndexSettings) {
-		f.ReRankingApplyFilter = &val
+		f.ReRankingApplyFilter = val
 	}
 }
 
@@ -738,9 +738,9 @@ func (o *IndexSettings) SetCamelCaseAttributes(v []string) *IndexSettings {
 }
 
 // GetDecompoundedAttributes returns the DecompoundedAttributes field value if set, zero value otherwise.
-func (o *IndexSettings) GetDecompoundedAttributes() map[string]interface{} {
+func (o *IndexSettings) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.DecompoundedAttributes
@@ -748,7 +748,7 @@ func (o *IndexSettings) GetDecompoundedAttributes() map[string]interface{} {
 
 // GetDecompoundedAttributesOk returns a tuple with the DecompoundedAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexSettings) GetDecompoundedAttributesOk() (map[string]interface{}, bool) {
+func (o *IndexSettings) GetDecompoundedAttributesOk() (map[string]any, bool) {
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
@@ -764,8 +764,8 @@ func (o *IndexSettings) HasDecompoundedAttributes() bool {
 	return false
 }
 
-// SetDecompoundedAttributes gets a reference to the given map[string]interface{} and assigns it to the DecompoundedAttributes field.
-func (o *IndexSettings) SetDecompoundedAttributes(v map[string]interface{}) *IndexSettings {
+// SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
+func (o *IndexSettings) SetDecompoundedAttributes(v map[string]any) *IndexSettings {
 	o.DecompoundedAttributes = v
 	return o
 }
@@ -969,9 +969,9 @@ func (o *IndexSettings) SetSearchableAttributes(v []string) *IndexSettings {
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *IndexSettings) GetUserData() map[string]interface{} {
+func (o *IndexSettings) GetUserData() map[string]any {
 	if o == nil || o.UserData == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -979,7 +979,7 @@ func (o *IndexSettings) GetUserData() map[string]interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexSettings) GetUserDataOk() (map[string]interface{}, bool) {
+func (o *IndexSettings) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
@@ -995,8 +995,8 @@ func (o *IndexSettings) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *IndexSettings) SetUserData(v map[string]interface{}) *IndexSettings {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *IndexSettings) SetUserData(v map[string]any) *IndexSettings {
 	o.UserData = v
 	return o
 }
@@ -2486,37 +2486,48 @@ func (o *IndexSettings) SetEnableReRanking(v bool) *IndexSettings {
 	return o
 }
 
-// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise.
+// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IndexSettings) GetReRankingApplyFilter() ReRankingApplyFilter {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 		return ret
 	}
-	return *o.ReRankingApplyFilter
+	return *o.ReRankingApplyFilter.Get()
 }
 
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *IndexSettings) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReRankingApplyFilter, true
+	return o.ReRankingApplyFilter.Get(), o.ReRankingApplyFilter.IsSet()
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
 func (o *IndexSettings) HasReRankingApplyFilter() bool {
-	if o != nil && o.ReRankingApplyFilter != nil {
+	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *IndexSettings) SetReRankingApplyFilter(v *ReRankingApplyFilter) *IndexSettings {
-	o.ReRankingApplyFilter = v
+	o.ReRankingApplyFilter.Set(v)
 	return o
+}
+
+// SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
+func (o *IndexSettings) SetReRankingApplyFilterNil() {
+	o.ReRankingApplyFilter.Set(nil)
+}
+
+// UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
+func (o *IndexSettings) UnsetReRankingApplyFilter() {
+	o.ReRankingApplyFilter.Unset()
 }
 
 func (o IndexSettings) MarshalJSON() ([]byte, error) {
@@ -2701,8 +2712,8 @@ func (o IndexSettings) MarshalJSON() ([]byte, error) {
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
-	if o.ReRankingApplyFilter != nil {
-		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
+	if o.ReRankingApplyFilter.IsSet() {
+		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {

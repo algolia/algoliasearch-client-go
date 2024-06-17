@@ -13,14 +13,14 @@ type GetUserTokenResponse struct {
 	// Date and time of the last event from this user, in RFC 3339 format.
 	LastEventAt string `json:"lastEventAt"`
 	// Scores for different facet values.  Scores represent the user affinity for a user profile towards specific facet values, given the personalization strategy and past events.
-	Scores map[string]interface{} `json:"scores"`
+	Scores map[string]any `json:"scores"`
 }
 
 // NewGetUserTokenResponse instantiates a new GetUserTokenResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUserTokenResponse(userToken string, lastEventAt string, scores map[string]interface{}) *GetUserTokenResponse {
+func NewGetUserTokenResponse(userToken string, lastEventAt string, scores map[string]any) *GetUserTokenResponse {
 	this := &GetUserTokenResponse{}
 	this.UserToken = userToken
 	this.LastEventAt = lastEventAt
@@ -84,9 +84,9 @@ func (o *GetUserTokenResponse) SetLastEventAt(v string) *GetUserTokenResponse {
 }
 
 // GetScores returns the Scores field value.
-func (o *GetUserTokenResponse) GetScores() map[string]interface{} {
+func (o *GetUserTokenResponse) GetScores() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -95,7 +95,7 @@ func (o *GetUserTokenResponse) GetScores() map[string]interface{} {
 
 // GetScoresOk returns a tuple with the Scores field value
 // and a boolean to check if the value has been set.
-func (o *GetUserTokenResponse) GetScoresOk() (map[string]interface{}, bool) {
+func (o *GetUserTokenResponse) GetScoresOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *GetUserTokenResponse) GetScoresOk() (map[string]interface{}, bool) {
 }
 
 // SetScores sets field value.
-func (o *GetUserTokenResponse) SetScores(v map[string]interface{}) *GetUserTokenResponse {
+func (o *GetUserTokenResponse) SetScores(v map[string]any) *GetUserTokenResponse {
 	o.Scores = v
 	return o
 }

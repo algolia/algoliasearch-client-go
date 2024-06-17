@@ -10,7 +10,7 @@ import (
 type MultipleBatchRequest struct {
 	Action Action `json:"action"`
 	// Operation arguments (varies with specified `action`).
-	Body map[string]interface{} `json:"body"`
+	Body map[string]any `json:"body"`
 	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
 }
@@ -19,7 +19,7 @@ type MultipleBatchRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMultipleBatchRequest(action Action, body map[string]interface{}, indexName string) *MultipleBatchRequest {
+func NewMultipleBatchRequest(action Action, body map[string]any, indexName string) *MultipleBatchRequest {
 	this := &MultipleBatchRequest{}
 	this.Action = action
 	this.Body = body
@@ -58,9 +58,9 @@ func (o *MultipleBatchRequest) SetAction(v Action) *MultipleBatchRequest {
 }
 
 // GetBody returns the Body field value.
-func (o *MultipleBatchRequest) GetBody() map[string]interface{} {
+func (o *MultipleBatchRequest) GetBody() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -69,7 +69,7 @@ func (o *MultipleBatchRequest) GetBody() map[string]interface{} {
 
 // GetBodyOk returns a tuple with the Body field value
 // and a boolean to check if the value has been set.
-func (o *MultipleBatchRequest) GetBodyOk() (map[string]interface{}, bool) {
+func (o *MultipleBatchRequest) GetBodyOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,7 +77,7 @@ func (o *MultipleBatchRequest) GetBodyOk() (map[string]interface{}, bool) {
 }
 
 // SetBody sets field value.
-func (o *MultipleBatchRequest) SetBody(v map[string]interface{}) *MultipleBatchRequest {
+func (o *MultipleBatchRequest) SetBody(v map[string]any) *MultipleBatchRequest {
 	o.Body = v
 	return o
 }

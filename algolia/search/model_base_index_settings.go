@@ -23,7 +23,7 @@ type BaseIndexSettings struct {
 	// Attributes for which to split [camel case](https://wikipedia.org/wiki/Camel_case) words. Attribute names are case-sensitive.
 	CamelCaseAttributes []string `json:"camelCaseAttributes,omitempty"`
 	// Searchable attributes to which Algolia should apply [word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) (decompounding). Attribute names are case-sensitive.  Compound words are formed by combining two or more individual words, and are particularly prevalent in Germanic languages—for example, \"firefighter\". With decompounding, the individual components are indexed separately.  You can specify different lists for different languages. Decompounding is supported for these languages: Dutch (`nl`), German (`de`), Finnish (`fi`), Danish (`da`), Swedish (`sv`), and Norwegian (`no`).
-	DecompoundedAttributes map[string]interface{} `json:"decompoundedAttributes,omitempty"`
+	DecompoundedAttributes map[string]any `json:"decompoundedAttributes,omitempty"`
 	// Languages for language-specific processing steps, such as word detection and dictionary settings.  **You should always specify an indexing language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
 	IndexLanguages []SupportedLanguage `json:"indexLanguages,omitempty"`
 	// Searchable attributes for which you want to turn off [prefix matching](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/#adjusting-prefix-search). Attribute names are case-sensitive.
@@ -36,8 +36,8 @@ type BaseIndexSettings struct {
 	SeparatorsToIndex *string `json:"separatorsToIndex,omitempty"`
 	// Attributes used for searching. Attribute names are case-sensitive.  By default, all attributes are searchable and the [Attribute](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#attribute) ranking criterion is turned off. With a non-empty list, Algolia only returns results with matches in the selected attributes. In addition, the Attribute ranking criterion is turned on: matches in attributes that are higher in the list of `searchableAttributes` rank first. To make matches in two attributes rank equally, include them in a comma-separated string, such as `\"title,alternate_title\"`. Attributes with the same priority are always unordered.  For more information, see [Searchable attributes](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/setting-searchable-attributes/).  **Modifier**  - `unordered(\"ATTRIBUTE\")`.   Ignore the position of a match within the attribute.  Without modifier, matches at the beginning of an attribute rank higher than matches at the end.
 	SearchableAttributes []string `json:"searchableAttributes,omitempty"`
-	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
-	UserData interface{} `json:"userData,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
 	// Characters and their normalized replacements. This overrides Algolia's default [normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/).
 	CustomNormalization *map[string]map[string]string `json:"customNormalization,omitempty"`
 	// Attribute that should be used to establish groups of results. Attribute names are case-sensitive.  All records with the same value for this attribute are considered a group. You can combine `attributeForDistinct` with the `distinct` search parameter to control how many items per group are included in the search results.  If you want to use the same attribute also for faceting, use the `afterDistinct` modifier of the `attributesForFaceting` setting. This applies faceting _after_ deduplication, which will result in accurate facet counts.
@@ -88,7 +88,7 @@ func WithBaseIndexSettingsCamelCaseAttributes(val []string) BaseIndexSettingsOpt
 	}
 }
 
-func WithBaseIndexSettingsDecompoundedAttributes(val map[string]interface{}) BaseIndexSettingsOption {
+func WithBaseIndexSettingsDecompoundedAttributes(val map[string]any) BaseIndexSettingsOption {
 	return func(f *BaseIndexSettings) {
 		f.DecompoundedAttributes = val
 	}
@@ -130,7 +130,7 @@ func WithBaseIndexSettingsSearchableAttributes(val []string) BaseIndexSettingsOp
 	}
 }
 
-func WithBaseIndexSettingsUserData(val interface{}) BaseIndexSettingsOption {
+func WithBaseIndexSettingsUserData(val map[string]any) BaseIndexSettingsOption {
 	return func(f *BaseIndexSettings) {
 		f.UserData = val
 	}
@@ -397,9 +397,9 @@ func (o *BaseIndexSettings) SetCamelCaseAttributes(v []string) *BaseIndexSetting
 }
 
 // GetDecompoundedAttributes returns the DecompoundedAttributes field value if set, zero value otherwise.
-func (o *BaseIndexSettings) GetDecompoundedAttributes() map[string]interface{} {
+func (o *BaseIndexSettings) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.DecompoundedAttributes
@@ -407,7 +407,7 @@ func (o *BaseIndexSettings) GetDecompoundedAttributes() map[string]interface{} {
 
 // GetDecompoundedAttributesOk returns a tuple with the DecompoundedAttributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseIndexSettings) GetDecompoundedAttributesOk() (map[string]interface{}, bool) {
+func (o *BaseIndexSettings) GetDecompoundedAttributesOk() (map[string]any, bool) {
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
@@ -423,8 +423,8 @@ func (o *BaseIndexSettings) HasDecompoundedAttributes() bool {
 	return false
 }
 
-// SetDecompoundedAttributes gets a reference to the given map[string]interface{} and assigns it to the DecompoundedAttributes field.
-func (o *BaseIndexSettings) SetDecompoundedAttributes(v map[string]interface{}) *BaseIndexSettings {
+// SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
+func (o *BaseIndexSettings) SetDecompoundedAttributes(v map[string]any) *BaseIndexSettings {
 	o.DecompoundedAttributes = v
 	return o
 }
@@ -627,10 +627,10 @@ func (o *BaseIndexSettings) SetSearchableAttributes(v []string) *BaseIndexSettin
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *BaseIndexSettings) GetUserData() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetUserData returns the UserData field value if set, zero value otherwise.
+func (o *BaseIndexSettings) GetUserData() map[string]any {
+	if o == nil || o.UserData == nil {
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -638,12 +638,11 @@ func (o *BaseIndexSettings) GetUserData() interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *BaseIndexSettings) GetUserDataOk() (*interface{}, bool) {
+func (o *BaseIndexSettings) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return &o.UserData, true
+	return o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -655,8 +654,8 @@ func (o *BaseIndexSettings) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given interface{} and assigns it to the UserData field.
-func (o *BaseIndexSettings) SetUserData(v interface{}) *BaseIndexSettings {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *BaseIndexSettings) SetUserData(v map[string]any) *BaseIndexSettings {
 	o.UserData = v
 	return o
 }

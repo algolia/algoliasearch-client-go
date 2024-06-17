@@ -141,8 +141,8 @@ type FallbackParams struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                 `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter *ReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 }
 
 type FallbackParamsOption func(f *FallbackParams)
@@ -597,9 +597,9 @@ func WithFallbackParamsEnableReRanking(val bool) FallbackParamsOption {
 	}
 }
 
-func WithFallbackParamsReRankingApplyFilter(val ReRankingApplyFilter) FallbackParamsOption {
+func WithFallbackParamsReRankingApplyFilter(val NullableReRankingApplyFilter) FallbackParamsOption {
 	return func(f *FallbackParams) {
-		f.ReRankingApplyFilter = &val
+		f.ReRankingApplyFilter = val
 	}
 }
 
@@ -3095,37 +3095,48 @@ func (o *FallbackParams) SetEnableReRanking(v bool) *FallbackParams {
 	return o
 }
 
-// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise.
+// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FallbackParams) GetReRankingApplyFilter() ReRankingApplyFilter {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 		return ret
 	}
-	return *o.ReRankingApplyFilter
+	return *o.ReRankingApplyFilter.Get()
 }
 
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *FallbackParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReRankingApplyFilter, true
+	return o.ReRankingApplyFilter.Get(), o.ReRankingApplyFilter.IsSet()
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
 func (o *FallbackParams) HasReRankingApplyFilter() bool {
-	if o != nil && o.ReRankingApplyFilter != nil {
+	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *FallbackParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *FallbackParams {
-	o.ReRankingApplyFilter = v
+	o.ReRankingApplyFilter.Set(v)
 	return o
+}
+
+// SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
+func (o *FallbackParams) SetReRankingApplyFilterNil() {
+	o.ReRankingApplyFilter.Set(nil)
+}
+
+// UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
+func (o *FallbackParams) UnsetReRankingApplyFilter() {
+	o.ReRankingApplyFilter.Unset()
 }
 
 func (o FallbackParams) MarshalJSON() ([]byte, error) {
@@ -3355,8 +3366,8 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
-	if o.ReRankingApplyFilter != nil {
-		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
+	if o.ReRankingApplyFilter.IsSet() {
+		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {

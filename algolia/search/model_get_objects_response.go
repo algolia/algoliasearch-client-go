@@ -9,14 +9,14 @@ import (
 // GetObjectsResponse struct for GetObjectsResponse.
 type GetObjectsResponse struct {
 	// Retrieved records.
-	Results []map[string]interface{} `json:"results"`
+	Results []map[string]any `json:"results"`
 }
 
 // NewGetObjectsResponse instantiates a new GetObjectsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetObjectsResponse(results []map[string]interface{}) *GetObjectsResponse {
+func NewGetObjectsResponse(results []map[string]any) *GetObjectsResponse {
 	this := &GetObjectsResponse{}
 	this.Results = results
 	return this
@@ -28,9 +28,9 @@ func NewEmptyGetObjectsResponse() *GetObjectsResponse {
 }
 
 // GetResults returns the Results field value.
-func (o *GetObjectsResponse) GetResults() []map[string]interface{} {
+func (o *GetObjectsResponse) GetResults() []map[string]any {
 	if o == nil {
-		var ret []map[string]interface{}
+		var ret []map[string]any
 		return ret
 	}
 
@@ -39,7 +39,7 @@ func (o *GetObjectsResponse) GetResults() []map[string]interface{} {
 
 // GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
-func (o *GetObjectsResponse) GetResultsOk() ([]map[string]interface{}, bool) {
+func (o *GetObjectsResponse) GetResultsOk() ([]map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -47,7 +47,7 @@ func (o *GetObjectsResponse) GetResultsOk() ([]map[string]interface{}, bool) {
 }
 
 // SetResults sets field value.
-func (o *GetObjectsResponse) SetResults(v []map[string]interface{}) *GetObjectsResponse {
+func (o *GetObjectsResponse) SetResults(v []map[string]any) *GetObjectsResponse {
 	o.Results = v
 	return o
 }

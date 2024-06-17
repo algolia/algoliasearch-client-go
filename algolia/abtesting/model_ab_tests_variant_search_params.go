@@ -13,8 +13,8 @@ type AbTestsVariantSearchParams struct {
 	// Percentage of search requests each variant receives.
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Description for this variant.
-	Description            *string                `json:"description,omitempty"`
-	CustomSearchParameters map[string]interface{} `json:"customSearchParameters"`
+	Description            *string        `json:"description,omitempty"`
+	CustomSearchParameters map[string]any `json:"customSearchParameters"`
 }
 
 type AbTestsVariantSearchParamsOption func(f *AbTestsVariantSearchParams)
@@ -29,7 +29,7 @@ func WithAbTestsVariantSearchParamsDescription(val string) AbTestsVariantSearchP
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAbTestsVariantSearchParams(index string, trafficPercentage int32, customSearchParameters map[string]interface{}, opts ...AbTestsVariantSearchParamsOption) *AbTestsVariantSearchParams {
+func NewAbTestsVariantSearchParams(index string, trafficPercentage int32, customSearchParameters map[string]any, opts ...AbTestsVariantSearchParamsOption) *AbTestsVariantSearchParams {
 	this := &AbTestsVariantSearchParams{}
 	this.Index = index
 	this.TrafficPercentage = trafficPercentage
@@ -129,9 +129,9 @@ func (o *AbTestsVariantSearchParams) SetDescription(v string) *AbTestsVariantSea
 }
 
 // GetCustomSearchParameters returns the CustomSearchParameters field value.
-func (o *AbTestsVariantSearchParams) GetCustomSearchParameters() map[string]interface{} {
+func (o *AbTestsVariantSearchParams) GetCustomSearchParameters() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -140,7 +140,7 @@ func (o *AbTestsVariantSearchParams) GetCustomSearchParameters() map[string]inte
 
 // GetCustomSearchParametersOk returns a tuple with the CustomSearchParameters field value
 // and a boolean to check if the value has been set.
-func (o *AbTestsVariantSearchParams) GetCustomSearchParametersOk() (map[string]interface{}, bool) {
+func (o *AbTestsVariantSearchParams) GetCustomSearchParametersOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -148,7 +148,7 @@ func (o *AbTestsVariantSearchParams) GetCustomSearchParametersOk() (map[string]i
 }
 
 // SetCustomSearchParameters sets field value.
-func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]interface{}) *AbTestsVariantSearchParams {
+func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]any) *AbTestsVariantSearchParams {
 	o.CustomSearchParameters = v
 	return o
 }

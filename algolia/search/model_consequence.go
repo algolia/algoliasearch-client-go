@@ -16,7 +16,7 @@ type Consequence struct {
 	// Records you want to hide from the search results.
 	Hide []ConsequenceHide `json:"hide,omitempty"`
 	// A JSON object with custom data that will be appended to the `userData` array in the response. This object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.
-	UserData interface{} `json:"userData,omitempty"`
+	UserData any `json:"userData,omitempty"`
 }
 
 type ConsequenceOption func(f *Consequence)
@@ -45,7 +45,7 @@ func WithConsequenceHide(val []ConsequenceHide) ConsequenceOption {
 	}
 }
 
-func WithConsequenceUserData(val interface{}) ConsequenceOption {
+func WithConsequenceUserData(val any) ConsequenceOption {
 	return func(f *Consequence) {
 		f.UserData = val
 	}
@@ -201,9 +201,9 @@ func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Consequence) GetUserData() interface{} {
+func (o *Consequence) GetUserData() any {
 	if o == nil {
-		var ret interface{}
+		var ret any
 		return ret
 	}
 	return o.UserData
@@ -212,7 +212,7 @@ func (o *Consequence) GetUserData() interface{} {
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *Consequence) GetUserDataOk() (*interface{}, bool) {
+func (o *Consequence) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
@@ -228,8 +228,8 @@ func (o *Consequence) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given interface{} and assigns it to the UserData field.
-func (o *Consequence) SetUserData(v interface{}) *Consequence {
+// SetUserData gets a reference to the given any and assigns it to the UserData field.
+func (o *Consequence) SetUserData(v any) *Consequence {
 	o.UserData = v
 	return o
 }

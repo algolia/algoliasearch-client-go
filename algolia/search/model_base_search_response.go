@@ -51,7 +51,7 @@ type BaseSearchResponse struct {
 	// Time the server took to process the request, in milliseconds.
 	ProcessingTimeMS int32 `json:"processingTimeMS"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
-	ProcessingTimingsMS map[string]interface{} `json:"processingTimingsMS,omitempty"`
+	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
 	QueryAfterRemoval *string           `json:"queryAfterRemoval,omitempty"`
 	Redirect          *Redirect         `json:"redirect,omitempty"`
@@ -60,8 +60,8 @@ type BaseSearchResponse struct {
 	ServerTimeMS *int32 `json:"serverTimeMS,omitempty"`
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
-	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
-	UserData interface{} `json:"userData,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID              *string `json:"queryID,omitempty"`
 	AdditionalProperties map[string]any
@@ -161,7 +161,7 @@ func WithBaseSearchResponseParsedQuery(val string) BaseSearchResponseOption {
 	}
 }
 
-func WithBaseSearchResponseProcessingTimingsMS(val map[string]interface{}) BaseSearchResponseOption {
+func WithBaseSearchResponseProcessingTimingsMS(val map[string]any) BaseSearchResponseOption {
 	return func(f *BaseSearchResponse) {
 		f.ProcessingTimingsMS = val
 	}
@@ -197,7 +197,7 @@ func WithBaseSearchResponseServerUsed(val string) BaseSearchResponseOption {
 	}
 }
 
-func WithBaseSearchResponseUserData(val interface{}) BaseSearchResponseOption {
+func WithBaseSearchResponseUserData(val map[string]any) BaseSearchResponseOption {
 	return func(f *BaseSearchResponse) {
 		f.UserData = val
 	}
@@ -861,9 +861,9 @@ func (o *BaseSearchResponse) SetProcessingTimeMS(v int32) *BaseSearchResponse {
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
-func (o *BaseSearchResponse) GetProcessingTimingsMS() map[string]interface{} {
+func (o *BaseSearchResponse) GetProcessingTimingsMS() map[string]any {
 	if o == nil || o.ProcessingTimingsMS == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.ProcessingTimingsMS
@@ -871,7 +871,7 @@ func (o *BaseSearchResponse) GetProcessingTimingsMS() map[string]interface{} {
 
 // GetProcessingTimingsMSOk returns a tuple with the ProcessingTimingsMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BaseSearchResponse) GetProcessingTimingsMSOk() (map[string]interface{}, bool) {
+func (o *BaseSearchResponse) GetProcessingTimingsMSOk() (map[string]any, bool) {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
@@ -887,8 +887,8 @@ func (o *BaseSearchResponse) HasProcessingTimingsMS() bool {
 	return false
 }
 
-// SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *BaseSearchResponse) SetProcessingTimingsMS(v map[string]interface{}) *BaseSearchResponse {
+// SetProcessingTimingsMS gets a reference to the given map[string]any and assigns it to the ProcessingTimingsMS field.
+func (o *BaseSearchResponse) SetProcessingTimingsMS(v map[string]any) *BaseSearchResponse {
 	o.ProcessingTimingsMS = v
 	return o
 }
@@ -1058,10 +1058,10 @@ func (o *BaseSearchResponse) SetServerUsed(v string) *BaseSearchResponse {
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *BaseSearchResponse) GetUserData() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetUserData returns the UserData field value if set, zero value otherwise.
+func (o *BaseSearchResponse) GetUserData() map[string]any {
+	if o == nil || o.UserData == nil {
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -1069,12 +1069,11 @@ func (o *BaseSearchResponse) GetUserData() interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *BaseSearchResponse) GetUserDataOk() (*interface{}, bool) {
+func (o *BaseSearchResponse) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return &o.UserData, true
+	return o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -1086,8 +1085,8 @@ func (o *BaseSearchResponse) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given interface{} and assigns it to the UserData field.
-func (o *BaseSearchResponse) SetUserData(v interface{}) *BaseSearchResponse {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *BaseSearchResponse) SetUserData(v map[string]any) *BaseSearchResponse {
 	o.UserData = v
 	return o
 }

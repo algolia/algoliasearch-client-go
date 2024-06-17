@@ -8,14 +8,14 @@ import (
 
 // DockerSourceStreams struct for DockerSourceStreams.
 type DockerSourceStreams struct {
-	Streams []map[string]interface{} `json:"streams"`
+	Streams []map[string]any `json:"streams"`
 }
 
 // NewDockerSourceStreams instantiates a new DockerSourceStreams object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDockerSourceStreams(streams []map[string]interface{}) *DockerSourceStreams {
+func NewDockerSourceStreams(streams []map[string]any) *DockerSourceStreams {
 	this := &DockerSourceStreams{}
 	this.Streams = streams
 	return this
@@ -27,9 +27,9 @@ func NewEmptyDockerSourceStreams() *DockerSourceStreams {
 }
 
 // GetStreams returns the Streams field value.
-func (o *DockerSourceStreams) GetStreams() []map[string]interface{} {
+func (o *DockerSourceStreams) GetStreams() []map[string]any {
 	if o == nil {
-		var ret []map[string]interface{}
+		var ret []map[string]any
 		return ret
 	}
 
@@ -38,7 +38,7 @@ func (o *DockerSourceStreams) GetStreams() []map[string]interface{} {
 
 // GetStreamsOk returns a tuple with the Streams field value
 // and a boolean to check if the value has been set.
-func (o *DockerSourceStreams) GetStreamsOk() ([]map[string]interface{}, bool) {
+func (o *DockerSourceStreams) GetStreamsOk() ([]map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,7 +46,7 @@ func (o *DockerSourceStreams) GetStreamsOk() ([]map[string]interface{}, bool) {
 }
 
 // SetStreams sets field value.
-func (o *DockerSourceStreams) SetStreams(v []map[string]interface{}) *DockerSourceStreams {
+func (o *DockerSourceStreams) SetStreams(v []map[string]any) *DockerSourceStreams {
 	o.Streams = v
 	return o
 }

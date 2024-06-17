@@ -51,7 +51,7 @@ type RecommendationsResults struct {
 	// Time the server took to process the request, in milliseconds.
 	ProcessingTimeMS int32 `json:"processingTimeMS"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
-	ProcessingTimingsMS map[string]interface{} `json:"processingTimingsMS,omitempty"`
+	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
 	QueryAfterRemoval *string           `json:"queryAfterRemoval,omitempty"`
 	Redirect          *Redirect         `json:"redirect,omitempty"`
@@ -60,8 +60,8 @@ type RecommendationsResults struct {
 	ServerTimeMS *int32 `json:"serverTimeMS,omitempty"`
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
-	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
-	UserData map[string]interface{} `json:"userData,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string              `json:"queryID,omitempty"`
 	Hits    []RecommendationsHit `json:"hits"`
@@ -159,7 +159,7 @@ func WithRecommendationsResultsParsedQuery(val string) RecommendationsResultsOpt
 	}
 }
 
-func WithRecommendationsResultsProcessingTimingsMS(val map[string]interface{}) RecommendationsResultsOption {
+func WithRecommendationsResultsProcessingTimingsMS(val map[string]any) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.ProcessingTimingsMS = val
 	}
@@ -195,7 +195,7 @@ func WithRecommendationsResultsServerUsed(val string) RecommendationsResultsOpti
 	}
 }
 
-func WithRecommendationsResultsUserData(val map[string]interface{}) RecommendationsResultsOption {
+func WithRecommendationsResultsUserData(val map[string]any) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.UserData = val
 	}
@@ -860,9 +860,9 @@ func (o *RecommendationsResults) SetProcessingTimeMS(v int32) *RecommendationsRe
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetProcessingTimingsMS() map[string]interface{} {
+func (o *RecommendationsResults) GetProcessingTimingsMS() map[string]any {
 	if o == nil || o.ProcessingTimingsMS == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.ProcessingTimingsMS
@@ -870,7 +870,7 @@ func (o *RecommendationsResults) GetProcessingTimingsMS() map[string]interface{}
 
 // GetProcessingTimingsMSOk returns a tuple with the ProcessingTimingsMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetProcessingTimingsMSOk() (map[string]interface{}, bool) {
+func (o *RecommendationsResults) GetProcessingTimingsMSOk() (map[string]any, bool) {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
@@ -886,8 +886,8 @@ func (o *RecommendationsResults) HasProcessingTimingsMS() bool {
 	return false
 }
 
-// SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]interface{}) *RecommendationsResults {
+// SetProcessingTimingsMS gets a reference to the given map[string]any and assigns it to the ProcessingTimingsMS field.
+func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]any) *RecommendationsResults {
 	o.ProcessingTimingsMS = v
 	return o
 }
@@ -1058,9 +1058,9 @@ func (o *RecommendationsResults) SetServerUsed(v string) *RecommendationsResults
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetUserData() map[string]interface{} {
+func (o *RecommendationsResults) GetUserData() map[string]any {
 	if o == nil || o.UserData == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -1068,7 +1068,7 @@ func (o *RecommendationsResults) GetUserData() map[string]interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetUserDataOk() (map[string]interface{}, bool) {
+func (o *RecommendationsResults) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
@@ -1084,8 +1084,8 @@ func (o *RecommendationsResults) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *RecommendationsResults) SetUserData(v map[string]interface{}) *RecommendationsResults {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *RecommendationsResults) SetUserData(v map[string]any) *RecommendationsResults {
 	o.UserData = v
 	return o
 }

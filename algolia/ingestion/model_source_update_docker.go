@@ -14,7 +14,7 @@ type SourceUpdateDocker struct {
 	// Docker image version.
 	Version *string `json:"version,omitempty"`
 	// Configuration of the spec.
-	Configuration map[string]interface{} `json:"configuration"`
+	Configuration map[string]any `json:"configuration"`
 }
 
 type SourceUpdateDockerOption func(f *SourceUpdateDocker)
@@ -41,7 +41,7 @@ func WithSourceUpdateDockerVersion(val string) SourceUpdateDockerOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceUpdateDocker(configuration map[string]interface{}, opts ...SourceUpdateDockerOption) *SourceUpdateDocker {
+func NewSourceUpdateDocker(configuration map[string]any, opts ...SourceUpdateDockerOption) *SourceUpdateDocker {
 	this := &SourceUpdateDocker{}
 	this.Configuration = configuration
 	for _, opt := range opts {
@@ -155,9 +155,9 @@ func (o *SourceUpdateDocker) SetVersion(v string) *SourceUpdateDocker {
 }
 
 // GetConfiguration returns the Configuration field value.
-func (o *SourceUpdateDocker) GetConfiguration() map[string]interface{} {
+func (o *SourceUpdateDocker) GetConfiguration() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -166,7 +166,7 @@ func (o *SourceUpdateDocker) GetConfiguration() map[string]interface{} {
 
 // GetConfigurationOk returns a tuple with the Configuration field value
 // and a boolean to check if the value has been set.
-func (o *SourceUpdateDocker) GetConfigurationOk() (map[string]interface{}, bool) {
+func (o *SourceUpdateDocker) GetConfigurationOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -174,7 +174,7 @@ func (o *SourceUpdateDocker) GetConfigurationOk() (map[string]interface{}, bool)
 }
 
 // SetConfiguration sets field value.
-func (o *SourceUpdateDocker) SetConfiguration(v map[string]interface{}) *SourceUpdateDocker {
+func (o *SourceUpdateDocker) SetConfiguration(v map[string]any) *SourceUpdateDocker {
 	o.Configuration = v
 	return o
 }

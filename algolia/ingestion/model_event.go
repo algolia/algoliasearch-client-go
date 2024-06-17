@@ -17,8 +17,8 @@ type Event struct {
 	Status   EventStatus `json:"status"`
 	Type     EventType   `json:"type"`
 	// The extracted record batch size.
-	BatchSize int32                  `json:"batchSize"`
-	Data      map[string]interface{} `json:"data,omitempty"`
+	BatchSize int32          `json:"batchSize"`
+	Data      map[string]any `json:"data,omitempty"`
 	// Date of publish RFC 3339 format.
 	PublishedAt string `json:"publishedAt"`
 }
@@ -31,7 +31,7 @@ func WithEventParentID(val string) EventOption {
 	}
 }
 
-func WithEventData(val map[string]interface{}) EventOption {
+func WithEventData(val map[string]any) EventOption {
 	return func(f *Event) {
 		f.Data = val
 	}
@@ -219,9 +219,9 @@ func (o *Event) SetBatchSize(v int32) *Event {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *Event) GetData() map[string]interface{} {
+func (o *Event) GetData() map[string]any {
 	if o == nil || o.Data == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.Data
@@ -229,7 +229,7 @@ func (o *Event) GetData() map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetDataOk() (map[string]interface{}, bool) {
+func (o *Event) GetDataOk() (map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -245,8 +245,8 @@ func (o *Event) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *Event) SetData(v map[string]interface{}) *Event {
+// SetData gets a reference to the given map[string]any and assigns it to the Data field.
+func (o *Event) SetData(v map[string]any) *Event {
 	o.Data = v
 	return o
 }

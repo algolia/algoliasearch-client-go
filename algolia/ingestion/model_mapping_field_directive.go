@@ -11,14 +11,14 @@ type MappingFieldDirective struct {
 	// Destination field key.
 	FieldKey string `json:"fieldKey"`
 	// How the destination field should be resolved from the source.
-	Value map[string]interface{} `json:"value"`
+	Value map[string]any `json:"value"`
 }
 
 // NewMappingFieldDirective instantiates a new MappingFieldDirective object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMappingFieldDirective(fieldKey string, value map[string]interface{}) *MappingFieldDirective {
+func NewMappingFieldDirective(fieldKey string, value map[string]any) *MappingFieldDirective {
 	this := &MappingFieldDirective{}
 	this.FieldKey = fieldKey
 	this.Value = value
@@ -56,9 +56,9 @@ func (o *MappingFieldDirective) SetFieldKey(v string) *MappingFieldDirective {
 }
 
 // GetValue returns the Value field value.
-func (o *MappingFieldDirective) GetValue() map[string]interface{} {
+func (o *MappingFieldDirective) GetValue() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -67,7 +67,7 @@ func (o *MappingFieldDirective) GetValue() map[string]interface{} {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *MappingFieldDirective) GetValueOk() (map[string]interface{}, bool) {
+func (o *MappingFieldDirective) GetValueOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *MappingFieldDirective) GetValueOk() (map[string]interface{}, bool) {
 }
 
 // SetValue sets field value.
-func (o *MappingFieldDirective) SetValue(v map[string]interface{}) *MappingFieldDirective {
+func (o *MappingFieldDirective) SetValue(v map[string]any) *MappingFieldDirective {
 	o.Value = v
 	return o
 }

@@ -143,8 +143,8 @@ type SearchForHits struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                 `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter *ReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 	// Index name (case-sensitive).
 	IndexName string             `json:"indexName"`
 	Type      *SearchTypeDefault `json:"type,omitempty"`
@@ -608,9 +608,9 @@ func WithSearchForHitsEnableReRanking(val bool) SearchForHitsOption {
 	}
 }
 
-func WithSearchForHitsReRankingApplyFilter(val ReRankingApplyFilter) SearchForHitsOption {
+func WithSearchForHitsReRankingApplyFilter(val NullableReRankingApplyFilter) SearchForHitsOption {
 	return func(f *SearchForHits) {
-		f.ReRankingApplyFilter = &val
+		f.ReRankingApplyFilter = val
 	}
 }
 
@@ -3146,37 +3146,48 @@ func (o *SearchForHits) SetEnableReRanking(v bool) *SearchForHits {
 	return o
 }
 
-// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise.
+// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SearchForHits) GetReRankingApplyFilter() ReRankingApplyFilter {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 		return ret
 	}
-	return *o.ReRankingApplyFilter
+	return *o.ReRankingApplyFilter.Get()
 }
 
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *SearchForHits) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReRankingApplyFilter, true
+	return o.ReRankingApplyFilter.Get(), o.ReRankingApplyFilter.IsSet()
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
 func (o *SearchForHits) HasReRankingApplyFilter() bool {
-	if o != nil && o.ReRankingApplyFilter != nil {
+	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *SearchForHits) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchForHits {
-	o.ReRankingApplyFilter = v
+	o.ReRankingApplyFilter.Set(v)
 	return o
+}
+
+// SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
+func (o *SearchForHits) SetReRankingApplyFilterNil() {
+	o.ReRankingApplyFilter.Set(nil)
+}
+
+// UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
+func (o *SearchForHits) UnsetReRankingApplyFilter() {
+	o.ReRankingApplyFilter.Unset()
 }
 
 // GetIndexName returns the IndexName field value.
@@ -3467,8 +3478,8 @@ func (o SearchForHits) MarshalJSON() ([]byte, error) {
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
-	if o.ReRankingApplyFilter != nil {
-		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
+	if o.ReRankingApplyFilter.IsSet() {
+		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 	if true {
 		toSerialize["indexName"] = o.IndexName

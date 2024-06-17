@@ -51,7 +51,7 @@ type SearchResponse struct {
 	// Time the server took to process the request, in milliseconds.
 	ProcessingTimeMS int32 `json:"processingTimeMS"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
-	ProcessingTimingsMS map[string]interface{} `json:"processingTimingsMS,omitempty"`
+	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
 	QueryAfterRemoval *string           `json:"queryAfterRemoval,omitempty"`
 	Redirect          *Redirect         `json:"redirect,omitempty"`
@@ -60,8 +60,8 @@ type SearchResponse struct {
 	ServerTimeMS *int32 `json:"serverTimeMS,omitempty"`
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
-	// An object with custom data.  You can store up to 32&nbsp;kB as custom data.
-	UserData map[string]interface{} `json:"userData,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string `json:"queryID,omitempty"`
 	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
@@ -167,7 +167,7 @@ func WithSearchResponseParsedQuery(val string) SearchResponseOption {
 	}
 }
 
-func WithSearchResponseProcessingTimingsMS(val map[string]interface{}) SearchResponseOption {
+func WithSearchResponseProcessingTimingsMS(val map[string]any) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.ProcessingTimingsMS = val
 	}
@@ -203,7 +203,7 @@ func WithSearchResponseServerUsed(val string) SearchResponseOption {
 	}
 }
 
-func WithSearchResponseUserData(val map[string]interface{}) SearchResponseOption {
+func WithSearchResponseUserData(val map[string]any) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.UserData = val
 	}
@@ -870,9 +870,9 @@ func (o *SearchResponse) SetProcessingTimeMS(v int32) *SearchResponse {
 }
 
 // GetProcessingTimingsMS returns the ProcessingTimingsMS field value if set, zero value otherwise.
-func (o *SearchResponse) GetProcessingTimingsMS() map[string]interface{} {
+func (o *SearchResponse) GetProcessingTimingsMS() map[string]any {
 	if o == nil || o.ProcessingTimingsMS == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.ProcessingTimingsMS
@@ -880,7 +880,7 @@ func (o *SearchResponse) GetProcessingTimingsMS() map[string]interface{} {
 
 // GetProcessingTimingsMSOk returns a tuple with the ProcessingTimingsMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchResponse) GetProcessingTimingsMSOk() (map[string]interface{}, bool) {
+func (o *SearchResponse) GetProcessingTimingsMSOk() (map[string]any, bool) {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
@@ -896,8 +896,8 @@ func (o *SearchResponse) HasProcessingTimingsMS() bool {
 	return false
 }
 
-// SetProcessingTimingsMS gets a reference to the given map[string]interface{} and assigns it to the ProcessingTimingsMS field.
-func (o *SearchResponse) SetProcessingTimingsMS(v map[string]interface{}) *SearchResponse {
+// SetProcessingTimingsMS gets a reference to the given map[string]any and assigns it to the ProcessingTimingsMS field.
+func (o *SearchResponse) SetProcessingTimingsMS(v map[string]any) *SearchResponse {
 	o.ProcessingTimingsMS = v
 	return o
 }
@@ -1068,9 +1068,9 @@ func (o *SearchResponse) SetServerUsed(v string) *SearchResponse {
 }
 
 // GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *SearchResponse) GetUserData() map[string]interface{} {
+func (o *SearchResponse) GetUserData() map[string]any {
 	if o == nil || o.UserData == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -1078,7 +1078,7 @@ func (o *SearchResponse) GetUserData() map[string]interface{} {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchResponse) GetUserDataOk() (map[string]interface{}, bool) {
+func (o *SearchResponse) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
@@ -1094,8 +1094,8 @@ func (o *SearchResponse) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]interface{} and assigns it to the UserData field.
-func (o *SearchResponse) SetUserData(v map[string]interface{}) *SearchResponse {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *SearchResponse) SetUserData(v map[string]any) *SearchResponse {
 	o.UserData = v
 	return o
 }

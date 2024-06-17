@@ -8,14 +8,14 @@ import (
 
 // CustomSearchParams Search parameters to add to the test variant. Only use this parameter if the two variants use the same index.
 type CustomSearchParams struct {
-	CustomSearchParameters map[string]interface{} `json:"customSearchParameters"`
+	CustomSearchParameters map[string]any `json:"customSearchParameters"`
 }
 
 // NewCustomSearchParams instantiates a new CustomSearchParams object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCustomSearchParams(customSearchParameters map[string]interface{}) *CustomSearchParams {
+func NewCustomSearchParams(customSearchParameters map[string]any) *CustomSearchParams {
 	this := &CustomSearchParams{}
 	this.CustomSearchParameters = customSearchParameters
 	return this
@@ -27,9 +27,9 @@ func NewEmptyCustomSearchParams() *CustomSearchParams {
 }
 
 // GetCustomSearchParameters returns the CustomSearchParameters field value.
-func (o *CustomSearchParams) GetCustomSearchParameters() map[string]interface{} {
+func (o *CustomSearchParams) GetCustomSearchParameters() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -38,7 +38,7 @@ func (o *CustomSearchParams) GetCustomSearchParameters() map[string]interface{} 
 
 // GetCustomSearchParametersOk returns a tuple with the CustomSearchParameters field value
 // and a boolean to check if the value has been set.
-func (o *CustomSearchParams) GetCustomSearchParametersOk() (map[string]interface{}, bool) {
+func (o *CustomSearchParams) GetCustomSearchParametersOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,7 +46,7 @@ func (o *CustomSearchParams) GetCustomSearchParametersOk() (map[string]interface
 }
 
 // SetCustomSearchParameters sets field value.
-func (o *CustomSearchParams) SetCustomSearchParameters(v map[string]interface{}) *CustomSearchParams {
+func (o *CustomSearchParams) SetCustomSearchParameters(v map[string]any) *CustomSearchParams {
 	o.CustomSearchParameters = v
 	return o
 }

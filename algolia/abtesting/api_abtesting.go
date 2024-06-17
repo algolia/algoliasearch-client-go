@@ -195,7 +195,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 // ApiCustomDeleteRequest represents the request with all the parameters for the API call.
 type ApiCustomDeleteRequest struct {
 	path       string
-	parameters map[string]interface{}
+	parameters map[string]any
 }
 
 // NewApiCustomDeleteRequest creates an instance of the ApiCustomDeleteRequest to be used for the API call.
@@ -206,7 +206,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 }
 
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
-func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]interface{}) ApiCustomDeleteRequest {
+func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
 	return r
 }
@@ -219,10 +219,10 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
 	return c.CustomDeleteWithContext(context.Background(), r, opts...)
 }
 
@@ -234,13 +234,13 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
 */
-func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
 	var (
 		postBody    any
-		returnValue map[string]interface{}
+		returnValue *map[string]any
 	)
 
 	requestPath := "/{path}"
@@ -336,7 +336,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 // ApiCustomGetRequest represents the request with all the parameters for the API call.
 type ApiCustomGetRequest struct {
 	path       string
-	parameters map[string]interface{}
+	parameters map[string]any
 }
 
 // NewApiCustomGetRequest creates an instance of the ApiCustomGetRequest to be used for the API call.
@@ -347,7 +347,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 }
 
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
-func (r ApiCustomGetRequest) WithParameters(parameters map[string]interface{}) ApiCustomGetRequest {
+func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
 	return r
 }
@@ -360,10 +360,10 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomGetRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
 	return c.CustomGetWithContext(context.Background(), r, opts...)
 }
 
@@ -375,13 +375,13 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomGetRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
 */
-func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
 	var (
 		postBody    any
-		returnValue map[string]interface{}
+		returnValue *map[string]any
 	)
 
 	requestPath := "/{path}"
@@ -486,8 +486,8 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 // ApiCustomPostRequest represents the request with all the parameters for the API call.
 type ApiCustomPostRequest struct {
 	path       string
-	parameters map[string]interface{}
-	body       map[string]interface{}
+	parameters map[string]any
+	body       map[string]any
 }
 
 // NewApiCustomPostRequest creates an instance of the ApiCustomPostRequest to be used for the API call.
@@ -498,13 +498,13 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 }
 
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
-func (r ApiCustomPostRequest) WithParameters(parameters map[string]interface{}) ApiCustomPostRequest {
+func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
-func (r ApiCustomPostRequest) WithBody(body map[string]interface{}) ApiCustomPostRequest {
+func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
 	return r
 }
@@ -517,11 +517,11 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomPostRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
 	return c.CustomPostWithContext(context.Background(), r, opts...)
 }
 
@@ -533,14 +533,14 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomPostRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
 */
-func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
 	var (
 		postBody    any
-		returnValue map[string]interface{}
+		returnValue *map[string]any
 	)
 
 	requestPath := "/{path}"
@@ -651,8 +651,8 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 // ApiCustomPutRequest represents the request with all the parameters for the API call.
 type ApiCustomPutRequest struct {
 	path       string
-	parameters map[string]interface{}
-	body       map[string]interface{}
+	parameters map[string]any
+	body       map[string]any
 }
 
 // NewApiCustomPutRequest creates an instance of the ApiCustomPutRequest to be used for the API call.
@@ -663,13 +663,13 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 }
 
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
-func (r ApiCustomPutRequest) WithParameters(parameters map[string]interface{}) ApiCustomPutRequest {
+func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
-func (r ApiCustomPutRequest) WithBody(body map[string]interface{}) ApiCustomPutRequest {
+func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
 	return r
 }
@@ -682,11 +682,11 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomPutRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
 	return c.CustomPutWithContext(context.Background(), r, opts...)
 }
 
@@ -698,14 +698,14 @@ This method allow you to send requests to the Algolia REST API.
 Request can be constructed by NewApiCustomPutRequest with parameters below.
 
 	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]interface{} - Query parameters to apply to the current query.
-	@param body map[string]interface{} - Parameters to send with the custom request.
-	@return map[string]interface{}
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
 */
-func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (map[string]interface{}, error) {
+func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
 	var (
 		postBody    any
-		returnValue map[string]interface{}
+		returnValue *map[string]any
 	)
 
 	requestPath := "/{path}"

@@ -10,14 +10,14 @@ import (
 type BatchRequest struct {
 	Action Action `json:"action"`
 	// Operation arguments (varies with specified `action`).
-	Body map[string]interface{} `json:"body"`
+	Body map[string]any `json:"body"`
 }
 
 // NewBatchRequest instantiates a new BatchRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBatchRequest(action Action, body map[string]interface{}) *BatchRequest {
+func NewBatchRequest(action Action, body map[string]any) *BatchRequest {
 	this := &BatchRequest{}
 	this.Action = action
 	this.Body = body
@@ -55,9 +55,9 @@ func (o *BatchRequest) SetAction(v Action) *BatchRequest {
 }
 
 // GetBody returns the Body field value.
-func (o *BatchRequest) GetBody() map[string]interface{} {
+func (o *BatchRequest) GetBody() map[string]any {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret map[string]any
 		return ret
 	}
 
@@ -66,7 +66,7 @@ func (o *BatchRequest) GetBody() map[string]interface{} {
 
 // GetBodyOk returns a tuple with the Body field value
 // and a boolean to check if the value has been set.
-func (o *BatchRequest) GetBodyOk() (map[string]interface{}, bool) {
+func (o *BatchRequest) GetBodyOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -74,7 +74,7 @@ func (o *BatchRequest) GetBodyOk() (map[string]interface{}, bool) {
 }
 
 // SetBody sets field value.
-func (o *BatchRequest) SetBody(v map[string]interface{}) *BatchRequest {
+func (o *BatchRequest) SetBody(v map[string]any) *BatchRequest {
 	o.Body = v
 	return o
 }

@@ -9,7 +9,7 @@ import (
 // TrendingFacets struct for TrendingFacets.
 type TrendingFacets struct {
 	// Facet attribute for which to retrieve trending facet values.
-	FacetName          interface{}         `json:"facetName"`
+	FacetName          any                 `json:"facetName"`
 	Model              TrendingFacetsModel `json:"model"`
 	FallbackParameters *FallbackParams     `json:"fallbackParameters,omitempty"`
 }
@@ -26,7 +26,7 @@ func WithTrendingFacetsFallbackParameters(val FallbackParams) TrendingFacetsOpti
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingFacets(facetName interface{}, model TrendingFacetsModel, opts ...TrendingFacetsOption) *TrendingFacets {
+func NewTrendingFacets(facetName any, model TrendingFacetsModel, opts ...TrendingFacetsOption) *TrendingFacets {
 	this := &TrendingFacets{}
 	this.FacetName = facetName
 	this.Model = model
@@ -42,10 +42,10 @@ func NewEmptyTrendingFacets() *TrendingFacets {
 }
 
 // GetFacetName returns the FacetName field value.
-// If the value is explicit nil, the zero value for interface{} will be returned.
-func (o *TrendingFacets) GetFacetName() interface{} {
+// If the value is explicit nil, the zero value for any will be returned.
+func (o *TrendingFacets) GetFacetName() any {
 	if o == nil {
-		var ret interface{}
+		var ret any
 		return ret
 	}
 
@@ -55,7 +55,7 @@ func (o *TrendingFacets) GetFacetName() interface{} {
 // GetFacetNameOk returns a tuple with the FacetName field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *TrendingFacets) GetFacetNameOk() (*interface{}, bool) {
+func (o *TrendingFacets) GetFacetNameOk() (*any, bool) {
 	if o == nil || o.FacetName == nil {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *TrendingFacets) GetFacetNameOk() (*interface{}, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *TrendingFacets) SetFacetName(v interface{}) *TrendingFacets {
+func (o *TrendingFacets) SetFacetName(v any) *TrendingFacets {
 	o.FacetName = v
 	return o
 }
