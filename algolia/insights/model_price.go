@@ -94,39 +94,3 @@ func (obj Price) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullablePrice struct {
-	value *Price
-	isSet bool
-}
-
-func (v NullablePrice) Get() *Price {
-	return v.value
-}
-
-func (v *NullablePrice) Set(val *Price) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePrice) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePrice) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePrice(val *Price) *NullablePrice {
-	return &NullablePrice{value: val, isSet: true}
-}
-
-func (v NullablePrice) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePrice) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

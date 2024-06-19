@@ -162,39 +162,3 @@ func (o ABTestConfiguration) String() string {
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }
-
-type NullableABTestConfiguration struct {
-	value *ABTestConfiguration
-	isSet bool
-}
-
-func (v NullableABTestConfiguration) Get() *ABTestConfiguration {
-	return v.value
-}
-
-func (v *NullableABTestConfiguration) Set(val *ABTestConfiguration) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableABTestConfiguration) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableABTestConfiguration) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableABTestConfiguration(val *ABTestConfiguration) *NullableABTestConfiguration {
-	return &NullableABTestConfiguration{value: val, isSet: true}
-}
-
-func (v NullableABTestConfiguration) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableABTestConfiguration) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

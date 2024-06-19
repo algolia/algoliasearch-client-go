@@ -183,39 +183,3 @@ func (o MappingKitAction) String() string {
 	out += fmt.Sprintf("  fieldDirectives=%v\n", o.FieldDirectives)
 	return fmt.Sprintf("MappingKitAction {\n%s}", out)
 }
-
-type NullableMappingKitAction struct {
-	value *MappingKitAction
-	isSet bool
-}
-
-func (v NullableMappingKitAction) Get() *MappingKitAction {
-	return v.value
-}
-
-func (v *NullableMappingKitAction) Set(val *MappingKitAction) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMappingKitAction) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMappingKitAction) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMappingKitAction(val *MappingKitAction) *NullableMappingKitAction {
-	return &NullableMappingKitAction{value: val, isSet: true}
-}
-
-func (v NullableMappingKitAction) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMappingKitAction) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

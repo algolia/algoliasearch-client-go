@@ -178,39 +178,3 @@ func (o ParamsConsequence) String() string {
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 	return fmt.Sprintf("ParamsConsequence {\n%s}", out)
 }
-
-type NullableParamsConsequence struct {
-	value *ParamsConsequence
-	isSet bool
-}
-
-func (v NullableParamsConsequence) Get() *ParamsConsequence {
-	return v.value
-}
-
-func (v *NullableParamsConsequence) Set(val *ParamsConsequence) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableParamsConsequence) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableParamsConsequence) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableParamsConsequence(val *ParamsConsequence) *NullableParamsConsequence {
-	return &NullableParamsConsequence{value: val, isSet: true}
-}
-
-func (v NullableParamsConsequence) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableParamsConsequence) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

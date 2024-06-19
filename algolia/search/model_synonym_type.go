@@ -69,39 +69,3 @@ func (v SynonymType) IsValid() bool {
 func (v SynonymType) Ptr() *SynonymType {
 	return &v
 }
-
-type NullableSynonymType struct {
-	value *SynonymType
-	isSet bool
-}
-
-func (v NullableSynonymType) Get() *SynonymType {
-	return v.value
-}
-
-func (v *NullableSynonymType) Set(val *SynonymType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSynonymType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSynonymType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSynonymType(val *SynonymType) *NullableSynonymType {
-	return &NullableSynonymType{value: val, isSet: true}
-}
-
-func (v NullableSynonymType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSynonymType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

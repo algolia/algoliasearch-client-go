@@ -61,39 +61,3 @@ func (v MappingFormatSchema) IsValid() bool {
 func (v MappingFormatSchema) Ptr() *MappingFormatSchema {
 	return &v
 }
-
-type NullableMappingFormatSchema struct {
-	value *MappingFormatSchema
-	isSet bool
-}
-
-func (v NullableMappingFormatSchema) Get() *MappingFormatSchema {
-	return v.value
-}
-
-func (v *NullableMappingFormatSchema) Set(val *MappingFormatSchema) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMappingFormatSchema) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMappingFormatSchema) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMappingFormatSchema(val *MappingFormatSchema) *NullableMappingFormatSchema {
-	return &NullableMappingFormatSchema{value: val, isSet: true}
-}
-
-func (v NullableMappingFormatSchema) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMappingFormatSchema) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

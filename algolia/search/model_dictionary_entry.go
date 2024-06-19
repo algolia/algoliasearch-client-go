@@ -334,39 +334,3 @@ func (o DictionaryEntry) String() string {
 	}
 	return fmt.Sprintf("DictionaryEntry {\n%s}", out)
 }
-
-type NullableDictionaryEntry struct {
-	value *DictionaryEntry
-	isSet bool
-}
-
-func (v NullableDictionaryEntry) Get() *DictionaryEntry {
-	return v.value
-}
-
-func (v *NullableDictionaryEntry) Set(val *DictionaryEntry) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDictionaryEntry) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDictionaryEntry) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDictionaryEntry(val *DictionaryEntry) *NullableDictionaryEntry {
-	return &NullableDictionaryEntry{value: val, isSet: true}
-}
-
-func (v NullableDictionaryEntry) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDictionaryEntry) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

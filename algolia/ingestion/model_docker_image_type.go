@@ -65,39 +65,3 @@ func (v DockerImageType) IsValid() bool {
 func (v DockerImageType) Ptr() *DockerImageType {
 	return &v
 }
-
-type NullableDockerImageType struct {
-	value *DockerImageType
-	isSet bool
-}
-
-func (v NullableDockerImageType) Get() *DockerImageType {
-	return v.value
-}
-
-func (v *NullableDockerImageType) Set(val *DockerImageType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDockerImageType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDockerImageType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDockerImageType(val *DockerImageType) *NullableDockerImageType {
-	return &NullableDockerImageType{value: val, isSet: true}
-}
-
-func (v NullableDockerImageType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDockerImageType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

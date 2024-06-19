@@ -70,39 +70,3 @@ func (o GetClickPositionsResponse) String() string {
 	out += fmt.Sprintf("  positions=%v\n", o.Positions)
 	return fmt.Sprintf("GetClickPositionsResponse {\n%s}", out)
 }
-
-type NullableGetClickPositionsResponse struct {
-	value *GetClickPositionsResponse
-	isSet bool
-}
-
-func (v NullableGetClickPositionsResponse) Get() *GetClickPositionsResponse {
-	return v.value
-}
-
-func (v *NullableGetClickPositionsResponse) Set(val *GetClickPositionsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetClickPositionsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetClickPositionsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetClickPositionsResponse(val *GetClickPositionsResponse) *NullableGetClickPositionsResponse {
-	return &NullableGetClickPositionsResponse{value: val, isSet: true}
-}
-
-func (v NullableGetClickPositionsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetClickPositionsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

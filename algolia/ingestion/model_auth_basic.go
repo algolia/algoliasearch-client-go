@@ -102,39 +102,3 @@ func (o AuthBasic) String() string {
 	out += fmt.Sprintf("  password=%v\n", o.Password)
 	return fmt.Sprintf("AuthBasic {\n%s}", out)
 }
-
-type NullableAuthBasic struct {
-	value *AuthBasic
-	isSet bool
-}
-
-func (v NullableAuthBasic) Get() *AuthBasic {
-	return v.value
-}
-
-func (v *NullableAuthBasic) Set(val *AuthBasic) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthBasic) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthBasic) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthBasic(val *AuthBasic) *NullableAuthBasic {
-	return &NullableAuthBasic{value: val, isSet: true}
-}
-
-func (v NullableAuthBasic) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthBasic) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

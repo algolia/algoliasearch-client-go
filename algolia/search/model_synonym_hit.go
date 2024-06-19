@@ -376,39 +376,3 @@ func (o SynonymHit) String() string {
 	out += fmt.Sprintf("  replacements=%v\n", o.Replacements)
 	return fmt.Sprintf("SynonymHit {\n%s}", out)
 }
-
-type NullableSynonymHit struct {
-	value *SynonymHit
-	isSet bool
-}
-
-func (v NullableSynonymHit) Get() *SynonymHit {
-	return v.value
-}
-
-func (v *NullableSynonymHit) Set(val *SynonymHit) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSynonymHit) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSynonymHit) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSynonymHit(val *SynonymHit) *NullableSynonymHit {
-	return &NullableSynonymHit{value: val, isSet: true}
-}
-
-func (v NullableSynonymHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSynonymHit) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

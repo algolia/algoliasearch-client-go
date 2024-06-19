@@ -134,39 +134,3 @@ func (o UpdatedRuleResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	return fmt.Sprintf("UpdatedRuleResponse {\n%s}", out)
 }
-
-type NullableUpdatedRuleResponse struct {
-	value *UpdatedRuleResponse
-	isSet bool
-}
-
-func (v NullableUpdatedRuleResponse) Get() *UpdatedRuleResponse {
-	return v.value
-}
-
-func (v *NullableUpdatedRuleResponse) Set(val *UpdatedRuleResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUpdatedRuleResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUpdatedRuleResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUpdatedRuleResponse(val *UpdatedRuleResponse) *NullableUpdatedRuleResponse {
-	return &NullableUpdatedRuleResponse{value: val, isSet: true}
-}
-
-func (v NullableUpdatedRuleResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUpdatedRuleResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

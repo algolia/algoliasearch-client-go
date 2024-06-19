@@ -303,39 +303,3 @@ func (o RelatedQuery) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("RelatedQuery {\n%s}", out)
 }
-
-type NullableRelatedQuery struct {
-	value *RelatedQuery
-	isSet bool
-}
-
-func (v NullableRelatedQuery) Get() *RelatedQuery {
-	return v.value
-}
-
-func (v *NullableRelatedQuery) Set(val *RelatedQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRelatedQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRelatedQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRelatedQuery(val *RelatedQuery) *NullableRelatedQuery {
-	return &NullableRelatedQuery{value: val, isSet: true}
-}
-
-func (v NullableRelatedQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRelatedQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

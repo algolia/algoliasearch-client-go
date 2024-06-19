@@ -63,39 +63,3 @@ func (v SearchStrategy) IsValid() bool {
 func (v SearchStrategy) Ptr() *SearchStrategy {
 	return &v
 }
-
-type NullableSearchStrategy struct {
-	value *SearchStrategy
-	isSet bool
-}
-
-func (v NullableSearchStrategy) Get() *SearchStrategy {
-	return v.value
-}
-
-func (v *NullableSearchStrategy) Set(val *SearchStrategy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchStrategy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchStrategy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchStrategy(val *SearchStrategy) *NullableSearchStrategy {
-	return &NullableSearchStrategy{value: val, isSet: true}
-}
-
-func (v NullableSearchStrategy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchStrategy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

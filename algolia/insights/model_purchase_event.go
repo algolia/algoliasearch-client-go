@@ -61,39 +61,3 @@ func (v PurchaseEvent) IsValid() bool {
 func (v PurchaseEvent) Ptr() *PurchaseEvent {
 	return &v
 }
-
-type NullablePurchaseEvent struct {
-	value *PurchaseEvent
-	isSet bool
-}
-
-func (v NullablePurchaseEvent) Get() *PurchaseEvent {
-	return v.value
-}
-
-func (v *NullablePurchaseEvent) Set(val *PurchaseEvent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePurchaseEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePurchaseEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePurchaseEvent(val *PurchaseEvent) *NullablePurchaseEvent {
-	return &NullablePurchaseEvent{value: val, isSet: true}
-}
-
-func (v NullablePurchaseEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePurchaseEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

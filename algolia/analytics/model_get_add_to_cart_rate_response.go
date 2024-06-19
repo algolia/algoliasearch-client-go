@@ -11,7 +11,7 @@ import (
 // GetAddToCartRateResponse struct for GetAddToCartRateResponse.
 type GetAddToCartRateResponse struct {
 	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of add-to-cart events from this search.
@@ -24,7 +24,7 @@ type GetAddToCartRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetAddToCartRateResponse(rate utils.NullableFloat64, trackedSearchCount int32, addToCartCount int32, dates []DailyAddToCartRates) *GetAddToCartRateResponse {
+func NewGetAddToCartRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, addToCartCount int32, dates []DailyAddToCartRates) *GetAddToCartRateResponse {
 	this := &GetAddToCartRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o GetAddToCartRateResponse) String() string {
 	out += fmt.Sprintf("  addToCartCount=%v\n", o.AddToCartCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetAddToCartRateResponse {\n%s}", out)
-}
-
-type NullableGetAddToCartRateResponse struct {
-	value *GetAddToCartRateResponse
-	isSet bool
-}
-
-func (v NullableGetAddToCartRateResponse) Get() *GetAddToCartRateResponse {
-	return v.value
-}
-
-func (v *NullableGetAddToCartRateResponse) Set(val *GetAddToCartRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetAddToCartRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetAddToCartRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetAddToCartRateResponse(val *GetAddToCartRateResponse) *NullableGetAddToCartRateResponse {
-	return &NullableGetAddToCartRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetAddToCartRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetAddToCartRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

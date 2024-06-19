@@ -61,39 +61,3 @@ func (v ConversionEvent) IsValid() bool {
 func (v ConversionEvent) Ptr() *ConversionEvent {
 	return &v
 }
-
-type NullableConversionEvent struct {
-	value *ConversionEvent
-	isSet bool
-}
-
-func (v NullableConversionEvent) Get() *ConversionEvent {
-	return v.value
-}
-
-func (v *NullableConversionEvent) Set(val *ConversionEvent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConversionEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConversionEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConversionEvent(val *ConversionEvent) *NullableConversionEvent {
-	return &NullableConversionEvent{value: val, isSet: true}
-}
-
-func (v NullableConversionEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConversionEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

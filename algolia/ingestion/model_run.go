@@ -544,39 +544,3 @@ func (o Run) String() string {
 	out += fmt.Sprintf("  finishedAt=%v\n", o.FinishedAt)
 	return fmt.Sprintf("Run {\n%s}", out)
 }
-
-type NullableRun struct {
-	value *Run
-	isSet bool
-}
-
-func (v NullableRun) Get() *Run {
-	return v.value
-}
-
-func (v *NullableRun) Set(val *Run) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRun) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRun) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRun(val *Run) *NullableRun {
-	return &NullableRun{value: val, isSet: true}
-}
-
-func (v NullableRun) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRun) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

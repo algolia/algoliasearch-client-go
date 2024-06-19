@@ -11,7 +11,7 @@ import (
 // DailyPurchaseRates struct for DailyPurchaseRates.
 type DailyPurchaseRates struct {
 	// Purchase rate, calculated as number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of purchase events from this search.
@@ -24,7 +24,7 @@ type DailyPurchaseRates struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDailyPurchaseRates(rate utils.NullableFloat64, trackedSearchCount int32, purchaseCount int32, date string) *DailyPurchaseRates {
+func NewDailyPurchaseRates(rate utils.Nullable[float64], trackedSearchCount int32, purchaseCount int32, date string) *DailyPurchaseRates {
 	this := &DailyPurchaseRates{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o DailyPurchaseRates) String() string {
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyPurchaseRates {\n%s}", out)
-}
-
-type NullableDailyPurchaseRates struct {
-	value *DailyPurchaseRates
-	isSet bool
-}
-
-func (v NullableDailyPurchaseRates) Get() *DailyPurchaseRates {
-	return v.value
-}
-
-func (v *NullableDailyPurchaseRates) Set(val *DailyPurchaseRates) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyPurchaseRates) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyPurchaseRates) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyPurchaseRates(val *DailyPurchaseRates) *NullableDailyPurchaseRates {
-	return &NullableDailyPurchaseRates{value: val, isSet: true}
-}
-
-func (v NullableDailyPurchaseRates) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyPurchaseRates) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

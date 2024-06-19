@@ -119,39 +119,3 @@ func (o ScheduleDateUtilsInput) String() string {
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	return fmt.Sprintf("ScheduleDateUtilsInput {\n%s}", out)
 }
-
-type NullableScheduleDateUtilsInput struct {
-	value *ScheduleDateUtilsInput
-	isSet bool
-}
-
-func (v NullableScheduleDateUtilsInput) Get() *ScheduleDateUtilsInput {
-	return v.value
-}
-
-func (v *NullableScheduleDateUtilsInput) Set(val *ScheduleDateUtilsInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableScheduleDateUtilsInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableScheduleDateUtilsInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableScheduleDateUtilsInput(val *ScheduleDateUtilsInput) *NullableScheduleDateUtilsInput {
-	return &NullableScheduleDateUtilsInput{value: val, isSet: true}
-}
-
-func (v NullableScheduleDateUtilsInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableScheduleDateUtilsInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

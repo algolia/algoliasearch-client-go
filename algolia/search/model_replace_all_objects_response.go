@@ -132,39 +132,3 @@ func (o ReplaceAllObjectsResponse) String() string {
 	out += fmt.Sprintf("  moveOperationResponse=%v\n", o.MoveOperationResponse)
 	return fmt.Sprintf("ReplaceAllObjectsResponse {\n%s}", out)
 }
-
-type NullableReplaceAllObjectsResponse struct {
-	value *ReplaceAllObjectsResponse
-	isSet bool
-}
-
-func (v NullableReplaceAllObjectsResponse) Get() *ReplaceAllObjectsResponse {
-	return v.value
-}
-
-func (v *NullableReplaceAllObjectsResponse) Set(val *ReplaceAllObjectsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableReplaceAllObjectsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableReplaceAllObjectsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableReplaceAllObjectsResponse(val *ReplaceAllObjectsResponse) *NullableReplaceAllObjectsResponse {
-	return &NullableReplaceAllObjectsResponse{value: val, isSet: true}
-}
-
-func (v NullableReplaceAllObjectsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableReplaceAllObjectsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

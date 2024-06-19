@@ -292,39 +292,3 @@ func (o ConvertedObjectIDs) String() string {
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ConvertedObjectIDs {\n%s}", out)
 }
-
-type NullableConvertedObjectIDs struct {
-	value *ConvertedObjectIDs
-	isSet bool
-}
-
-func (v NullableConvertedObjectIDs) Get() *ConvertedObjectIDs {
-	return v.value
-}
-
-func (v *NullableConvertedObjectIDs) Set(val *ConvertedObjectIDs) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConvertedObjectIDs) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConvertedObjectIDs) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConvertedObjectIDs(val *ConvertedObjectIDs) *NullableConvertedObjectIDs {
-	return &NullableConvertedObjectIDs{value: val, isSet: true}
-}
-
-func (v NullableConvertedObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConvertedObjectIDs) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -70,39 +70,3 @@ func (o DeleteResponse) String() string {
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
 	return fmt.Sprintf("DeleteResponse {\n%s}", out)
 }
-
-type NullableDeleteResponse struct {
-	value *DeleteResponse
-	isSet bool
-}
-
-func (v NullableDeleteResponse) Get() *DeleteResponse {
-	return v.value
-}
-
-func (v *NullableDeleteResponse) Set(val *DeleteResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDeleteResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDeleteResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDeleteResponse(val *DeleteResponse) *NullableDeleteResponse {
-	return &NullableDeleteResponse{value: val, isSet: true}
-}
-
-func (v NullableDeleteResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDeleteResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

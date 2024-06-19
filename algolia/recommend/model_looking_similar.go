@@ -150,39 +150,3 @@ func (o LookingSimilar) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("LookingSimilar {\n%s}", out)
 }
-
-type NullableLookingSimilar struct {
-	value *LookingSimilar
-	isSet bool
-}
-
-func (v NullableLookingSimilar) Get() *LookingSimilar {
-	return v.value
-}
-
-func (v *NullableLookingSimilar) Set(val *LookingSimilar) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLookingSimilar) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLookingSimilar) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLookingSimilar(val *LookingSimilar) *NullableLookingSimilar {
-	return &NullableLookingSimilar{value: val, isSet: true}
-}
-
-func (v NullableLookingSimilar) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLookingSimilar) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

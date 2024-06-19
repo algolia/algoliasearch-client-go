@@ -151,39 +151,3 @@ func (o OnDemandDateUtilsInput) String() string {
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	return fmt.Sprintf("OnDemandDateUtilsInput {\n%s}", out)
 }
-
-type NullableOnDemandDateUtilsInput struct {
-	value *OnDemandDateUtilsInput
-	isSet bool
-}
-
-func (v NullableOnDemandDateUtilsInput) Get() *OnDemandDateUtilsInput {
-	return v.value
-}
-
-func (v *NullableOnDemandDateUtilsInput) Set(val *OnDemandDateUtilsInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOnDemandDateUtilsInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOnDemandDateUtilsInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOnDemandDateUtilsInput(val *OnDemandDateUtilsInput) *NullableOnDemandDateUtilsInput {
-	return &NullableOnDemandDateUtilsInput{value: val, isSet: true}
-}
-
-func (v NullableOnDemandDateUtilsInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOnDemandDateUtilsInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -94,39 +94,3 @@ func (obj Discount) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableDiscount struct {
-	value *Discount
-	isSet bool
-}
-
-func (v NullableDiscount) Get() *Discount {
-	return v.value
-}
-
-func (v *NullableDiscount) Set(val *Discount) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDiscount) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDiscount) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDiscount(val *Discount) *NullableDiscount {
-	return &NullableDiscount{value: val, isSet: true}
-}
-
-func (v NullableDiscount) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDiscount) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

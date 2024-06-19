@@ -15,9 +15,9 @@ type TopHitWithAnalytics struct {
 	// Number of occurrences.
 	Count int32 `json:"count"`
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedHitCount int32 `json:"trackedHitCount"`
 	// Number of clicks associated with this search.
@@ -30,7 +30,7 @@ type TopHitWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate utils.NullableFloat64, conversionRate utils.NullableFloat64, trackedHitCount int32, clickCount int32, conversionCount int32) *TopHitWithAnalytics {
+func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32) *TopHitWithAnalytics {
 	this := &TopHitWithAnalytics{}
 	this.Hit = hit
 	this.Count = count
@@ -267,40 +267,4 @@ func (o TopHitWithAnalytics) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	return fmt.Sprintf("TopHitWithAnalytics {\n%s}", out)
-}
-
-type NullableTopHitWithAnalytics struct {
-	value *TopHitWithAnalytics
-	isSet bool
-}
-
-func (v NullableTopHitWithAnalytics) Get() *TopHitWithAnalytics {
-	return v.value
-}
-
-func (v *NullableTopHitWithAnalytics) Set(val *TopHitWithAnalytics) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopHitWithAnalytics) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopHitWithAnalytics) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopHitWithAnalytics(val *TopHitWithAnalytics) *NullableTopHitWithAnalytics {
-	return &NullableTopHitWithAnalytics{value: val, isSet: true}
-}
-
-func (v NullableTopHitWithAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopHitWithAnalytics) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

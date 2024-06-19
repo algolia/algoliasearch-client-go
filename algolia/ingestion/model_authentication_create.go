@@ -4,20 +4,22 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AuthenticationCreate Request body for creating a new authentication resource.
 type AuthenticationCreate struct {
 	Type AuthenticationType `json:"type"`
 	// Descriptive name for the resource.
-	Name     string           `json:"name"`
-	Platform NullablePlatform `json:"platform,omitempty"`
-	Input    AuthInput        `json:"input"`
+	Name     string                   `json:"name"`
+	Platform utils.Nullable[Platform] `json:"platform,omitempty"`
+	Input    AuthInput                `json:"input"`
 }
 
 type AuthenticationCreateOption func(f *AuthenticationCreate)
 
-func WithAuthenticationCreatePlatform(val NullablePlatform) AuthenticationCreateOption {
+func WithAuthenticationCreatePlatform(val utils.Nullable[Platform]) AuthenticationCreateOption {
 	return func(f *AuthenticationCreate) {
 		f.Platform = val
 	}
@@ -121,7 +123,7 @@ func (o *AuthenticationCreate) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given NullablePlatform and assigns it to the Platform field.
+// SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
 func (o *AuthenticationCreate) SetPlatform(v Platform) *AuthenticationCreate {
 	o.Platform.Set(&v)
 	return o
@@ -191,40 +193,4 @@ func (o AuthenticationCreate) String() string {
 	out += fmt.Sprintf("  platform=%v\n", o.Platform)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	return fmt.Sprintf("AuthenticationCreate {\n%s}", out)
-}
-
-type NullableAuthenticationCreate struct {
-	value *AuthenticationCreate
-	isSet bool
-}
-
-func (v NullableAuthenticationCreate) Get() *AuthenticationCreate {
-	return v.value
-}
-
-func (v *NullableAuthenticationCreate) Set(val *AuthenticationCreate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthenticationCreate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthenticationCreate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthenticationCreate(val *AuthenticationCreate) *NullableAuthenticationCreate {
-	return &NullableAuthenticationCreate{value: val, isSet: true}
-}
-
-func (v NullableAuthenticationCreate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthenticationCreate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

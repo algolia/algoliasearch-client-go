@@ -118,39 +118,3 @@ func (o SearchMethodParams) String() string {
 	out += fmt.Sprintf("  strategy=%v\n", o.Strategy)
 	return fmt.Sprintf("SearchMethodParams {\n%s}", out)
 }
-
-type NullableSearchMethodParams struct {
-	value *SearchMethodParams
-	isSet bool
-}
-
-func (v NullableSearchMethodParams) Get() *SearchMethodParams {
-	return v.value
-}
-
-func (v *NullableSearchMethodParams) Set(val *SearchMethodParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchMethodParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchMethodParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchMethodParams(val *SearchMethodParams) *NullableSearchMethodParams {
-	return &NullableSearchMethodParams{value: val, isSet: true}
-}
-
-func (v NullableSearchMethodParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchMethodParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

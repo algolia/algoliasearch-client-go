@@ -312,39 +312,3 @@ func (o SecuredApiKeyRestrictions) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	return fmt.Sprintf("SecuredApiKeyRestrictions {\n%s}", out)
 }
-
-type NullableSecuredApiKeyRestrictions struct {
-	value *SecuredApiKeyRestrictions
-	isSet bool
-}
-
-func (v NullableSecuredApiKeyRestrictions) Get() *SecuredApiKeyRestrictions {
-	return v.value
-}
-
-func (v *NullableSecuredApiKeyRestrictions) Set(val *SecuredApiKeyRestrictions) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSecuredApiKeyRestrictions) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSecuredApiKeyRestrictions) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSecuredApiKeyRestrictions(val *SecuredApiKeyRestrictions) *NullableSecuredApiKeyRestrictions {
-	return &NullableSecuredApiKeyRestrictions{value: val, isSet: true}
-}
-
-func (v NullableSecuredApiKeyRestrictions) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSecuredApiKeyRestrictions) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

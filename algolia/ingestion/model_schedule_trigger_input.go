@@ -101,39 +101,3 @@ func (o ScheduleTriggerInput) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	return fmt.Sprintf("ScheduleTriggerInput {\n%s}", out)
 }
-
-type NullableScheduleTriggerInput struct {
-	value *ScheduleTriggerInput
-	isSet bool
-}
-
-func (v NullableScheduleTriggerInput) Get() *ScheduleTriggerInput {
-	return v.value
-}
-
-func (v *NullableScheduleTriggerInput) Set(val *ScheduleTriggerInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableScheduleTriggerInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableScheduleTriggerInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableScheduleTriggerInput(val *ScheduleTriggerInput) *NullableScheduleTriggerInput {
-	return &NullableScheduleTriggerInput{value: val, isSet: true}
-}
-
-func (v NullableScheduleTriggerInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableScheduleTriggerInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -175,39 +175,3 @@ func (o GetUsage400ResponseError) String() string {
 	out += fmt.Sprintf("  errors=%v\n", o.Errors)
 	return fmt.Sprintf("GetUsage400ResponseError {\n%s}", out)
 }
-
-type NullableGetUsage400ResponseError struct {
-	value *GetUsage400ResponseError
-	isSet bool
-}
-
-func (v NullableGetUsage400ResponseError) Get() *GetUsage400ResponseError {
-	return v.value
-}
-
-func (v *NullableGetUsage400ResponseError) Set(val *GetUsage400ResponseError) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetUsage400ResponseError) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetUsage400ResponseError) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetUsage400ResponseError(val *GetUsage400ResponseError) *NullableGetUsage400ResponseError {
-	return &NullableGetUsage400ResponseError{value: val, isSet: true}
-}
-
-func (v NullableGetUsage400ResponseError) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetUsage400ResponseError) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

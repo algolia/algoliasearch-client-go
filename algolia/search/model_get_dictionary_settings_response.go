@@ -69,39 +69,3 @@ func (o GetDictionarySettingsResponse) String() string {
 	out += fmt.Sprintf("  disableStandardEntries=%v\n", o.DisableStandardEntries)
 	return fmt.Sprintf("GetDictionarySettingsResponse {\n%s}", out)
 }
-
-type NullableGetDictionarySettingsResponse struct {
-	value *GetDictionarySettingsResponse
-	isSet bool
-}
-
-func (v NullableGetDictionarySettingsResponse) Get() *GetDictionarySettingsResponse {
-	return v.value
-}
-
-func (v *NullableGetDictionarySettingsResponse) Set(val *GetDictionarySettingsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetDictionarySettingsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetDictionarySettingsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetDictionarySettingsResponse(val *GetDictionarySettingsResponse) *NullableGetDictionarySettingsResponse {
-	return &NullableGetDictionarySettingsResponse{value: val, isSet: true}
-}
-
-func (v NullableGetDictionarySettingsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetDictionarySettingsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -4,20 +4,22 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Languages Dictionary language.
 type Languages struct {
-	Plurals   NullableDictionaryLanguage `json:"plurals"`
-	Stopwords NullableDictionaryLanguage `json:"stopwords"`
-	Compounds NullableDictionaryLanguage `json:"compounds"`
+	Plurals   utils.Nullable[DictionaryLanguage] `json:"plurals"`
+	Stopwords utils.Nullable[DictionaryLanguage] `json:"stopwords"`
+	Compounds utils.Nullable[DictionaryLanguage] `json:"compounds"`
 }
 
 // NewLanguages instantiates a new Languages object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewLanguages(plurals NullableDictionaryLanguage, stopwords NullableDictionaryLanguage, compounds NullableDictionaryLanguage) *Languages {
+func NewLanguages(plurals utils.Nullable[DictionaryLanguage], stopwords utils.Nullable[DictionaryLanguage], compounds utils.Nullable[DictionaryLanguage]) *Languages {
 	this := &Languages{}
 	this.Plurals = plurals
 	this.Stopwords = stopwords
@@ -136,40 +138,4 @@ func (o Languages) String() string {
 	out += fmt.Sprintf("  stopwords=%v\n", o.Stopwords)
 	out += fmt.Sprintf("  compounds=%v\n", o.Compounds)
 	return fmt.Sprintf("Languages {\n%s}", out)
-}
-
-type NullableLanguages struct {
-	value *Languages
-	isSet bool
-}
-
-func (v NullableLanguages) Get() *Languages {
-	return v.value
-}
-
-func (v *NullableLanguages) Set(val *Languages) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLanguages) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLanguages) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLanguages(val *Languages) *NullableLanguages {
-	return &NullableLanguages{value: val, isSet: true}
-}
-
-func (v NullableLanguages) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLanguages) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

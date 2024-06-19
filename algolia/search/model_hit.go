@@ -301,39 +301,3 @@ func (o Hit) String() string {
 	}
 	return fmt.Sprintf("Hit {\n%s}", out)
 }
-
-type NullableHit struct {
-	value *Hit
-	isSet bool
-}
-
-func (v NullableHit) Get() *Hit {
-	return v.value
-}
-
-func (v *NullableHit) Set(val *Hit) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableHit) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableHit) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableHit(val *Hit) *NullableHit {
-	return &NullableHit{value: val, isSet: true}
-}
-
-func (v NullableHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableHit) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -94,39 +94,3 @@ func (obj AttributeToUpdate) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAttributeToUpdate struct {
-	value *AttributeToUpdate
-	isSet bool
-}
-
-func (v NullableAttributeToUpdate) Get() *AttributeToUpdate {
-	return v.value
-}
-
-func (v *NullableAttributeToUpdate) Set(val *AttributeToUpdate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAttributeToUpdate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAttributeToUpdate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAttributeToUpdate(val *AttributeToUpdate) *NullableAttributeToUpdate {
-	return &NullableAttributeToUpdate{value: val, isSet: true}
-}
-
-func (v NullableAttributeToUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAttributeToUpdate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

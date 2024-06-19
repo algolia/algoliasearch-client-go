@@ -94,39 +94,3 @@ func (obj AroundRadius) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAroundRadius struct {
-	value *AroundRadius
-	isSet bool
-}
-
-func (v NullableAroundRadius) Get() *AroundRadius {
-	return v.value
-}
-
-func (v *NullableAroundRadius) Set(val *AroundRadius) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAroundRadius) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAroundRadius) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAroundRadius(val *AroundRadius) *NullableAroundRadius {
-	return &NullableAroundRadius{value: val, isSet: true}
-}
-
-func (v NullableAroundRadius) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAroundRadius) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -63,39 +63,3 @@ func (v DestinationType) IsValid() bool {
 func (v DestinationType) Ptr() *DestinationType {
 	return &v
 }
-
-type NullableDestinationType struct {
-	value *DestinationType
-	isSet bool
-}
-
-func (v NullableDestinationType) Get() *DestinationType {
-	return v.value
-}
-
-func (v *NullableDestinationType) Set(val *DestinationType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationType(val *DestinationType) *NullableDestinationType {
-	return &NullableDestinationType{value: val, isSet: true}
-}
-
-func (v NullableDestinationType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -292,39 +292,3 @@ func (o ConvertedFilters) String() string {
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ConvertedFilters {\n%s}", out)
 }
-
-type NullableConvertedFilters struct {
-	value *ConvertedFilters
-	isSet bool
-}
-
-func (v NullableConvertedFilters) Get() *ConvertedFilters {
-	return v.value
-}
-
-func (v *NullableConvertedFilters) Set(val *ConvertedFilters) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConvertedFilters) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConvertedFilters) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConvertedFilters(val *ConvertedFilters) *NullableConvertedFilters {
-	return &NullableConvertedFilters{value: val, isSet: true}
-}
-
-func (v NullableConvertedFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConvertedFilters) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

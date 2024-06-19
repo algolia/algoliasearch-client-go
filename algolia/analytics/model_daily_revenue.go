@@ -102,39 +102,3 @@ func (o DailyRevenue) String() string {
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyRevenue {\n%s}", out)
 }
-
-type NullableDailyRevenue struct {
-	value *DailyRevenue
-	isSet bool
-}
-
-func (v NullableDailyRevenue) Get() *DailyRevenue {
-	return v.value
-}
-
-func (v *NullableDailyRevenue) Set(val *DailyRevenue) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyRevenue) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyRevenue) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyRevenue(val *DailyRevenue) *NullableDailyRevenue {
-	return &NullableDailyRevenue{value: val, isSet: true}
-}
-
-func (v NullableDailyRevenue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyRevenue) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

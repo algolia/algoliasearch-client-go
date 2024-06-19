@@ -20,7 +20,7 @@ type SearchRulesParams struct {
 	// Maximum number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// If `true`, return only enabled rules. If `false`, return only inactive rules. By default, _all_ rules are returned.
-	Enabled utils.NullableBool `json:"enabled,omitempty"`
+	Enabled utils.Nullable[bool] `json:"enabled,omitempty"`
 }
 
 type SearchRulesParamsOption func(f *SearchRulesParams)
@@ -55,7 +55,7 @@ func WithSearchRulesParamsHitsPerPage(val int32) SearchRulesParamsOption {
 	}
 }
 
-func WithSearchRulesParamsEnabled(val utils.NullableBool) SearchRulesParamsOption {
+func WithSearchRulesParamsEnabled(val utils.Nullable[bool]) SearchRulesParamsOption {
 	return func(f *SearchRulesParams) {
 		f.Enabled = val
 	}
@@ -271,7 +271,7 @@ func (o *SearchRulesParams) HasEnabled() bool {
 	return false
 }
 
-// SetEnabled gets a reference to the given utils.NullableBool and assigns it to the Enabled field.
+// SetEnabled gets a reference to the given utils.Nullable[bool] and assigns it to the Enabled field.
 func (o *SearchRulesParams) SetEnabled(v bool) *SearchRulesParams {
 	o.Enabled.Set(&v)
 	return o
@@ -324,40 +324,4 @@ func (o SearchRulesParams) String() string {
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	return fmt.Sprintf("SearchRulesParams {\n%s}", out)
-}
-
-type NullableSearchRulesParams struct {
-	value *SearchRulesParams
-	isSet bool
-}
-
-func (v NullableSearchRulesParams) Get() *SearchRulesParams {
-	return v.value
-}
-
-func (v *NullableSearchRulesParams) Set(val *SearchRulesParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchRulesParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchRulesParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchRulesParams(val *SearchRulesParams) *NullableSearchRulesParams {
-	return &NullableSearchRulesParams{value: val, isSet: true}
-}
-
-func (v NullableSearchRulesParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchRulesParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

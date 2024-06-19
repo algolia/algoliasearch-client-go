@@ -227,39 +227,3 @@ func (v Statistic) IsValid() bool {
 func (v Statistic) Ptr() *Statistic {
 	return &v
 }
-
-type NullableStatistic struct {
-	value *Statistic
-	isSet bool
-}
-
-func (v NullableStatistic) Get() *Statistic {
-	return v.value
-}
-
-func (v *NullableStatistic) Set(val *Statistic) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStatistic) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStatistic) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStatistic(val *Statistic) *NullableStatistic {
-	return &NullableStatistic{value: val, isSet: true}
-}
-
-func (v NullableStatistic) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStatistic) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -94,39 +94,3 @@ func (obj PlatformWithNone) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullablePlatformWithNone struct {
-	value *PlatformWithNone
-	isSet bool
-}
-
-func (v NullablePlatformWithNone) Get() *PlatformWithNone {
-	return v.value
-}
-
-func (v *NullablePlatformWithNone) Set(val *PlatformWithNone) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePlatformWithNone) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePlatformWithNone) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePlatformWithNone(val *PlatformWithNone) *NullablePlatformWithNone {
-	return &NullablePlatformWithNone{value: val, isSet: true}
-}
-
-func (v NullablePlatformWithNone) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePlatformWithNone) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

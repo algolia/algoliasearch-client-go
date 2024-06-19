@@ -134,39 +134,3 @@ func (o AuthenticationUpdateResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("AuthenticationUpdateResponse {\n%s}", out)
 }
-
-type NullableAuthenticationUpdateResponse struct {
-	value *AuthenticationUpdateResponse
-	isSet bool
-}
-
-func (v NullableAuthenticationUpdateResponse) Get() *AuthenticationUpdateResponse {
-	return v.value
-}
-
-func (v *NullableAuthenticationUpdateResponse) Set(val *AuthenticationUpdateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthenticationUpdateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthenticationUpdateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthenticationUpdateResponse(val *AuthenticationUpdateResponse) *NullableAuthenticationUpdateResponse {
-	return &NullableAuthenticationUpdateResponse{value: val, isSet: true}
-}
-
-func (v NullableAuthenticationUpdateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthenticationUpdateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

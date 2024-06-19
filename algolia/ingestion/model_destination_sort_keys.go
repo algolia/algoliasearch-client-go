@@ -67,39 +67,3 @@ func (v DestinationSortKeys) IsValid() bool {
 func (v DestinationSortKeys) Ptr() *DestinationSortKeys {
 	return &v
 }
-
-type NullableDestinationSortKeys struct {
-	value *DestinationSortKeys
-	isSet bool
-}
-
-func (v NullableDestinationSortKeys) Get() *DestinationSortKeys {
-	return v.value
-}
-
-func (v *NullableDestinationSortKeys) Set(val *DestinationSortKeys) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationSortKeys) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationSortKeys) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationSortKeys(val *DestinationSortKeys) *NullableDestinationSortKeys {
-	return &NullableDestinationSortKeys{value: val, isSet: true}
-}
-
-func (v NullableDestinationSortKeys) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationSortKeys) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

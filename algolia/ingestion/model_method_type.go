@@ -63,39 +63,3 @@ func (v MethodType) IsValid() bool {
 func (v MethodType) Ptr() *MethodType {
 	return &v
 }
-
-type NullableMethodType struct {
-	value *MethodType
-	isSet bool
-}
-
-func (v NullableMethodType) Get() *MethodType {
-	return v.value
-}
-
-func (v *NullableMethodType) Set(val *MethodType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMethodType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMethodType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMethodType(val *MethodType) *NullableMethodType {
-	return &NullableMethodType{value: val, isSet: true}
-}
-
-func (v NullableMethodType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMethodType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

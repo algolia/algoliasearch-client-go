@@ -70,39 +70,3 @@ func (o GetTopFilterAttributesResponse) String() string {
 	out += fmt.Sprintf("  attributes=%v\n", o.Attributes)
 	return fmt.Sprintf("GetTopFilterAttributesResponse {\n%s}", out)
 }
-
-type NullableGetTopFilterAttributesResponse struct {
-	value *GetTopFilterAttributesResponse
-	isSet bool
-}
-
-func (v NullableGetTopFilterAttributesResponse) Get() *GetTopFilterAttributesResponse {
-	return v.value
-}
-
-func (v *NullableGetTopFilterAttributesResponse) Set(val *GetTopFilterAttributesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetTopFilterAttributesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetTopFilterAttributesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetTopFilterAttributesResponse(val *GetTopFilterAttributesResponse) *NullableGetTopFilterAttributesResponse {
-	return &NullableGetTopFilterAttributesResponse{value: val, isSet: true}
-}
-
-func (v NullableGetTopFilterAttributesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetTopFilterAttributesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

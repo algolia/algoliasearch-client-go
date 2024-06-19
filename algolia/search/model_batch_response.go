@@ -102,39 +102,3 @@ func (o BatchResponse) String() string {
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
 	return fmt.Sprintf("BatchResponse {\n%s}", out)
 }
-
-type NullableBatchResponse struct {
-	value *BatchResponse
-	isSet bool
-}
-
-func (v NullableBatchResponse) Get() *BatchResponse {
-	return v.value
-}
-
-func (v *NullableBatchResponse) Set(val *BatchResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchResponse(val *BatchResponse) *NullableBatchResponse {
-	return &NullableBatchResponse{value: val, isSet: true}
-}
-
-func (v NullableBatchResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

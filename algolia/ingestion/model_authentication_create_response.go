@@ -134,39 +134,3 @@ func (o AuthenticationCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("AuthenticationCreateResponse {\n%s}", out)
 }
-
-type NullableAuthenticationCreateResponse struct {
-	value *AuthenticationCreateResponse
-	isSet bool
-}
-
-func (v NullableAuthenticationCreateResponse) Get() *AuthenticationCreateResponse {
-	return v.value
-}
-
-func (v *NullableAuthenticationCreateResponse) Set(val *AuthenticationCreateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthenticationCreateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthenticationCreateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthenticationCreateResponse(val *AuthenticationCreateResponse) *NullableAuthenticationCreateResponse {
-	return &NullableAuthenticationCreateResponse{value: val, isSet: true}
-}
-
-func (v NullableAuthenticationCreateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthenticationCreateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

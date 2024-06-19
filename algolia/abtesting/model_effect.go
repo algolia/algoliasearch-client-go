@@ -67,39 +67,3 @@ func (v Effect) IsValid() bool {
 func (v Effect) Ptr() *Effect {
 	return &v
 }
-
-type NullableEffect struct {
-	value *Effect
-	isSet bool
-}
-
-func (v NullableEffect) Get() *Effect {
-	return v.value
-}
-
-func (v *NullableEffect) Set(val *Effect) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEffect) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEffect) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEffect(val *Effect) *NullableEffect {
-	return &NullableEffect{value: val, isSet: true}
-}
-
-func (v NullableEffect) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEffect) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

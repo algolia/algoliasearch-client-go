@@ -291,39 +291,3 @@ func (o Destination) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	return fmt.Sprintf("Destination {\n%s}", out)
 }
-
-type NullableDestination struct {
-	value *Destination
-	isSet bool
-}
-
-func (v NullableDestination) Get() *Destination {
-	return v.value
-}
-
-func (v *NullableDestination) Set(val *Destination) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestination) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestination) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestination(val *Destination) *NullableDestination {
-	return &NullableDestination{value: val, isSet: true}
-}
-
-func (v NullableDestination) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestination) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

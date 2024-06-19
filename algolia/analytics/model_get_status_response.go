@@ -11,14 +11,14 @@ import (
 // GetStatusResponse struct for GetStatusResponse.
 type GetStatusResponse struct {
 	// Date and time when the object was updated, in RFC 3339 format.
-	UpdatedAt utils.NullableString `json:"updatedAt"`
+	UpdatedAt utils.Nullable[string] `json:"updatedAt"`
 }
 
 // NewGetStatusResponse instantiates a new GetStatusResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetStatusResponse(updatedAt utils.NullableString) *GetStatusResponse {
+func NewGetStatusResponse(updatedAt utils.Nullable[string]) *GetStatusResponse {
 	this := &GetStatusResponse{}
 	this.UpdatedAt = updatedAt
 	return this
@@ -73,40 +73,4 @@ func (o GetStatusResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("GetStatusResponse {\n%s}", out)
-}
-
-type NullableGetStatusResponse struct {
-	value *GetStatusResponse
-	isSet bool
-}
-
-func (v NullableGetStatusResponse) Get() *GetStatusResponse {
-	return v.value
-}
-
-func (v *NullableGetStatusResponse) Set(val *GetStatusResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetStatusResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetStatusResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetStatusResponse(val *GetStatusResponse) *NullableGetStatusResponse {
-	return &NullableGetStatusResponse{value: val, isSet: true}
-}
-
-func (v NullableGetStatusResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetStatusResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

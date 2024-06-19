@@ -61,39 +61,3 @@ func (v LookingSimilarModel) IsValid() bool {
 func (v LookingSimilarModel) Ptr() *LookingSimilarModel {
 	return &v
 }
-
-type NullableLookingSimilarModel struct {
-	value *LookingSimilarModel
-	isSet bool
-}
-
-func (v NullableLookingSimilarModel) Get() *LookingSimilarModel {
-	return v.value
-}
-
-func (v *NullableLookingSimilarModel) Set(val *LookingSimilarModel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLookingSimilarModel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLookingSimilarModel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLookingSimilarModel(val *LookingSimilarModel) *NullableLookingSimilarModel {
-	return &NullableLookingSimilarModel{value: val, isSet: true}
-}
-
-func (v NullableLookingSimilarModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLookingSimilarModel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

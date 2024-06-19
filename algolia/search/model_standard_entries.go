@@ -181,39 +181,3 @@ func (o StandardEntries) String() string {
 	out += fmt.Sprintf("  compounds=%v\n", o.Compounds)
 	return fmt.Sprintf("StandardEntries {\n%s}", out)
 }
-
-type NullableStandardEntries struct {
-	value *StandardEntries
-	isSet bool
-}
-
-func (v NullableStandardEntries) Get() *StandardEntries {
-	return v.value
-}
-
-func (v *NullableStandardEntries) Set(val *StandardEntries) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStandardEntries) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStandardEntries) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStandardEntries(val *StandardEntries) *NullableStandardEntries {
-	return &NullableStandardEntries{value: val, isSet: true}
-}
-
-func (v NullableStandardEntries) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStandardEntries) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

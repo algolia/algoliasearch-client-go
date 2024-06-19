@@ -67,39 +67,3 @@ func (v ActionType) IsValid() bool {
 func (v ActionType) Ptr() *ActionType {
 	return &v
 }
-
-type NullableActionType struct {
-	value *ActionType
-	isSet bool
-}
-
-func (v NullableActionType) Get() *ActionType {
-	return v.value
-}
-
-func (v *NullableActionType) Set(val *ActionType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableActionType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableActionType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableActionType(val *ActionType) *NullableActionType {
-	return &NullableActionType{value: val, isSet: true}
-}
-
-func (v NullableActionType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableActionType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

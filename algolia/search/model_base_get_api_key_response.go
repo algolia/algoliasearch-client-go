@@ -120,39 +120,3 @@ func (o BaseGetApiKeyResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("BaseGetApiKeyResponse {\n%s}", out)
 }
-
-type NullableBaseGetApiKeyResponse struct {
-	value *BaseGetApiKeyResponse
-	isSet bool
-}
-
-func (v NullableBaseGetApiKeyResponse) Get() *BaseGetApiKeyResponse {
-	return v.value
-}
-
-func (v *NullableBaseGetApiKeyResponse) Set(val *BaseGetApiKeyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBaseGetApiKeyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBaseGetApiKeyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBaseGetApiKeyResponse(val *BaseGetApiKeyResponse) *NullableBaseGetApiKeyResponse {
-	return &NullableBaseGetApiKeyResponse{value: val, isSet: true}
-}
-
-func (v NullableBaseGetApiKeyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBaseGetApiKeyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

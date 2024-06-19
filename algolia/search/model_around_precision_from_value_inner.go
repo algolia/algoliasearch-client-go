@@ -133,39 +133,3 @@ func (o AroundPrecisionFromValueInner) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("AroundPrecisionFromValueInner {\n%s}", out)
 }
-
-type NullableAroundPrecisionFromValueInner struct {
-	value *AroundPrecisionFromValueInner
-	isSet bool
-}
-
-func (v NullableAroundPrecisionFromValueInner) Get() *AroundPrecisionFromValueInner {
-	return v.value
-}
-
-func (v *NullableAroundPrecisionFromValueInner) Set(val *AroundPrecisionFromValueInner) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAroundPrecisionFromValueInner) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAroundPrecisionFromValueInner) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAroundPrecisionFromValueInner(val *AroundPrecisionFromValueInner) *NullableAroundPrecisionFromValueInner {
-	return &NullableAroundPrecisionFromValueInner{value: val, isSet: true}
-}
-
-func (v NullableAroundPrecisionFromValueInner) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAroundPrecisionFromValueInner) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

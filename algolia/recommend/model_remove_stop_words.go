@@ -94,39 +94,3 @@ func (obj RemoveStopWords) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableRemoveStopWords struct {
-	value *RemoveStopWords
-	isSet bool
-}
-
-func (v NullableRemoveStopWords) Get() *RemoveStopWords {
-	return v.value
-}
-
-func (v *NullableRemoveStopWords) Set(val *RemoveStopWords) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRemoveStopWords) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRemoveStopWords) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRemoveStopWords(val *RemoveStopWords) *NullableRemoveStopWords {
-	return &NullableRemoveStopWords{value: val, isSet: true}
-}
-
-func (v NullableRemoveStopWords) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRemoveStopWords) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

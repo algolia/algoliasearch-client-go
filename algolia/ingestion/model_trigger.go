@@ -162,39 +162,3 @@ func (obj Trigger) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableTrigger struct {
-	value *Trigger
-	isSet bool
-}
-
-func (v NullableTrigger) Get() *Trigger {
-	return v.value
-}
-
-func (v *NullableTrigger) Set(val *Trigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTrigger(val *Trigger) *NullableTrigger {
-	return &NullableTrigger{value: val, isSet: true}
-}
-
-func (v NullableTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

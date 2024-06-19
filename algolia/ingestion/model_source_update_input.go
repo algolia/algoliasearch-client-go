@@ -315,39 +315,3 @@ func (obj SourceUpdateInput) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableSourceUpdateInput struct {
-	value *SourceUpdateInput
-	isSet bool
-}
-
-func (v NullableSourceUpdateInput) Get() *SourceUpdateInput {
-	return v.value
-}
-
-func (v *NullableSourceUpdateInput) Set(val *SourceUpdateInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceUpdateInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceUpdateInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceUpdateInput(val *SourceUpdateInput) *NullableSourceUpdateInput {
-	return &NullableSourceUpdateInput{value: val, isSet: true}
-}
-
-func (v NullableSourceUpdateInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceUpdateInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

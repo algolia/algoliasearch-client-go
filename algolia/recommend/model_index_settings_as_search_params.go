@@ -4,6 +4,8 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // IndexSettingsAsSearchParams struct for IndexSettingsAsSearchParams.
@@ -83,8 +85,8 @@ type IndexSettingsAsSearchParams struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 }
 
 type IndexSettingsAsSearchParamsOption func(f *IndexSettingsAsSearchParams)
@@ -347,7 +349,7 @@ func WithIndexSettingsAsSearchParamsEnableReRanking(val bool) IndexSettingsAsSea
 	}
 }
 
-func WithIndexSettingsAsSearchParamsReRankingApplyFilter(val NullableReRankingApplyFilter) IndexSettingsAsSearchParamsOption {
+func WithIndexSettingsAsSearchParamsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) IndexSettingsAsSearchParamsOption {
 	return func(f *IndexSettingsAsSearchParams) {
 		f.ReRankingApplyFilter = val
 	}
@@ -1817,7 +1819,7 @@ func (o *IndexSettingsAsSearchParams) HasReRankingApplyFilter() bool {
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *IndexSettingsAsSearchParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *IndexSettingsAsSearchParams {
 	o.ReRankingApplyFilter.Set(v)
 	return o
@@ -2022,40 +2024,4 @@ func (o IndexSettingsAsSearchParams) String() string {
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	return fmt.Sprintf("IndexSettingsAsSearchParams {\n%s}", out)
-}
-
-type NullableIndexSettingsAsSearchParams struct {
-	value *IndexSettingsAsSearchParams
-	isSet bool
-}
-
-func (v NullableIndexSettingsAsSearchParams) Get() *IndexSettingsAsSearchParams {
-	return v.value
-}
-
-func (v *NullableIndexSettingsAsSearchParams) Set(val *IndexSettingsAsSearchParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableIndexSettingsAsSearchParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableIndexSettingsAsSearchParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableIndexSettingsAsSearchParams(val *IndexSettingsAsSearchParams) *NullableIndexSettingsAsSearchParams {
-	return &NullableIndexSettingsAsSearchParams{value: val, isSet: true}
-}
-
-func (v NullableIndexSettingsAsSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableIndexSettingsAsSearchParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

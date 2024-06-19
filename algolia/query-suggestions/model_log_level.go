@@ -65,39 +65,3 @@ func (v LogLevel) IsValid() bool {
 func (v LogLevel) Ptr() *LogLevel {
 	return &v
 }
-
-type NullableLogLevel struct {
-	value *LogLevel
-	isSet bool
-}
-
-func (v NullableLogLevel) Get() *LogLevel {
-	return v.value
-}
-
-func (v *NullableLogLevel) Set(val *LogLevel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLogLevel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLogLevel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLogLevel(val *LogLevel) *NullableLogLevel {
-	return &NullableLogLevel{value: val, isSet: true}
-}
-
-func (v NullableLogLevel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLogLevel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

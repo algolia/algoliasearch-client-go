@@ -94,39 +94,3 @@ func (obj Distinct) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableDistinct struct {
-	value *Distinct
-	isSet bool
-}
-
-func (v NullableDistinct) Get() *Distinct {
-	return v.value
-}
-
-func (v *NullableDistinct) Set(val *Distinct) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDistinct) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDistinct) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDistinct(val *Distinct) *NullableDistinct {
-	return &NullableDistinct{value: val, isSet: true}
-}
-
-func (v NullableDistinct) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDistinct) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -1278,39 +1278,3 @@ func (o RecommendationsResults) String() string {
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	return fmt.Sprintf("RecommendationsResults {\n%s}", out)
 }
-
-type NullableRecommendationsResults struct {
-	value *RecommendationsResults
-	isSet bool
-}
-
-func (v NullableRecommendationsResults) Get() *RecommendationsResults {
-	return v.value
-}
-
-func (v *NullableRecommendationsResults) Set(val *RecommendationsResults) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendationsResults) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendationsResults) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendationsResults(val *RecommendationsResults) *NullableRecommendationsResults {
-	return &NullableRecommendationsResults{value: val, isSet: true}
-}
-
-func (v NullableRecommendationsResults) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendationsResults) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -299,39 +299,3 @@ func (o Rule) String() string {
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 	return fmt.Sprintf("Rule {\n%s}", out)
 }
-
-type NullableRule struct {
-	value *Rule
-	isSet bool
-}
-
-func (v NullableRule) Get() *Rule {
-	return v.value
-}
-
-func (v *NullableRule) Set(val *Rule) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRule) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRule) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRule(val *Rule) *NullableRule {
-	return &NullableRule{value: val, isSet: true}
-}
-
-func (v NullableRule) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRule) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

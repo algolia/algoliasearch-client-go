@@ -94,39 +94,3 @@ func (obj OptionalFilters) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableOptionalFilters struct {
-	value *OptionalFilters
-	isSet bool
-}
-
-func (v NullableOptionalFilters) Get() *OptionalFilters {
-	return v.value
-}
-
-func (v *NullableOptionalFilters) Set(val *OptionalFilters) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOptionalFilters) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOptionalFilters) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOptionalFilters(val *OptionalFilters) *NullableOptionalFilters {
-	return &NullableOptionalFilters{value: val, isSet: true}
-}
-
-func (v NullableOptionalFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOptionalFilters) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

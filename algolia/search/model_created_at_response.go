@@ -70,39 +70,3 @@ func (o CreatedAtResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("CreatedAtResponse {\n%s}", out)
 }
-
-type NullableCreatedAtResponse struct {
-	value *CreatedAtResponse
-	isSet bool
-}
-
-func (v NullableCreatedAtResponse) Get() *CreatedAtResponse {
-	return v.value
-}
-
-func (v *NullableCreatedAtResponse) Set(val *CreatedAtResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCreatedAtResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCreatedAtResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCreatedAtResponse(val *CreatedAtResponse) *NullableCreatedAtResponse {
-	return &NullableCreatedAtResponse{value: val, isSet: true}
-}
-
-func (v NullableCreatedAtResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCreatedAtResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

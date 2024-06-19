@@ -162,39 +162,3 @@ func (obj TaskCreateTrigger) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableTaskCreateTrigger struct {
-	value *TaskCreateTrigger
-	isSet bool
-}
-
-func (v NullableTaskCreateTrigger) Get() *TaskCreateTrigger {
-	return v.value
-}
-
-func (v *NullableTaskCreateTrigger) Set(val *TaskCreateTrigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTaskCreateTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTaskCreateTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTaskCreateTrigger(val *TaskCreateTrigger) *NullableTaskCreateTrigger {
-	return &NullableTaskCreateTrigger{value: val, isSet: true}
-}
-
-func (v NullableTaskCreateTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTaskCreateTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

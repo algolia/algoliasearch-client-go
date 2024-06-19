@@ -63,39 +63,3 @@ func (v AdvancedSyntaxFeatures) IsValid() bool {
 func (v AdvancedSyntaxFeatures) Ptr() *AdvancedSyntaxFeatures {
 	return &v
 }
-
-type NullableAdvancedSyntaxFeatures struct {
-	value *AdvancedSyntaxFeatures
-	isSet bool
-}
-
-func (v NullableAdvancedSyntaxFeatures) Get() *AdvancedSyntaxFeatures {
-	return v.value
-}
-
-func (v *NullableAdvancedSyntaxFeatures) Set(val *AdvancedSyntaxFeatures) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAdvancedSyntaxFeatures) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAdvancedSyntaxFeatures) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAdvancedSyntaxFeatures(val *AdvancedSyntaxFeatures) *NullableAdvancedSyntaxFeatures {
-	return &NullableAdvancedSyntaxFeatures{value: val, isSet: true}
-}
-
-func (v NullableAdvancedSyntaxFeatures) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAdvancedSyntaxFeatures) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

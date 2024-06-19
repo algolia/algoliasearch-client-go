@@ -61,39 +61,3 @@ func (v StreamingTriggerType) IsValid() bool {
 func (v StreamingTriggerType) Ptr() *StreamingTriggerType {
 	return &v
 }
-
-type NullableStreamingTriggerType struct {
-	value *StreamingTriggerType
-	isSet bool
-}
-
-func (v NullableStreamingTriggerType) Get() *StreamingTriggerType {
-	return v.value
-}
-
-func (v *NullableStreamingTriggerType) Set(val *StreamingTriggerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamingTriggerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamingTriggerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamingTriggerType(val *StreamingTriggerType) *NullableStreamingTriggerType {
-	return &NullableStreamingTriggerType{value: val, isSet: true}
-}
-
-func (v NullableStreamingTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStreamingTriggerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

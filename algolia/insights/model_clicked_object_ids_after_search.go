@@ -356,39 +356,3 @@ func (o ClickedObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ClickedObjectIDsAfterSearch {\n%s}", out)
 }
-
-type NullableClickedObjectIDsAfterSearch struct {
-	value *ClickedObjectIDsAfterSearch
-	isSet bool
-}
-
-func (v NullableClickedObjectIDsAfterSearch) Get() *ClickedObjectIDsAfterSearch {
-	return v.value
-}
-
-func (v *NullableClickedObjectIDsAfterSearch) Set(val *ClickedObjectIDsAfterSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClickedObjectIDsAfterSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClickedObjectIDsAfterSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClickedObjectIDsAfterSearch(val *ClickedObjectIDsAfterSearch) *NullableClickedObjectIDsAfterSearch {
-	return &NullableClickedObjectIDsAfterSearch{value: val, isSet: true}
-}
-
-func (v NullableClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableClickedObjectIDsAfterSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

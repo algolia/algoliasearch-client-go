@@ -183,39 +183,3 @@ func (o ScheduleTrigger) String() string {
 	out += fmt.Sprintf("  nextRun=%v\n", o.NextRun)
 	return fmt.Sprintf("ScheduleTrigger {\n%s}", out)
 }
-
-type NullableScheduleTrigger struct {
-	value *ScheduleTrigger
-	isSet bool
-}
-
-func (v NullableScheduleTrigger) Get() *ScheduleTrigger {
-	return v.value
-}
-
-func (v *NullableScheduleTrigger) Set(val *ScheduleTrigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableScheduleTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableScheduleTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableScheduleTrigger(val *ScheduleTrigger) *NullableScheduleTrigger {
-	return &NullableScheduleTrigger{value: val, isSet: true}
-}
-
-func (v NullableScheduleTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableScheduleTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

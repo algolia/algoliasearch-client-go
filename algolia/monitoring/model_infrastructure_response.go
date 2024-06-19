@@ -87,39 +87,3 @@ func (o InfrastructureResponse) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	return fmt.Sprintf("InfrastructureResponse {\n%s}", out)
 }
-
-type NullableInfrastructureResponse struct {
-	value *InfrastructureResponse
-	isSet bool
-}
-
-func (v NullableInfrastructureResponse) Get() *InfrastructureResponse {
-	return v.value
-}
-
-func (v *NullableInfrastructureResponse) Set(val *InfrastructureResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableInfrastructureResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableInfrastructureResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableInfrastructureResponse(val *InfrastructureResponse) *NullableInfrastructureResponse {
-	return &NullableInfrastructureResponse{value: val, isSet: true}
-}
-
-func (v NullableInfrastructureResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableInfrastructureResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

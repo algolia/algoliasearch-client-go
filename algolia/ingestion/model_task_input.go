@@ -162,39 +162,3 @@ func (obj TaskInput) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableTaskInput struct {
-	value *TaskInput
-	isSet bool
-}
-
-func (v NullableTaskInput) Get() *TaskInput {
-	return v.value
-}
-
-func (v *NullableTaskInput) Set(val *TaskInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTaskInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTaskInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTaskInput(val *TaskInput) *NullableTaskInput {
-	return &NullableTaskInput{value: val, isSet: true}
-}
-
-func (v NullableTaskInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTaskInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

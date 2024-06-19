@@ -63,39 +63,3 @@ func (v OperationType) IsValid() bool {
 func (v OperationType) Ptr() *OperationType {
 	return &v
 }
-
-type NullableOperationType struct {
-	value *OperationType
-	isSet bool
-}
-
-func (v NullableOperationType) Get() *OperationType {
-	return v.value
-}
-
-func (v *NullableOperationType) Set(val *OperationType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOperationType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOperationType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOperationType(val *OperationType) *NullableOperationType {
-	return &NullableOperationType{value: val, isSet: true}
-}
-
-func (v NullableOperationType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOperationType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

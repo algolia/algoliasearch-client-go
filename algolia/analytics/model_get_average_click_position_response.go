@@ -11,7 +11,7 @@ import (
 // GetAverageClickPositionResponse struct for GetAverageClickPositionResponse.
 type GetAverageClickPositionResponse struct {
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Average utils.NullableFloat64 `json:"average"`
+	Average utils.Nullable[float64] `json:"average"`
 	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
 	// Daily average click positions.
@@ -22,7 +22,7 @@ type GetAverageClickPositionResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetAverageClickPositionResponse(average utils.NullableFloat64, clickCount int32, dates []DailyAverageClicks) *GetAverageClickPositionResponse {
+func NewGetAverageClickPositionResponse(average utils.Nullable[float64], clickCount int32, dates []DailyAverageClicks) *GetAverageClickPositionResponse {
 	this := &GetAverageClickPositionResponse{}
 	this.Average = average
 	this.ClickCount = clickCount
@@ -137,40 +137,4 @@ func (o GetAverageClickPositionResponse) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetAverageClickPositionResponse {\n%s}", out)
-}
-
-type NullableGetAverageClickPositionResponse struct {
-	value *GetAverageClickPositionResponse
-	isSet bool
-}
-
-func (v NullableGetAverageClickPositionResponse) Get() *GetAverageClickPositionResponse {
-	return v.value
-}
-
-func (v *NullableGetAverageClickPositionResponse) Set(val *GetAverageClickPositionResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetAverageClickPositionResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetAverageClickPositionResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetAverageClickPositionResponse(val *GetAverageClickPositionResponse) *NullableGetAverageClickPositionResponse {
-	return &NullableGetAverageClickPositionResponse{value: val, isSet: true}
-}
-
-func (v NullableGetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetAverageClickPositionResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

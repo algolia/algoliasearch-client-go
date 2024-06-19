@@ -15,13 +15,13 @@ type TopSearchWithAnalytics struct {
 	// Number of searches.
 	Count int32 `json:"count"`
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	AverageClickPosition utils.NullableFloat64 `json:"averageClickPosition"`
+	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition"`
 	// List of positions in the search results and clicks associated with this search.
 	ClickPositions []ClickPositionsInner `json:"clickPositions"`
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of clicks associated with this search.
@@ -36,7 +36,7 @@ type TopSearchWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate utils.NullableFloat64, averageClickPosition utils.NullableFloat64, clickPositions []ClickPositionsInner, conversionRate utils.NullableFloat64, trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
+func NewTopSearchWithAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPositionsInner, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32) *TopSearchWithAnalytics {
 	this := &TopSearchWithAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -365,40 +365,4 @@ func (o TopSearchWithAnalytics) String() string {
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	return fmt.Sprintf("TopSearchWithAnalytics {\n%s}", out)
-}
-
-type NullableTopSearchWithAnalytics struct {
-	value *TopSearchWithAnalytics
-	isSet bool
-}
-
-func (v NullableTopSearchWithAnalytics) Get() *TopSearchWithAnalytics {
-	return v.value
-}
-
-func (v *NullableTopSearchWithAnalytics) Set(val *TopSearchWithAnalytics) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopSearchWithAnalytics) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopSearchWithAnalytics) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopSearchWithAnalytics(val *TopSearchWithAnalytics) *NullableTopSearchWithAnalytics {
-	return &NullableTopSearchWithAnalytics{value: val, isSet: true}
-}
-
-func (v NullableTopSearchWithAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopSearchWithAnalytics) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

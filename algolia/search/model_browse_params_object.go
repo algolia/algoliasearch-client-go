@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // BrowseParamsObject struct for BrowseParamsObject.
@@ -141,8 +143,8 @@ type BrowseParamsObject struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 	// Cursor to get the next page of the response.  The parameter must match the value returned in the response of a previous request. The last page of the response does not return a `cursor` attribute.
 	Cursor *string `json:"cursor,omitempty"`
 }
@@ -599,7 +601,7 @@ func WithBrowseParamsObjectEnableReRanking(val bool) BrowseParamsObjectOption {
 	}
 }
 
-func WithBrowseParamsObjectReRankingApplyFilter(val NullableReRankingApplyFilter) BrowseParamsObjectOption {
+func WithBrowseParamsObjectReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) BrowseParamsObjectOption {
 	return func(f *BrowseParamsObject) {
 		f.ReRankingApplyFilter = val
 	}
@@ -3131,7 +3133,7 @@ func (o *BrowseParamsObject) HasReRankingApplyFilter() bool {
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *BrowseParamsObject) SetReRankingApplyFilter(v *ReRankingApplyFilter) *BrowseParamsObject {
 	o.ReRankingApplyFilter.Set(v)
 	return o
@@ -3501,40 +3503,4 @@ func (o BrowseParamsObject) String() string {
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	return fmt.Sprintf("BrowseParamsObject {\n%s}", out)
-}
-
-type NullableBrowseParamsObject struct {
-	value *BrowseParamsObject
-	isSet bool
-}
-
-func (v NullableBrowseParamsObject) Get() *BrowseParamsObject {
-	return v.value
-}
-
-func (v *NullableBrowseParamsObject) Set(val *BrowseParamsObject) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBrowseParamsObject) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBrowseParamsObject) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBrowseParamsObject(val *BrowseParamsObject) *NullableBrowseParamsObject {
-	return &NullableBrowseParamsObject{value: val, isSet: true}
-}
-
-func (v NullableBrowseParamsObject) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBrowseParamsObject) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

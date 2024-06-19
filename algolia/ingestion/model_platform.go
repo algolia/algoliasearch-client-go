@@ -65,39 +65,3 @@ func (v Platform) IsValid() bool {
 func (v Platform) Ptr() *Platform {
 	return &v
 }
-
-type NullablePlatform struct {
-	value *Platform
-	isSet bool
-}
-
-func (v NullablePlatform) Get() *Platform {
-	return v.value
-}
-
-func (v *NullablePlatform) Set(val *Platform) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePlatform) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePlatform) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePlatform(val *Platform) *NullablePlatform {
-	return &NullablePlatform{value: val, isSet: true}
-}
-
-func (v NullablePlatform) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePlatform) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

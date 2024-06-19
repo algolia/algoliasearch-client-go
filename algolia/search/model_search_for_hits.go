@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchForHits struct for SearchForHits.
@@ -143,8 +145,8 @@ type SearchForHits struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 	// Index name (case-sensitive).
 	IndexName string             `json:"indexName"`
 	Type      *SearchTypeDefault `json:"type,omitempty"`
@@ -608,7 +610,7 @@ func WithSearchForHitsEnableReRanking(val bool) SearchForHitsOption {
 	}
 }
 
-func WithSearchForHitsReRankingApplyFilter(val NullableReRankingApplyFilter) SearchForHitsOption {
+func WithSearchForHitsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) SearchForHitsOption {
 	return func(f *SearchForHits) {
 		f.ReRankingApplyFilter = val
 	}
@@ -3174,7 +3176,7 @@ func (o *SearchForHits) HasReRankingApplyFilter() bool {
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *SearchForHits) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchForHits {
 	o.ReRankingApplyFilter.Set(v)
 	return o
@@ -3577,40 +3579,4 @@ func (o SearchForHits) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("SearchForHits {\n%s}", out)
-}
-
-type NullableSearchForHits struct {
-	value *SearchForHits
-	isSet bool
-}
-
-func (v NullableSearchForHits) Get() *SearchForHits {
-	return v.value
-}
-
-func (v *NullableSearchForHits) Set(val *SearchForHits) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchForHits) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchForHits) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchForHits(val *SearchForHits) *NullableSearchForHits {
-	return &NullableSearchForHits{value: val, isSet: true}
-}
-
-func (v NullableSearchForHits) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchForHits) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

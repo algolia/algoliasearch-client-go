@@ -230,39 +230,3 @@ func (obj RecommendationsRequest) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableRecommendationsRequest struct {
-	value *RecommendationsRequest
-	isSet bool
-}
-
-func (v NullableRecommendationsRequest) Get() *RecommendationsRequest {
-	return v.value
-}
-
-func (v *NullableRecommendationsRequest) Set(val *RecommendationsRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendationsRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendationsRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendationsRequest(val *RecommendationsRequest) *NullableRecommendationsRequest {
-	return &NullableRecommendationsRequest{value: val, isSet: true}
-}
-
-func (v NullableRecommendationsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendationsRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

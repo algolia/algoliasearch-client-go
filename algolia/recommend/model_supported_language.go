@@ -195,39 +195,3 @@ func (v SupportedLanguage) IsValid() bool {
 func (v SupportedLanguage) Ptr() *SupportedLanguage {
 	return &v
 }
-
-type NullableSupportedLanguage struct {
-	value *SupportedLanguage
-	isSet bool
-}
-
-func (v NullableSupportedLanguage) Get() *SupportedLanguage {
-	return v.value
-}
-
-func (v *NullableSupportedLanguage) Set(val *SupportedLanguage) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSupportedLanguage) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSupportedLanguage) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSupportedLanguage(val *SupportedLanguage) *NullableSupportedLanguage {
-	return &NullableSupportedLanguage{value: val, isSet: true}
-}
-
-func (v NullableSupportedLanguage) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSupportedLanguage) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -268,39 +268,3 @@ func (o GetConfigStatus200Response) String() string {
 	out += fmt.Sprintf("  lastSuccessfulBuildDuration=%v\n", o.LastSuccessfulBuildDuration)
 	return fmt.Sprintf("GetConfigStatus200Response {\n%s}", out)
 }
-
-type NullableGetConfigStatus200Response struct {
-	value *GetConfigStatus200Response
-	isSet bool
-}
-
-func (v NullableGetConfigStatus200Response) Get() *GetConfigStatus200Response {
-	return v.value
-}
-
-func (v *NullableGetConfigStatus200Response) Set(val *GetConfigStatus200Response) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetConfigStatus200Response) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetConfigStatus200Response) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetConfigStatus200Response(val *GetConfigStatus200Response) *NullableGetConfigStatus200Response {
-	return &NullableGetConfigStatus200Response{value: val, isSet: true}
-}
-
-func (v NullableGetConfigStatus200Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetConfigStatus200Response) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

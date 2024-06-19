@@ -61,39 +61,3 @@ func (v ServerStatus) IsValid() bool {
 func (v ServerStatus) Ptr() *ServerStatus {
 	return &v
 }
-
-type NullableServerStatus struct {
-	value *ServerStatus
-	isSet bool
-}
-
-func (v NullableServerStatus) Get() *ServerStatus {
-	return v.value
-}
-
-func (v *NullableServerStatus) Set(val *ServerStatus) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableServerStatus) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableServerStatus) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableServerStatus(val *ServerStatus) *NullableServerStatus {
-	return &NullableServerStatus{value: val, isSet: true}
-}
-
-func (v NullableServerStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableServerStatus) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -132,39 +132,3 @@ func (o Incident) String() string {
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	return fmt.Sprintf("Incident {\n%s}", out)
 }
-
-type NullableIncident struct {
-	value *Incident
-	isSet bool
-}
-
-func (v NullableIncident) Get() *Incident {
-	return v.value
-}
-
-func (v *NullableIncident) Set(val *Incident) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableIncident) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableIncident) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableIncident(val *Incident) *NullableIncident {
-	return &NullableIncident{value: val, isSet: true}
-}
-
-func (v NullableIncident) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableIncident) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

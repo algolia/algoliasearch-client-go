@@ -222,39 +222,3 @@ func (o SearchSynonymsParams) String() string {
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	return fmt.Sprintf("SearchSynonymsParams {\n%s}", out)
 }
-
-type NullableSearchSynonymsParams struct {
-	value *SearchSynonymsParams
-	isSet bool
-}
-
-func (v NullableSearchSynonymsParams) Get() *SearchSynonymsParams {
-	return v.value
-}
-
-func (v *NullableSearchSynonymsParams) Set(val *SearchSynonymsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchSynonymsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchSynonymsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchSynonymsParams(val *SearchSynonymsParams) *NullableSearchSynonymsParams {
-	return &NullableSearchSynonymsParams{value: val, isSet: true}
-}
-
-func (v NullableSearchSynonymsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchSynonymsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -164,39 +164,3 @@ func (o SourceJSON) String() string {
 	out += fmt.Sprintf("  method=%v\n", o.Method)
 	return fmt.Sprintf("SourceJSON {\n%s}", out)
 }
-
-type NullableSourceJSON struct {
-	value *SourceJSON
-	isSet bool
-}
-
-func (v NullableSourceJSON) Get() *SourceJSON {
-	return v.value
-}
-
-func (v *NullableSourceJSON) Set(val *SourceJSON) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceJSON) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceJSON) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceJSON(val *SourceJSON) *NullableSourceJSON {
-	return &NullableSourceJSON{value: val, isSet: true}
-}
-
-func (v NullableSourceJSON) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceJSON) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

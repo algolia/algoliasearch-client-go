@@ -61,39 +61,3 @@ func (v Type) IsValid() bool {
 func (v Type) Ptr() *Type {
 	return &v
 }
-
-type NullableType struct {
-	value *Type
-	isSet bool
-}
-
-func (v NullableType) Get() *Type {
-	return v.value
-}
-
-func (v *NullableType) Set(val *Type) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableType(val *Type) *NullableType {
-	return &NullableType{value: val, isSet: true}
-}
-
-func (v NullableType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

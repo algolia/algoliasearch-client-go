@@ -219,39 +219,3 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	return fmt.Sprintf("Params {\n%s}", out)
 }
-
-type NullableParams struct {
-	value *Params
-	isSet bool
-}
-
-func (v NullableParams) Get() *Params {
-	return v.value
-}
-
-func (v *NullableParams) Set(val *Params) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableParams(val *Params) *NullableParams {
-	return &NullableParams{value: val, isSet: true}
-}
-
-func (v NullableParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

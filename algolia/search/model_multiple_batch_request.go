@@ -133,39 +133,3 @@ func (o MultipleBatchRequest) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	return fmt.Sprintf("MultipleBatchRequest {\n%s}", out)
 }
-
-type NullableMultipleBatchRequest struct {
-	value *MultipleBatchRequest
-	isSet bool
-}
-
-func (v NullableMultipleBatchRequest) Get() *MultipleBatchRequest {
-	return v.value
-}
-
-func (v *NullableMultipleBatchRequest) Set(val *MultipleBatchRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMultipleBatchRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMultipleBatchRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMultipleBatchRequest(val *MultipleBatchRequest) *NullableMultipleBatchRequest {
-	return &NullableMultipleBatchRequest{value: val, isSet: true}
-}
-
-func (v NullableMultipleBatchRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMultipleBatchRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

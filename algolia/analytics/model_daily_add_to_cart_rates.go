@@ -11,7 +11,7 @@ import (
 // DailyAddToCartRates struct for DailyAddToCartRates.
 type DailyAddToCartRates struct {
 	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of add-to-cart events from this search.
@@ -24,7 +24,7 @@ type DailyAddToCartRates struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDailyAddToCartRates(rate utils.NullableFloat64, trackedSearchCount int32, addToCartCount int32, date string) *DailyAddToCartRates {
+func NewDailyAddToCartRates(rate utils.Nullable[float64], trackedSearchCount int32, addToCartCount int32, date string) *DailyAddToCartRates {
 	this := &DailyAddToCartRates{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o DailyAddToCartRates) String() string {
 	out += fmt.Sprintf("  addToCartCount=%v\n", o.AddToCartCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyAddToCartRates {\n%s}", out)
-}
-
-type NullableDailyAddToCartRates struct {
-	value *DailyAddToCartRates
-	isSet bool
-}
-
-func (v NullableDailyAddToCartRates) Get() *DailyAddToCartRates {
-	return v.value
-}
-
-func (v *NullableDailyAddToCartRates) Set(val *DailyAddToCartRates) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyAddToCartRates) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyAddToCartRates) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyAddToCartRates(val *DailyAddToCartRates) *NullableDailyAddToCartRates {
-	return &NullableDailyAddToCartRates{value: val, isSet: true}
-}
-
-func (v NullableDailyAddToCartRates) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyAddToCartRates) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

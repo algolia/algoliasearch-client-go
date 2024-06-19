@@ -182,39 +182,3 @@ func (o SourceCreate) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	return fmt.Sprintf("SourceCreate {\n%s}", out)
 }
-
-type NullableSourceCreate struct {
-	value *SourceCreate
-	isSet bool
-}
-
-func (v NullableSourceCreate) Get() *SourceCreate {
-	return v.value
-}
-
-func (v *NullableSourceCreate) Set(val *SourceCreate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceCreate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceCreate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceCreate(val *SourceCreate) *NullableSourceCreate {
-	return &NullableSourceCreate{value: val, isSet: true}
-}
-
-func (v NullableSourceCreate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceCreate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

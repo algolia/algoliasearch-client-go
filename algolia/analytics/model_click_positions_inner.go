@@ -133,39 +133,3 @@ func (o ClickPositionsInner) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	return fmt.Sprintf("ClickPositionsInner {\n%s}", out)
 }
-
-type NullableClickPositionsInner struct {
-	value *ClickPositionsInner
-	isSet bool
-}
-
-func (v NullableClickPositionsInner) Get() *ClickPositionsInner {
-	return v.value
-}
-
-func (v *NullableClickPositionsInner) Set(val *ClickPositionsInner) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClickPositionsInner) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClickPositionsInner) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClickPositionsInner(val *ClickPositionsInner) *NullableClickPositionsInner {
-	return &NullableClickPositionsInner{value: val, isSet: true}
-}
-
-func (v NullableClickPositionsInner) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableClickPositionsInner) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

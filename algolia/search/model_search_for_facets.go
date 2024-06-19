@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchForFacets struct for SearchForFacets.
@@ -143,8 +145,8 @@ type SearchForFacets struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 	// Facet name.
 	Facet string `json:"facet"`
 	// Index name (case-sensitive).
@@ -612,7 +614,7 @@ func WithSearchForFacetsEnableReRanking(val bool) SearchForFacetsOption {
 	}
 }
 
-func WithSearchForFacetsReRankingApplyFilter(val NullableReRankingApplyFilter) SearchForFacetsOption {
+func WithSearchForFacetsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) SearchForFacetsOption {
 	return func(f *SearchForFacets) {
 		f.ReRankingApplyFilter = val
 	}
@@ -3180,7 +3182,7 @@ func (o *SearchForFacets) HasReRankingApplyFilter() bool {
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *SearchForFacets) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchForFacets {
 	o.ReRankingApplyFilter.Set(v)
 	return o
@@ -3641,40 +3643,4 @@ func (o SearchForFacets) String() string {
 	out += fmt.Sprintf("  facetQuery=%v\n", o.FacetQuery)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("SearchForFacets {\n%s}", out)
-}
-
-type NullableSearchForFacets struct {
-	value *SearchForFacets
-	isSet bool
-}
-
-func (v NullableSearchForFacets) Get() *SearchForFacets {
-	return v.value
-}
-
-func (v *NullableSearchForFacets) Set(val *SearchForFacets) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchForFacets) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchForFacets) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchForFacets(val *SearchForFacets) *NullableSearchForFacets {
-	return &NullableSearchForFacets{value: val, isSet: true}
-}
-
-func (v NullableSearchForFacets) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchForFacets) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

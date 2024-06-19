@@ -63,39 +63,3 @@ func (v OrderKeys) IsValid() bool {
 func (v OrderKeys) Ptr() *OrderKeys {
 	return &v
 }
-
-type NullableOrderKeys struct {
-	value *OrderKeys
-	isSet bool
-}
-
-func (v NullableOrderKeys) Get() *OrderKeys {
-	return v.value
-}
-
-func (v *NullableOrderKeys) Set(val *OrderKeys) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOrderKeys) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOrderKeys) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOrderKeys(val *OrderKeys) *NullableOrderKeys {
-	return &NullableOrderKeys{value: val, isSet: true}
-}
-
-func (v NullableOrderKeys) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOrderKeys) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

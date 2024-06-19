@@ -63,39 +63,3 @@ func (v Mode) IsValid() bool {
 func (v Mode) Ptr() *Mode {
 	return &v
 }
-
-type NullableMode struct {
-	value *Mode
-	isSet bool
-}
-
-func (v NullableMode) Get() *Mode {
-	return v.value
-}
-
-func (v *NullableMode) Set(val *Mode) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMode) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMode) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMode(val *Mode) *NullableMode {
-	return &NullableMode{value: val, isSet: true}
-}
-
-func (v NullableMode) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMode) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

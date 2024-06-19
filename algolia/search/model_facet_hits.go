@@ -134,39 +134,3 @@ func (o FacetHits) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	return fmt.Sprintf("FacetHits {\n%s}", out)
 }
-
-type NullableFacetHits struct {
-	value *FacetHits
-	isSet bool
-}
-
-func (v NullableFacetHits) Get() *FacetHits {
-	return v.value
-}
-
-func (v *NullableFacetHits) Set(val *FacetHits) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFacetHits) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFacetHits) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFacetHits(val *FacetHits) *NullableFacetHits {
-	return &NullableFacetHits{value: val, isSet: true}
-}
-
-func (v NullableFacetHits) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFacetHits) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

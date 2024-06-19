@@ -134,39 +134,3 @@ func (o TopSearch) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	return fmt.Sprintf("TopSearch {\n%s}", out)
 }
-
-type NullableTopSearch struct {
-	value *TopSearch
-	isSet bool
-}
-
-func (v NullableTopSearch) Get() *TopSearch {
-	return v.value
-}
-
-func (v *NullableTopSearch) Set(val *TopSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopSearch(val *TopSearch) *NullableTopSearch {
-	return &NullableTopSearch{value: val, isSet: true}
-}
-
-func (v NullableTopSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

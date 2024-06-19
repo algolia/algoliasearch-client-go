@@ -102,39 +102,3 @@ func (o Window) String() string {
 	out += fmt.Sprintf("  endDate=%v\n", o.EndDate)
 	return fmt.Sprintf("Window {\n%s}", out)
 }
-
-type NullableWindow struct {
-	value *Window
-	isSet bool
-}
-
-func (v NullableWindow) Get() *Window {
-	return v.value
-}
-
-func (v *NullableWindow) Set(val *Window) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableWindow) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableWindow) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableWindow(val *Window) *NullableWindow {
-	return &NullableWindow{value: val, isSet: true}
-}
-
-func (v NullableWindow) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableWindow) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

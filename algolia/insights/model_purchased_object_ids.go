@@ -457,39 +457,3 @@ func (o PurchasedObjectIDs) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("PurchasedObjectIDs {\n%s}", out)
 }
-
-type NullablePurchasedObjectIDs struct {
-	value *PurchasedObjectIDs
-	isSet bool
-}
-
-func (v NullablePurchasedObjectIDs) Get() *PurchasedObjectIDs {
-	return v.value
-}
-
-func (v *NullablePurchasedObjectIDs) Set(val *PurchasedObjectIDs) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePurchasedObjectIDs) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePurchasedObjectIDs) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePurchasedObjectIDs(val *PurchasedObjectIDs) *NullablePurchasedObjectIDs {
-	return &NullablePurchasedObjectIDs{value: val, isSet: true}
-}
-
-func (v NullablePurchasedObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePurchasedObjectIDs) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

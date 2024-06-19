@@ -166,39 +166,3 @@ func (o DailyNoClickRates) String() string {
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyNoClickRates {\n%s}", out)
 }
-
-type NullableDailyNoClickRates struct {
-	value *DailyNoClickRates
-	isSet bool
-}
-
-func (v NullableDailyNoClickRates) Get() *DailyNoClickRates {
-	return v.value
-}
-
-func (v *NullableDailyNoClickRates) Set(val *DailyNoClickRates) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyNoClickRates) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyNoClickRates) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyNoClickRates(val *DailyNoClickRates) *NullableDailyNoClickRates {
-	return &NullableDailyNoClickRates{value: val, isSet: true}
-}
-
-func (v NullableDailyNoClickRates) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyNoClickRates) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

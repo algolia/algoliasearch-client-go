@@ -87,39 +87,3 @@ func (o GetUsage200Response) String() string {
 	out += fmt.Sprintf("  statistics=%v\n", o.Statistics)
 	return fmt.Sprintf("GetUsage200Response {\n%s}", out)
 }
-
-type NullableGetUsage200Response struct {
-	value *GetUsage200Response
-	isSet bool
-}
-
-func (v NullableGetUsage200Response) Get() *GetUsage200Response {
-	return v.value
-}
-
-func (v *NullableGetUsage200Response) Set(val *GetUsage200Response) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetUsage200Response) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetUsage200Response) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetUsage200Response(val *GetUsage200Response) *NullableGetUsage200Response {
-	return &NullableGetUsage200Response{value: val, isSet: true}
-}
-
-func (v NullableGetUsage200Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetUsage200Response) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

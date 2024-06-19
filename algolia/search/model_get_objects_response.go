@@ -70,39 +70,3 @@ func (o GetObjectsResponse) String() string {
 	out += fmt.Sprintf("  results=%v\n", o.Results)
 	return fmt.Sprintf("GetObjectsResponse {\n%s}", out)
 }
-
-type NullableGetObjectsResponse struct {
-	value *GetObjectsResponse
-	isSet bool
-}
-
-func (v NullableGetObjectsResponse) Get() *GetObjectsResponse {
-	return v.value
-}
-
-func (v *NullableGetObjectsResponse) Set(val *GetObjectsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetObjectsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetObjectsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetObjectsResponse(val *GetObjectsResponse) *NullableGetObjectsResponse {
-	return &NullableGetObjectsResponse{value: val, isSet: true}
-}
-
-func (v NullableGetObjectsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetObjectsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

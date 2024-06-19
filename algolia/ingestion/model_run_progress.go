@@ -131,39 +131,3 @@ func (o RunProgress) String() string {
 	out += fmt.Sprintf("  receivedNbOfEvents=%v\n", o.ReceivedNbOfEvents)
 	return fmt.Sprintf("RunProgress {\n%s}", out)
 }
-
-type NullableRunProgress struct {
-	value *RunProgress
-	isSet bool
-}
-
-func (v NullableRunProgress) Get() *RunProgress {
-	return v.value
-}
-
-func (v *NullableRunProgress) Set(val *RunProgress) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRunProgress) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRunProgress) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRunProgress(val *RunProgress) *NullableRunProgress {
-	return &NullableRunProgress{value: val, isSet: true}
-}
-
-func (v NullableRunProgress) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRunProgress) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

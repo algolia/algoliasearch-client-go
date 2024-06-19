@@ -61,39 +61,3 @@ func (v SubscriptionTriggerType) IsValid() bool {
 func (v SubscriptionTriggerType) Ptr() *SubscriptionTriggerType {
 	return &v
 }
-
-type NullableSubscriptionTriggerType struct {
-	value *SubscriptionTriggerType
-	isSet bool
-}
-
-func (v NullableSubscriptionTriggerType) Get() *SubscriptionTriggerType {
-	return v.value
-}
-
-func (v *NullableSubscriptionTriggerType) Set(val *SubscriptionTriggerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSubscriptionTriggerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSubscriptionTriggerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSubscriptionTriggerType(val *SubscriptionTriggerType) *NullableSubscriptionTriggerType {
-	return &NullableSubscriptionTriggerType{value: val, isSet: true}
-}
-
-func (v NullableSubscriptionTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSubscriptionTriggerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

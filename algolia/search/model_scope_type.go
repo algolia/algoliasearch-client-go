@@ -65,39 +65,3 @@ func (v ScopeType) IsValid() bool {
 func (v ScopeType) Ptr() *ScopeType {
 	return &v
 }
-
-type NullableScopeType struct {
-	value *ScopeType
-	isSet bool
-}
-
-func (v NullableScopeType) Get() *ScopeType {
-	return v.value
-}
-
-func (v *NullableScopeType) Set(val *ScopeType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableScopeType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableScopeType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableScopeType(val *ScopeType) *NullableScopeType {
-	return &NullableScopeType{value: val, isSet: true}
-}
-
-func (v NullableScopeType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableScopeType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

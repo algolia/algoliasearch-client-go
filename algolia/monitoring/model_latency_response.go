@@ -87,39 +87,3 @@ func (o LatencyResponse) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	return fmt.Sprintf("LatencyResponse {\n%s}", out)
 }
-
-type NullableLatencyResponse struct {
-	value *LatencyResponse
-	isSet bool
-}
-
-func (v NullableLatencyResponse) Get() *LatencyResponse {
-	return v.value
-}
-
-func (v *NullableLatencyResponse) Set(val *LatencyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLatencyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLatencyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLatencyResponse(val *LatencyResponse) *NullableLatencyResponse {
-	return &NullableLatencyResponse{value: val, isSet: true}
-}
-
-func (v NullableLatencyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLatencyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

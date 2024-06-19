@@ -178,39 +178,3 @@ func (o MatchedGeoLocation) String() string {
 	out += fmt.Sprintf("  distance=%v\n", o.Distance)
 	return fmt.Sprintf("MatchedGeoLocation {\n%s}", out)
 }
-
-type NullableMatchedGeoLocation struct {
-	value *MatchedGeoLocation
-	isSet bool
-}
-
-func (v NullableMatchedGeoLocation) Get() *MatchedGeoLocation {
-	return v.value
-}
-
-func (v *NullableMatchedGeoLocation) Set(val *MatchedGeoLocation) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMatchedGeoLocation) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMatchedGeoLocation) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMatchedGeoLocation(val *MatchedGeoLocation) *NullableMatchedGeoLocation {
-	return &NullableMatchedGeoLocation{value: val, isSet: true}
-}
-
-func (v NullableMatchedGeoLocation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMatchedGeoLocation) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

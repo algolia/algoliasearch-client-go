@@ -11,12 +11,12 @@ import (
 // ABTest struct for ABTest.
 type ABTest struct {
 	// Unique A/B test identifier.
-	AbTestID               int32                 `json:"abTestID"`
-	ClickSignificance      utils.NullableFloat64 `json:"clickSignificance"`
-	ConversionSignificance utils.NullableFloat64 `json:"conversionSignificance"`
-	AddToCartSignificance  utils.NullableFloat64 `json:"addToCartSignificance"`
-	PurchaseSignificance   utils.NullableFloat64 `json:"purchaseSignificance"`
-	RevenueSignificance    map[string]float64    `json:"revenueSignificance"`
+	AbTestID               int32                   `json:"abTestID"`
+	ClickSignificance      utils.Nullable[float64] `json:"clickSignificance"`
+	ConversionSignificance utils.Nullable[float64] `json:"conversionSignificance"`
+	AddToCartSignificance  utils.Nullable[float64] `json:"addToCartSignificance"`
+	PurchaseSignificance   utils.Nullable[float64] `json:"purchaseSignificance"`
+	RevenueSignificance    map[string]float64      `json:"revenueSignificance"`
 	// Date and time when the A/B test was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 	// Date and time when the A/B test was created, in RFC 3339 format.
@@ -43,7 +43,7 @@ func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, clickSignificance utils.NullableFloat64, conversionSignificance utils.NullableFloat64, addToCartSignificance utils.NullableFloat64, purchaseSignificance utils.NullableFloat64, revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
+func NewABTest(abTestID int32, clickSignificance utils.Nullable[float64], conversionSignificance utils.Nullable[float64], addToCartSignificance utils.Nullable[float64], purchaseSignificance utils.Nullable[float64], revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
 	this.ClickSignificance = clickSignificance
@@ -476,40 +476,4 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	return fmt.Sprintf("ABTest {\n%s}", out)
-}
-
-type NullableABTest struct {
-	value *ABTest
-	isSet bool
-}
-
-func (v NullableABTest) Get() *ABTest {
-	return v.value
-}
-
-func (v *NullableABTest) Set(val *ABTest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableABTest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableABTest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableABTest(val *ABTest) *NullableABTest {
-	return &NullableABTest{value: val, isSet: true}
-}
-
-func (v NullableABTest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableABTest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

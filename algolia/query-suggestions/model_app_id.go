@@ -88,39 +88,3 @@ func (o AppID) String() string {
 	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	return fmt.Sprintf("AppID {\n%s}", out)
 }
-
-type NullableAppID struct {
-	value *AppID
-	isSet bool
-}
-
-func (v NullableAppID) Get() *AppID {
-	return v.value
-}
-
-func (v *NullableAppID) Set(val *AppID) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAppID) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAppID) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAppID(val *AppID) *NullableAppID {
-	return &NullableAppID{value: val, isSet: true}
-}
-
-func (v NullableAppID) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAppID) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

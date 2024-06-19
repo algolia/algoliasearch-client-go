@@ -4,15 +4,17 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AuthenticationUpdate Request body for updating an authentication resource.
 type AuthenticationUpdate struct {
 	Type *AuthenticationType `json:"type,omitempty"`
 	// Descriptive name for the resource.
-	Name     *string           `json:"name,omitempty"`
-	Platform NullablePlatform  `json:"platform,omitempty"`
-	Input    *AuthInputPartial `json:"input,omitempty"`
+	Name     *string                  `json:"name,omitempty"`
+	Platform utils.Nullable[Platform] `json:"platform,omitempty"`
+	Input    *AuthInputPartial        `json:"input,omitempty"`
 }
 
 type AuthenticationUpdateOption func(f *AuthenticationUpdate)
@@ -29,7 +31,7 @@ func WithAuthenticationUpdateName(val string) AuthenticationUpdateOption {
 	}
 }
 
-func WithAuthenticationUpdatePlatform(val NullablePlatform) AuthenticationUpdateOption {
+func WithAuthenticationUpdatePlatform(val utils.Nullable[Platform]) AuthenticationUpdateOption {
 	return func(f *AuthenticationUpdate) {
 		f.Platform = val
 	}
@@ -152,7 +154,7 @@ func (o *AuthenticationUpdate) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given NullablePlatform and assigns it to the Platform field.
+// SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
 func (o *AuthenticationUpdate) SetPlatform(v Platform) *AuthenticationUpdate {
 	o.Platform.Set(&v)
 	return o
@@ -230,40 +232,4 @@ func (o AuthenticationUpdate) String() string {
 	out += fmt.Sprintf("  platform=%v\n", o.Platform)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	return fmt.Sprintf("AuthenticationUpdate {\n%s}", out)
-}
-
-type NullableAuthenticationUpdate struct {
-	value *AuthenticationUpdate
-	isSet bool
-}
-
-func (v NullableAuthenticationUpdate) Get() *AuthenticationUpdate {
-	return v.value
-}
-
-func (v *NullableAuthenticationUpdate) Set(val *AuthenticationUpdate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthenticationUpdate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthenticationUpdate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthenticationUpdate(val *AuthenticationUpdate) *NullableAuthenticationUpdate {
-	return &NullableAuthenticationUpdate{value: val, isSet: true}
-}
-
-func (v NullableAuthenticationUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthenticationUpdate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

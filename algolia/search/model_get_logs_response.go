@@ -69,39 +69,3 @@ func (o GetLogsResponse) String() string {
 	out += fmt.Sprintf("  logs=%v\n", o.Logs)
 	return fmt.Sprintf("GetLogsResponse {\n%s}", out)
 }
-
-type NullableGetLogsResponse struct {
-	value *GetLogsResponse
-	isSet bool
-}
-
-func (v NullableGetLogsResponse) Get() *GetLogsResponse {
-	return v.value
-}
-
-func (v *NullableGetLogsResponse) Set(val *GetLogsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetLogsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetLogsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetLogsResponse(val *GetLogsResponse) *NullableGetLogsResponse {
-	return &NullableGetLogsResponse{value: val, isSet: true}
-}
-
-func (v NullableGetLogsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetLogsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

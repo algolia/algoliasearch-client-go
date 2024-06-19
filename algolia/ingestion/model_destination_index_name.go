@@ -164,39 +164,3 @@ func (o DestinationIndexName) String() string {
 	out += fmt.Sprintf("  attributesToExclude=%v\n", o.AttributesToExclude)
 	return fmt.Sprintf("DestinationIndexName {\n%s}", out)
 }
-
-type NullableDestinationIndexName struct {
-	value *DestinationIndexName
-	isSet bool
-}
-
-func (v NullableDestinationIndexName) Get() *DestinationIndexName {
-	return v.value
-}
-
-func (v *NullableDestinationIndexName) Set(val *DestinationIndexName) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationIndexName) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationIndexName) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationIndexName(val *DestinationIndexName) *NullableDestinationIndexName {
-	return &NullableDestinationIndexName{value: val, isSet: true}
-}
-
-func (v NullableDestinationIndexName) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationIndexName) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

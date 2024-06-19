@@ -100,39 +100,3 @@ func (o MappingInput) String() string {
 	out += fmt.Sprintf("  actions=%v\n", o.Actions)
 	return fmt.Sprintf("MappingInput {\n%s}", out)
 }
-
-type NullableMappingInput struct {
-	value *MappingInput
-	isSet bool
-}
-
-func (v NullableMappingInput) Get() *MappingInput {
-	return v.value
-}
-
-func (v *NullableMappingInput) Set(val *MappingInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMappingInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMappingInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMappingInput(val *MappingInput) *NullableMappingInput {
-	return &NullableMappingInput{value: val, isSet: true}
-}
-
-func (v NullableMappingInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMappingInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

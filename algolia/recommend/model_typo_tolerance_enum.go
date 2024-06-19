@@ -63,39 +63,3 @@ func (v TypoToleranceEnum) IsValid() bool {
 func (v TypoToleranceEnum) Ptr() *TypoToleranceEnum {
 	return &v
 }
-
-type NullableTypoToleranceEnum struct {
-	value *TypoToleranceEnum
-	isSet bool
-}
-
-func (v NullableTypoToleranceEnum) Get() *TypoToleranceEnum {
-	return v.value
-}
-
-func (v *NullableTypoToleranceEnum) Set(val *TypoToleranceEnum) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTypoToleranceEnum) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTypoToleranceEnum) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTypoToleranceEnum(val *TypoToleranceEnum) *NullableTypoToleranceEnum {
-	return &NullableTypoToleranceEnum{value: val, isSet: true}
-}
-
-func (v NullableTypoToleranceEnum) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTypoToleranceEnum) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -94,39 +94,3 @@ func (obj Languages) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableLanguages struct {
-	value *Languages
-	isSet bool
-}
-
-func (v NullableLanguages) Get() *Languages {
-	return v.value
-}
-
-func (v *NullableLanguages) Set(val *Languages) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLanguages) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLanguages) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLanguages(val *Languages) *NullableLanguages {
-	return &NullableLanguages{value: val, isSet: true}
-}
-
-func (v NullableLanguages) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLanguages) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

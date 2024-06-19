@@ -61,39 +61,3 @@ func (v ScheduleTriggerType) IsValid() bool {
 func (v ScheduleTriggerType) Ptr() *ScheduleTriggerType {
 	return &v
 }
-
-type NullableScheduleTriggerType struct {
-	value *ScheduleTriggerType
-	isSet bool
-}
-
-func (v NullableScheduleTriggerType) Get() *ScheduleTriggerType {
-	return v.value
-}
-
-func (v *NullableScheduleTriggerType) Set(val *ScheduleTriggerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableScheduleTriggerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableScheduleTriggerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableScheduleTriggerType(val *ScheduleTriggerType) *NullableScheduleTriggerType {
-	return &NullableScheduleTriggerType{value: val, isSet: true}
-}
-
-func (v NullableScheduleTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableScheduleTriggerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

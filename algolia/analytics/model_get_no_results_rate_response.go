@@ -166,39 +166,3 @@ func (o GetNoResultsRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetNoResultsRateResponse {\n%s}", out)
 }
-
-type NullableGetNoResultsRateResponse struct {
-	value *GetNoResultsRateResponse
-	isSet bool
-}
-
-func (v NullableGetNoResultsRateResponse) Get() *GetNoResultsRateResponse {
-	return v.value
-}
-
-func (v *NullableGetNoResultsRateResponse) Set(val *GetNoResultsRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetNoResultsRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetNoResultsRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetNoResultsRateResponse(val *GetNoResultsRateResponse) *NullableGetNoResultsRateResponse {
-	return &NullableGetNoResultsRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetNoResultsRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetNoResultsRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

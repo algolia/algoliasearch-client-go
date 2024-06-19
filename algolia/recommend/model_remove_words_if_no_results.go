@@ -67,39 +67,3 @@ func (v RemoveWordsIfNoResults) IsValid() bool {
 func (v RemoveWordsIfNoResults) Ptr() *RemoveWordsIfNoResults {
 	return &v
 }
-
-type NullableRemoveWordsIfNoResults struct {
-	value *RemoveWordsIfNoResults
-	isSet bool
-}
-
-func (v NullableRemoveWordsIfNoResults) Get() *RemoveWordsIfNoResults {
-	return v.value
-}
-
-func (v *NullableRemoveWordsIfNoResults) Set(val *RemoveWordsIfNoResults) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRemoveWordsIfNoResults) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRemoveWordsIfNoResults) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRemoveWordsIfNoResults(val *RemoveWordsIfNoResults) *NullableRemoveWordsIfNoResults {
-	return &NullableRemoveWordsIfNoResults{value: val, isSet: true}
-}
-
-func (v NullableRemoveWordsIfNoResults) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRemoveWordsIfNoResults) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

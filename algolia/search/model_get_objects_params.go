@@ -69,39 +69,3 @@ func (o GetObjectsParams) String() string {
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
 	return fmt.Sprintf("GetObjectsParams {\n%s}", out)
 }
-
-type NullableGetObjectsParams struct {
-	value *GetObjectsParams
-	isSet bool
-}
-
-func (v NullableGetObjectsParams) Get() *GetObjectsParams {
-	return v.value
-}
-
-func (v *NullableGetObjectsParams) Set(val *GetObjectsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetObjectsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetObjectsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetObjectsParams(val *GetObjectsParams) *NullableGetObjectsParams {
-	return &NullableGetObjectsParams{value: val, isSet: true}
-}
-
-func (v NullableGetObjectsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetObjectsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

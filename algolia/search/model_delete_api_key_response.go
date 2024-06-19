@@ -70,39 +70,3 @@ func (o DeleteApiKeyResponse) String() string {
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
 	return fmt.Sprintf("DeleteApiKeyResponse {\n%s}", out)
 }
-
-type NullableDeleteApiKeyResponse struct {
-	value *DeleteApiKeyResponse
-	isSet bool
-}
-
-func (v NullableDeleteApiKeyResponse) Get() *DeleteApiKeyResponse {
-	return v.value
-}
-
-func (v *NullableDeleteApiKeyResponse) Set(val *DeleteApiKeyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDeleteApiKeyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDeleteApiKeyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDeleteApiKeyResponse(val *DeleteApiKeyResponse) *NullableDeleteApiKeyResponse {
-	return &NullableDeleteApiKeyResponse{value: val, isSet: true}
-}
-
-func (v NullableDeleteApiKeyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDeleteApiKeyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

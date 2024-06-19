@@ -178,39 +178,3 @@ func (o Personalization) String() string {
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	return fmt.Sprintf("Personalization {\n%s}", out)
 }
-
-type NullablePersonalization struct {
-	value *Personalization
-	isSet bool
-}
-
-func (v NullablePersonalization) Get() *Personalization {
-	return v.value
-}
-
-func (v *NullablePersonalization) Set(val *Personalization) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePersonalization) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePersonalization) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePersonalization(val *Personalization) *NullablePersonalization {
-	return &NullablePersonalization{value: val, isSet: true}
-}
-
-func (v NullablePersonalization) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePersonalization) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

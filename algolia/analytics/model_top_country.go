@@ -102,39 +102,3 @@ func (o TopCountry) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	return fmt.Sprintf("TopCountry {\n%s}", out)
 }
-
-type NullableTopCountry struct {
-	value *TopCountry
-	isSet bool
-}
-
-func (v NullableTopCountry) Get() *TopCountry {
-	return v.value
-}
-
-func (v *NullableTopCountry) Set(val *TopCountry) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopCountry) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopCountry) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopCountry(val *TopCountry) *NullableTopCountry {
-	return &NullableTopCountry{value: val, isSet: true}
-}
-
-func (v NullableTopCountry) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopCountry) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -88,39 +88,3 @@ func (o SearchParamsQuery) String() string {
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	return fmt.Sprintf("SearchParamsQuery {\n%s}", out)
 }
-
-type NullableSearchParamsQuery struct {
-	value *SearchParamsQuery
-	isSet bool
-}
-
-func (v NullableSearchParamsQuery) Get() *SearchParamsQuery {
-	return v.value
-}
-
-func (v *NullableSearchParamsQuery) Set(val *SearchParamsQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchParamsQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchParamsQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchParamsQuery(val *SearchParamsQuery) *NullableSearchParamsQuery {
-	return &NullableSearchParamsQuery{value: val, isSet: true}
-}
-
-func (v NullableSearchParamsQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchParamsQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

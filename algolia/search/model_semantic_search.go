@@ -89,39 +89,3 @@ func (o SemanticSearch) String() string {
 	out += fmt.Sprintf("  eventSources=%v\n", o.EventSources)
 	return fmt.Sprintf("SemanticSearch {\n%s}", out)
 }
-
-type NullableSemanticSearch struct {
-	value *SemanticSearch
-	isSet bool
-}
-
-func (v NullableSemanticSearch) Get() *SemanticSearch {
-	return v.value
-}
-
-func (v *NullableSemanticSearch) Set(val *SemanticSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSemanticSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSemanticSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSemanticSearch(val *SemanticSearch) *NullableSemanticSearch {
-	return &NullableSemanticSearch{value: val, isSet: true}
-}
-
-func (v NullableSemanticSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSemanticSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

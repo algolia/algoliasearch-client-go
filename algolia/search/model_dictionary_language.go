@@ -88,39 +88,3 @@ func (o DictionaryLanguage) String() string {
 	out += fmt.Sprintf("  nbCustomEntries=%v\n", o.NbCustomEntries)
 	return fmt.Sprintf("DictionaryLanguage {\n%s}", out)
 }
-
-type NullableDictionaryLanguage struct {
-	value *DictionaryLanguage
-	isSet bool
-}
-
-func (v NullableDictionaryLanguage) Get() *DictionaryLanguage {
-	return v.value
-}
-
-func (v *NullableDictionaryLanguage) Set(val *DictionaryLanguage) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDictionaryLanguage) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDictionaryLanguage) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDictionaryLanguage(val *DictionaryLanguage) *NullableDictionaryLanguage {
-	return &NullableDictionaryLanguage{value: val, isSet: true}
-}
-
-func (v NullableDictionaryLanguage) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDictionaryLanguage) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

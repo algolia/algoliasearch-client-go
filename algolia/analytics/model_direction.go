@@ -63,39 +63,3 @@ func (v Direction) IsValid() bool {
 func (v Direction) Ptr() *Direction {
 	return &v
 }
-
-type NullableDirection struct {
-	value *Direction
-	isSet bool
-}
-
-func (v NullableDirection) Get() *Direction {
-	return v.value
-}
-
-func (v *NullableDirection) Set(val *Direction) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDirection) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDirection) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDirection(val *Direction) *NullableDirection {
-	return &NullableDirection{value: val, isSet: true}
-}
-
-func (v NullableDirection) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDirection) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -65,39 +65,3 @@ func (v MatchLevel) IsValid() bool {
 func (v MatchLevel) Ptr() *MatchLevel {
 	return &v
 }
-
-type NullableMatchLevel struct {
-	value *MatchLevel
-	isSet bool
-}
-
-func (v NullableMatchLevel) Get() *MatchLevel {
-	return v.value
-}
-
-func (v *NullableMatchLevel) Set(val *MatchLevel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMatchLevel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMatchLevel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMatchLevel(val *MatchLevel) *NullableMatchLevel {
-	return &NullableMatchLevel{value: val, isSet: true}
-}
-
-func (v NullableMatchLevel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMatchLevel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

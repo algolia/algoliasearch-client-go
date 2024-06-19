@@ -125,39 +125,3 @@ func (obj SearchQuery) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableSearchQuery struct {
-	value *SearchQuery
-	isSet bool
-}
-
-func (v NullableSearchQuery) Get() *SearchQuery {
-	return v.value
-}
-
-func (v *NullableSearchQuery) Set(val *SearchQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchQuery(val *SearchQuery) *NullableSearchQuery {
-	return &NullableSearchQuery{value: val, isSet: true}
-}
-
-func (v NullableSearchQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

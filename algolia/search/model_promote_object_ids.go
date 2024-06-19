@@ -102,39 +102,3 @@ func (o PromoteObjectIDs) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 	return fmt.Sprintf("PromoteObjectIDs {\n%s}", out)
 }
-
-type NullablePromoteObjectIDs struct {
-	value *PromoteObjectIDs
-	isSet bool
-}
-
-func (v NullablePromoteObjectIDs) Get() *PromoteObjectIDs {
-	return v.value
-}
-
-func (v *NullablePromoteObjectIDs) Set(val *PromoteObjectIDs) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePromoteObjectIDs) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePromoteObjectIDs) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePromoteObjectIDs(val *PromoteObjectIDs) *NullablePromoteObjectIDs {
-	return &NullablePromoteObjectIDs{value: val, isSet: true}
-}
-
-func (v NullablePromoteObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePromoteObjectIDs) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

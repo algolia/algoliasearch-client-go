@@ -102,39 +102,3 @@ func (o UpdateApiKeyResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("UpdateApiKeyResponse {\n%s}", out)
 }
-
-type NullableUpdateApiKeyResponse struct {
-	value *UpdateApiKeyResponse
-	isSet bool
-}
-
-func (v NullableUpdateApiKeyResponse) Get() *UpdateApiKeyResponse {
-	return v.value
-}
-
-func (v *NullableUpdateApiKeyResponse) Set(val *UpdateApiKeyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUpdateApiKeyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUpdateApiKeyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUpdateApiKeyResponse(val *UpdateApiKeyResponse) *NullableUpdateApiKeyResponse {
-	return &NullableUpdateApiKeyResponse{value: val, isSet: true}
-}
-
-func (v NullableUpdateApiKeyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUpdateApiKeyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

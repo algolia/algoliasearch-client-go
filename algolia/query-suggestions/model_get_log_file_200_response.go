@@ -222,39 +222,3 @@ func (o GetLogFile200Response) String() string {
 	out += fmt.Sprintf("  contextLevel=%v\n", o.ContextLevel)
 	return fmt.Sprintf("GetLogFile200Response {\n%s}", out)
 }
-
-type NullableGetLogFile200Response struct {
-	value *GetLogFile200Response
-	isSet bool
-}
-
-func (v NullableGetLogFile200Response) Get() *GetLogFile200Response {
-	return v.value
-}
-
-func (v *NullableGetLogFile200Response) Set(val *GetLogFile200Response) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetLogFile200Response) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetLogFile200Response) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetLogFile200Response(val *GetLogFile200Response) *NullableGetLogFile200Response {
-	return &NullableGetLogFile200Response{value: val, isSet: true}
-}
-
-func (v NullableGetLogFile200Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetLogFile200Response) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -88,39 +88,3 @@ func (o EmptySearch) String() string {
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	return fmt.Sprintf("EmptySearch {\n%s}", out)
 }
-
-type NullableEmptySearch struct {
-	value *EmptySearch
-	isSet bool
-}
-
-func (v NullableEmptySearch) Get() *EmptySearch {
-	return v.value
-}
-
-func (v *NullableEmptySearch) Set(val *EmptySearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEmptySearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEmptySearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEmptySearch(val *EmptySearch) *NullableEmptySearch {
-	return &NullableEmptySearch{value: val, isSet: true}
-}
-
-func (v NullableEmptySearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEmptySearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

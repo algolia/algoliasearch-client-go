@@ -101,39 +101,3 @@ func (o SnippetResultOption) String() string {
 	out += fmt.Sprintf("  matchLevel=%v\n", o.MatchLevel)
 	return fmt.Sprintf("SnippetResultOption {\n%s}", out)
 }
-
-type NullableSnippetResultOption struct {
-	value *SnippetResultOption
-	isSet bool
-}
-
-func (v NullableSnippetResultOption) Get() *SnippetResultOption {
-	return v.value
-}
-
-func (v *NullableSnippetResultOption) Set(val *SnippetResultOption) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSnippetResultOption) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSnippetResultOption) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSnippetResultOption(val *SnippetResultOption) *NullableSnippetResultOption {
-	return &NullableSnippetResultOption{value: val, isSet: true}
-}
-
-func (v NullableSnippetResultOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSnippetResultOption) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

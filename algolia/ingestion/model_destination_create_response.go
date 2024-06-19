@@ -134,39 +134,3 @@ func (o DestinationCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("DestinationCreateResponse {\n%s}", out)
 }
-
-type NullableDestinationCreateResponse struct {
-	value *DestinationCreateResponse
-	isSet bool
-}
-
-func (v NullableDestinationCreateResponse) Get() *DestinationCreateResponse {
-	return v.value
-}
-
-func (v *NullableDestinationCreateResponse) Set(val *DestinationCreateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationCreateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationCreateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationCreateResponse(val *DestinationCreateResponse) *NullableDestinationCreateResponse {
-	return &NullableDestinationCreateResponse{value: val, isSet: true}
-}
-
-func (v NullableDestinationCreateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationCreateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

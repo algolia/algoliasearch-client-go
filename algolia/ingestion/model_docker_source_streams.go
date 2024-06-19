@@ -69,39 +69,3 @@ func (o DockerSourceStreams) String() string {
 	out += fmt.Sprintf("  streams=%v\n", o.Streams)
 	return fmt.Sprintf("DockerSourceStreams {\n%s}", out)
 }
-
-type NullableDockerSourceStreams struct {
-	value *DockerSourceStreams
-	isSet bool
-}
-
-func (v NullableDockerSourceStreams) Get() *DockerSourceStreams {
-	return v.value
-}
-
-func (v *NullableDockerSourceStreams) Set(val *DockerSourceStreams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDockerSourceStreams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDockerSourceStreams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDockerSourceStreams(val *DockerSourceStreams) *NullableDockerSourceStreams {
-	return &NullableDockerSourceStreams{value: val, isSet: true}
-}
-
-func (v NullableDockerSourceStreams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDockerSourceStreams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

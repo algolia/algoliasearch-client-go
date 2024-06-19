@@ -70,39 +70,3 @@ func (o TopHitsResponseWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	return fmt.Sprintf("TopHitsResponseWithRevenueAnalytics {\n%s}", out)
 }
-
-type NullableTopHitsResponseWithRevenueAnalytics struct {
-	value *TopHitsResponseWithRevenueAnalytics
-	isSet bool
-}
-
-func (v NullableTopHitsResponseWithRevenueAnalytics) Get() *TopHitsResponseWithRevenueAnalytics {
-	return v.value
-}
-
-func (v *NullableTopHitsResponseWithRevenueAnalytics) Set(val *TopHitsResponseWithRevenueAnalytics) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopHitsResponseWithRevenueAnalytics) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopHitsResponseWithRevenueAnalytics) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopHitsResponseWithRevenueAnalytics(val *TopHitsResponseWithRevenueAnalytics) *NullableTopHitsResponseWithRevenueAnalytics {
-	return &NullableTopHitsResponseWithRevenueAnalytics{value: val, isSet: true}
-}
-
-func (v NullableTopHitsResponseWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopHitsResponseWithRevenueAnalytics) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

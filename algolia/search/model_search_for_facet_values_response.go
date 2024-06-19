@@ -152,39 +152,3 @@ func (o SearchForFacetValuesResponse) String() string {
 	out += fmt.Sprintf("  processingTimeMS=%v\n", o.ProcessingTimeMS)
 	return fmt.Sprintf("SearchForFacetValuesResponse {\n%s}", out)
 }
-
-type NullableSearchForFacetValuesResponse struct {
-	value *SearchForFacetValuesResponse
-	isSet bool
-}
-
-func (v NullableSearchForFacetValuesResponse) Get() *SearchForFacetValuesResponse {
-	return v.value
-}
-
-func (v *NullableSearchForFacetValuesResponse) Set(val *SearchForFacetValuesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchForFacetValuesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchForFacetValuesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchForFacetValuesResponse(val *SearchForFacetValuesResponse) *NullableSearchForFacetValuesResponse {
-	return &NullableSearchForFacetValuesResponse{value: val, isSet: true}
-}
-
-func (v NullableSearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchForFacetValuesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

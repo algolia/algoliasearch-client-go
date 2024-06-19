@@ -65,39 +65,3 @@ func (v SortRemainingBy) IsValid() bool {
 func (v SortRemainingBy) Ptr() *SortRemainingBy {
 	return &v
 }
-
-type NullableSortRemainingBy struct {
-	value *SortRemainingBy
-	isSet bool
-}
-
-func (v NullableSortRemainingBy) Get() *SortRemainingBy {
-	return v.value
-}
-
-func (v *NullableSortRemainingBy) Set(val *SortRemainingBy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSortRemainingBy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSortRemainingBy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSortRemainingBy(val *SortRemainingBy) *NullableSortRemainingBy {
-	return &NullableSortRemainingBy{value: val, isSet: true}
-}
-
-func (v NullableSortRemainingBy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSortRemainingBy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

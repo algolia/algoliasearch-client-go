@@ -61,39 +61,3 @@ func (v ClickEvent) IsValid() bool {
 func (v ClickEvent) Ptr() *ClickEvent {
 	return &v
 }
-
-type NullableClickEvent struct {
-	value *ClickEvent
-	isSet bool
-}
-
-func (v NullableClickEvent) Get() *ClickEvent {
-	return v.value
-}
-
-func (v *NullableClickEvent) Set(val *ClickEvent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClickEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClickEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClickEvent(val *ClickEvent) *NullableClickEvent {
-	return &NullableClickEvent{value: val, isSet: true}
-}
-
-func (v NullableClickEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableClickEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

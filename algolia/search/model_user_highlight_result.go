@@ -100,39 +100,3 @@ func (o UserHighlightResult) String() string {
 	out += fmt.Sprintf("  clusterName=%v\n", o.ClusterName)
 	return fmt.Sprintf("UserHighlightResult {\n%s}", out)
 }
-
-type NullableUserHighlightResult struct {
-	value *UserHighlightResult
-	isSet bool
-}
-
-func (v NullableUserHighlightResult) Get() *UserHighlightResult {
-	return v.value
-}
-
-func (v *NullableUserHighlightResult) Set(val *UserHighlightResult) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUserHighlightResult) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUserHighlightResult) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUserHighlightResult(val *UserHighlightResult) *NullableUserHighlightResult {
-	return &NullableUserHighlightResult{value: val, isSet: true}
-}
-
-func (v NullableUserHighlightResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUserHighlightResult) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

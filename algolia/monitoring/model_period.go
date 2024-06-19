@@ -69,39 +69,3 @@ func (v Period) IsValid() bool {
 func (v Period) Ptr() *Period {
 	return &v
 }
-
-type NullablePeriod struct {
-	value *Period
-	isSet bool
-}
-
-func (v NullablePeriod) Get() *Period {
-	return v.value
-}
-
-func (v *NullablePeriod) Set(val *Period) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePeriod) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePeriod) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePeriod(val *Period) *NullablePeriod {
-	return &NullablePeriod{value: val, isSet: true}
-}
-
-func (v NullablePeriod) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePeriod) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

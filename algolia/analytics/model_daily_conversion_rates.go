@@ -11,7 +11,7 @@ import (
 // DailyConversionRates struct for DailyConversionRates.
 type DailyConversionRates struct {
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of conversions from this search.
@@ -24,7 +24,7 @@ type DailyConversionRates struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDailyConversionRates(rate utils.NullableFloat64, trackedSearchCount int32, conversionCount int32, date string) *DailyConversionRates {
+func NewDailyConversionRates(rate utils.Nullable[float64], trackedSearchCount int32, conversionCount int32, date string) *DailyConversionRates {
 	this := &DailyConversionRates{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o DailyConversionRates) String() string {
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyConversionRates {\n%s}", out)
-}
-
-type NullableDailyConversionRates struct {
-	value *DailyConversionRates
-	isSet bool
-}
-
-func (v NullableDailyConversionRates) Get() *DailyConversionRates {
-	return v.value
-}
-
-func (v *NullableDailyConversionRates) Set(val *DailyConversionRates) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyConversionRates) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyConversionRates) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyConversionRates(val *DailyConversionRates) *NullableDailyConversionRates {
-	return &NullableDailyConversionRates{value: val, isSet: true}
-}
-
-func (v NullableDailyConversionRates) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyConversionRates) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

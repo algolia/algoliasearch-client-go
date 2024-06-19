@@ -73,39 +73,3 @@ func (v RunReasonCode) IsValid() bool {
 func (v RunReasonCode) Ptr() *RunReasonCode {
 	return &v
 }
-
-type NullableRunReasonCode struct {
-	value *RunReasonCode
-	isSet bool
-}
-
-func (v NullableRunReasonCode) Get() *RunReasonCode {
-	return v.value
-}
-
-func (v *NullableRunReasonCode) Set(val *RunReasonCode) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRunReasonCode) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRunReasonCode) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRunReasonCode(val *RunReasonCode) *NullableRunReasonCode {
-	return &NullableRunReasonCode{value: val, isSet: true}
-}
-
-func (v NullableRunReasonCode) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRunReasonCode) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

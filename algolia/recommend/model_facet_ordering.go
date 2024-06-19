@@ -132,39 +132,3 @@ func (o FacetOrdering) String() string {
 	out += fmt.Sprintf("  values=%v\n", o.Values)
 	return fmt.Sprintf("FacetOrdering {\n%s}", out)
 }
-
-type NullableFacetOrdering struct {
-	value *FacetOrdering
-	isSet bool
-}
-
-func (v NullableFacetOrdering) Get() *FacetOrdering {
-	return v.value
-}
-
-func (v *NullableFacetOrdering) Set(val *FacetOrdering) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFacetOrdering) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFacetOrdering) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFacetOrdering(val *FacetOrdering) *NullableFacetOrdering {
-	return &NullableFacetOrdering{value: val, isSet: true}
-}
-
-func (v NullableFacetOrdering) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFacetOrdering) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

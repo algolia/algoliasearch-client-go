@@ -65,39 +65,3 @@ func (v DictionaryType) IsValid() bool {
 func (v DictionaryType) Ptr() *DictionaryType {
 	return &v
 }
-
-type NullableDictionaryType struct {
-	value *DictionaryType
-	isSet bool
-}
-
-func (v NullableDictionaryType) Get() *DictionaryType {
-	return v.value
-}
-
-func (v *NullableDictionaryType) Set(val *DictionaryType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDictionaryType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDictionaryType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDictionaryType(val *DictionaryType) *NullableDictionaryType {
-	return &NullableDictionaryType{value: val, isSet: true}
-}
-
-func (v NullableDictionaryType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDictionaryType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

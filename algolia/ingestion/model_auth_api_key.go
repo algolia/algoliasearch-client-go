@@ -70,39 +70,3 @@ func (o AuthAPIKey) String() string {
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	return fmt.Sprintf("AuthAPIKey {\n%s}", out)
 }
-
-type NullableAuthAPIKey struct {
-	value *AuthAPIKey
-	isSet bool
-}
-
-func (v NullableAuthAPIKey) Get() *AuthAPIKey {
-	return v.value
-}
-
-func (v *NullableAuthAPIKey) Set(val *AuthAPIKey) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthAPIKey) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthAPIKey) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthAPIKey(val *AuthAPIKey) *NullableAuthAPIKey {
-	return &NullableAuthAPIKey{value: val, isSet: true}
-}
-
-func (v NullableAuthAPIKey) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthAPIKey) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

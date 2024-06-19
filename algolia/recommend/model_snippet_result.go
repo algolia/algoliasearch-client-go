@@ -128,39 +128,3 @@ func (obj SnippetResult) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableSnippetResult struct {
-	value *SnippetResult
-	isSet bool
-}
-
-func (v NullableSnippetResult) Get() *SnippetResult {
-	return v.value
-}
-
-func (v *NullableSnippetResult) Set(val *SnippetResult) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSnippetResult) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSnippetResult) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSnippetResult(val *SnippetResult) *NullableSnippetResult {
-	return &NullableSnippetResult{value: val, isSet: true}
-}
-
-func (v NullableSnippetResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSnippetResult) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

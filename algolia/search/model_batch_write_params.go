@@ -69,39 +69,3 @@ func (o BatchWriteParams) String() string {
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
 	return fmt.Sprintf("BatchWriteParams {\n%s}", out)
 }
-
-type NullableBatchWriteParams struct {
-	value *BatchWriteParams
-	isSet bool
-}
-
-func (v NullableBatchWriteParams) Get() *BatchWriteParams {
-	return v.value
-}
-
-func (v *NullableBatchWriteParams) Set(val *BatchWriteParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchWriteParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchWriteParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchWriteParams(val *BatchWriteParams) *NullableBatchWriteParams {
-	return &NullableBatchWriteParams{value: val, isSet: true}
-}
-
-func (v NullableBatchWriteParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchWriteParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

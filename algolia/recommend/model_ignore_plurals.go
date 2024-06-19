@@ -94,39 +94,3 @@ func (obj IgnorePlurals) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableIgnorePlurals struct {
-	value *IgnorePlurals
-	isSet bool
-}
-
-func (v NullableIgnorePlurals) Get() *IgnorePlurals {
-	return v.value
-}
-
-func (v *NullableIgnorePlurals) Set(val *IgnorePlurals) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableIgnorePlurals) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableIgnorePlurals) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableIgnorePlurals(val *IgnorePlurals) *NullableIgnorePlurals {
-	return &NullableIgnorePlurals{value: val, isSet: true}
-}
-
-func (v NullableIgnorePlurals) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableIgnorePlurals) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

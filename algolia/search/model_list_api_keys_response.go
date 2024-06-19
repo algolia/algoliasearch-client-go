@@ -70,39 +70,3 @@ func (o ListApiKeysResponse) String() string {
 	out += fmt.Sprintf("  keys=%v\n", o.Keys)
 	return fmt.Sprintf("ListApiKeysResponse {\n%s}", out)
 }
-
-type NullableListApiKeysResponse struct {
-	value *ListApiKeysResponse
-	isSet bool
-}
-
-func (v NullableListApiKeysResponse) Get() *ListApiKeysResponse {
-	return v.value
-}
-
-func (v *NullableListApiKeysResponse) Set(val *ListApiKeysResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListApiKeysResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListApiKeysResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListApiKeysResponse(val *ListApiKeysResponse) *NullableListApiKeysResponse {
-	return &NullableListApiKeysResponse{value: val, isSet: true}
-}
-
-func (v NullableListApiKeysResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListApiKeysResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

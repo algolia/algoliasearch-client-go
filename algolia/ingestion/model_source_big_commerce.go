@@ -251,39 +251,3 @@ func (o SourceBigCommerce) String() string {
 	out += fmt.Sprintf("  variantMetafields=%v\n", o.VariantMetafields)
 	return fmt.Sprintf("SourceBigCommerce {\n%s}", out)
 }
-
-type NullableSourceBigCommerce struct {
-	value *SourceBigCommerce
-	isSet bool
-}
-
-func (v NullableSourceBigCommerce) Get() *SourceBigCommerce {
-	return v.value
-}
-
-func (v *NullableSourceBigCommerce) Set(val *SourceBigCommerce) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceBigCommerce) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceBigCommerce) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceBigCommerce(val *SourceBigCommerce) *NullableSourceBigCommerce {
-	return &NullableSourceBigCommerce{value: val, isSet: true}
-}
-
-func (v NullableSourceBigCommerce) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceBigCommerce) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

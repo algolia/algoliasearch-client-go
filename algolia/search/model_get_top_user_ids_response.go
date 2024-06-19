@@ -70,39 +70,3 @@ func (o GetTopUserIdsResponse) String() string {
 	out += fmt.Sprintf("  topUsers=%v\n", o.TopUsers)
 	return fmt.Sprintf("GetTopUserIdsResponse {\n%s}", out)
 }
-
-type NullableGetTopUserIdsResponse struct {
-	value *GetTopUserIdsResponse
-	isSet bool
-}
-
-func (v NullableGetTopUserIdsResponse) Get() *GetTopUserIdsResponse {
-	return v.value
-}
-
-func (v *NullableGetTopUserIdsResponse) Set(val *GetTopUserIdsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetTopUserIdsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetTopUserIdsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetTopUserIdsResponse(val *GetTopUserIdsResponse) *NullableGetTopUserIdsResponse {
-	return &NullableGetTopUserIdsResponse{value: val, isSet: true}
-}
-
-func (v NullableGetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetTopUserIdsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -286,39 +286,3 @@ func (o QuerySuggestionsConfigurationWithIndex) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	return fmt.Sprintf("QuerySuggestionsConfigurationWithIndex {\n%s}", out)
 }
-
-type NullableQuerySuggestionsConfigurationWithIndex struct {
-	value *QuerySuggestionsConfigurationWithIndex
-	isSet bool
-}
-
-func (v NullableQuerySuggestionsConfigurationWithIndex) Get() *QuerySuggestionsConfigurationWithIndex {
-	return v.value
-}
-
-func (v *NullableQuerySuggestionsConfigurationWithIndex) Set(val *QuerySuggestionsConfigurationWithIndex) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableQuerySuggestionsConfigurationWithIndex) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableQuerySuggestionsConfigurationWithIndex) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableQuerySuggestionsConfigurationWithIndex(val *QuerySuggestionsConfigurationWithIndex) *NullableQuerySuggestionsConfigurationWithIndex {
-	return &NullableQuerySuggestionsConfigurationWithIndex{value: val, isSet: true}
-}
-
-func (v NullableQuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableQuerySuggestionsConfigurationWithIndex) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

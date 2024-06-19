@@ -181,39 +181,3 @@ func (o CommercetoolsCustomFields) String() string {
 	out += fmt.Sprintf("  category=%v\n", o.Category)
 	return fmt.Sprintf("CommercetoolsCustomFields {\n%s}", out)
 }
-
-type NullableCommercetoolsCustomFields struct {
-	value *CommercetoolsCustomFields
-	isSet bool
-}
-
-func (v NullableCommercetoolsCustomFields) Get() *CommercetoolsCustomFields {
-	return v.value
-}
-
-func (v *NullableCommercetoolsCustomFields) Set(val *CommercetoolsCustomFields) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCommercetoolsCustomFields) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCommercetoolsCustomFields) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCommercetoolsCustomFields(val *CommercetoolsCustomFields) *NullableCommercetoolsCustomFields {
-	return &NullableCommercetoolsCustomFields{value: val, isSet: true}
-}
-
-func (v NullableCommercetoolsCustomFields) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCommercetoolsCustomFields) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

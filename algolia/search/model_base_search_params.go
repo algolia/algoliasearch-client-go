@@ -1477,39 +1477,3 @@ func (o BaseSearchParams) String() string {
 	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	return fmt.Sprintf("BaseSearchParams {\n%s}", out)
 }
-
-type NullableBaseSearchParams struct {
-	value *BaseSearchParams
-	isSet bool
-}
-
-func (v NullableBaseSearchParams) Get() *BaseSearchParams {
-	return v.value
-}
-
-func (v *NullableBaseSearchParams) Set(val *BaseSearchParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBaseSearchParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBaseSearchParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBaseSearchParams(val *BaseSearchParams) *NullableBaseSearchParams {
-	return &NullableBaseSearchParams{value: val, isSet: true}
-}
-
-func (v NullableBaseSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBaseSearchParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

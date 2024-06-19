@@ -102,39 +102,3 @@ func (o GetRevenue) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetRevenue {\n%s}", out)
 }
-
-type NullableGetRevenue struct {
-	value *GetRevenue
-	isSet bool
-}
-
-func (v NullableGetRevenue) Get() *GetRevenue {
-	return v.value
-}
-
-func (v *NullableGetRevenue) Set(val *GetRevenue) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetRevenue) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetRevenue) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetRevenue(val *GetRevenue) *NullableGetRevenue {
-	return &NullableGetRevenue{value: val, isSet: true}
-}
-
-func (v NullableGetRevenue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetRevenue) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

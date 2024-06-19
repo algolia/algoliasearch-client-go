@@ -69,39 +69,3 @@ func (o DictionarySettingsParams) String() string {
 	out += fmt.Sprintf("  disableStandardEntries=%v\n", o.DisableStandardEntries)
 	return fmt.Sprintf("DictionarySettingsParams {\n%s}", out)
 }
-
-type NullableDictionarySettingsParams struct {
-	value *DictionarySettingsParams
-	isSet bool
-}
-
-func (v NullableDictionarySettingsParams) Get() *DictionarySettingsParams {
-	return v.value
-}
-
-func (v *NullableDictionarySettingsParams) Set(val *DictionarySettingsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDictionarySettingsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDictionarySettingsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDictionarySettingsParams(val *DictionarySettingsParams) *NullableDictionarySettingsParams {
-	return &NullableDictionarySettingsParams{value: val, isSet: true}
-}
-
-func (v NullableDictionarySettingsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDictionarySettingsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

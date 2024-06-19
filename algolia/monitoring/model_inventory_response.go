@@ -87,39 +87,3 @@ func (o InventoryResponse) String() string {
 	out += fmt.Sprintf("  inventory=%v\n", o.Inventory)
 	return fmt.Sprintf("InventoryResponse {\n%s}", out)
 }
-
-type NullableInventoryResponse struct {
-	value *InventoryResponse
-	isSet bool
-}
-
-func (v NullableInventoryResponse) Get() *InventoryResponse {
-	return v.value
-}
-
-func (v *NullableInventoryResponse) Set(val *InventoryResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableInventoryResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableInventoryResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableInventoryResponse(val *InventoryResponse) *NullableInventoryResponse {
-	return &NullableInventoryResponse{value: val, isSet: true}
-}
-
-func (v NullableInventoryResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableInventoryResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

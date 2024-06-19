@@ -198,39 +198,3 @@ func (o SearchUserIdsResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("SearchUserIdsResponse {\n%s}", out)
 }
-
-type NullableSearchUserIdsResponse struct {
-	value *SearchUserIdsResponse
-	isSet bool
-}
-
-func (v NullableSearchUserIdsResponse) Get() *SearchUserIdsResponse {
-	return v.value
-}
-
-func (v *NullableSearchUserIdsResponse) Set(val *SearchUserIdsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchUserIdsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchUserIdsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchUserIdsResponse(val *SearchUserIdsResponse) *NullableSearchUserIdsResponse {
-	return &NullableSearchUserIdsResponse{value: val, isSet: true}
-}
-
-func (v NullableSearchUserIdsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchUserIdsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

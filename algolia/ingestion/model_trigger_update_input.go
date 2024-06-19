@@ -70,39 +70,3 @@ func (o TriggerUpdateInput) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	return fmt.Sprintf("TriggerUpdateInput {\n%s}", out)
 }
-
-type NullableTriggerUpdateInput struct {
-	value *TriggerUpdateInput
-	isSet bool
-}
-
-func (v NullableTriggerUpdateInput) Get() *TriggerUpdateInput {
-	return v.value
-}
-
-func (v *NullableTriggerUpdateInput) Set(val *TriggerUpdateInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTriggerUpdateInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTriggerUpdateInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTriggerUpdateInput(val *TriggerUpdateInput) *NullableTriggerUpdateInput {
-	return &NullableTriggerUpdateInput{value: val, isSet: true}
-}
-
-func (v NullableTriggerUpdateInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTriggerUpdateInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

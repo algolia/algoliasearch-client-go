@@ -87,39 +87,3 @@ func (o GetServers403Response) String() string {
 	out += fmt.Sprintf("  reason=%v\n", o.Reason)
 	return fmt.Sprintf("GetServers403Response {\n%s}", out)
 }
-
-type NullableGetServers403Response struct {
-	value *GetServers403Response
-	isSet bool
-}
-
-func (v NullableGetServers403Response) Get() *GetServers403Response {
-	return v.value
-}
-
-func (v *NullableGetServers403Response) Set(val *GetServers403Response) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetServers403Response) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetServers403Response) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetServers403Response(val *GetServers403Response) *NullableGetServers403Response {
-	return &NullableGetServers403Response{value: val, isSet: true}
-}
-
-func (v NullableGetServers403Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetServers403Response) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

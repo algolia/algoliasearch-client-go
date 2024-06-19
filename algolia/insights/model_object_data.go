@@ -176,39 +176,3 @@ func (o ObjectData) String() string {
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
 	return fmt.Sprintf("ObjectData {\n%s}", out)
 }
-
-type NullableObjectData struct {
-	value *ObjectData
-	isSet bool
-}
-
-func (v NullableObjectData) Get() *ObjectData {
-	return v.value
-}
-
-func (v *NullableObjectData) Set(val *ObjectData) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableObjectData) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableObjectData) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableObjectData(val *ObjectData) *NullableObjectData {
-	return &NullableObjectData{value: val, isSet: true}
-}
-
-func (v NullableObjectData) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableObjectData) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

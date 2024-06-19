@@ -69,39 +69,3 @@ func (o StreamingUtilsInput) String() string {
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	return fmt.Sprintf("StreamingUtilsInput {\n%s}", out)
 }
-
-type NullableStreamingUtilsInput struct {
-	value *StreamingUtilsInput
-	isSet bool
-}
-
-func (v NullableStreamingUtilsInput) Get() *StreamingUtilsInput {
-	return v.value
-}
-
-func (v *NullableStreamingUtilsInput) Set(val *StreamingUtilsInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamingUtilsInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamingUtilsInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamingUtilsInput(val *StreamingUtilsInput) *NullableStreamingUtilsInput {
-	return &NullableStreamingUtilsInput{value: val, isSet: true}
-}
-
-func (v NullableStreamingUtilsInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStreamingUtilsInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

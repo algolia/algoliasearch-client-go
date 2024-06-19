@@ -70,39 +70,3 @@ func (o ListClustersResponse) String() string {
 	out += fmt.Sprintf("  topUsers=%v\n", o.TopUsers)
 	return fmt.Sprintf("ListClustersResponse {\n%s}", out)
 }
-
-type NullableListClustersResponse struct {
-	value *ListClustersResponse
-	isSet bool
-}
-
-func (v NullableListClustersResponse) Get() *ListClustersResponse {
-	return v.value
-}
-
-func (v *NullableListClustersResponse) Set(val *ListClustersResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListClustersResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListClustersResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListClustersResponse(val *ListClustersResponse) *NullableListClustersResponse {
-	return &NullableListClustersResponse{value: val, isSet: true}
-}
-
-func (v NullableListClustersResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListClustersResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -118,39 +118,3 @@ func (o RecommendedForYou) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("RecommendedForYou {\n%s}", out)
 }
-
-type NullableRecommendedForYou struct {
-	value *RecommendedForYou
-	isSet bool
-}
-
-func (v NullableRecommendedForYou) Get() *RecommendedForYou {
-	return v.value
-}
-
-func (v *NullableRecommendedForYou) Set(val *RecommendedForYou) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendedForYou) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendedForYou) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendedForYou(val *RecommendedForYou) *NullableRecommendedForYou {
-	return &NullableRecommendedForYou{value: val, isSet: true}
-}
-
-func (v NullableRecommendedForYou) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendedForYou) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

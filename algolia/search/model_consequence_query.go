@@ -94,39 +94,3 @@ func (obj ConsequenceQuery) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableConsequenceQuery struct {
-	value *ConsequenceQuery
-	isSet bool
-}
-
-func (v NullableConsequenceQuery) Get() *ConsequenceQuery {
-	return v.value
-}
-
-func (v *NullableConsequenceQuery) Set(val *ConsequenceQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConsequenceQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConsequenceQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConsequenceQuery(val *ConsequenceQuery) *NullableConsequenceQuery {
-	return &NullableConsequenceQuery{value: val, isSet: true}
-}
-
-func (v NullableConsequenceQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConsequenceQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

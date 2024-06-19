@@ -292,39 +292,3 @@ func (o ClickedObjectIDs) String() string {
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	return fmt.Sprintf("ClickedObjectIDs {\n%s}", out)
 }
-
-type NullableClickedObjectIDs struct {
-	value *ClickedObjectIDs
-	isSet bool
-}
-
-func (v NullableClickedObjectIDs) Get() *ClickedObjectIDs {
-	return v.value
-}
-
-func (v *NullableClickedObjectIDs) Set(val *ClickedObjectIDs) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableClickedObjectIDs) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableClickedObjectIDs) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableClickedObjectIDs(val *ClickedObjectIDs) *NullableClickedObjectIDs {
-	return &NullableClickedObjectIDs{value: val, isSet: true}
-}
-
-func (v NullableClickedObjectIDs) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableClickedObjectIDs) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

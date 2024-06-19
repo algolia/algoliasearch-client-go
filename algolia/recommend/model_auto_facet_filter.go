@@ -133,39 +133,3 @@ func (o AutoFacetFilter) String() string {
 	out += fmt.Sprintf("  negative=%v\n", o.Negative)
 	return fmt.Sprintf("AutoFacetFilter {\n%s}", out)
 }
-
-type NullableAutoFacetFilter struct {
-	value *AutoFacetFilter
-	isSet bool
-}
-
-func (v NullableAutoFacetFilter) Get() *AutoFacetFilter {
-	return v.value
-}
-
-func (v *NullableAutoFacetFilter) Set(val *AutoFacetFilter) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAutoFacetFilter) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAutoFacetFilter) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAutoFacetFilter(val *AutoFacetFilter) *NullableAutoFacetFilter {
-	return &NullableAutoFacetFilter{value: val, isSet: true}
-}
-
-func (v NullableAutoFacetFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAutoFacetFilter) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

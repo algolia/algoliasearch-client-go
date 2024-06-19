@@ -61,39 +61,3 @@ func (v RelatedModel) IsValid() bool {
 func (v RelatedModel) Ptr() *RelatedModel {
 	return &v
 }
-
-type NullableRelatedModel struct {
-	value *RelatedModel
-	isSet bool
-}
-
-func (v NullableRelatedModel) Get() *RelatedModel {
-	return v.value
-}
-
-func (v *NullableRelatedModel) Set(val *RelatedModel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRelatedModel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRelatedModel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRelatedModel(val *RelatedModel) *NullableRelatedModel {
-	return &NullableRelatedModel{value: val, isSet: true}
-}
-
-func (v NullableRelatedModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRelatedModel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

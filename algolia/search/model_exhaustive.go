@@ -268,39 +268,3 @@ func (o Exhaustive) String() string {
 	out += fmt.Sprintf("  typo=%v\n", o.Typo)
 	return fmt.Sprintf("Exhaustive {\n%s}", out)
 }
-
-type NullableExhaustive struct {
-	value *Exhaustive
-	isSet bool
-}
-
-func (v NullableExhaustive) Get() *Exhaustive {
-	return v.value
-}
-
-func (v *NullableExhaustive) Set(val *Exhaustive) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableExhaustive) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableExhaustive) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableExhaustive(val *Exhaustive) *NullableExhaustive {
-	return &NullableExhaustive{value: val, isSet: true}
-}
-
-func (v NullableExhaustive) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableExhaustive) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

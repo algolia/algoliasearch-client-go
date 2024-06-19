@@ -70,39 +70,3 @@ func (o ListUserIdsResponse) String() string {
 	out += fmt.Sprintf("  userIDs=%v\n", o.UserIDs)
 	return fmt.Sprintf("ListUserIdsResponse {\n%s}", out)
 }
-
-type NullableListUserIdsResponse struct {
-	value *ListUserIdsResponse
-	isSet bool
-}
-
-func (v NullableListUserIdsResponse) Get() *ListUserIdsResponse {
-	return v.value
-}
-
-func (v *NullableListUserIdsResponse) Set(val *ListUserIdsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListUserIdsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListUserIdsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListUserIdsResponse(val *ListUserIdsResponse) *NullableListUserIdsResponse {
-	return &NullableListUserIdsResponse{value: val, isSet: true}
-}
-
-func (v NullableListUserIdsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListUserIdsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

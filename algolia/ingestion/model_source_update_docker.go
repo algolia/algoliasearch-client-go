@@ -209,39 +209,3 @@ func (o SourceUpdateDocker) String() string {
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	return fmt.Sprintf("SourceUpdateDocker {\n%s}", out)
 }
-
-type NullableSourceUpdateDocker struct {
-	value *SourceUpdateDocker
-	isSet bool
-}
-
-func (v NullableSourceUpdateDocker) Get() *SourceUpdateDocker {
-	return v.value
-}
-
-func (v *NullableSourceUpdateDocker) Set(val *SourceUpdateDocker) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceUpdateDocker) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceUpdateDocker) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceUpdateDocker(val *SourceUpdateDocker) *NullableSourceUpdateDocker {
-	return &NullableSourceUpdateDocker{value: val, isSet: true}
-}
-
-func (v NullableSourceUpdateDocker) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceUpdateDocker) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

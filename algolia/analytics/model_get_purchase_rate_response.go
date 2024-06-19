@@ -11,7 +11,7 @@ import (
 // GetPurchaseRateResponse struct for GetPurchaseRateResponse.
 type GetPurchaseRateResponse struct {
 	// Purchase rate, calculated as number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of purchase events from this search.
@@ -24,7 +24,7 @@ type GetPurchaseRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetPurchaseRateResponse(rate utils.NullableFloat64, trackedSearchCount int32, purchaseCount int32, dates []DailyPurchaseRates) *GetPurchaseRateResponse {
+func NewGetPurchaseRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, purchaseCount int32, dates []DailyPurchaseRates) *GetPurchaseRateResponse {
 	this := &GetPurchaseRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o GetPurchaseRateResponse) String() string {
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetPurchaseRateResponse {\n%s}", out)
-}
-
-type NullableGetPurchaseRateResponse struct {
-	value *GetPurchaseRateResponse
-	isSet bool
-}
-
-func (v NullableGetPurchaseRateResponse) Get() *GetPurchaseRateResponse {
-	return v.value
-}
-
-func (v *NullableGetPurchaseRateResponse) Set(val *GetPurchaseRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetPurchaseRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetPurchaseRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetPurchaseRateResponse(val *GetPurchaseRateResponse) *NullableGetPurchaseRateResponse {
-	return &NullableGetPurchaseRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetPurchaseRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetPurchaseRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

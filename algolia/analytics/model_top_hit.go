@@ -102,39 +102,3 @@ func (o TopHit) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	return fmt.Sprintf("TopHit {\n%s}", out)
 }
-
-type NullableTopHit struct {
-	value *TopHit
-	isSet bool
-}
-
-func (v NullableTopHit) Get() *TopHit {
-	return v.value
-}
-
-func (v *NullableTopHit) Set(val *TopHit) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopHit) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopHit) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopHit(val *TopHit) *NullableTopHit {
-	return &NullableTopHit{value: val, isSet: true}
-}
-
-func (v NullableTopHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopHit) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

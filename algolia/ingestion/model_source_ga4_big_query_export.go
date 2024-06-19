@@ -134,39 +134,3 @@ func (o SourceGA4BigQueryExport) String() string {
 	out += fmt.Sprintf("  tablePrefix=%v\n", o.TablePrefix)
 	return fmt.Sprintf("SourceGA4BigQueryExport {\n%s}", out)
 }
-
-type NullableSourceGA4BigQueryExport struct {
-	value *SourceGA4BigQueryExport
-	isSet bool
-}
-
-func (v NullableSourceGA4BigQueryExport) Get() *SourceGA4BigQueryExport {
-	return v.value
-}
-
-func (v *NullableSourceGA4BigQueryExport) Set(val *SourceGA4BigQueryExport) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceGA4BigQueryExport) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceGA4BigQueryExport) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceGA4BigQueryExport(val *SourceGA4BigQueryExport) *NullableSourceGA4BigQueryExport {
-	return &NullableSourceGA4BigQueryExport{value: val, isSet: true}
-}
-
-func (v NullableSourceGA4BigQueryExport) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceGA4BigQueryExport) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

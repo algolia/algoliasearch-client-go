@@ -67,39 +67,3 @@ func (v Anchoring) IsValid() bool {
 func (v Anchoring) Ptr() *Anchoring {
 	return &v
 }
-
-type NullableAnchoring struct {
-	value *Anchoring
-	isSet bool
-}
-
-func (v NullableAnchoring) Get() *Anchoring {
-	return v.value
-}
-
-func (v *NullableAnchoring) Set(val *Anchoring) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAnchoring) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAnchoring) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAnchoring(val *Anchoring) *NullableAnchoring {
-	return &NullableAnchoring{value: val, isSet: true}
-}
-
-func (v NullableAnchoring) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAnchoring) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

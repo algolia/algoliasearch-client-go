@@ -390,39 +390,3 @@ func (o SourceIndex) String() string {
 	out += fmt.Sprintf("  external=%v\n", o.External)
 	return fmt.Sprintf("SourceIndex {\n%s}", out)
 }
-
-type NullableSourceIndex struct {
-	value *SourceIndex
-	isSet bool
-}
-
-func (v NullableSourceIndex) Get() *SourceIndex {
-	return v.value
-}
-
-func (v *NullableSourceIndex) Set(val *SourceIndex) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceIndex) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceIndex) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceIndex(val *SourceIndex) *NullableSourceIndex {
-	return &NullableSourceIndex{value: val, isSet: true}
-}
-
-func (v NullableSourceIndex) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceIndex) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

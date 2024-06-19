@@ -65,39 +65,3 @@ func (v AlternativesAsExact) IsValid() bool {
 func (v AlternativesAsExact) Ptr() *AlternativesAsExact {
 	return &v
 }
-
-type NullableAlternativesAsExact struct {
-	value *AlternativesAsExact
-	isSet bool
-}
-
-func (v NullableAlternativesAsExact) Get() *AlternativesAsExact {
-	return v.value
-}
-
-func (v *NullableAlternativesAsExact) Set(val *AlternativesAsExact) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAlternativesAsExact) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAlternativesAsExact) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAlternativesAsExact(val *AlternativesAsExact) *NullableAlternativesAsExact {
-	return &NullableAlternativesAsExact{value: val, isSet: true}
-}
-
-func (v NullableAlternativesAsExact) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAlternativesAsExact) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

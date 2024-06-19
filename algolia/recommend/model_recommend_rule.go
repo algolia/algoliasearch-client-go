@@ -310,39 +310,3 @@ func (o RecommendRule) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	return fmt.Sprintf("RecommendRule {\n%s}", out)
 }
-
-type NullableRecommendRule struct {
-	value *RecommendRule
-	isSet bool
-}
-
-func (v NullableRecommendRule) Get() *RecommendRule {
-	return v.value
-}
-
-func (v *NullableRecommendRule) Set(val *RecommendRule) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendRule) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendRule) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendRule(val *RecommendRule) *NullableRecommendRule {
-	return &NullableRecommendRule{value: val, isSet: true}
-}
-
-func (v NullableRecommendRule) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendRule) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

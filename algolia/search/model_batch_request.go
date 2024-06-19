@@ -101,39 +101,3 @@ func (o BatchRequest) String() string {
 	out += fmt.Sprintf("  body=%v\n", o.Body)
 	return fmt.Sprintf("BatchRequest {\n%s}", out)
 }
-
-type NullableBatchRequest struct {
-	value *BatchRequest
-	isSet bool
-}
-
-func (v NullableBatchRequest) Get() *BatchRequest {
-	return v.value
-}
-
-func (v *NullableBatchRequest) Set(val *BatchRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchRequest(val *BatchRequest) *NullableBatchRequest {
-	return &NullableBatchRequest{value: val, isSet: true}
-}
-
-func (v NullableBatchRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

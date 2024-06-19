@@ -265,39 +265,3 @@ func (o SourceUpdateCommercetools) String() string {
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
 }
-
-type NullableSourceUpdateCommercetools struct {
-	value *SourceUpdateCommercetools
-	isSet bool
-}
-
-func (v NullableSourceUpdateCommercetools) Get() *SourceUpdateCommercetools {
-	return v.value
-}
-
-func (v *NullableSourceUpdateCommercetools) Set(val *SourceUpdateCommercetools) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceUpdateCommercetools) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceUpdateCommercetools) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceUpdateCommercetools(val *SourceUpdateCommercetools) *NullableSourceUpdateCommercetools {
-	return &NullableSourceUpdateCommercetools{value: val, isSet: true}
-}
-
-func (v NullableSourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceUpdateCommercetools) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -69,39 +69,3 @@ func (o CustomSearchParams) String() string {
 	out += fmt.Sprintf("  customSearchParameters=%v\n", o.CustomSearchParameters)
 	return fmt.Sprintf("CustomSearchParams {\n%s}", out)
 }
-
-type NullableCustomSearchParams struct {
-	value *CustomSearchParams
-	isSet bool
-}
-
-func (v NullableCustomSearchParams) Get() *CustomSearchParams {
-	return v.value
-}
-
-func (v *NullableCustomSearchParams) Set(val *CustomSearchParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCustomSearchParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCustomSearchParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCustomSearchParams(val *CustomSearchParams) *NullableCustomSearchParams {
-	return &NullableCustomSearchParams{value: val, isSet: true}
-}
-
-func (v NullableCustomSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCustomSearchParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

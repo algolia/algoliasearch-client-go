@@ -132,39 +132,3 @@ func (o Value) String() string {
 	out += fmt.Sprintf("  sortRemainingBy=%v\n", o.SortRemainingBy)
 	return fmt.Sprintf("Value {\n%s}", out)
 }
-
-type NullableValue struct {
-	value *Value
-	isSet bool
-}
-
-func (v NullableValue) Get() *Value {
-	return v.value
-}
-
-func (v *NullableValue) Set(val *Value) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableValue) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableValue) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableValue(val *Value) *NullableValue {
-	return &NullableValue{value: val, isSet: true}
-}
-
-func (v NullableValue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableValue) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

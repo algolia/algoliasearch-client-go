@@ -11,7 +11,7 @@ import (
 // DailyAverageClicks struct for DailyAverageClicks.
 type DailyAverageClicks struct {
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Average utils.NullableFloat64 `json:"average"`
+	Average utils.Nullable[float64] `json:"average"`
 	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
 	// Date in the format YYYY-MM-DD.
@@ -22,7 +22,7 @@ type DailyAverageClicks struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDailyAverageClicks(average utils.NullableFloat64, clickCount int32, date string) *DailyAverageClicks {
+func NewDailyAverageClicks(average utils.Nullable[float64], clickCount int32, date string) *DailyAverageClicks {
 	this := &DailyAverageClicks{}
 	this.Average = average
 	this.ClickCount = clickCount
@@ -137,40 +137,4 @@ func (o DailyAverageClicks) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyAverageClicks {\n%s}", out)
-}
-
-type NullableDailyAverageClicks struct {
-	value *DailyAverageClicks
-	isSet bool
-}
-
-func (v NullableDailyAverageClicks) Get() *DailyAverageClicks {
-	return v.value
-}
-
-func (v *NullableDailyAverageClicks) Set(val *DailyAverageClicks) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyAverageClicks) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyAverageClicks) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyAverageClicks(val *DailyAverageClicks) *NullableDailyAverageClicks {
-	return &NullableDailyAverageClicks{value: val, isSet: true}
-}
-
-func (v NullableDailyAverageClicks) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyAverageClicks) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

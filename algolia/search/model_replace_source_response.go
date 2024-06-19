@@ -70,39 +70,3 @@ func (o ReplaceSourceResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("ReplaceSourceResponse {\n%s}", out)
 }
-
-type NullableReplaceSourceResponse struct {
-	value *ReplaceSourceResponse
-	isSet bool
-}
-
-func (v NullableReplaceSourceResponse) Get() *ReplaceSourceResponse {
-	return v.value
-}
-
-func (v *NullableReplaceSourceResponse) Set(val *ReplaceSourceResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableReplaceSourceResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableReplaceSourceResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableReplaceSourceResponse(val *ReplaceSourceResponse) *NullableReplaceSourceResponse {
-	return &NullableReplaceSourceResponse{value: val, isSet: true}
-}
-
-func (v NullableReplaceSourceResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableReplaceSourceResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

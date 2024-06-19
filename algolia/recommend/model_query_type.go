@@ -65,39 +65,3 @@ func (v QueryType) IsValid() bool {
 func (v QueryType) Ptr() *QueryType {
 	return &v
 }
-
-type NullableQueryType struct {
-	value *QueryType
-	isSet bool
-}
-
-func (v NullableQueryType) Get() *QueryType {
-	return v.value
-}
-
-func (v *NullableQueryType) Set(val *QueryType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableQueryType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableQueryType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableQueryType(val *QueryType) *NullableQueryType {
-	return &NullableQueryType{value: val, isSet: true}
-}
-
-func (v NullableQueryType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableQueryType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

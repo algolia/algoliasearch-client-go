@@ -748,39 +748,3 @@ func (obj EventsItems) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableEventsItems struct {
-	value *EventsItems
-	isSet bool
-}
-
-func (v NullableEventsItems) Get() *EventsItems {
-	return v.value
-}
-
-func (v *NullableEventsItems) Set(val *EventsItems) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEventsItems) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEventsItems) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEventsItems(val *EventsItems) *NullableEventsItems {
-	return &NullableEventsItems{value: val, isSet: true}
-}
-
-func (v NullableEventsItems) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEventsItems) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

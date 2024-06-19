@@ -102,39 +102,3 @@ func (o GetTopFilterAttribute) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	return fmt.Sprintf("GetTopFilterAttribute {\n%s}", out)
 }
-
-type NullableGetTopFilterAttribute struct {
-	value *GetTopFilterAttribute
-	isSet bool
-}
-
-func (v NullableGetTopFilterAttribute) Get() *GetTopFilterAttribute {
-	return v.value
-}
-
-func (v *NullableGetTopFilterAttribute) Set(val *GetTopFilterAttribute) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetTopFilterAttribute) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetTopFilterAttribute) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetTopFilterAttribute(val *GetTopFilterAttribute) *NullableGetTopFilterAttribute {
-	return &NullableGetTopFilterAttribute{value: val, isSet: true}
-}
-
-func (v NullableGetTopFilterAttribute) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetTopFilterAttribute) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

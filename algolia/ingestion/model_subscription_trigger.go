@@ -69,39 +69,3 @@ func (o SubscriptionTrigger) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("SubscriptionTrigger {\n%s}", out)
 }
-
-type NullableSubscriptionTrigger struct {
-	value *SubscriptionTrigger
-	isSet bool
-}
-
-func (v NullableSubscriptionTrigger) Get() *SubscriptionTrigger {
-	return v.value
-}
-
-func (v *NullableSubscriptionTrigger) Set(val *SubscriptionTrigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSubscriptionTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSubscriptionTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSubscriptionTrigger(val *SubscriptionTrigger) *NullableSubscriptionTrigger {
-	return &NullableSubscriptionTrigger{value: val, isSet: true}
-}
-
-func (v NullableSubscriptionTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSubscriptionTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

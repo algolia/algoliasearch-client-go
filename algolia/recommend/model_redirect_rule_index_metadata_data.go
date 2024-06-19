@@ -69,39 +69,3 @@ func (o RedirectRuleIndexMetadataData) String() string {
 	out += fmt.Sprintf("  ruleObjectID=%v\n", o.RuleObjectID)
 	return fmt.Sprintf("RedirectRuleIndexMetadataData {\n%s}", out)
 }
-
-type NullableRedirectRuleIndexMetadataData struct {
-	value *RedirectRuleIndexMetadataData
-	isSet bool
-}
-
-func (v NullableRedirectRuleIndexMetadataData) Get() *RedirectRuleIndexMetadataData {
-	return v.value
-}
-
-func (v *NullableRedirectRuleIndexMetadataData) Set(val *RedirectRuleIndexMetadataData) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRedirectRuleIndexMetadataData) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRedirectRuleIndexMetadataData) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRedirectRuleIndexMetadataData(val *RedirectRuleIndexMetadataData) *NullableRedirectRuleIndexMetadataData {
-	return &NullableRedirectRuleIndexMetadataData{value: val, isSet: true}
-}
-
-func (v NullableRedirectRuleIndexMetadataData) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRedirectRuleIndexMetadataData) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

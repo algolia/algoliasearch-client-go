@@ -134,39 +134,3 @@ func (o ABTestResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	return fmt.Sprintf("ABTestResponse {\n%s}", out)
 }
-
-type NullableABTestResponse struct {
-	value *ABTestResponse
-	isSet bool
-}
-
-func (v NullableABTestResponse) Get() *ABTestResponse {
-	return v.value
-}
-
-func (v *NullableABTestResponse) Set(val *ABTestResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableABTestResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableABTestResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableABTestResponse(val *ABTestResponse) *NullableABTestResponse {
-	return &NullableABTestResponse{value: val, isSet: true}
-}
-
-func (v NullableABTestResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableABTestResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

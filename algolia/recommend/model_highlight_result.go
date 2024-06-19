@@ -128,39 +128,3 @@ func (obj HighlightResult) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableHighlightResult struct {
-	value *HighlightResult
-	isSet bool
-}
-
-func (v NullableHighlightResult) Get() *HighlightResult {
-	return v.value
-}
-
-func (v *NullableHighlightResult) Set(val *HighlightResult) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableHighlightResult) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableHighlightResult) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableHighlightResult(val *HighlightResult) *NullableHighlightResult {
-	return &NullableHighlightResult{value: val, isSet: true}
-}
-
-func (v NullableHighlightResult) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableHighlightResult) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

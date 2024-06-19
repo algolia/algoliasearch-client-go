@@ -65,39 +65,3 @@ func (v ExactOnSingleWordQuery) IsValid() bool {
 func (v ExactOnSingleWordQuery) Ptr() *ExactOnSingleWordQuery {
 	return &v
 }
-
-type NullableExactOnSingleWordQuery struct {
-	value *ExactOnSingleWordQuery
-	isSet bool
-}
-
-func (v NullableExactOnSingleWordQuery) Get() *ExactOnSingleWordQuery {
-	return v.value
-}
-
-func (v *NullableExactOnSingleWordQuery) Set(val *ExactOnSingleWordQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableExactOnSingleWordQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableExactOnSingleWordQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableExactOnSingleWordQuery(val *ExactOnSingleWordQuery) *NullableExactOnSingleWordQuery {
-	return &NullableExactOnSingleWordQuery{value: val, isSet: true}
-}
-
-func (v NullableExactOnSingleWordQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableExactOnSingleWordQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

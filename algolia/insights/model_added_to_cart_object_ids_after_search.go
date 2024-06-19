@@ -489,39 +489,3 @@ func (o AddedToCartObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("AddedToCartObjectIDsAfterSearch {\n%s}", out)
 }
-
-type NullableAddedToCartObjectIDsAfterSearch struct {
-	value *AddedToCartObjectIDsAfterSearch
-	isSet bool
-}
-
-func (v NullableAddedToCartObjectIDsAfterSearch) Get() *AddedToCartObjectIDsAfterSearch {
-	return v.value
-}
-
-func (v *NullableAddedToCartObjectIDsAfterSearch) Set(val *AddedToCartObjectIDsAfterSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAddedToCartObjectIDsAfterSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAddedToCartObjectIDsAfterSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAddedToCartObjectIDsAfterSearch(val *AddedToCartObjectIDsAfterSearch) *NullableAddedToCartObjectIDsAfterSearch {
-	return &NullableAddedToCartObjectIDsAfterSearch{value: val, isSet: true}
-}
-
-func (v NullableAddedToCartObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAddedToCartObjectIDsAfterSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

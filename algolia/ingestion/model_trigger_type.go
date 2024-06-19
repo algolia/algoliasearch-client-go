@@ -67,39 +67,3 @@ func (v TriggerType) IsValid() bool {
 func (v TriggerType) Ptr() *TriggerType {
 	return &v
 }
-
-type NullableTriggerType struct {
-	value *TriggerType
-	isSet bool
-}
-
-func (v NullableTriggerType) Get() *TriggerType {
-	return v.value
-}
-
-func (v *NullableTriggerType) Set(val *TriggerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTriggerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTriggerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTriggerType(val *TriggerType) *NullableTriggerType {
-	return &NullableTriggerType{value: val, isSet: true}
-}
-
-func (v NullableTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTriggerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

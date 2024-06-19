@@ -166,39 +166,3 @@ func (o GetNoClickRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetNoClickRateResponse {\n%s}", out)
 }
-
-type NullableGetNoClickRateResponse struct {
-	value *GetNoClickRateResponse
-	isSet bool
-}
-
-func (v NullableGetNoClickRateResponse) Get() *GetNoClickRateResponse {
-	return v.value
-}
-
-func (v *NullableGetNoClickRateResponse) Set(val *GetNoClickRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetNoClickRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetNoClickRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetNoClickRateResponse(val *GetNoClickRateResponse) *NullableGetNoClickRateResponse {
-	return &NullableGetNoClickRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetNoClickRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetNoClickRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

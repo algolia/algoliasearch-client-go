@@ -70,39 +70,3 @@ func (o InsightsEvents) String() string {
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	return fmt.Sprintf("InsightsEvents {\n%s}", out)
 }
-
-type NullableInsightsEvents struct {
-	value *InsightsEvents
-	isSet bool
-}
-
-func (v NullableInsightsEvents) Get() *InsightsEvents {
-	return v.value
-}
-
-func (v *NullableInsightsEvents) Set(val *InsightsEvents) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableInsightsEvents) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableInsightsEvents) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableInsightsEvents(val *InsightsEvents) *NullableInsightsEvents {
-	return &NullableInsightsEvents{value: val, isSet: true}
-}
-
-func (v NullableInsightsEvents) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableInsightsEvents) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

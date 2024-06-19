@@ -134,39 +134,3 @@ func (o AddABTestsRequest) String() string {
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
 	return fmt.Sprintf("AddABTestsRequest {\n%s}", out)
 }
-
-type NullableAddABTestsRequest struct {
-	value *AddABTestsRequest
-	isSet bool
-}
-
-func (v NullableAddABTestsRequest) Get() *AddABTestsRequest {
-	return v.value
-}
-
-func (v *NullableAddABTestsRequest) Set(val *AddABTestsRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAddABTestsRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAddABTestsRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAddABTestsRequest(val *AddABTestsRequest) *NullableAddABTestsRequest {
-	return &NullableAddABTestsRequest{value: val, isSet: true}
-}
-
-func (v NullableAddABTestsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAddABTestsRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

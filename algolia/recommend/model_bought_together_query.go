@@ -259,39 +259,3 @@ func (o BoughtTogetherQuery) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("BoughtTogetherQuery {\n%s}", out)
 }
-
-type NullableBoughtTogetherQuery struct {
-	value *BoughtTogetherQuery
-	isSet bool
-}
-
-func (v NullableBoughtTogetherQuery) Get() *BoughtTogetherQuery {
-	return v.value
-}
-
-func (v *NullableBoughtTogetherQuery) Set(val *BoughtTogetherQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBoughtTogetherQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBoughtTogetherQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBoughtTogetherQuery(val *BoughtTogetherQuery) *NullableBoughtTogetherQuery {
-	return &NullableBoughtTogetherQuery{value: val, isSet: true}
-}
-
-func (v NullableBoughtTogetherQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBoughtTogetherQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

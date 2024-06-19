@@ -69,39 +69,3 @@ func (o SourceSearch) String() string {
 	out += fmt.Sprintf("  sourceIDs=%v\n", o.SourceIDs)
 	return fmt.Sprintf("SourceSearch {\n%s}", out)
 }
-
-type NullableSourceSearch struct {
-	value *SourceSearch
-	isSet bool
-}
-
-func (v NullableSourceSearch) Get() *SourceSearch {
-	return v.value
-}
-
-func (v *NullableSourceSearch) Set(val *SourceSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceSearch(val *SourceSearch) *NullableSourceSearch {
-	return &NullableSourceSearch{value: val, isSet: true}
-}
-
-func (v NullableSourceSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

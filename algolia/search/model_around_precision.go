@@ -94,39 +94,3 @@ func (obj AroundPrecision) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAroundPrecision struct {
-	value *AroundPrecision
-	isSet bool
-}
-
-func (v NullableAroundPrecision) Get() *AroundPrecision {
-	return v.value
-}
-
-func (v *NullableAroundPrecision) Set(val *AroundPrecision) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAroundPrecision) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAroundPrecision) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAroundPrecision(val *AroundPrecision) *NullableAroundPrecision {
-	return &NullableAroundPrecision{value: val, isSet: true}
-}
-
-func (v NullableAroundPrecision) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAroundPrecision) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

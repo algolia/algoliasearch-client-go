@@ -13,17 +13,17 @@ type Variant struct {
 	// Number of add-to-cart events for this variant.
 	AddToCartCount int32 `json:"addToCartCount"`
 	// [Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.
-	AddToCartRate utils.NullableFloat64 `json:"addToCartRate"`
+	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// [Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.
-	AverageClickPosition utils.NullableInt32 `json:"averageClickPosition"`
+	AverageClickPosition utils.Nullable[int32] `json:"averageClickPosition"`
 	// Number of click events for this variant.
 	ClickCount int32 `json:"clickCount"`
 	// [Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.
-	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Number of click events for this variant.
 	ConversionCount int32 `json:"conversionCount"`
 	// [Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.
-	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// A/B test currencies.
 	Currencies *map[string]Currency `json:"currencies,omitempty"`
 	// Description for this variant.
@@ -34,21 +34,21 @@ type Variant struct {
 	// Index name of the A/B test variant (case-sensitive).
 	Index string `json:"index"`
 	// Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.
-	NoResultCount utils.NullableInt32 `json:"noResultCount"`
+	NoResultCount utils.Nullable[int32] `json:"noResultCount"`
 	// Number of purchase events for this variant.
 	PurchaseCount int32 `json:"purchaseCount"`
 	// [Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.
-	PurchaseRate utils.NullableFloat64 `json:"purchaseRate"`
+	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
 	// Number of searches for this variant.
-	SearchCount utils.NullableInt32 `json:"searchCount"`
+	SearchCount utils.Nullable[int32] `json:"searchCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount *int32 `json:"trackedSearchCount,omitempty"`
 	// Percentage of search requests each variant receives.
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Number of users that made searches to this variant.
-	UserCount utils.NullableInt32 `json:"userCount"`
+	UserCount utils.Nullable[int32] `json:"userCount"`
 	// Number of users that made tracked searches to this variant.
-	TrackedUserCount utils.NullableInt32 `json:"trackedUserCount"`
+	TrackedUserCount utils.Nullable[int32] `json:"trackedUserCount"`
 }
 
 type VariantOption func(f *Variant)
@@ -81,7 +81,7 @@ func WithVariantTrackedSearchCount(val int32) VariantOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, addToCartRate utils.NullableFloat64, averageClickPosition utils.NullableInt32, clickCount int32, clickThroughRate utils.NullableFloat64, conversionCount int32, conversionRate utils.NullableFloat64, description string, index string, noResultCount utils.NullableInt32, purchaseCount int32, purchaseRate utils.NullableFloat64, searchCount utils.NullableInt32, trafficPercentage int32, userCount utils.NullableInt32, trackedUserCount utils.NullableInt32, opts ...VariantOption) *Variant {
+func NewVariant(addToCartCount int32, addToCartRate utils.Nullable[float64], averageClickPosition utils.Nullable[int32], clickCount int32, clickThroughRate utils.Nullable[float64], conversionCount int32, conversionRate utils.Nullable[float64], description string, index string, noResultCount utils.Nullable[int32], purchaseCount int32, purchaseRate utils.Nullable[float64], searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
 	this.AddToCartRate = addToCartRate
@@ -753,40 +753,4 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  userCount=%v\n", o.UserCount)
 	out += fmt.Sprintf("  trackedUserCount=%v\n", o.TrackedUserCount)
 	return fmt.Sprintf("Variant {\n%s}", out)
-}
-
-type NullableVariant struct {
-	value *Variant
-	isSet bool
-}
-
-func (v NullableVariant) Get() *Variant {
-	return v.value
-}
-
-func (v *NullableVariant) Set(val *Variant) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableVariant) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableVariant) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableVariant(val *Variant) *NullableVariant {
-	return &NullableVariant{value: val, isSet: true}
-}
-
-func (v NullableVariant) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableVariant) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

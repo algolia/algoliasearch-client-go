@@ -70,39 +70,3 @@ func (o ConsequenceHide) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("ConsequenceHide {\n%s}", out)
 }
-
-type NullableConsequenceHide struct {
-	value *ConsequenceHide
-	isSet bool
-}
-
-func (v NullableConsequenceHide) Get() *ConsequenceHide {
-	return v.value
-}
-
-func (v *NullableConsequenceHide) Set(val *ConsequenceHide) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConsequenceHide) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConsequenceHide) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConsequenceHide(val *ConsequenceHide) *NullableConsequenceHide {
-	return &NullableConsequenceHide{value: val, isSet: true}
-}
-
-func (v NullableConsequenceHide) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConsequenceHide) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

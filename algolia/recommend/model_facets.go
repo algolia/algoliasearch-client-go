@@ -88,39 +88,3 @@ func (o Facets) String() string {
 	out += fmt.Sprintf("  order=%v\n", o.Order)
 	return fmt.Sprintf("Facets {\n%s}", out)
 }
-
-type NullableFacets struct {
-	value *Facets
-	isSet bool
-}
-
-func (v NullableFacets) Get() *Facets {
-	return v.value
-}
-
-func (v *NullableFacets) Set(val *Facets) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFacets) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFacets) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFacets(val *Facets) *NullableFacets {
-	return &NullableFacets{value: val, isSet: true}
-}
-
-func (v NullableFacets) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFacets) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

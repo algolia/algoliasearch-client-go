@@ -133,39 +133,3 @@ func (o EventScoring) String() string {
 	out += fmt.Sprintf("  eventType=%v\n", o.EventType)
 	return fmt.Sprintf("EventScoring {\n%s}", out)
 }
-
-type NullableEventScoring struct {
-	value *EventScoring
-	isSet bool
-}
-
-func (v NullableEventScoring) Get() *EventScoring {
-	return v.value
-}
-
-func (v *NullableEventScoring) Set(val *EventScoring) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEventScoring) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEventScoring) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEventScoring(val *EventScoring) *NullableEventScoring {
-	return &NullableEventScoring{value: val, isSet: true}
-}
-
-func (v NullableEventScoring) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEventScoring) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -61,39 +61,3 @@ func (v RecommendedForYouModel) IsValid() bool {
 func (v RecommendedForYouModel) Ptr() *RecommendedForYouModel {
 	return &v
 }
-
-type NullableRecommendedForYouModel struct {
-	value *RecommendedForYouModel
-	isSet bool
-}
-
-func (v NullableRecommendedForYouModel) Get() *RecommendedForYouModel {
-	return v.value
-}
-
-func (v *NullableRecommendedForYouModel) Set(val *RecommendedForYouModel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendedForYouModel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendedForYouModel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendedForYouModel(val *RecommendedForYouModel) *NullableRecommendedForYouModel {
-	return &NullableRecommendedForYouModel{value: val, isSet: true}
-}
-
-func (v NullableRecommendedForYouModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendedForYouModel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

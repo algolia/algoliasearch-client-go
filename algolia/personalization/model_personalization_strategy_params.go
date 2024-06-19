@@ -134,39 +134,3 @@ func (o PersonalizationStrategyParams) String() string {
 	out += fmt.Sprintf("  personalizationImpact=%v\n", o.PersonalizationImpact)
 	return fmt.Sprintf("PersonalizationStrategyParams {\n%s}", out)
 }
-
-type NullablePersonalizationStrategyParams struct {
-	value *PersonalizationStrategyParams
-	isSet bool
-}
-
-func (v NullablePersonalizationStrategyParams) Get() *PersonalizationStrategyParams {
-	return v.value
-}
-
-func (v *NullablePersonalizationStrategyParams) Set(val *PersonalizationStrategyParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePersonalizationStrategyParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePersonalizationStrategyParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePersonalizationStrategyParams(val *PersonalizationStrategyParams) *NullablePersonalizationStrategyParams {
-	return &NullablePersonalizationStrategyParams{value: val, isSet: true}
-}
-
-func (v NullablePersonalizationStrategyParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePersonalizationStrategyParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

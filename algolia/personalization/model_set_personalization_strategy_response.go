@@ -70,39 +70,3 @@ func (o SetPersonalizationStrategyResponse) String() string {
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	return fmt.Sprintf("SetPersonalizationStrategyResponse {\n%s}", out)
 }
-
-type NullableSetPersonalizationStrategyResponse struct {
-	value *SetPersonalizationStrategyResponse
-	isSet bool
-}
-
-func (v NullableSetPersonalizationStrategyResponse) Get() *SetPersonalizationStrategyResponse {
-	return v.value
-}
-
-func (v *NullableSetPersonalizationStrategyResponse) Set(val *SetPersonalizationStrategyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSetPersonalizationStrategyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSetPersonalizationStrategyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSetPersonalizationStrategyResponse(val *SetPersonalizationStrategyResponse) *NullableSetPersonalizationStrategyResponse {
-	return &NullableSetPersonalizationStrategyResponse{value: val, isSet: true}
-}
-
-func (v NullableSetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSetPersonalizationStrategyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

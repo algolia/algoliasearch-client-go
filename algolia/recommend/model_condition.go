@@ -133,39 +133,3 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  context=%v\n", o.Context)
 	return fmt.Sprintf("Condition {\n%s}", out)
 }
-
-type NullableCondition struct {
-	value *Condition
-	isSet bool
-}
-
-func (v NullableCondition) Get() *Condition {
-	return v.value
-}
-
-func (v *NullableCondition) Set(val *Condition) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCondition) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCondition) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCondition(val *Condition) *NullableCondition {
-	return &NullableCondition{value: val, isSet: true}
-}
-
-func (v NullableCondition) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCondition) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

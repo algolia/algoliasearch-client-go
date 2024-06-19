@@ -403,39 +403,3 @@ func (o SearchRecommendRulesParams) String() string {
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
 	return fmt.Sprintf("SearchRecommendRulesParams {\n%s}", out)
 }
-
-type NullableSearchRecommendRulesParams struct {
-	value *SearchRecommendRulesParams
-	isSet bool
-}
-
-func (v NullableSearchRecommendRulesParams) Get() *SearchRecommendRulesParams {
-	return v.value
-}
-
-func (v *NullableSearchRecommendRulesParams) Set(val *SearchRecommendRulesParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchRecommendRulesParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchRecommendRulesParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchRecommendRulesParams(val *SearchRecommendRulesParams) *NullableSearchRecommendRulesParams {
-	return &NullableSearchRecommendRulesParams{value: val, isSet: true}
-}
-
-func (v NullableSearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchRecommendRulesParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

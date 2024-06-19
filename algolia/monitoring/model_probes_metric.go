@@ -133,39 +133,3 @@ func (o ProbesMetric) String() string {
 	out += fmt.Sprintf("  v=%v\n", o.V)
 	return fmt.Sprintf("ProbesMetric {\n%s}", out)
 }
-
-type NullableProbesMetric struct {
-	value *ProbesMetric
-	isSet bool
-}
-
-func (v NullableProbesMetric) Get() *ProbesMetric {
-	return v.value
-}
-
-func (v *NullableProbesMetric) Set(val *ProbesMetric) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableProbesMetric) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableProbesMetric) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableProbesMetric(val *ProbesMetric) *NullableProbesMetric {
-	return &NullableProbesMetric{value: val, isSet: true}
-}
-
-func (v NullableProbesMetric) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableProbesMetric) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

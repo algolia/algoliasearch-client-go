@@ -133,39 +133,3 @@ func (o AuthGoogleServiceAccountPartial) String() string {
 	out += fmt.Sprintf("  privateKey=%v\n", o.PrivateKey)
 	return fmt.Sprintf("AuthGoogleServiceAccountPartial {\n%s}", out)
 }
-
-type NullableAuthGoogleServiceAccountPartial struct {
-	value *AuthGoogleServiceAccountPartial
-	isSet bool
-}
-
-func (v NullableAuthGoogleServiceAccountPartial) Get() *AuthGoogleServiceAccountPartial {
-	return v.value
-}
-
-func (v *NullableAuthGoogleServiceAccountPartial) Set(val *AuthGoogleServiceAccountPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthGoogleServiceAccountPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthGoogleServiceAccountPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthGoogleServiceAccountPartial(val *AuthGoogleServiceAccountPartial) *NullableAuthGoogleServiceAccountPartial {
-	return &NullableAuthGoogleServiceAccountPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthGoogleServiceAccountPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthGoogleServiceAccountPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

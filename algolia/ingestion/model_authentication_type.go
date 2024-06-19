@@ -71,39 +71,3 @@ func (v AuthenticationType) IsValid() bool {
 func (v AuthenticationType) Ptr() *AuthenticationType {
 	return &v
 }
-
-type NullableAuthenticationType struct {
-	value *AuthenticationType
-	isSet bool
-}
-
-func (v NullableAuthenticationType) Get() *AuthenticationType {
-	return v.value
-}
-
-func (v *NullableAuthenticationType) Set(val *AuthenticationType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthenticationType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthenticationType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthenticationType(val *AuthenticationType) *NullableAuthenticationType {
-	return &NullableAuthenticationType{value: val, isSet: true}
-}
-
-func (v NullableAuthenticationType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthenticationType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

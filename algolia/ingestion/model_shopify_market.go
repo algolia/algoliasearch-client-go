@@ -131,39 +131,3 @@ func (o ShopifyMarket) String() string {
 	out += fmt.Sprintf("  locales=%v\n", o.Locales)
 	return fmt.Sprintf("ShopifyMarket {\n%s}", out)
 }
-
-type NullableShopifyMarket struct {
-	value *ShopifyMarket
-	isSet bool
-}
-
-func (v NullableShopifyMarket) Get() *ShopifyMarket {
-	return v.value
-}
-
-func (v *NullableShopifyMarket) Set(val *ShopifyMarket) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableShopifyMarket) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableShopifyMarket) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableShopifyMarket(val *ShopifyMarket) *NullableShopifyMarket {
-	return &NullableShopifyMarket{value: val, isSet: true}
-}
-
-func (v NullableShopifyMarket) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableShopifyMarket) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -102,39 +102,3 @@ func (o BatchAssignUserIdsParams) String() string {
 	out += fmt.Sprintf("  users=%v\n", o.Users)
 	return fmt.Sprintf("BatchAssignUserIdsParams {\n%s}", out)
 }
-
-type NullableBatchAssignUserIdsParams struct {
-	value *BatchAssignUserIdsParams
-	isSet bool
-}
-
-func (v NullableBatchAssignUserIdsParams) Get() *BatchAssignUserIdsParams {
-	return v.value
-}
-
-func (v *NullableBatchAssignUserIdsParams) Set(val *BatchAssignUserIdsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchAssignUserIdsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchAssignUserIdsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchAssignUserIdsParams(val *BatchAssignUserIdsParams) *NullableBatchAssignUserIdsParams {
-	return &NullableBatchAssignUserIdsParams{value: val, isSet: true}
-}
-
-func (v NullableBatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchAssignUserIdsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

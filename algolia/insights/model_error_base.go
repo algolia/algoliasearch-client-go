@@ -131,39 +131,3 @@ func (o ErrorBase) String() string {
 	}
 	return fmt.Sprintf("ErrorBase {\n%s}", out)
 }
-
-type NullableErrorBase struct {
-	value *ErrorBase
-	isSet bool
-}
-
-func (v NullableErrorBase) Get() *ErrorBase {
-	return v.value
-}
-
-func (v *NullableErrorBase) Set(val *ErrorBase) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableErrorBase) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableErrorBase) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableErrorBase(val *ErrorBase) *NullableErrorBase {
-	return &NullableErrorBase{value: val, isSet: true}
-}
-
-func (v NullableErrorBase) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableErrorBase) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

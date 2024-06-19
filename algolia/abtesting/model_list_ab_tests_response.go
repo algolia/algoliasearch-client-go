@@ -136,39 +136,3 @@ func (o ListABTestsResponse) String() string {
 	out += fmt.Sprintf("  total=%v\n", o.Total)
 	return fmt.Sprintf("ListABTestsResponse {\n%s}", out)
 }
-
-type NullableListABTestsResponse struct {
-	value *ListABTestsResponse
-	isSet bool
-}
-
-func (v NullableListABTestsResponse) Get() *ListABTestsResponse {
-	return v.value
-}
-
-func (v *NullableListABTestsResponse) Set(val *ListABTestsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListABTestsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListABTestsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListABTestsResponse(val *ListABTestsResponse) *NullableListABTestsResponse {
-	return &NullableListABTestsResponse{value: val, isSet: true}
-}
-
-func (v NullableListABTestsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListABTestsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

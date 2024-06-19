@@ -102,39 +102,3 @@ func (o MappingFieldDirective) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("MappingFieldDirective {\n%s}", out)
 }
-
-type NullableMappingFieldDirective struct {
-	value *MappingFieldDirective
-	isSet bool
-}
-
-func (v NullableMappingFieldDirective) Get() *MappingFieldDirective {
-	return v.value
-}
-
-func (v *NullableMappingFieldDirective) Set(val *MappingFieldDirective) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMappingFieldDirective) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMappingFieldDirective) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMappingFieldDirective(val *MappingFieldDirective) *NullableMappingFieldDirective {
-	return &NullableMappingFieldDirective{value: val, isSet: true}
-}
-
-func (v NullableMappingFieldDirective) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMappingFieldDirective) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -210,39 +210,3 @@ func (o SearchUserIdsParams) String() string {
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	return fmt.Sprintf("SearchUserIdsParams {\n%s}", out)
 }
-
-type NullableSearchUserIdsParams struct {
-	value *SearchUserIdsParams
-	isSet bool
-}
-
-func (v NullableSearchUserIdsParams) Get() *SearchUserIdsParams {
-	return v.value
-}
-
-func (v *NullableSearchUserIdsParams) Set(val *SearchUserIdsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchUserIdsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchUserIdsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchUserIdsParams(val *SearchUserIdsParams) *NullableSearchUserIdsParams {
-	return &NullableSearchUserIdsParams{value: val, isSet: true}
-}
-
-func (v NullableSearchUserIdsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchUserIdsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

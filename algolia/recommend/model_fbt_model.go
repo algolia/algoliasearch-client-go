@@ -61,39 +61,3 @@ func (v FbtModel) IsValid() bool {
 func (v FbtModel) Ptr() *FbtModel {
 	return &v
 }
-
-type NullableFbtModel struct {
-	value *FbtModel
-	isSet bool
-}
-
-func (v NullableFbtModel) Get() *FbtModel {
-	return v.value
-}
-
-func (v *NullableFbtModel) Set(val *FbtModel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFbtModel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFbtModel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFbtModel(val *FbtModel) *NullableFbtModel {
-	return &NullableFbtModel{value: val, isSet: true}
-}
-
-func (v NullableFbtModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFbtModel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

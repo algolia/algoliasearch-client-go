@@ -131,39 +131,3 @@ func (o FilterEffects) String() string {
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
 	return fmt.Sprintf("FilterEffects {\n%s}", out)
 }
-
-type NullableFilterEffects struct {
-	value *FilterEffects
-	isSet bool
-}
-
-func (v NullableFilterEffects) Get() *FilterEffects {
-	return v.value
-}
-
-func (v *NullableFilterEffects) Set(val *FilterEffects) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFilterEffects) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFilterEffects) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFilterEffects(val *FilterEffects) *NullableFilterEffects {
-	return &NullableFilterEffects{value: val, isSet: true}
-}
-
-func (v NullableFilterEffects) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFilterEffects) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -61,39 +61,3 @@ func (v AddToCartEvent) IsValid() bool {
 func (v AddToCartEvent) Ptr() *AddToCartEvent {
 	return &v
 }
-
-type NullableAddToCartEvent struct {
-	value *AddToCartEvent
-	isSet bool
-}
-
-func (v NullableAddToCartEvent) Get() *AddToCartEvent {
-	return v.value
-}
-
-func (v *NullableAddToCartEvent) Set(val *AddToCartEvent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAddToCartEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAddToCartEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAddToCartEvent(val *AddToCartEvent) *NullableAddToCartEvent {
-	return &NullableAddToCartEvent{value: val, isSet: true}
-}
-
-func (v NullableAddToCartEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAddToCartEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -61,39 +61,3 @@ func (v SearchTypeFacet) IsValid() bool {
 func (v SearchTypeFacet) Ptr() *SearchTypeFacet {
 	return &v
 }
-
-type NullableSearchTypeFacet struct {
-	value *SearchTypeFacet
-	isSet bool
-}
-
-func (v NullableSearchTypeFacet) Get() *SearchTypeFacet {
-	return v.value
-}
-
-func (v *NullableSearchTypeFacet) Set(val *SearchTypeFacet) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchTypeFacet) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchTypeFacet) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchTypeFacet(val *SearchTypeFacet) *NullableSearchTypeFacet {
-	return &NullableSearchTypeFacet{value: val, isSet: true}
-}
-
-func (v NullableSearchTypeFacet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchTypeFacet) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

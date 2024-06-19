@@ -230,39 +230,3 @@ func (obj AuthInputPartial) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAuthInputPartial struct {
-	value *AuthInputPartial
-	isSet bool
-}
-
-func (v NullableAuthInputPartial) Get() *AuthInputPartial {
-	return v.value
-}
-
-func (v *NullableAuthInputPartial) Set(val *AuthInputPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthInputPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthInputPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthInputPartial(val *AuthInputPartial) *NullableAuthInputPartial {
-	return &NullableAuthInputPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthInputPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthInputPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

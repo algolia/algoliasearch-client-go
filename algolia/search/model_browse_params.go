@@ -116,39 +116,3 @@ func (obj BrowseParams) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableBrowseParams struct {
-	value *BrowseParams
-	isSet bool
-}
-
-func (v NullableBrowseParams) Get() *BrowseParams {
-	return v.value
-}
-
-func (v *NullableBrowseParams) Set(val *BrowseParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBrowseParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBrowseParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBrowseParams(val *BrowseParams) *NullableBrowseParams {
-	return &NullableBrowseParams{value: val, isSet: true}
-}
-
-func (v NullableBrowseParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBrowseParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

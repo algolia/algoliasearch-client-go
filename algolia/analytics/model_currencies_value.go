@@ -133,39 +133,3 @@ func (o CurrenciesValue) String() string {
 	out += fmt.Sprintf("  revenue=%v\n", o.Revenue)
 	return fmt.Sprintf("CurrenciesValue {\n%s}", out)
 }
-
-type NullableCurrenciesValue struct {
-	value *CurrenciesValue
-	isSet bool
-}
-
-func (v NullableCurrenciesValue) Get() *CurrenciesValue {
-	return v.value
-}
-
-func (v *NullableCurrenciesValue) Set(val *CurrenciesValue) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCurrenciesValue) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCurrenciesValue) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCurrenciesValue(val *CurrenciesValue) *NullableCurrenciesValue {
-	return &NullableCurrenciesValue{value: val, isSet: true}
-}
-
-func (v NullableCurrenciesValue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCurrenciesValue) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

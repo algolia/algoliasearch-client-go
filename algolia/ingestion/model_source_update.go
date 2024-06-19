@@ -177,39 +177,3 @@ func (o SourceUpdate) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	return fmt.Sprintf("SourceUpdate {\n%s}", out)
 }
-
-type NullableSourceUpdate struct {
-	value *SourceUpdate
-	isSet bool
-}
-
-func (v NullableSourceUpdate) Get() *SourceUpdate {
-	return v.value
-}
-
-func (v *NullableSourceUpdate) Set(val *SourceUpdate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceUpdate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceUpdate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceUpdate(val *SourceUpdate) *NullableSourceUpdate {
-	return &NullableSourceUpdate{value: val, isSet: true}
-}
-
-func (v NullableSourceUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceUpdate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

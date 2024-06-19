@@ -100,39 +100,3 @@ func (o BatchDictionaryEntriesRequest) String() string {
 	out += fmt.Sprintf("  body=%v\n", o.Body)
 	return fmt.Sprintf("BatchDictionaryEntriesRequest {\n%s}", out)
 }
-
-type NullableBatchDictionaryEntriesRequest struct {
-	value *BatchDictionaryEntriesRequest
-	isSet bool
-}
-
-func (v NullableBatchDictionaryEntriesRequest) Get() *BatchDictionaryEntriesRequest {
-	return v.value
-}
-
-func (v *NullableBatchDictionaryEntriesRequest) Set(val *BatchDictionaryEntriesRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchDictionaryEntriesRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchDictionaryEntriesRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchDictionaryEntriesRequest(val *BatchDictionaryEntriesRequest) *NullableBatchDictionaryEntriesRequest {
-	return &NullableBatchDictionaryEntriesRequest{value: val, isSet: true}
-}
-
-func (v NullableBatchDictionaryEntriesRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchDictionaryEntriesRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

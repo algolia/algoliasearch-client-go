@@ -94,39 +94,3 @@ func (obj ReRankingApplyFilter) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableReRankingApplyFilter struct {
-	value *ReRankingApplyFilter
-	isSet bool
-}
-
-func (v NullableReRankingApplyFilter) Get() *ReRankingApplyFilter {
-	return v.value
-}
-
-func (v *NullableReRankingApplyFilter) Set(val *ReRankingApplyFilter) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableReRankingApplyFilter) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableReRankingApplyFilter) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableReRankingApplyFilter(val *ReRankingApplyFilter) *NullableReRankingApplyFilter {
-	return &NullableReRankingApplyFilter{value: val, isSet: true}
-}
-
-func (v NullableReRankingApplyFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableReRankingApplyFilter) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

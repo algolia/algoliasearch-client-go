@@ -61,39 +61,3 @@ func (v TrendingFacetsModel) IsValid() bool {
 func (v TrendingFacetsModel) Ptr() *TrendingFacetsModel {
 	return &v
 }
-
-type NullableTrendingFacetsModel struct {
-	value *TrendingFacetsModel
-	isSet bool
-}
-
-func (v NullableTrendingFacetsModel) Get() *TrendingFacetsModel {
-	return v.value
-}
-
-func (v *NullableTrendingFacetsModel) Set(val *TrendingFacetsModel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTrendingFacetsModel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTrendingFacetsModel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTrendingFacetsModel(val *TrendingFacetsModel) *NullableTrendingFacetsModel {
-	return &NullableTrendingFacetsModel{value: val, isSet: true}
-}
-
-func (v NullableTrendingFacetsModel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTrendingFacetsModel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

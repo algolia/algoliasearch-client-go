@@ -134,39 +134,3 @@ func (o SaveSynonymResponse) String() string {
 	out += fmt.Sprintf("  id=%v\n", o.Id)
 	return fmt.Sprintf("SaveSynonymResponse {\n%s}", out)
 }
-
-type NullableSaveSynonymResponse struct {
-	value *SaveSynonymResponse
-	isSet bool
-}
-
-func (v NullableSaveSynonymResponse) Get() *SaveSynonymResponse {
-	return v.value
-}
-
-func (v *NullableSaveSynonymResponse) Set(val *SaveSynonymResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSaveSynonymResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSaveSynonymResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSaveSynonymResponse(val *SaveSynonymResponse) *NullableSaveSynonymResponse {
-	return &NullableSaveSynonymResponse{value: val, isSet: true}
-}
-
-func (v NullableSaveSynonymResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSaveSynonymResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

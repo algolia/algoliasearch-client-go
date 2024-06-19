@@ -69,39 +69,3 @@ func (o GetUsage400Response) String() string {
 	out += fmt.Sprintf("  error=%v\n", o.Error)
 	return fmt.Sprintf("GetUsage400Response {\n%s}", out)
 }
-
-type NullableGetUsage400Response struct {
-	value *GetUsage400Response
-	isSet bool
-}
-
-func (v NullableGetUsage400Response) Get() *GetUsage400Response {
-	return v.value
-}
-
-func (v *NullableGetUsage400Response) Set(val *GetUsage400Response) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetUsage400Response) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetUsage400Response) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetUsage400Response(val *GetUsage400Response) *NullableGetUsage400Response {
-	return &NullableGetUsage400Response{value: val, isSet: true}
-}
-
-func (v NullableGetUsage400Response) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetUsage400Response) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -230,39 +230,3 @@ func (obj AuthInput) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAuthInput struct {
-	value *AuthInput
-	isSet bool
-}
-
-func (v NullableAuthInput) Get() *AuthInput {
-	return v.value
-}
-
-func (v *NullableAuthInput) Set(val *AuthInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthInput(val *AuthInput) *NullableAuthInput {
-	return &NullableAuthInput{value: val, isSet: true}
-}
-
-func (v NullableAuthInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -88,39 +88,3 @@ func (o Outliers) String() string {
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	return fmt.Sprintf("Outliers {\n%s}", out)
 }
-
-type NullableOutliers struct {
-	value *Outliers
-	isSet bool
-}
-
-func (v NullableOutliers) Get() *Outliers {
-	return v.value
-}
-
-func (v *NullableOutliers) Set(val *Outliers) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOutliers) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOutliers) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOutliers(val *Outliers) *NullableOutliers {
-	return &NullableOutliers{value: val, isSet: true}
-}
-
-func (v NullableOutliers) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOutliers) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -73,39 +73,3 @@ func (v Operator) IsValid() bool {
 func (v Operator) Ptr() *Operator {
 	return &v
 }
-
-type NullableOperator struct {
-	value *Operator
-	isSet bool
-}
-
-func (v NullableOperator) Get() *Operator {
-	return v.value
-}
-
-func (v *NullableOperator) Set(val *Operator) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOperator) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOperator) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOperator(val *Operator) *NullableOperator {
-	return &NullableOperator{value: val, isSet: true}
-}
-
-func (v NullableOperator) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOperator) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

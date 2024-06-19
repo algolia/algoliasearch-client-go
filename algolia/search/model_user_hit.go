@@ -229,39 +229,3 @@ func (o UserHit) String() string {
 	out += fmt.Sprintf("  _highlightResult=%v\n", o.HighlightResult)
 	return fmt.Sprintf("UserHit {\n%s}", out)
 }
-
-type NullableUserHit struct {
-	value *UserHit
-	isSet bool
-}
-
-func (v NullableUserHit) Get() *UserHit {
-	return v.value
-}
-
-func (v *NullableUserHit) Set(val *UserHit) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUserHit) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUserHit) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUserHit(val *UserHit) *NullableUserHit {
-	return &NullableUserHit{value: val, isSet: true}
-}
-
-func (v NullableUserHit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUserHit) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -102,39 +102,3 @@ func (o GetTopFiltersNoResultsValues) String() string {
 	out += fmt.Sprintf("  values=%v\n", o.Values)
 	return fmt.Sprintf("GetTopFiltersNoResultsValues {\n%s}", out)
 }
-
-type NullableGetTopFiltersNoResultsValues struct {
-	value *GetTopFiltersNoResultsValues
-	isSet bool
-}
-
-func (v NullableGetTopFiltersNoResultsValues) Get() *GetTopFiltersNoResultsValues {
-	return v.value
-}
-
-func (v *NullableGetTopFiltersNoResultsValues) Set(val *GetTopFiltersNoResultsValues) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetTopFiltersNoResultsValues) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetTopFiltersNoResultsValues) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetTopFiltersNoResultsValues(val *GetTopFiltersNoResultsValues) *NullableGetTopFiltersNoResultsValues {
-	return &NullableGetTopFiltersNoResultsValues{value: val, isSet: true}
-}
-
-func (v NullableGetTopFiltersNoResultsValues) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetTopFiltersNoResultsValues) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

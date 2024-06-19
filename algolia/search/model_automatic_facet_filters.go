@@ -94,39 +94,3 @@ func (obj AutomaticFacetFilters) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableAutomaticFacetFilters struct {
-	value *AutomaticFacetFilters
-	isSet bool
-}
-
-func (v NullableAutomaticFacetFilters) Get() *AutomaticFacetFilters {
-	return v.value
-}
-
-func (v *NullableAutomaticFacetFilters) Set(val *AutomaticFacetFilters) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAutomaticFacetFilters) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAutomaticFacetFilters) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAutomaticFacetFilters(val *AutomaticFacetFilters) *NullableAutomaticFacetFilters {
-	return &NullableAutomaticFacetFilters{value: val, isSet: true}
-}
-
-func (v NullableAutomaticFacetFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAutomaticFacetFilters) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

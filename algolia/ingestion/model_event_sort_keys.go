@@ -65,39 +65,3 @@ func (v EventSortKeys) IsValid() bool {
 func (v EventSortKeys) Ptr() *EventSortKeys {
 	return &v
 }
-
-type NullableEventSortKeys struct {
-	value *EventSortKeys
-	isSet bool
-}
-
-func (v NullableEventSortKeys) Get() *EventSortKeys {
-	return v.value
-}
-
-func (v *NullableEventSortKeys) Set(val *EventSortKeys) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEventSortKeys) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEventSortKeys) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEventSortKeys(val *EventSortKeys) *NullableEventSortKeys {
-	return &NullableEventSortKeys{value: val, isSet: true}
-}
-
-func (v NullableEventSortKeys) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEventSortKeys) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

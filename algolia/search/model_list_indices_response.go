@@ -120,39 +120,3 @@ func (o ListIndicesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 	return fmt.Sprintf("ListIndicesResponse {\n%s}", out)
 }
-
-type NullableListIndicesResponse struct {
-	value *ListIndicesResponse
-	isSet bool
-}
-
-func (v NullableListIndicesResponse) Get() *ListIndicesResponse {
-	return v.value
-}
-
-func (v *NullableListIndicesResponse) Set(val *ListIndicesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListIndicesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListIndicesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListIndicesResponse(val *ListIndicesResponse) *NullableListIndicesResponse {
-	return &NullableListIndicesResponse{value: val, isSet: true}
-}
-
-func (v NullableListIndicesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListIndicesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -69,39 +69,3 @@ func (o StreamingTrigger) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("StreamingTrigger {\n%s}", out)
 }
-
-type NullableStreamingTrigger struct {
-	value *StreamingTrigger
-	isSet bool
-}
-
-func (v NullableStreamingTrigger) Get() *StreamingTrigger {
-	return v.value
-}
-
-func (v *NullableStreamingTrigger) Set(val *StreamingTrigger) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStreamingTrigger) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStreamingTrigger) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStreamingTrigger(val *StreamingTrigger) *NullableStreamingTrigger {
-	return &NullableStreamingTrigger{value: val, isSet: true}
-}
-
-func (v NullableStreamingTrigger) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStreamingTrigger) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

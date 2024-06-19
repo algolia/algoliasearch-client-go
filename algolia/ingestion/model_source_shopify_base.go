@@ -70,39 +70,3 @@ func (o SourceShopifyBase) String() string {
 	out += fmt.Sprintf("  shopURL=%v\n", o.ShopURL)
 	return fmt.Sprintf("SourceShopifyBase {\n%s}", out)
 }
-
-type NullableSourceShopifyBase struct {
-	value *SourceShopifyBase
-	isSet bool
-}
-
-func (v NullableSourceShopifyBase) Get() *SourceShopifyBase {
-	return v.value
-}
-
-func (v *NullableSourceShopifyBase) Set(val *SourceShopifyBase) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceShopifyBase) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceShopifyBase) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceShopifyBase(val *SourceShopifyBase) *NullableSourceShopifyBase {
-	return &NullableSourceShopifyBase{value: val, isSet: true}
-}
-
-func (v NullableSourceShopifyBase) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceShopifyBase) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

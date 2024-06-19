@@ -63,39 +63,3 @@ func (v RecordType) IsValid() bool {
 func (v RecordType) Ptr() *RecordType {
 	return &v
 }
-
-type NullableRecordType struct {
-	value *RecordType
-	isSet bool
-}
-
-func (v NullableRecordType) Get() *RecordType {
-	return v.value
-}
-
-func (v *NullableRecordType) Set(val *RecordType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecordType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecordType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecordType(val *RecordType) *NullableRecordType {
-	return &NullableRecordType{value: val, isSet: true}
-}
-
-func (v NullableRecordType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecordType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

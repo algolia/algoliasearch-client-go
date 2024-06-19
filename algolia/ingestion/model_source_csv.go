@@ -254,39 +254,3 @@ func (o SourceCSV) String() string {
 	out += fmt.Sprintf("  delimiter=%v\n", o.Delimiter)
 	return fmt.Sprintf("SourceCSV {\n%s}", out)
 }
-
-type NullableSourceCSV struct {
-	value *SourceCSV
-	isSet bool
-}
-
-func (v NullableSourceCSV) Get() *SourceCSV {
-	return v.value
-}
-
-func (v *NullableSourceCSV) Set(val *SourceCSV) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceCSV) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceCSV) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceCSV(val *SourceCSV) *NullableSourceCSV {
-	return &NullableSourceCSV{value: val, isSet: true}
-}
-
-func (v NullableSourceCSV) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceCSV) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

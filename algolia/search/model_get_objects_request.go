@@ -152,39 +152,3 @@ func (o GetObjectsRequest) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	return fmt.Sprintf("GetObjectsRequest {\n%s}", out)
 }
-
-type NullableGetObjectsRequest struct {
-	value *GetObjectsRequest
-	isSet bool
-}
-
-func (v NullableGetObjectsRequest) Get() *GetObjectsRequest {
-	return v.value
-}
-
-func (v *NullableGetObjectsRequest) Set(val *GetObjectsRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetObjectsRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetObjectsRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetObjectsRequest(val *GetObjectsRequest) *NullableGetObjectsRequest {
-	return &NullableGetObjectsRequest{value: val, isSet: true}
-}
-
-func (v NullableGetObjectsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetObjectsRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

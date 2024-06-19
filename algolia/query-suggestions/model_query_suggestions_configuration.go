@@ -254,39 +254,3 @@ func (o QuerySuggestionsConfiguration) String() string {
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
 	return fmt.Sprintf("QuerySuggestionsConfiguration {\n%s}", out)
 }
-
-type NullableQuerySuggestionsConfiguration struct {
-	value *QuerySuggestionsConfiguration
-	isSet bool
-}
-
-func (v NullableQuerySuggestionsConfiguration) Get() *QuerySuggestionsConfiguration {
-	return v.value
-}
-
-func (v *NullableQuerySuggestionsConfiguration) Set(val *QuerySuggestionsConfiguration) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableQuerySuggestionsConfiguration) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableQuerySuggestionsConfiguration) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableQuerySuggestionsConfiguration(val *QuerySuggestionsConfiguration) *NullableQuerySuggestionsConfiguration {
-	return &NullableQuerySuggestionsConfiguration{value: val, isSet: true}
-}
-
-func (v NullableQuerySuggestionsConfiguration) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableQuerySuggestionsConfiguration) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

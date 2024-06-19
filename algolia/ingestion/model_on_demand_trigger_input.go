@@ -69,39 +69,3 @@ func (o OnDemandTriggerInput) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("OnDemandTriggerInput {\n%s}", out)
 }
-
-type NullableOnDemandTriggerInput struct {
-	value *OnDemandTriggerInput
-	isSet bool
-}
-
-func (v NullableOnDemandTriggerInput) Get() *OnDemandTriggerInput {
-	return v.value
-}
-
-func (v *NullableOnDemandTriggerInput) Set(val *OnDemandTriggerInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOnDemandTriggerInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOnDemandTriggerInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOnDemandTriggerInput(val *OnDemandTriggerInput) *NullableOnDemandTriggerInput {
-	return &NullableOnDemandTriggerInput{value: val, isSet: true}
-}
-
-func (v NullableOnDemandTriggerInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOnDemandTriggerInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

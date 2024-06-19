@@ -133,39 +133,3 @@ func (o PromoteConsequenceObject) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 	return fmt.Sprintf("PromoteConsequenceObject {\n%s}", out)
 }
-
-type NullablePromoteConsequenceObject struct {
-	value *PromoteConsequenceObject
-	isSet bool
-}
-
-func (v NullablePromoteConsequenceObject) Get() *PromoteConsequenceObject {
-	return v.value
-}
-
-func (v *NullablePromoteConsequenceObject) Set(val *PromoteConsequenceObject) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePromoteConsequenceObject) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePromoteConsequenceObject) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePromoteConsequenceObject(val *PromoteConsequenceObject) *NullablePromoteConsequenceObject {
-	return &NullablePromoteConsequenceObject{value: val, isSet: true}
-}
-
-func (v NullablePromoteConsequenceObject) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePromoteConsequenceObject) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

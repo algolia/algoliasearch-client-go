@@ -1388,39 +1388,3 @@ func (o BrowseResponse) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	return fmt.Sprintf("BrowseResponse {\n%s}", out)
 }
-
-type NullableBrowseResponse struct {
-	value *BrowseResponse
-	isSet bool
-}
-
-func (v NullableBrowseResponse) Get() *BrowseResponse {
-	return v.value
-}
-
-func (v *NullableBrowseResponse) Set(val *BrowseResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBrowseResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBrowseResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBrowseResponse(val *BrowseResponse) *NullableBrowseResponse {
-	return &NullableBrowseResponse{value: val, isSet: true}
-}
-
-func (v NullableBrowseResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBrowseResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

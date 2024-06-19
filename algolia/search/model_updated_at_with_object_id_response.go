@@ -178,39 +178,3 @@ func (o UpdatedAtWithObjectIdResponse) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("UpdatedAtWithObjectIdResponse {\n%s}", out)
 }
-
-type NullableUpdatedAtWithObjectIdResponse struct {
-	value *UpdatedAtWithObjectIdResponse
-	isSet bool
-}
-
-func (v NullableUpdatedAtWithObjectIdResponse) Get() *UpdatedAtWithObjectIdResponse {
-	return v.value
-}
-
-func (v *NullableUpdatedAtWithObjectIdResponse) Set(val *UpdatedAtWithObjectIdResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUpdatedAtWithObjectIdResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUpdatedAtWithObjectIdResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUpdatedAtWithObjectIdResponse(val *UpdatedAtWithObjectIdResponse) *NullableUpdatedAtWithObjectIdResponse {
-	return &NullableUpdatedAtWithObjectIdResponse{value: val, isSet: true}
-}
-
-func (v NullableUpdatedAtWithObjectIdResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUpdatedAtWithObjectIdResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

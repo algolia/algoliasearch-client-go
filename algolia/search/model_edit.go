@@ -177,39 +177,3 @@ func (o Edit) String() string {
 	out += fmt.Sprintf("  insert=%v\n", o.Insert)
 	return fmt.Sprintf("Edit {\n%s}", out)
 }
-
-type NullableEdit struct {
-	value *Edit
-	isSet bool
-}
-
-func (v NullableEdit) Get() *Edit {
-	return v.value
-}
-
-func (v *NullableEdit) Set(val *Edit) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEdit) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEdit) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEdit(val *Edit) *NullableEdit {
-	return &NullableEdit{value: val, isSet: true}
-}
-
-func (v NullableEdit) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEdit) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

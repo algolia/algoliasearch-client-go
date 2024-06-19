@@ -94,39 +94,3 @@ func (obj NumericFilters) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableNumericFilters struct {
-	value *NumericFilters
-	isSet bool
-}
-
-func (v NullableNumericFilters) Get() *NumericFilters {
-	return v.value
-}
-
-func (v *NullableNumericFilters) Set(val *NumericFilters) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableNumericFilters) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableNumericFilters) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableNumericFilters(val *NumericFilters) *NullableNumericFilters {
-	return &NullableNumericFilters{value: val, isSet: true}
-}
-
-func (v NullableNumericFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableNumericFilters) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

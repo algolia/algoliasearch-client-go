@@ -63,39 +63,3 @@ func (v TaskStatus) IsValid() bool {
 func (v TaskStatus) Ptr() *TaskStatus {
 	return &v
 }
-
-type NullableTaskStatus struct {
-	value *TaskStatus
-	isSet bool
-}
-
-func (v NullableTaskStatus) Get() *TaskStatus {
-	return v.value
-}
-
-func (v *NullableTaskStatus) Set(val *TaskStatus) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTaskStatus) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTaskStatus) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTaskStatus(val *TaskStatus) *NullableTaskStatus {
-	return &NullableTaskStatus{value: val, isSet: true}
-}
-
-func (v NullableTaskStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTaskStatus) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

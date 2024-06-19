@@ -223,39 +223,3 @@ func (o AuthOAuthPartial) String() string {
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 	return fmt.Sprintf("AuthOAuthPartial {\n%s}", out)
 }
-
-type NullableAuthOAuthPartial struct {
-	value *AuthOAuthPartial
-	isSet bool
-}
-
-func (v NullableAuthOAuthPartial) Get() *AuthOAuthPartial {
-	return v.value
-}
-
-func (v *NullableAuthOAuthPartial) Set(val *AuthOAuthPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthOAuthPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthOAuthPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthOAuthPartial(val *AuthOAuthPartial) *NullableAuthOAuthPartial {
-	return &NullableAuthOAuthPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthOAuthPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthOAuthPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -150,39 +150,3 @@ func (o RelatedProducts) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("RelatedProducts {\n%s}", out)
 }
-
-type NullableRelatedProducts struct {
-	value *RelatedProducts
-	isSet bool
-}
-
-func (v NullableRelatedProducts) Get() *RelatedProducts {
-	return v.value
-}
-
-func (v *NullableRelatedProducts) Set(val *RelatedProducts) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRelatedProducts) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRelatedProducts) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRelatedProducts(val *RelatedProducts) *NullableRelatedProducts {
-	return &NullableRelatedProducts{value: val, isSet: true}
-}
-
-func (v NullableRelatedProducts) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRelatedProducts) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

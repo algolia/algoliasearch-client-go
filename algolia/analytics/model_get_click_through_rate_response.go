@@ -11,7 +11,7 @@ import (
 // GetClickThroughRateResponse struct for GetClickThroughRateResponse.
 type GetClickThroughRateResponse struct {
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
@@ -24,7 +24,7 @@ type GetClickThroughRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetClickThroughRateResponse(rate utils.NullableFloat64, clickCount int32, trackedSearchCount int32, dates []DailyClickThroughRates) *GetClickThroughRateResponse {
+func NewGetClickThroughRateResponse(rate utils.Nullable[float64], clickCount int32, trackedSearchCount int32, dates []DailyClickThroughRates) *GetClickThroughRateResponse {
 	this := &GetClickThroughRateResponse{}
 	this.Rate = rate
 	this.ClickCount = clickCount
@@ -169,40 +169,4 @@ func (o GetClickThroughRateResponse) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetClickThroughRateResponse {\n%s}", out)
-}
-
-type NullableGetClickThroughRateResponse struct {
-	value *GetClickThroughRateResponse
-	isSet bool
-}
-
-func (v NullableGetClickThroughRateResponse) Get() *GetClickThroughRateResponse {
-	return v.value
-}
-
-func (v *NullableGetClickThroughRateResponse) Set(val *GetClickThroughRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetClickThroughRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetClickThroughRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetClickThroughRateResponse(val *GetClickThroughRateResponse) *NullableGetClickThroughRateResponse {
-	return &NullableGetClickThroughRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetClickThroughRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetClickThroughRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

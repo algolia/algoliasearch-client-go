@@ -70,39 +70,3 @@ func (o AssignUserIdParams) String() string {
 	out += fmt.Sprintf("  cluster=%v\n", o.Cluster)
 	return fmt.Sprintf("AssignUserIdParams {\n%s}", out)
 }
-
-type NullableAssignUserIdParams struct {
-	value *AssignUserIdParams
-	isSet bool
-}
-
-func (v NullableAssignUserIdParams) Get() *AssignUserIdParams {
-	return v.value
-}
-
-func (v *NullableAssignUserIdParams) Set(val *AssignUserIdParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAssignUserIdParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAssignUserIdParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAssignUserIdParams(val *AssignUserIdParams) *NullableAssignUserIdParams {
-	return &NullableAssignUserIdParams{value: val, isSet: true}
-}
-
-func (v NullableAssignUserIdParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAssignUserIdParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

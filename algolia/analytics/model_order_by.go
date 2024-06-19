@@ -67,39 +67,3 @@ func (v OrderBy) IsValid() bool {
 func (v OrderBy) Ptr() *OrderBy {
 	return &v
 }
-
-type NullableOrderBy struct {
-	value *OrderBy
-	isSet bool
-}
-
-func (v NullableOrderBy) Get() *OrderBy {
-	return v.value
-}
-
-func (v *NullableOrderBy) Set(val *OrderBy) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOrderBy) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOrderBy) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOrderBy(val *OrderBy) *NullableOrderBy {
-	return &NullableOrderBy{value: val, isSet: true}
-}
-
-func (v NullableOrderBy) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOrderBy) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

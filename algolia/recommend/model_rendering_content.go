@@ -87,39 +87,3 @@ func (o RenderingContent) String() string {
 	out += fmt.Sprintf("  facetOrdering=%v\n", o.FacetOrdering)
 	return fmt.Sprintf("RenderingContent {\n%s}", out)
 }
-
-type NullableRenderingContent struct {
-	value *RenderingContent
-	isSet bool
-}
-
-func (v NullableRenderingContent) Get() *RenderingContent {
-	return v.value
-}
-
-func (v *NullableRenderingContent) Set(val *RenderingContent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRenderingContent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRenderingContent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRenderingContent(val *RenderingContent) *NullableRenderingContent {
-	return &NullableRenderingContent{value: val, isSet: true}
-}
-
-func (v NullableRenderingContent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRenderingContent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

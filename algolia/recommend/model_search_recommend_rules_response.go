@@ -166,39 +166,3 @@ func (o SearchRecommendRulesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 	return fmt.Sprintf("SearchRecommendRulesResponse {\n%s}", out)
 }
-
-type NullableSearchRecommendRulesResponse struct {
-	value *SearchRecommendRulesResponse
-	isSet bool
-}
-
-func (v NullableSearchRecommendRulesResponse) Get() *SearchRecommendRulesResponse {
-	return v.value
-}
-
-func (v *NullableSearchRecommendRulesResponse) Set(val *SearchRecommendRulesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchRecommendRulesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchRecommendRulesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchRecommendRulesResponse(val *SearchRecommendRulesResponse) *NullableSearchRecommendRulesResponse {
-	return &NullableSearchRecommendRulesResponse{value: val, isSet: true}
-}
-
-func (v NullableSearchRecommendRulesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchRecommendRulesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

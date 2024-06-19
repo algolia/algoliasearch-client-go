@@ -152,39 +152,3 @@ func (o SaveObjectResponse) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("SaveObjectResponse {\n%s}", out)
 }
-
-type NullableSaveObjectResponse struct {
-	value *SaveObjectResponse
-	isSet bool
-}
-
-func (v NullableSaveObjectResponse) Get() *SaveObjectResponse {
-	return v.value
-}
-
-func (v *NullableSaveObjectResponse) Set(val *SaveObjectResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSaveObjectResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSaveObjectResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSaveObjectResponse(val *SaveObjectResponse) *NullableSaveObjectResponse {
-	return &NullableSaveObjectResponse{value: val, isSet: true}
-}
-
-func (v NullableSaveObjectResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSaveObjectResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -133,39 +133,3 @@ func (o FilterEffectsOutliers) String() string {
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
 	return fmt.Sprintf("FilterEffectsOutliers {\n%s}", out)
 }
-
-type NullableFilterEffectsOutliers struct {
-	value *FilterEffectsOutliers
-	isSet bool
-}
-
-func (v NullableFilterEffectsOutliers) Get() *FilterEffectsOutliers {
-	return v.value
-}
-
-func (v *NullableFilterEffectsOutliers) Set(val *FilterEffectsOutliers) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFilterEffectsOutliers) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFilterEffectsOutliers) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFilterEffectsOutliers(val *FilterEffectsOutliers) *NullableFilterEffectsOutliers {
-	return &NullableFilterEffectsOutliers{value: val, isSet: true}
-}
-
-func (v NullableFilterEffectsOutliers) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFilterEffectsOutliers) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

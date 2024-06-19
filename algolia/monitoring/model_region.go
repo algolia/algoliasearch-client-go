@@ -89,39 +89,3 @@ func (v Region) IsValid() bool {
 func (v Region) Ptr() *Region {
 	return &v
 }
-
-type NullableRegion struct {
-	value *Region
-	isSet bool
-}
-
-func (v NullableRegion) Get() *Region {
-	return v.value
-}
-
-func (v *NullableRegion) Set(val *Region) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRegion) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRegion) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRegion(val *Region) *NullableRegion {
-	return &NullableRegion{value: val, isSet: true}
-}
-
-func (v NullableRegion) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRegion) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

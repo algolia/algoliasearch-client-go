@@ -102,39 +102,3 @@ func (o MultipleBatchResponse) String() string {
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
 	return fmt.Sprintf("MultipleBatchResponse {\n%s}", out)
 }
-
-type NullableMultipleBatchResponse struct {
-	value *MultipleBatchResponse
-	isSet bool
-}
-
-func (v NullableMultipleBatchResponse) Get() *MultipleBatchResponse {
-	return v.value
-}
-
-func (v *NullableMultipleBatchResponse) Set(val *MultipleBatchResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMultipleBatchResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMultipleBatchResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMultipleBatchResponse(val *MultipleBatchResponse) *NullableMultipleBatchResponse {
-	return &NullableMultipleBatchResponse{value: val, isSet: true}
-}
-
-func (v NullableMultipleBatchResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMultipleBatchResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

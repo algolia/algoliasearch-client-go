@@ -421,39 +421,3 @@ func (o FetchedIndex) String() string {
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
 	return fmt.Sprintf("FetchedIndex {\n%s}", out)
 }
-
-type NullableFetchedIndex struct {
-	value *FetchedIndex
-	isSet bool
-}
-
-func (v NullableFetchedIndex) Get() *FetchedIndex {
-	return v.value
-}
-
-func (v *NullableFetchedIndex) Set(val *FetchedIndex) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFetchedIndex) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFetchedIndex) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFetchedIndex(val *FetchedIndex) *NullableFetchedIndex {
-	return &NullableFetchedIndex{value: val, isSet: true}
-}
-
-func (v NullableFetchedIndex) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFetchedIndex) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

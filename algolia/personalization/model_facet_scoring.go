@@ -102,39 +102,3 @@ func (o FacetScoring) String() string {
 	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
 	return fmt.Sprintf("FacetScoring {\n%s}", out)
 }
-
-type NullableFacetScoring struct {
-	value *FacetScoring
-	isSet bool
-}
-
-func (v NullableFacetScoring) Get() *FacetScoring {
-	return v.value
-}
-
-func (v *NullableFacetScoring) Set(val *FacetScoring) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFacetScoring) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFacetScoring) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFacetScoring(val *FacetScoring) *NullableFacetScoring {
-	return &NullableFacetScoring{value: val, isSet: true}
-}
-
-func (v NullableFacetScoring) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFacetScoring) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -331,39 +331,3 @@ func (o SourceBigQuery) String() string {
 	out += fmt.Sprintf("  uniqueIDColumn=%v\n", o.UniqueIDColumn)
 	return fmt.Sprintf("SourceBigQuery {\n%s}", out)
 }
-
-type NullableSourceBigQuery struct {
-	value *SourceBigQuery
-	isSet bool
-}
-
-func (v NullableSourceBigQuery) Get() *SourceBigQuery {
-	return v.value
-}
-
-func (v *NullableSourceBigQuery) Set(val *SourceBigQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceBigQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceBigQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceBigQuery(val *SourceBigQuery) *NullableSourceBigQuery {
-	return &NullableSourceBigQuery{value: val, isSet: true}
-}
-
-func (v NullableSourceBigQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceBigQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

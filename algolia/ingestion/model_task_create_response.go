@@ -102,39 +102,3 @@ func (o TaskCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("TaskCreateResponse {\n%s}", out)
 }
-
-type NullableTaskCreateResponse struct {
-	value *TaskCreateResponse
-	isSet bool
-}
-
-func (v NullableTaskCreateResponse) Get() *TaskCreateResponse {
-	return v.value
-}
-
-func (v *NullableTaskCreateResponse) Set(val *TaskCreateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTaskCreateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTaskCreateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTaskCreateResponse(val *TaskCreateResponse) *NullableTaskCreateResponse {
-	return &NullableTaskCreateResponse{value: val, isSet: true}
-}
-
-func (v NullableTaskCreateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTaskCreateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

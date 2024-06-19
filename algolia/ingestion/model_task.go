@@ -399,39 +399,3 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("Task {\n%s}", out)
 }
-
-type NullableTask struct {
-	value *Task
-	isSet bool
-}
-
-func (v NullableTask) Get() *Task {
-	return v.value
-}
-
-func (v *NullableTask) Set(val *Task) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTask) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTask) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTask(val *Task) *NullableTask {
-	return &NullableTask{value: val, isSet: true}
-}
-
-func (v NullableTask) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTask) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -133,39 +133,3 @@ func (o ConsequenceQueryObject) String() string {
 	out += fmt.Sprintf("  edits=%v\n", o.Edits)
 	return fmt.Sprintf("ConsequenceQueryObject {\n%s}", out)
 }
-
-type NullableConsequenceQueryObject struct {
-	value *ConsequenceQueryObject
-	isSet bool
-}
-
-func (v NullableConsequenceQueryObject) Get() *ConsequenceQueryObject {
-	return v.value
-}
-
-func (v *NullableConsequenceQueryObject) Set(val *ConsequenceQueryObject) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableConsequenceQueryObject) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableConsequenceQueryObject) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableConsequenceQueryObject(val *ConsequenceQueryObject) *NullableConsequenceQueryObject {
-	return &NullableConsequenceQueryObject{value: val, isSet: true}
-}
-
-func (v NullableConsequenceQueryObject) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableConsequenceQueryObject) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

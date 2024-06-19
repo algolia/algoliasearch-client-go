@@ -119,39 +119,3 @@ func (o SearchForHitsOptions) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("SearchForHitsOptions {\n%s}", out)
 }
-
-type NullableSearchForHitsOptions struct {
-	value *SearchForHitsOptions
-	isSet bool
-}
-
-func (v NullableSearchForHitsOptions) Get() *SearchForHitsOptions {
-	return v.value
-}
-
-func (v *NullableSearchForHitsOptions) Set(val *SearchForHitsOptions) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchForHitsOptions) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchForHitsOptions) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchForHitsOptions(val *SearchForHitsOptions) *NullableSearchForHitsOptions {
-	return &NullableSearchForHitsOptions{value: val, isSet: true}
-}
-
-func (v NullableSearchForHitsOptions) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchForHitsOptions) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

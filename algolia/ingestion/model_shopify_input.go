@@ -100,39 +100,3 @@ func (o ShopifyInput) String() string {
 	out += fmt.Sprintf("  market=%v\n", o.Market)
 	return fmt.Sprintf("ShopifyInput {\n%s}", out)
 }
-
-type NullableShopifyInput struct {
-	value *ShopifyInput
-	isSet bool
-}
-
-func (v NullableShopifyInput) Get() *ShopifyInput {
-	return v.value
-}
-
-func (v *NullableShopifyInput) Set(val *ShopifyInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableShopifyInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableShopifyInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableShopifyInput(val *ShopifyInput) *NullableShopifyInput {
-	return &NullableShopifyInput{value: val, isSet: true}
-}
-
-func (v NullableShopifyInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableShopifyInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

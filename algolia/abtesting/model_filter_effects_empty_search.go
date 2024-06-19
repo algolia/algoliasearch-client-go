@@ -133,39 +133,3 @@ func (o FilterEffectsEmptySearch) String() string {
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
 	return fmt.Sprintf("FilterEffectsEmptySearch {\n%s}", out)
 }
-
-type NullableFilterEffectsEmptySearch struct {
-	value *FilterEffectsEmptySearch
-	isSet bool
-}
-
-func (v NullableFilterEffectsEmptySearch) Get() *FilterEffectsEmptySearch {
-	return v.value
-}
-
-func (v *NullableFilterEffectsEmptySearch) Set(val *FilterEffectsEmptySearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFilterEffectsEmptySearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFilterEffectsEmptySearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFilterEffectsEmptySearch(val *FilterEffectsEmptySearch) *NullableFilterEffectsEmptySearch {
-	return &NullableFilterEffectsEmptySearch{value: val, isSet: true}
-}
-
-func (v NullableFilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFilterEffectsEmptySearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

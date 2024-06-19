@@ -100,39 +100,3 @@ func (o ListAuthenticationsResponse) String() string {
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
 	return fmt.Sprintf("ListAuthenticationsResponse {\n%s}", out)
 }
-
-type NullableListAuthenticationsResponse struct {
-	value *ListAuthenticationsResponse
-	isSet bool
-}
-
-func (v NullableListAuthenticationsResponse) Get() *ListAuthenticationsResponse {
-	return v.value
-}
-
-func (v *NullableListAuthenticationsResponse) Set(val *ListAuthenticationsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListAuthenticationsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListAuthenticationsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListAuthenticationsResponse(val *ListAuthenticationsResponse) *NullableListAuthenticationsResponse {
-	return &NullableListAuthenticationsResponse{value: val, isSet: true}
-}
-
-func (v NullableListAuthenticationsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListAuthenticationsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

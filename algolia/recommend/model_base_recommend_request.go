@@ -196,39 +196,3 @@ func (o BaseRecommendRequest) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	return fmt.Sprintf("BaseRecommendRequest {\n%s}", out)
 }
-
-type NullableBaseRecommendRequest struct {
-	value *BaseRecommendRequest
-	isSet bool
-}
-
-func (v NullableBaseRecommendRequest) Get() *BaseRecommendRequest {
-	return v.value
-}
-
-func (v *NullableBaseRecommendRequest) Set(val *BaseRecommendRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBaseRecommendRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBaseRecommendRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBaseRecommendRequest(val *BaseRecommendRequest) *NullableBaseRecommendRequest {
-	return &NullableBaseRecommendRequest{value: val, isSet: true}
-}
-
-func (v NullableBaseRecommendRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBaseRecommendRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

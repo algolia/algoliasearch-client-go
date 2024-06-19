@@ -322,39 +322,3 @@ func (o Event) String() string {
 	out += fmt.Sprintf("  publishedAt=%v\n", o.PublishedAt)
 	return fmt.Sprintf("Event {\n%s}", out)
 }
-
-type NullableEvent struct {
-	value *Event
-	isSet bool
-}
-
-func (v NullableEvent) Get() *Event {
-	return v.value
-}
-
-func (v *NullableEvent) Set(val *Event) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableEvent(val *Event) *NullableEvent {
-	return &NullableEvent{value: val, isSet: true}
-}
-
-func (v NullableEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

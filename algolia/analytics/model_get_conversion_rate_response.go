@@ -11,7 +11,7 @@ import (
 // GetConversionRateResponse struct for GetConversionRateResponse.
 type GetConversionRateResponse struct {
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of conversions from this search.
@@ -24,7 +24,7 @@ type GetConversionRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetConversionRateResponse(rate utils.NullableFloat64, trackedSearchCount int32, conversionCount int32, dates []DailyConversionRates) *GetConversionRateResponse {
+func NewGetConversionRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, conversionCount int32, dates []DailyConversionRates) *GetConversionRateResponse {
 	this := &GetConversionRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
@@ -169,40 +169,4 @@ func (o GetConversionRateResponse) String() string {
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetConversionRateResponse {\n%s}", out)
-}
-
-type NullableGetConversionRateResponse struct {
-	value *GetConversionRateResponse
-	isSet bool
-}
-
-func (v NullableGetConversionRateResponse) Get() *GetConversionRateResponse {
-	return v.value
-}
-
-func (v *NullableGetConversionRateResponse) Set(val *GetConversionRateResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetConversionRateResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetConversionRateResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetConversionRateResponse(val *GetConversionRateResponse) *NullableGetConversionRateResponse {
-	return &NullableGetConversionRateResponse{value: val, isSet: true}
-}
-
-func (v NullableGetConversionRateResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetConversionRateResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

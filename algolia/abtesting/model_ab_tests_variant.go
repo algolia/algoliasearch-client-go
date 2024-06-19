@@ -152,39 +152,3 @@ func (o AbTestsVariant) String() string {
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	return fmt.Sprintf("AbTestsVariant {\n%s}", out)
 }
-
-type NullableAbTestsVariant struct {
-	value *AbTestsVariant
-	isSet bool
-}
-
-func (v NullableAbTestsVariant) Get() *AbTestsVariant {
-	return v.value
-}
-
-func (v *NullableAbTestsVariant) Set(val *AbTestsVariant) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAbTestsVariant) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAbTestsVariant) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAbTestsVariant(val *AbTestsVariant) *NullableAbTestsVariant {
-	return &NullableAbTestsVariant{value: val, isSet: true}
-}
-
-func (v NullableAbTestsVariant) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAbTestsVariant) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

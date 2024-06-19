@@ -15,9 +15,9 @@ type TopHitWithRevenueAnalytics struct {
 	// Number of occurrences.
 	Count int32 `json:"count"`
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedHitCount int32 `json:"trackedHitCount"`
 	// Number of clicks associated with this search.
@@ -25,11 +25,11 @@ type TopHitWithRevenueAnalytics struct {
 	// Number of conversions from this search.
 	ConversionCount int32 `json:"conversionCount"`
 	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	AddToCartRate utils.NullableFloat64 `json:"addToCartRate"`
+	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// Number of add-to-cart events from this search.
 	AddToCartCount int32 `json:"addToCartCount"`
 	// Purchase rate, calculated as number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	PurchaseRate utils.NullableFloat64 `json:"purchaseRate"`
+	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
 	// Number of purchase events from this search.
 	PurchaseCount int32 `json:"purchaseCount"`
 	// Revenue associated with this search, broken-down by currencies.
@@ -40,7 +40,7 @@ type TopHitWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate utils.NullableFloat64, conversionRate utils.NullableFloat64, trackedHitCount int32, clickCount int32, conversionCount int32, addToCartRate utils.NullableFloat64, addToCartCount int32, purchaseRate utils.NullableFloat64, purchaseCount int32, currencies map[string]CurrenciesValue) *TopHitWithRevenueAnalytics {
+func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32, currencies map[string]CurrenciesValue) *TopHitWithRevenueAnalytics {
 	this := &TopHitWithRevenueAnalytics{}
 	this.Hit = hit
 	this.Count = count
@@ -431,40 +431,4 @@ func (o TopHitWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 	return fmt.Sprintf("TopHitWithRevenueAnalytics {\n%s}", out)
-}
-
-type NullableTopHitWithRevenueAnalytics struct {
-	value *TopHitWithRevenueAnalytics
-	isSet bool
-}
-
-func (v NullableTopHitWithRevenueAnalytics) Get() *TopHitWithRevenueAnalytics {
-	return v.value
-}
-
-func (v *NullableTopHitWithRevenueAnalytics) Set(val *TopHitWithRevenueAnalytics) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopHitWithRevenueAnalytics) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopHitWithRevenueAnalytics) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopHitWithRevenueAnalytics(val *TopHitWithRevenueAnalytics) *NullableTopHitWithRevenueAnalytics {
-	return &NullableTopHitWithRevenueAnalytics{value: val, isSet: true}
-}
-
-func (v NullableTopHitWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopHitWithRevenueAnalytics) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

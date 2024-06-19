@@ -166,39 +166,3 @@ func (o UserId) String() string {
 	out += fmt.Sprintf("  dataSize=%v\n", o.DataSize)
 	return fmt.Sprintf("UserId {\n%s}", out)
 }
-
-type NullableUserId struct {
-	value *UserId
-	isSet bool
-}
-
-func (v NullableUserId) Get() *UserId {
-	return v.value
-}
-
-func (v *NullableUserId) Set(val *UserId) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableUserId) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableUserId) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableUserId(val *UserId) *NullableUserId {
-	return &NullableUserId{value: val, isSet: true}
-}
-
-func (v NullableUserId) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableUserId) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

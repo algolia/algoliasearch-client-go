@@ -70,39 +70,3 @@ func (o DestinationIndexPrefix) String() string {
 	out += fmt.Sprintf("  indexPrefix=%v\n", o.IndexPrefix)
 	return fmt.Sprintf("DestinationIndexPrefix {\n%s}", out)
 }
-
-type NullableDestinationIndexPrefix struct {
-	value *DestinationIndexPrefix
-	isSet bool
-}
-
-func (v NullableDestinationIndexPrefix) Get() *DestinationIndexPrefix {
-	return v.value
-}
-
-func (v *NullableDestinationIndexPrefix) Set(val *DestinationIndexPrefix) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationIndexPrefix) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationIndexPrefix) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationIndexPrefix(val *DestinationIndexPrefix) *NullableDestinationIndexPrefix {
-	return &NullableDestinationIndexPrefix{value: val, isSet: true}
-}
-
-func (v NullableDestinationIndexPrefix) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationIndexPrefix) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

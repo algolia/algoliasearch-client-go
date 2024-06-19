@@ -15,13 +15,13 @@ type TopSearchWithRevenueAnalytics struct {
 	// Number of searches.
 	Count int32 `json:"count"`
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ClickThroughRate utils.NullableFloat64 `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	AverageClickPosition utils.NullableFloat64 `json:"averageClickPosition"`
+	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition"`
 	// List of positions in the search results and clicks associated with this search.
 	ClickPositions []ClickPositionsInner `json:"clickPositions"`
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	ConversionRate utils.NullableFloat64 `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of clicks associated with this search.
@@ -33,11 +33,11 @@ type TopSearchWithRevenueAnalytics struct {
 	// Revenue associated with this search, broken-down by currencies.
 	Currencies map[string]CurrenciesValue `json:"currencies"`
 	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	AddToCartRate utils.NullableFloat64 `json:"addToCartRate"`
+	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// Number of add-to-cart events from this search.
 	AddToCartCount int32 `json:"addToCartCount"`
 	// Purchase rate, calculated as number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	PurchaseRate utils.NullableFloat64 `json:"purchaseRate"`
+	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
 	// Number of purchase events from this search.
 	PurchaseCount int32 `json:"purchaseCount"`
 }
@@ -46,7 +46,7 @@ type TopSearchWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.NullableFloat64, averageClickPosition utils.NullableFloat64, clickPositions []ClickPositionsInner, conversionRate utils.NullableFloat64, trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrenciesValue, addToCartRate utils.NullableFloat64, addToCartCount int32, purchaseRate utils.NullableFloat64, purchaseCount int32) *TopSearchWithRevenueAnalytics {
+func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPositionsInner, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrenciesValue, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
 	this := &TopSearchWithRevenueAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -529,40 +529,4 @@ func (o TopSearchWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  purchaseRate=%v\n", o.PurchaseRate)
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	return fmt.Sprintf("TopSearchWithRevenueAnalytics {\n%s}", out)
-}
-
-type NullableTopSearchWithRevenueAnalytics struct {
-	value *TopSearchWithRevenueAnalytics
-	isSet bool
-}
-
-func (v NullableTopSearchWithRevenueAnalytics) Get() *TopSearchWithRevenueAnalytics {
-	return v.value
-}
-
-func (v *NullableTopSearchWithRevenueAnalytics) Set(val *TopSearchWithRevenueAnalytics) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTopSearchWithRevenueAnalytics) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTopSearchWithRevenueAnalytics) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTopSearchWithRevenueAnalytics(val *TopSearchWithRevenueAnalytics) *NullableTopSearchWithRevenueAnalytics {
-	return &NullableTopSearchWithRevenueAnalytics{value: val, isSet: true}
-}
-
-func (v NullableTopSearchWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTopSearchWithRevenueAnalytics) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

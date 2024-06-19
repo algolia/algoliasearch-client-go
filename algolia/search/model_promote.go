@@ -94,39 +94,3 @@ func (obj Promote) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullablePromote struct {
-	value *Promote
-	isSet bool
-}
-
-func (v NullablePromote) Get() *Promote {
-	return v.value
-}
-
-func (v *NullablePromote) Set(val *Promote) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullablePromote) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePromote) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullablePromote(val *Promote) *NullablePromote {
-	return &NullablePromote{value: val, isSet: true}
-}
-
-func (v NullablePromote) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullablePromote) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -87,39 +87,3 @@ func (o Redirect) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	return fmt.Sprintf("Redirect {\n%s}", out)
 }
-
-type NullableRedirect struct {
-	value *Redirect
-	isSet bool
-}
-
-func (v NullableRedirect) Get() *Redirect {
-	return v.value
-}
-
-func (v *NullableRedirect) Set(val *Redirect) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRedirect) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRedirect) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRedirect(val *Redirect) *NullableRedirect {
-	return &NullableRedirect{value: val, isSet: true}
-}
-
-func (v NullableRedirect) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRedirect) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -132,39 +132,3 @@ func (o MinimumDetectableEffect) String() string {
 	out += fmt.Sprintf("  effect=%v\n", o.Effect)
 	return fmt.Sprintf("MinimumDetectableEffect {\n%s}", out)
 }
-
-type NullableMinimumDetectableEffect struct {
-	value *MinimumDetectableEffect
-	isSet bool
-}
-
-func (v NullableMinimumDetectableEffect) Get() *MinimumDetectableEffect {
-	return v.value
-}
-
-func (v *NullableMinimumDetectableEffect) Set(val *MinimumDetectableEffect) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMinimumDetectableEffect) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMinimumDetectableEffect) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMinimumDetectableEffect(val *MinimumDetectableEffect) *NullableMinimumDetectableEffect {
-	return &NullableMinimumDetectableEffect{value: val, isSet: true}
-}
-
-func (v NullableMinimumDetectableEffect) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMinimumDetectableEffect) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

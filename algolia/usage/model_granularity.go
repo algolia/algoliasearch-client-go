@@ -63,39 +63,3 @@ func (v Granularity) IsValid() bool {
 func (v Granularity) Ptr() *Granularity {
 	return &v
 }
-
-type NullableGranularity struct {
-	value *Granularity
-	isSet bool
-}
-
-func (v NullableGranularity) Get() *Granularity {
-	return v.value
-}
-
-func (v *NullableGranularity) Set(val *Granularity) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGranularity) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGranularity) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGranularity(val *Granularity) *NullableGranularity {
-	return &NullableGranularity{value: val, isSet: true}
-}
-
-func (v NullableGranularity) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGranularity) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

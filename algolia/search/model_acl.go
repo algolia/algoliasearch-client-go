@@ -89,39 +89,3 @@ func (v Acl) IsValid() bool {
 func (v Acl) Ptr() *Acl {
 	return &v
 }
-
-type NullableAcl struct {
-	value *Acl
-	isSet bool
-}
-
-func (v NullableAcl) Get() *Acl {
-	return v.value
-}
-
-func (v *NullableAcl) Set(val *Acl) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAcl) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAcl) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAcl(val *Acl) *NullableAcl {
-	return &NullableAcl{value: val, isSet: true}
-}
-
-func (v NullableAcl) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAcl) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

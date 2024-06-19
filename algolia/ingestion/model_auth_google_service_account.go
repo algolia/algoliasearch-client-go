@@ -102,39 +102,3 @@ func (o AuthGoogleServiceAccount) String() string {
 	out += fmt.Sprintf("  privateKey=%v\n", o.PrivateKey)
 	return fmt.Sprintf("AuthGoogleServiceAccount {\n%s}", out)
 }
-
-type NullableAuthGoogleServiceAccount struct {
-	value *AuthGoogleServiceAccount
-	isSet bool
-}
-
-func (v NullableAuthGoogleServiceAccount) Get() *AuthGoogleServiceAccount {
-	return v.value
-}
-
-func (v *NullableAuthGoogleServiceAccount) Set(val *AuthGoogleServiceAccount) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthGoogleServiceAccount) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthGoogleServiceAccount) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthGoogleServiceAccount(val *AuthGoogleServiceAccount) *NullableAuthGoogleServiceAccount {
-	return &NullableAuthGoogleServiceAccount{value: val, isSet: true}
-}
-
-func (v NullableAuthGoogleServiceAccount) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthGoogleServiceAccount) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

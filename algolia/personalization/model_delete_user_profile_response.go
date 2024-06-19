@@ -102,39 +102,3 @@ func (o DeleteUserProfileResponse) String() string {
 	out += fmt.Sprintf("  deletedUntil=%v\n", o.DeletedUntil)
 	return fmt.Sprintf("DeleteUserProfileResponse {\n%s}", out)
 }
-
-type NullableDeleteUserProfileResponse struct {
-	value *DeleteUserProfileResponse
-	isSet bool
-}
-
-func (v NullableDeleteUserProfileResponse) Get() *DeleteUserProfileResponse {
-	return v.value
-}
-
-func (v *NullableDeleteUserProfileResponse) Set(val *DeleteUserProfileResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDeleteUserProfileResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDeleteUserProfileResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDeleteUserProfileResponse(val *DeleteUserProfileResponse) *NullableDeleteUserProfileResponse {
-	return &NullableDeleteUserProfileResponse{value: val, isSet: true}
-}
-
-func (v NullableDeleteUserProfileResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDeleteUserProfileResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -101,39 +101,3 @@ func (o BuiltInOperation) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("BuiltInOperation {\n%s}", out)
 }
-
-type NullableBuiltInOperation struct {
-	value *BuiltInOperation
-	isSet bool
-}
-
-func (v NullableBuiltInOperation) Get() *BuiltInOperation {
-	return v.value
-}
-
-func (v *NullableBuiltInOperation) Set(val *BuiltInOperation) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBuiltInOperation) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBuiltInOperation) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBuiltInOperation(val *BuiltInOperation) *NullableBuiltInOperation {
-	return &NullableBuiltInOperation{value: val, isSet: true}
-}
-
-func (v NullableBuiltInOperation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBuiltInOperation) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

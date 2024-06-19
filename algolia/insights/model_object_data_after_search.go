@@ -221,39 +221,3 @@ func (o ObjectDataAfterSearch) String() string {
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
 	return fmt.Sprintf("ObjectDataAfterSearch {\n%s}", out)
 }
-
-type NullableObjectDataAfterSearch struct {
-	value *ObjectDataAfterSearch
-	isSet bool
-}
-
-func (v NullableObjectDataAfterSearch) Get() *ObjectDataAfterSearch {
-	return v.value
-}
-
-func (v *NullableObjectDataAfterSearch) Set(val *ObjectDataAfterSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableObjectDataAfterSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableObjectDataAfterSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableObjectDataAfterSearch(val *ObjectDataAfterSearch) *NullableObjectDataAfterSearch {
-	return &NullableObjectDataAfterSearch{value: val, isSet: true}
-}
-
-func (v NullableObjectDataAfterSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableObjectDataAfterSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

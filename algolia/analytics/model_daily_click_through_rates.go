@@ -11,7 +11,7 @@ import (
 // DailyClickThroughRates struct for DailyClickThroughRates.
 type DailyClickThroughRates struct {
 	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
-	Rate utils.NullableFloat64 `json:"rate"`
+	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of clicks associated with this search.
 	ClickCount int32 `json:"clickCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
@@ -24,7 +24,7 @@ type DailyClickThroughRates struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDailyClickThroughRates(rate utils.NullableFloat64, clickCount int32, trackedSearchCount int32, date string) *DailyClickThroughRates {
+func NewDailyClickThroughRates(rate utils.Nullable[float64], clickCount int32, trackedSearchCount int32, date string) *DailyClickThroughRates {
 	this := &DailyClickThroughRates{}
 	this.Rate = rate
 	this.ClickCount = clickCount
@@ -169,40 +169,4 @@ func (o DailyClickThroughRates) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	return fmt.Sprintf("DailyClickThroughRates {\n%s}", out)
-}
-
-type NullableDailyClickThroughRates struct {
-	value *DailyClickThroughRates
-	isSet bool
-}
-
-func (v NullableDailyClickThroughRates) Get() *DailyClickThroughRates {
-	return v.value
-}
-
-func (v *NullableDailyClickThroughRates) Set(val *DailyClickThroughRates) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailyClickThroughRates) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailyClickThroughRates) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailyClickThroughRates(val *DailyClickThroughRates) *NullableDailyClickThroughRates {
-	return &NullableDailyClickThroughRates{value: val, isSet: true}
-}
-
-func (v NullableDailyClickThroughRates) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailyClickThroughRates) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

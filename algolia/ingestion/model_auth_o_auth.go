@@ -184,39 +184,3 @@ func (o AuthOAuth) String() string {
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 	return fmt.Sprintf("AuthOAuth {\n%s}", out)
 }
-
-type NullableAuthOAuth struct {
-	value *AuthOAuth
-	isSet bool
-}
-
-func (v NullableAuthOAuth) Get() *AuthOAuth {
-	return v.value
-}
-
-func (v *NullableAuthOAuth) Set(val *AuthOAuth) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthOAuth) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthOAuth) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthOAuth(val *AuthOAuth) *NullableAuthOAuth {
-	return &NullableAuthOAuth{value: val, isSet: true}
-}
-
-func (v NullableAuthOAuth) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthOAuth) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

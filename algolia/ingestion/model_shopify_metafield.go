@@ -131,39 +131,3 @@ func (o ShopifyMetafield) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	return fmt.Sprintf("ShopifyMetafield {\n%s}", out)
 }
-
-type NullableShopifyMetafield struct {
-	value *ShopifyMetafield
-	isSet bool
-}
-
-func (v NullableShopifyMetafield) Get() *ShopifyMetafield {
-	return v.value
-}
-
-func (v *NullableShopifyMetafield) Set(val *ShopifyMetafield) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableShopifyMetafield) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableShopifyMetafield) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableShopifyMetafield(val *ShopifyMetafield) *NullableShopifyMetafield {
-	return &NullableShopifyMetafield{value: val, isSet: true}
-}
-
-func (v NullableShopifyMetafield) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableShopifyMetafield) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

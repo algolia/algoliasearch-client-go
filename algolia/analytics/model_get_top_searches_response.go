@@ -128,39 +128,3 @@ func (obj GetTopSearchesResponse) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableGetTopSearchesResponse struct {
-	value *GetTopSearchesResponse
-	isSet bool
-}
-
-func (v NullableGetTopSearchesResponse) Get() *GetTopSearchesResponse {
-	return v.value
-}
-
-func (v *NullableGetTopSearchesResponse) Set(val *GetTopSearchesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetTopSearchesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetTopSearchesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetTopSearchesResponse(val *GetTopSearchesResponse) *NullableGetTopSearchesResponse {
-	return &NullableGetTopSearchesResponse{value: val, isSet: true}
-}
-
-func (v NullableGetTopSearchesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetTopSearchesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

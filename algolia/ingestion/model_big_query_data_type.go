@@ -63,39 +63,3 @@ func (v BigQueryDataType) IsValid() bool {
 func (v BigQueryDataType) Ptr() *BigQueryDataType {
 	return &v
 }
-
-type NullableBigQueryDataType struct {
-	value *BigQueryDataType
-	isSet bool
-}
-
-func (v NullableBigQueryDataType) Get() *BigQueryDataType {
-	return v.value
-}
-
-func (v *NullableBigQueryDataType) Set(val *BigQueryDataType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBigQueryDataType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBigQueryDataType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBigQueryDataType(val *BigQueryDataType) *NullableBigQueryDataType {
-	return &NullableBigQueryDataType{value: val, isSet: true}
-}
-
-func (v NullableBigQueryDataType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBigQueryDataType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

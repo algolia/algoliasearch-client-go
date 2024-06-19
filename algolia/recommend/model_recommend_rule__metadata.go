@@ -88,39 +88,3 @@ func (o RecommendRuleMetadata) String() string {
 	out += fmt.Sprintf("  lastUpdate=%v\n", o.LastUpdate)
 	return fmt.Sprintf("RecommendRuleMetadata {\n%s}", out)
 }
-
-type NullableRecommendRuleMetadata struct {
-	value *RecommendRuleMetadata
-	isSet bool
-}
-
-func (v NullableRecommendRuleMetadata) Get() *RecommendRuleMetadata {
-	return v.value
-}
-
-func (v *NullableRecommendRuleMetadata) Set(val *RecommendRuleMetadata) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRecommendRuleMetadata) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRecommendRuleMetadata) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRecommendRuleMetadata(val *RecommendRuleMetadata) *NullableRecommendRuleMetadata {
-	return &NullableRecommendRuleMetadata{value: val, isSet: true}
-}
-
-func (v NullableRecommendRuleMetadata) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRecommendRuleMetadata) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

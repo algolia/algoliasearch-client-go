@@ -65,39 +65,3 @@ func (v ApiKeyOperation) IsValid() bool {
 func (v ApiKeyOperation) Ptr() *ApiKeyOperation {
 	return &v
 }
-
-type NullableApiKeyOperation struct {
-	value *ApiKeyOperation
-	isSet bool
-}
-
-func (v NullableApiKeyOperation) Get() *ApiKeyOperation {
-	return v.value
-}
-
-func (v *NullableApiKeyOperation) Set(val *ApiKeyOperation) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableApiKeyOperation) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableApiKeyOperation) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableApiKeyOperation(val *ApiKeyOperation) *NullableApiKeyOperation {
-	return &NullableApiKeyOperation{value: val, isSet: true}
-}
-
-func (v NullableApiKeyOperation) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableApiKeyOperation) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

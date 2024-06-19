@@ -61,39 +61,3 @@ func (v AroundRadiusAll) IsValid() bool {
 func (v AroundRadiusAll) Ptr() *AroundRadiusAll {
 	return &v
 }
-
-type NullableAroundRadiusAll struct {
-	value *AroundRadiusAll
-	isSet bool
-}
-
-func (v NullableAroundRadiusAll) Get() *AroundRadiusAll {
-	return v.value
-}
-
-func (v *NullableAroundRadiusAll) Set(val *AroundRadiusAll) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAroundRadiusAll) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAroundRadiusAll) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAroundRadiusAll(val *AroundRadiusAll) *NullableAroundRadiusAll {
-	return &NullableAroundRadiusAll{value: val, isSet: true}
-}
-
-func (v NullableAroundRadiusAll) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAroundRadiusAll) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

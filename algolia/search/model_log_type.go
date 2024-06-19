@@ -67,39 +67,3 @@ func (v LogType) IsValid() bool {
 func (v LogType) Ptr() *LogType {
 	return &v
 }
-
-type NullableLogType struct {
-	value *LogType
-	isSet bool
-}
-
-func (v NullableLogType) Get() *LogType {
-	return v.value
-}
-
-func (v *NullableLogType) Set(val *LogType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLogType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLogType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLogType(val *LogType) *NullableLogType {
-	return &NullableLogType{value: val, isSet: true}
-}
-
-func (v NullableLogType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLogType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -133,39 +133,3 @@ func (o AuthAlgoliaInsightsPartial) String() string {
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
 	return fmt.Sprintf("AuthAlgoliaInsightsPartial {\n%s}", out)
 }
-
-type NullableAuthAlgoliaInsightsPartial struct {
-	value *AuthAlgoliaInsightsPartial
-	isSet bool
-}
-
-func (v NullableAuthAlgoliaInsightsPartial) Get() *AuthAlgoliaInsightsPartial {
-	return v.value
-}
-
-func (v *NullableAuthAlgoliaInsightsPartial) Set(val *AuthAlgoliaInsightsPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthAlgoliaInsightsPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthAlgoliaInsightsPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthAlgoliaInsightsPartial(val *AuthAlgoliaInsightsPartial) *NullableAuthAlgoliaInsightsPartial {
-	return &NullableAuthAlgoliaInsightsPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthAlgoliaInsightsPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthAlgoliaInsightsPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

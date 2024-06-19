@@ -467,39 +467,3 @@ func (o GetApiKeyResponse) String() string {
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 	return fmt.Sprintf("GetApiKeyResponse {\n%s}", out)
 }
-
-type NullableGetApiKeyResponse struct {
-	value *GetApiKeyResponse
-	isSet bool
-}
-
-func (v NullableGetApiKeyResponse) Get() *GetApiKeyResponse {
-	return v.value
-}
-
-func (v *NullableGetApiKeyResponse) Set(val *GetApiKeyResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetApiKeyResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetApiKeyResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetApiKeyResponse(val *GetApiKeyResponse) *NullableGetApiKeyResponse {
-	return &NullableGetApiKeyResponse{value: val, isSet: true}
-}
-
-func (v NullableGetApiKeyResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetApiKeyResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

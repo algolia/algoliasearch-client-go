@@ -102,39 +102,3 @@ func (o GetUsersCountResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 	return fmt.Sprintf("GetUsersCountResponse {\n%s}", out)
 }
-
-type NullableGetUsersCountResponse struct {
-	value *GetUsersCountResponse
-	isSet bool
-}
-
-func (v NullableGetUsersCountResponse) Get() *GetUsersCountResponse {
-	return v.value
-}
-
-func (v *NullableGetUsersCountResponse) Set(val *GetUsersCountResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetUsersCountResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetUsersCountResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetUsersCountResponse(val *GetUsersCountResponse) *NullableGetUsersCountResponse {
-	return &NullableGetUsersCountResponse{value: val, isSet: true}
-}
-
-func (v NullableGetUsersCountResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetUsersCountResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -133,39 +133,3 @@ func (o Facet) String() string {
 	out += fmt.Sprintf("  amount=%v\n", o.Amount)
 	return fmt.Sprintf("Facet {\n%s}", out)
 }
-
-type NullableFacet struct {
-	value *Facet
-	isSet bool
-}
-
-func (v NullableFacet) Get() *Facet {
-	return v.value
-}
-
-func (v *NullableFacet) Set(val *Facet) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFacet) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFacet) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFacet(val *Facet) *NullableFacet {
-	return &NullableFacet{value: val, isSet: true}
-}
-
-func (v NullableFacet) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFacet) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

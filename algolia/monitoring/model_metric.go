@@ -71,39 +71,3 @@ func (v Metric) IsValid() bool {
 func (v Metric) Ptr() *Metric {
 	return &v
 }
-
-type NullableMetric struct {
-	value *Metric
-	isSet bool
-}
-
-func (v NullableMetric) Get() *Metric {
-	return v.value
-}
-
-func (v *NullableMetric) Set(val *Metric) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableMetric) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableMetric) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableMetric(val *Metric) *NullableMetric {
-	return &NullableMetric{value: val, isSet: true}
-}
-
-func (v NullableMetric) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableMetric) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

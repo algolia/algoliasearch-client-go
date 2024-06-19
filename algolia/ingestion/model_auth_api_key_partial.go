@@ -88,39 +88,3 @@ func (o AuthAPIKeyPartial) String() string {
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	return fmt.Sprintf("AuthAPIKeyPartial {\n%s}", out)
 }
-
-type NullableAuthAPIKeyPartial struct {
-	value *AuthAPIKeyPartial
-	isSet bool
-}
-
-func (v NullableAuthAPIKeyPartial) Get() *AuthAPIKeyPartial {
-	return v.value
-}
-
-func (v *NullableAuthAPIKeyPartial) Set(val *AuthAPIKeyPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthAPIKeyPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthAPIKeyPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthAPIKeyPartial(val *AuthAPIKeyPartial) *NullableAuthAPIKeyPartial {
-	return &NullableAuthAPIKeyPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthAPIKeyPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthAPIKeyPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

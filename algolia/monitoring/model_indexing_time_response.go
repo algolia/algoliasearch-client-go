@@ -87,39 +87,3 @@ func (o IndexingTimeResponse) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	return fmt.Sprintf("IndexingTimeResponse {\n%s}", out)
 }
-
-type NullableIndexingTimeResponse struct {
-	value *IndexingTimeResponse
-	isSet bool
-}
-
-func (v NullableIndexingTimeResponse) Get() *IndexingTimeResponse {
-	return v.value
-}
-
-func (v *NullableIndexingTimeResponse) Set(val *IndexingTimeResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableIndexingTimeResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableIndexingTimeResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableIndexingTimeResponse(val *IndexingTimeResponse) *NullableIndexingTimeResponse {
-	return &NullableIndexingTimeResponse{value: val, isSet: true}
-}
-
-func (v NullableIndexingTimeResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableIndexingTimeResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

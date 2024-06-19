@@ -133,39 +133,3 @@ func (o AuthBasicPartial) String() string {
 	out += fmt.Sprintf("  password=%v\n", o.Password)
 	return fmt.Sprintf("AuthBasicPartial {\n%s}", out)
 }
-
-type NullableAuthBasicPartial struct {
-	value *AuthBasicPartial
-	isSet bool
-}
-
-func (v NullableAuthBasicPartial) Get() *AuthBasicPartial {
-	return v.value
-}
-
-func (v *NullableAuthBasicPartial) Set(val *AuthBasicPartial) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAuthBasicPartial) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAuthBasicPartial) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAuthBasicPartial(val *AuthBasicPartial) *NullableAuthBasicPartial {
-	return &NullableAuthBasicPartial{value: val, isSet: true}
-}
-
-func (v NullableAuthBasicPartial) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAuthBasicPartial) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

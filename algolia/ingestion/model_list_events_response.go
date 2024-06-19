@@ -131,39 +131,3 @@ func (o ListEventsResponse) String() string {
 	out += fmt.Sprintf("  window=%v\n", o.Window)
 	return fmt.Sprintf("ListEventsResponse {\n%s}", out)
 }
-
-type NullableListEventsResponse struct {
-	value *ListEventsResponse
-	isSet bool
-}
-
-func (v NullableListEventsResponse) Get() *ListEventsResponse {
-	return v.value
-}
-
-func (v *NullableListEventsResponse) Set(val *ListEventsResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableListEventsResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableListEventsResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableListEventsResponse(val *ListEventsResponse) *NullableListEventsResponse {
-	return &NullableListEventsResponse{value: val, isSet: true}
-}
-
-func (v NullableListEventsResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableListEventsResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

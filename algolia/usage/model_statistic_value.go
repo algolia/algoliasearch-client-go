@@ -94,39 +94,3 @@ func (obj StatisticValue) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableStatisticValue struct {
-	value *StatisticValue
-	isSet bool
-}
-
-func (v NullableStatisticValue) Get() *StatisticValue {
-	return v.value
-}
-
-func (v *NullableStatisticValue) Set(val *StatisticValue) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableStatisticValue) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableStatisticValue) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableStatisticValue(val *StatisticValue) *NullableStatisticValue {
-	return &NullableStatisticValue{value: val, isSet: true}
-}
-
-func (v NullableStatisticValue) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableStatisticValue) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

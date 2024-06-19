@@ -69,39 +69,3 @@ func (o BatchParams) String() string {
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
 	return fmt.Sprintf("BatchParams {\n%s}", out)
 }
-
-type NullableBatchParams struct {
-	value *BatchParams
-	isSet bool
-}
-
-func (v NullableBatchParams) Get() *BatchParams {
-	return v.value
-}
-
-func (v *NullableBatchParams) Set(val *BatchParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBatchParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBatchParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBatchParams(val *BatchParams) *NullableBatchParams {
-	return &NullableBatchParams{value: val, isSet: true}
-}
-
-func (v NullableBatchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBatchParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

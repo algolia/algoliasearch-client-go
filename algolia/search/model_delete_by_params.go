@@ -399,39 +399,3 @@ func (o DeleteByParams) String() string {
 	out += fmt.Sprintf("  insidePolygon=%v\n", o.InsidePolygon)
 	return fmt.Sprintf("DeleteByParams {\n%s}", out)
 }
-
-type NullableDeleteByParams struct {
-	value *DeleteByParams
-	isSet bool
-}
-
-func (v NullableDeleteByParams) Get() *DeleteByParams {
-	return v.value
-}
-
-func (v *NullableDeleteByParams) Set(val *DeleteByParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDeleteByParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDeleteByParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDeleteByParams(val *DeleteByParams) *NullableDeleteByParams {
-	return &NullableDeleteByParams{value: val, isSet: true}
-}
-
-func (v NullableDeleteByParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDeleteByParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

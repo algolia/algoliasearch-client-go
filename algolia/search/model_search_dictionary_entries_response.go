@@ -166,39 +166,3 @@ func (o SearchDictionaryEntriesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 	return fmt.Sprintf("SearchDictionaryEntriesResponse {\n%s}", out)
 }
-
-type NullableSearchDictionaryEntriesResponse struct {
-	value *SearchDictionaryEntriesResponse
-	isSet bool
-}
-
-func (v NullableSearchDictionaryEntriesResponse) Get() *SearchDictionaryEntriesResponse {
-	return v.value
-}
-
-func (v *NullableSearchDictionaryEntriesResponse) Set(val *SearchDictionaryEntriesResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchDictionaryEntriesResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchDictionaryEntriesResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchDictionaryEntriesResponse(val *SearchDictionaryEntriesResponse) *NullableSearchDictionaryEntriesResponse {
-	return &NullableSearchDictionaryEntriesResponse{value: val, isSet: true}
-}
-
-func (v NullableSearchDictionaryEntriesResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchDictionaryEntriesResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -88,39 +88,3 @@ func (o Cursor) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	return fmt.Sprintf("Cursor {\n%s}", out)
 }
-
-type NullableCursor struct {
-	value *Cursor
-	isSet bool
-}
-
-func (v NullableCursor) Get() *Cursor {
-	return v.value
-}
-
-func (v *NullableCursor) Set(val *Cursor) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableCursor) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableCursor) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableCursor(val *Cursor) *NullableCursor {
-	return &NullableCursor{value: val, isSet: true}
-}
-
-func (v NullableCursor) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableCursor) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

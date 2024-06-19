@@ -70,39 +70,3 @@ func (o GetRecommendationsParams) String() string {
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
 	return fmt.Sprintf("GetRecommendationsParams {\n%s}", out)
 }
-
-type NullableGetRecommendationsParams struct {
-	value *GetRecommendationsParams
-	isSet bool
-}
-
-func (v NullableGetRecommendationsParams) Get() *GetRecommendationsParams {
-	return v.value
-}
-
-func (v *NullableGetRecommendationsParams) Set(val *GetRecommendationsParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetRecommendationsParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetRecommendationsParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetRecommendationsParams(val *GetRecommendationsParams) *NullableGetRecommendationsParams {
-	return &NullableGetRecommendationsParams{value: val, isSet: true}
-}
-
-func (v NullableGetRecommendationsParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetRecommendationsParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

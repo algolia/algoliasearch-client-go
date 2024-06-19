@@ -101,39 +101,3 @@ func (o FrequentlyBoughtTogether) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("FrequentlyBoughtTogether {\n%s}", out)
 }
-
-type NullableFrequentlyBoughtTogether struct {
-	value *FrequentlyBoughtTogether
-	isSet bool
-}
-
-func (v NullableFrequentlyBoughtTogether) Get() *FrequentlyBoughtTogether {
-	return v.value
-}
-
-func (v *NullableFrequentlyBoughtTogether) Set(val *FrequentlyBoughtTogether) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFrequentlyBoughtTogether) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFrequentlyBoughtTogether) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFrequentlyBoughtTogether(val *FrequentlyBoughtTogether) *NullableFrequentlyBoughtTogether {
-	return &NullableFrequentlyBoughtTogether{value: val, isSet: true}
-}
-
-func (v NullableFrequentlyBoughtTogether) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFrequentlyBoughtTogether) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -561,39 +561,3 @@ func (o RankingInfo) String() string {
 	out += fmt.Sprintf("  promotedByReRanking=%v\n", o.PromotedByReRanking)
 	return fmt.Sprintf("RankingInfo {\n%s}", out)
 }
-
-type NullableRankingInfo struct {
-	value *RankingInfo
-	isSet bool
-}
-
-func (v NullableRankingInfo) Get() *RankingInfo {
-	return v.value
-}
-
-func (v *NullableRankingInfo) Set(val *RankingInfo) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRankingInfo) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRankingInfo) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRankingInfo(val *RankingInfo) *NullableRankingInfo {
-	return &NullableRankingInfo{value: val, isSet: true}
-}
-
-func (v NullableRankingInfo) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRankingInfo) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

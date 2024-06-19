@@ -183,39 +183,3 @@ func (o AbTestsVariantSearchParams) String() string {
 	out += fmt.Sprintf("  customSearchParameters=%v\n", o.CustomSearchParameters)
 	return fmt.Sprintf("AbTestsVariantSearchParams {\n%s}", out)
 }
-
-type NullableAbTestsVariantSearchParams struct {
-	value *AbTestsVariantSearchParams
-	isSet bool
-}
-
-func (v NullableAbTestsVariantSearchParams) Get() *AbTestsVariantSearchParams {
-	return v.value
-}
-
-func (v *NullableAbTestsVariantSearchParams) Set(val *AbTestsVariantSearchParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAbTestsVariantSearchParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAbTestsVariantSearchParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAbTestsVariantSearchParams(val *AbTestsVariantSearchParams) *NullableAbTestsVariantSearchParams {
-	return &NullableAbTestsVariantSearchParams{value: val, isSet: true}
-}
-
-func (v NullableAbTestsVariantSearchParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAbTestsVariantSearchParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

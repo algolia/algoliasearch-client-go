@@ -94,39 +94,3 @@ func (obj DestinationInput) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableDestinationInput struct {
-	value *DestinationInput
-	isSet bool
-}
-
-func (v NullableDestinationInput) Get() *DestinationInput {
-	return v.value
-}
-
-func (v *NullableDestinationInput) Set(val *DestinationInput) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationInput) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationInput) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationInput(val *DestinationInput) *NullableDestinationInput {
-	return &NullableDestinationInput{value: val, isSet: true}
-}
-
-func (v NullableDestinationInput) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationInput) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

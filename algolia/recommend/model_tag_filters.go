@@ -94,39 +94,3 @@ func (obj TagFilters) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableTagFilters struct {
-	value *TagFilters
-	isSet bool
-}
-
-func (v NullableTagFilters) Get() *TagFilters {
-	return v.value
-}
-
-func (v *NullableTagFilters) Set(val *TagFilters) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTagFilters) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTagFilters) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTagFilters(val *TagFilters) *NullableTagFilters {
-	return &NullableTagFilters{value: val, isSet: true}
-}
-
-func (v NullableTagFilters) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTagFilters) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -358,39 +358,3 @@ func (o SourceUpdateShopify) String() string {
 	out += fmt.Sprintf("  productNamedTags=%v\n", o.ProductNamedTags)
 	return fmt.Sprintf("SourceUpdateShopify {\n%s}", out)
 }
-
-type NullableSourceUpdateShopify struct {
-	value *SourceUpdateShopify
-	isSet bool
-}
-
-func (v NullableSourceUpdateShopify) Get() *SourceUpdateShopify {
-	return v.value
-}
-
-func (v *NullableSourceUpdateShopify) Set(val *SourceUpdateShopify) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSourceUpdateShopify) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSourceUpdateShopify) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSourceUpdateShopify(val *SourceUpdateShopify) *NullableSourceUpdateShopify {
-	return &NullableSourceUpdateShopify{value: val, isSet: true}
-}
-
-func (v NullableSourceUpdateShopify) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSourceUpdateShopify) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

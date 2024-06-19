@@ -4,6 +4,8 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // FallbackParams struct for FallbackParams.
@@ -141,8 +143,8 @@ type FallbackParams struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/).  This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                        `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter NullableReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 }
 
 type FallbackParamsOption func(f *FallbackParams)
@@ -597,7 +599,7 @@ func WithFallbackParamsEnableReRanking(val bool) FallbackParamsOption {
 	}
 }
 
-func WithFallbackParamsReRankingApplyFilter(val NullableReRankingApplyFilter) FallbackParamsOption {
+func WithFallbackParamsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.ReRankingApplyFilter = val
 	}
@@ -3123,7 +3125,7 @@ func (o *FallbackParams) HasReRankingApplyFilter() bool {
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given NullableReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *FallbackParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *FallbackParams {
 	o.ReRankingApplyFilter.Set(v)
 	return o
@@ -3456,40 +3458,4 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	return fmt.Sprintf("FallbackParams {\n%s}", out)
-}
-
-type NullableFallbackParams struct {
-	value *FallbackParams
-	isSet bool
-}
-
-func (v NullableFallbackParams) Get() *FallbackParams {
-	return v.value
-}
-
-func (v *NullableFallbackParams) Set(val *FallbackParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableFallbackParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableFallbackParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableFallbackParams(val *FallbackParams) *NullableFallbackParams {
-	return &NullableFallbackParams{value: val, isSet: true}
-}
-
-func (v NullableFallbackParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableFallbackParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
 }

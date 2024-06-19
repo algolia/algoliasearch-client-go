@@ -88,39 +88,3 @@ func (o HideConsequenceObject) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	return fmt.Sprintf("HideConsequenceObject {\n%s}", out)
 }
-
-type NullableHideConsequenceObject struct {
-	value *HideConsequenceObject
-	isSet bool
-}
-
-func (v NullableHideConsequenceObject) Get() *HideConsequenceObject {
-	return v.value
-}
-
-func (v *NullableHideConsequenceObject) Set(val *HideConsequenceObject) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableHideConsequenceObject) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableHideConsequenceObject) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableHideConsequenceObject(val *HideConsequenceObject) *NullableHideConsequenceObject {
-	return &NullableHideConsequenceObject{value: val, isSet: true}
-}
-
-func (v NullableHideConsequenceObject) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableHideConsequenceObject) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

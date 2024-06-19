@@ -266,39 +266,3 @@ func (o TaskUpdate) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	return fmt.Sprintf("TaskUpdate {\n%s}", out)
 }
-
-type NullableTaskUpdate struct {
-	value *TaskUpdate
-	isSet bool
-}
-
-func (v NullableTaskUpdate) Get() *TaskUpdate {
-	return v.value
-}
-
-func (v *NullableTaskUpdate) Set(val *TaskUpdate) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTaskUpdate) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTaskUpdate) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTaskUpdate(val *TaskUpdate) *NullableTaskUpdate {
-	return &NullableTaskUpdate{value: val, isSet: true}
-}
-
-func (v NullableTaskUpdate) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTaskUpdate) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -134,39 +134,3 @@ func (o DailySearchesNoResults) String() string {
 	out += fmt.Sprintf("  withFilterCount=%v\n", o.WithFilterCount)
 	return fmt.Sprintf("DailySearchesNoResults {\n%s}", out)
 }
-
-type NullableDailySearchesNoResults struct {
-	value *DailySearchesNoResults
-	isSet bool
-}
-
-func (v NullableDailySearchesNoResults) Get() *DailySearchesNoResults {
-	return v.value
-}
-
-func (v *NullableDailySearchesNoResults) Set(val *DailySearchesNoResults) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDailySearchesNoResults) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDailySearchesNoResults) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDailySearchesNoResults(val *DailySearchesNoResults) *NullableDailySearchesNoResults {
-	return &NullableDailySearchesNoResults{value: val, isSet: true}
-}
-
-func (v NullableDailySearchesNoResults) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDailySearchesNoResults) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

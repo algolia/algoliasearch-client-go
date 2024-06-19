@@ -63,39 +63,3 @@ func (v DockerRegistry) IsValid() bool {
 func (v DockerRegistry) Ptr() *DockerRegistry {
 	return &v
 }
-
-type NullableDockerRegistry struct {
-	value *DockerRegistry
-	isSet bool
-}
-
-func (v NullableDockerRegistry) Get() *DockerRegistry {
-	return v.value
-}
-
-func (v *NullableDockerRegistry) Set(val *DockerRegistry) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDockerRegistry) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDockerRegistry) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDockerRegistry(val *DockerRegistry) *NullableDockerRegistry {
-	return &NullableDockerRegistry{value: val, isSet: true}
-}
-
-func (v NullableDockerRegistry) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDockerRegistry) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

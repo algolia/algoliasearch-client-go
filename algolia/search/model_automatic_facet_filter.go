@@ -165,39 +165,3 @@ func (o AutomaticFacetFilter) String() string {
 	out += fmt.Sprintf("  disjunctive=%v\n", o.Disjunctive)
 	return fmt.Sprintf("AutomaticFacetFilter {\n%s}", out)
 }
-
-type NullableAutomaticFacetFilter struct {
-	value *AutomaticFacetFilter
-	isSet bool
-}
-
-func (v NullableAutomaticFacetFilter) Get() *AutomaticFacetFilter {
-	return v.value
-}
-
-func (v *NullableAutomaticFacetFilter) Set(val *AutomaticFacetFilter) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableAutomaticFacetFilter) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableAutomaticFacetFilter) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableAutomaticFacetFilter(val *AutomaticFacetFilter) *NullableAutomaticFacetFilter {
-	return &NullableAutomaticFacetFilter{value: val, isSet: true}
-}
-
-func (v NullableAutomaticFacetFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableAutomaticFacetFilter) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -69,39 +69,3 @@ func (v RunStatus) IsValid() bool {
 func (v RunStatus) Ptr() *RunStatus {
 	return &v
 }
-
-type NullableRunStatus struct {
-	value *RunStatus
-	isSet bool
-}
-
-func (v NullableRunStatus) Get() *RunStatus {
-	return v.value
-}
-
-func (v *NullableRunStatus) Set(val *RunStatus) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableRunStatus) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableRunStatus) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableRunStatus(val *RunStatus) *NullableRunStatus {
-	return &NullableRunStatus{value: val, isSet: true}
-}
-
-func (v NullableRunStatus) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableRunStatus) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

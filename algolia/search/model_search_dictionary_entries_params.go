@@ -209,39 +209,3 @@ func (o SearchDictionaryEntriesParams) String() string {
 	out += fmt.Sprintf("  language=%v\n", o.Language)
 	return fmt.Sprintf("SearchDictionaryEntriesParams {\n%s}", out)
 }
-
-type NullableSearchDictionaryEntriesParams struct {
-	value *SearchDictionaryEntriesParams
-	isSet bool
-}
-
-func (v NullableSearchDictionaryEntriesParams) Get() *SearchDictionaryEntriesParams {
-	return v.value
-}
-
-func (v *NullableSearchDictionaryEntriesParams) Set(val *SearchDictionaryEntriesParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchDictionaryEntriesParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchDictionaryEntriesParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchDictionaryEntriesParams(val *SearchDictionaryEntriesParams) *NullableSearchDictionaryEntriesParams {
-	return &NullableSearchDictionaryEntriesParams{value: val, isSet: true}
-}
-
-func (v NullableSearchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchDictionaryEntriesParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

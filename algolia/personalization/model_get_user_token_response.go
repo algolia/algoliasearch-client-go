@@ -134,39 +134,3 @@ func (o GetUserTokenResponse) String() string {
 	out += fmt.Sprintf("  scores=%v\n", o.Scores)
 	return fmt.Sprintf("GetUserTokenResponse {\n%s}", out)
 }
-
-type NullableGetUserTokenResponse struct {
-	value *GetUserTokenResponse
-	isSet bool
-}
-
-func (v NullableGetUserTokenResponse) Get() *GetUserTokenResponse {
-	return v.value
-}
-
-func (v *NullableGetUserTokenResponse) Set(val *GetUserTokenResponse) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableGetUserTokenResponse) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableGetUserTokenResponse) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableGetUserTokenResponse(val *GetUserTokenResponse) *NullableGetUserTokenResponse {
-	return &NullableGetUserTokenResponse{value: val, isSet: true}
-}
-
-func (v NullableGetUserTokenResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableGetUserTokenResponse) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

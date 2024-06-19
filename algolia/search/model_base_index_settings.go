@@ -808,39 +808,3 @@ func (o BaseIndexSettings) String() string {
 	out += fmt.Sprintf("  attributeForDistinct=%v\n", o.AttributeForDistinct)
 	return fmt.Sprintf("BaseIndexSettings {\n%s}", out)
 }
-
-type NullableBaseIndexSettings struct {
-	value *BaseIndexSettings
-	isSet bool
-}
-
-func (v NullableBaseIndexSettings) Get() *BaseIndexSettings {
-	return v.value
-}
-
-func (v *NullableBaseIndexSettings) Set(val *BaseIndexSettings) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBaseIndexSettings) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBaseIndexSettings) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBaseIndexSettings(val *BaseIndexSettings) *NullableBaseIndexSettings {
-	return &NullableBaseIndexSettings{value: val, isSet: true}
-}
-
-func (v NullableBaseIndexSettings) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBaseIndexSettings) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

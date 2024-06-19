@@ -61,39 +61,3 @@ func (v ViewEvent) IsValid() bool {
 func (v ViewEvent) Ptr() *ViewEvent {
 	return &v
 }
-
-type NullableViewEvent struct {
-	value *ViewEvent
-	isSet bool
-}
-
-func (v NullableViewEvent) Get() *ViewEvent {
-	return v.value
-}
-
-func (v *NullableViewEvent) Set(val *ViewEvent) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableViewEvent) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableViewEvent) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableViewEvent(val *ViewEvent) *NullableViewEvent {
-	return &NullableViewEvent{value: val, isSet: true}
-}
-
-func (v NullableViewEvent) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableViewEvent) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

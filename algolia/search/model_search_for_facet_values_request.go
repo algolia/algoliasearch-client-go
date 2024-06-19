@@ -178,39 +178,3 @@ func (o SearchForFacetValuesRequest) String() string {
 	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	return fmt.Sprintf("SearchForFacetValuesRequest {\n%s}", out)
 }
-
-type NullableSearchForFacetValuesRequest struct {
-	value *SearchForFacetValuesRequest
-	isSet bool
-}
-
-func (v NullableSearchForFacetValuesRequest) Get() *SearchForFacetValuesRequest {
-	return v.value
-}
-
-func (v *NullableSearchForFacetValuesRequest) Set(val *SearchForFacetValuesRequest) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableSearchForFacetValuesRequest) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableSearchForFacetValuesRequest) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableSearchForFacetValuesRequest(val *SearchForFacetValuesRequest) *NullableSearchForFacetValuesRequest {
-	return &NullableSearchForFacetValuesRequest{value: val, isSet: true}
-}
-
-func (v NullableSearchForFacetValuesRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableSearchForFacetValuesRequest) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

@@ -151,39 +151,3 @@ func (o OperationIndexParams) String() string {
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 	return fmt.Sprintf("OperationIndexParams {\n%s}", out)
 }
-
-type NullableOperationIndexParams struct {
-	value *OperationIndexParams
-	isSet bool
-}
-
-func (v NullableOperationIndexParams) Get() *OperationIndexParams {
-	return v.value
-}
-
-func (v *NullableOperationIndexParams) Set(val *OperationIndexParams) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOperationIndexParams) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOperationIndexParams) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOperationIndexParams(val *OperationIndexParams) *NullableOperationIndexParams {
-	return &NullableOperationIndexParams{value: val, isSet: true}
-}
-
-func (v NullableOperationIndexParams) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOperationIndexParams) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

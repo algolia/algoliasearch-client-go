@@ -178,39 +178,3 @@ func (o LogQuery) String() string {
 	out += fmt.Sprintf("  query_id=%v\n", o.QueryId)
 	return fmt.Sprintf("LogQuery {\n%s}", out)
 }
-
-type NullableLogQuery struct {
-	value *LogQuery
-	isSet bool
-}
-
-func (v NullableLogQuery) Get() *LogQuery {
-	return v.value
-}
-
-func (v *NullableLogQuery) Set(val *LogQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableLogQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableLogQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableLogQuery(val *LogQuery) *NullableLogQuery {
-	return &NullableLogQuery{value: val, isSet: true}
-}
-
-func (v NullableLogQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableLogQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

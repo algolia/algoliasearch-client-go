@@ -102,39 +102,3 @@ func (o DockerSourceDiscover) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("DockerSourceDiscover {\n%s}", out)
 }
-
-type NullableDockerSourceDiscover struct {
-	value *DockerSourceDiscover
-	isSet bool
-}
-
-func (v NullableDockerSourceDiscover) Get() *DockerSourceDiscover {
-	return v.value
-}
-
-func (v *NullableDockerSourceDiscover) Set(val *DockerSourceDiscover) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDockerSourceDiscover) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDockerSourceDiscover) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDockerSourceDiscover(val *DockerSourceDiscover) *NullableDockerSourceDiscover {
-	return &NullableDockerSourceDiscover{value: val, isSet: true}
-}
-
-func (v NullableDockerSourceDiscover) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDockerSourceDiscover) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

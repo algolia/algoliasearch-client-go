@@ -133,39 +133,3 @@ func (o TimeInner) String() string {
 	out += fmt.Sprintf("  v=%v\n", o.V)
 	return fmt.Sprintf("TimeInner {\n%s}", out)
 }
-
-type NullableTimeInner struct {
-	value *TimeInner
-	isSet bool
-}
-
-func (v NullableTimeInner) Get() *TimeInner {
-	return v.value
-}
-
-func (v *NullableTimeInner) Set(val *TimeInner) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTimeInner) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTimeInner) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTimeInner(val *TimeInner) *NullableTimeInner {
-	return &NullableTimeInner{value: val, isSet: true}
-}
-
-func (v NullableTimeInner) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTimeInner) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

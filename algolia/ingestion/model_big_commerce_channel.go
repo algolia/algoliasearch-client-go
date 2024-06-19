@@ -120,39 +120,3 @@ func (o BigCommerceChannel) String() string {
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 	return fmt.Sprintf("BigCommerceChannel {\n%s}", out)
 }
-
-type NullableBigCommerceChannel struct {
-	value *BigCommerceChannel
-	isSet bool
-}
-
-func (v NullableBigCommerceChannel) Get() *BigCommerceChannel {
-	return v.value
-}
-
-func (v *NullableBigCommerceChannel) Set(val *BigCommerceChannel) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableBigCommerceChannel) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableBigCommerceChannel) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableBigCommerceChannel(val *BigCommerceChannel) *NullableBigCommerceChannel {
-	return &NullableBigCommerceChannel{value: val, isSet: true}
-}
-
-func (v NullableBigCommerceChannel) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableBigCommerceChannel) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

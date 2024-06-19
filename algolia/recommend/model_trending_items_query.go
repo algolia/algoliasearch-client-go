@@ -335,39 +335,3 @@ func (o TrendingItemsQuery) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 	return fmt.Sprintf("TrendingItemsQuery {\n%s}", out)
 }
-
-type NullableTrendingItemsQuery struct {
-	value *TrendingItemsQuery
-	isSet bool
-}
-
-func (v NullableTrendingItemsQuery) Get() *TrendingItemsQuery {
-	return v.value
-}
-
-func (v *NullableTrendingItemsQuery) Set(val *TrendingItemsQuery) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTrendingItemsQuery) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTrendingItemsQuery) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTrendingItemsQuery(val *TrendingItemsQuery) *NullableTrendingItemsQuery {
-	return &NullableTrendingItemsQuery{value: val, isSet: true}
-}
-
-func (v NullableTrendingItemsQuery) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTrendingItemsQuery) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

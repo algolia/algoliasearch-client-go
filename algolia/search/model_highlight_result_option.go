@@ -183,39 +183,3 @@ func (o HighlightResultOption) String() string {
 	out += fmt.Sprintf("  fullyHighlighted=%v\n", o.FullyHighlighted)
 	return fmt.Sprintf("HighlightResultOption {\n%s}", out)
 }
-
-type NullableHighlightResultOption struct {
-	value *HighlightResultOption
-	isSet bool
-}
-
-func (v NullableHighlightResultOption) Get() *HighlightResultOption {
-	return v.value
-}
-
-func (v *NullableHighlightResultOption) Set(val *HighlightResultOption) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableHighlightResultOption) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableHighlightResultOption) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableHighlightResultOption(val *HighlightResultOption) *NullableHighlightResultOption {
-	return &NullableHighlightResultOption{value: val, isSet: true}
-}
-
-func (v NullableHighlightResultOption) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableHighlightResultOption) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

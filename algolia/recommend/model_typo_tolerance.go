@@ -94,39 +94,3 @@ func (obj TypoTolerance) GetActualInstance() any {
 	// all schemas are nil
 	return nil
 }
-
-type NullableTypoTolerance struct {
-	value *TypoTolerance
-	isSet bool
-}
-
-func (v NullableTypoTolerance) Get() *TypoTolerance {
-	return v.value
-}
-
-func (v *NullableTypoTolerance) Set(val *TypoTolerance) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableTypoTolerance) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableTypoTolerance) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableTypoTolerance(val *TypoTolerance) *NullableTypoTolerance {
-	return &NullableTypoTolerance{value: val, isSet: true}
-}
-
-func (v NullableTypoTolerance) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableTypoTolerance) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

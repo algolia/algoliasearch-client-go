@@ -69,39 +69,3 @@ func (o DestinationSearch) String() string {
 	out += fmt.Sprintf("  destinationIDs=%v\n", o.DestinationIDs)
 	return fmt.Sprintf("DestinationSearch {\n%s}", out)
 }
-
-type NullableDestinationSearch struct {
-	value *DestinationSearch
-	isSet bool
-}
-
-func (v NullableDestinationSearch) Get() *DestinationSearch {
-	return v.value
-}
-
-func (v *NullableDestinationSearch) Set(val *DestinationSearch) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableDestinationSearch) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableDestinationSearch) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableDestinationSearch(val *DestinationSearch) *NullableDestinationSearch {
-	return &NullableDestinationSearch{value: val, isSet: true}
-}
-
-func (v NullableDestinationSearch) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableDestinationSearch) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}

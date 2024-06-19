@@ -61,39 +61,3 @@ func (v OnDemandTriggerType) IsValid() bool {
 func (v OnDemandTriggerType) Ptr() *OnDemandTriggerType {
 	return &v
 }
-
-type NullableOnDemandTriggerType struct {
-	value *OnDemandTriggerType
-	isSet bool
-}
-
-func (v NullableOnDemandTriggerType) Get() *OnDemandTriggerType {
-	return v.value
-}
-
-func (v *NullableOnDemandTriggerType) Set(val *OnDemandTriggerType) {
-	v.value = val
-	v.isSet = true
-}
-
-func (v NullableOnDemandTriggerType) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullableOnDemandTriggerType) Unset() {
-	v.value = nil
-	v.isSet = false
-}
-
-func NewNullableOnDemandTriggerType(val *OnDemandTriggerType) *NullableOnDemandTriggerType {
-	return &NullableOnDemandTriggerType{value: val, isSet: true}
-}
-
-func (v NullableOnDemandTriggerType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value) //nolint:wrapcheck
-}
-
-func (v *NullableOnDemandTriggerType) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value) //nolint:wrapcheck
-}
