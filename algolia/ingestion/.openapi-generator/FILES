@@ -109,6 +109,7 @@ model_source_update_docker.go
 model_source_update_input.go
 model_source_update_response.go
 model_source_update_shopify.go
+model_source_validate_response.go
 model_streaming_trigger.go
 model_streaming_trigger_type.go
 model_streaming_utils_input.go
