@@ -19,6 +19,8 @@ type TaskCreate struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Input            *TaskInput `json:"input,omitempty"`
+	// Date of the last cursor in RFC 3339 format.
+	Cursor *string `json:"cursor,omitempty"`
 }
 
 type TaskCreateOption func(f *TaskCreate)
@@ -38,6 +40,12 @@ func WithTaskCreateFailureThreshold(val int32) TaskCreateOption {
 func WithTaskCreateInput(val TaskInput) TaskCreateOption {
 	return func(f *TaskCreate) {
 		f.Input = &val
+	}
+}
+
+func WithTaskCreateCursor(val string) TaskCreateOption {
+	return func(f *TaskCreate) {
+		f.Cursor = &val
 	}
 }
 
@@ -261,6 +269,39 @@ func (o *TaskCreate) SetInput(v *TaskInput) *TaskCreate {
 	return o
 }
 
+// GetCursor returns the Cursor field value if set, zero value otherwise.
+func (o *TaskCreate) GetCursor() string {
+	if o == nil || o.Cursor == nil {
+		var ret string
+		return ret
+	}
+	return *o.Cursor
+}
+
+// GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskCreate) GetCursorOk() (*string, bool) {
+	if o == nil || o.Cursor == nil {
+		return nil, false
+	}
+	return o.Cursor, true
+}
+
+// HasCursor returns a boolean if a field has been set.
+func (o *TaskCreate) HasCursor() bool {
+	if o != nil && o.Cursor != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCursor gets a reference to the given string and assigns it to the Cursor field.
+func (o *TaskCreate) SetCursor(v string) *TaskCreate {
+	o.Cursor = &v
+	return o
+}
+
 func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -284,6 +325,9 @@ func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+	if o.Cursor != nil {
+		toSerialize["cursor"] = o.Cursor
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskCreate: %w", err)
@@ -301,5 +345,6 @@ func (o TaskCreate) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
+	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	return fmt.Sprintf("TaskCreate {\n%s}", out)
 }

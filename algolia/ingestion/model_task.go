@@ -21,6 +21,8 @@ type Task struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Action           ActionType `json:"action"`
+	// Date of the last cursor in RFC 3339 format.
+	Cursor *string `json:"cursor,omitempty"`
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
@@ -38,6 +40,12 @@ func WithTaskInput(val TaskInput) TaskOption {
 func WithTaskFailureThreshold(val int32) TaskOption {
 	return func(f *Task) {
 		f.FailureThreshold = &val
+	}
+}
+
+func WithTaskCursor(val string) TaskOption {
+	return func(f *Task) {
+		f.Cursor = &val
 	}
 }
 
@@ -287,6 +295,39 @@ func (o *Task) SetAction(v ActionType) *Task {
 	return o
 }
 
+// GetCursor returns the Cursor field value if set, zero value otherwise.
+func (o *Task) GetCursor() string {
+	if o == nil || o.Cursor == nil {
+		var ret string
+		return ret
+	}
+	return *o.Cursor
+}
+
+// GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetCursorOk() (*string, bool) {
+	if o == nil || o.Cursor == nil {
+		return nil, false
+	}
+	return o.Cursor, true
+}
+
+// HasCursor returns a boolean if a field has been set.
+func (o *Task) HasCursor() bool {
+	if o != nil && o.Cursor != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCursor gets a reference to the given string and assigns it to the Cursor field.
+func (o *Task) SetCursor(v string) *Task {
+	o.Cursor = &v
+	return o
+}
+
 // GetCreatedAt returns the CreatedAt field value.
 func (o *Task) GetCreatedAt() string {
 	if o == nil {
@@ -371,6 +412,9 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["action"] = o.Action
 	}
+	if o.Cursor != nil {
+		toSerialize["cursor"] = o.Cursor
+	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
@@ -395,6 +439,7 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  action=%v\n", o.Action)
+	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("Task {\n%s}", out)
