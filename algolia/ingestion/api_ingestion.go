@@ -2650,137 +2650,6 @@ func (c *APIClient) GetDestinationsWithContext(ctx context.Context, r ApiGetDest
 	return returnValue, nil
 }
 
-func (r *ApiGetDockerSourceStreamsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["sourceID"]; ok {
-		err = json.Unmarshal(v, &r.sourceID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sourceID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sourceID: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetDockerSourceStreamsRequest represents the request with all the parameters for the API call.
-type ApiGetDockerSourceStreamsRequest struct {
-	sourceID string
-}
-
-// NewApiGetDockerSourceStreamsRequest creates an instance of the ApiGetDockerSourceStreamsRequest to be used for the API call.
-func (c *APIClient) NewApiGetDockerSourceStreamsRequest(sourceID string) ApiGetDockerSourceStreamsRequest {
-	return ApiGetDockerSourceStreamsRequest{
-		sourceID: sourceID,
-	}
-}
-
-/*
-GetDockerSourceStreams Wraps GetDockerSourceStreamsWithContext using context.Background.
-
-Retrieves a stream listing for a source.
-
-Listing streams only works with sources with `type: docker` and `imageType: singer`.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
-
-	@param sourceID string - Unique identifier of a source.
-	@return DockerSourceStreams
-*/
-func (c *APIClient) GetDockerSourceStreams(r ApiGetDockerSourceStreamsRequest, opts ...Option) (*DockerSourceStreams, error) {
-	return c.GetDockerSourceStreamsWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetDockerSourceStreams
-
-Retrieves a stream listing for a source.
-
-Listing streams only works with sources with `type: docker` and `imageType: singer`.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetDockerSourceStreamsRequest with parameters below.
-
-	@param sourceID string - Unique identifier of a source.
-	@return DockerSourceStreams
-*/
-func (c *APIClient) GetDockerSourceStreamsWithContext(ctx context.Context, r ApiGetDockerSourceStreamsRequest, opts ...Option) (*DockerSourceStreams, error) {
-	var (
-		postBody    any
-		returnValue *DockerSourceStreams
-	)
-
-	requestPath := "/1/sources/{sourceID}/discover"
-	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(parameterToString(r.sourceID)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.sourceID == "" {
-		return returnValue, reportError("Parameter `sourceID` is required when calling `GetDockerSourceStreams`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
 func (r *ApiGetEventRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -5123,9 +4992,9 @@ Required API Key ACLs:
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
 	@param sourceID string - Unique identifier of a source.
-	@return DockerSourceDiscover
+	@return SourceWatchResponse
 */
-func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*DockerSourceDiscover, error) {
+func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*SourceWatchResponse, error) {
 	return c.TriggerDockerSourceDiscoverWithContext(context.Background(), r, opts...)
 }
 
@@ -5143,12 +5012,12 @@ Required API Key ACLs:
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
 	@param sourceID string - Unique identifier of a source.
-	@return DockerSourceDiscover
+	@return SourceWatchResponse
 */
-func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*DockerSourceDiscover, error) {
+func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, r ApiTriggerDockerSourceDiscoverRequest, opts ...Option) (*SourceWatchResponse, error) {
 	var (
 		postBody    any
-		returnValue *DockerSourceDiscover
+		returnValue *SourceWatchResponse
 	)
 
 	requestPath := "/1/sources/{sourceID}/discover"
@@ -5849,9 +5718,9 @@ Required API Key ACLs:
 Request can be constructed by NewApiValidateSourceRequest with parameters below.
 
 	@param sourceCreate SourceCreate -
-	@return SourceValidateResponse
+	@return SourceWatchResponse
 */
-func (c *APIClient) ValidateSource(r ApiValidateSourceRequest, opts ...Option) (*SourceValidateResponse, error) {
+func (c *APIClient) ValidateSource(r ApiValidateSourceRequest, opts ...Option) (*SourceWatchResponse, error) {
 	return c.ValidateSourceWithContext(context.Background(), r, opts...)
 }
 
@@ -5868,12 +5737,12 @@ Required API Key ACLs:
 Request can be constructed by NewApiValidateSourceRequest with parameters below.
 
 	@param sourceCreate SourceCreate -
-	@return SourceValidateResponse
+	@return SourceWatchResponse
 */
-func (c *APIClient) ValidateSourceWithContext(ctx context.Context, r ApiValidateSourceRequest, opts ...Option) (*SourceValidateResponse, error) {
+func (c *APIClient) ValidateSourceWithContext(ctx context.Context, r ApiValidateSourceRequest, opts ...Option) (*SourceWatchResponse, error) {
 	var (
 		postBody    any
-		returnValue *SourceValidateResponse
+		returnValue *SourceWatchResponse
 	)
 
 	requestPath := "/1/sources/validate"
@@ -5995,9 +5864,9 @@ Request can be constructed by NewApiValidateSourceBeforeUpdateRequest with param
 
 	@param sourceID string - Unique identifier of a source.
 	@param sourceUpdate SourceUpdate
-	@return SourceValidateResponse
+	@return SourceWatchResponse
 */
-func (c *APIClient) ValidateSourceBeforeUpdate(r ApiValidateSourceBeforeUpdateRequest, opts ...Option) (*SourceValidateResponse, error) {
+func (c *APIClient) ValidateSourceBeforeUpdate(r ApiValidateSourceBeforeUpdateRequest, opts ...Option) (*SourceWatchResponse, error) {
 	return c.ValidateSourceBeforeUpdateWithContext(context.Background(), r, opts...)
 }
 
@@ -6015,12 +5884,12 @@ Request can be constructed by NewApiValidateSourceBeforeUpdateRequest with param
 
 	@param sourceID string - Unique identifier of a source.
 	@param sourceUpdate SourceUpdate
-	@return SourceValidateResponse
+	@return SourceWatchResponse
 */
-func (c *APIClient) ValidateSourceBeforeUpdateWithContext(ctx context.Context, r ApiValidateSourceBeforeUpdateRequest, opts ...Option) (*SourceValidateResponse, error) {
+func (c *APIClient) ValidateSourceBeforeUpdateWithContext(ctx context.Context, r ApiValidateSourceBeforeUpdateRequest, opts ...Option) (*SourceWatchResponse, error) {
 	var (
 		postBody    any
-		returnValue *SourceValidateResponse
+		returnValue *SourceWatchResponse
 	)
 
 	requestPath := "/1/sources/{sourceID}/validate"

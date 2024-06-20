@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// SourceValidateResponse struct for SourceValidateResponse.
-type SourceValidateResponse struct {
+// SourceWatchResponse struct for SourceWatchResponse.
+type SourceWatchResponse struct {
 	// Universally unique identifier (UUID) of a task run.
 	RunID *string `json:"runID,omitempty"`
 	// depending on the source type, the validation returns sampling data of your source (JSON, CSV, BigQuery).
@@ -18,32 +18,32 @@ type SourceValidateResponse struct {
 	Message string `json:"message"`
 }
 
-type SourceValidateResponseOption func(f *SourceValidateResponse)
+type SourceWatchResponseOption func(f *SourceWatchResponse)
 
-func WithSourceValidateResponseRunID(val string) SourceValidateResponseOption {
-	return func(f *SourceValidateResponse) {
+func WithSourceWatchResponseRunID(val string) SourceWatchResponseOption {
+	return func(f *SourceWatchResponse) {
 		f.RunID = &val
 	}
 }
 
-func WithSourceValidateResponseData(val []map[string]any) SourceValidateResponseOption {
-	return func(f *SourceValidateResponse) {
+func WithSourceWatchResponseData(val []map[string]any) SourceWatchResponseOption {
+	return func(f *SourceWatchResponse) {
 		f.Data = val
 	}
 }
 
-func WithSourceValidateResponseEvents(val []Event) SourceValidateResponseOption {
-	return func(f *SourceValidateResponse) {
+func WithSourceWatchResponseEvents(val []Event) SourceWatchResponseOption {
+	return func(f *SourceWatchResponse) {
 		f.Events = val
 	}
 }
 
-// NewSourceValidateResponse instantiates a new SourceValidateResponse object
+// NewSourceWatchResponse instantiates a new SourceWatchResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceValidateResponse(message string, opts ...SourceValidateResponseOption) *SourceValidateResponse {
-	this := &SourceValidateResponse{}
+func NewSourceWatchResponse(message string, opts ...SourceWatchResponseOption) *SourceWatchResponse {
+	this := &SourceWatchResponse{}
 	this.Message = message
 	for _, opt := range opts {
 		opt(this)
@@ -51,13 +51,13 @@ func NewSourceValidateResponse(message string, opts ...SourceValidateResponseOpt
 	return this
 }
 
-// NewEmptySourceValidateResponse return a pointer to an empty SourceValidateResponse object.
-func NewEmptySourceValidateResponse() *SourceValidateResponse {
-	return &SourceValidateResponse{}
+// NewEmptySourceWatchResponse return a pointer to an empty SourceWatchResponse object.
+func NewEmptySourceWatchResponse() *SourceWatchResponse {
+	return &SourceWatchResponse{}
 }
 
 // GetRunID returns the RunID field value if set, zero value otherwise.
-func (o *SourceValidateResponse) GetRunID() string {
+func (o *SourceWatchResponse) GetRunID() string {
 	if o == nil || o.RunID == nil {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *SourceValidateResponse) GetRunID() string {
 
 // GetRunIDOk returns a tuple with the RunID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceValidateResponse) GetRunIDOk() (*string, bool) {
+func (o *SourceWatchResponse) GetRunIDOk() (*string, bool) {
 	if o == nil || o.RunID == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *SourceValidateResponse) GetRunIDOk() (*string, bool) {
 }
 
 // HasRunID returns a boolean if a field has been set.
-func (o *SourceValidateResponse) HasRunID() bool {
+func (o *SourceWatchResponse) HasRunID() bool {
 	if o != nil && o.RunID != nil {
 		return true
 	}
@@ -84,13 +84,13 @@ func (o *SourceValidateResponse) HasRunID() bool {
 }
 
 // SetRunID gets a reference to the given string and assigns it to the RunID field.
-func (o *SourceValidateResponse) SetRunID(v string) *SourceValidateResponse {
+func (o *SourceWatchResponse) SetRunID(v string) *SourceWatchResponse {
 	o.RunID = &v
 	return o
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *SourceValidateResponse) GetData() []map[string]any {
+func (o *SourceWatchResponse) GetData() []map[string]any {
 	if o == nil || o.Data == nil {
 		var ret []map[string]any
 		return ret
@@ -100,7 +100,7 @@ func (o *SourceValidateResponse) GetData() []map[string]any {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceValidateResponse) GetDataOk() ([]map[string]any, bool) {
+func (o *SourceWatchResponse) GetDataOk() ([]map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -108,7 +108,7 @@ func (o *SourceValidateResponse) GetDataOk() ([]map[string]any, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *SourceValidateResponse) HasData() bool {
+func (o *SourceWatchResponse) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -117,13 +117,13 @@ func (o *SourceValidateResponse) HasData() bool {
 }
 
 // SetData gets a reference to the given []map[string]any and assigns it to the Data field.
-func (o *SourceValidateResponse) SetData(v []map[string]any) *SourceValidateResponse {
+func (o *SourceWatchResponse) SetData(v []map[string]any) *SourceWatchResponse {
 	o.Data = v
 	return o
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *SourceValidateResponse) GetEvents() []Event {
+func (o *SourceWatchResponse) GetEvents() []Event {
 	if o == nil || o.Events == nil {
 		var ret []Event
 		return ret
@@ -133,7 +133,7 @@ func (o *SourceValidateResponse) GetEvents() []Event {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceValidateResponse) GetEventsOk() ([]Event, bool) {
+func (o *SourceWatchResponse) GetEventsOk() ([]Event, bool) {
 	if o == nil || o.Events == nil {
 		return nil, false
 	}
@@ -141,7 +141,7 @@ func (o *SourceValidateResponse) GetEventsOk() ([]Event, bool) {
 }
 
 // HasEvents returns a boolean if a field has been set.
-func (o *SourceValidateResponse) HasEvents() bool {
+func (o *SourceWatchResponse) HasEvents() bool {
 	if o != nil && o.Events != nil {
 		return true
 	}
@@ -150,13 +150,13 @@ func (o *SourceValidateResponse) HasEvents() bool {
 }
 
 // SetEvents gets a reference to the given []Event and assigns it to the Events field.
-func (o *SourceValidateResponse) SetEvents(v []Event) *SourceValidateResponse {
+func (o *SourceWatchResponse) SetEvents(v []Event) *SourceWatchResponse {
 	o.Events = v
 	return o
 }
 
 // GetMessage returns the Message field value.
-func (o *SourceValidateResponse) GetMessage() string {
+func (o *SourceWatchResponse) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -167,7 +167,7 @@ func (o *SourceValidateResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *SourceValidateResponse) GetMessageOk() (*string, bool) {
+func (o *SourceWatchResponse) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,12 +175,12 @@ func (o *SourceValidateResponse) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value.
-func (o *SourceValidateResponse) SetMessage(v string) *SourceValidateResponse {
+func (o *SourceWatchResponse) SetMessage(v string) *SourceWatchResponse {
 	o.Message = v
 	return o
 }
 
-func (o SourceValidateResponse) MarshalJSON() ([]byte, error) {
+func (o SourceWatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.RunID != nil {
 		toSerialize["runID"] = o.RunID
@@ -196,17 +196,17 @@ func (o SourceValidateResponse) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal SourceValidateResponse: %w", err)
+		return nil, fmt.Errorf("failed to marshal SourceWatchResponse: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o SourceValidateResponse) String() string {
+func (o SourceWatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  runID=%v\n", o.RunID)
 	out += fmt.Sprintf("  data=%v\n", o.Data)
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
-	return fmt.Sprintf("SourceValidateResponse {\n%s}", out)
+	return fmt.Sprintf("SourceWatchResponse {\n%s}", out)
 }
