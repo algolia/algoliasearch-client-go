@@ -9001,25 +9001,19 @@ Wraps WaitForTaskWithContext with context.Background().
 It returns the task response if the operation was successful.
 It returns an error if the operation failed.
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
-	@param indexName string - Index name.
-	@param taskID int64 - Task ID.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
-	@param opts ...Option - Optional parameters for the request.
-	@return *GetTaskResponse - Task response.
-	@return error - Error if any.
+		@param indexName string - Index name.
+		@param taskID int64 - Task ID.
+		@param maxRetries *float64 - Maximum number of retries.
+	  @param timeout func(float64) time.Duration - Timeout function.
+		@param opts ...Option - Optional parameters for the request.
+		@return *GetTaskResponse - Task response.
+		@return error - Error if any.
 */
 func (c *APIClient) WaitForTask(
 	indexName string,
 	taskID int64,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
 	return c.WaitForTaskWithContext(
@@ -9027,8 +9021,7 @@ func (c *APIClient) WaitForTask(
 		indexName,
 		taskID,
 		maxRetries,
-		initialDelay,
-		maxDelay,
+		timeout,
 		opts...,
 	)
 }
@@ -9038,16 +9031,11 @@ WaitForTaskWithContext waits for a task to be published.
 It returns the task response if the operation was successful.
 It returns an error if the operation failed.
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
 	@param ctx context.Context - The context that will be drilled down to the actual request.
 	@param indexName string - Index name.
 	@param taskID int64 - Task ID.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param maxRetries *float64 - Maximum number of retries.
+	@param timeout func(float64) time.Duration - Timeout function.
 	@param opts ...Option - Optional parameters for the request.
 	@return *GetTaskResponse - Task response.
 	@return error - Error if any.
@@ -9056,13 +9044,25 @@ func (c *APIClient) WaitForTaskWithContext(
 	ctx context.Context,
 	indexName string,
 	taskID int64,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
-	return utils.RetryUntil( //nolint:wrapcheck
-		func() (*GetTaskResponse, error) {
+	retryCount := float64(0)
+
+	if maxRetries == nil {
+		maxRetries = new(float64)
+		*maxRetries = 50
+	}
+
+	if timeout == nil {
+		timeout = func(count float64) time.Duration {
+			return time.Duration(min(count*0.2, 5)) * time.Second
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
 			return c.GetTaskWithContext(ctx, c.NewApiGetTaskRequest(indexName, taskID), opts...)
 		},
 		func(response *GetTaskResponse, err error) bool {
@@ -9072,9 +9072,20 @@ func (c *APIClient) WaitForTaskWithContext(
 
 			return response.Status == TASK_STATUS_PUBLISHED
 		},
-		maxRetries,
-		initialDelay,
-		maxDelay,
+		func(*GetTaskResponse, error) {
+			retryCount++
+		},
+		func() time.Duration {
+			return timeout(retryCount)
+		},
+		&utils.IterableError[GetTaskResponse]{
+			Validate: func(*GetTaskResponse, error) bool {
+				return retryCount >= *maxRetries
+			},
+			Message: func(*GetTaskResponse, error) string {
+				return fmt.Sprintf("The maximum number of retries exceeded. (%f/%f)", retryCount, *maxRetries)
+			},
+		},
 	)
 }
 
@@ -9084,31 +9095,24 @@ Wraps WaitForAppTask with context.Background().
 It returns the task response if the operation was successful.
 It returns an error if the operation failed.
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
 	@param taskID int64 - Task ID.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param maxRetries *float64 - Maximum number of retries.
+	@param timeout func(float64) time.Duration - Timeout function.
 	@param opts ...Option - Optional parameters for the request.
 	@return *GetTaskResponse - Task response.
 	@return error - Error if any.
 */
 func (c *APIClient) WaitForAppTask(
 	taskID int64,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
 	return c.WaitForAppTaskWithContext(
 		context.Background(),
 		taskID,
 		maxRetries,
-		initialDelay,
-		maxDelay,
+		timeout,
 		opts...,
 	)
 }
@@ -9118,15 +9122,10 @@ WaitForAppTaskWithContext waits for an application-level task to be published.
 It returns the task response if the operation was successful.
 It returns an error if the operation failed.
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
 	@param ctx context.Context - The context that will be drilled down to the actual request.
 	@param taskID int64 - Task ID.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param maxRetries *float64 - Maximum number of retries.
+	@param timeout func(float64) time.Duration - Timeout function.
 	@param opts ...Option - Optional parameters for the request.
 	@return *GetTaskResponse - Task response.
 	@return error - Error if any.
@@ -9134,13 +9133,25 @@ The maxDelay parameter is the maximum delay between each retry.
 func (c *APIClient) WaitForAppTaskWithContext(
 	ctx context.Context,
 	taskID int64,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetTaskResponse, error) {
-	return utils.RetryUntil( //nolint:wrapcheck
-		func() (*GetTaskResponse, error) {
+	retryCount := float64(0)
+
+	if maxRetries == nil {
+		maxRetries = new(float64)
+		*maxRetries = 50
+	}
+
+	if timeout == nil {
+		timeout = func(count float64) time.Duration {
+			return time.Duration(min(count*0.2, 5)) * time.Second
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
 			return c.GetAppTaskWithContext(ctx, c.NewApiGetAppTaskRequest(taskID), opts...)
 		},
 		func(response *GetTaskResponse, err error) bool {
@@ -9150,9 +9161,20 @@ func (c *APIClient) WaitForAppTaskWithContext(
 
 			return response.Status == TASK_STATUS_PUBLISHED
 		},
-		maxRetries,
-		initialDelay,
-		maxDelay,
+		func(*GetTaskResponse, error) {
+			retryCount++
+		},
+		func() time.Duration {
+			return timeout(retryCount)
+		},
+		&utils.IterableError[GetTaskResponse]{
+			Validate: func(*GetTaskResponse, error) bool {
+				return retryCount >= *maxRetries
+			},
+			Message: func(*GetTaskResponse, error) string {
+				return fmt.Sprintf("The maximum number of retries exceeded. (%f/%f)", retryCount, *maxRetries)
+			},
+		},
 	)
 }
 
@@ -9189,7 +9211,6 @@ func (c *APIClient) WaitForApiKey(
 		apiKey,
 		nil,
 		nil,
-		nil,
 		opts...,
 	)
 }
@@ -9205,19 +9226,14 @@ The operation can be one of the following:
   - "delete": wait for the API key to be deleted
   - "update": wait for the API key to be updated
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
 If the operation is "update", the apiKey parameter must be set.
 If the operation is "delete" or "add", the apiKey parameter is not used.
 
 	@param operation ApiKeyOperation - Operation type - add, delete or update.
 	@param key string - API key.
 	@param apiKey *ApiKey - API key structure - required for update operation.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param maxRetries *float64 - Maximum number of retries.
+	@param timeout func(float64) time.Duration - Timeout function.
 	@param opts ...Option - Optional parameters for the request.
 	@return *GetApiKeyResponse - API key response.
 	@return error - Error if any.
@@ -9226,9 +9242,8 @@ func (c *APIClient) WaitForApiKeyWithOptions(
 	operation ApiKeyOperation,
 	key string,
 	apiKey *ApiKey,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetApiKeyResponse, error) {
 	return c.WaitForApiKeyWithContext(
@@ -9237,8 +9252,7 @@ func (c *APIClient) WaitForApiKeyWithOptions(
 		key,
 		apiKey,
 		maxRetries,
-		initialDelay,
-		maxDelay,
+		timeout,
 		opts...,
 	)
 }
@@ -9253,10 +9267,6 @@ The operation can be one of the following:
   - "delete": wait for the API key to be deleted
   - "update": wait for the API key to be updated
 
-The maxRetries parameter is the maximum number of retries.
-The initialDelay parameter is the initial delay between each retry.
-The maxDelay parameter is the maximum delay between each retry.
-
 If the operation is "update", the apiKey parameter must be set.
 If the operation is "delete" or "add", the apiKey parameter is not used.
 
@@ -9264,9 +9274,8 @@ If the operation is "delete" or "add", the apiKey parameter is not used.
 	@param operation ApiKeyOperation - Operation type - add, delete or update.
 	@param key string - API key.
 	@param apiKey *ApiKey - API key structure - required for update operation.
-	@param maxRetries *int - Maximum number of retries.
-	@param initialDelay *time.Duration - Initial delay between retries.
-	@param maxDelay *time.Duration - Maximum delay between retries.
+	@param maxRetries *float64 - Maximum number of retries.
+	@param timeout func(float64) time.Duration - Timeout function.
 	@param opts ...Option - Optional parameters for the request.
 	@return *GetApiKeyResponse - API key response.
 	@return error - Error if any.
@@ -9276,82 +9285,89 @@ func (c *APIClient) WaitForApiKeyWithContext(
 	operation ApiKeyOperation,
 	key string,
 	apiKey *ApiKey,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+	maxRetries *float64,
+	timeout func(float64) time.Duration,
 	opts ...Option,
 ) (*GetApiKeyResponse, error) {
 	if operation != API_KEY_OPERATION_ADD && operation != API_KEY_OPERATION_DELETE && operation != API_KEY_OPERATION_UPDATE {
 		return nil, &errs.WaitKeyOperationError{}
 	}
 
+	retryCount := float64(0)
+
+	if maxRetries == nil {
+		maxRetries = new(float64)
+		*maxRetries = 50
+	}
+
+	if timeout == nil {
+		timeout = func(count float64) time.Duration {
+			return time.Duration(min(count*0.2, 5)) * time.Second
+		}
+	}
+
+	var validateFunc func(*GetApiKeyResponse, error) bool
+
 	if operation == API_KEY_OPERATION_UPDATE {
 		if apiKey == nil {
 			return nil, &errs.WaitKeyUpdateError{}
 		}
 
-		return utils.RetryUntil( //nolint:wrapcheck
-			func() (*GetApiKeyResponse, error) {
-				return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
-			},
-			func(response *GetApiKeyResponse, err error) bool {
-				if err != nil || response == nil {
-					return false
-				}
+		validateFunc = func(response *GetApiKeyResponse, err error) bool {
+			if err != nil || response == nil {
+				return false
+			}
 
-				if apiKey.GetDescription() != response.GetDescription() {
-					return false
-				}
+			if apiKey.GetDescription() != response.GetDescription() {
+				return false
+			}
 
-				if apiKey.GetQueryParameters() != response.GetQueryParameters() {
-					return false
-				}
+			if apiKey.GetQueryParameters() != response.GetQueryParameters() {
+				return false
+			}
 
-				if apiKey.GetMaxHitsPerQuery() != response.GetMaxHitsPerQuery() {
-					return false
-				}
+			if apiKey.GetMaxHitsPerQuery() != response.GetMaxHitsPerQuery() {
+				return false
+			}
 
-				if apiKey.GetMaxQueriesPerIPPerHour() != response.GetMaxQueriesPerIPPerHour() {
-					return false
-				}
+			if apiKey.GetMaxQueriesPerIPPerHour() != response.GetMaxQueriesPerIPPerHour() {
+				return false
+			}
 
-				if apiKey.GetValidity() != response.GetValidity() {
-					return false
-				}
+			if apiKey.GetValidity() != response.GetValidity() {
+				return false
+			}
 
-				slices.Sort(apiKey.Acl)
-				slices.Sort(response.Acl)
+			slices.Sort(apiKey.Acl)
+			slices.Sort(response.Acl)
 
-				if !slices.Equal(apiKey.Acl, response.Acl) {
-					return false
-				}
+			if !slices.Equal(apiKey.Acl, response.Acl) {
+				return false
+			}
 
-				slices.Sort(apiKey.Indexes)
-				slices.Sort(response.Indexes)
+			slices.Sort(apiKey.Indexes)
+			slices.Sort(response.Indexes)
 
-				if !slices.Equal(apiKey.Indexes, response.Indexes) {
-					return false
-				}
+			if !slices.Equal(apiKey.Indexes, response.Indexes) {
+				return false
+			}
 
-				slices.Sort(apiKey.Referers)
-				slices.Sort(response.Referers)
+			slices.Sort(apiKey.Referers)
+			slices.Sort(response.Referers)
 
-				return slices.Equal(apiKey.Referers, response.Referers)
-			},
-			maxRetries,
-			initialDelay,
-			maxDelay,
-		)
-	}
-
-	return utils.RetryUntil( //nolint:wrapcheck
-		func() (*GetApiKeyResponse, error) {
-			return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
-		},
-		func(response *GetApiKeyResponse, err error) bool {
+			return slices.Equal(apiKey.Referers, response.Referers)
+		}
+	} else {
+		validateFunc = func(response *GetApiKeyResponse, err error) bool {
 			switch operation {
 			case API_KEY_OPERATION_ADD:
-				return err == nil && response != nil && response.CreatedAt > 0
+				if _, ok := err.(*APIError); ok {
+					apiErr := err.(*APIError)
+
+					return apiErr.Status != 404
+				}
+
+				return true
 			case API_KEY_OPERATION_DELETE:
 				if _, ok := err.(*APIError); ok {
 					apiErr := err.(*APIError)
@@ -9362,10 +9378,28 @@ func (c *APIClient) WaitForApiKeyWithContext(
 				return false
 			}
 			return false
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(*GetApiKeyResponse, error) (*GetApiKeyResponse, error) {
+			return c.GetApiKeyWithContext(ctx, c.NewApiGetApiKeyRequest(key), opts...)
 		},
-		maxRetries,
-		initialDelay,
-		maxDelay,
+		validateFunc,
+		func(*GetApiKeyResponse, error) {
+			retryCount += 1
+		},
+		func() time.Duration {
+			return timeout(retryCount)
+		},
+		&utils.IterableError[GetApiKeyResponse]{
+			Validate: func(*GetApiKeyResponse, error) bool {
+				return retryCount >= *maxRetries
+			},
+			Message: func(*GetApiKeyResponse, error) string {
+				return fmt.Sprintf("The maximum number of retries exceeded. (%f/%f)", retryCount, *maxRetries)
+			},
+		},
 	)
 }
 
@@ -9502,7 +9536,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 
 	if *waitForTasks {
 		for _, resp := range responses {
-			_, err := c.WaitForTask(indexName, resp.TaskID, nil, nil, nil)
+			_, err := c.WaitForTask(indexName, resp.TaskID, nil, nil)
 			if err != nil {
 				return nil, err
 			}
@@ -9529,7 +9563,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil, nil)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -9539,7 +9573,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil, nil)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -9549,7 +9583,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, nil, nil, nil)
+	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -65,41 +65,49 @@ func IsNilOrEmpty(i any) bool {
 	}
 }
 
-func RetryUntil[T any](
-	retry func() (*T, error),
-	until func(*T, error) bool,
-	maxRetries *int,
-	initialDelay *time.Duration,
-	maxDelay *time.Duration,
+type IterableError[T any] struct {
+	Validate func(*T, error) bool
+	Message  func(*T, error) string
+}
+
+func CreateIterable[T any](
+	execute func(*T, error) (*T, error),
+	validate func(*T, error) bool,
+	aggregator func(*T, error),
+	timeout func() time.Duration,
+	iterableErr *IterableError[T],
 ) (*T, error) {
-	if maxRetries == nil {
-		maxRetries = new(int)
-		*maxRetries = 50
-	}
+	var executor func(*T, error) (*T, error)
 
-	if initialDelay == nil {
-		initialDelay = new(time.Duration)
-		*initialDelay = 200 * time.Millisecond
-	}
+	executor = func(previousResponse *T, previousError error) (*T, error) {
+		response, responseErr := execute(previousResponse, previousError)
 
-	if maxDelay == nil {
-		maxDelay = new(time.Duration)
-		*maxDelay = 5 * time.Second
-	}
-
-	for i := 0; i < *maxRetries; i++ {
-		res, err := retry()
-
-		if ok := until(res, err); ok {
-			return res, nil
+		if aggregator != nil {
+			aggregator(response, responseErr)
 		}
 
-		time.Sleep(*initialDelay)
-		*initialDelay *= 2
-		if *initialDelay > *maxDelay {
-			*initialDelay = *maxDelay
+		if validate(response, responseErr) {
+			return response, responseErr
 		}
+
+		if iterableErr != nil && iterableErr.Validate(response, responseErr) {
+			if iterableErr.Message != nil {
+				return nil, errs.NewWaitError(iterableErr.Message(response, responseErr))
+			}
+
+			return nil, errs.NewWaitError("an error occurred")
+		}
+
+		if timeout == nil {
+			timeout = func() time.Duration {
+				return 1 * time.Second
+			}
+		}
+
+		time.Sleep(timeout())
+
+		return executor(response, responseErr)
 	}
 
-	return nil, &errs.WaitError{}
+	return executor(nil, nil)
 }

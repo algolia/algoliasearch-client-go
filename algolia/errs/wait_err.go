@@ -1,9 +1,17 @@
 package errs
 
-type WaitError struct{}
+type WaitError struct {
+	msg string
+}
+
+func NewWaitError(msg string) *WaitError {
+	return &WaitError{
+		msg: msg,
+	}
+}
 
 func (e *WaitError) Error() string {
-	return "wait error"
+	return e.msg
 }
 
 type WaitKeyUpdateError struct{}
