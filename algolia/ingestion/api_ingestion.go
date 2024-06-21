@@ -560,6 +560,130 @@ func (c *APIClient) CreateTaskWithContext(ctx context.Context, r ApiCreateTaskRe
 	return returnValue, nil
 }
 
+func (r *ApiCreateTransformationRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationCreate"]; ok {
+		err = json.Unmarshal(v, &r.transformationCreate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationCreate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationCreate: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.transformationCreate)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter transformationCreate: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiCreateTransformationRequest represents the request with all the parameters for the API call.
+type ApiCreateTransformationRequest struct {
+	transformationCreate *TransformationCreate
+}
+
+// NewApiCreateTransformationRequest creates an instance of the ApiCreateTransformationRequest to be used for the API call.
+func (c *APIClient) NewApiCreateTransformationRequest(transformationCreate *TransformationCreate) ApiCreateTransformationRequest {
+	return ApiCreateTransformationRequest{
+		transformationCreate: transformationCreate,
+	}
+}
+
+/*
+CreateTransformation Wraps CreateTransformationWithContext using context.Background.
+
+Creates a new transformation.
+
+Request can be constructed by NewApiCreateTransformationRequest with parameters below.
+
+	@param transformationCreate TransformationCreate - Request body for creating a transformation.
+	@return TransformationCreateResponse
+*/
+func (c *APIClient) CreateTransformation(r ApiCreateTransformationRequest, opts ...Option) (*TransformationCreateResponse, error) {
+	return c.CreateTransformationWithContext(context.Background(), r, opts...)
+}
+
+/*
+CreateTransformation
+
+Creates a new transformation.
+
+Request can be constructed by NewApiCreateTransformationRequest with parameters below.
+
+	@param transformationCreate TransformationCreate - Request body for creating a transformation.
+	@return TransformationCreateResponse
+*/
+func (c *APIClient) CreateTransformationWithContext(ctx context.Context, r ApiCreateTransformationRequest, opts ...Option) (*TransformationCreateResponse, error) {
+	var (
+		postBody    any
+		returnValue *TransformationCreateResponse
+	)
+
+	requestPath := "/1/transformations"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if r.transformationCreate == nil {
+		return returnValue, reportError("Parameter `transformationCreate` is required when calling `CreateTransformation`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.transformationCreate
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -1621,6 +1745,123 @@ func (c *APIClient) DeleteTaskWithContext(ctx context.Context, r ApiDeleteTaskRe
 	queryParams := url.Values{}
 	if r.taskID == "" {
 		return returnValue, reportError("Parameter `taskID` is required when calling `DeleteTask`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiDeleteTransformationRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationID"]; ok {
+		err = json.Unmarshal(v, &r.transformationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDeleteTransformationRequest represents the request with all the parameters for the API call.
+type ApiDeleteTransformationRequest struct {
+	transformationID string
+}
+
+// NewApiDeleteTransformationRequest creates an instance of the ApiDeleteTransformationRequest to be used for the API call.
+func (c *APIClient) NewApiDeleteTransformationRequest(transformationID string) ApiDeleteTransformationRequest {
+	return ApiDeleteTransformationRequest{
+		transformationID: transformationID,
+	}
+}
+
+/*
+DeleteTransformation Wraps DeleteTransformationWithContext using context.Background.
+
+Deletes a transformation by its ID.
+
+Request can be constructed by NewApiDeleteTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@return DeleteResponse
+*/
+func (c *APIClient) DeleteTransformation(r ApiDeleteTransformationRequest, opts ...Option) (*DeleteResponse, error) {
+	return c.DeleteTransformationWithContext(context.Background(), r, opts...)
+}
+
+/*
+DeleteTransformation
+
+Deletes a transformation by its ID.
+
+Request can be constructed by NewApiDeleteTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@return DeleteResponse
+*/
+func (c *APIClient) DeleteTransformationWithContext(ctx context.Context, r ApiDeleteTransformationRequest, opts ...Option) (*DeleteResponse, error) {
+	var (
+		postBody    any
+		returnValue *DeleteResponse
+	)
+
+	requestPath := "/1/transformations/{transformationID}"
+	requestPath = strings.ReplaceAll(requestPath, "{transformationID}", url.PathEscape(parameterToString(r.transformationID)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.transformationID == "" {
+		return returnValue, reportError("Parameter `transformationID` is required when calling `DeleteTransformation`.")
 	}
 
 	// optional params if any
@@ -4284,6 +4525,285 @@ func (c *APIClient) GetTasksWithContext(ctx context.Context, r ApiGetTasksReques
 	return returnValue, nil
 }
 
+func (r *ApiGetTransformationRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationID"]; ok {
+		err = json.Unmarshal(v, &r.transformationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetTransformationRequest represents the request with all the parameters for the API call.
+type ApiGetTransformationRequest struct {
+	transformationID string
+}
+
+// NewApiGetTransformationRequest creates an instance of the ApiGetTransformationRequest to be used for the API call.
+func (c *APIClient) NewApiGetTransformationRequest(transformationID string) ApiGetTransformationRequest {
+	return ApiGetTransformationRequest{
+		transformationID: transformationID,
+	}
+}
+
+/*
+GetTransformation Wraps GetTransformationWithContext using context.Background.
+
+Retrieves a transformation by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiGetTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@return Transformation
+*/
+func (c *APIClient) GetTransformation(r ApiGetTransformationRequest, opts ...Option) (*Transformation, error) {
+	return c.GetTransformationWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetTransformation
+
+Retrieves a transformation by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiGetTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@return Transformation
+*/
+func (c *APIClient) GetTransformationWithContext(ctx context.Context, r ApiGetTransformationRequest, opts ...Option) (*Transformation, error) {
+	var (
+		postBody    any
+		returnValue *Transformation
+	)
+
+	requestPath := "/1/transformations/{transformationID}"
+	requestPath = strings.ReplaceAll(requestPath, "{transformationID}", url.PathEscape(parameterToString(r.transformationID)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.transformationID == "" {
+		return returnValue, reportError("Parameter `transformationID` is required when calling `GetTransformation`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiGetTransformationsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetTransformationsRequest represents the request with all the parameters for the API call.
+type ApiGetTransformationsRequest struct {
+	sort  SortKeys
+	order OrderKeys
+}
+
+// NewApiGetTransformationsRequest creates an instance of the ApiGetTransformationsRequest to be used for the API call.
+func (c *APIClient) NewApiGetTransformationsRequest() ApiGetTransformationsRequest {
+	return ApiGetTransformationsRequest{}
+}
+
+// WithSort adds the sort to the ApiGetTransformationsRequest and returns the request for chaining.
+func (r ApiGetTransformationsRequest) WithSort(sort SortKeys) ApiGetTransformationsRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiGetTransformationsRequest and returns the request for chaining.
+func (r ApiGetTransformationsRequest) WithOrder(order OrderKeys) ApiGetTransformationsRequest {
+	r.order = order
+	return r
+}
+
+/*
+GetTransformations Wraps GetTransformationsWithContext using context.Background.
+
+Retrieves a list of transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiGetTransformationsRequest with parameters below.
+
+	@param sort SortKeys - Property by which to sort the list.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListTransformationsResponse
+*/
+func (c *APIClient) GetTransformations(r ApiGetTransformationsRequest, opts ...Option) (*ListTransformationsResponse, error) {
+	return c.GetTransformationsWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetTransformations
+
+Retrieves a list of transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiGetTransformationsRequest with parameters below.
+
+	@param sort SortKeys - Property by which to sort the list.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListTransformationsResponse
+*/
+func (c *APIClient) GetTransformationsWithContext(ctx context.Context, r ApiGetTransformationsRequest, opts ...Option) (*ListTransformationsResponse, error) {
+	var (
+		postBody    any
+		returnValue *ListTransformationsResponse
+	)
+
+	requestPath := "/1/transformations"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if !utils.IsNilOrEmpty(r.sort) {
+		queryParams.Set("sort", queryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		queryParams.Set("order", queryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiRunTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -4947,6 +5467,140 @@ func (c *APIClient) SearchTasksWithContext(ctx context.Context, r ApiSearchTasks
 	return returnValue, nil
 }
 
+func (r *ApiSearchTransformationsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationSearch"]; ok {
+		err = json.Unmarshal(v, &r.transformationSearch)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationSearch)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationSearch: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.transformationSearch)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter transformationSearch: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiSearchTransformationsRequest represents the request with all the parameters for the API call.
+type ApiSearchTransformationsRequest struct {
+	transformationSearch *TransformationSearch
+}
+
+// NewApiSearchTransformationsRequest creates an instance of the ApiSearchTransformationsRequest to be used for the API call.
+func (c *APIClient) NewApiSearchTransformationsRequest(transformationSearch *TransformationSearch) ApiSearchTransformationsRequest {
+	return ApiSearchTransformationsRequest{
+		transformationSearch: transformationSearch,
+	}
+}
+
+/*
+SearchTransformations Wraps SearchTransformationsWithContext using context.Background.
+
+Searches for transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiSearchTransformationsRequest with parameters below.
+
+	@param transformationSearch TransformationSearch
+	@return []Transformation
+*/
+func (c *APIClient) SearchTransformations(r ApiSearchTransformationsRequest, opts ...Option) ([]Transformation, error) {
+	return c.SearchTransformationsWithContext(context.Background(), r, opts...)
+}
+
+/*
+SearchTransformations
+
+Searches for transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiSearchTransformationsRequest with parameters below.
+
+	@param transformationSearch TransformationSearch
+	@return []Transformation
+*/
+func (c *APIClient) SearchTransformationsWithContext(ctx context.Context, r ApiSearchTransformationsRequest, opts ...Option) ([]Transformation, error) {
+	var (
+		postBody    any
+		returnValue []Transformation
+	)
+
+	requestPath := "/1/transformations/search"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if r.transformationSearch == nil {
+		return returnValue, reportError("Parameter `transformationSearch` is required when calling `SearchTransformations`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.transformationSearch
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiTriggerDockerSourceDiscoverRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -5039,6 +5693,140 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithContext(ctx context.Context, 
 		}
 	}
 
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiTryTransformationsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationTry"]; ok {
+		err = json.Unmarshal(v, &r.transformationTry)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationTry)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationTry: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.transformationTry)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter transformationTry: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiTryTransformationsRequest represents the request with all the parameters for the API call.
+type ApiTryTransformationsRequest struct {
+	transformationTry *TransformationTry
+}
+
+// NewApiTryTransformationsRequest creates an instance of the ApiTryTransformationsRequest to be used for the API call.
+func (c *APIClient) NewApiTryTransformationsRequest(transformationTry *TransformationTry) ApiTryTransformationsRequest {
+	return ApiTryTransformationsRequest{
+		transformationTry: transformationTry,
+	}
+}
+
+/*
+TryTransformations Wraps TryTransformationsWithContext using context.Background.
+
+Searches for transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiTryTransformationsRequest with parameters below.
+
+	@param transformationTry TransformationTry
+	@return TransformationTryResponse
+*/
+func (c *APIClient) TryTransformations(r ApiTryTransformationsRequest, opts ...Option) (*TransformationTryResponse, error) {
+	return c.TryTransformationsWithContext(context.Background(), r, opts...)
+}
+
+/*
+TryTransformations
+
+Searches for transformations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiTryTransformationsRequest with parameters below.
+
+	@param transformationTry TransformationTry
+	@return TransformationTryResponse
+*/
+func (c *APIClient) TryTransformationsWithContext(ctx context.Context, r ApiTryTransformationsRequest, opts ...Option) (*TransformationTryResponse, error) {
+	var (
+		postBody    any
+		returnValue *TransformationTryResponse
+	)
+
+	requestPath := "/1/transformations/try"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if r.transformationTry == nil {
+		return returnValue, reportError("Parameter `transformationTry` is required when calling `TryTransformations`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.transformationTry
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
 	if err != nil {
 		return returnValue, err
@@ -5634,6 +6422,147 @@ func (c *APIClient) UpdateTaskWithContext(ctx context.Context, r ApiUpdateTaskRe
 	// body params
 	postBody = r.taskUpdate
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPatch, postBody, headers, queryParams)
+	if err != nil {
+		return returnValue, err
+	}
+
+	res, resBody, err := c.callAPI(req, false)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiUpdateTransformationRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["transformationID"]; ok {
+		err = json.Unmarshal(v, &r.transformationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["transformationCreate"]; ok {
+		err = json.Unmarshal(v, &r.transformationCreate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationCreate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationCreate: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.transformationCreate)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter transformationCreate: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiUpdateTransformationRequest represents the request with all the parameters for the API call.
+type ApiUpdateTransformationRequest struct {
+	transformationID     string
+	transformationCreate *TransformationCreate
+}
+
+// NewApiUpdateTransformationRequest creates an instance of the ApiUpdateTransformationRequest to be used for the API call.
+func (c *APIClient) NewApiUpdateTransformationRequest(transformationID string, transformationCreate *TransformationCreate) ApiUpdateTransformationRequest {
+	return ApiUpdateTransformationRequest{
+		transformationID:     transformationID,
+		transformationCreate: transformationCreate,
+	}
+}
+
+/*
+UpdateTransformation Wraps UpdateTransformationWithContext using context.Background.
+
+Updates a transformation by its ID.
+
+Request can be constructed by NewApiUpdateTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@param transformationCreate TransformationCreate
+	@return TransformationUpdateResponse
+*/
+func (c *APIClient) UpdateTransformation(r ApiUpdateTransformationRequest, opts ...Option) (*TransformationUpdateResponse, error) {
+	return c.UpdateTransformationWithContext(context.Background(), r, opts...)
+}
+
+/*
+UpdateTransformation
+
+Updates a transformation by its ID.
+
+Request can be constructed by NewApiUpdateTransformationRequest with parameters below.
+
+	@param transformationID string - Unique identifier of a transformation.
+	@param transformationCreate TransformationCreate
+	@return TransformationUpdateResponse
+*/
+func (c *APIClient) UpdateTransformationWithContext(ctx context.Context, r ApiUpdateTransformationRequest, opts ...Option) (*TransformationUpdateResponse, error) {
+	var (
+		postBody    any
+		returnValue *TransformationUpdateResponse
+	)
+
+	requestPath := "/1/transformations/{transformationID}"
+	requestPath = strings.ReplaceAll(requestPath, "{transformationID}", url.PathEscape(parameterToString(r.transformationID)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.transformationID == "" {
+		return returnValue, reportError("Parameter `transformationID` is required when calling `UpdateTransformation`.")
+	}
+
+	if r.transformationCreate == nil {
+		return returnValue, reportError("Parameter `transformationCreate` is required when calling `UpdateTransformation`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.transformationCreate
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
 		return returnValue, err
 	}

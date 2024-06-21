@@ -53,6 +53,7 @@ model_list_destinations_response.go
 model_list_events_response.go
 model_list_sources_response.go
 model_list_tasks_response.go
+model_list_transformations_response.go
 model_mapping_field_directive.go
 model_mapping_format_schema.go
 model_mapping_input.go
@@ -85,6 +86,7 @@ model_schedule_trigger_type.go
 model_shopify_input.go
 model_shopify_market.go
 model_shopify_metafield.go
+model_sort_keys.go
 model_source.go
 model_source_big_commerce.go
 model_source_big_query.go
@@ -122,6 +124,14 @@ model_task_search.go
 model_task_sort_keys.go
 model_task_update.go
 model_task_update_response.go
+model_transformation.go
+model_transformation_create.go
+model_transformation_create_response.go
+model_transformation_search.go
+model_transformation_try.go
+model_transformation_try_response.go
+model_transformation_try_response_error.go
+model_transformation_update_response.go
 model_trigger.go
 model_trigger_type.go
 model_trigger_update_input.go
