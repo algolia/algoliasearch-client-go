@@ -17,7 +17,8 @@ type QueryRes struct {
 	Extensions                 map[string]map[string]interface{} `json:"extensions"`
 	Facets                     map[string]map[string]int         `json:"facets"`
 	FacetsStats                map[string]FacetStat              `json:"facets_stats"`
-	Hits                       []Hit                             `json:"hits"`
+	Hits                       []map[string]interface{}          `json:"-"`
+	RawHits                    json.RawMessage                   `json:"hits"`
 	HitsPerPage                int                               `json:"hitsPerPage"`
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
@@ -41,6 +42,36 @@ type QueryRes struct {
 	ABTestVariantID            int                               `json:"abTestVariantID"`
 	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
+}
+
+func (r *QueryRes) UnmarshalJSON(data []byte) error {
+
+	type QR QueryRes
+	if err := json.Unmarshal(data, (*QR)(r)); err != nil {
+		return err
+	}
+	if r == nil {
+		return nil
+	}
+	if r.RawHits != nil {
+		if err := json.Unmarshal(r.RawHits, &r.Hits); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (r *QueryRes) MarshalJSON() ([]byte, error) {
+	if r == nil {
+		return nil, nil
+	}
+	if h, err := json.Marshal(r.Hits); err != nil {
+		return nil, err
+	} else {
+		r.RawHits = json.RawMessage(h)
+	}
+	type QR QueryRes
+	return json.Marshal((*QR)(r))
 }
 
 type AppliedRule struct {
@@ -75,41 +106,8 @@ type RankingInfo struct {
 	Words             int `json:"words"`
 }
 
-type Hit struct {
-	ObjectID string
-	raw      json.RawMessage
-}
-
-func (f *Hit) UnmarshalJSON(data []byte) error {
-	f.raw = data
-
-	// handle objectID
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(data, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["objectID"]; found {
-		err = json.Unmarshal(raw, &f.ObjectID)
-		if err != nil {
-			return fmt.Errorf("error reading 'ObjectID': %w", err)
-		}
-	}
-
-	return nil
-}
-
-func (f *Hit) MarshalJSON() ([]byte, error) {
-	return f.raw, nil
-}
-
 func (r QueryRes) UnmarshalHits(v interface{}) error {
-	hitsPayload, err := json.Marshal(r.Hits)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal Hits from search response: %v", err)
-	}
-	return json.Unmarshal(hitsPayload, &v)
+	return json.Unmarshal(r.RawHits, &v)
 }
 
 func (r QueryRes) UnmarshalUserData(v interface{}) error {
@@ -125,8 +123,12 @@ func (r QueryRes) UnmarshalUserData(v interface{}) error {
 // objectID is not found, -1 is returned.
 func (r QueryRes) GetObjectPosition(objectID string) int {
 	for i, hit := range r.Hits {
-		hitObjectID := hit.ObjectID
-		if hitObjectID == objectID {
+		itf, ok := hit["objectID"]
+		if !ok {
+			continue
+		}
+		hitObjectID, ok := itf.(string)
+		if ok && hitObjectID == objectID {
 			return i
 		}
 	}
