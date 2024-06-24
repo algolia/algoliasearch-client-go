@@ -9403,6 +9403,229 @@ func (c *APIClient) WaitForApiKeyWithContext(
 	)
 }
 
+/*
+BrowseObjects allows to aggregate all the hits returned by the API calls.
+Wraps BrowseObjectsWithContext using context.Background.
+
+		@param indexName string - Index name.
+	  @param browseParams BrowseParamsObject - Browse parameters.
+	  @param validate func(*BrowseResponse, error) bool - Validator function.
+	  @param aggregator func(*BrowseResponse) - Aggregator function.
+		@param opts ...Option - Optional parameters for the request.
+		@return *BrowseResponse - Browse response.
+		@return error - Error if any.
+*/
+func (c *APIClient) BrowseObjects(
+	indexName string,
+	browseParams BrowseParamsObject,
+	validate func(*BrowseResponse, error) bool,
+	aggregator func(*BrowseResponse, error),
+	opts ...Option,
+) (*BrowseResponse, error) {
+	return c.BrowseObjectsWithContext(context.Background(), indexName, browseParams, validate, aggregator, opts...)
+}
+
+/*
+BrowseObjectsWithContext allows to aggregate all the hits returned by the API calls.
+
+		@param ctx context.Context - The context that will be drilled down to the actual request.
+	  @param indexName string - Index name.
+	  @param browseParams BrowseParamsObject - Browse parameters.
+	  @param validate func(*BrowseResponse, error) bool - Validator function.
+	  @param aggregator func(*BrowseResponse) - Aggregator function.
+		@param opts ...Option - Optional parameters for the request.
+		@return *BrowseResponse - Browse response.
+		@return error - Error if any.
+*/
+func (c *APIClient) BrowseObjectsWithContext(
+	ctx context.Context,
+	indexName string,
+	browseParams BrowseParamsObject,
+	validate func(*BrowseResponse, error) bool,
+	aggregator func(*BrowseResponse, error),
+	opts ...Option,
+) (*BrowseResponse, error) {
+	if validate == nil {
+		validate = func(response *BrowseResponse, responseErr error) bool {
+			return responseErr != nil || response != nil && response.Cursor == nil
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(previousResponse *BrowseResponse, previousErr error) (*BrowseResponse, error) {
+			if previousResponse != nil {
+				browseParams.Cursor = previousResponse.Cursor
+			}
+
+			return c.BrowseWithContext(
+				ctx,
+				c.NewApiBrowseRequest(indexName).WithBrowseParams(BrowseParamsObjectAsBrowseParams(&browseParams)),
+				opts...,
+			)
+		},
+		validate,
+		aggregator,
+		nil,
+		nil,
+	)
+}
+
+/*
+BrowseRules allows to aggregate all the rules returned by the API calls.
+Wraps BrowseRulesWithContext using context.Background.
+
+	@param indexName string - Index name.
+	@param searchRulesParams SearchRulesParams - Search rules parameters.
+	@param validate func(*SearchRulesResponse, error) bool - Validator function.
+	@param aggregator func(*SearchRulesResponse) - Aggregator function.
+	@param opts ...Option - Optional parameters for the request.
+	@return *SearchRulesResponse - Search rules response.
+	@return error - Error if any.
+*/
+func (c *APIClient) BrowseRules(
+	indexName string,
+	searchRulesParams SearchRulesParams,
+	validate func(*SearchRulesResponse, error) bool,
+	aggregator func(*SearchRulesResponse, error),
+	opts ...Option,
+) (*SearchRulesResponse, error) {
+	return c.BrowseRulesWithContext(context.Background(), indexName, searchRulesParams, validate, aggregator, opts...)
+}
+
+/*
+BrowseRulesWithContext allows to aggregate all the rules returned by the API calls.
+
+	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param indexName string - Index name.
+	@param searchRulesParams SearchRulesParams - Search rules parameters.
+	@param validate func(*SearchRulesResponse, error) bool - Validator function.
+	@param aggregator func(*SearchRulesResponse) - Aggregator function.
+	@param opts ...Option - Optional parameters for the request.
+	@return *SearchRulesResponse - Search rules response.
+	@return error - Error if any.
+*/
+func (c *APIClient) BrowseRulesWithContext(
+	ctx context.Context,
+	indexName string,
+	searchRulesParams SearchRulesParams,
+	validate func(*SearchRulesResponse, error) bool,
+	aggregator func(*SearchRulesResponse, error),
+	opts ...Option,
+) (*SearchRulesResponse, error) {
+	hitsPerPage := int32(1000)
+	if searchRulesParams.HitsPerPage != nil {
+		hitsPerPage = *searchRulesParams.HitsPerPage
+	}
+
+	if validate == nil {
+		validate = func(response *SearchRulesResponse, responseErr error) bool {
+			return responseErr != nil || (response != nil && response.NbHits < hitsPerPage)
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(previousResponse *SearchRulesResponse, previousErr error) (*SearchRulesResponse, error) {
+			searchRulesParams.HitsPerPage = &hitsPerPage
+
+			if previousResponse != nil {
+				searchRulesParams.Page = utils.ToPtr(previousResponse.Page + 1)
+			}
+
+			if searchRulesParams.Page == nil {
+				searchRulesParams.Page = utils.ToPtr(int32(0))
+			}
+
+			return c.SearchRulesWithContext(
+				ctx,
+				c.NewApiSearchRulesRequest(indexName).WithSearchRulesParams(&searchRulesParams),
+				opts...,
+			)
+		},
+		validate,
+		aggregator,
+		nil,
+		nil,
+	)
+}
+
+/*
+BrowseSynonyms allows to aggregate all the synonyms returned by the API calls.
+Wraps BrowseSynonymsWithContext using context.Background.
+
+	@param indexName string - Index name.
+	@param searchSynonymsParams SearchSynonymsParams - Search synonyms parameters.
+	@param validate func(*SearchSynonymsResponse, error) bool - Validator function.
+	@param aggregator func(*SearchSynonymsResponse) - Aggregator function.
+	@param opts ...Option - Optional parameters for the request.
+	@return *SearchSynonymsResponse - Search synonyms response.
+	@return error - Error if any.
+*/
+func (c *APIClient) BrowseSynonyms(
+	indexName string,
+	searchSynonymsParams SearchSynonymsParams,
+	validate func(*SearchSynonymsResponse, error) bool,
+	aggregator func(*SearchSynonymsResponse, error),
+	opts ...Option,
+) (*SearchSynonymsResponse, error) {
+	return c.BrowseSynonymsWithContext(context.Background(), indexName, searchSynonymsParams, validate, aggregator, opts...)
+}
+
+/*
+BrowseSynonymsWithContext allows to aggregate all the synonyms returned by the API calls.
+
+	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param indexName string - Index name.
+	@param searchSynonymsParams SearchSynonymsParams - Search synonyms parameters.
+	@param validate func(*SearchSynonymsResponse, error) bool - Validator function.
+	@param aggregator func(*SearchSynonymsResponse) - Aggregator function.
+	@param opts ...Option - Optional parameters for the request.
+	@return *SearchSynonymsResponse - Search synonyms response.
+	@return error - Error if any.
+*/
+func (c *APIClient) BrowseSynonymsWithContext(
+	ctx context.Context,
+	indexName string,
+	searchSynonymsParams SearchSynonymsParams,
+	validate func(*SearchSynonymsResponse, error) bool,
+	aggregator func(*SearchSynonymsResponse, error),
+	opts ...Option,
+) (*SearchSynonymsResponse, error) {
+	hitsPerPage := int32(1000)
+	if searchSynonymsParams.HitsPerPage != nil {
+		hitsPerPage = *searchSynonymsParams.HitsPerPage
+	}
+
+	if searchSynonymsParams.Page == nil {
+		searchSynonymsParams.Page = utils.ToPtr(int32(0))
+	}
+
+	if validate == nil {
+		validate = func(response *SearchSynonymsResponse, responseErr error) bool {
+			return responseErr != nil || (response != nil && response.NbHits < hitsPerPage)
+		}
+	}
+
+	return utils.CreateIterable( //nolint:wrapcheck
+		func(previousResponse *SearchSynonymsResponse, previousErr error) (*SearchSynonymsResponse, error) {
+			searchSynonymsParams.HitsPerPage = &hitsPerPage
+
+			defer func() {
+				searchSynonymsParams.Page = utils.ToPtr(*searchSynonymsParams.Page + 1)
+			}()
+
+			return c.SearchSynonymsWithContext(
+				ctx,
+				c.NewApiSearchSynonymsRequest(indexName).WithSearchSynonymsParams(&searchSynonymsParams),
+				opts...,
+			)
+		},
+		validate,
+		aggregator,
+		nil,
+		nil,
+	)
+}
+
 func encodeRestrictions(restrictions *SecuredApiKeyRestrictions) (string, error) {
 	if restrictions == nil {
 		return "", nil
