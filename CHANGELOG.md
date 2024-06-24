@@ -1,3 +1,8 @@
+## [4.0.0-beta.19](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.18...4.0.0-beta.19)
+
+- [17f53ae6d](https://github.com/algolia/api-clients-automation/commit/17f53ae6d) feat(go): add raw http response methods ([#3245](https://github.com/algolia/api-clients-automation/pull/3245)) by [@Fluf22](https://github.com/Fluf22/)
+- [1106889cd](https://github.com/algolia/api-clients-automation/commit/1106889cd) fix(go): add browse helpers ([#3218](https://github.com/algolia/api-clients-automation/pull/3218)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.0.0-beta.18](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.17...4.0.0-beta.18)
 
 - [07e074806](https://github.com/algolia/api-clients-automation/commit/07e074806) feat(clients): add recommend to algoliasearch ([#2860](https://github.com/algolia/api-clients-automation/pull/2860)) by [@shortcuts](https://github.com/shortcuts/)
