@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -92,26 +92,8 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomDeleteWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomDelete
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -119,7 +101,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -140,10 +122,42 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomDelete wraps CustomDeleteWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomDeleteWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomDelete casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomDeleteWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -223,7 +237,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -233,26 +247,8 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomGetWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomGet
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomGetRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -260,7 +256,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -281,10 +277,42 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomGet wraps CustomGetWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomGetWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomGet casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomGetWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -380,7 +408,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -391,27 +419,8 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPostWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPost
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPostRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -419,7 +428,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -446,10 +455,44 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPost wraps CustomPostWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPostWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPost casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPostWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -545,7 +588,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -556,27 +599,8 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPutWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPut
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -584,7 +608,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -611,10 +635,44 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPut wraps CustomPutWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPutWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPut casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPutWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -678,7 +736,7 @@ func (c *APIClient) NewApiGetClusterIncidentsRequest(clusters string) ApiGetClus
 }
 
 /*
-GetClusterIncidents Wraps GetClusterIncidentsWithContext using context.Background.
+GetClusterIncidents calls the API and returns the raw response from it.
 
 Retrieves known incidents for the selected clusters.
 
@@ -687,25 +745,8 @@ Request can be constructed by NewApiGetClusterIncidentsRequest with parameters b
 	@param clusters string - Subset of clusters, separated by comma.
 	@return IncidentsResponse
 */
-func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ...Option) (*IncidentsResponse, error) {
-	return c.GetClusterIncidentsWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetClusterIncidents
-
-Retrieves known incidents for the selected clusters.
-
-Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
-
-	@param clusters string - Subset of clusters, separated by comma.
-	@return IncidentsResponse
-*/
-func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGetClusterIncidentsRequest, opts ...Option) (*IncidentsResponse, error) {
-	var (
-		postBody    any
-		returnValue *IncidentsResponse
-	)
+func (c *APIClient) GetClusterIncidentsWithHTTPInfo(ctx context.Context, r ApiGetClusterIncidentsRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/incidents/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
@@ -713,7 +754,7 @@ func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGet
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.clusters == "" {
-		return returnValue, reportError("Parameter `clusters` is required when calling `GetClusterIncidents`.")
+		return nil, nil, reportError("Parameter `clusters` is required when calling `GetClusterIncidents`.")
 	}
 
 	// optional params if any
@@ -728,10 +769,40 @@ func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGet
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetClusterIncidents wraps GetClusterIncidentsWithContext using context.Background.
+
+Retrieves known incidents for the selected clusters.
+
+Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return IncidentsResponse
+*/
+func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ...Option) (*IncidentsResponse, error) {
+	return c.GetClusterIncidentsWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetClusterIncidents casts the HTTP response body to a defined struct.
+
+Retrieves known incidents for the selected clusters.
+
+Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return IncidentsResponse
+*/
+func (c *APIClient) GetClusterIncidentsWithContext(ctx context.Context, r ApiGetClusterIncidentsRequest, opts ...Option) (*IncidentsResponse, error) {
+	var returnValue *IncidentsResponse
+
+	res, resBody, err := c.GetClusterIncidentsWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -795,7 +866,7 @@ func (c *APIClient) NewApiGetClusterStatusRequest(clusters string) ApiGetCluster
 }
 
 /*
-GetClusterStatus Wraps GetClusterStatusWithContext using context.Background.
+GetClusterStatus calls the API and returns the raw response from it.
 
 Retrieves the status of selected clusters.
 
@@ -804,25 +875,8 @@ Request can be constructed by NewApiGetClusterStatusRequest with parameters belo
 	@param clusters string - Subset of clusters, separated by comma.
 	@return StatusResponse
 */
-func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...Option) (*StatusResponse, error) {
-	return c.GetClusterStatusWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetClusterStatus
-
-Retrieves the status of selected clusters.
-
-Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
-
-	@param clusters string - Subset of clusters, separated by comma.
-	@return StatusResponse
-*/
-func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClusterStatusRequest, opts ...Option) (*StatusResponse, error) {
-	var (
-		postBody    any
-		returnValue *StatusResponse
-	)
+func (c *APIClient) GetClusterStatusWithHTTPInfo(ctx context.Context, r ApiGetClusterStatusRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/status/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
@@ -830,7 +884,7 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.clusters == "" {
-		return returnValue, reportError("Parameter `clusters` is required when calling `GetClusterStatus`.")
+		return nil, nil, reportError("Parameter `clusters` is required when calling `GetClusterStatus`.")
 	}
 
 	// optional params if any
@@ -845,10 +899,40 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetClusterStatus wraps GetClusterStatusWithContext using context.Background.
+
+Retrieves the status of selected clusters.
+
+Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return StatusResponse
+*/
+func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...Option) (*StatusResponse, error) {
+	return c.GetClusterStatusWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetClusterStatus casts the HTTP response body to a defined struct.
+
+Retrieves the status of selected clusters.
+
+Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return StatusResponse
+*/
+func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClusterStatusRequest, opts ...Option) (*StatusResponse, error) {
+	var returnValue *StatusResponse
+
+	res, resBody, err := c.GetClusterStatusWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -881,7 +965,7 @@ func (c *APIClient) GetClusterStatusWithContext(ctx context.Context, r ApiGetClu
 }
 
 /*
-GetIncidents Wraps GetIncidentsWithContext using context.Background.
+GetIncidents calls the API and returns the raw response from it.
 
 Retrieves known incidents for all clusters.
 
@@ -889,24 +973,8 @@ Request can be constructed by NewApiGetIncidentsRequest with parameters below.
 
 	@return IncidentsResponse
 */
-func (c *APIClient) GetIncidents(opts ...Option) (*IncidentsResponse, error) {
-	return c.GetIncidentsWithContext(context.Background(), opts...)
-}
-
-/*
-GetIncidents
-
-Retrieves known incidents for all clusters.
-
-Request can be constructed by NewApiGetIncidentsRequest with parameters below.
-
-	@return IncidentsResponse
-*/
-func (c *APIClient) GetIncidentsWithContext(ctx context.Context, opts ...Option) (*IncidentsResponse, error) {
-	var (
-		postBody    any
-		returnValue *IncidentsResponse
-	)
+func (c *APIClient) GetIncidentsWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/incidents"
 
@@ -925,10 +993,38 @@ func (c *APIClient) GetIncidentsWithContext(ctx context.Context, opts ...Option)
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetIncidents wraps GetIncidentsWithContext using context.Background.
+
+Retrieves known incidents for all clusters.
+
+Request can be constructed by NewApiGetIncidentsRequest with parameters below.
+
+	@return IncidentsResponse
+*/
+func (c *APIClient) GetIncidents(opts ...Option) (*IncidentsResponse, error) {
+	return c.GetIncidentsWithContext(context.Background(), opts...)
+}
+
+/*
+GetIncidents casts the HTTP response body to a defined struct.
+
+Retrieves known incidents for all clusters.
+
+Request can be constructed by NewApiGetIncidentsRequest with parameters below.
+
+	@return IncidentsResponse
+*/
+func (c *APIClient) GetIncidentsWithContext(ctx context.Context, opts ...Option) (*IncidentsResponse, error) {
+	var returnValue *IncidentsResponse
+
+	res, resBody, err := c.GetIncidentsWithHTTPInfo(ctx, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -992,7 +1088,7 @@ func (c *APIClient) NewApiGetIndexingTimeRequest(clusters string) ApiGetIndexing
 }
 
 /*
-GetIndexingTime Wraps GetIndexingTimeWithContext using context.Background.
+GetIndexingTime calls the API and returns the raw response from it.
 
 Retrieves average times for indexing operations for selected clusters.
 
@@ -1001,25 +1097,8 @@ Request can be constructed by NewApiGetIndexingTimeRequest with parameters below
 	@param clusters string - Subset of clusters, separated by comma.
 	@return IndexingTimeResponse
 */
-func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...Option) (*IndexingTimeResponse, error) {
-	return c.GetIndexingTimeWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetIndexingTime
-
-Retrieves average times for indexing operations for selected clusters.
-
-Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
-
-	@param clusters string - Subset of clusters, separated by comma.
-	@return IndexingTimeResponse
-*/
-func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetIndexingTimeRequest, opts ...Option) (*IndexingTimeResponse, error) {
-	var (
-		postBody    any
-		returnValue *IndexingTimeResponse
-	)
+func (c *APIClient) GetIndexingTimeWithHTTPInfo(ctx context.Context, r ApiGetIndexingTimeRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/indexing/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
@@ -1027,7 +1106,7 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.clusters == "" {
-		return returnValue, reportError("Parameter `clusters` is required when calling `GetIndexingTime`.")
+		return nil, nil, reportError("Parameter `clusters` is required when calling `GetIndexingTime`.")
 	}
 
 	// optional params if any
@@ -1042,10 +1121,40 @@ func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetInde
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetIndexingTime wraps GetIndexingTimeWithContext using context.Background.
+
+Retrieves average times for indexing operations for selected clusters.
+
+Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return IndexingTimeResponse
+*/
+func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...Option) (*IndexingTimeResponse, error) {
+	return c.GetIndexingTimeWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetIndexingTime casts the HTTP response body to a defined struct.
+
+Retrieves average times for indexing operations for selected clusters.
+
+Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return IndexingTimeResponse
+*/
+func (c *APIClient) GetIndexingTimeWithContext(ctx context.Context, r ApiGetIndexingTimeRequest, opts ...Option) (*IndexingTimeResponse, error) {
+	var returnValue *IndexingTimeResponse
+
+	res, resBody, err := c.GetIndexingTimeWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1109,7 +1218,7 @@ func (c *APIClient) NewApiGetLatencyRequest(clusters string) ApiGetLatencyReques
 }
 
 /*
-GetLatency Wraps GetLatencyWithContext using context.Background.
+GetLatency calls the API and returns the raw response from it.
 
 Retrieves the average latency for search requests for selected clusters.
 
@@ -1118,25 +1227,8 @@ Request can be constructed by NewApiGetLatencyRequest with parameters below.
 	@param clusters string - Subset of clusters, separated by comma.
 	@return LatencyResponse
 */
-func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...Option) (*LatencyResponse, error) {
-	return c.GetLatencyWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetLatency
-
-Retrieves the average latency for search requests for selected clusters.
-
-Request can be constructed by NewApiGetLatencyRequest with parameters below.
-
-	@param clusters string - Subset of clusters, separated by comma.
-	@return LatencyResponse
-*/
-func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRequest, opts ...Option) (*LatencyResponse, error) {
-	var (
-		postBody    any
-		returnValue *LatencyResponse
-	)
+func (c *APIClient) GetLatencyWithHTTPInfo(ctx context.Context, r ApiGetLatencyRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/latency/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
@@ -1144,7 +1236,7 @@ func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.clusters == "" {
-		return returnValue, reportError("Parameter `clusters` is required when calling `GetLatency`.")
+		return nil, nil, reportError("Parameter `clusters` is required when calling `GetLatency`.")
 	}
 
 	// optional params if any
@@ -1159,10 +1251,40 @@ func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRe
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetLatency wraps GetLatencyWithContext using context.Background.
+
+Retrieves the average latency for search requests for selected clusters.
+
+Request can be constructed by NewApiGetLatencyRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return LatencyResponse
+*/
+func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...Option) (*LatencyResponse, error) {
+	return c.GetLatencyWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetLatency casts the HTTP response body to a defined struct.
+
+Retrieves the average latency for search requests for selected clusters.
+
+Request can be constructed by NewApiGetLatencyRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return LatencyResponse
+*/
+func (c *APIClient) GetLatencyWithContext(ctx context.Context, r ApiGetLatencyRequest, opts ...Option) (*LatencyResponse, error) {
+	var returnValue *LatencyResponse
+
+	res, resBody, err := c.GetLatencyWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1237,7 +1359,7 @@ func (c *APIClient) NewApiGetMetricsRequest(metric Metric, period Period) ApiGet
 }
 
 /*
-GetMetrics Wraps GetMetricsWithContext using context.Background.
+GetMetrics calls the API and returns the raw response from it.
 
 Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
 
@@ -1250,29 +1372,8 @@ Request can be constructed by NewApiGetMetricsRequest with parameters below.
 	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
 	@return InfrastructureResponse
 */
-func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...Option) (*InfrastructureResponse, error) {
-	return c.GetMetricsWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetMetrics
-
-Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
-
-Access to this API is available as part of the [Premium or Elevate plans](https://www.algolia.com/pricing).
-You must authenticate requests with the `x-algolia-application-id` and `x-algolia-api-key` headers (using the Monitoring API key).
-
-Request can be constructed by NewApiGetMetricsRequest with parameters below.
-
-	@param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
-	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
-	@return InfrastructureResponse
-*/
-func (c *APIClient) GetMetricsWithContext(ctx context.Context, r ApiGetMetricsRequest, opts ...Option) (*InfrastructureResponse, error) {
-	var (
-		postBody    any
-		returnValue *InfrastructureResponse
-	)
+func (c *APIClient) GetMetricsWithHTTPInfo(ctx context.Context, r ApiGetMetricsRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/infrastructure/{metric}/period/{period}"
 	requestPath = strings.ReplaceAll(requestPath, "{metric}", url.PathEscape(parameterToString(r.metric)))
@@ -1293,10 +1394,48 @@ func (c *APIClient) GetMetricsWithContext(ctx context.Context, r ApiGetMetricsRe
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetMetrics wraps GetMetricsWithContext using context.Background.
+
+Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
+
+Access to this API is available as part of the [Premium or Elevate plans](https://www.algolia.com/pricing).
+You must authenticate requests with the `x-algolia-application-id` and `x-algolia-api-key` headers (using the Monitoring API key).
+
+Request can be constructed by NewApiGetMetricsRequest with parameters below.
+
+	@param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
+	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
+	@return InfrastructureResponse
+*/
+func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...Option) (*InfrastructureResponse, error) {
+	return c.GetMetricsWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetMetrics casts the HTTP response body to a defined struct.
+
+Retrieves metrics related to your Algolia infrastructure, aggregated over a selected time window.
+
+Access to this API is available as part of the [Premium or Elevate plans](https://www.algolia.com/pricing).
+You must authenticate requests with the `x-algolia-application-id` and `x-algolia-api-key` headers (using the Monitoring API key).
+
+Request can be constructed by NewApiGetMetricsRequest with parameters below.
+
+	@param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
+	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
+	@return InfrastructureResponse
+*/
+func (c *APIClient) GetMetricsWithContext(ctx context.Context, r ApiGetMetricsRequest, opts ...Option) (*InfrastructureResponse, error) {
+	var returnValue *InfrastructureResponse
+
+	res, resBody, err := c.GetMetricsWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1360,7 +1499,7 @@ func (c *APIClient) NewApiGetReachabilityRequest(clusters string) ApiGetReachabi
 }
 
 /*
-GetReachability Wraps GetReachabilityWithContext using context.Background.
+GetReachability calls the API and returns the raw response from it.
 
 Test whether clusters are reachable or not.
 
@@ -1369,25 +1508,8 @@ Request can be constructed by NewApiGetReachabilityRequest with parameters below
 	@param clusters string - Subset of clusters, separated by comma.
 	@return map[string]map[string]bool
 */
-func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...Option) (*map[string]map[string]bool, error) {
-	return c.GetReachabilityWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetReachability
-
-Test whether clusters are reachable or not.
-
-Request can be constructed by NewApiGetReachabilityRequest with parameters below.
-
-	@param clusters string - Subset of clusters, separated by comma.
-	@return map[string]map[string]bool
-*/
-func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReachabilityRequest, opts ...Option) (*map[string]map[string]bool, error) {
-	var (
-		postBody    any
-		returnValue *map[string]map[string]bool
-	)
+func (c *APIClient) GetReachabilityWithHTTPInfo(ctx context.Context, r ApiGetReachabilityRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/reachability/{clusters}/probes"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(parameterToString(r.clusters)))
@@ -1395,7 +1517,7 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.clusters == "" {
-		return returnValue, reportError("Parameter `clusters` is required when calling `GetReachability`.")
+		return nil, nil, reportError("Parameter `clusters` is required when calling `GetReachability`.")
 	}
 
 	// optional params if any
@@ -1410,10 +1532,40 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetReachability wraps GetReachabilityWithContext using context.Background.
+
+Test whether clusters are reachable or not.
+
+Request can be constructed by NewApiGetReachabilityRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return map[string]map[string]bool
+*/
+func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...Option) (*map[string]map[string]bool, error) {
+	return c.GetReachabilityWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetReachability casts the HTTP response body to a defined struct.
+
+Test whether clusters are reachable or not.
+
+Request can be constructed by NewApiGetReachabilityRequest with parameters below.
+
+	@param clusters string - Subset of clusters, separated by comma.
+	@return map[string]map[string]bool
+*/
+func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReachabilityRequest, opts ...Option) (*map[string]map[string]bool, error) {
+	var returnValue *map[string]map[string]bool
+
+	res, resBody, err := c.GetReachabilityWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1446,7 +1598,50 @@ func (c *APIClient) GetReachabilityWithContext(ctx context.Context, r ApiGetReac
 }
 
 /*
-GetServers Wraps GetServersWithContext using context.Background.
+GetServers calls the API and returns the raw response from it.
+
+Retrieves the servers that belong to clusters.
+
+The response depends on whether you authenticate your API request:
+
+- With authentication, the response lists the servers assigned to your
+Algolia application's cluster.
+
+- Without authentication, the response lists the servers for all Algolia
+clusters.
+
+Request can be constructed by NewApiGetServersRequest with parameters below.
+
+	@return InventoryResponse
+*/
+func (c *APIClient) GetServersWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/inventory/servers"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+GetServers wraps GetServersWithContext using context.Background.
 
 Retrieves the servers that belong to clusters.
 
@@ -1467,7 +1662,7 @@ func (c *APIClient) GetServers(opts ...Option) (*InventoryResponse, error) {
 }
 
 /*
-GetServers
+GetServers casts the HTTP response body to a defined struct.
 
 Retrieves the servers that belong to clusters.
 
@@ -1484,32 +1679,9 @@ Request can be constructed by NewApiGetServersRequest with parameters below.
 	@return InventoryResponse
 */
 func (c *APIClient) GetServersWithContext(ctx context.Context, opts ...Option) (*InventoryResponse, error) {
-	var (
-		postBody    any
-		returnValue *InventoryResponse
-	)
+	var returnValue *InventoryResponse
 
-	requestPath := "/1/inventory/servers"
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.GetServersWithHTTPInfo(ctx, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1542,7 +1714,7 @@ func (c *APIClient) GetServersWithContext(ctx context.Context, opts ...Option) (
 }
 
 /*
-GetStatus Wraps GetStatusWithContext using context.Background.
+GetStatus calls the API and returns the raw response from it.
 
 Retrieves the status of all Algolia clusters and instances.
 
@@ -1550,24 +1722,8 @@ Request can be constructed by NewApiGetStatusRequest with parameters below.
 
 	@return StatusResponse
 */
-func (c *APIClient) GetStatus(opts ...Option) (*StatusResponse, error) {
-	return c.GetStatusWithContext(context.Background(), opts...)
-}
-
-/*
-GetStatus
-
-Retrieves the status of all Algolia clusters and instances.
-
-Request can be constructed by NewApiGetStatusRequest with parameters below.
-
-	@return StatusResponse
-*/
-func (c *APIClient) GetStatusWithContext(ctx context.Context, opts ...Option) (*StatusResponse, error) {
-	var (
-		postBody    any
-		returnValue *StatusResponse
-	)
+func (c *APIClient) GetStatusWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/status"
 
@@ -1586,10 +1742,38 @@ func (c *APIClient) GetStatusWithContext(ctx context.Context, opts ...Option) (*
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetStatus wraps GetStatusWithContext using context.Background.
+
+Retrieves the status of all Algolia clusters and instances.
+
+Request can be constructed by NewApiGetStatusRequest with parameters below.
+
+	@return StatusResponse
+*/
+func (c *APIClient) GetStatus(opts ...Option) (*StatusResponse, error) {
+	return c.GetStatusWithContext(context.Background(), opts...)
+}
+
+/*
+GetStatus casts the HTTP response body to a defined struct.
+
+Retrieves the status of all Algolia clusters and instances.
+
+Request can be constructed by NewApiGetStatusRequest with parameters below.
+
+	@return StatusResponse
+*/
+func (c *APIClient) GetStatusWithContext(ctx context.Context, opts ...Option) (*StatusResponse, error) {
+	var returnValue *StatusResponse
+
+	res, resBody, err := c.GetStatusWithHTTPInfo(ctx, opts...)
 	if err != nil {
 		return returnValue, err
 	}

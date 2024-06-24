@@ -71,7 +71,54 @@ func (c *APIClient) NewApiCreateConfigRequest(querySuggestionsConfigurationWithI
 }
 
 /*
-CreateConfig Wraps CreateConfigWithContext using context.Background.
+CreateConfig calls the API and returns the raw response from it.
+
+Creates a new Query Suggestions configuration.
+
+You can have up to 100 configurations per Algolia application.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiCreateConfigRequest with parameters below.
+
+	@param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
+	@return BaseResponse
+*/
+func (c *APIClient) CreateConfigWithHTTPInfo(ctx context.Context, r ApiCreateConfigRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/configs"
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	if r.querySuggestionsConfigurationWithIndex == nil {
+		return nil, nil, reportError("Parameter `querySuggestionsConfigurationWithIndex` is required when calling `CreateConfig`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.querySuggestionsConfigurationWithIndex
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+CreateConfig wraps CreateConfigWithContext using context.Background.
 
 Creates a new Query Suggestions configuration.
 
@@ -90,7 +137,7 @@ func (c *APIClient) CreateConfig(r ApiCreateConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-CreateConfig
+CreateConfig casts the HTTP response body to a defined struct.
 
 Creates a new Query Suggestions configuration.
 
@@ -105,38 +152,9 @@ Request can be constructed by NewApiCreateConfigRequest with parameters below.
 	@return BaseResponse
 */
 func (c *APIClient) CreateConfigWithContext(ctx context.Context, r ApiCreateConfigRequest, opts ...Option) (*BaseResponse, error) {
-	var (
-		postBody    any
-		returnValue *BaseResponse
-	)
+	var returnValue *BaseResponse
 
-	requestPath := "/1/configs"
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	if r.querySuggestionsConfigurationWithIndex == nil {
-		return returnValue, reportError("Parameter `querySuggestionsConfigurationWithIndex` is required when calling `CreateConfig`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	// body params
-	postBody = r.querySuggestionsConfigurationWithIndex
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.CreateConfigWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -216,7 +234,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -226,26 +244,8 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomDeleteWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomDelete
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -253,7 +253,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -274,10 +274,42 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomDelete wraps CustomDeleteWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomDeleteWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomDelete casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomDeleteWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -357,7 +389,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -367,26 +399,8 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomGetWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomGet
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomGetRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -394,7 +408,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -415,10 +429,42 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomGet wraps CustomGetWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomGetWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomGet casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomGetWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -514,7 +560,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -525,27 +571,8 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPostWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPost
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPostRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -553,7 +580,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -580,10 +607,44 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPost wraps CustomPostWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPostWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPost casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPostWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -679,7 +740,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -690,27 +751,8 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPutWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPut
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -718,7 +760,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -745,10 +787,44 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPut wraps CustomPutWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPutWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPut casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPutWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -812,7 +888,53 @@ func (c *APIClient) NewApiDeleteConfigRequest(indexName string) ApiDeleteConfigR
 }
 
 /*
-DeleteConfig Wraps DeleteConfigWithContext using context.Background.
+DeleteConfig calls the API and returns the raw response from it.
+
+Deletes a Query Suggestions configuration.
+
+Deleting only removes the configuration and stops updates to the Query Suggestions index.
+To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiDeleteConfigRequest with parameters below.
+
+	@param indexName string - Query Suggestions index name.
+	@return BaseResponse
+*/
+func (c *APIClient) DeleteConfigWithHTTPInfo(ctx context.Context, r ApiDeleteConfigRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/configs/{indexName}"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `DeleteConfig`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+DeleteConfig wraps DeleteConfigWithContext using context.Background.
 
 Deletes a Query Suggestions configuration.
 
@@ -832,7 +954,7 @@ func (c *APIClient) DeleteConfig(r ApiDeleteConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-DeleteConfig
+DeleteConfig casts the HTTP response body to a defined struct.
 
 Deletes a Query Suggestions configuration.
 
@@ -848,36 +970,9 @@ Request can be constructed by NewApiDeleteConfigRequest with parameters below.
 	@return BaseResponse
 */
 func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConfigRequest, opts ...Option) (*BaseResponse, error) {
-	var (
-		postBody    any
-		returnValue *BaseResponse
-	)
+	var returnValue *BaseResponse
 
-	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `DeleteConfig`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.DeleteConfigWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -910,7 +1005,7 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 }
 
 /*
-GetAllConfigs Wraps GetAllConfigsWithContext using context.Background.
+GetAllConfigs calls the API and returns the raw response from it.
 
 Retrieves all Query Suggestions configurations of your Algolia application.
 
@@ -921,27 +1016,8 @@ Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
 
 	@return []QuerySuggestionsConfigurationResponse
 */
-func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
-	return c.GetAllConfigsWithContext(context.Background(), opts...)
-}
-
-/*
-GetAllConfigs
-
-Retrieves all Query Suggestions configurations of your Algolia application.
-
-Required API Key ACLs:
-  - settings
-
-Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
-
-	@return []QuerySuggestionsConfigurationResponse
-*/
-func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
-	var (
-		postBody    any
-		returnValue []QuerySuggestionsConfigurationResponse
-	)
+func (c *APIClient) GetAllConfigsWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/configs"
 
@@ -960,10 +1036,44 @@ func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetAllConfigs wraps GetAllConfigsWithContext using context.Background.
+
+Retrieves all Query Suggestions configurations of your Algolia application.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
+
+	@return []QuerySuggestionsConfigurationResponse
+*/
+func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
+	return c.GetAllConfigsWithContext(context.Background(), opts...)
+}
+
+/*
+GetAllConfigs casts the HTTP response body to a defined struct.
+
+Retrieves all Query Suggestions configurations of your Algolia application.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
+
+	@return []QuerySuggestionsConfigurationResponse
+*/
+func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
+	var returnValue []QuerySuggestionsConfigurationResponse
+
+	res, resBody, err := c.GetAllConfigsWithHTTPInfo(ctx, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1027,7 +1137,50 @@ func (c *APIClient) NewApiGetConfigRequest(indexName string) ApiGetConfigRequest
 }
 
 /*
-GetConfig Wraps GetConfigWithContext using context.Background.
+GetConfig calls the API and returns the raw response from it.
+
+Retrieves a single Query Suggestions configuration by its index name.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiGetConfigRequest with parameters below.
+
+	@param indexName string - Query Suggestions index name.
+	@return QuerySuggestionsConfigurationResponse
+*/
+func (c *APIClient) GetConfigWithHTTPInfo(ctx context.Context, r ApiGetConfigRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/configs/{indexName}"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `GetConfig`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+GetConfig wraps GetConfigWithContext using context.Background.
 
 Retrieves a single Query Suggestions configuration by its index name.
 
@@ -1044,7 +1197,7 @@ func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*QuerySugg
 }
 
 /*
-GetConfig
+GetConfig casts the HTTP response body to a defined struct.
 
 Retrieves a single Query Suggestions configuration by its index name.
 
@@ -1057,36 +1210,9 @@ Request can be constructed by NewApiGetConfigRequest with parameters below.
 	@return QuerySuggestionsConfigurationResponse
 */
 func (c *APIClient) GetConfigWithContext(ctx context.Context, r ApiGetConfigRequest, opts ...Option) (*QuerySuggestionsConfigurationResponse, error) {
-	var (
-		postBody    any
-		returnValue *QuerySuggestionsConfigurationResponse
-	)
+	var returnValue *QuerySuggestionsConfigurationResponse
 
-	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `GetConfig`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.GetConfigWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1150,7 +1276,50 @@ func (c *APIClient) NewApiGetConfigStatusRequest(indexName string) ApiGetConfigS
 }
 
 /*
-GetConfigStatus Wraps GetConfigStatusWithContext using context.Background.
+GetConfigStatus calls the API and returns the raw response from it.
+
+Reports the status of a Query Suggestions index.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
+
+	@param indexName string - Query Suggestions index name.
+	@return GetConfigStatus200Response
+*/
+func (c *APIClient) GetConfigStatusWithHTTPInfo(ctx context.Context, r ApiGetConfigStatusRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/configs/{indexName}/status"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `GetConfigStatus`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+GetConfigStatus wraps GetConfigStatusWithContext using context.Background.
 
 Reports the status of a Query Suggestions index.
 
@@ -1167,7 +1336,7 @@ func (c *APIClient) GetConfigStatus(r ApiGetConfigStatusRequest, opts ...Option)
 }
 
 /*
-GetConfigStatus
+GetConfigStatus casts the HTTP response body to a defined struct.
 
 Reports the status of a Query Suggestions index.
 
@@ -1180,36 +1349,9 @@ Request can be constructed by NewApiGetConfigStatusRequest with parameters below
 	@return GetConfigStatus200Response
 */
 func (c *APIClient) GetConfigStatusWithContext(ctx context.Context, r ApiGetConfigStatusRequest, opts ...Option) (*GetConfigStatus200Response, error) {
-	var (
-		postBody    any
-		returnValue *GetConfigStatus200Response
-	)
+	var returnValue *GetConfigStatus200Response
 
-	requestPath := "/1/configs/{indexName}/status"
-	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `GetConfigStatus`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.GetConfigStatusWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1273,7 +1415,50 @@ func (c *APIClient) NewApiGetLogFileRequest(indexName string) ApiGetLogFileReque
 }
 
 /*
-GetLogFile Wraps GetLogFileWithContext using context.Background.
+GetLogFile calls the API and returns the raw response from it.
+
+Retrieves the logs for a single Query Suggestions index.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiGetLogFileRequest with parameters below.
+
+	@param indexName string - Query Suggestions index name.
+	@return GetLogFile200Response
+*/
+func (c *APIClient) GetLogFileWithHTTPInfo(ctx context.Context, r ApiGetLogFileRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/logs/{indexName}"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `GetLogFile`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+GetLogFile wraps GetLogFileWithContext using context.Background.
 
 Retrieves the logs for a single Query Suggestions index.
 
@@ -1290,7 +1475,7 @@ func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...Option) (*GetLogF
 }
 
 /*
-GetLogFile
+GetLogFile casts the HTTP response body to a defined struct.
 
 Retrieves the logs for a single Query Suggestions index.
 
@@ -1303,36 +1488,9 @@ Request can be constructed by NewApiGetLogFileRequest with parameters below.
 	@return GetLogFile200Response
 */
 func (c *APIClient) GetLogFileWithContext(ctx context.Context, r ApiGetLogFileRequest, opts ...Option) (*GetLogFile200Response, error) {
-	var (
-		postBody    any
-		returnValue *GetLogFile200Response
-	)
+	var returnValue *GetLogFile200Response
 
-	requestPath := "/1/logs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `GetLogFile`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.GetLogFileWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1412,7 +1570,57 @@ func (c *APIClient) NewApiUpdateConfigRequest(indexName string, querySuggestions
 }
 
 /*
-UpdateConfig Wraps UpdateConfigWithContext using context.Background.
+UpdateConfig calls the API and returns the raw response from it.
+
+Updates a QuerySuggestions configuration.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiUpdateConfigRequest with parameters below.
+
+	@param indexName string - Query Suggestions index name.
+	@param querySuggestionsConfiguration QuerySuggestionsConfiguration
+	@return BaseResponse
+*/
+func (c *APIClient) UpdateConfigWithHTTPInfo(ctx context.Context, r ApiUpdateConfigRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
+
+	requestPath := "/1/configs/{indexName}"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
+
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `UpdateConfig`.")
+	}
+
+	if r.querySuggestionsConfiguration == nil {
+		return nil, nil, reportError("Parameter `querySuggestionsConfiguration` is required when calling `UpdateConfig`.")
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		switch opt.optionType {
+		case "query":
+			queryParams.Set(opt.name, opt.value)
+		case "header":
+			headers[opt.name] = opt.value
+		}
+	}
+
+	// body params
+	postBody = r.querySuggestionsConfiguration
+	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+UpdateConfig wraps UpdateConfigWithContext using context.Background.
 
 Updates a QuerySuggestions configuration.
 
@@ -1430,7 +1638,7 @@ func (c *APIClient) UpdateConfig(r ApiUpdateConfigRequest, opts ...Option) (*Bas
 }
 
 /*
-UpdateConfig
+UpdateConfig casts the HTTP response body to a defined struct.
 
 Updates a QuerySuggestions configuration.
 
@@ -1444,42 +1652,9 @@ Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 	@return BaseResponse
 */
 func (c *APIClient) UpdateConfigWithContext(ctx context.Context, r ApiUpdateConfigRequest, opts ...Option) (*BaseResponse, error) {
-	var (
-		postBody    any
-		returnValue *BaseResponse
-	)
+	var returnValue *BaseResponse
 
-	requestPath := "/1/configs/{indexName}"
-	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(parameterToString(r.indexName)))
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `UpdateConfig`.")
-	}
-
-	if r.querySuggestionsConfiguration == nil {
-		return returnValue, reportError("Parameter `querySuggestionsConfiguration` is required when calling `UpdateConfig`.")
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
-	}
-
-	// body params
-	postBody = r.querySuggestionsConfiguration
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
-	if err != nil {
-		return returnValue, err
-	}
-
-	res, resBody, err := c.callAPI(req, false)
+	res, resBody, err := c.UpdateConfigWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}

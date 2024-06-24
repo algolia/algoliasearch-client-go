@@ -82,7 +82,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 }
 
 /*
-CustomDelete Wraps CustomDeleteWithContext using context.Background.
+CustomDelete calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -92,26 +92,8 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomDeleteWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomDelete
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -119,7 +101,7 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomDelete`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -140,10 +122,42 @@ func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDele
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomDelete wraps CustomDeleteWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomDeleteWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomDelete casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomDeleteWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -223,7 +237,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 }
 
 /*
-CustomGet Wraps CustomGetWithContext using context.Background.
+CustomGet calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -233,26 +247,8 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomGetWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomGet
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomGetRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -260,7 +256,7 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomGet`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -281,10 +277,42 @@ func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequ
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomGet wraps CustomGetWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomGetWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomGet casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomGetWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -380,7 +408,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 }
 
 /*
-CustomPost Wraps CustomPostWithContext using context.Background.
+CustomPost calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -391,27 +419,8 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPostWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPost
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPostRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -419,7 +428,7 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPost`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -446,10 +455,44 @@ func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRe
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPost wraps CustomPostWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPostWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPost casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPostWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -545,7 +588,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 }
 
 /*
-CustomPut Wraps CustomPutWithContext using context.Background.
+CustomPut calls the API and returns the raw response from it.
 
 This method allow you to send requests to the Algolia REST API.
 
@@ -556,27 +599,8 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPutWithContext(context.Background(), r, opts...)
-}
-
-/*
-CustomPut
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	var (
-		postBody    any
-		returnValue *map[string]any
-	)
+func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
@@ -584,7 +608,7 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 	if r.path == "" {
-		return returnValue, reportError("Parameter `path` is required when calling `CustomPut`.")
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
@@ -611,10 +635,44 @@ func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequ
 	}
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+CustomPut wraps CustomPutWithContext using context.Background.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	return c.CustomPutWithContext(context.Background(), r, opts...)
+}
+
+/*
+CustomPut casts the HTTP response body to a defined struct.
+
+This method allow you to send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPutWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -727,7 +785,7 @@ func (r ApiGetIndexUsageRequest) WithGranularity(granularity Granularity) ApiGet
 }
 
 /*
-GetIndexUsage Wraps GetIndexUsageWithContext using context.Background.
+GetIndexUsage calls the API and returns the raw response from it.
 
 Retrieves the selected usage statistics for one index.
 
@@ -740,29 +798,8 @@ Request can be constructed by NewApiGetIndexUsageRequest with parameters below.
 	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
 	@return GetUsage200Response
 */
-func (c *APIClient) GetIndexUsage(r ApiGetIndexUsageRequest, opts ...Option) (*GetUsage200Response, error) {
-	return c.GetIndexUsageWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetIndexUsage
-
-Retrieves the selected usage statistics for one index.
-
-Request can be constructed by NewApiGetIndexUsageRequest with parameters below.
-
-	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
-	@param indexName string - Name of the index on which to perform the operation.
-	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
-	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
-	@return GetUsage200Response
-*/
-func (c *APIClient) GetIndexUsageWithContext(ctx context.Context, r ApiGetIndexUsageRequest, opts ...Option) (*GetUsage200Response, error) {
-	var (
-		postBody    any
-		returnValue *GetUsage200Response
-	)
+func (c *APIClient) GetIndexUsageWithHTTPInfo(ctx context.Context, r ApiGetIndexUsageRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/usage/{statistic}/{indexName}"
 	requestPath = strings.ReplaceAll(requestPath, "{statistic}", url.PathEscape(parameterToString(r.statistic)))
@@ -772,13 +809,13 @@ func (c *APIClient) GetIndexUsageWithContext(ctx context.Context, r ApiGetIndexU
 	queryParams := url.Values{}
 
 	if r.indexName == "" {
-		return returnValue, reportError("Parameter `indexName` is required when calling `GetIndexUsage`.")
+		return nil, nil, reportError("Parameter `indexName` is required when calling `GetIndexUsage`.")
 	}
 	if r.startDate == "" {
-		return returnValue, reportError("Parameter `startDate` is required when calling `GetIndexUsage`.")
+		return nil, nil, reportError("Parameter `startDate` is required when calling `GetIndexUsage`.")
 	}
 	if r.endDate == "" {
-		return returnValue, reportError("Parameter `endDate` is required when calling `GetIndexUsage`.")
+		return nil, nil, reportError("Parameter `endDate` is required when calling `GetIndexUsage`.")
 	}
 
 	queryParams.Set("startDate", queryParameterToString(r.startDate))
@@ -799,10 +836,48 @@ func (c *APIClient) GetIndexUsageWithContext(ctx context.Context, r ApiGetIndexU
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetIndexUsage wraps GetIndexUsageWithContext using context.Background.
+
+Retrieves the selected usage statistics for one index.
+
+Request can be constructed by NewApiGetIndexUsageRequest with parameters below.
+
+	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
+	@param indexName string - Name of the index on which to perform the operation.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
+	@return GetUsage200Response
+*/
+func (c *APIClient) GetIndexUsage(r ApiGetIndexUsageRequest, opts ...Option) (*GetUsage200Response, error) {
+	return c.GetIndexUsageWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetIndexUsage casts the HTTP response body to a defined struct.
+
+Retrieves the selected usage statistics for one index.
+
+Request can be constructed by NewApiGetIndexUsageRequest with parameters below.
+
+	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
+	@param indexName string - Name of the index on which to perform the operation.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
+	@return GetUsage200Response
+*/
+func (c *APIClient) GetIndexUsageWithContext(ctx context.Context, r ApiGetIndexUsageRequest, opts ...Option) (*GetUsage200Response, error) {
+	var returnValue *GetUsage200Response
+
+	res, resBody, err := c.GetIndexUsageWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -904,7 +979,7 @@ func (r ApiGetUsageRequest) WithGranularity(granularity Granularity) ApiGetUsage
 }
 
 /*
-GetUsage Wraps GetUsageWithContext using context.Background.
+GetUsage calls the API and returns the raw response from it.
 
 Retrieves usage statistics evaluated over a specified period.
 
@@ -916,28 +991,8 @@ Request can be constructed by NewApiGetUsageRequest with parameters below.
 	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
 	@return GetUsage200Response
 */
-func (c *APIClient) GetUsage(r ApiGetUsageRequest, opts ...Option) (*GetUsage200Response, error) {
-	return c.GetUsageWithContext(context.Background(), r, opts...)
-}
-
-/*
-GetUsage
-
-Retrieves usage statistics evaluated over a specified period.
-
-Request can be constructed by NewApiGetUsageRequest with parameters below.
-
-	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
-	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
-	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
-	@return GetUsage200Response
-*/
-func (c *APIClient) GetUsageWithContext(ctx context.Context, r ApiGetUsageRequest, opts ...Option) (*GetUsage200Response, error) {
-	var (
-		postBody    any
-		returnValue *GetUsage200Response
-	)
+func (c *APIClient) GetUsageWithHTTPInfo(ctx context.Context, r ApiGetUsageRequest, opts ...Option) (*http.Response, []byte, error) {
+	var postBody any
 
 	requestPath := "/1/usage/{statistic}"
 	requestPath = strings.ReplaceAll(requestPath, "{statistic}", url.PathEscape(parameterToString(r.statistic)))
@@ -946,10 +1001,10 @@ func (c *APIClient) GetUsageWithContext(ctx context.Context, r ApiGetUsageReques
 	queryParams := url.Values{}
 
 	if r.startDate == "" {
-		return returnValue, reportError("Parameter `startDate` is required when calling `GetUsage`.")
+		return nil, nil, reportError("Parameter `startDate` is required when calling `GetUsage`.")
 	}
 	if r.endDate == "" {
-		return returnValue, reportError("Parameter `endDate` is required when calling `GetUsage`.")
+		return nil, nil, reportError("Parameter `endDate` is required when calling `GetUsage`.")
 	}
 
 	queryParams.Set("startDate", queryParameterToString(r.startDate))
@@ -970,10 +1025,46 @@ func (c *APIClient) GetUsageWithContext(ctx context.Context, r ApiGetUsageReques
 
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
 	if err != nil {
-		return returnValue, err
+		return nil, nil, err
 	}
 
-	res, resBody, err := c.callAPI(req, false)
+	return c.callAPI(req, false)
+}
+
+/*
+GetUsage wraps GetUsageWithContext using context.Background.
+
+Retrieves usage statistics evaluated over a specified period.
+
+Request can be constructed by NewApiGetUsageRequest with parameters below.
+
+	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
+	@return GetUsage200Response
+*/
+func (c *APIClient) GetUsage(r ApiGetUsageRequest, opts ...Option) (*GetUsage200Response, error) {
+	return c.GetUsageWithContext(context.Background(), r, opts...)
+}
+
+/*
+GetUsage casts the HTTP response body to a defined struct.
+
+Retrieves usage statistics evaluated over a specified period.
+
+Request can be constructed by NewApiGetUsageRequest with parameters below.
+
+	@param statistic Statistic - Usage statistics to retrieve.  Use `*` to retrieve all usage metrics, otherwise add one or more of the following metrics, separated by a comma.  **Search operations**  - `search_operations`. All search operations. - `total_search_operations`: Sum of all search operations. - `total_search_requests`: Sum of all [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-).    The number of billed search requests is equal to this value minus `querysuggestions_total_search_requests`. - `queries_operations`. Number of [single index search](/specs/search#tag/Search/operation/searchSingleIndex) operations. - `multi_queries_operations`. Number of [multi-index search](/specs/search#tag/Search/operation/search) operations.  **ACL operations**  - `acl_operations`. All ACL operations. - `total_acl_operations`. Sum of all ACL operations. - `get_api_keys_operations`. Number of [list API keys](/specs/search#tag/Api-Keys/operation/listApiKeys) operations. - `get_api_key_operations`. Number of [get API key permission](/specs/search#tag/Api-Keys/operation/getApiKey) operations. - `add_api_key_operations`. Number of [create API key](/specs/search#tag/Api-Keys/operation/addApiKey) operations. - `update_api_key_operations`. Number of [update API key](/specs/search#tag/Api-Keys/operation/updateApiKey) operations. - `delete_api_key_operations`. Number of [delete API key](/specs/search#tag/Api-Keys/operation/deleteApiKey) operations. - `list_api_key_operations`. Number of list index API keys operations.  **Indexing operations**  - `indexing_operations`. All indexing operations. - `total_indexing_operations`. Sum of all indexing operations. - `browse_operations`. Number of [browse index](/specs/search#tag/Search/operation/browse) operations. - `clear_index_operations`. Number of [clear records](/specs/search#tag/Records/operation/clearObjects) operations. - `copy_move_operations`. Number of [copy or move index](/specs/search#tag/Indices/operation/operationIndex) operations. - `delete_index_operations`. Number of [delete index](/specs/search#tag/Indices/operation/deleteIndex) operations. - `get_log_operations`. Number of [get logs](/specs/search#tag/Advanced/operation/getLogs) operations. - `get_settings_operations`. Number of [get settings](/specs/search#operation/getIndexUsage) operations. - `set_settings_operations`. Number of [set settings](/specs/search#tag/Indices/operation/setSettings) operations. - `list_indices_operations`. Number of [list indices](/specs/search#tag/Indices/operation/listIndices) operations. - `wait_task_operations`. Number of [wait](/specs/search#tag/Indices/operation/getTask) operations.  **Record operations**  - `record_operations`. All record operations. - `total_records_operations`. Sum of all record operations. - `add_record_operations`. Number of [add or replace record](/specs/search#tag/Records/operation/saveObject) operations. - `batch_operations`. Number of [batch indexing](/specs/search#tag/Records/operation/multipleBatch) operations. - `delete_by_query_operations`. Number of [delete by query](/specs/search#tag/Records/operation/deleteBy) operations. - `delete_record_operations`. Number of [delete record](/specs/search#tag/Records/operation/deleteObject) operations. - `get_record_operations`. Number of [get record](/specs/search#tag/Records/operation/getObject) operations. - `partial_update_record_operations`. Number of [partially update records](/specs/search#tag/Records/operation/partialUpdateObject) operations. - `update_record_operations`. Number of [add or replace record by objectID](/specs/search#tag/Records/operation/addOrUpdateObject) operations.  **Synonym operations**  - `synonym_operations`. All synonym operations. - `total_synonym_operations`. Sum of all synonym operations. - `batch_synonym_operations`. Number of [save all synonyms](/specs/search#tag/Synonyms/operation/saveSynonyms) operations. - `clear_synonym_operations`. Number of [clear synonyms](/specs/search#tag/Synonyms/operation/clearSynonyms) operations. - `delete_synonym_operations`. Number of [delete synonym](/specs/search#tag/Synonyms/operation/deleteSynonym) operations. - `get_synonym_operations`. Number of [get synonym](/specs/search#tag/Synonyms/operation/getSynonym) operations. - `query_synonym_operations`. Number of [search synonyms](/specs/search#tag/Synonyms/operation/searchSynonyms) operations. - `update_synonym_operations`. Number of [save a synonym](/specs/search#tag/Synonyms/operation/saveSynonym) operations.  **Rule operations**  - `rule_operations`. All rule operations. - `total_rules_operations`. Sum of all rule operations. - `batch_rules_operations`. Number of [batch rules](/specs/search#tag/Rules/operation/saveRules) operations. - `clear_rules_operations`. Number of [delete rule](/specs/search#tag/Rules/operation/deleteRule) operations. - `delete_rules_operations`. Number of [clear rules](/specs/search#tag/Rules/operation/clearRules) operations. - `get_rules_operations`. Number of [get rule](/specs/search#tag/Rules/operation/getRule) operations. - `save_rules_operations`. Number of [save rule](/specs/search#operation/getIndexUsage) operations. - `search_rules_operations`. Number of [search rules](/specs/search#tag/Rules/operation/searchRules) operations.  **Total operations**  - `total_recommend_requests`. Number of [Recommend requests](https://www.algolia.com/doc/guides/algolia-ai/recommend/) - `total_write_operations`. Number of Write operations - `total_read_operations`. Number of read operations - `total_operations`. Sum of all operations  **Total Query Suggestions operations**  Query Suggestions operations are a subset of `total_search_operations`.  - `querysuggestions_total_search_operations`. Number of Query Suggestions search operations. - `querysuggestions_total_search_requests`. Number of Query Suggestions [search requests](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-). - `querysuggestions_total_acl_operations`. Sum of all Query Suggestions [ACL operations](#acl-operations). - `querysuggestions_total_indexing_operations`. Number of Query Suggestions [indexing operations](#indexing-operations). - `querysuggestions_total_records_operations`. Number of Query Suggestions [record operations](#record-operations). - `querysuggestions_total_synonym_operations`. Number of Query Suggestions [synonym operations](#synonym-operations). - `querysuggestions_total_rules_operations`. Number of Query Suggestions [Rule operations](#rule-operations). - `querysuggestions_total_write_operations`. Number of Query Suggestions Write operations. - `querysuggestions_total_read_operations`. Number of Query Suggestions Read operations. - `querysuggestions_total_operations`. Sum of all Query Suggestions operations.  **Processing time**  - `avg_processing_time`. Average processing time (in milliseconds). - `90p_processing_time`. 90th percentile of processing time (in milliseconds). - `99p_processing_time`. 99th percentile of processing time (in milliseconds). - `queries_above_last_ms_processing_time`. Number of queries that take one or more seconds to process.  **Indices**  - `records`. Number of records. - `data_size`. The size of the records (in bytes). - `file_size`. The size of the records _and_ index metadata (in bytes).  **Maximum queries per second**  - `max_qps`. [Maximum queries per second](https://support.algolia.com/hc/en-us/articles/4406975224721) per server. - `region_max_qps`. Maximum queries per second per region. - `total_max_qps`. Maximum queries per second across all servers.  **Used search capacity**  The following capacities are reported in percent:  - `used_search_capacity`. Maximum search capacity used per server. - `avg_used_search_capacity`. Average search capacity used per server. - `region_used_search_capacity`. Maximum search capacity used per region. - `region_avg_used_search_capacity`. Average search capacity used per region. - `total_used_search_capacity`. Maximum search capacity used for all servers. - `total_avg_used_search_capacity`. Average used search capacity for all servers.  **Degraded queries**  Check the impact of [degraded queries](https://support.algolia.com/hc/en-us/articles/4406981934481).  - `degraded_queries_ssd_used_queries_impacted`. Percentage of degraded queries due to the Algolia search engine having to read from the server's SSD. - `degraded_queries_ssd_used_seconds_impacted`. Percentage of seconds affected by `ssd_used` degraded queries. - `degraded_queries_max_capacity_queries_impacted`. Percentage of degraded queries due to all search threads being used. - `degraded_queries_max_capacity_seconds_impacted`. Percentage of seconds affected by `max_capacity` degraded queries.
+	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
+	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
+	@return GetUsage200Response
+*/
+func (c *APIClient) GetUsageWithContext(ctx context.Context, r ApiGetUsageRequest, opts ...Option) (*GetUsage200Response, error) {
+	var returnValue *GetUsage200Response
+
+	res, resBody, err := c.GetUsageWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
