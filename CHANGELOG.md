@@ -1,3 +1,8 @@
+## [4.0.0-beta.18](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.17...4.0.0-beta.18)
+
+- [07e074806](https://github.com/algolia/api-clients-automation/commit/07e074806) feat(clients): add recommend to algoliasearch ([#2860](https://github.com/algolia/api-clients-automation/pull/2860)) by [@shortcuts](https://github.com/shortcuts/)
+- [a22e83dd9](https://github.com/algolia/api-clients-automation/commit/a22e83dd9) fix(go): use createIterable method like in other clients ([#3216](https://github.com/algolia/api-clients-automation/pull/3216)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.0.0-beta.17](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.16...4.0.0-beta.17)
 
 - [b7ae19f2b](https://github.com/algolia/api-clients-automation/commit/b7ae19f2b) feat(specs): add transformations endpoints to ingestion ([#3215](https://github.com/algolia/api-clients-automation/pull/3215)) by [@shortcuts](https://github.com/shortcuts/)
