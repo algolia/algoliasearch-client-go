@@ -93,13 +93,49 @@ func TestSendingEvents(t *testing.T) {
 	}
 
 	{
+		res, err := insightsUserClient.ConvertedObjectIDsPurchase("foo", indexName, []string{"one", "two"})
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
+		res, err := insightsUserClient.ConvertedObjectIDsAddToCart("foo", indexName, []string{"one", "two"})
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
 		res, err := insightsUserClient.ConvertedObjectIDsAfterSearch("foo", indexName, []string{"one", "two"}, queryID)
 		require.NoError(t, err)
 		require.Equal(t, http.StatusOK, res.Status)
 	}
 
 	{
+		res, err := insightsUserClient.ConvertedObjectIDsAfterSearchPurchase("foo", indexName, []string{"one", "two"}, queryID)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
+		res, err := insightsUserClient.ConvertedObjectIDsAfterSearchAddToCart("foo", indexName, []string{"one", "two"}, queryID)
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
 		res, err := insightsUserClient.ConvertedFilters("foo", indexName, []string{"filter:foo", "filter:bar"})
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
+		res, err := insightsUserClient.ConvertedFiltersPurchase("foo", indexName, []string{"filter:foo", "filter:bar"})
+		require.NoError(t, err)
+		require.Equal(t, http.StatusOK, res.Status)
+	}
+
+	{
+		res, err := insightsUserClient.ConvertedFiltersAddToCart("foo", indexName, []string{"filter:foo", "filter:bar"})
 		require.NoError(t, err)
 		require.Equal(t, http.StatusOK, res.Status)
 	}
