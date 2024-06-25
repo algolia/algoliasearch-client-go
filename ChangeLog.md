@@ -766,9 +766,7 @@ types that were wrong.
 As usual, feel free to report any issue of question you may have in our [Github
 issue tracker](https://github.com/algolia/algoliasearch-client-go/issues) and
 to contribute by submitting your Pull Requests directly to [our Github
-repository](https://github.com/algolia/algoliasearch-client-go/pulls). And for
-a more detailed assistance regarding Algolia and its features, you may also
-contact us directly at support@algolia.com.
+repository](https://github.com/algolia/algoliasearch-client-go/pulls). And for more detailed assistance regarding Algolia and its features, please reach out to the [Algolia Support Team](https://alg.li/support).
 
 Have a nice day.
 
