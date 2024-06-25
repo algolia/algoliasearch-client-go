@@ -84,13 +84,17 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -239,13 +243,17 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -410,14 +418,18 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -590,14 +602,18 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -738,12 +754,17 @@ func (c *APIClient) NewApiDeleteUserTokenRequest(userToken string) ApiDeleteUser
 /*
 DeleteUserToken calls the API and returns the raw response from it.
 
-Deletes all events related to the specified user token from events metrics and analytics.
+	Deletes all events related to the specified user token from events metrics and analytics.
+
 To delete a personalization user profile, see [Delete a user profile](/specs/personalization#tag/profiles/operation/deleteUserProfile).
 
-Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
-
-	@param userToken string - User token for which to delete all associated events.
+	Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param userToken string - User token for which to delete all associated events.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteUserTokenWithHTTPInfo(ctx context.Context, r ApiDeleteUserTokenRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -872,15 +893,18 @@ func (c *APIClient) NewApiPushEventsRequest(insightsEvents *InsightsEvents) ApiP
 /*
 PushEvents calls the API and returns the raw response from it.
 
-Sends a list of events to the Insights API.
+	Sends a list of events to the Insights API.
 
 You can include up to 1,000 events in a single request,
 but the request body must be smaller than 2&nbsp;MB.
 
-Request can be constructed by NewApiPushEventsRequest with parameters below.
-
-	@param insightsEvents InsightsEvents
-	@return EventsResponse
+	Request can be constructed by NewApiPushEventsRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param insightsEvents InsightsEvents
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) PushEventsWithHTTPInfo(ctx context.Context, r ApiPushEventsRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any

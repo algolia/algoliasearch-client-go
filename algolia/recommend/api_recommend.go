@@ -84,13 +84,17 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -239,13 +243,17 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -410,14 +418,18 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -590,14 +602,18 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -760,17 +776,20 @@ func (c *APIClient) NewApiDeleteRecommendRuleRequest(indexName string, model Rec
 /*
 DeleteRecommendRule calls the API and returns the raw response from it.
 
-Deletes a Recommend rule from a recommendation scenario.
+	  Deletes a Recommend rule from a recommendation scenario.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
-
-	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record identifier.
-	@return DeletedAtResponse
+	Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	  @param objectID string - Unique record identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteRecommendRuleWithHTTPInfo(ctx context.Context, r ApiDeleteRecommendRuleRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -933,17 +952,20 @@ func (c *APIClient) NewApiGetRecommendRuleRequest(indexName string, model Recomm
 /*
 GetRecommendRule calls the API and returns the raw response from it.
 
-Retrieves a Recommend rule that you previously created in the Algolia dashboard.
+	  Retrieves a Recommend rule that you previously created in the Algolia dashboard.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
-
-	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param objectID string - Unique record identifier.
-	@return RecommendRule
+	Request can be constructed by NewApiGetRecommendRuleRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	  @param objectID string - Unique record identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetRecommendRuleWithHTTPInfo(ctx context.Context, r ApiGetRecommendRuleRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1106,21 +1128,24 @@ func (c *APIClient) NewApiGetRecommendStatusRequest(indexName string, model Reco
 /*
 GetRecommendStatus calls the API and returns the raw response from it.
 
-Checks the status of a given task.
+	Checks the status of a given task.
 
 Deleting a Recommend rule is asynchronous.
 When you delete a rule, a task is created on a queue and completed depending on the load on the server.
 The API response includes a task ID that you can use to check the status.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
-
-	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param taskID int64 - Unique task identifier.
-	@return GetRecommendTaskResponse
+	Request can be constructed by NewApiGetRecommendStatusRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	  @param taskID int64 - Unique task identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetRecommendStatusWithHTTPInfo(ctx context.Context, r ApiGetRecommendStatusRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1270,15 +1295,19 @@ func (c *APIClient) NewApiGetRecommendationsRequest(getRecommendationsParams *Ge
 /*
 GetRecommendations calls the API and returns the raw response from it.
 
-Retrieves recommendations from selected AI models.
+	  Retrieves recommendations from selected AI models.
 
-Required API Key ACLs:
-  - search
 
-Request can be constructed by NewApiGetRecommendationsRequest with parameters below.
+	    Required API Key ACLs:
+	    - search
 
-	@param getRecommendationsParams GetRecommendationsParams
-	@return GetRecommendationsResponse
+	Request can be constructed by NewApiGetRecommendationsRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param getRecommendationsParams GetRecommendationsParams
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetRecommendationsWithHTTPInfo(ctx context.Context, r ApiGetRecommendationsRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1438,19 +1467,22 @@ func (r ApiSearchRecommendRulesRequest) WithSearchRecommendRulesParams(searchRec
 /*
 SearchRecommendRules calls the API and returns the raw response from it.
 
-Searches for Recommend rules.
+	Searches for Recommend rules.
 
 Use an empty query to list all rules for this recommendation scenario.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
-
-	@param indexName string - Name of the index on which to perform the operation.
-	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
-	@param searchRecommendRulesParams SearchRecommendRulesParams
-	@return SearchRecommendRulesResponse
+	Request can be constructed by NewApiSearchRecommendRulesRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	  @param searchRecommendRulesParams SearchRecommendRulesParams
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) SearchRecommendRulesWithHTTPInfo(ctx context.Context, r ApiSearchRecommendRulesRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any

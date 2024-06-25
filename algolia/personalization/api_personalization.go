@@ -84,13 +84,17 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -239,13 +243,17 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -410,14 +418,18 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -590,14 +602,18 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -738,17 +754,20 @@ func (c *APIClient) NewApiDeleteUserProfileRequest(userToken string) ApiDeleteUs
 /*
 DeleteUserProfile calls the API and returns the raw response from it.
 
-Deletes a user profile.
+	Deletes a user profile.
 
 The response includes a date and time when the user profile can safely be considered deleted.
 
-Required API Key ACLs:
-  - recommendation
+	    Required API Key ACLs:
+	    - recommendation
 
-Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
-
-	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
-	@return DeleteUserProfileResponse
+	Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteUserProfileWithHTTPInfo(ctx context.Context, r ApiDeleteUserProfileRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -852,14 +871,17 @@ func (c *APIClient) DeleteUserProfileWithContext(ctx context.Context, r ApiDelet
 /*
 GetPersonalizationStrategy calls the API and returns the raw response from it.
 
-Retrieves the current personalization strategy.
+	  Retrieves the current personalization strategy.
 
-Required API Key ACLs:
-  - recommendation
+	    Required API Key ACLs:
+	    - recommendation
 
-Request can be constructed by NewApiGetPersonalizationStrategyRequest with parameters below.
-
-	@return PersonalizationStrategyParams
+	Request can be constructed by NewApiGetPersonalizationStrategyRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetPersonalizationStrategyWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -984,15 +1006,18 @@ func (c *APIClient) NewApiGetUserTokenProfileRequest(userToken string) ApiGetUse
 /*
 GetUserTokenProfile calls the API and returns the raw response from it.
 
-Retrieves a user profile and their affinities for different facets.
+	  Retrieves a user profile and their affinities for different facets.
 
-Required API Key ACLs:
-  - recommendation
+	    Required API Key ACLs:
+	    - recommendation
 
-Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
-
-	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
-	@return GetUserTokenResponse
+	Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetUserTokenProfileWithHTTPInfo(ctx context.Context, r ApiGetUserTokenProfileRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1128,15 +1153,18 @@ func (c *APIClient) NewApiSetPersonalizationStrategyRequest(personalizationStrat
 /*
 SetPersonalizationStrategy calls the API and returns the raw response from it.
 
-Creates a new personalization strategy.
+	  Creates a new personalization strategy.
 
-Required API Key ACLs:
-  - recommendation
+	    Required API Key ACLs:
+	    - recommendation
 
-Request can be constructed by NewApiSetPersonalizationStrategyRequest with parameters below.
-
-	@param personalizationStrategyParams PersonalizationStrategyParams
-	@return SetPersonalizationStrategyResponse
+	Request can be constructed by NewApiSetPersonalizationStrategyRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param personalizationStrategyParams PersonalizationStrategyParams
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) SetPersonalizationStrategyWithHTTPInfo(ctx context.Context, r ApiSetPersonalizationStrategyRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any

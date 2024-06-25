@@ -73,17 +73,20 @@ func (c *APIClient) NewApiCreateConfigRequest(querySuggestionsConfigurationWithI
 /*
 CreateConfig calls the API and returns the raw response from it.
 
-Creates a new Query Suggestions configuration.
+	Creates a new Query Suggestions configuration.
 
 You can have up to 100 configurations per Algolia application.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiCreateConfigRequest with parameters below.
-
-	@param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
-	@return BaseResponse
+	Request can be constructed by NewApiCreateConfigRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CreateConfigWithHTTPInfo(ctx context.Context, r ApiCreateConfigRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -236,13 +239,17 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -391,13 +398,17 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -562,14 +573,18 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -742,14 +757,18 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -890,18 +909,21 @@ func (c *APIClient) NewApiDeleteConfigRequest(indexName string) ApiDeleteConfigR
 /*
 DeleteConfig calls the API and returns the raw response from it.
 
-Deletes a Query Suggestions configuration.
+	Deletes a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
 To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiDeleteConfigRequest with parameters below.
-
-	@param indexName string - Query Suggestions index name.
-	@return BaseResponse
+	Request can be constructed by NewApiDeleteConfigRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Query Suggestions index name.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteConfigWithHTTPInfo(ctx context.Context, r ApiDeleteConfigRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1007,14 +1029,17 @@ func (c *APIClient) DeleteConfigWithContext(ctx context.Context, r ApiDeleteConf
 /*
 GetAllConfigs calls the API and returns the raw response from it.
 
-Retrieves all Query Suggestions configurations of your Algolia application.
+	  Retrieves all Query Suggestions configurations of your Algolia application.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
-
-	@return []QuerySuggestionsConfigurationResponse
+	Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetAllConfigsWithHTTPInfo(ctx context.Context, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1139,15 +1164,18 @@ func (c *APIClient) NewApiGetConfigRequest(indexName string) ApiGetConfigRequest
 /*
 GetConfig calls the API and returns the raw response from it.
 
-Retrieves a single Query Suggestions configuration by its index name.
+	  Retrieves a single Query Suggestions configuration by its index name.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiGetConfigRequest with parameters below.
-
-	@param indexName string - Query Suggestions index name.
-	@return QuerySuggestionsConfigurationResponse
+	Request can be constructed by NewApiGetConfigRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Query Suggestions index name.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetConfigWithHTTPInfo(ctx context.Context, r ApiGetConfigRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1278,15 +1306,18 @@ func (c *APIClient) NewApiGetConfigStatusRequest(indexName string) ApiGetConfigS
 /*
 GetConfigStatus calls the API and returns the raw response from it.
 
-Reports the status of a Query Suggestions index.
+	  Reports the status of a Query Suggestions index.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
-
-	@param indexName string - Query Suggestions index name.
-	@return GetConfigStatus200Response
+	Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Query Suggestions index name.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetConfigStatusWithHTTPInfo(ctx context.Context, r ApiGetConfigStatusRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1417,15 +1448,18 @@ func (c *APIClient) NewApiGetLogFileRequest(indexName string) ApiGetLogFileReque
 /*
 GetLogFile calls the API and returns the raw response from it.
 
-Retrieves the logs for a single Query Suggestions index.
+	  Retrieves the logs for a single Query Suggestions index.
 
-Required API Key ACLs:
-  - settings
+	    Required API Key ACLs:
+	    - settings
 
-Request can be constructed by NewApiGetLogFileRequest with parameters below.
-
-	@param indexName string - Query Suggestions index name.
-	@return GetLogFile200Response
+	Request can be constructed by NewApiGetLogFileRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Query Suggestions index name.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetLogFileWithHTTPInfo(ctx context.Context, r ApiGetLogFileRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1572,16 +1606,19 @@ func (c *APIClient) NewApiUpdateConfigRequest(indexName string, querySuggestions
 /*
 UpdateConfig calls the API and returns the raw response from it.
 
-Updates a QuerySuggestions configuration.
+	  Updates a QuerySuggestions configuration.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiUpdateConfigRequest with parameters below.
-
-	@param indexName string - Query Suggestions index name.
-	@param querySuggestionsConfiguration QuerySuggestionsConfiguration
-	@return BaseResponse
+	Request can be constructed by NewApiUpdateConfigRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param indexName string - Query Suggestions index name.
+	  @param querySuggestionsConfiguration QuerySuggestionsConfiguration
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) UpdateConfigWithHTTPInfo(ctx context.Context, r ApiUpdateConfigRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any

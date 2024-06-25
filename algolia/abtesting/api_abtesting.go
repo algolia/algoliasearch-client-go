@@ -73,15 +73,18 @@ func (c *APIClient) NewApiAddABTestsRequest(addABTestsRequest *AddABTestsRequest
 /*
 AddABTests calls the API and returns the raw response from it.
 
-Creates a new A/B test.
+	  Creates a new A/B test.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiAddABTestsRequest with parameters below.
-
-	@param addABTestsRequest AddABTestsRequest
-	@return ABTestResponse
+	Request can be constructed by NewApiAddABTestsRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param addABTestsRequest AddABTestsRequest
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) AddABTestsWithHTTPInfo(ctx context.Context, r ApiAddABTestsRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -230,13 +233,17 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -385,13 +392,17 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -556,14 +567,18 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -736,14 +751,18 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-This method allow you to send requests to the Algolia REST API.
+	  This method allow you to send requests to the Algolia REST API.
 
-Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -884,15 +903,18 @@ func (c *APIClient) NewApiDeleteABTestRequest(id int32) ApiDeleteABTestRequest {
 /*
 DeleteABTest calls the API and returns the raw response from it.
 
-Deletes an A/B test by its ID.
+	  Deletes an A/B test by its ID.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiDeleteABTestRequest with parameters below.
-
-	@param id int32 - Unique A/B test identifier.
-	@return ABTestResponse
+	Request can be constructed by NewApiDeleteABTestRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param id int32 - Unique A/B test identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteABTestWithHTTPInfo(ctx context.Context, r ApiDeleteABTestRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1020,15 +1042,18 @@ func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 /*
 GetABTest calls the API and returns the raw response from it.
 
-Retrieves the details for an A/B test by its ID.
+	  Retrieves the details for an A/B test by its ID.
 
-Required API Key ACLs:
-  - analytics
+	    Required API Key ACLs:
+	    - analytics
 
-Request can be constructed by NewApiGetABTestRequest with parameters below.
-
-	@param id int32 - Unique A/B test identifier.
-	@return ABTest
+	Request can be constructed by NewApiGetABTestRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param id int32 - Unique A/B test identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) GetABTestWithHTTPInfo(ctx context.Context, r ApiGetABTestRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1208,18 +1233,21 @@ func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTest
 /*
 ListABTests calls the API and returns the raw response from it.
 
-Lists all A/B tests you configured for this application.
+	  Lists all A/B tests you configured for this application.
 
-Required API Key ACLs:
-  - analytics
+	    Required API Key ACLs:
+	    - analytics
 
-Request can be constructed by NewApiListABTestsRequest with parameters below.
-
-	@param offset int32 - Position of the first item to return.
-	@param limit int32 - Number of items to return.
-	@param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
-	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
-	@return ListABTestsResponse
+	Request can be constructed by NewApiListABTestsRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.
+	  @param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
+	  @param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) ListABTestsWithHTTPInfo(ctx context.Context, r ApiListABTestsRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
@@ -1365,17 +1393,20 @@ func (c *APIClient) NewApiStopABTestRequest(id int32) ApiStopABTestRequest {
 /*
 StopABTest calls the API and returns the raw response from it.
 
-Stops an A/B test by its ID.
+	Stops an A/B test by its ID.
 
 You can't restart stopped A/B tests.
 
-Required API Key ACLs:
-  - editSettings
+	    Required API Key ACLs:
+	    - editSettings
 
-Request can be constructed by NewApiStopABTestRequest with parameters below.
-
-	@param id int32 - Unique A/B test identifier.
-	@return ABTestResponse
+	Request can be constructed by NewApiStopABTestRequest with parameters below.
+	@param ctx context.Context - Context of the request
+	  @param id int32 - Unique A/B test identifier.
+	@param opts ...Option - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) StopABTestWithHTTPInfo(ctx context.Context, r ApiStopABTestRequest, opts ...Option) (*http.Response, []byte, error) {
 	var postBody any
