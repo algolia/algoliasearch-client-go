@@ -11172,8 +11172,8 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 		waitForTasks = &defaultWaitForTask
 	}
 
-	requests := make([]BatchRequest, 0, len(objects)%1000)
-	responses := make([]BatchResponse, 0, len(objects)%1000)
+	requests := make([]BatchRequest, 0, len(objects)%*batchSize)
+	responses := make([]BatchResponse, 0, len(objects)%*batchSize)
 
 	for i, obj := range objects {
 		requests = append(requests, *NewBatchRequest(*action, obj))
@@ -11185,7 +11185,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 			}
 
 			responses = append(responses, *resp)
-			requests = make([]BatchRequest, 0, len(objects)%1000)
+			requests = make([]BatchRequest, 0, len(objects)%*batchSize)
 		}
 	}
 

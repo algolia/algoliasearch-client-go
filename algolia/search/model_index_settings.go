@@ -14,6 +14,8 @@ type IndexSettings struct {
 	AttributesForFaceting []string `json:"attributesForFaceting,omitempty"`
 	// Creates [replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/).  Replicas are copies of a primary index with the same records but different settings, synonyms, or rules. If you want to offer a different ranking or sorting of your search results, you'll use replica indices. All index operations on a primary index are automatically forwarded to its replicas. To add a replica index, you must provide the complete set of replicas to this parameter. If you omit a replica from this list, the replica turns into a regular, standalone index that will no longer by synced with the primary index.  **Modifier**  - `virtual(\"REPLICA\")`.   Create a virtual replica,   Virtual replicas don't increase the number of records and are optimized for [Relevant sorting](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/relevant-sort/).
 	Replicas []string `json:"replicas,omitempty"`
+	// Only present if the index is a [virtual replica](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-alphabetically/#virtual-replicas).
+	Virtual *bool `json:"virtual,omitempty"`
 	// Maximum number of search results that can be obtained through pagination.  Higher pagination limits might slow down your search. For pagination limits above 1,000, the sorting of results beyond the 1,000th hit can't be guaranteed.
 	PaginationLimitedTo *int32 `json:"paginationLimitedTo,omitempty"`
 	// Attributes that can't be retrieved at query time.  This can be useful if you want to use an attribute for ranking or to [restrict access](https://www.algolia.com/doc/guides/security/api-keys/how-to/user-restricted-access-to-data/), but don't want to include it in the search results. Attribute names are case-sensitive.
@@ -134,6 +136,12 @@ func WithIndexSettingsAttributesForFaceting(val []string) IndexSettingsOption {
 func WithIndexSettingsReplicas(val []string) IndexSettingsOption {
 	return func(f *IndexSettings) {
 		f.Replicas = val
+	}
+}
+
+func WithIndexSettingsVirtual(val bool) IndexSettingsOption {
+	return func(f *IndexSettings) {
+		f.Virtual = &val
 	}
 }
 
@@ -571,6 +579,39 @@ func (o *IndexSettings) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *IndexSettings) SetReplicas(v []string) *IndexSettings {
 	o.Replicas = v
+	return o
+}
+
+// GetVirtual returns the Virtual field value if set, zero value otherwise.
+func (o *IndexSettings) GetVirtual() bool {
+	if o == nil || o.Virtual == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Virtual
+}
+
+// GetVirtualOk returns a tuple with the Virtual field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IndexSettings) GetVirtualOk() (*bool, bool) {
+	if o == nil || o.Virtual == nil {
+		return nil, false
+	}
+	return o.Virtual, true
+}
+
+// HasVirtual returns a boolean if a field has been set.
+func (o *IndexSettings) HasVirtual() bool {
+	if o != nil && o.Virtual != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtual gets a reference to the given bool and assigns it to the Virtual field.
+func (o *IndexSettings) SetVirtual(v bool) *IndexSettings {
+	o.Virtual = &v
 	return o
 }
 
@@ -2540,6 +2581,9 @@ func (o IndexSettings) MarshalJSON() ([]byte, error) {
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+	if o.Virtual != nil {
+		toSerialize["virtual"] = o.Virtual
+	}
 	if o.PaginationLimitedTo != nil {
 		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
 	}
@@ -2729,6 +2773,7 @@ func (o IndexSettings) String() string {
 	out := ""
 	out += fmt.Sprintf("  attributesForFaceting=%v\n", o.AttributesForFaceting)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
+	out += fmt.Sprintf("  virtual=%v\n", o.Virtual)
 	out += fmt.Sprintf("  paginationLimitedTo=%v\n", o.PaginationLimitedTo)
 	out += fmt.Sprintf("  unretrievableAttributes=%v\n", o.UnretrievableAttributes)
 	out += fmt.Sprintf("  disableTypoToleranceOnWords=%v\n", o.DisableTypoToleranceOnWords)

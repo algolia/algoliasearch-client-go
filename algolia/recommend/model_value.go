@@ -11,6 +11,8 @@ type Value struct {
 	// Explicit order of facets or facet values.  This setting lets you always show specific facets or facet values at the top of the list.
 	Order           []string         `json:"order,omitempty"`
 	SortRemainingBy *SortRemainingBy `json:"sortRemainingBy,omitempty"`
+	// Hide facet values.
+	Hide []string `json:"hide,omitempty"`
 }
 
 type ValueOption func(f *Value)
@@ -24,6 +26,12 @@ func WithValueOrder(val []string) ValueOption {
 func WithValueSortRemainingBy(val SortRemainingBy) ValueOption {
 	return func(f *Value) {
 		f.SortRemainingBy = &val
+	}
+}
+
+func WithValueHide(val []string) ValueOption {
+	return func(f *Value) {
+		f.Hide = val
 	}
 }
 
@@ -110,6 +118,39 @@ func (o *Value) SetSortRemainingBy(v SortRemainingBy) *Value {
 	return o
 }
 
+// GetHide returns the Hide field value if set, zero value otherwise.
+func (o *Value) GetHide() []string {
+	if o == nil || o.Hide == nil {
+		var ret []string
+		return ret
+	}
+	return o.Hide
+}
+
+// GetHideOk returns a tuple with the Hide field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Value) GetHideOk() ([]string, bool) {
+	if o == nil || o.Hide == nil {
+		return nil, false
+	}
+	return o.Hide, true
+}
+
+// HasHide returns a boolean if a field has been set.
+func (o *Value) HasHide() bool {
+	if o != nil && o.Hide != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHide gets a reference to the given []string and assigns it to the Hide field.
+func (o *Value) SetHide(v []string) *Value {
+	o.Hide = v
+	return o
+}
+
 func (o Value) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Order != nil {
@@ -117,6 +158,9 @@ func (o Value) MarshalJSON() ([]byte, error) {
 	}
 	if o.SortRemainingBy != nil {
 		toSerialize["sortRemainingBy"] = o.SortRemainingBy
+	}
+	if o.Hide != nil {
+		toSerialize["hide"] = o.Hide
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -130,5 +174,6 @@ func (o Value) String() string {
 	out := ""
 	out += fmt.Sprintf("  order=%v\n", o.Order)
 	out += fmt.Sprintf("  sortRemainingBy=%v\n", o.SortRemainingBy)
+	out += fmt.Sprintf("  hide=%v\n", o.Hide)
 	return fmt.Sprintf("Value {\n%s}", out)
 }
