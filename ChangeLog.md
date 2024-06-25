@@ -1,5 +1,15 @@
 # ChangeLog
 
+## [3.31.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.1...v3.31.2) (2024-06-25)
+
+## Feat
+
+- feat(insights): implement event optional subtype (#763) ([63a2ba17](https://github.com/algolia/algoliasearch-client-go/commit/63a2ba17))
+
+## Fix
+
+- fix(search): merge and aireraking are now accessible as json.RawMessage (#719) ([152ef104](https://github.com/algolia/algoliasearch-client-go/commit/152ef104))
+
 ## [3.31.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.0...v3.31.1) (2024-03-04)
 
 ## Fix
