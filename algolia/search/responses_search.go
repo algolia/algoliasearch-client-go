@@ -18,7 +18,8 @@ type QueryRes struct {
 	Extensions                 map[string]map[string]interface{} `json:"extensions"`
 	Facets                     map[string]map[string]int         `json:"facets"`
 	FacetsStats                map[string]FacetStat              `json:"facets_stats"`
-	Hits                       []map[string]interface{}          `json:"hits"`
+	Hits                       []map[string]interface{}          `json:"-"`
+	RawHits                    json.RawMessage                   `json:"hits"`
 	HitsPerPage                int                               `json:"hitsPerPage"`
 	Index                      string                            `json:"index"`
 	IndexUsed                  string                            `json:"indexUsed"`
@@ -43,6 +44,36 @@ type QueryRes struct {
 	ABTestVariantID            int                               `json:"abTestVariantID"`
 	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
+}
+
+func (r *QueryRes) UnmarshalJSON(data []byte) error {
+
+	type QR QueryRes
+	if err := json.Unmarshal(data, (*QR)(r)); err != nil {
+		return err
+	}
+	if r == nil {
+		return nil
+	}
+	if r.RawHits != nil {
+		if err := json.Unmarshal(r.RawHits, &r.Hits); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (r *QueryRes) MarshalJSON() ([]byte, error) {
+	if r == nil {
+		return nil, nil
+	}
+	if h, err := json.Marshal(r.Hits); err != nil {
+		return nil, err
+	} else {
+		r.RawHits = json.RawMessage(h)
+	}
+	type QR QueryRes
+	return json.Marshal((*QR)(r))
 }
 
 type AppliedRule struct {
@@ -78,11 +109,7 @@ type RankingInfo struct {
 }
 
 func (r QueryRes) UnmarshalHits(v interface{}) error {
-	hitsPayload, err := json.Marshal(r.Hits)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal Hits from search response: %v", err)
-	}
-	return json.Unmarshal(hitsPayload, &v)
+	return json.Unmarshal(r.RawHits, &v)
 }
 
 func (r QueryRes) UnmarshalUserData(v interface{}) error {
