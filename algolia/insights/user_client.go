@@ -69,6 +69,38 @@ func (c *UserClient) ConvertedObjectIDs(
 	}, opts...)
 }
 
+func (c *UserClient) ConvertedObjectIDsPurchase(
+	eventName string,
+	indexName string,
+	objectIDs []string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypePurchase,
+		EventName:    eventName,
+		Index:        indexName,
+		ObjectIDs:    objectIDs,
+	}, opts...)
+}
+
+func (c *UserClient) ConvertedObjectIDsAddToCart(
+	eventName string,
+	indexName string,
+	objectIDs []string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypeAddToCart,
+		EventName:    eventName,
+		Index:        indexName,
+		ObjectIDs:    objectIDs,
+	}, opts...)
+}
+
 func (c *UserClient) ConvertedObjectIDsAfterSearch(
 	eventName string,
 	indexName string,
@@ -84,7 +116,42 @@ func (c *UserClient) ConvertedObjectIDsAfterSearch(
 		ObjectIDs: objectIDs,
 		QueryID:   queryID,
 	}, opts...)
+}
 
+func (c *UserClient) ConvertedObjectIDsAfterSearchPurchase(
+	eventName string,
+	indexName string,
+	objectIDs []string,
+	queryID string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypePurchase,
+		EventName:    eventName,
+		Index:        indexName,
+		ObjectIDs:    objectIDs,
+		QueryID:      queryID,
+	}, opts...)
+}
+
+func (c *UserClient) ConvertedObjectIDsAfterSearchAddToCart(
+	eventName string,
+	indexName string,
+	objectIDs []string,
+	queryID string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypeAddToCart,
+		EventName:    eventName,
+		Index:        indexName,
+		ObjectIDs:    objectIDs,
+		QueryID:      queryID,
+	}, opts...)
 }
 
 func (c *UserClient) ConvertedFilters(
@@ -99,6 +166,38 @@ func (c *UserClient) ConvertedFilters(
 		EventName: eventName,
 		Index:     indexName,
 		Filters:   filters,
+	}, opts...)
+}
+
+func (c *UserClient) ConvertedFiltersPurchase(
+	eventName string,
+	indexName string,
+	filters []string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypePurchase,
+		EventName:    eventName,
+		Index:        indexName,
+		Filters:      filters,
+	}, opts...)
+}
+
+func (c *UserClient) ConvertedFiltersAddToCart(
+	eventName string,
+	indexName string,
+	filters []string,
+	opts ...interface{},
+) (StatusMessageRes, error) {
+	return c.Client.SendEvent(Event{
+		UserToken:    c.UserToken,
+		EventType:    EventTypeConversion,
+		EventSubtype: EventSubtypeAddToCart,
+		EventName:    eventName,
+		Index:        indexName,
+		Filters:      filters,
 	}, opts...)
 }
 

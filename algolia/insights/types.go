@@ -11,16 +11,22 @@ const (
 	EventTypeView       = "view"
 )
 
+const (
+	EventSubtypePurchase  = "purchase"
+	EventSubtypeAddToCart = "addToCart"
+)
+
 type Event struct {
-	EventType string    `json:"eventType"`
-	EventName string    `json:"eventName"`
-	Index     string    `json:"index"`
-	UserToken string    `json:"userToken"`
-	Timestamp time.Time `json:"-"`
-	ObjectIDs []string  `json:"objectIDs,omitempty"`
-	Positions []int     `json:"positions,omitempty"`
-	QueryID   string    `json:"queryID,omitempty"`
-	Filters   []string  `json:"filters,omitempty"`
+	EventType    string    `json:"eventType"`
+	EventSubtype string    `json:"eventSubtype,omitempty"`
+	EventName    string    `json:"eventName"`
+	Index        string    `json:"index"`
+	UserToken    string    `json:"userToken"`
+	Timestamp    time.Time `json:"-"`
+	ObjectIDs    []string  `json:"objectIDs,omitempty"`
+	Positions    []int     `json:"positions,omitempty"`
+	QueryID      string    `json:"queryID,omitempty"`
+	Filters      []string  `json:"filters,omitempty"`
 }
 
 func (e Event) MarshalJSON() ([]byte, error) {
