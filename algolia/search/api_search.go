@@ -10374,6 +10374,60 @@ func (c *APIClient) UpdateApiKeyWithContext(ctx context.Context, r ApiUpdateApiK
 }
 
 /*
+SearchForHits calls the `search` method but with certainty that we will only request Algolia records (hits) and not facets.
+Disclaimer: We don't assert that the parameters you pass to this method only contains `hits` requests to prevent impacting search performances, this helper is purely for typing purposes.
+
+	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param r ApiSearchRequest - Body of the `search` operation.
+	@param opts ...Option - Optional parameters for the request.
+	@return []SearchResponse - List of hits.
+	@return error - Error if any.
+*/
+func (c *APIClient) SearchForHits(ctx context.Context, r ApiSearchRequest, opts ...Option) ([]SearchResponse, error) {
+	res, err := c.SearchWithContext(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	hits := make([]SearchResponse, 0, len(res.GetResults()))
+
+	for _, hit := range res.GetResults() {
+		if hit.SearchResponse != nil {
+			hits = append(hits, *hit.SearchResponse)
+		}
+	}
+
+	return slices.Clip(hits), nil
+}
+
+/*
+SearchForFacets calls the `search` method but with certainty that we will only request Algolia facets and not records (hits).
+Disclaimer: We don't assert that the parameters you pass to this method only contains `facets` requests to prevent impacting search performances, this helper is purely for typing purposes.
+
+	@param ctx context.Context - The context that will be drilled down to the actual request.
+	@param r ApiSearchRequest - Body of the `search` operation.
+	@param opts ...Option - Optional parameters for the request.
+	@return []SearchForFacetValuesResponse - List of facet hits.
+	@return error - Error if any.
+*/
+func (c *APIClient) SearchForFacets(ctx context.Context, r ApiSearchRequest, opts ...Option) ([]SearchForFacetValuesResponse, error) {
+	res, err := c.SearchWithContext(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	facetHits := make([]SearchForFacetValuesResponse, 0, len(res.GetResults()))
+
+	for _, hit := range res.GetResults() {
+		if hit.SearchForFacetValuesResponse != nil {
+			facetHits = append(facetHits, *hit.SearchForFacetValuesResponse)
+		}
+	}
+
+	return slices.Clip(facetHits), nil
+}
+
+/*
 WaitForTask waits for a task to be published.
 Wraps WaitForTaskWithContext with context.Background().
 It returns the task response if the operation was successful.
