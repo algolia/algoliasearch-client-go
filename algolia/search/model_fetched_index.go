@@ -30,6 +30,8 @@ type FetchedIndex struct {
 	Primary *string `json:"primary,omitempty"`
 	// Only present if the index is a primary index with replicas. Contains the names of all linked replicas.
 	Replicas []string `json:"replicas,omitempty"`
+	// Only present if the index is a [virtual replica](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-alphabetically/#virtual-replicas).
+	Virtual *bool `json:"virtual,omitempty"`
 }
 
 type FetchedIndexOption func(f *FetchedIndex)
@@ -43,6 +45,12 @@ func WithFetchedIndexPrimary(val string) FetchedIndexOption {
 func WithFetchedIndexReplicas(val []string) FetchedIndexOption {
 	return func(f *FetchedIndex) {
 		f.Replicas = val
+	}
+}
+
+func WithFetchedIndexVirtual(val bool) FetchedIndexOption {
+	return func(f *FetchedIndex) {
+		f.Virtual = &val
 	}
 }
 
@@ -363,6 +371,39 @@ func (o *FetchedIndex) SetReplicas(v []string) *FetchedIndex {
 	return o
 }
 
+// GetVirtual returns the Virtual field value if set, zero value otherwise.
+func (o *FetchedIndex) GetVirtual() bool {
+	if o == nil || o.Virtual == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Virtual
+}
+
+// GetVirtualOk returns a tuple with the Virtual field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FetchedIndex) GetVirtualOk() (*bool, bool) {
+	if o == nil || o.Virtual == nil {
+		return nil, false
+	}
+	return o.Virtual, true
+}
+
+// HasVirtual returns a boolean if a field has been set.
+func (o *FetchedIndex) HasVirtual() bool {
+	if o != nil && o.Virtual != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtual gets a reference to the given bool and assigns it to the Virtual field.
+func (o *FetchedIndex) SetVirtual(v bool) *FetchedIndex {
+	o.Virtual = &v
+	return o
+}
+
 func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -398,6 +439,9 @@ func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+	if o.Virtual != nil {
+		toSerialize["virtual"] = o.Virtual
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FetchedIndex: %w", err)
@@ -419,5 +463,6 @@ func (o FetchedIndex) String() string {
 	out += fmt.Sprintf("  pendingTask=%v\n", o.PendingTask)
 	out += fmt.Sprintf("  primary=%v\n", o.Primary)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
+	out += fmt.Sprintf("  virtual=%v\n", o.Virtual)
 	return fmt.Sprintf("FetchedIndex {\n%s}", out)
 }
