@@ -23,13 +23,6 @@
   <a href="https://alg.li/support" target="_blank">Support</a>
 </p>
 
-# Pre-Release Notice
-
-This version of the client is currently in pre-release, which means that it is still undergoing development and testing. While we have made every effort to ensure that the software is functional and stable, there may still be bugs or issues that need to be addressed.
-
-If you prefer to use the stable version of the client, please use the [latest stable version](https://pkg.go.dev/github.com/algolia/algoliasearch-client-go/v3?tab=versions).
-
-
 ## ✨ Features
 
 * Support Go 1.19 and above
@@ -37,6 +30,66 @@ If you prefer to use the stable version of the client, please use the [latest st
 * First-class support for user-defined structures
 * Injectable HTTP client
 
-# Contributing to this repository
+## 💡 Getting Started
 
-The Algolia API clients are automatically generated, you can find everything here https://github.com/algolia/api-clients-automation
+First, install the Algolia API Go Client via the go get command:
+
+```bash
+go get github.com/algolia/algoliasearch-client-go/v4
+```
+
+You can now import the Algolia API client in your project and play with it.
+
+
+```go
+import "github.com/algolia/algoliasearch-client-go/v4/algolia/search"
+
+client, err := search.NewClient("YOUR_APP_ID", "YOUR_API_KEY")
+
+// Add a new record to your Algolia index
+response, err := client.SaveObject(client.NewApiSaveObjectRequest(
+  "<YOUR_INDEX_NAME>", map[string]any{"objectID": "id", "test": "val"},
+))
+if err != nil {
+  // handle the eventual error
+  panic(err)
+}
+
+// use the model directly
+print(response)
+
+// Poll the task status to know when it has been indexed
+taskResponse, err := searchClient.WaitForTask("<YOUR_INDEX_NAME>", response.TaskID, nil, nil, nil)
+if err != nil {
+  panic(err)
+}
+
+// Fetch search results, with typo tolerance
+response, err := client.Search(client.NewApiSearchRequest(
+
+  search.NewEmptySearchMethodParams().SetRequests(
+    []search.SearchQuery{*search.SearchForHitsAsSearchQuery(
+      search.NewEmptySearchForHits().SetIndexName("<YOUR_INDEX_NAME>").SetQuery("<YOUR_QUERY>").SetHitsPerPage(50))}),
+))
+if err != nil {
+  // handle the eventual error
+  panic(err)
+}
+
+// use the model directly
+print(response)
+```
+
+For full documentation, visit the **[Algolia Go API Client](https://www.algolia.com/doc/api-client/getting-started/install/go/)**.
+
+## ❓ Troubleshooting
+
+Encountering an issue? Before reaching out to support, we recommend heading to our [FAQ](https://www.algolia.com/doc/api-client/troubleshooting/faq/go/) where you will find answers for the most common issues and gotchas with the client. You can also open [a GitHub issue](https://github.com/algolia/api-clients-automation/issues/new?assignees=&labels=&projects=&template=Bug_report.md)
+
+## Contributing
+
+This repository hosts the code of the generated Algolia API client for Go, if you'd like to contribute, head over to the [main repository](https://github.com/algolia/api-clients-automation). You can also find contributing guides on [our documentation website](https://api-clients-automation.netlify.app/docs/contributing/introduction).
+
+## 📄 License
+
+The Algolia Go API Client is an open-sourced software licensed under the [MIT license](LICENSE).
