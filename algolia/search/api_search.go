@@ -11152,6 +11152,35 @@ func (c *APIClient) GetSecuredApiKeyRemainingValidity(securedApiKey string) (tim
 	return time.Until(time.Unix(int64(ts), 0)), nil
 }
 
+// Helper: Saves the given array of objects in the given index. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
+func (c *APIClient) SaveObjects(indexName string, objects []map[string]any) ([]BatchResponse, error) {
+	return c.ChunkedBatch(indexName, objects, utils.ToPtr(ACTION_ADD_OBJECT), nil, nil)
+}
+
+// Helper: Deletes every records for the given objectIDs. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objectIDs in it.
+func (c *APIClient) DeleteObjects(indexName string, objectIDs []string) ([]BatchResponse, error) {
+	objects := make([]map[string]any, 0, len(objectIDs))
+
+	for _, id := range objectIDs {
+		objects = append(objects, map[string]any{"objectID": id})
+	}
+
+	return c.ChunkedBatch(indexName, objects, utils.ToPtr(ACTION_DELETE_OBJECT), nil, nil)
+}
+
+// Helper: Replaces object content of all the given objects according to their respective `objectID` field. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
+func (c *APIClient) PartialUpdateObjects(indexName string, objects []map[string]any, createIfNotExists bool) ([]BatchResponse, error) {
+	var action Action
+
+	if createIfNotExists {
+		action = ACTION_PARTIAL_UPDATE_OBJECT
+	} else {
+		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
+	}
+
+	return c.ChunkedBatch(indexName, objects, utils.ToPtr(action), nil, nil)
+}
+
 // ChunkedBatch chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
 func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, action *Action, waitForTasks *bool, batchSize *int) ([]BatchResponse, error) {
 	var (
