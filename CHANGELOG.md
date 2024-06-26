@@ -1,3 +1,14 @@
+## [4.0.0-beta.20](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.19...4.0.0-beta.20)
+
+- [e5cfcf0c4](https://github.com/algolia/api-clients-automation/commit/e5cfcf0c4) feat(clients): generate common LICENSE ([#3258](https://github.com/algolia/api-clients-automation/pull/3258)) by [@shortcuts](https://github.com/shortcuts/)
+- [47dd4bb5b](https://github.com/algolia/api-clients-automation/commit/47dd4bb5b) fix(clients): update README snippets and contributing guides ([#3257](https://github.com/algolia/api-clients-automation/pull/3257)) by [@shortcuts](https://github.com/shortcuts/)
+- [7a90e4532](https://github.com/algolia/api-clients-automation/commit/7a90e4532) feat(clients): add `saveObjects`, `deleteObjects` and `partialUpdateObjects` helpers ([#3180](https://github.com/algolia/api-clients-automation/pull/3180)) by [@shortcuts](https://github.com/shortcuts/)
+- [5dbdb91e9](https://github.com/algolia/api-clients-automation/commit/5dbdb91e9) fix(specs): virtual is a fetchedIndex props ([#3255](https://github.com/algolia/api-clients-automation/pull/3255)) by [@shortcuts](https://github.com/shortcuts/)
+- [0a6277937](https://github.com/algolia/api-clients-automation/commit/0a6277937) fix(specs): add virtual index settings and update renderingContent ([#3254](https://github.com/algolia/api-clients-automation/pull/3254)) by [@shortcuts](https://github.com/shortcuts/)
+- [536a348f1](https://github.com/algolia/api-clients-automation/commit/536a348f1) fix(clients): chunked batch helper size property consistency ([#3253](https://github.com/algolia/api-clients-automation/pull/3253)) by [@Fluf22](https://github.com/Fluf22/)
+- [d4bd0f23c](https://github.com/algolia/api-clients-automation/commit/d4bd0f23c) feat(go): add SearchFor typed helpers ([#3252](https://github.com/algolia/api-clients-automation/pull/3252)) by [@Fluf22](https://github.com/Fluf22/)
+- [b7ce7c857](https://github.com/algolia/api-clients-automation/commit/b7ce7c857) fix(go): method in the doc ([#3250](https://github.com/algolia/api-clients-automation/pull/3250)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.0.0-beta.19](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.18...4.0.0-beta.19)
 
 - [17f53ae6d](https://github.com/algolia/api-clients-automation/commit/17f53ae6d) feat(go): add raw http response methods ([#3245](https://github.com/algolia/api-clients-automation/pull/3245)) by [@Fluf22](https://github.com/Fluf22/)
