@@ -6562,7 +6562,7 @@ func (c *APIClient) NewApiTryTransformationsRequest(transformationTry *Transform
 /*
 TryTransformations calls the API and returns the raw response from it.
 
-	  Searches for transformations.
+	  Try a transformation.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6612,7 +6612,7 @@ func (c *APIClient) TryTransformationsWithHTTPInfo(ctx context.Context, r ApiTry
 /*
 TryTransformations wraps TryTransformationsWithContext using context.Background.
 
-Searches for transformations.
+Try a transformation.
 
 Required API Key ACLs:
   - addObject
@@ -6631,7 +6631,7 @@ func (c *APIClient) TryTransformations(r ApiTryTransformationsRequest, opts ...O
 /*
 TryTransformations casts the HTTP response body to a defined struct.
 
-Searches for transformations.
+Try a transformation.
 
 Required API Key ACLs:
   - addObject
