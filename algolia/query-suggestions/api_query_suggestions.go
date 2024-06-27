@@ -40,18 +40,18 @@ func (r *ApiCreateConfigRequest) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
-	if v, ok := req["querySuggestionsConfigurationWithIndex"]; ok {
-		err = json.Unmarshal(v, &r.querySuggestionsConfigurationWithIndex)
+	if v, ok := req["configurationWithIndex"]; ok {
+		err = json.Unmarshal(v, &r.configurationWithIndex)
 		if err != nil {
-			err = json.Unmarshal(b, &r.querySuggestionsConfigurationWithIndex)
+			err = json.Unmarshal(b, &r.configurationWithIndex)
 			if err != nil {
-				return fmt.Errorf("cannot unmarshal querySuggestionsConfigurationWithIndex: %w", err)
+				return fmt.Errorf("cannot unmarshal configurationWithIndex: %w", err)
 			}
 		}
 	} else {
-		err = json.Unmarshal(b, &r.querySuggestionsConfigurationWithIndex)
+		err = json.Unmarshal(b, &r.configurationWithIndex)
 		if err != nil {
-			return fmt.Errorf("cannot unmarshal body parameter querySuggestionsConfigurationWithIndex: %w", err)
+			return fmt.Errorf("cannot unmarshal body parameter configurationWithIndex: %w", err)
 		}
 	}
 
@@ -60,13 +60,13 @@ func (r *ApiCreateConfigRequest) UnmarshalJSON(b []byte) error {
 
 // ApiCreateConfigRequest represents the request with all the parameters for the API call.
 type ApiCreateConfigRequest struct {
-	querySuggestionsConfigurationWithIndex *QuerySuggestionsConfigurationWithIndex
+	configurationWithIndex *ConfigurationWithIndex
 }
 
 // NewApiCreateConfigRequest creates an instance of the ApiCreateConfigRequest to be used for the API call.
-func (c *APIClient) NewApiCreateConfigRequest(querySuggestionsConfigurationWithIndex *QuerySuggestionsConfigurationWithIndex) ApiCreateConfigRequest {
+func (c *APIClient) NewApiCreateConfigRequest(configurationWithIndex *ConfigurationWithIndex) ApiCreateConfigRequest {
 	return ApiCreateConfigRequest{
-		querySuggestionsConfigurationWithIndex: querySuggestionsConfigurationWithIndex,
+		configurationWithIndex: configurationWithIndex,
 	}
 }
 
@@ -82,7 +82,7 @@ You can have up to 100 configurations per Algolia application.
 
 	Request can be constructed by NewApiCreateConfigRequest with parameters below.
 	@param ctx context.Context - Context of the request
-	  @param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
+	  @param configurationWithIndex ConfigurationWithIndex
 	@param opts ...Option - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -96,8 +96,8 @@ func (c *APIClient) CreateConfigWithHTTPInfo(ctx context.Context, r ApiCreateCon
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
-	if r.querySuggestionsConfigurationWithIndex == nil {
-		return nil, nil, reportError("Parameter `querySuggestionsConfigurationWithIndex` is required when calling `CreateConfig`.")
+	if r.configurationWithIndex == nil {
+		return nil, nil, reportError("Parameter `configurationWithIndex` is required when calling `CreateConfig`.")
 	}
 
 	// optional params if any
@@ -111,7 +111,7 @@ func (c *APIClient) CreateConfigWithHTTPInfo(ctx context.Context, r ApiCreateCon
 	}
 
 	// body params
-	postBody = r.querySuggestionsConfigurationWithIndex
+	postBody = r.configurationWithIndex
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -132,7 +132,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiCreateConfigRequest with parameters below.
 
-	@param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
+	@param configurationWithIndex ConfigurationWithIndex
 	@return BaseResponse
 */
 func (c *APIClient) CreateConfig(r ApiCreateConfigRequest, opts ...Option) (*BaseResponse, error) {
@@ -151,7 +151,7 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiCreateConfigRequest with parameters below.
 
-	@param querySuggestionsConfigurationWithIndex QuerySuggestionsConfigurationWithIndex
+	@param configurationWithIndex ConfigurationWithIndex
 	@return BaseResponse
 */
 func (c *APIClient) CreateConfigWithContext(ctx context.Context, r ApiCreateConfigRequest, opts ...Option) (*BaseResponse, error) {
@@ -1077,9 +1077,9 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
 
-	@return []QuerySuggestionsConfigurationResponse
+	@return []ConfigurationResponse
 */
-func (c *APIClient) GetAllConfigs(opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
+func (c *APIClient) GetAllConfigs(opts ...Option) ([]ConfigurationResponse, error) {
 	return c.GetAllConfigsWithContext(context.Background(), opts...)
 }
 
@@ -1093,10 +1093,10 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiGetAllConfigsRequest with parameters below.
 
-	@return []QuerySuggestionsConfigurationResponse
+	@return []ConfigurationResponse
 */
-func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option) ([]QuerySuggestionsConfigurationResponse, error) {
-	var returnValue []QuerySuggestionsConfigurationResponse
+func (c *APIClient) GetAllConfigsWithContext(ctx context.Context, opts ...Option) ([]ConfigurationResponse, error) {
+	var returnValue []ConfigurationResponse
 
 	res, resBody, err := c.GetAllConfigsWithHTTPInfo(ctx, opts...)
 	if err != nil {
@@ -1218,9 +1218,9 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetConfigRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@return QuerySuggestionsConfigurationResponse
+	@return ConfigurationResponse
 */
-func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*QuerySuggestionsConfigurationResponse, error) {
+func (c *APIClient) GetConfig(r ApiGetConfigRequest, opts ...Option) (*ConfigurationResponse, error) {
 	return c.GetConfigWithContext(context.Background(), r, opts...)
 }
 
@@ -1235,10 +1235,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetConfigRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@return QuerySuggestionsConfigurationResponse
+	@return ConfigurationResponse
 */
-func (c *APIClient) GetConfigWithContext(ctx context.Context, r ApiGetConfigRequest, opts ...Option) (*QuerySuggestionsConfigurationResponse, error) {
-	var returnValue *QuerySuggestionsConfigurationResponse
+func (c *APIClient) GetConfigWithContext(ctx context.Context, r ApiGetConfigRequest, opts ...Option) (*ConfigurationResponse, error) {
+	var returnValue *ConfigurationResponse
 
 	res, resBody, err := c.GetConfigWithHTTPInfo(ctx, r, opts...)
 	if err != nil {
@@ -1571,18 +1571,18 @@ func (r *ApiUpdateConfigRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
-	if v, ok := req["querySuggestionsConfiguration"]; ok {
-		err = json.Unmarshal(v, &r.querySuggestionsConfiguration)
+	if v, ok := req["configuration"]; ok {
+		err = json.Unmarshal(v, &r.configuration)
 		if err != nil {
-			err = json.Unmarshal(b, &r.querySuggestionsConfiguration)
+			err = json.Unmarshal(b, &r.configuration)
 			if err != nil {
-				return fmt.Errorf("cannot unmarshal querySuggestionsConfiguration: %w", err)
+				return fmt.Errorf("cannot unmarshal configuration: %w", err)
 			}
 		}
 	} else {
-		err = json.Unmarshal(b, &r.querySuggestionsConfiguration)
+		err = json.Unmarshal(b, &r.configuration)
 		if err != nil {
-			return fmt.Errorf("cannot unmarshal body parameter querySuggestionsConfiguration: %w", err)
+			return fmt.Errorf("cannot unmarshal body parameter configuration: %w", err)
 		}
 	}
 
@@ -1591,15 +1591,15 @@ func (r *ApiUpdateConfigRequest) UnmarshalJSON(b []byte) error {
 
 // ApiUpdateConfigRequest represents the request with all the parameters for the API call.
 type ApiUpdateConfigRequest struct {
-	indexName                     string
-	querySuggestionsConfiguration *QuerySuggestionsConfiguration
+	indexName     string
+	configuration *Configuration
 }
 
 // NewApiUpdateConfigRequest creates an instance of the ApiUpdateConfigRequest to be used for the API call.
-func (c *APIClient) NewApiUpdateConfigRequest(indexName string, querySuggestionsConfiguration *QuerySuggestionsConfiguration) ApiUpdateConfigRequest {
+func (c *APIClient) NewApiUpdateConfigRequest(indexName string, configuration *Configuration) ApiUpdateConfigRequest {
 	return ApiUpdateConfigRequest{
-		indexName:                     indexName,
-		querySuggestionsConfiguration: querySuggestionsConfiguration,
+		indexName:     indexName,
+		configuration: configuration,
 	}
 }
 
@@ -1614,7 +1614,7 @@ UpdateConfig calls the API and returns the raw response from it.
 	Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 	@param ctx context.Context - Context of the request
 	  @param indexName string - Query Suggestions index name.
-	  @param querySuggestionsConfiguration QuerySuggestionsConfiguration
+	  @param configuration Configuration
 	@param opts ...Option - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1632,8 +1632,8 @@ func (c *APIClient) UpdateConfigWithHTTPInfo(ctx context.Context, r ApiUpdateCon
 		return nil, nil, reportError("Parameter `indexName` is required when calling `UpdateConfig`.")
 	}
 
-	if r.querySuggestionsConfiguration == nil {
-		return nil, nil, reportError("Parameter `querySuggestionsConfiguration` is required when calling `UpdateConfig`.")
+	if r.configuration == nil {
+		return nil, nil, reportError("Parameter `configuration` is required when calling `UpdateConfig`.")
 	}
 
 	// optional params if any
@@ -1647,7 +1647,7 @@ func (c *APIClient) UpdateConfigWithHTTPInfo(ctx context.Context, r ApiUpdateCon
 	}
 
 	// body params
-	postBody = r.querySuggestionsConfiguration
+	postBody = r.configuration
 	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1667,7 +1667,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@param querySuggestionsConfiguration QuerySuggestionsConfiguration
+	@param configuration Configuration
 	@return BaseResponse
 */
 func (c *APIClient) UpdateConfig(r ApiUpdateConfigRequest, opts ...Option) (*BaseResponse, error) {
@@ -1685,7 +1685,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiUpdateConfigRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@param querySuggestionsConfiguration QuerySuggestionsConfiguration
+	@param configuration Configuration
 	@return BaseResponse
 */
 func (c *APIClient) UpdateConfigWithContext(ctx context.Context, r ApiUpdateConfigRequest, opts ...Option) (*BaseResponse, error) {

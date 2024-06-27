@@ -14,8 +14,8 @@ const (
 	US Region = "us"
 )
 
-// Configuration stores the configuration of the API client.
-type Configuration struct {
+// InsightsConfiguration stores the configuration of the API client.
+type InsightsConfiguration struct {
 	transport.Configuration
 
 	Region Region

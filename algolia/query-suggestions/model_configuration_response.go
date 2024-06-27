@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// QuerySuggestionsConfigurationResponse API response for retrieving Query Suggestions configurations.
-type QuerySuggestionsConfigurationResponse struct {
+// ConfigurationResponse API response for retrieving Query Suggestions configurations.
+type ConfigurationResponse struct {
 	// Algolia application ID to which this Query Suggestions configuration belongs.
 	AppID string `json:"appID"`
 	// Name of the Query Suggestions index (case-sensitive).
@@ -22,12 +22,12 @@ type QuerySuggestionsConfigurationResponse struct {
 	AllowSpecialCharacters bool `json:"allowSpecialCharacters"`
 }
 
-// NewQuerySuggestionsConfigurationResponse instantiates a new QuerySuggestionsConfigurationResponse object
+// NewConfigurationResponse instantiates a new ConfigurationResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewQuerySuggestionsConfigurationResponse(appID string, indexName string, sourceIndices []SourceIndex, languages Languages, exclude []string, enablePersonalization bool, allowSpecialCharacters bool) *QuerySuggestionsConfigurationResponse {
-	this := &QuerySuggestionsConfigurationResponse{}
+func NewConfigurationResponse(appID string, indexName string, sourceIndices []SourceIndex, languages Languages, exclude []string, enablePersonalization bool, allowSpecialCharacters bool) *ConfigurationResponse {
+	this := &ConfigurationResponse{}
 	this.AppID = appID
 	this.IndexName = indexName
 	this.SourceIndices = sourceIndices
@@ -38,13 +38,13 @@ func NewQuerySuggestionsConfigurationResponse(appID string, indexName string, so
 	return this
 }
 
-// NewEmptyQuerySuggestionsConfigurationResponse return a pointer to an empty QuerySuggestionsConfigurationResponse object.
-func NewEmptyQuerySuggestionsConfigurationResponse() *QuerySuggestionsConfigurationResponse {
-	return &QuerySuggestionsConfigurationResponse{}
+// NewEmptyConfigurationResponse return a pointer to an empty ConfigurationResponse object.
+func NewEmptyConfigurationResponse() *ConfigurationResponse {
+	return &ConfigurationResponse{}
 }
 
 // GetAppID returns the AppID field value.
-func (o *QuerySuggestionsConfigurationResponse) GetAppID() string {
+func (o *ConfigurationResponse) GetAppID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -55,7 +55,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetAppID() string {
 
 // GetAppIDOk returns a tuple with the AppID field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetAppIDOk() (*string, bool) {
+func (o *ConfigurationResponse) GetAppIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -63,13 +63,13 @@ func (o *QuerySuggestionsConfigurationResponse) GetAppIDOk() (*string, bool) {
 }
 
 // SetAppID sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetAppID(v string) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetAppID(v string) *ConfigurationResponse {
 	o.AppID = v
 	return o
 }
 
 // GetIndexName returns the IndexName field value.
-func (o *QuerySuggestionsConfigurationResponse) GetIndexName() string {
+func (o *ConfigurationResponse) GetIndexName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -80,7 +80,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetIndexName() string {
 
 // GetIndexNameOk returns a tuple with the IndexName field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetIndexNameOk() (*string, bool) {
+func (o *ConfigurationResponse) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -88,13 +88,13 @@ func (o *QuerySuggestionsConfigurationResponse) GetIndexNameOk() (*string, bool)
 }
 
 // SetIndexName sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetIndexName(v string) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetIndexName(v string) *ConfigurationResponse {
 	o.IndexName = v
 	return o
 }
 
 // GetSourceIndices returns the SourceIndices field value.
-func (o *QuerySuggestionsConfigurationResponse) GetSourceIndices() []SourceIndex {
+func (o *ConfigurationResponse) GetSourceIndices() []SourceIndex {
 	if o == nil {
 		var ret []SourceIndex
 		return ret
@@ -105,7 +105,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetSourceIndices() []SourceIndex
 
 // GetSourceIndicesOk returns a tuple with the SourceIndices field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetSourceIndicesOk() ([]SourceIndex, bool) {
+func (o *ConfigurationResponse) GetSourceIndicesOk() ([]SourceIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -113,13 +113,13 @@ func (o *QuerySuggestionsConfigurationResponse) GetSourceIndicesOk() ([]SourceIn
 }
 
 // SetSourceIndices sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetSourceIndices(v []SourceIndex) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetSourceIndices(v []SourceIndex) *ConfigurationResponse {
 	o.SourceIndices = v
 	return o
 }
 
 // GetLanguages returns the Languages field value.
-func (o *QuerySuggestionsConfigurationResponse) GetLanguages() Languages {
+func (o *ConfigurationResponse) GetLanguages() Languages {
 	if o == nil {
 		var ret Languages
 		return ret
@@ -130,7 +130,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetLanguages() Languages {
 
 // GetLanguagesOk returns a tuple with the Languages field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetLanguagesOk() (*Languages, bool) {
+func (o *ConfigurationResponse) GetLanguagesOk() (*Languages, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -138,14 +138,14 @@ func (o *QuerySuggestionsConfigurationResponse) GetLanguagesOk() (*Languages, bo
 }
 
 // SetLanguages sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetLanguages(v *Languages) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetLanguages(v *Languages) *ConfigurationResponse {
 	o.Languages = *v
 	return o
 }
 
 // GetExclude returns the Exclude field value.
 // If the value is explicit nil, the zero value for []string will be returned.
-func (o *QuerySuggestionsConfigurationResponse) GetExclude() []string {
+func (o *ConfigurationResponse) GetExclude() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -157,7 +157,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *QuerySuggestionsConfigurationResponse) GetExcludeOk() ([]string, bool) {
+func (o *ConfigurationResponse) GetExcludeOk() ([]string, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
@@ -165,13 +165,13 @@ func (o *QuerySuggestionsConfigurationResponse) GetExcludeOk() ([]string, bool) 
 }
 
 // SetExclude sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetExclude(v []string) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetExclude(v []string) *ConfigurationResponse {
 	o.Exclude = v
 	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value.
-func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalization() bool {
+func (o *ConfigurationResponse) GetEnablePersonalization() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -182,7 +182,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalization() bool 
 
 // GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalizationOk() (*bool, bool) {
+func (o *ConfigurationResponse) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -190,13 +190,13 @@ func (o *QuerySuggestionsConfigurationResponse) GetEnablePersonalizationOk() (*b
 }
 
 // SetEnablePersonalization sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetEnablePersonalization(v bool) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetEnablePersonalization(v bool) *ConfigurationResponse {
 	o.EnablePersonalization = v
 	return o
 }
 
 // GetAllowSpecialCharacters returns the AllowSpecialCharacters field value.
-func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharacters() bool {
+func (o *ConfigurationResponse) GetAllowSpecialCharacters() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -207,7 +207,7 @@ func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharacters() bool
 
 // GetAllowSpecialCharactersOk returns a tuple with the AllowSpecialCharacters field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharactersOk() (*bool, bool) {
+func (o *ConfigurationResponse) GetAllowSpecialCharactersOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -215,12 +215,12 @@ func (o *QuerySuggestionsConfigurationResponse) GetAllowSpecialCharactersOk() (*
 }
 
 // SetAllowSpecialCharacters sets field value.
-func (o *QuerySuggestionsConfigurationResponse) SetAllowSpecialCharacters(v bool) *QuerySuggestionsConfigurationResponse {
+func (o *ConfigurationResponse) SetAllowSpecialCharacters(v bool) *ConfigurationResponse {
 	o.AllowSpecialCharacters = v
 	return o
 }
 
-func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
+func (o ConfigurationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["appID"] = o.AppID
@@ -245,13 +245,13 @@ func (o QuerySuggestionsConfigurationResponse) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal QuerySuggestionsConfigurationResponse: %w", err)
+		return nil, fmt.Errorf("failed to marshal ConfigurationResponse: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o QuerySuggestionsConfigurationResponse) String() string {
+func (o ConfigurationResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
@@ -260,5 +260,5 @@ func (o QuerySuggestionsConfigurationResponse) String() string {
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
-	return fmt.Sprintf("QuerySuggestionsConfigurationResponse {\n%s}", out)
+	return fmt.Sprintf("ConfigurationResponse {\n%s}", out)
 }

@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// QuerySuggestionsConfigurationWithIndex Query Suggestions configuration.
-type QuerySuggestionsConfigurationWithIndex struct {
+// Configuration Query Suggestions configuration.
+type Configuration struct {
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`
 	Languages     *Languages    `json:"languages,omitempty"`
@@ -16,57 +16,54 @@ type QuerySuggestionsConfigurationWithIndex struct {
 	EnablePersonalization *bool `json:"enablePersonalization,omitempty"`
 	// Whether to include suggestions with special characters.
 	AllowSpecialCharacters *bool `json:"allowSpecialCharacters,omitempty"`
-	// Name of the Query Suggestions index (case-sensitive).
-	IndexName string `json:"indexName"`
 }
 
-type QuerySuggestionsConfigurationWithIndexOption func(f *QuerySuggestionsConfigurationWithIndex)
+type ConfigurationOption func(f *Configuration)
 
-func WithQuerySuggestionsConfigurationWithIndexLanguages(val Languages) QuerySuggestionsConfigurationWithIndexOption {
-	return func(f *QuerySuggestionsConfigurationWithIndex) {
+func WithConfigurationLanguages(val Languages) ConfigurationOption {
+	return func(f *Configuration) {
 		f.Languages = &val
 	}
 }
 
-func WithQuerySuggestionsConfigurationWithIndexExclude(val []string) QuerySuggestionsConfigurationWithIndexOption {
-	return func(f *QuerySuggestionsConfigurationWithIndex) {
+func WithConfigurationExclude(val []string) ConfigurationOption {
+	return func(f *Configuration) {
 		f.Exclude = val
 	}
 }
 
-func WithQuerySuggestionsConfigurationWithIndexEnablePersonalization(val bool) QuerySuggestionsConfigurationWithIndexOption {
-	return func(f *QuerySuggestionsConfigurationWithIndex) {
+func WithConfigurationEnablePersonalization(val bool) ConfigurationOption {
+	return func(f *Configuration) {
 		f.EnablePersonalization = &val
 	}
 }
 
-func WithQuerySuggestionsConfigurationWithIndexAllowSpecialCharacters(val bool) QuerySuggestionsConfigurationWithIndexOption {
-	return func(f *QuerySuggestionsConfigurationWithIndex) {
+func WithConfigurationAllowSpecialCharacters(val bool) ConfigurationOption {
+	return func(f *Configuration) {
 		f.AllowSpecialCharacters = &val
 	}
 }
 
-// NewQuerySuggestionsConfigurationWithIndex instantiates a new QuerySuggestionsConfigurationWithIndex object
+// NewConfiguration instantiates a new Configuration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewQuerySuggestionsConfigurationWithIndex(sourceIndices []SourceIndex, indexName string, opts ...QuerySuggestionsConfigurationWithIndexOption) *QuerySuggestionsConfigurationWithIndex {
-	this := &QuerySuggestionsConfigurationWithIndex{}
+func NewConfiguration(sourceIndices []SourceIndex, opts ...ConfigurationOption) *Configuration {
+	this := &Configuration{}
 	this.SourceIndices = sourceIndices
-	this.IndexName = indexName
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyQuerySuggestionsConfigurationWithIndex return a pointer to an empty QuerySuggestionsConfigurationWithIndex object.
-func NewEmptyQuerySuggestionsConfigurationWithIndex() *QuerySuggestionsConfigurationWithIndex {
-	return &QuerySuggestionsConfigurationWithIndex{}
+// NewEmptyConfiguration return a pointer to an empty Configuration object.
+func NewEmptyConfiguration() *Configuration {
+	return &Configuration{}
 }
 
 // GetSourceIndices returns the SourceIndices field value.
-func (o *QuerySuggestionsConfigurationWithIndex) GetSourceIndices() []SourceIndex {
+func (o *Configuration) GetSourceIndices() []SourceIndex {
 	if o == nil {
 		var ret []SourceIndex
 		return ret
@@ -77,7 +74,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetSourceIndices() []SourceInde
 
 // GetSourceIndicesOk returns a tuple with the SourceIndices field value
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetSourceIndicesOk() ([]SourceIndex, bool) {
+func (o *Configuration) GetSourceIndicesOk() ([]SourceIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -85,13 +82,13 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetSourceIndicesOk() ([]SourceI
 }
 
 // SetSourceIndices sets field value.
-func (o *QuerySuggestionsConfigurationWithIndex) SetSourceIndices(v []SourceIndex) *QuerySuggestionsConfigurationWithIndex {
+func (o *Configuration) SetSourceIndices(v []SourceIndex) *Configuration {
 	o.SourceIndices = v
 	return o
 }
 
 // GetLanguages returns the Languages field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationWithIndex) GetLanguages() Languages {
+func (o *Configuration) GetLanguages() Languages {
 	if o == nil || o.Languages == nil {
 		var ret Languages
 		return ret
@@ -101,7 +98,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetLanguages() Languages {
 
 // GetLanguagesOk returns a tuple with the Languages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetLanguagesOk() (*Languages, bool) {
+func (o *Configuration) GetLanguagesOk() (*Languages, bool) {
 	if o == nil || o.Languages == nil {
 		return nil, false
 	}
@@ -109,7 +106,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetLanguagesOk() (*Languages, b
 }
 
 // HasLanguages returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) HasLanguages() bool {
+func (o *Configuration) HasLanguages() bool {
 	if o != nil && o.Languages != nil {
 		return true
 	}
@@ -118,13 +115,13 @@ func (o *QuerySuggestionsConfigurationWithIndex) HasLanguages() bool {
 }
 
 // SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
-func (o *QuerySuggestionsConfigurationWithIndex) SetLanguages(v *Languages) *QuerySuggestionsConfigurationWithIndex {
+func (o *Configuration) SetLanguages(v *Languages) *Configuration {
 	o.Languages = v
 	return o
 }
 
 // GetExclude returns the Exclude field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *QuerySuggestionsConfigurationWithIndex) GetExclude() []string {
+func (o *Configuration) GetExclude() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -135,7 +132,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetExclude() []string {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *QuerySuggestionsConfigurationWithIndex) GetExcludeOk() ([]string, bool) {
+func (o *Configuration) GetExcludeOk() ([]string, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
@@ -143,7 +140,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetExcludeOk() ([]string, bool)
 }
 
 // HasExclude returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) HasExclude() bool {
+func (o *Configuration) HasExclude() bool {
 	if o != nil && o.Exclude != nil {
 		return true
 	}
@@ -152,13 +149,13 @@ func (o *QuerySuggestionsConfigurationWithIndex) HasExclude() bool {
 }
 
 // SetExclude gets a reference to the given []string and assigns it to the Exclude field.
-func (o *QuerySuggestionsConfigurationWithIndex) SetExclude(v []string) *QuerySuggestionsConfigurationWithIndex {
+func (o *Configuration) SetExclude(v []string) *Configuration {
 	o.Exclude = v
 	return o
 }
 
 // GetEnablePersonalization returns the EnablePersonalization field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationWithIndex) GetEnablePersonalization() bool {
+func (o *Configuration) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
 		return ret
@@ -168,7 +165,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetEnablePersonalization() bool
 
 // GetEnablePersonalizationOk returns a tuple with the EnablePersonalization field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetEnablePersonalizationOk() (*bool, bool) {
+func (o *Configuration) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
@@ -176,7 +173,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetEnablePersonalizationOk() (*
 }
 
 // HasEnablePersonalization returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) HasEnablePersonalization() bool {
+func (o *Configuration) HasEnablePersonalization() bool {
 	if o != nil && o.EnablePersonalization != nil {
 		return true
 	}
@@ -185,13 +182,13 @@ func (o *QuerySuggestionsConfigurationWithIndex) HasEnablePersonalization() bool
 }
 
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
-func (o *QuerySuggestionsConfigurationWithIndex) SetEnablePersonalization(v bool) *QuerySuggestionsConfigurationWithIndex {
+func (o *Configuration) SetEnablePersonalization(v bool) *Configuration {
 	o.EnablePersonalization = &v
 	return o
 }
 
 // GetAllowSpecialCharacters returns the AllowSpecialCharacters field value if set, zero value otherwise.
-func (o *QuerySuggestionsConfigurationWithIndex) GetAllowSpecialCharacters() bool {
+func (o *Configuration) GetAllowSpecialCharacters() bool {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		var ret bool
 		return ret
@@ -201,7 +198,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetAllowSpecialCharacters() boo
 
 // GetAllowSpecialCharactersOk returns a tuple with the AllowSpecialCharacters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetAllowSpecialCharactersOk() (*bool, bool) {
+func (o *Configuration) GetAllowSpecialCharactersOk() (*bool, bool) {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		return nil, false
 	}
@@ -209,7 +206,7 @@ func (o *QuerySuggestionsConfigurationWithIndex) GetAllowSpecialCharactersOk() (
 }
 
 // HasAllowSpecialCharacters returns a boolean if a field has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) HasAllowSpecialCharacters() bool {
+func (o *Configuration) HasAllowSpecialCharacters() bool {
 	if o != nil && o.AllowSpecialCharacters != nil {
 		return true
 	}
@@ -218,37 +215,12 @@ func (o *QuerySuggestionsConfigurationWithIndex) HasAllowSpecialCharacters() boo
 }
 
 // SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
-func (o *QuerySuggestionsConfigurationWithIndex) SetAllowSpecialCharacters(v bool) *QuerySuggestionsConfigurationWithIndex {
+func (o *Configuration) SetAllowSpecialCharacters(v bool) *Configuration {
 	o.AllowSpecialCharacters = &v
 	return o
 }
 
-// GetIndexName returns the IndexName field value.
-func (o *QuerySuggestionsConfigurationWithIndex) GetIndexName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.IndexName
-}
-
-// GetIndexNameOk returns a tuple with the IndexName field value
-// and a boolean to check if the value has been set.
-func (o *QuerySuggestionsConfigurationWithIndex) GetIndexNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.IndexName, true
-}
-
-// SetIndexName sets field value.
-func (o *QuerySuggestionsConfigurationWithIndex) SetIndexName(v string) *QuerySuggestionsConfigurationWithIndex {
-	o.IndexName = v
-	return o
-}
-
-func (o QuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
+func (o Configuration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["sourceIndices"] = o.SourceIndices
@@ -265,24 +237,20 @@ func (o QuerySuggestionsConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal QuerySuggestionsConfigurationWithIndex: %w", err)
+		return nil, fmt.Errorf("failed to marshal Configuration: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o QuerySuggestionsConfigurationWithIndex) String() string {
+func (o Configuration) String() string {
 	out := ""
 	out += fmt.Sprintf("  sourceIndices=%v\n", o.SourceIndices)
 	out += fmt.Sprintf("  languages=%v\n", o.Languages)
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
-	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
-	return fmt.Sprintf("QuerySuggestionsConfigurationWithIndex {\n%s}", out)
+	return fmt.Sprintf("Configuration {\n%s}", out)
 }

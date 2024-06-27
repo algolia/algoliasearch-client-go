@@ -27,13 +27,13 @@ import (
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	appID     string
-	cfg       *Configuration
+	cfg       *MonitoringConfiguration
 	transport *transport.Transport
 }
 
 // NewClient creates a new API client with appID and apiKey.
 func NewClient(appID, apiKey string) (*APIClient, error) {
-	return NewClientWithConfig(Configuration{
+	return NewClientWithConfig(MonitoringConfiguration{
 		Configuration: transport.Configuration{
 			AppID:         appID,
 			ApiKey:        apiKey,
@@ -45,7 +45,7 @@ func NewClient(appID, apiKey string) (*APIClient, error) {
 }
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
-func NewClientWithConfig(cfg Configuration) (*APIClient, error) {
+func NewClientWithConfig(cfg MonitoringConfiguration) (*APIClient, error) {
 	var hosts []transport.StatefulHost
 
 	if cfg.AppID == "" {
@@ -141,7 +141,7 @@ func (c *APIClient) callAPI(request *http.Request, useReadTransporter bool) (*ht
 
 // Allow modification of underlying config for alternate implementations and testing
 // Caution: modifying the configuration while live can cause data races and potentially unwanted behavior.
-func (c *APIClient) GetConfiguration() *Configuration {
+func (c *APIClient) GetConfiguration() *MonitoringConfiguration {
 	return c.cfg
 }
 

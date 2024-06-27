@@ -5,7 +5,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
-// Configuration stores the configuration of the API client.
-type Configuration struct {
+// UsageConfiguration stores the configuration of the API client.
+type UsageConfiguration struct {
 	transport.Configuration
 }
