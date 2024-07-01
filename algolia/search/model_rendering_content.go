@@ -9,6 +9,7 @@ import (
 // RenderingContent Extra data that can be used in the search UI.  You can use this to control aspects of your search UI, such as, the order of facet names and values without changing your frontend code.
 type RenderingContent struct {
 	FacetOrdering *FacetOrdering `json:"facetOrdering,omitempty"`
+	Redirect      *RedirectURL   `json:"redirect,omitempty"`
 }
 
 type RenderingContentOption func(f *RenderingContent)
@@ -16,6 +17,12 @@ type RenderingContentOption func(f *RenderingContent)
 func WithRenderingContentFacetOrdering(val FacetOrdering) RenderingContentOption {
 	return func(f *RenderingContent) {
 		f.FacetOrdering = &val
+	}
+}
+
+func WithRenderingContentRedirect(val RedirectURL) RenderingContentOption {
+	return func(f *RenderingContent) {
+		f.Redirect = &val
 	}
 }
 
@@ -69,10 +76,46 @@ func (o *RenderingContent) SetFacetOrdering(v *FacetOrdering) *RenderingContent 
 	return o
 }
 
+// GetRedirect returns the Redirect field value if set, zero value otherwise.
+func (o *RenderingContent) GetRedirect() RedirectURL {
+	if o == nil || o.Redirect == nil {
+		var ret RedirectURL
+		return ret
+	}
+	return *o.Redirect
+}
+
+// GetRedirectOk returns a tuple with the Redirect field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RenderingContent) GetRedirectOk() (*RedirectURL, bool) {
+	if o == nil || o.Redirect == nil {
+		return nil, false
+	}
+	return o.Redirect, true
+}
+
+// HasRedirect returns a boolean if a field has been set.
+func (o *RenderingContent) HasRedirect() bool {
+	if o != nil && o.Redirect != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirect gets a reference to the given RedirectURL and assigns it to the Redirect field.
+func (o *RenderingContent) SetRedirect(v *RedirectURL) *RenderingContent {
+	o.Redirect = v
+	return o
+}
+
 func (o RenderingContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.FacetOrdering != nil {
 		toSerialize["facetOrdering"] = o.FacetOrdering
+	}
+	if o.Redirect != nil {
+		toSerialize["redirect"] = o.Redirect
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -85,5 +128,6 @@ func (o RenderingContent) MarshalJSON() ([]byte, error) {
 func (o RenderingContent) String() string {
 	out := ""
 	out += fmt.Sprintf("  facetOrdering=%v\n", o.FacetOrdering)
+	out += fmt.Sprintf("  redirect=%v\n", o.Redirect)
 	return fmt.Sprintf("RenderingContent {\n%s}", out)
 }
