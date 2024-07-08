@@ -1284,8 +1284,23 @@ This can be useful if you want to export your indices.
 
 - The Analytics API doesn't collect data when using `browse`.
 - Records are ranked by attributes and custom ranking.
-- Deduplication (`distinct`) is turned off.
 - There's no ranking for: typo-tolerance, number of matched words, proximity, geo distance.
+
+Browse requests automatically apply these settings:
+
+- `advancedSyntax`: `false`
+- `attributesToHighlight`: `[]`
+- `attributesToSnippet`: `[]`
+- `distinct`: `false`
+- `enablePersonalization`: `false`
+- `enableRules`: `false`
+- `facets`: `[]`
+- `getRankingInfo`: `false`
+- `ignorePlurals`: `false`
+- `optionalFilters`: `[]`
+- `typoTolerance`: `true` or `false` (`min` and `strict` is evaluated to `true`)
+
+If you send these parameters with your browse requests, they'll be ignored.
 
 	    Required API Key ACLs:
 	    - browse
@@ -1346,8 +1361,23 @@ This can be useful if you want to export your indices.
 
 - The Analytics API doesn't collect data when using `browse`.
 - Records are ranked by attributes and custom ranking.
-- Deduplication (`distinct`) is turned off.
 - There's no ranking for: typo-tolerance, number of matched words, proximity, geo distance.
+
+Browse requests automatically apply these settings:
+
+- `advancedSyntax`: `false`
+- `attributesToHighlight`: `[]`
+- `attributesToSnippet`: `[]`
+- `distinct`: `false`
+- `enablePersonalization`: `false`
+- `enableRules`: `false`
+- `facets`: `[]`
+- `getRankingInfo`: `false`
+- `ignorePlurals`: `false`
+- `optionalFilters`: `[]`
+- `typoTolerance`: `true` or `false` (`min` and `strict` is evaluated to `true`)
+
+If you send these parameters with your browse requests, they'll be ignored.
 
 Required API Key ACLs:
   - browse
@@ -1373,8 +1403,23 @@ This can be useful if you want to export your indices.
 
 - The Analytics API doesn't collect data when using `browse`.
 - Records are ranked by attributes and custom ranking.
-- Deduplication (`distinct`) is turned off.
 - There's no ranking for: typo-tolerance, number of matched words, proximity, geo distance.
+
+Browse requests automatically apply these settings:
+
+- `advancedSyntax`: `false`
+- `attributesToHighlight`: `[]`
+- `attributesToSnippet`: `[]`
+- `distinct`: `false`
+- `enablePersonalization`: `false`
+- `enableRules`: `false`
+- `facets`: `[]`
+- `getRankingInfo`: `false`
+- `ignorePlurals`: `false`
+- `optionalFilters`: `[]`
+- `typoTolerance`: `true` or `false` (`min` and `strict` is evaluated to `true`)
+
+If you send these parameters with your browse requests, they'll be ignored.
 
 Required API Key ACLs:
   - browse
