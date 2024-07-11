@@ -6,28 +6,28 @@ import (
 	"fmt"
 )
 
-// StreamingUtilsInput Input for a `streaming` task whose source is of type `ga4BigqueryExport` and for which extracted data is continuously streamed.
-type StreamingUtilsInput struct {
+// StreamingInput Input for a `streaming` task whose source is of type `ga4BigqueryExport` and for which extracted data is continuously streamed.
+type StreamingInput struct {
 	Mapping MappingInput `json:"mapping"`
 }
 
-// NewStreamingUtilsInput instantiates a new StreamingUtilsInput object
+// NewStreamingInput instantiates a new StreamingInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewStreamingUtilsInput(mapping MappingInput) *StreamingUtilsInput {
-	this := &StreamingUtilsInput{}
+func NewStreamingInput(mapping MappingInput) *StreamingInput {
+	this := &StreamingInput{}
 	this.Mapping = mapping
 	return this
 }
 
-// NewEmptyStreamingUtilsInput return a pointer to an empty StreamingUtilsInput object.
-func NewEmptyStreamingUtilsInput() *StreamingUtilsInput {
-	return &StreamingUtilsInput{}
+// NewEmptyStreamingInput return a pointer to an empty StreamingInput object.
+func NewEmptyStreamingInput() *StreamingInput {
+	return &StreamingInput{}
 }
 
 // GetMapping returns the Mapping field value.
-func (o *StreamingUtilsInput) GetMapping() MappingInput {
+func (o *StreamingInput) GetMapping() MappingInput {
 	if o == nil {
 		var ret MappingInput
 		return ret
@@ -38,7 +38,7 @@ func (o *StreamingUtilsInput) GetMapping() MappingInput {
 
 // GetMappingOk returns a tuple with the Mapping field value
 // and a boolean to check if the value has been set.
-func (o *StreamingUtilsInput) GetMappingOk() (*MappingInput, bool) {
+func (o *StreamingInput) GetMappingOk() (*MappingInput, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,26 +46,26 @@ func (o *StreamingUtilsInput) GetMappingOk() (*MappingInput, bool) {
 }
 
 // SetMapping sets field value.
-func (o *StreamingUtilsInput) SetMapping(v *MappingInput) *StreamingUtilsInput {
+func (o *StreamingInput) SetMapping(v *MappingInput) *StreamingInput {
 	o.Mapping = *v
 	return o
 }
 
-func (o StreamingUtilsInput) MarshalJSON() ([]byte, error) {
+func (o StreamingInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["mapping"] = o.Mapping
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal StreamingUtilsInput: %w", err)
+		return nil, fmt.Errorf("failed to marshal StreamingInput: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o StreamingUtilsInput) String() string {
+func (o StreamingInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
-	return fmt.Sprintf("StreamingUtilsInput {\n%s}", out)
+	return fmt.Sprintf("StreamingInput {\n%s}", out)
 }

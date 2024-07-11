@@ -13,18 +13,28 @@ type TransformationCreate struct {
 	// The uniquely identified name of your transformation.
 	Name string `json:"name"`
 	// A descriptive name for your transformation of what it does.
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
+}
+
+type TransformationCreateOption func(f *TransformationCreate)
+
+func WithTransformationCreateDescription(val string) TransformationCreateOption {
+	return func(f *TransformationCreate) {
+		f.Description = &val
+	}
 }
 
 // NewTransformationCreate instantiates a new TransformationCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationCreate(code string, name string, description string) *TransformationCreate {
+func NewTransformationCreate(code string, name string, opts ...TransformationCreateOption) *TransformationCreate {
 	this := &TransformationCreate{}
 	this.Code = code
 	this.Name = name
-	this.Description = description
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -83,28 +93,36 @@ func (o *TransformationCreate) SetName(v string) *TransformationCreate {
 	return o
 }
 
-// GetDescription returns the Description field value.
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *TransformationCreate) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransformationCreate) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value.
+// HasDescription returns a boolean if a field has been set.
+func (o *TransformationCreate) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *TransformationCreate) SetDescription(v string) *TransformationCreate {
-	o.Description = v
+	o.Description = &v
 	return o
 }
 
@@ -116,7 +134,7 @@ func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
+	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	serialized, err := json.Marshal(toSerialize)

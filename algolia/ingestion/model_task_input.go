@@ -8,30 +8,22 @@ import (
 
 // TaskInput - Configuration of the task, depending on its type.
 type TaskInput struct {
-	OnDemandDateUtilsInput *OnDemandDateUtilsInput
-	ScheduleDateUtilsInput *ScheduleDateUtilsInput
-	ShopifyInput           *ShopifyInput
-	StreamingUtilsInput    *StreamingUtilsInput
+	DockerStreamsInput *DockerStreamsInput
+	ShopifyInput       *ShopifyInput
+	StreamingInput     *StreamingInput
 }
 
-// OnDemandDateUtilsInputAsTaskInput is a convenience function that returns OnDemandDateUtilsInput wrapped in TaskInput.
-func OnDemandDateUtilsInputAsTaskInput(v *OnDemandDateUtilsInput) *TaskInput {
+// StreamingInputAsTaskInput is a convenience function that returns StreamingInput wrapped in TaskInput.
+func StreamingInputAsTaskInput(v *StreamingInput) *TaskInput {
 	return &TaskInput{
-		OnDemandDateUtilsInput: v,
+		StreamingInput: v,
 	}
 }
 
-// ScheduleDateUtilsInputAsTaskInput is a convenience function that returns ScheduleDateUtilsInput wrapped in TaskInput.
-func ScheduleDateUtilsInputAsTaskInput(v *ScheduleDateUtilsInput) *TaskInput {
+// DockerStreamsInputAsTaskInput is a convenience function that returns DockerStreamsInput wrapped in TaskInput.
+func DockerStreamsInputAsTaskInput(v *DockerStreamsInput) *TaskInput {
 	return &TaskInput{
-		ScheduleDateUtilsInput: v,
-	}
-}
-
-// StreamingUtilsInputAsTaskInput is a convenience function that returns StreamingUtilsInput wrapped in TaskInput.
-func StreamingUtilsInputAsTaskInput(v *StreamingUtilsInput) *TaskInput {
-	return &TaskInput{
-		StreamingUtilsInput: v,
+		DockerStreamsInput: v,
 	}
 }
 
@@ -45,30 +37,17 @@ func ShopifyInputAsTaskInput(v *ShopifyInput) *TaskInput {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into OnDemandDateUtilsInput
-	err = newStrictDecoder(data).Decode(&dst.OnDemandDateUtilsInput)
-	if err == nil && validateStruct(dst.OnDemandDateUtilsInput) == nil {
-		jsonOnDemandDateUtilsInput, _ := json.Marshal(dst.OnDemandDateUtilsInput)
-		if string(jsonOnDemandDateUtilsInput) == "{}" { // empty struct
-			dst.OnDemandDateUtilsInput = nil
+	// try to unmarshal data into DockerStreamsInput
+	err = newStrictDecoder(data).Decode(&dst.DockerStreamsInput)
+	if err == nil && validateStruct(dst.DockerStreamsInput) == nil {
+		jsonDockerStreamsInput, _ := json.Marshal(dst.DockerStreamsInput)
+		if string(jsonDockerStreamsInput) == "{}" { // empty struct
+			dst.DockerStreamsInput = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.OnDemandDateUtilsInput = nil
-	}
-
-	// try to unmarshal data into ScheduleDateUtilsInput
-	err = newStrictDecoder(data).Decode(&dst.ScheduleDateUtilsInput)
-	if err == nil && validateStruct(dst.ScheduleDateUtilsInput) == nil {
-		jsonScheduleDateUtilsInput, _ := json.Marshal(dst.ScheduleDateUtilsInput)
-		if string(jsonScheduleDateUtilsInput) == "{}" { // empty struct
-			dst.ScheduleDateUtilsInput = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.ScheduleDateUtilsInput = nil
+		dst.DockerStreamsInput = nil
 	}
 
 	// try to unmarshal data into ShopifyInput
@@ -84,17 +63,17 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 		dst.ShopifyInput = nil
 	}
 
-	// try to unmarshal data into StreamingUtilsInput
-	err = newStrictDecoder(data).Decode(&dst.StreamingUtilsInput)
-	if err == nil && validateStruct(dst.StreamingUtilsInput) == nil {
-		jsonStreamingUtilsInput, _ := json.Marshal(dst.StreamingUtilsInput)
-		if string(jsonStreamingUtilsInput) == "{}" { // empty struct
-			dst.StreamingUtilsInput = nil
+	// try to unmarshal data into StreamingInput
+	err = newStrictDecoder(data).Decode(&dst.StreamingInput)
+	if err == nil && validateStruct(dst.StreamingInput) == nil {
+		jsonStreamingInput, _ := json.Marshal(dst.StreamingInput)
+		if string(jsonStreamingInput) == "{}" { // empty struct
+			dst.StreamingInput = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.StreamingUtilsInput = nil
+		dst.StreamingInput = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(TaskInput)")
@@ -102,19 +81,10 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src TaskInput) MarshalJSON() ([]byte, error) {
-	if src.OnDemandDateUtilsInput != nil {
-		serialized, err := json.Marshal(&src.OnDemandDateUtilsInput)
+	if src.DockerStreamsInput != nil {
+		serialized, err := json.Marshal(&src.DockerStreamsInput)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of OnDemandDateUtilsInput of TaskInput: %w", err)
-		}
-
-		return serialized, nil
-	}
-
-	if src.ScheduleDateUtilsInput != nil {
-		serialized, err := json.Marshal(&src.ScheduleDateUtilsInput)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ScheduleDateUtilsInput of TaskInput: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of DockerStreamsInput of TaskInput: %w", err)
 		}
 
 		return serialized, nil
@@ -129,10 +99,10 @@ func (src TaskInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.StreamingUtilsInput != nil {
-		serialized, err := json.Marshal(&src.StreamingUtilsInput)
+	if src.StreamingInput != nil {
+		serialized, err := json.Marshal(&src.StreamingInput)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of StreamingUtilsInput of TaskInput: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of StreamingInput of TaskInput: %w", err)
 		}
 
 		return serialized, nil
@@ -143,20 +113,16 @@ func (src TaskInput) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj TaskInput) GetActualInstance() any {
-	if obj.OnDemandDateUtilsInput != nil {
-		return *obj.OnDemandDateUtilsInput
-	}
-
-	if obj.ScheduleDateUtilsInput != nil {
-		return *obj.ScheduleDateUtilsInput
+	if obj.DockerStreamsInput != nil {
+		return *obj.DockerStreamsInput
 	}
 
 	if obj.ShopifyInput != nil {
 		return *obj.ShopifyInput
 	}
 
-	if obj.StreamingUtilsInput != nil {
-		return *obj.StreamingUtilsInput
+	if obj.StreamingInput != nil {
+		return *obj.StreamingInput
 	}
 
 	// all schemas are nil

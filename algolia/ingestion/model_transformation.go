@@ -15,7 +15,7 @@ type Transformation struct {
 	// The uniquely identified name of your transformation.
 	Name string `json:"name"`
 	// A descriptive name for your transformation of what it does.
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
@@ -23,6 +23,12 @@ type Transformation struct {
 }
 
 type TransformationOption func(f *Transformation)
+
+func WithTransformationDescription(val string) TransformationOption {
+	return func(f *Transformation) {
+		f.Description = &val
+	}
+}
 
 func WithTransformationUpdatedAt(val string) TransformationOption {
 	return func(f *Transformation) {
@@ -34,12 +40,11 @@ func WithTransformationUpdatedAt(val string) TransformationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformation(transformationID string, code string, name string, description string, createdAt string, opts ...TransformationOption) *Transformation {
+func NewTransformation(transformationID string, code string, name string, createdAt string, opts ...TransformationOption) *Transformation {
 	this := &Transformation{}
 	this.TransformationID = transformationID
 	this.Code = code
 	this.Name = name
-	this.Description = description
 	this.CreatedAt = createdAt
 	for _, opt := range opts {
 		opt(this)
@@ -127,28 +132,36 @@ func (o *Transformation) SetName(v string) *Transformation {
 	return o
 }
 
-// GetDescription returns the Description field value.
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Transformation) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Transformation) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value.
+// HasDescription returns a boolean if a field has been set.
+func (o *Transformation) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Transformation) SetDescription(v string) *Transformation {
-	o.Description = v
+	o.Description = &v
 	return o
 }
 
@@ -221,7 +234,7 @@ func (o Transformation) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
+	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if true {
