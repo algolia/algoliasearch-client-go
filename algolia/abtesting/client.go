@@ -94,7 +94,7 @@ func getDefaultHosts(r Region) []transport.StatefulHost {
 }
 
 func getUserAgent() string {
-	return fmt.Sprintf("Algolia for Go (4.0.0-beta.22); Go (%s); Abtesting (4.0.0-beta.22)", runtime.Version())
+	return fmt.Sprintf("Algolia for Go (4.0.0-beta.23); Go (%s); Abtesting (4.0.0-beta.23)", runtime.Version())
 }
 
 // queryParameterToString convert any query parameters to string.
