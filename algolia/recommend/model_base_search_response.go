@@ -30,22 +30,14 @@ type BaseSearchResponse struct {
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
 	FacetsStats *map[string]FacetsStats `json:"facets_stats,omitempty"`
-	// Number of hits per page.
-	HitsPerPage int32 `json:"hitsPerPage"`
 	// Index name used for the query.
 	Index *string `json:"index,omitempty"`
 	// Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.
 	IndexUsed *string `json:"indexUsed,omitempty"`
 	// Warnings about the query.
 	Message *string `json:"message,omitempty"`
-	// Number of results (hits).
-	NbHits int32 `json:"nbHits"`
-	// Number of pages of results.
-	NbPages int32 `json:"nbPages"`
 	// Number of hits selected and sorted by the relevant sort algorithm.
 	NbSortedHits *int32 `json:"nbSortedHits,omitempty"`
-	// Page of search results to retrieve.
-	Page int32 `json:"page"`
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
 	// Time the server took to process the request, in milliseconds.
@@ -213,12 +205,8 @@ func WithBaseSearchResponseQueryID(val string) BaseSearchResponseOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBaseSearchResponse(hitsPerPage int32, nbHits int32, nbPages int32, page int32, processingTimeMS int32, opts ...BaseSearchResponseOption) *BaseSearchResponse {
+func NewBaseSearchResponse(processingTimeMS int32, opts ...BaseSearchResponseOption) *BaseSearchResponse {
 	this := &BaseSearchResponse{}
-	this.HitsPerPage = hitsPerPage
-	this.NbHits = nbHits
-	this.NbPages = nbPages
-	this.Page = page
 	this.ProcessingTimeMS = processingTimeMS
 	for _, opt := range opts {
 		opt(this)
@@ -570,31 +558,6 @@ func (o *BaseSearchResponse) SetFacetsStats(v map[string]FacetsStats) *BaseSearc
 	return o
 }
 
-// GetHitsPerPage returns the HitsPerPage field value.
-func (o *BaseSearchResponse) GetHitsPerPage() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.HitsPerPage
-}
-
-// GetHitsPerPageOk returns a tuple with the HitsPerPage field value
-// and a boolean to check if the value has been set.
-func (o *BaseSearchResponse) GetHitsPerPageOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.HitsPerPage, true
-}
-
-// SetHitsPerPage sets field value.
-func (o *BaseSearchResponse) SetHitsPerPage(v int32) *BaseSearchResponse {
-	o.HitsPerPage = v
-	return o
-}
-
 // GetIndex returns the Index field value if set, zero value otherwise.
 func (o *BaseSearchResponse) GetIndex() string {
 	if o == nil || o.Index == nil {
@@ -694,56 +657,6 @@ func (o *BaseSearchResponse) SetMessage(v string) *BaseSearchResponse {
 	return o
 }
 
-// GetNbHits returns the NbHits field value.
-func (o *BaseSearchResponse) GetNbHits() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.NbHits
-}
-
-// GetNbHitsOk returns a tuple with the NbHits field value
-// and a boolean to check if the value has been set.
-func (o *BaseSearchResponse) GetNbHitsOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NbHits, true
-}
-
-// SetNbHits sets field value.
-func (o *BaseSearchResponse) SetNbHits(v int32) *BaseSearchResponse {
-	o.NbHits = v
-	return o
-}
-
-// GetNbPages returns the NbPages field value.
-func (o *BaseSearchResponse) GetNbPages() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.NbPages
-}
-
-// GetNbPagesOk returns a tuple with the NbPages field value
-// and a boolean to check if the value has been set.
-func (o *BaseSearchResponse) GetNbPagesOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.NbPages, true
-}
-
-// SetNbPages sets field value.
-func (o *BaseSearchResponse) SetNbPages(v int32) *BaseSearchResponse {
-	o.NbPages = v
-	return o
-}
-
 // GetNbSortedHits returns the NbSortedHits field value if set, zero value otherwise.
 func (o *BaseSearchResponse) GetNbSortedHits() int32 {
 	if o == nil || o.NbSortedHits == nil {
@@ -774,31 +687,6 @@ func (o *BaseSearchResponse) HasNbSortedHits() bool {
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
 func (o *BaseSearchResponse) SetNbSortedHits(v int32) *BaseSearchResponse {
 	o.NbSortedHits = &v
-	return o
-}
-
-// GetPage returns the Page field value.
-func (o *BaseSearchResponse) GetPage() int32 {
-	if o == nil {
-		var ret int32
-		return ret
-	}
-
-	return o.Page
-}
-
-// GetPageOk returns a tuple with the Page field value
-// and a boolean to check if the value has been set.
-func (o *BaseSearchResponse) GetPageOk() (*int32, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Page, true
-}
-
-// SetPage sets field value.
-func (o *BaseSearchResponse) SetPage(v int32) *BaseSearchResponse {
-	o.Page = v
 	return o
 }
 
@@ -1166,9 +1054,6 @@ func (o BaseSearchResponse) MarshalJSON() ([]byte, error) {
 	if o.FacetsStats != nil {
 		toSerialize["facets_stats"] = o.FacetsStats
 	}
-	if true {
-		toSerialize["hitsPerPage"] = o.HitsPerPage
-	}
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
@@ -1178,17 +1063,8 @@ func (o BaseSearchResponse) MarshalJSON() ([]byte, error) {
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["nbPages"] = o.NbPages
-	}
 	if o.NbSortedHits != nil {
 		toSerialize["nbSortedHits"] = o.NbSortedHits
-	}
-	if true {
-		toSerialize["page"] = o.Page
 	}
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
@@ -1260,14 +1136,10 @@ func (o *BaseSearchResponse) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "exhaustiveTypo")
 	delete(additionalProperties, "facets")
 	delete(additionalProperties, "facets_stats")
-	delete(additionalProperties, "hitsPerPage")
 	delete(additionalProperties, "index")
 	delete(additionalProperties, "indexUsed")
 	delete(additionalProperties, "message")
-	delete(additionalProperties, "nbHits")
-	delete(additionalProperties, "nbPages")
 	delete(additionalProperties, "nbSortedHits")
-	delete(additionalProperties, "page")
 	delete(additionalProperties, "parsedQuery")
 	delete(additionalProperties, "processingTimeMS")
 	delete(additionalProperties, "processingTimingsMS")
@@ -1295,14 +1167,10 @@ func (o BaseSearchResponse) String() string {
 	out += fmt.Sprintf("  exhaustiveTypo=%v\n", o.ExhaustiveTypo)
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  facets_stats=%v\n", o.FacetsStats)
-	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  indexUsed=%v\n", o.IndexUsed)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
-	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
-	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 	out += fmt.Sprintf("  nbSortedHits=%v\n", o.NbSortedHits)
-	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  parsedQuery=%v\n", o.ParsedQuery)
 	out += fmt.Sprintf("  processingTimeMS=%v\n", o.ProcessingTimeMS)
 	out += fmt.Sprintf("  processingTimingsMS=%v\n", o.ProcessingTimingsMS)
