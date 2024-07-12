@@ -8,26 +8,16 @@ import (
 
 // GetRecommendationsResponse struct for GetRecommendationsResponse.
 type GetRecommendationsResponse struct {
-	Results []RecommendationsResults `json:"results,omitempty"`
-}
-
-type GetRecommendationsResponseOption func(f *GetRecommendationsResponse)
-
-func WithGetRecommendationsResponseResults(val []RecommendationsResults) GetRecommendationsResponseOption {
-	return func(f *GetRecommendationsResponse) {
-		f.Results = val
-	}
+	Results []RecommendationsResults `json:"results"`
 }
 
 // NewGetRecommendationsResponse instantiates a new GetRecommendationsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetRecommendationsResponse(opts ...GetRecommendationsResponseOption) *GetRecommendationsResponse {
+func NewGetRecommendationsResponse(results []RecommendationsResults) *GetRecommendationsResponse {
 	this := &GetRecommendationsResponse{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.Results = results
 	return this
 }
 
@@ -36,34 +26,26 @@ func NewEmptyGetRecommendationsResponse() *GetRecommendationsResponse {
 	return &GetRecommendationsResponse{}
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value.
 func (o *GetRecommendationsResponse) GetResults() []RecommendationsResults {
-	if o == nil || o.Results == nil {
+	if o == nil {
 		var ret []RecommendationsResults
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *GetRecommendationsResponse) GetResultsOk() ([]RecommendationsResults, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *GetRecommendationsResponse) HasResults() bool {
-	if o != nil && o.Results != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []RecommendationsResults and assigns it to the Results field.
+// SetResults sets field value.
 func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) *GetRecommendationsResponse {
 	o.Results = v
 	return o
@@ -71,7 +53,7 @@ func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) *Get
 
 func (o GetRecommendationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Results != nil {
+	if true {
 		toSerialize["results"] = o.Results
 	}
 	serialized, err := json.Marshal(toSerialize)
