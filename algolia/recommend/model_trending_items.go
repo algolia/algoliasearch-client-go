@@ -9,14 +9,26 @@ import (
 // TrendingItems struct for TrendingItems.
 type TrendingItems struct {
 	// Facet attribute. To be used in combination with `facetValue`. If specified, only recommendations matching the facet filter will be returned.
-	FacetName string `json:"facetName"`
+	FacetName *string `json:"facetName,omitempty"`
 	// Facet value. To be used in combination with `facetName`. If specified, only recommendations matching the facet filter will be returned.
-	FacetValue         string              `json:"facetValue"`
+	FacetValue         *string             `json:"facetValue,omitempty"`
 	Model              TrendingItemsModel  `json:"model"`
 	FallbackParameters *SearchParamsObject `json:"fallbackParameters,omitempty"`
 }
 
 type TrendingItemsOption func(f *TrendingItems)
+
+func WithTrendingItemsFacetName(val string) TrendingItemsOption {
+	return func(f *TrendingItems) {
+		f.FacetName = &val
+	}
+}
+
+func WithTrendingItemsFacetValue(val string) TrendingItemsOption {
+	return func(f *TrendingItems) {
+		f.FacetValue = &val
+	}
+}
 
 func WithTrendingItemsFallbackParameters(val SearchParamsObject) TrendingItemsOption {
 	return func(f *TrendingItems) {
@@ -28,10 +40,8 @@ func WithTrendingItemsFallbackParameters(val SearchParamsObject) TrendingItemsOp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingItems(facetName string, facetValue string, model TrendingItemsModel, opts ...TrendingItemsOption) *TrendingItems {
+func NewTrendingItems(model TrendingItemsModel, opts ...TrendingItemsOption) *TrendingItems {
 	this := &TrendingItems{}
-	this.FacetName = facetName
-	this.FacetValue = facetValue
 	this.Model = model
 	for _, opt := range opts {
 		opt(this)
@@ -44,53 +54,69 @@ func NewEmptyTrendingItems() *TrendingItems {
 	return &TrendingItems{}
 }
 
-// GetFacetName returns the FacetName field value.
+// GetFacetName returns the FacetName field value if set, zero value otherwise.
 func (o *TrendingItems) GetFacetName() string {
-	if o == nil {
+	if o == nil || o.FacetName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.FacetName
+	return *o.FacetName
 }
 
-// GetFacetNameOk returns a tuple with the FacetName field value
+// GetFacetNameOk returns a tuple with the FacetName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendingItems) GetFacetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.FacetName == nil {
 		return nil, false
 	}
-	return &o.FacetName, true
+	return o.FacetName, true
 }
 
-// SetFacetName sets field value.
+// HasFacetName returns a boolean if a field has been set.
+func (o *TrendingItems) HasFacetName() bool {
+	if o != nil && o.FacetName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacetName gets a reference to the given string and assigns it to the FacetName field.
 func (o *TrendingItems) SetFacetName(v string) *TrendingItems {
-	o.FacetName = v
+	o.FacetName = &v
 	return o
 }
 
-// GetFacetValue returns the FacetValue field value.
+// GetFacetValue returns the FacetValue field value if set, zero value otherwise.
 func (o *TrendingItems) GetFacetValue() string {
-	if o == nil {
+	if o == nil || o.FacetValue == nil {
 		var ret string
 		return ret
 	}
-
-	return o.FacetValue
+	return *o.FacetValue
 }
 
-// GetFacetValueOk returns a tuple with the FacetValue field value
+// GetFacetValueOk returns a tuple with the FacetValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendingItems) GetFacetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.FacetValue == nil {
 		return nil, false
 	}
-	return &o.FacetValue, true
+	return o.FacetValue, true
 }
 
-// SetFacetValue sets field value.
+// HasFacetValue returns a boolean if a field has been set.
+func (o *TrendingItems) HasFacetValue() bool {
+	if o != nil && o.FacetValue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacetValue gets a reference to the given string and assigns it to the FacetValue field.
 func (o *TrendingItems) SetFacetValue(v string) *TrendingItems {
-	o.FacetValue = v
+	o.FacetValue = &v
 	return o
 }
 
@@ -154,10 +180,10 @@ func (o *TrendingItems) SetFallbackParameters(v *SearchParamsObject) *TrendingIt
 
 func (o TrendingItems) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.FacetName != nil {
 		toSerialize["facetName"] = o.FacetName
 	}
-	if true {
+	if o.FacetValue != nil {
 		toSerialize["facetValue"] = o.FacetValue
 	}
 	if true {
