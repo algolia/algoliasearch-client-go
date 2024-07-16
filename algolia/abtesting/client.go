@@ -11,11 +11,9 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"reflect"
 	"runtime"
 	"slices"
 	"strings"
-	"time"
 
 	"github.com/go-playground/validator/v10"
 
@@ -95,37 +93,6 @@ func getDefaultHosts(r Region) []transport.StatefulHost {
 
 func getUserAgent() string {
 	return fmt.Sprintf("Algolia for Go (4.0.0-beta.23); Go (%s); Abtesting (4.0.0-beta.23)", runtime.Version())
-}
-
-// queryParameterToString convert any query parameters to string.
-func queryParameterToString(obj any) string {
-	return strings.ReplaceAll(url.QueryEscape(parameterToString(obj)), "+", "%20")
-}
-
-// parameterToString convert any parameters to string.
-func parameterToString(obj any) string {
-	objKind := reflect.TypeOf(obj).Kind()
-	if objKind == reflect.Slice {
-		var result []string
-		sliceValue := reflect.ValueOf(obj)
-		for i := 0; i < sliceValue.Len(); i++ {
-			element := sliceValue.Index(i).Interface()
-			result = append(result, parameterToString(element))
-		}
-		return strings.Join(result, ",")
-	}
-
-	if t, ok := obj.(time.Time); ok {
-		return t.Format(time.RFC3339)
-	}
-
-	if objKind == reflect.Struct {
-		if actualObj, ok := obj.(interface{ GetActualInstance() any }); ok {
-			return parameterToString(actualObj.GetActualInstance())
-		}
-	}
-
-	return fmt.Sprintf("%v", obj)
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request.

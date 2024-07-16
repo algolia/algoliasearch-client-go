@@ -12,28 +12,6 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-type Option struct {
-	optionType string
-	name       string
-	value      string
-}
-
-func QueryParamOption(name string, val any) Option {
-	return Option{
-		optionType: "query",
-		name:       queryParameterToString(name),
-		value:      queryParameterToString(val),
-	}
-}
-
-func HeaderParamOption(name string, val any) Option {
-	return Option{
-		optionType: "header",
-		name:       name,
-		value:      parameterToString(val),
-	}
-}
-
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -88,7 +66,6 @@ CustomDelete calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	@param opts ...Option - Optional parameters for the API call
@@ -96,55 +73,39 @@ CustomDelete calls the API and returns the raw response from it.
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 	if r.path == "" {
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
+	}
+
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, queryParameterToString(v))
+			options.QueryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+		opt.Apply(&options)
 	}
 
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
+	var postBody any
+
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-CustomDelete wraps CustomDeleteWithContext using context.Background.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomDeleteWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -158,10 +119,10 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDeleteWithContext(ctx context.Context, r ApiCustomDeleteRequest, opts ...Option) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
-	res, resBody, err := c.CustomDeleteWithHTTPInfo(ctx, r, opts...)
+	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -247,7 +208,6 @@ CustomGet calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	@param opts ...Option - Optional parameters for the API call
@@ -255,55 +215,39 @@ CustomGet calls the API and returns the raw response from it.
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 	if r.path == "" {
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
+	}
+
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, queryParameterToString(v))
+			options.QueryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+		opt.Apply(&options)
 	}
 
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodGet, postBody, headers, queryParams)
+	var postBody any
+
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-CustomGet wraps CustomGetWithContext using context.Background.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomGetRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@return map[string]any
-*/
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomGetWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -317,10 +261,10 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGetWithContext(ctx context.Context, r ApiCustomGetRequest, opts ...Option) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
-	res, resBody, err := c.CustomGetWithHTTPInfo(ctx, r, opts...)
+	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -422,7 +366,6 @@ CustomPost calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomPostRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
@@ -431,33 +374,32 @@ CustomPost calls the API and returns the raw response from it.
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 	if r.path == "" {
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
+	}
+
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, queryParameterToString(v))
+			options.QueryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+		opt.Apply(&options)
 	}
+
+	var postBody any
 
 	// body params
 	if utils.IsNilOrEmpty(r.body) {
@@ -465,28 +407,12 @@ func (c *APIClient) CustomPostWithHTTPInfo(ctx context.Context, r ApiCustomPostR
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-CustomPost wraps CustomPostWithContext using context.Background.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPostRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPostWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -501,10 +427,10 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPostWithContext(ctx context.Context, r ApiCustomPostRequest, opts ...Option) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
-	res, resBody, err := c.CustomPostWithHTTPInfo(ctx, r, opts...)
+	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -606,7 +532,6 @@ CustomPut calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomPutRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
@@ -615,33 +540,32 @@ CustomPut calls the API and returns the raw response from it.
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
-	requestPath = strings.ReplaceAll(requestPath, "{path}", parameterToString(r.path))
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 	if r.path == "" {
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
+	}
+
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			queryParams.Set(k, queryParameterToString(v))
+			options.QueryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+		opt.Apply(&options)
 	}
+
+	var postBody any
 
 	// body params
 	if utils.IsNilOrEmpty(r.body) {
@@ -649,28 +573,12 @@ func (c *APIClient) CustomPutWithHTTPInfo(ctx context.Context, r ApiCustomPutReq
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPut, postBody, headers, queryParams)
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-CustomPut wraps CustomPutWithContext using context.Background.
-
-This method allow you to send requests to the Algolia REST API.
-
-Request can be constructed by NewApiCustomPutRequest with parameters below.
-
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
-	@param parameters map[string]any - Query parameters to apply to the current query.
-	@param body map[string]any - Parameters to send with the custom request.
-	@return map[string]any
-*/
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
-	return c.CustomPutWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -685,10 +593,10 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPutWithContext(ctx context.Context, r ApiCustomPutRequest, opts ...Option) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
-	res, resBody, err := c.CustomPutWithHTTPInfo(ctx, r, opts...)
+	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -759,21 +667,16 @@ DeleteUserToken calls the API and returns the raw response from it.
 To delete a personalization user profile, see [Delete a user profile](/specs/personalization#tag/profiles/operation/deleteUserProfile).
 
 	Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param userToken string - User token for which to delete all associated events.
 	@param opts ...Option - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteUserTokenWithHTTPInfo(ctx context.Context, r ApiDeleteUserTokenRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) DeleteUserTokenWithHTTPInfo(r ApiDeleteUserTokenRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/usertokens/{userToken}"
-	requestPath = strings.ReplaceAll(requestPath, "{userToken}", url.PathEscape(parameterToString(r.userToken)))
+	requestPath = strings.ReplaceAll(requestPath, "{userToken}", url.PathEscape(utils.ParameterToString(r.userToken)))
 
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 	if r.userToken == "" {
 		return nil, nil, reportError("Parameter `userToken` is required when calling `DeleteUserToken`.")
 	}
@@ -784,36 +687,25 @@ func (c *APIClient) DeleteUserTokenWithHTTPInfo(ctx context.Context, r ApiDelete
 		return nil, nil, reportError("userToken must have less than 129 elements")
 	}
 
-	// optional params if any
-	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
 	}
 
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodDelete, postBody, headers, queryParams)
+	// optional params if any
+	for _, opt := range opts {
+		opt.Apply(&options)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-DeleteUserToken wraps DeleteUserTokenWithContext using context.Background.
-
-Deletes all events related to the specified user token from events metrics and analytics.
-To delete a personalization user profile, see [Delete a user profile](/specs/personalization#tag/profiles/operation/deleteUserProfile).
-
-Request can be constructed by NewApiDeleteUserTokenRequest with parameters below.
-
-	@param userToken string - User token for which to delete all associated events.
-*/
-func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Option) error {
-	return c.DeleteUserTokenWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -826,8 +718,8 @@ Request can be constructed by NewApiDeleteUserTokenRequest with parameters below
 
 	@param userToken string - User token for which to delete all associated events.
 */
-func (c *APIClient) DeleteUserTokenWithContext(ctx context.Context, r ApiDeleteUserTokenRequest, opts ...Option) error {
-	res, resBody, err := c.DeleteUserTokenWithHTTPInfo(ctx, r, opts...)
+func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...utils.RequestOption) error {
+	res, resBody, err := c.DeleteUserTokenWithHTTPInfo(r, opts...)
 	if err != nil {
 		return err
 	}
@@ -899,60 +791,40 @@ You can include up to 1,000 events in a single request,
 but the request body must be smaller than 2&nbsp;MB.
 
 	Request can be constructed by NewApiPushEventsRequest with parameters below.
-	@param ctx context.Context - Context of the request
 	  @param insightsEvents InsightsEvents
 	@param opts ...Option - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) PushEventsWithHTTPInfo(ctx context.Context, r ApiPushEventsRequest, opts ...Option) (*http.Response, []byte, error) {
-	var postBody any
-
+func (c *APIClient) PushEventsWithHTTPInfo(r ApiPushEventsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/events"
-
-	headers := make(map[string]string)
-	queryParams := url.Values{}
 
 	if r.insightsEvents == nil {
 		return nil, nil, reportError("Parameter `insightsEvents` is required when calling `PushEvents`.")
 	}
 
+	options := utils.Options{
+		Context:      context.Background(),
+		QueryParams:  url.Values{},
+		HeaderParams: map[string]string{},
+	}
+
 	// optional params if any
 	for _, opt := range opts {
-		switch opt.optionType {
-		case "query":
-			queryParams.Set(opt.name, opt.value)
-		case "header":
-			headers[opt.name] = opt.value
-		}
+		opt.Apply(&options)
 	}
+
+	var postBody any
 
 	// body params
 	postBody = r.insightsEvents
-	req, err := c.prepareRequest(ctx, requestPath, http.MethodPost, postBody, headers, queryParams)
+	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	return c.callAPI(req, false)
-}
-
-/*
-PushEvents wraps PushEventsWithContext using context.Background.
-
-Sends a list of events to the Insights API.
-
-You can include up to 1,000 events in a single request,
-but the request body must be smaller than 2&nbsp;MB.
-
-Request can be constructed by NewApiPushEventsRequest with parameters below.
-
-	@param insightsEvents InsightsEvents
-	@return EventsResponse
-*/
-func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...Option) (*EventsResponse, error) {
-	return c.PushEventsWithContext(context.Background(), r, opts...)
 }
 
 /*
@@ -968,10 +840,10 @@ Request can be constructed by NewApiPushEventsRequest with parameters below.
 	@param insightsEvents InsightsEvents
 	@return EventsResponse
 */
-func (c *APIClient) PushEventsWithContext(ctx context.Context, r ApiPushEventsRequest, opts ...Option) (*EventsResponse, error) {
+func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...utils.RequestOption) (*EventsResponse, error) {
 	var returnValue *EventsResponse
 
-	res, resBody, err := c.PushEventsWithHTTPInfo(ctx, r, opts...)
+	res, resBody, err := c.PushEventsWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}

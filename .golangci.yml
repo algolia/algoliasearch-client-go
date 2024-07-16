@@ -57,6 +57,7 @@ linters:
     - canonicalheader
     - mnd
     - perfsprint
+    - containedctx
 
     # Deprecated
     - execinquery
