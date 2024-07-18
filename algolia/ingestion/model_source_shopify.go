@@ -8,65 +8,17 @@ import (
 
 // SourceShopify struct for SourceShopify.
 type SourceShopify struct {
-	// Whether to index collection IDs.   If your store has `has_collection_search_page` set to true, collection IDs will be indexed even if `collectionIDIndexing` is false.
-	CollectionIDIndexing *bool `json:"collectionIDIndexing,omitempty"`
-	// Whether to increase the number of indexed collections per product. If true, Algolia indexes 200 collections per product. If false, 100 collections per product are indexed.
-	IncreaseProductCollectionLimit *bool `json:"increaseProductCollectionLimit,omitempty"`
-	// Whether to set the default price ratio to 1 if no sale price is present.  The price ratio is determined by the ratio: `sale_price` / `regular_price`. If no sale price is present, the price ratio would be 0. If `defaultPriceRatioAsOne` is true, the price ratio is indexed as 1 instead.
-	DefaultPriceRatioAsOne *bool `json:"defaultPriceRatioAsOne,omitempty"`
-	// Whether to exclude out-of-stock variants when determining the `max_variant_price` and `min_variant_price` attributes.
-	ExcludeOOSVariantsForPriceAtTRS *bool `json:"excludeOOSVariantsForPriceAtTRS,omitempty"`
-	// Whether to include an inventory with every variant for every product record.
-	IncludeVariantsInventory *bool `json:"includeVariantsInventory,omitempty"`
-	// Whether to include collection IDs and handles in the product records.
-	HasCollectionSearchPage *bool `json:"hasCollectionSearchPage,omitempty"`
-	// Whether to convert tags on products to named tags.  To learn more, see [Named tags](https://www.algolia.com/doc/integration/shopify/sending-and-managing-data/named-tags).
-	ProductNamedTags *bool `json:"productNamedTags,omitempty"`
+	// Feature flags for the Shopify source.
+	FeatureFlags map[string]any `json:"featureFlags,omitempty"`
 	// URL of the Shopify store.
 	ShopURL string `json:"shopURL"`
 }
 
 type SourceShopifyOption func(f *SourceShopify)
 
-func WithSourceShopifyCollectionIDIndexing(val bool) SourceShopifyOption {
+func WithSourceShopifyFeatureFlags(val map[string]any) SourceShopifyOption {
 	return func(f *SourceShopify) {
-		f.CollectionIDIndexing = &val
-	}
-}
-
-func WithSourceShopifyIncreaseProductCollectionLimit(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.IncreaseProductCollectionLimit = &val
-	}
-}
-
-func WithSourceShopifyDefaultPriceRatioAsOne(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.DefaultPriceRatioAsOne = &val
-	}
-}
-
-func WithSourceShopifyExcludeOOSVariantsForPriceAtTRS(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.ExcludeOOSVariantsForPriceAtTRS = &val
-	}
-}
-
-func WithSourceShopifyIncludeVariantsInventory(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.IncludeVariantsInventory = &val
-	}
-}
-
-func WithSourceShopifyHasCollectionSearchPage(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.HasCollectionSearchPage = &val
-	}
-}
-
-func WithSourceShopifyProductNamedTags(val bool) SourceShopifyOption {
-	return func(f *SourceShopify) {
-		f.ProductNamedTags = &val
+		f.FeatureFlags = val
 	}
 }
 
@@ -88,234 +40,36 @@ func NewEmptySourceShopify() *SourceShopify {
 	return &SourceShopify{}
 }
 
-// GetCollectionIDIndexing returns the CollectionIDIndexing field value if set, zero value otherwise.
-func (o *SourceShopify) GetCollectionIDIndexing() bool {
-	if o == nil || o.CollectionIDIndexing == nil {
-		var ret bool
+// GetFeatureFlags returns the FeatureFlags field value if set, zero value otherwise.
+func (o *SourceShopify) GetFeatureFlags() map[string]any {
+	if o == nil || o.FeatureFlags == nil {
+		var ret map[string]any
 		return ret
 	}
-	return *o.CollectionIDIndexing
+	return o.FeatureFlags
 }
 
-// GetCollectionIDIndexingOk returns a tuple with the CollectionIDIndexing field value if set, nil otherwise
+// GetFeatureFlagsOk returns a tuple with the FeatureFlags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceShopify) GetCollectionIDIndexingOk() (*bool, bool) {
-	if o == nil || o.CollectionIDIndexing == nil {
+func (o *SourceShopify) GetFeatureFlagsOk() (map[string]any, bool) {
+	if o == nil || o.FeatureFlags == nil {
 		return nil, false
 	}
-	return o.CollectionIDIndexing, true
+	return o.FeatureFlags, true
 }
 
-// HasCollectionIDIndexing returns a boolean if a field has been set.
-func (o *SourceShopify) HasCollectionIDIndexing() bool {
-	if o != nil && o.CollectionIDIndexing != nil {
+// HasFeatureFlags returns a boolean if a field has been set.
+func (o *SourceShopify) HasFeatureFlags() bool {
+	if o != nil && o.FeatureFlags != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCollectionIDIndexing gets a reference to the given bool and assigns it to the CollectionIDIndexing field.
-func (o *SourceShopify) SetCollectionIDIndexing(v bool) *SourceShopify {
-	o.CollectionIDIndexing = &v
-	return o
-}
-
-// GetIncreaseProductCollectionLimit returns the IncreaseProductCollectionLimit field value if set, zero value otherwise.
-func (o *SourceShopify) GetIncreaseProductCollectionLimit() bool {
-	if o == nil || o.IncreaseProductCollectionLimit == nil {
-		var ret bool
-		return ret
-	}
-	return *o.IncreaseProductCollectionLimit
-}
-
-// GetIncreaseProductCollectionLimitOk returns a tuple with the IncreaseProductCollectionLimit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetIncreaseProductCollectionLimitOk() (*bool, bool) {
-	if o == nil || o.IncreaseProductCollectionLimit == nil {
-		return nil, false
-	}
-	return o.IncreaseProductCollectionLimit, true
-}
-
-// HasIncreaseProductCollectionLimit returns a boolean if a field has been set.
-func (o *SourceShopify) HasIncreaseProductCollectionLimit() bool {
-	if o != nil && o.IncreaseProductCollectionLimit != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncreaseProductCollectionLimit gets a reference to the given bool and assigns it to the IncreaseProductCollectionLimit field.
-func (o *SourceShopify) SetIncreaseProductCollectionLimit(v bool) *SourceShopify {
-	o.IncreaseProductCollectionLimit = &v
-	return o
-}
-
-// GetDefaultPriceRatioAsOne returns the DefaultPriceRatioAsOne field value if set, zero value otherwise.
-func (o *SourceShopify) GetDefaultPriceRatioAsOne() bool {
-	if o == nil || o.DefaultPriceRatioAsOne == nil {
-		var ret bool
-		return ret
-	}
-	return *o.DefaultPriceRatioAsOne
-}
-
-// GetDefaultPriceRatioAsOneOk returns a tuple with the DefaultPriceRatioAsOne field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetDefaultPriceRatioAsOneOk() (*bool, bool) {
-	if o == nil || o.DefaultPriceRatioAsOne == nil {
-		return nil, false
-	}
-	return o.DefaultPriceRatioAsOne, true
-}
-
-// HasDefaultPriceRatioAsOne returns a boolean if a field has been set.
-func (o *SourceShopify) HasDefaultPriceRatioAsOne() bool {
-	if o != nil && o.DefaultPriceRatioAsOne != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDefaultPriceRatioAsOne gets a reference to the given bool and assigns it to the DefaultPriceRatioAsOne field.
-func (o *SourceShopify) SetDefaultPriceRatioAsOne(v bool) *SourceShopify {
-	o.DefaultPriceRatioAsOne = &v
-	return o
-}
-
-// GetExcludeOOSVariantsForPriceAtTRS returns the ExcludeOOSVariantsForPriceAtTRS field value if set, zero value otherwise.
-func (o *SourceShopify) GetExcludeOOSVariantsForPriceAtTRS() bool {
-	if o == nil || o.ExcludeOOSVariantsForPriceAtTRS == nil {
-		var ret bool
-		return ret
-	}
-	return *o.ExcludeOOSVariantsForPriceAtTRS
-}
-
-// GetExcludeOOSVariantsForPriceAtTRSOk returns a tuple with the ExcludeOOSVariantsForPriceAtTRS field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetExcludeOOSVariantsForPriceAtTRSOk() (*bool, bool) {
-	if o == nil || o.ExcludeOOSVariantsForPriceAtTRS == nil {
-		return nil, false
-	}
-	return o.ExcludeOOSVariantsForPriceAtTRS, true
-}
-
-// HasExcludeOOSVariantsForPriceAtTRS returns a boolean if a field has been set.
-func (o *SourceShopify) HasExcludeOOSVariantsForPriceAtTRS() bool {
-	if o != nil && o.ExcludeOOSVariantsForPriceAtTRS != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExcludeOOSVariantsForPriceAtTRS gets a reference to the given bool and assigns it to the ExcludeOOSVariantsForPriceAtTRS field.
-func (o *SourceShopify) SetExcludeOOSVariantsForPriceAtTRS(v bool) *SourceShopify {
-	o.ExcludeOOSVariantsForPriceAtTRS = &v
-	return o
-}
-
-// GetIncludeVariantsInventory returns the IncludeVariantsInventory field value if set, zero value otherwise.
-func (o *SourceShopify) GetIncludeVariantsInventory() bool {
-	if o == nil || o.IncludeVariantsInventory == nil {
-		var ret bool
-		return ret
-	}
-	return *o.IncludeVariantsInventory
-}
-
-// GetIncludeVariantsInventoryOk returns a tuple with the IncludeVariantsInventory field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetIncludeVariantsInventoryOk() (*bool, bool) {
-	if o == nil || o.IncludeVariantsInventory == nil {
-		return nil, false
-	}
-	return o.IncludeVariantsInventory, true
-}
-
-// HasIncludeVariantsInventory returns a boolean if a field has been set.
-func (o *SourceShopify) HasIncludeVariantsInventory() bool {
-	if o != nil && o.IncludeVariantsInventory != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncludeVariantsInventory gets a reference to the given bool and assigns it to the IncludeVariantsInventory field.
-func (o *SourceShopify) SetIncludeVariantsInventory(v bool) *SourceShopify {
-	o.IncludeVariantsInventory = &v
-	return o
-}
-
-// GetHasCollectionSearchPage returns the HasCollectionSearchPage field value if set, zero value otherwise.
-func (o *SourceShopify) GetHasCollectionSearchPage() bool {
-	if o == nil || o.HasCollectionSearchPage == nil {
-		var ret bool
-		return ret
-	}
-	return *o.HasCollectionSearchPage
-}
-
-// GetHasCollectionSearchPageOk returns a tuple with the HasCollectionSearchPage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetHasCollectionSearchPageOk() (*bool, bool) {
-	if o == nil || o.HasCollectionSearchPage == nil {
-		return nil, false
-	}
-	return o.HasCollectionSearchPage, true
-}
-
-// HasHasCollectionSearchPage returns a boolean if a field has been set.
-func (o *SourceShopify) HasHasCollectionSearchPage() bool {
-	if o != nil && o.HasCollectionSearchPage != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHasCollectionSearchPage gets a reference to the given bool and assigns it to the HasCollectionSearchPage field.
-func (o *SourceShopify) SetHasCollectionSearchPage(v bool) *SourceShopify {
-	o.HasCollectionSearchPage = &v
-	return o
-}
-
-// GetProductNamedTags returns the ProductNamedTags field value if set, zero value otherwise.
-func (o *SourceShopify) GetProductNamedTags() bool {
-	if o == nil || o.ProductNamedTags == nil {
-		var ret bool
-		return ret
-	}
-	return *o.ProductNamedTags
-}
-
-// GetProductNamedTagsOk returns a tuple with the ProductNamedTags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceShopify) GetProductNamedTagsOk() (*bool, bool) {
-	if o == nil || o.ProductNamedTags == nil {
-		return nil, false
-	}
-	return o.ProductNamedTags, true
-}
-
-// HasProductNamedTags returns a boolean if a field has been set.
-func (o *SourceShopify) HasProductNamedTags() bool {
-	if o != nil && o.ProductNamedTags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetProductNamedTags gets a reference to the given bool and assigns it to the ProductNamedTags field.
-func (o *SourceShopify) SetProductNamedTags(v bool) *SourceShopify {
-	o.ProductNamedTags = &v
+// SetFeatureFlags gets a reference to the given map[string]any and assigns it to the FeatureFlags field.
+func (o *SourceShopify) SetFeatureFlags(v map[string]any) *SourceShopify {
+	o.FeatureFlags = v
 	return o
 }
 
@@ -346,26 +100,8 @@ func (o *SourceShopify) SetShopURL(v string) *SourceShopify {
 
 func (o SourceShopify) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.CollectionIDIndexing != nil {
-		toSerialize["collectionIDIndexing"] = o.CollectionIDIndexing
-	}
-	if o.IncreaseProductCollectionLimit != nil {
-		toSerialize["increaseProductCollectionLimit"] = o.IncreaseProductCollectionLimit
-	}
-	if o.DefaultPriceRatioAsOne != nil {
-		toSerialize["defaultPriceRatioAsOne"] = o.DefaultPriceRatioAsOne
-	}
-	if o.ExcludeOOSVariantsForPriceAtTRS != nil {
-		toSerialize["excludeOOSVariantsForPriceAtTRS"] = o.ExcludeOOSVariantsForPriceAtTRS
-	}
-	if o.IncludeVariantsInventory != nil {
-		toSerialize["includeVariantsInventory"] = o.IncludeVariantsInventory
-	}
-	if o.HasCollectionSearchPage != nil {
-		toSerialize["hasCollectionSearchPage"] = o.HasCollectionSearchPage
-	}
-	if o.ProductNamedTags != nil {
-		toSerialize["productNamedTags"] = o.ProductNamedTags
+	if o.FeatureFlags != nil {
+		toSerialize["featureFlags"] = o.FeatureFlags
 	}
 	if true {
 		toSerialize["shopURL"] = o.ShopURL
@@ -380,13 +116,7 @@ func (o SourceShopify) MarshalJSON() ([]byte, error) {
 
 func (o SourceShopify) String() string {
 	out := ""
-	out += fmt.Sprintf("  collectionIDIndexing=%v\n", o.CollectionIDIndexing)
-	out += fmt.Sprintf("  increaseProductCollectionLimit=%v\n", o.IncreaseProductCollectionLimit)
-	out += fmt.Sprintf("  defaultPriceRatioAsOne=%v\n", o.DefaultPriceRatioAsOne)
-	out += fmt.Sprintf("  excludeOOSVariantsForPriceAtTRS=%v\n", o.ExcludeOOSVariantsForPriceAtTRS)
-	out += fmt.Sprintf("  includeVariantsInventory=%v\n", o.IncludeVariantsInventory)
-	out += fmt.Sprintf("  hasCollectionSearchPage=%v\n", o.HasCollectionSearchPage)
-	out += fmt.Sprintf("  productNamedTags=%v\n", o.ProductNamedTags)
+	out += fmt.Sprintf("  featureFlags=%v\n", o.FeatureFlags)
 	out += fmt.Sprintf("  shopURL=%v\n", o.ShopURL)
 	return fmt.Sprintf("SourceShopify {\n%s}", out)
 }
