@@ -12,6 +12,41 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
+type config struct {
+	// -- Request options for API calls
+	context      context.Context
+	queryParams  url.Values
+	headerParams map[string]string
+}
+
+type RequestOption interface {
+	apply(*config)
+}
+
+type requestOption func(*config)
+
+func (r requestOption) apply(c *config) {
+	r(c)
+}
+
+func WithContext(ctx context.Context) requestOption {
+	return requestOption(func(c *config) {
+		c.context = ctx
+	})
+}
+
+func WithHeaderParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.headerParams[key] = utils.ParameterToString(value)
+	})
+}
+
+func WithQueryParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -68,12 +103,12 @@ CustomDelete calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -81,26 +116,26 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...u
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +154,7 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
@@ -210,12 +245,12 @@ CustomGet calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -223,26 +258,26 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -261,7 +296,7 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
@@ -369,12 +404,12 @@ CustomPost calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -382,21 +417,21 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -407,7 +442,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -427,7 +462,7 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
@@ -535,12 +570,12 @@ CustomPut calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -548,21 +583,21 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -573,7 +608,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -593,7 +628,7 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
@@ -667,12 +702,12 @@ GetClusterIncidents calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by comma.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetClusterIncidentsWithHTTPInfo(r ApiGetClusterIncidentsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetClusterIncidentsWithHTTPInfo(r ApiGetClusterIncidentsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/incidents/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(utils.ParameterToString(r.clusters)))
 
@@ -680,20 +715,20 @@ func (c *APIClient) GetClusterIncidentsWithHTTPInfo(r ApiGetClusterIncidentsRequ
 		return nil, nil, reportError("Parameter `clusters` is required when calling `GetClusterIncidents`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -711,7 +746,7 @@ Request can be constructed by NewApiGetClusterIncidentsRequest with parameters b
 	@param clusters string - Subset of clusters, separated by comma.
 	@return IncidentsResponse
 */
-func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ...utils.RequestOption) (*IncidentsResponse, error) {
+func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ...RequestOption) (*IncidentsResponse, error) {
 	var returnValue *IncidentsResponse
 
 	res, resBody, err := c.GetClusterIncidentsWithHTTPInfo(r, opts...)
@@ -785,12 +820,12 @@ GetClusterStatus calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by comma.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetClusterStatusWithHTTPInfo(r ApiGetClusterStatusRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetClusterStatusWithHTTPInfo(r ApiGetClusterStatusRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/status/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(utils.ParameterToString(r.clusters)))
 
@@ -798,20 +833,20 @@ func (c *APIClient) GetClusterStatusWithHTTPInfo(r ApiGetClusterStatusRequest, o
 		return nil, nil, reportError("Parameter `clusters` is required when calling `GetClusterStatus`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -829,7 +864,7 @@ Request can be constructed by NewApiGetClusterStatusRequest with parameters belo
 	@param clusters string - Subset of clusters, separated by comma.
 	@return StatusResponse
 */
-func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...utils.RequestOption) (*StatusResponse, error) {
+func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...RequestOption) (*StatusResponse, error) {
 	var returnValue *StatusResponse
 
 	res, resBody, err := c.GetClusterStatusWithHTTPInfo(r, opts...)
@@ -871,28 +906,28 @@ GetIncidents calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetIncidentsRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetIncidentsWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetIncidentsWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/incidents"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -909,7 +944,7 @@ Request can be constructed by NewApiGetIncidentsRequest with parameters below.
 
 	@return IncidentsResponse
 */
-func (c *APIClient) GetIncidents(opts ...utils.RequestOption) (*IncidentsResponse, error) {
+func (c *APIClient) GetIncidents(opts ...RequestOption) (*IncidentsResponse, error) {
 	var returnValue *IncidentsResponse
 
 	res, resBody, err := c.GetIncidentsWithHTTPInfo(opts...)
@@ -983,12 +1018,12 @@ GetIndexingTime calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by comma.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetIndexingTimeWithHTTPInfo(r ApiGetIndexingTimeRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetIndexingTimeWithHTTPInfo(r ApiGetIndexingTimeRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexing/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(utils.ParameterToString(r.clusters)))
 
@@ -996,20 +1031,20 @@ func (c *APIClient) GetIndexingTimeWithHTTPInfo(r ApiGetIndexingTimeRequest, opt
 		return nil, nil, reportError("Parameter `clusters` is required when calling `GetIndexingTime`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1027,7 +1062,7 @@ Request can be constructed by NewApiGetIndexingTimeRequest with parameters below
 	@param clusters string - Subset of clusters, separated by comma.
 	@return IndexingTimeResponse
 */
-func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...utils.RequestOption) (*IndexingTimeResponse, error) {
+func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...RequestOption) (*IndexingTimeResponse, error) {
 	var returnValue *IndexingTimeResponse
 
 	res, resBody, err := c.GetIndexingTimeWithHTTPInfo(r, opts...)
@@ -1101,12 +1136,12 @@ GetLatency calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetLatencyRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by comma.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetLatencyWithHTTPInfo(r ApiGetLatencyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetLatencyWithHTTPInfo(r ApiGetLatencyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/latency/{clusters}"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(utils.ParameterToString(r.clusters)))
 
@@ -1114,20 +1149,20 @@ func (c *APIClient) GetLatencyWithHTTPInfo(r ApiGetLatencyRequest, opts ...utils
 		return nil, nil, reportError("Parameter `clusters` is required when calling `GetLatency`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1145,7 +1180,7 @@ Request can be constructed by NewApiGetLatencyRequest with parameters below.
 	@param clusters string - Subset of clusters, separated by comma.
 	@return LatencyResponse
 */
-func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...utils.RequestOption) (*LatencyResponse, error) {
+func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...RequestOption) (*LatencyResponse, error) {
 	var returnValue *LatencyResponse
 
 	res, resBody, err := c.GetLatencyWithHTTPInfo(r, opts...)
@@ -1233,30 +1268,30 @@ You must authenticate requests with the `x-algolia-application-id` and `x-algoli
 	Request can be constructed by NewApiGetMetricsRequest with parameters below.
 	  @param metric Metric - Metric to report.  For more information about the individual metrics, see the description of the API response. To include all metrics, use `*`.
 	  @param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetMetricsWithHTTPInfo(r ApiGetMetricsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetMetricsWithHTTPInfo(r ApiGetMetricsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/infrastructure/{metric}/period/{period}"
 	requestPath = strings.ReplaceAll(requestPath, "{metric}", url.PathEscape(utils.ParameterToString(r.metric)))
 	requestPath = strings.ReplaceAll(requestPath, "{period}", url.PathEscape(utils.ParameterToString(r.period)))
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1278,7 +1313,7 @@ Request can be constructed by NewApiGetMetricsRequest with parameters below.
 	@param period Period - Period over which to aggregate the metrics:  - `minute`. Aggregate the last minute. 1 data point per 10 seconds. - `hour`. Aggregate the last hour. 1 data point per minute. - `day`. Aggregate the last day. 1 data point per 10 minutes. - `week`. Aggregate the last week. 1 data point per hour. - `month`. Aggregate the last month. 1 data point per day.
 	@return InfrastructureResponse
 */
-func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...utils.RequestOption) (*InfrastructureResponse, error) {
+func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...RequestOption) (*InfrastructureResponse, error) {
 	var returnValue *InfrastructureResponse
 
 	res, resBody, err := c.GetMetricsWithHTTPInfo(r, opts...)
@@ -1352,12 +1387,12 @@ GetReachability calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetReachabilityRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by comma.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetReachabilityWithHTTPInfo(r ApiGetReachabilityRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetReachabilityWithHTTPInfo(r ApiGetReachabilityRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/reachability/{clusters}/probes"
 	requestPath = strings.ReplaceAll(requestPath, "{clusters}", url.PathEscape(utils.ParameterToString(r.clusters)))
 
@@ -1365,20 +1400,20 @@ func (c *APIClient) GetReachabilityWithHTTPInfo(r ApiGetReachabilityRequest, opt
 		return nil, nil, reportError("Parameter `clusters` is required when calling `GetReachability`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1396,7 +1431,7 @@ Request can be constructed by NewApiGetReachabilityRequest with parameters below
 	@param clusters string - Subset of clusters, separated by comma.
 	@return map[string]map[string]bool
 */
-func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...utils.RequestOption) (*map[string]map[string]bool, error) {
+func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...RequestOption) (*map[string]map[string]bool, error) {
 	var returnValue *map[string]map[string]bool
 
 	res, resBody, err := c.GetReachabilityWithHTTPInfo(r, opts...)
@@ -1445,28 +1480,28 @@ Algolia application's cluster.
 clusters.
 
 	Request can be constructed by NewApiGetServersRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetServersWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetServersWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/inventory/servers"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1491,7 +1526,7 @@ Request can be constructed by NewApiGetServersRequest with parameters below.
 
 	@return InventoryResponse
 */
-func (c *APIClient) GetServers(opts ...utils.RequestOption) (*InventoryResponse, error) {
+func (c *APIClient) GetServers(opts ...RequestOption) (*InventoryResponse, error) {
 	var returnValue *InventoryResponse
 
 	res, resBody, err := c.GetServersWithHTTPInfo(opts...)
@@ -1533,28 +1568,28 @@ GetStatus calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetStatusRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetStatusWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetStatusWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/status"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1571,7 +1606,7 @@ Request can be constructed by NewApiGetStatusRequest with parameters below.
 
 	@return StatusResponse
 */
-func (c *APIClient) GetStatus(opts ...utils.RequestOption) (*StatusResponse, error) {
+func (c *APIClient) GetStatus(opts ...RequestOption) (*StatusResponse, error) {
 	var returnValue *StatusResponse
 
 	res, resBody, err := c.GetStatusWithHTTPInfo(opts...)

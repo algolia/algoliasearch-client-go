@@ -12,6 +12,41 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
+type config struct {
+	// -- Request options for API calls
+	context      context.Context
+	queryParams  url.Values
+	headerParams map[string]string
+}
+
+type RequestOption interface {
+	apply(*config)
+}
+
+type requestOption func(*config)
+
+func (r requestOption) apply(c *config) {
+	r(c)
+}
+
+func WithContext(ctx context.Context) requestOption {
+	return requestOption(func(c *config) {
+		c.context = ctx
+	})
+}
+
+func WithHeaderParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.headerParams[key] = utils.ParameterToString(value)
+	})
+}
+
+func WithQueryParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
 func (r *ApiAddABTestsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -58,34 +93,34 @@ AddABTests calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiAddABTestsRequest with parameters below.
 	  @param addABTestsRequest AddABTestsRequest
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) AddABTestsWithHTTPInfo(r ApiAddABTestsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) AddABTestsWithHTTPInfo(r ApiAddABTestsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests"
 
 	if r.addABTestsRequest == nil {
 		return nil, nil, reportError("Parameter `addABTestsRequest` is required when calling `AddABTests`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.addABTestsRequest
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -106,7 +141,7 @@ Request can be constructed by NewApiAddABTestsRequest with parameters below.
 	@param addABTestsRequest AddABTestsRequest
 	@return ABTestResponse
 */
-func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...utils.RequestOption) (*ABTestResponse, error) {
+func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
 
 	res, resBody, err := c.AddABTestsWithHTTPInfo(r, opts...)
@@ -197,12 +232,12 @@ CustomDelete calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -210,26 +245,26 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...u
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -248,7 +283,7 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
@@ -339,12 +374,12 @@ CustomGet calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -352,26 +387,26 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -390,7 +425,7 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
@@ -498,12 +533,12 @@ CustomPost calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -511,21 +546,21 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -536,7 +571,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -556,7 +591,7 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
@@ -664,12 +699,12 @@ CustomPut calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -677,21 +712,21 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -702,7 +737,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -722,7 +757,7 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
@@ -798,29 +833,29 @@ DeleteABTest calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 	  @param id int32 - Unique A/B test identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteABTestWithHTTPInfo(r ApiDeleteABTestRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteABTestWithHTTPInfo(r ApiDeleteABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}"
 	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -841,7 +876,7 @@ Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
-func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...utils.RequestOption) (*ABTestResponse, error) {
+func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
 
 	res, resBody, err := c.DeleteABTestWithHTTPInfo(r, opts...)
@@ -917,29 +952,29 @@ GetABTest calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetABTestRequest with parameters below.
 	  @param id int32 - Unique A/B test identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetABTestWithHTTPInfo(r ApiGetABTestRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetABTestWithHTTPInfo(r ApiGetABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}"
 	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -960,7 +995,7 @@ Request can be constructed by NewApiGetABTestRequest with parameters below.
 	@param id int32 - Unique A/B test identifier.
 	@return ABTest
 */
-func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...utils.RequestOption) (*ABTest, error) {
+func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*ABTest, error) {
 	var returnValue *ABTest
 
 	res, resBody, err := c.GetABTestWithHTTPInfo(r, opts...)
@@ -1091,41 +1126,41 @@ ListABTests calls the API and returns the raw response from it.
 	  @param limit int32 - Number of items to return.
 	  @param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
 	  @param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		options.QueryParams.Set("offset", utils.QueryParameterToString(*r.offset))
+		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.limit) {
-		options.QueryParams.Set("limit", utils.QueryParameterToString(*r.limit))
+		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
 	if !utils.IsNilOrEmpty(r.indexPrefix) {
-		options.QueryParams.Set("indexPrefix", utils.QueryParameterToString(*r.indexPrefix))
+		conf.queryParams.Set("indexPrefix", utils.QueryParameterToString(*r.indexPrefix))
 	}
 	if !utils.IsNilOrEmpty(r.indexSuffix) {
-		options.QueryParams.Set("indexSuffix", utils.QueryParameterToString(*r.indexSuffix))
+		conf.queryParams.Set("indexSuffix", utils.QueryParameterToString(*r.indexSuffix))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1149,7 +1184,7 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
 	@return ListABTestsResponse
 */
-func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...utils.RequestOption) (*ListABTestsResponse, error) {
+func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) (*ListABTestsResponse, error) {
 	var returnValue *ListABTestsResponse
 
 	res, resBody, err := c.ListABTestsWithHTTPInfo(r, opts...)
@@ -1227,29 +1262,29 @@ You can't restart stopped A/B tests.
 
 	Request can be constructed by NewApiStopABTestRequest with parameters below.
 	  @param id int32 - Unique A/B test identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) StopABTestWithHTTPInfo(r ApiStopABTestRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) StopABTestWithHTTPInfo(r ApiStopABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}/stop"
 	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1272,7 +1307,7 @@ Request can be constructed by NewApiStopABTestRequest with parameters below.
 	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
 */
-func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...utils.RequestOption) (*ABTestResponse, error) {
+func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
 
 	res, resBody, err := c.StopABTestWithHTTPInfo(r, opts...)

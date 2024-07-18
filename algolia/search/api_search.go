@@ -2,12 +2,14 @@
 package search
 
 import (
+	"cmp"
 	"context"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -22,6 +24,251 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
+
+type config struct {
+	// -- Request options for API calls
+	context      context.Context
+	queryParams  url.Values
+	headerParams map[string]string
+
+	// -- ChunkedBatch options
+	waitForTasks bool
+	batchSize    int
+
+	// -- Partial update options
+	createIfNotExists bool
+
+	// -- Iterable options
+	maxRetries    int
+	timeout       func(int) time.Duration
+	aggregator    func(any, error)
+	iterableError *IterableError
+
+	// -- WaitForApiKey options
+	apiKey *ApiKey
+}
+
+type RequestOption interface {
+	apply(*config)
+}
+
+type requestOption func(*config)
+
+func (r requestOption) apply(c *config) {
+	r(c)
+}
+
+func WithContext(ctx context.Context) requestOption {
+	return requestOption(func(c *config) {
+		c.context = ctx
+	})
+}
+
+func WithHeaderParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.headerParams[key] = utils.ParameterToString(value)
+	})
+}
+
+func WithQueryParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
+// --------- ChunkedBatch options ---------
+
+type ChunkedBatchOption interface {
+	RequestOption
+	chunkedBatch()
+}
+
+type chunkedBatchOption func(*config)
+
+var (
+	_ ChunkedBatchOption = (*chunkedBatchOption)(nil)
+	_ ChunkedBatchOption = (*requestOption)(nil)
+)
+
+func (c chunkedBatchOption) apply(conf *config) {
+	c(conf)
+}
+
+func (c chunkedBatchOption) chunkedBatch() {}
+
+func (r requestOption) chunkedBatch() {}
+
+func WithWaitForTasks(waitForTasks bool) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.waitForTasks = waitForTasks
+	})
+}
+
+func WithBatchSize(batchSize int) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.batchSize = batchSize
+	})
+}
+
+// --------- ChunkedBatch options ---------
+
+type PartialUpdateObjectsOption interface {
+	ChunkedBatchOption
+	partialUpdateObjects()
+}
+
+type partialUpdateObjectsOption func(*config)
+
+var (
+	_ PartialUpdateObjectsOption = (*partialUpdateObjectsOption)(nil)
+	_ PartialUpdateObjectsOption = (*chunkedBatchOption)(nil)
+	_ PartialUpdateObjectsOption = (*requestOption)(nil)
+)
+
+func (p partialUpdateObjectsOption) apply(c *config) {
+	p(c)
+}
+
+func (p partialUpdateObjectsOption) partialUpdateObjects() {}
+
+func (p partialUpdateObjectsOption) chunkedBatch() {}
+
+func (c chunkedBatchOption) partialUpdateObjects() {}
+
+func (r requestOption) partialUpdateObjects() {}
+
+func WithCreateIfNotExists(createIfNotExists bool) partialUpdateObjectsOption {
+	return partialUpdateObjectsOption(func(c *config) {
+		c.createIfNotExists = createIfNotExists
+	})
+}
+
+// --------- Iterable options ---------.
+
+type IterableOption interface {
+	RequestOption
+	iterable()
+}
+
+type iterableOption func(*config)
+
+var (
+	_ IterableOption = (*iterableOption)(nil)
+	_ IterableOption = (*requestOption)(nil)
+)
+
+func (i iterableOption) apply(c *config) {
+	i(c)
+}
+
+func (r requestOption) iterable() {}
+
+func (i iterableOption) iterable() {}
+
+func WithMaxRetries(maxRetries int) iterableOption {
+	return iterableOption(func(c *config) {
+		c.maxRetries = maxRetries
+	})
+}
+
+func WithTimeout(timeout func(int) time.Duration) iterableOption {
+	return iterableOption(func(c *config) {
+		c.timeout = timeout
+	})
+}
+
+func WithAggregator(aggregator func(any, error)) iterableOption {
+	return iterableOption(func(c *config) {
+		c.aggregator = aggregator
+	})
+}
+
+func WithIterableError(iterableError *IterableError) iterableOption {
+	return iterableOption(func(c *config) {
+		c.iterableError = iterableError
+	})
+}
+
+// --------- WaitForKey options ---------.
+
+type WaitForApiKeyOption interface {
+	IterableOption
+	waitForApiKey()
+}
+
+type waitForApiKeyOption func(*config)
+
+var (
+	_ WaitForApiKeyOption = (*waitForApiKeyOption)(nil)
+	_ WaitForApiKeyOption = (*iterableOption)(nil)
+	_ WaitForApiKeyOption = (*requestOption)(nil)
+)
+
+func (w waitForApiKeyOption) apply(c *config) {
+	w(c)
+}
+
+func (w waitForApiKeyOption) waitForApiKey() {}
+
+func (w waitForApiKeyOption) iterable() {}
+
+func (r requestOption) waitForApiKey() {}
+
+func (i iterableOption) waitForApiKey() {}
+
+func WithApiKey(apiKey *ApiKey) waitForApiKeyOption {
+	return waitForApiKeyOption(func(c *config) {
+		c.apiKey = apiKey
+	})
+}
+
+// --------- Helper to convert options ---------
+
+func toRequestOptions[T RequestOption](opts []T) []RequestOption {
+	requestOpts := make([]RequestOption, 0, len(opts))
+
+	for _, opt := range opts {
+		requestOpts = append(requestOpts, opt)
+	}
+
+	return requestOpts
+}
+
+func toIterableOptions(opts []ChunkedBatchOption) []IterableOption {
+	iterableOpts := make([]IterableOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(IterableOption); ok {
+			iterableOpts = append(iterableOpts, opt)
+		}
+	}
+
+	return iterableOpts
+}
+
+func toIterableOptionsWaitFor(opts []WaitForApiKeyOption) []IterableOption {
+	iterableOpts := make([]IterableOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(IterableOption); ok {
+			iterableOpts = append(iterableOpts, opt)
+		}
+	}
+
+	return iterableOpts
+}
+
+func toChunkedBatchOptions(opts []PartialUpdateObjectsOption) []ChunkedBatchOption {
+	chunkedBatchOpts := make([]ChunkedBatchOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(ChunkedBatchOption); ok {
+			chunkedBatchOpts = append(chunkedBatchOpts, opt)
+		}
+	}
+
+	return chunkedBatchOpts
+}
 
 func (r *ApiAddApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
@@ -69,34 +316,34 @@ AddApiKey calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiAddApiKeyRequest with parameters below.
 	  @param apiKey ApiKey
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) AddApiKeyWithHTTPInfo(r ApiAddApiKeyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) AddApiKeyWithHTTPInfo(r ApiAddApiKeyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys"
 
 	if r.apiKey == nil {
 		return nil, nil, reportError("Parameter `apiKey` is required when calling `AddApiKey`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.apiKey
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -117,7 +364,7 @@ Request can be constructed by NewApiAddApiKeyRequest with parameters below.
 	@param apiKey ApiKey
 	@return AddApiKeyResponse
 */
-func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...utils.RequestOption) (*AddApiKeyResponse, error) {
+func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...RequestOption) (*AddApiKeyResponse, error) {
 	var returnValue *AddApiKeyResponse
 
 	res, resBody, err := c.AddApiKeyWithHTTPInfo(r, opts...)
@@ -227,12 +474,12 @@ To add, update, or replace multiple records, use the [`batch` operation](#tag/Re
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique record identifier.
 	  @param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) AddOrUpdateObjectWithHTTPInfo(r ApiAddOrUpdateObjectRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) AddOrUpdateObjectWithHTTPInfo(r ApiAddOrUpdateObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -248,22 +495,22 @@ func (c *APIClient) AddOrUpdateObjectWithHTTPInfo(r ApiAddOrUpdateObjectRequest,
 		return nil, nil, reportError("Parameter `body` is required when calling `AddOrUpdateObject`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.body
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -290,7 +537,7 @@ Request can be constructed by NewApiAddOrUpdateObjectRequest with parameters bel
 	@param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
 	@return UpdatedAtWithObjectIdResponse
 */
-func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...utils.RequestOption) (*UpdatedAtWithObjectIdResponse, error) {
+func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...RequestOption) (*UpdatedAtWithObjectIdResponse, error) {
 	var returnValue *UpdatedAtWithObjectIdResponse
 
 	res, resBody, err := c.AddOrUpdateObjectWithHTTPInfo(r, opts...)
@@ -371,34 +618,34 @@ AppendSource calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiAppendSourceRequest with parameters below.
 	  @param source Source - Source to add.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) AppendSourceWithHTTPInfo(r ApiAppendSourceRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) AppendSourceWithHTTPInfo(r ApiAppendSourceRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/security/sources/append"
 
 	if r.source == nil {
 		return nil, nil, reportError("Parameter `source` is required when calling `AppendSource`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.source
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -419,7 +666,7 @@ Request can be constructed by NewApiAppendSourceRequest with parameters below.
 	@param source Source - Source to add.
 	@return CreatedAtResponse
 */
-func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...utils.RequestOption) (*CreatedAtResponse, error) {
+func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...RequestOption) (*CreatedAtResponse, error) {
 	var returnValue *CreatedAtResponse
 
 	res, resBody, err := c.AppendSourceWithHTTPInfo(r, opts...)
@@ -514,12 +761,12 @@ The time it takes to move a user is proportional to the amount of data linked to
 	Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 	  @param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	  @param assignUserIdParams AssignUserIdParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) AssignUserIdWithHTTPInfo(r ApiAssignUserIdRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) AssignUserIdWithHTTPInfo(r ApiAssignUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping"
 
 	if r.xAlgoliaUserID == "" {
@@ -530,24 +777,24 @@ func (c *APIClient) AssignUserIdWithHTTPInfo(r ApiAssignUserIdRequest, opts ...u
 		return nil, nil, reportError("Parameter `assignUserIdParams` is required when calling `AssignUserId`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
-	options.HeaderParams["X-Algolia-User-ID"] = utils.ParameterToString(r.xAlgoliaUserID)
+	conf.headerParams["X-Algolia-User-ID"] = utils.ParameterToString(r.xAlgoliaUserID)
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.assignUserIdParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -571,7 +818,7 @@ Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 	@param assignUserIdParams AssignUserIdParams
 	@return CreatedAtResponse
 */
-func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...utils.RequestOption) (*CreatedAtResponse, error) {
+func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...RequestOption) (*CreatedAtResponse, error) {
 	var returnValue *CreatedAtResponse
 
 	res, resBody, err := c.AssignUserIdWithHTTPInfo(r, opts...)
@@ -666,12 +913,12 @@ Batching index updates reduces latency and increases data integrity.
 	Request can be constructed by NewApiBatchRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param batchWriteParams BatchWriteParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) BatchWithHTTPInfo(r ApiBatchRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) BatchWithHTTPInfo(r ApiBatchRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/batch"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -683,22 +930,22 @@ func (c *APIClient) BatchWithHTTPInfo(r ApiBatchRequest, opts ...utils.RequestOp
 		return nil, nil, reportError("Parameter `batchWriteParams` is required when calling `Batch`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.batchWriteParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -722,7 +969,7 @@ Request can be constructed by NewApiBatchRequest with parameters below.
 	@param batchWriteParams BatchWriteParams
 	@return BatchResponse
 */
-func (c *APIClient) Batch(r ApiBatchRequest, opts ...utils.RequestOption) (*BatchResponse, error) {
+func (c *APIClient) Batch(r ApiBatchRequest, opts ...RequestOption) (*BatchResponse, error) {
 	var returnValue *BatchResponse
 
 	res, resBody, err := c.BatchWithHTTPInfo(r, opts...)
@@ -817,12 +1064,12 @@ BatchAssignUserIds calls the API and returns the raw response from it.
 	Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters below.
 	  @param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	  @param batchAssignUserIdsParams BatchAssignUserIdsParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) BatchAssignUserIdsWithHTTPInfo(r ApiBatchAssignUserIdsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) BatchAssignUserIdsWithHTTPInfo(r ApiBatchAssignUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/batch"
 
 	if r.xAlgoliaUserID == "" {
@@ -833,24 +1080,24 @@ func (c *APIClient) BatchAssignUserIdsWithHTTPInfo(r ApiBatchAssignUserIdsReques
 		return nil, nil, reportError("Parameter `batchAssignUserIdsParams` is required when calling `BatchAssignUserIds`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
-	options.HeaderParams["X-Algolia-User-ID"] = utils.ParameterToString(r.xAlgoliaUserID)
+	conf.headerParams["X-Algolia-User-ID"] = utils.ParameterToString(r.xAlgoliaUserID)
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.batchAssignUserIdsParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -874,7 +1121,7 @@ Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters be
 	@param batchAssignUserIdsParams BatchAssignUserIdsParams
 	@return CreatedAtResponse
 */
-func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...utils.RequestOption) (*CreatedAtResponse, error) {
+func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...RequestOption) (*CreatedAtResponse, error) {
 	var returnValue *CreatedAtResponse
 
 	res, resBody, err := c.BatchAssignUserIdsWithHTTPInfo(r, opts...)
@@ -967,12 +1214,12 @@ BatchDictionaryEntries calls the API and returns the raw response from it.
 	Request can be constructed by NewApiBatchDictionaryEntriesRequest with parameters below.
 	  @param dictionaryName DictionaryType - Dictionary type in which to search.
 	  @param batchDictionaryEntriesParams BatchDictionaryEntriesParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) BatchDictionaryEntriesWithHTTPInfo(r ApiBatchDictionaryEntriesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) BatchDictionaryEntriesWithHTTPInfo(r ApiBatchDictionaryEntriesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/dictionaries/{dictionaryName}/batch"
 	requestPath = strings.ReplaceAll(requestPath, "{dictionaryName}", url.PathEscape(utils.ParameterToString(r.dictionaryName)))
 
@@ -980,22 +1227,22 @@ func (c *APIClient) BatchDictionaryEntriesWithHTTPInfo(r ApiBatchDictionaryEntri
 		return nil, nil, reportError("Parameter `batchDictionaryEntriesParams` is required when calling `BatchDictionaryEntries`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.batchDictionaryEntriesParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1017,7 +1264,7 @@ Request can be constructed by NewApiBatchDictionaryEntriesRequest with parameter
 	@param batchDictionaryEntriesParams BatchDictionaryEntriesParams
 	@return UpdatedAtResponse
 */
-func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.BatchDictionaryEntriesWithHTTPInfo(r, opts...)
@@ -1134,12 +1381,12 @@ If you send these parameters with your browse requests, they'll be ignored.
 	Request can be constructed by NewApiBrowseRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param browseParams BrowseParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) BrowseWithHTTPInfo(r ApiBrowseRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) BrowseWithHTTPInfo(r ApiBrowseRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/browse"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -1147,15 +1394,15 @@ func (c *APIClient) BrowseWithHTTPInfo(r ApiBrowseRequest, opts ...utils.Request
 		return nil, nil, reportError("Parameter `indexName` is required when calling `Browse`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -1166,7 +1413,7 @@ func (c *APIClient) BrowseWithHTTPInfo(r ApiBrowseRequest, opts ...utils.Request
 	} else {
 		postBody = r.browseParams
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1212,7 +1459,7 @@ Request can be constructed by NewApiBrowseRequest with parameters below.
 	@param browseParams BrowseParams
 	@return BrowseResponse
 */
-func (c *APIClient) Browse(r ApiBrowseRequest, opts ...utils.RequestOption) (*BrowseResponse, error) {
+func (c *APIClient) Browse(r ApiBrowseRequest, opts ...RequestOption) (*BrowseResponse, error) {
 	var returnValue *BrowseResponse
 
 	res, resBody, err := c.BrowseWithHTTPInfo(r, opts...)
@@ -1288,12 +1535,12 @@ ClearObjects calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiClearObjectsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ClearObjectsWithHTTPInfo(r ApiClearObjectsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ClearObjectsWithHTTPInfo(r ApiClearObjectsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/clear"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -1301,20 +1548,20 @@ func (c *APIClient) ClearObjectsWithHTTPInfo(r ApiClearObjectsRequest, opts ...u
 		return nil, nil, reportError("Parameter `indexName` is required when calling `ClearObjects`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1335,7 +1582,7 @@ Request can be constructed by NewApiClearObjectsRequest with parameters below.
 	@param indexName string - Name of the index on which to perform the operation.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.ClearObjectsWithHTTPInfo(r, opts...)
@@ -1428,12 +1675,12 @@ ClearRules calls the API and returns the raw response from it.
 	Request can be constructed by NewApiClearRulesRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ClearRulesWithHTTPInfo(r ApiClearRulesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ClearRulesWithHTTPInfo(r ApiClearRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/clear"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -1441,24 +1688,24 @@ func (c *APIClient) ClearRulesWithHTTPInfo(r ApiClearRulesRequest, opts ...utils
 		return nil, nil, reportError("Parameter `indexName` is required when calling `ClearRules`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1480,7 +1727,7 @@ Request can be constructed by NewApiClearRulesRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.ClearRulesWithHTTPInfo(r, opts...)
@@ -1573,12 +1820,12 @@ ClearSynonyms calls the API and returns the raw response from it.
 	Request can be constructed by NewApiClearSynonymsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ClearSynonymsWithHTTPInfo(r ApiClearSynonymsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ClearSynonymsWithHTTPInfo(r ApiClearSynonymsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/clear"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -1586,24 +1833,24 @@ func (c *APIClient) ClearSynonymsWithHTTPInfo(r ApiClearSynonymsRequest, opts ..
 		return nil, nil, reportError("Parameter `indexName` is required when calling `ClearSynonyms`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1625,7 +1872,7 @@ Request can be constructed by NewApiClearSynonymsRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.ClearSynonymsWithHTTPInfo(r, opts...)
@@ -1716,12 +1963,12 @@ CustomDelete calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -1729,26 +1976,26 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...u
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1767,7 +2014,7 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
@@ -1858,12 +2105,12 @@ CustomGet calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -1871,26 +2118,26 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1909,7 +2156,7 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
@@ -2017,12 +2264,12 @@ CustomPost calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -2030,21 +2277,21 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -2055,7 +2302,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2075,7 +2322,7 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
@@ -2183,12 +2430,12 @@ CustomPut calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -2196,21 +2443,21 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -2221,7 +2468,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2241,7 +2488,7 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
@@ -2317,12 +2564,12 @@ DeleteApiKey calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiDeleteApiKeyRequest with parameters below.
 	  @param key string - API key.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteApiKeyWithHTTPInfo(r ApiDeleteApiKeyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteApiKeyWithHTTPInfo(r ApiDeleteApiKeyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys/{key}"
 	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(utils.ParameterToString(r.key)))
 
@@ -2330,20 +2577,20 @@ func (c *APIClient) DeleteApiKeyWithHTTPInfo(r ApiDeleteApiKeyRequest, opts ...u
 		return nil, nil, reportError("Parameter `key` is required when calling `DeleteApiKey`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2364,7 +2611,7 @@ Request can be constructed by NewApiDeleteApiKeyRequest with parameters below.
 	@param key string - API key.
 	@return DeleteApiKeyResponse
 */
-func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...utils.RequestOption) (*DeleteApiKeyResponse, error) {
+func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...RequestOption) (*DeleteApiKeyResponse, error) {
 	var returnValue *DeleteApiKeyResponse
 
 	res, resBody, err := c.DeleteApiKeyWithHTTPInfo(r, opts...)
@@ -2460,12 +2707,12 @@ and then delete the records using the [`batch` operation](tag/Records/operation/
 	Request can be constructed by NewApiDeleteByRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param deleteByParams DeleteByParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteByWithHTTPInfo(r ApiDeleteByRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteByWithHTTPInfo(r ApiDeleteByRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/deleteByQuery"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -2477,22 +2724,22 @@ func (c *APIClient) DeleteByWithHTTPInfo(r ApiDeleteByRequest, opts ...utils.Req
 		return nil, nil, reportError("Parameter `deleteByParams` is required when calling `DeleteBy`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.deleteByParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2517,7 +2764,7 @@ Request can be constructed by NewApiDeleteByRequest with parameters below.
 	@param deleteByParams DeleteByParams
 	@return DeletedAtResponse
 */
-func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...utils.RequestOption) (*DeletedAtResponse, error) {
+func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
 	var returnValue *DeletedAtResponse
 
 	res, resBody, err := c.DeleteByWithHTTPInfo(r, opts...)
@@ -2603,12 +2850,12 @@ DeleteIndex calls the API and returns the raw response from it.
 
 	    Request can be constructed by NewApiDeleteIndexRequest with parameters below.
 	    @param indexName string - Name of the index on which to perform the operation.
-	    @param opts ...Option - Optional parameters for the API call
+	    @param opts ...RequestOption - Optional parameters for the API call
 	    @return *http.Response - The raw response from the API
 	    @return []byte - The raw response body from the API
 	    @return error - An error if the API call fails
 */
-func (c *APIClient) DeleteIndexWithHTTPInfo(r ApiDeleteIndexRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteIndexWithHTTPInfo(r ApiDeleteIndexRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -2616,20 +2863,20 @@ func (c *APIClient) DeleteIndexWithHTTPInfo(r ApiDeleteIndexRequest, opts ...uti
 		return nil, nil, reportError("Parameter `indexName` is required when calling `DeleteIndex`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2656,7 +2903,7 @@ Request can be constructed by NewApiDeleteIndexRequest with parameters below.
 	@param indexName string - Name of the index on which to perform the operation.
 	@return DeletedAtResponse
 */
-func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...utils.RequestOption) (*DeletedAtResponse, error) {
+func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
 	var returnValue *DeletedAtResponse
 
 	res, resBody, err := c.DeleteIndexWithHTTPInfo(r, opts...)
@@ -2747,12 +2994,12 @@ To delete records matching a query, use the [`deleteByQuery` operation](#tag/Rec
 	Request can be constructed by NewApiDeleteObjectRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique record identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteObjectWithHTTPInfo(r ApiDeleteObjectRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteObjectWithHTTPInfo(r ApiDeleteObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -2764,20 +3011,20 @@ func (c *APIClient) DeleteObjectWithHTTPInfo(r ApiDeleteObjectRequest, opts ...u
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteObject`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2802,7 +3049,7 @@ Request can be constructed by NewApiDeleteObjectRequest with parameters below.
 	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
-func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...utils.RequestOption) (*DeletedAtResponse, error) {
+func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
 	var returnValue *DeletedAtResponse
 
 	res, resBody, err := c.DeleteObjectWithHTTPInfo(r, opts...)
@@ -2910,12 +3157,12 @@ use the [`search` operation](#tag/Rules/operation/searchRules).
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique identifier of a rule object.
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteRuleWithHTTPInfo(r ApiDeleteRuleRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteRuleWithHTTPInfo(r ApiDeleteRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -2927,24 +3174,24 @@ func (c *APIClient) DeleteRuleWithHTTPInfo(r ApiDeleteRuleRequest, opts ...utils
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteRule`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2969,7 +3216,7 @@ Request can be constructed by NewApiDeleteRuleRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.DeleteRuleWithHTTPInfo(r, opts...)
@@ -3045,12 +3292,12 @@ DeleteSource calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 	  @param source string - IP address range of the source.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteSourceWithHTTPInfo(r ApiDeleteSourceRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteSourceWithHTTPInfo(r ApiDeleteSourceRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/security/sources/{source}"
 	requestPath = strings.ReplaceAll(requestPath, "{source}", url.PathEscape(utils.ParameterToString(r.source)))
 
@@ -3058,20 +3305,20 @@ func (c *APIClient) DeleteSourceWithHTTPInfo(r ApiDeleteSourceRequest, opts ...u
 		return nil, nil, reportError("Parameter `source` is required when calling `DeleteSource`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3092,7 +3339,7 @@ Request can be constructed by NewApiDeleteSourceRequest with parameters below.
 	@param source string - IP address range of the source.
 	@return DeleteSourceResponse
 */
-func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...utils.RequestOption) (*DeleteSourceResponse, error) {
+func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...RequestOption) (*DeleteSourceResponse, error) {
 	var returnValue *DeleteSourceResponse
 
 	res, resBody, err := c.DeleteSourceWithHTTPInfo(r, opts...)
@@ -3199,12 +3446,12 @@ To find the object IDs of your synonyms, use the [`search` operation](#tag/Synon
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique identifier of a synonym object.
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteSynonymWithHTTPInfo(r ApiDeleteSynonymRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteSynonymWithHTTPInfo(r ApiDeleteSynonymRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -3216,24 +3463,24 @@ func (c *APIClient) DeleteSynonymWithHTTPInfo(r ApiDeleteSynonymRequest, opts ..
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteSynonym`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3257,7 +3504,7 @@ Request can be constructed by NewApiDeleteSynonymRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return DeletedAtResponse
 */
-func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...utils.RequestOption) (*DeletedAtResponse, error) {
+func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
 	var returnValue *DeletedAtResponse
 
 	res, resBody, err := c.DeleteSynonymWithHTTPInfo(r, opts...)
@@ -3333,12 +3580,12 @@ When authenticating with other API keys, you can only retrieve information for t
 
 	Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 	  @param key string - API key.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetApiKeyWithHTTPInfo(r ApiGetApiKeyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetApiKeyWithHTTPInfo(r ApiGetApiKeyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys/{key}"
 	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(utils.ParameterToString(r.key)))
 
@@ -3346,20 +3593,20 @@ func (c *APIClient) GetApiKeyWithHTTPInfo(r ApiGetApiKeyRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `key` is required when calling `GetApiKey`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3380,7 +3627,7 @@ Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 	@param key string - API key.
 	@return GetApiKeyResponse
 */
-func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...utils.RequestOption) (*GetApiKeyResponse, error) {
+func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...RequestOption) (*GetApiKeyResponse, error) {
 	var returnValue *GetApiKeyResponse
 
 	res, resBody, err := c.GetApiKeyWithHTTPInfo(r, opts...)
@@ -3457,29 +3704,29 @@ GetAppTask calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetAppTaskRequest with parameters below.
 	  @param taskID int64 - Unique task identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetAppTaskWithHTTPInfo(r ApiGetAppTaskRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetAppTaskWithHTTPInfo(r ApiGetAppTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/task/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3500,7 +3747,7 @@ Request can be constructed by NewApiGetAppTaskRequest with parameters below.
 	@param taskID int64 - Unique task identifier.
 	@return GetTaskResponse
 */
-func (c *APIClient) GetAppTask(r ApiGetAppTaskRequest, opts ...utils.RequestOption) (*GetTaskResponse, error) {
+func (c *APIClient) GetAppTask(r ApiGetAppTaskRequest, opts ...RequestOption) (*GetTaskResponse, error) {
 	var returnValue *GetTaskResponse
 
 	res, resBody, err := c.GetAppTaskWithHTTPInfo(r, opts...)
@@ -3545,28 +3792,28 @@ GetDictionaryLanguages calls the API and returns the raw response from it.
 	    - settings
 
 	Request can be constructed by NewApiGetDictionaryLanguagesRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetDictionaryLanguagesWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetDictionaryLanguagesWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/dictionaries/*/languages"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3586,7 +3833,7 @@ Request can be constructed by NewApiGetDictionaryLanguagesRequest with parameter
 
 	@return map[string]Languages
 */
-func (c *APIClient) GetDictionaryLanguages(opts ...utils.RequestOption) (*map[string]Languages, error) {
+func (c *APIClient) GetDictionaryLanguages(opts ...RequestOption) (*map[string]Languages, error) {
 	var returnValue *map[string]Languages
 
 	res, resBody, err := c.GetDictionaryLanguagesWithHTTPInfo(opts...)
@@ -3630,28 +3877,28 @@ GetDictionarySettings calls the API and returns the raw response from it.
 	    - settings
 
 	Request can be constructed by NewApiGetDictionarySettingsRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetDictionarySettingsWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetDictionarySettingsWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/dictionaries/*/settings"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3671,7 +3918,7 @@ Request can be constructed by NewApiGetDictionarySettingsRequest with parameters
 
 	@return GetDictionarySettingsResponse
 */
-func (c *APIClient) GetDictionarySettings(opts ...utils.RequestOption) (*GetDictionarySettingsResponse, error) {
+func (c *APIClient) GetDictionarySettings(opts ...RequestOption) (*GetDictionarySettingsResponse, error) {
 	var returnValue *GetDictionarySettingsResponse
 
 	res, resBody, err := c.GetDictionarySettingsWithHTTPInfo(opts...)
@@ -3806,41 +4053,41 @@ GetLogs calls the API and returns the raw response from it.
 	  @param length int32 - Maximum number of entries to retrieve.
 	  @param indexName string - Index for which to retrieve log entries. By default, log entries are retrieved for all indices.
 	  @param type_ LogType - Type of log entries to retrieve. By default, all log entries are retrieved.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetLogsWithHTTPInfo(r ApiGetLogsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetLogsWithHTTPInfo(r ApiGetLogsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/logs"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.offset) {
-		options.QueryParams.Set("offset", utils.QueryParameterToString(*r.offset))
+		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
 	if !utils.IsNilOrEmpty(r.length) {
-		options.QueryParams.Set("length", utils.QueryParameterToString(*r.length))
+		conf.queryParams.Set("length", utils.QueryParameterToString(*r.length))
 	}
 	if !utils.IsNilOrEmpty(r.indexName) {
-		options.QueryParams.Set("indexName", utils.QueryParameterToString(*r.indexName))
+		conf.queryParams.Set("indexName", utils.QueryParameterToString(*r.indexName))
 	}
 	if !utils.IsNilOrEmpty(r.type_) {
-		options.QueryParams.Set("type", utils.QueryParameterToString(r.type_))
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3868,7 +4115,7 @@ Request can be constructed by NewApiGetLogsRequest with parameters below.
 	@param type_ LogType - Type of log entries to retrieve. By default, all log entries are retrieved.
 	@return GetLogsResponse
 */
-func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...utils.RequestOption) (*GetLogsResponse, error) {
+func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...RequestOption) (*GetLogsResponse, error) {
 	var returnValue *GetLogsResponse
 
 	res, resBody, err := c.GetLogsWithHTTPInfo(r, opts...)
@@ -3975,12 +4222,12 @@ To retrieve more than one record, use the [`objects` operation](#tag/Records/ope
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique record identifier.
 	  @param attributesToRetrieve []string - Attributes to include with the records in the response. This is useful to reduce the size of the API response. By default, all retrievable attributes are returned.  `objectID` is always retrieved.  Attributes included in `unretrievableAttributes` won't be retrieved unless the request is authenticated with the admin API key.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetObjectWithHTTPInfo(r ApiGetObjectRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetObjectWithHTTPInfo(r ApiGetObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -3992,24 +4239,24 @@ func (c *APIClient) GetObjectWithHTTPInfo(r ApiGetObjectRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetObject`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.attributesToRetrieve) {
-		options.QueryParams.Set("attributesToRetrieve", utils.QueryParameterToString(r.attributesToRetrieve))
+		conf.queryParams.Set("attributesToRetrieve", utils.QueryParameterToString(r.attributesToRetrieve))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4034,7 +4281,7 @@ Request can be constructed by NewApiGetObjectRequest with parameters below.
 	@param attributesToRetrieve []string - Attributes to include with the records in the response. This is useful to reduce the size of the API response. By default, all retrievable attributes are returned.  `objectID` is always retrieved.  Attributes included in `unretrievableAttributes` won't be retrieved unless the request is authenticated with the admin API key.
 	@return map[string]string
 */
-func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...utils.RequestOption) (map[string]string, error) {
+func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (map[string]string, error) {
 	var returnValue map[string]string
 
 	res, resBody, err := c.GetObjectWithHTTPInfo(r, opts...)
@@ -4117,34 +4364,34 @@ Records are returned in the same order as the requests.
 
 	Request can be constructed by NewApiGetObjectsRequest with parameters below.
 	  @param getObjectsParams GetObjectsParams - Request object.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetObjectsWithHTTPInfo(r ApiGetObjectsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetObjectsWithHTTPInfo(r ApiGetObjectsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/*/objects"
 
 	if r.getObjectsParams == nil {
 		return nil, nil, reportError("Parameter `getObjectsParams` is required when calling `GetObjects`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.getObjectsParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4167,7 +4414,7 @@ Request can be constructed by NewApiGetObjectsRequest with parameters below.
 	@param getObjectsParams GetObjectsParams - Request object.
 	@return GetObjectsResponse
 */
-func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...utils.RequestOption) (*GetObjectsResponse, error) {
+func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...RequestOption) (*GetObjectsResponse, error) {
 	var returnValue *GetObjectsResponse
 
 	res, resBody, err := c.GetObjectsWithHTTPInfo(r, opts...)
@@ -4257,12 +4504,12 @@ To find the object ID of rules, use the [`search` operation](#tag/Rules/operatio
 	Request can be constructed by NewApiGetRuleRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique identifier of a rule object.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -4274,20 +4521,20 @@ func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...utils.Reque
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetRule`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4310,7 +4557,7 @@ Request can be constructed by NewApiGetRuleRequest with parameters below.
 	@param objectID string - Unique identifier of a rule object.
 	@return Rule
 */
-func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...utils.RequestOption) (*Rule, error) {
+func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Rule, error) {
 	var returnValue *Rule
 
 	res, resBody, err := c.GetRuleWithHTTPInfo(r, opts...)
@@ -4386,12 +4633,12 @@ GetSettings calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetSettingsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetSettingsWithHTTPInfo(r ApiGetSettingsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetSettingsWithHTTPInfo(r ApiGetSettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/settings"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -4399,20 +4646,20 @@ func (c *APIClient) GetSettingsWithHTTPInfo(r ApiGetSettingsRequest, opts ...uti
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetSettings`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4433,7 +4680,7 @@ Request can be constructed by NewApiGetSettingsRequest with parameters below.
 	@param indexName string - Name of the index on which to perform the operation.
 	@return IndexSettings
 */
-func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...utils.RequestOption) (*IndexSettings, error) {
+func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) (*IndexSettings, error) {
 	var returnValue *IndexSettings
 
 	res, resBody, err := c.GetSettingsWithHTTPInfo(r, opts...)
@@ -4477,28 +4724,28 @@ GetSources calls the API and returns the raw response from it.
 	    - admin
 
 	Request can be constructed by NewApiGetSourcesRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetSourcesWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetSourcesWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/security/sources"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4518,7 +4765,7 @@ Request can be constructed by NewApiGetSourcesRequest with parameters below.
 
 	@return []Source
 */
-func (c *APIClient) GetSources(opts ...utils.RequestOption) ([]Source, error) {
+func (c *APIClient) GetSources(opts ...RequestOption) ([]Source, error) {
 	var returnValue []Source
 
 	res, resBody, err := c.GetSourcesWithHTTPInfo(opts...)
@@ -4609,12 +4856,12 @@ use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
 	Request can be constructed by NewApiGetSynonymRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique identifier of a synonym object.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetSynonymWithHTTPInfo(r ApiGetSynonymRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetSynonymWithHTTPInfo(r ApiGetSynonymRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -4626,20 +4873,20 @@ func (c *APIClient) GetSynonymWithHTTPInfo(r ApiGetSynonymRequest, opts ...utils
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetSynonym`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4663,7 +4910,7 @@ Request can be constructed by NewApiGetSynonymRequest with parameters below.
 	@param objectID string - Unique identifier of a synonym object.
 	@return SynonymHit
 */
-func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...utils.RequestOption) (*SynonymHit, error) {
+func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...RequestOption) (*SynonymHit, error) {
 	var returnValue *SynonymHit
 
 	res, resBody, err := c.GetSynonymWithHTTPInfo(r, opts...)
@@ -4757,12 +5004,12 @@ The indexing tasks' responses include a task ID that you can use to check the st
 	Request can be constructed by NewApiGetTaskRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param taskID int64 - Unique task identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/task/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
@@ -4771,20 +5018,20 @@ func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...utils.Reque
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetTask`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4812,7 +5059,7 @@ Request can be constructed by NewApiGetTaskRequest with parameters below.
 	@param taskID int64 - Unique task identifier.
 	@return GetTaskResponse
 */
-func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...utils.RequestOption) (*GetTaskResponse, error) {
+func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTaskResponse, error) {
 	var returnValue *GetTaskResponse
 
 	res, resBody, err := c.GetTaskWithHTTPInfo(r, opts...)
@@ -4859,28 +5106,28 @@ the response isn't real-time.
 	    - admin
 
 	Request can be constructed by NewApiGetTopUserIdsRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetTopUserIdsWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetTopUserIdsWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/top"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4903,7 +5150,7 @@ Request can be constructed by NewApiGetTopUserIdsRequest with parameters below.
 
 	@return GetTopUserIdsResponse
 */
-func (c *APIClient) GetTopUserIds(opts ...utils.RequestOption) (*GetTopUserIdsResponse, error) {
+func (c *APIClient) GetTopUserIds(opts ...RequestOption) (*GetTopUserIdsResponse, error) {
 	var returnValue *GetTopUserIdsResponse
 
 	res, resBody, err := c.GetTopUserIdsWithHTTPInfo(opts...)
@@ -4982,12 +5229,12 @@ the response isn't real-time.
 
 	Request can be constructed by NewApiGetUserIdRequest with parameters below.
 	  @param userID string - Unique identifier of the user who makes the search request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetUserIdWithHTTPInfo(r ApiGetUserIdRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetUserIdWithHTTPInfo(r ApiGetUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/{userID}"
 	requestPath = strings.ReplaceAll(requestPath, "{userID}", url.PathEscape(utils.ParameterToString(r.userID)))
 
@@ -4995,20 +5242,20 @@ func (c *APIClient) GetUserIdWithHTTPInfo(r ApiGetUserIdRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `userID` is required when calling `GetUserId`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5032,7 +5279,7 @@ Request can be constructed by NewApiGetUserIdRequest with parameters below.
 	@param userID string - Unique identifier of the user who makes the search request.
 	@return UserId
 */
-func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...utils.RequestOption) (*UserId, error) {
+func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...RequestOption) (*UserId, error) {
 	var returnValue *UserId
 
 	res, resBody, err := c.GetUserIdWithHTTPInfo(r, opts...)
@@ -5113,32 +5360,32 @@ HasPendingMappings calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiHasPendingMappingsRequest with parameters below.
 	  @param getClusters bool - Whether to include the cluster's pending mapping state in the response.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) HasPendingMappingsWithHTTPInfo(r ApiHasPendingMappingsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) HasPendingMappingsWithHTTPInfo(r ApiHasPendingMappingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/pending"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.getClusters) {
-		options.QueryParams.Set("getClusters", utils.QueryParameterToString(*r.getClusters))
+		conf.queryParams.Set("getClusters", utils.QueryParameterToString(*r.getClusters))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5159,7 +5406,7 @@ Request can be constructed by NewApiHasPendingMappingsRequest with parameters be
 	@param getClusters bool - Whether to include the cluster's pending mapping state in the response.
 	@return HasPendingMappingsResponse
 */
-func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...utils.RequestOption) (*HasPendingMappingsResponse, error) {
+func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...RequestOption) (*HasPendingMappingsResponse, error) {
 	var returnValue *HasPendingMappingsResponse
 
 	res, resBody, err := c.HasPendingMappingsWithHTTPInfo(r, opts...)
@@ -5203,28 +5450,28 @@ ListApiKeys calls the API and returns the raw response from it.
 	    - admin
 
 	Request can be constructed by NewApiListApiKeysRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ListApiKeysWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListApiKeysWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5244,7 +5491,7 @@ Request can be constructed by NewApiListApiKeysRequest with parameters below.
 
 	@return ListApiKeysResponse
 */
-func (c *APIClient) ListApiKeys(opts ...utils.RequestOption) (*ListApiKeysResponse, error) {
+func (c *APIClient) ListApiKeys(opts ...RequestOption) (*ListApiKeysResponse, error) {
 	var returnValue *ListApiKeysResponse
 
 	res, resBody, err := c.ListApiKeysWithHTTPInfo(opts...)
@@ -5288,28 +5535,28 @@ ListClusters calls the API and returns the raw response from it.
 	    - admin
 
 	Request can be constructed by NewApiListClustersRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ListClustersWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListClustersWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5329,7 +5576,7 @@ Request can be constructed by NewApiListClustersRequest with parameters below.
 
 	@return ListClustersResponse
 */
-func (c *APIClient) ListClusters(opts ...utils.RequestOption) (*ListClustersResponse, error) {
+func (c *APIClient) ListClusters(opts ...RequestOption) (*ListClustersResponse, error) {
 	var returnValue *ListClustersResponse
 
 	res, resBody, err := c.ListClustersWithHTTPInfo(opts...)
@@ -5428,35 +5675,35 @@ The request follows any index restrictions of the API key you use to make the re
 	Request can be constructed by NewApiListIndicesRequest with parameters below.
 	  @param page int32 - Requested page of the API response. If `null`, the API response is not paginated.
 	  @param hitsPerPage int32 - Number of hits per page.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ListIndicesWithHTTPInfo(r ApiListIndicesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListIndicesWithHTTPInfo(r ApiListIndicesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		options.QueryParams.Set("page", utils.QueryParameterToString(*r.page))
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		options.QueryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
+		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5480,7 +5727,7 @@ Request can be constructed by NewApiListIndicesRequest with parameters below.
 	@param hitsPerPage int32 - Number of hits per page.
 	@return ListIndicesResponse
 */
-func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...utils.RequestOption) (*ListIndicesResponse, error) {
+func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...RequestOption) (*ListIndicesResponse, error) {
 	var returnValue *ListIndicesResponse
 
 	res, resBody, err := c.ListIndicesWithHTTPInfo(r, opts...)
@@ -5580,35 +5827,35 @@ the response isn't real-time.
 	Request can be constructed by NewApiListUserIdsRequest with parameters below.
 	  @param page int32 - Requested page of the API response. If `null`, the API response is not paginated.
 	  @param hitsPerPage int32 - Number of hits per page.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ListUserIdsWithHTTPInfo(r ApiListUserIdsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListUserIdsWithHTTPInfo(r ApiListUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.page) {
-		options.QueryParams.Set("page", utils.QueryParameterToString(*r.page))
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
 	}
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
-		options.QueryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
+		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5633,7 +5880,7 @@ Request can be constructed by NewApiListUserIdsRequest with parameters below.
 	@param hitsPerPage int32 - Number of hits per page.
 	@return ListUserIdsResponse
 */
-func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...utils.RequestOption) (*ListUserIdsResponse, error) {
+func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...RequestOption) (*ListUserIdsResponse, error) {
 	var returnValue *ListUserIdsResponse
 
 	res, resBody, err := c.ListUserIdsWithHTTPInfo(r, opts...)
@@ -5714,34 +5961,34 @@ MultipleBatch calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 	  @param batchParams BatchParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/*/batch"
 
 	if r.batchParams == nil {
 		return nil, nil, reportError("Parameter `batchParams` is required when calling `MultipleBatch`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.batchParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5762,7 +6009,7 @@ Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 	@param batchParams BatchParams
 	@return MultipleBatchResponse
 */
-func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...utils.RequestOption) (*MultipleBatchResponse, error) {
+func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOption) (*MultipleBatchResponse, error) {
 	var returnValue *MultipleBatchResponse
 
 	res, resBody, err := c.MultipleBatchWithHTTPInfo(r, opts...)
@@ -5879,12 +6126,12 @@ OperationIndex calls the API and returns the raw response from it.
     Request can be constructed by NewApiOperationIndexRequest with parameters below.
     @param indexName string - Name of the index on which to perform the operation.
     @param operationIndexParams OperationIndexParams
-    @param opts ...Option - Optional parameters for the API call
+    @param opts ...RequestOption - Optional parameters for the API call
     @return *http.Response - The raw response from the API
     @return []byte - The raw response body from the API
     @return error - An error if the API call fails
 */
-func (c *APIClient) OperationIndexWithHTTPInfo(r ApiOperationIndexRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) OperationIndexWithHTTPInfo(r ApiOperationIndexRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/operation"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -5896,22 +6143,22 @@ func (c *APIClient) OperationIndexWithHTTPInfo(r ApiOperationIndexRequest, opts 
 		return nil, nil, reportError("Parameter `operationIndexParams` is required when calling `OperationIndex`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.operationIndexParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5953,7 +6200,7 @@ Request can be constructed by NewApiOperationIndexRequest with parameters below.
 	@param operationIndexParams OperationIndexParams
 	@return UpdatedAtResponse
 */
-func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.OperationIndexWithHTTPInfo(r, opts...)
@@ -6084,12 +6331,12 @@ PartialUpdateObject calls the API and returns the raw response from it.
 	    @param objectID string - Unique record identifier.
 	    @param attributesToUpdate map[string]AttributeToUpdate - Attributes with their values.
 	    @param createIfNotExists bool - Whether to create a new record if it doesn't exist.
-	    @param opts ...Option - Optional parameters for the API call
+	    @param opts ...RequestOption - Optional parameters for the API call
 	    @return *http.Response - The raw response from the API
 	    @return []byte - The raw response body from the API
 	    @return error - An error if the API call fails
 */
-func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{objectID}/partial"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -6108,26 +6355,26 @@ func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequ
 		return nil, nil, reportError("Parameter `attributesToUpdate` is required when calling `PartialUpdateObject`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.createIfNotExists) {
-		options.QueryParams.Set("createIfNotExists", utils.QueryParameterToString(*r.createIfNotExists))
+		conf.queryParams.Set("createIfNotExists", utils.QueryParameterToString(*r.createIfNotExists))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.attributesToUpdate
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6157,7 +6404,7 @@ Request can be constructed by NewApiPartialUpdateObjectRequest with parameters b
 	@param createIfNotExists bool - Whether to create a new record if it doesn't exist.
 	@return UpdatedAtWithObjectIdResponse
 */
-func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ...utils.RequestOption) (*UpdatedAtWithObjectIdResponse, error) {
+func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ...RequestOption) (*UpdatedAtWithObjectIdResponse, error) {
 	var returnValue *UpdatedAtWithObjectIdResponse
 
 	res, resBody, err := c.PartialUpdateObjectWithHTTPInfo(r, opts...)
@@ -6233,12 +6480,12 @@ RemoveUserId calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 	  @param userID string - Unique identifier of the user who makes the search request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) RemoveUserIdWithHTTPInfo(r ApiRemoveUserIdRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) RemoveUserIdWithHTTPInfo(r ApiRemoveUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/{userID}"
 	requestPath = strings.ReplaceAll(requestPath, "{userID}", url.PathEscape(utils.ParameterToString(r.userID)))
 
@@ -6246,20 +6493,20 @@ func (c *APIClient) RemoveUserIdWithHTTPInfo(r ApiRemoveUserIdRequest, opts ...u
 		return nil, nil, reportError("Parameter `userID` is required when calling `RemoveUserId`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6280,7 +6527,7 @@ Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 	@param userID string - Unique identifier of the user who makes the search request.
 	@return RemoveUserIdResponse
 */
-func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...utils.RequestOption) (*RemoveUserIdResponse, error) {
+func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...RequestOption) (*RemoveUserIdResponse, error) {
 	var returnValue *RemoveUserIdResponse
 
 	res, resBody, err := c.RemoveUserIdWithHTTPInfo(r, opts...)
@@ -6361,34 +6608,34 @@ ReplaceSources calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiReplaceSourcesRequest with parameters below.
 	  @param source []Source - Allowed sources.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) ReplaceSourcesWithHTTPInfo(r ApiReplaceSourcesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ReplaceSourcesWithHTTPInfo(r ApiReplaceSourcesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/security/sources"
 
 	if len(r.source) == 0 {
 		return nil, nil, reportError("Parameter `source` is required when calling `ReplaceSources`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.source
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6409,7 +6656,7 @@ Request can be constructed by NewApiReplaceSourcesRequest with parameters below.
 	@param source []Source - Allowed sources.
 	@return ReplaceSourceResponse
 */
-func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...utils.RequestOption) (*ReplaceSourceResponse, error) {
+func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...RequestOption) (*ReplaceSourceResponse, error) {
 	var returnValue *ReplaceSourceResponse
 
 	res, resBody, err := c.ReplaceSourcesWithHTTPInfo(r, opts...)
@@ -6490,12 +6737,12 @@ If you create more, the oldest API keys are deleted and can't be restored.
 
 	Request can be constructed by NewApiRestoreApiKeyRequest with parameters below.
 	  @param key string - API key.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) RestoreApiKeyWithHTTPInfo(r ApiRestoreApiKeyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) RestoreApiKeyWithHTTPInfo(r ApiRestoreApiKeyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys/{key}/restore"
 	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(utils.ParameterToString(r.key)))
 
@@ -6503,20 +6750,20 @@ func (c *APIClient) RestoreApiKeyWithHTTPInfo(r ApiRestoreApiKeyRequest, opts ..
 		return nil, nil, reportError("Parameter `key` is required when calling `RestoreApiKey`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6542,7 +6789,7 @@ Request can be constructed by NewApiRestoreApiKeyRequest with parameters below.
 	@param key string - API key.
 	@return AddApiKeyResponse
 */
-func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...utils.RequestOption) (*AddApiKeyResponse, error) {
+func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...RequestOption) (*AddApiKeyResponse, error) {
 	var returnValue *AddApiKeyResponse
 
 	res, resBody, err := c.RestoreApiKeyWithHTTPInfo(r, opts...)
@@ -6643,12 +6890,12 @@ To add, update, or replace multiple records, use the [`batch` operation](#tag/Re
 	Request can be constructed by NewApiSaveObjectRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SaveObjectWithHTTPInfo(r ApiSaveObjectRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SaveObjectWithHTTPInfo(r ApiSaveObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -6660,22 +6907,22 @@ func (c *APIClient) SaveObjectWithHTTPInfo(r ApiSaveObjectRequest, opts ...utils
 		return nil, nil, reportError("Parameter `body` is required when calling `SaveObject`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.body
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6705,7 +6952,7 @@ Request can be constructed by NewApiSaveObjectRequest with parameters below.
 	@param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
 	@return SaveObjectResponse
 */
-func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...utils.RequestOption) (*SaveObjectResponse, error) {
+func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...RequestOption) (*SaveObjectResponse, error) {
 	var returnValue *SaveObjectResponse
 
 	res, resBody, err := c.SaveObjectWithHTTPInfo(r, opts...)
@@ -6831,12 +7078,12 @@ To create or update more than one rule, use the [`batch` operation](#tag/Rules/o
 	  @param objectID string - Unique identifier of a rule object.
 	  @param rule Rule
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SaveRuleWithHTTPInfo(r ApiSaveRuleRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SaveRuleWithHTTPInfo(r ApiSaveRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -6852,26 +7099,26 @@ func (c *APIClient) SaveRuleWithHTTPInfo(r ApiSaveRuleRequest, opts ...utils.Req
 		return nil, nil, reportError("Parameter `rule` is required when calling `SaveRule`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.rule
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6898,7 +7145,7 @@ Request can be constructed by NewApiSaveRuleRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return UpdatedRuleResponse
 */
-func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...utils.RequestOption) (*UpdatedRuleResponse, error) {
+func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*UpdatedRuleResponse, error) {
 	var returnValue *UpdatedRuleResponse
 
 	res, resBody, err := c.SaveRuleWithHTTPInfo(r, opts...)
@@ -7028,12 +7275,12 @@ Otherwise, existing rules are replaced.
 	  @param rules []Rule
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
 	  @param clearExistingRules bool - Whether existing rules should be deleted before adding this batch.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/batch"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -7045,29 +7292,29 @@ func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `rules` is required when calling `SaveRules`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.clearExistingRules) {
-		options.QueryParams.Set("clearExistingRules", utils.QueryParameterToString(*r.clearExistingRules))
+		conf.queryParams.Set("clearExistingRules", utils.QueryParameterToString(*r.clearExistingRules))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.rules
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7094,7 +7341,7 @@ Request can be constructed by NewApiSaveRulesRequest with parameters below.
 	@param clearExistingRules bool - Whether existing rules should be deleted before adding this batch.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.SaveRulesWithHTTPInfo(r, opts...)
@@ -7219,12 +7466,12 @@ To add multiple synonyms in a single API request, use the [`batch` operation](#t
 	  @param objectID string - Unique identifier of a synonym object.
 	  @param synonymHit SynonymHit
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SaveSynonymWithHTTPInfo(r ApiSaveSynonymRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SaveSynonymWithHTTPInfo(r ApiSaveSynonymRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
@@ -7240,26 +7487,26 @@ func (c *APIClient) SaveSynonymWithHTTPInfo(r ApiSaveSynonymRequest, opts ...uti
 		return nil, nil, reportError("Parameter `synonymHit` is required when calling `SaveSynonym`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.synonymHit
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7285,7 +7532,7 @@ Request can be constructed by NewApiSaveSynonymRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return SaveSynonymResponse
 */
-func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...utils.RequestOption) (*SaveSynonymResponse, error) {
+func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...RequestOption) (*SaveSynonymResponse, error) {
 	var returnValue *SaveSynonymResponse
 
 	res, resBody, err := c.SaveSynonymWithHTTPInfo(r, opts...)
@@ -7414,12 +7661,12 @@ Otherwise, existing synonyms are replaced.
 	  @param synonymHit []SynonymHit
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
 	  @param replaceExistingSynonyms bool - Whether to replace all synonyms in the index with the ones sent with this request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SaveSynonymsWithHTTPInfo(r ApiSaveSynonymsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SaveSynonymsWithHTTPInfo(r ApiSaveSynonymsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/batch"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -7431,29 +7678,29 @@ func (c *APIClient) SaveSynonymsWithHTTPInfo(r ApiSaveSynonymsRequest, opts ...u
 		return nil, nil, reportError("Parameter `synonymHit` is required when calling `SaveSynonyms`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 	if !utils.IsNilOrEmpty(r.replaceExistingSynonyms) {
-		options.QueryParams.Set("replaceExistingSynonyms", utils.QueryParameterToString(*r.replaceExistingSynonyms))
+		conf.queryParams.Set("replaceExistingSynonyms", utils.QueryParameterToString(*r.replaceExistingSynonyms))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.synonymHit
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7478,7 +7725,7 @@ Request can be constructed by NewApiSaveSynonymsRequest with parameters below.
 	@param replaceExistingSynonyms bool - Whether to replace all synonyms in the index with the ones sent with this request.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.SaveSynonymsWithHTTPInfo(r, opts...)
@@ -7564,34 +7811,34 @@ This can be useful in these cases:
 
 	Request can be constructed by NewApiSearchRequest with parameters below.
 	  @param searchMethodParams SearchMethodParams - Muli-search request body. Results are returned in the same order as the requests.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/*/queries"
 
 	if r.searchMethodParams == nil {
 		return nil, nil, reportError("Parameter `searchMethodParams` is required when calling `Search`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.searchMethodParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7617,7 +7864,7 @@ Request can be constructed by NewApiSearchRequest with parameters below.
 	@param searchMethodParams SearchMethodParams - Muli-search request body. Results are returned in the same order as the requests.
 	@return SearchResponses
 */
-func (c *APIClient) Search(r ApiSearchRequest, opts ...utils.RequestOption) (*SearchResponses, error) {
+func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchResponses, error) {
 	var returnValue *SearchResponses
 
 	res, resBody, err := c.SearchWithHTTPInfo(r, opts...)
@@ -7710,12 +7957,12 @@ SearchDictionaryEntries calls the API and returns the raw response from it.
 	Request can be constructed by NewApiSearchDictionaryEntriesRequest with parameters below.
 	  @param dictionaryName DictionaryType - Dictionary type in which to search.
 	  @param searchDictionaryEntriesParams SearchDictionaryEntriesParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchDictionaryEntriesWithHTTPInfo(r ApiSearchDictionaryEntriesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchDictionaryEntriesWithHTTPInfo(r ApiSearchDictionaryEntriesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/dictionaries/{dictionaryName}/search"
 	requestPath = strings.ReplaceAll(requestPath, "{dictionaryName}", url.PathEscape(utils.ParameterToString(r.dictionaryName)))
 
@@ -7723,22 +7970,22 @@ func (c *APIClient) SearchDictionaryEntriesWithHTTPInfo(r ApiSearchDictionaryEnt
 		return nil, nil, reportError("Parameter `searchDictionaryEntriesParams` is required when calling `SearchDictionaryEntries`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.searchDictionaryEntriesParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7760,7 +8007,7 @@ Request can be constructed by NewApiSearchDictionaryEntriesRequest with paramete
 	@param searchDictionaryEntriesParams SearchDictionaryEntriesParams
 	@return SearchDictionaryEntriesResponse
 */
-func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest, opts ...utils.RequestOption) (*SearchDictionaryEntriesResponse, error) {
+func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest, opts ...RequestOption) (*SearchDictionaryEntriesResponse, error) {
 	var returnValue *SearchDictionaryEntriesResponse
 
 	res, resBody, err := c.SearchDictionaryEntriesWithHTTPInfo(r, opts...)
@@ -7871,12 +8118,12 @@ SearchForFacetValues calls the API and returns the raw response from it.
 	    @param indexName string - Name of the index on which to perform the operation.
 	    @param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
 	    @param searchForFacetValuesRequest SearchForFacetValuesRequest
-	    @param opts ...Option - Optional parameters for the API call
+	    @param opts ...RequestOption - Optional parameters for the API call
 	    @return *http.Response - The raw response from the API
 	    @return []byte - The raw response body from the API
 	    @return error - An error if the API call fails
 */
-func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/facets/{facetName}/query"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{facetName}", url.PathEscape(utils.ParameterToString(r.facetName)))
@@ -7888,15 +8135,15 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 		return nil, nil, reportError("Parameter `facetName` is required when calling `SearchForFacetValues`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -7907,7 +8154,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 	} else {
 		postBody = r.searchForFacetValuesRequest
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7934,7 +8181,7 @@ Request can be constructed by NewApiSearchForFacetValuesRequest with parameters 
 	@param searchForFacetValuesRequest SearchForFacetValuesRequest
 	@return SearchForFacetValuesResponse
 */
-func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts ...utils.RequestOption) (*SearchForFacetValuesResponse, error) {
+func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts ...RequestOption) (*SearchForFacetValuesResponse, error) {
 	var returnValue *SearchForFacetValuesResponse
 
 	res, resBody, err := c.SearchForFacetValuesWithHTTPInfo(r, opts...)
@@ -8027,12 +8274,12 @@ SearchRules calls the API and returns the raw response from it.
 	Request can be constructed by NewApiSearchRulesRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param searchRulesParams SearchRulesParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchRulesWithHTTPInfo(r ApiSearchRulesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchRulesWithHTTPInfo(r ApiSearchRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/rules/search"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -8040,15 +8287,15 @@ func (c *APIClient) SearchRulesWithHTTPInfo(r ApiSearchRulesRequest, opts ...uti
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SearchRules`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -8059,7 +8306,7 @@ func (c *APIClient) SearchRulesWithHTTPInfo(r ApiSearchRulesRequest, opts ...uti
 	} else {
 		postBody = r.searchRulesParams
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8081,7 +8328,7 @@ Request can be constructed by NewApiSearchRulesRequest with parameters below.
 	@param searchRulesParams SearchRulesParams
 	@return SearchRulesResponse
 */
-func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...utils.RequestOption) (*SearchRulesResponse, error) {
+func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...RequestOption) (*SearchRulesResponse, error) {
 	var returnValue *SearchRulesResponse
 
 	res, resBody, err := c.SearchRulesWithHTTPInfo(r, opts...)
@@ -8177,12 +8424,12 @@ If you need more, use the [`browse` operation](#tag/Search/operation/browse) or 
 	Request can be constructed by NewApiSearchSingleIndexRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param searchParams SearchParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/query"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -8190,15 +8437,15 @@ func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest,
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SearchSingleIndex`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -8209,7 +8456,7 @@ func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest,
 	} else {
 		postBody = r.searchParams
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8234,7 +8481,7 @@ Request can be constructed by NewApiSearchSingleIndexRequest with parameters bel
 	@param searchParams SearchParams
 	@return SearchResponse
 */
-func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...utils.RequestOption) (*SearchResponse, error) {
+func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...RequestOption) (*SearchResponse, error) {
 	var returnValue *SearchResponse
 
 	res, resBody, err := c.SearchSingleIndexWithHTTPInfo(r, opts...)
@@ -8327,12 +8574,12 @@ SearchSynonyms calls the API and returns the raw response from it.
 	Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param searchSynonymsParams SearchSynonymsParams - Body of the `searchSynonyms` operation.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchSynonymsWithHTTPInfo(r ApiSearchSynonymsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchSynonymsWithHTTPInfo(r ApiSearchSynonymsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/synonyms/search"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -8340,15 +8587,15 @@ func (c *APIClient) SearchSynonymsWithHTTPInfo(r ApiSearchSynonymsRequest, opts 
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SearchSynonyms`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -8359,7 +8606,7 @@ func (c *APIClient) SearchSynonymsWithHTTPInfo(r ApiSearchSynonymsRequest, opts 
 	} else {
 		postBody = r.searchSynonymsParams
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8381,7 +8628,7 @@ Request can be constructed by NewApiSearchSynonymsRequest with parameters below.
 	@param searchSynonymsParams SearchSynonymsParams - Body of the `searchSynonyms` operation.
 	@return SearchSynonymsResponse
 */
-func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...utils.RequestOption) (*SearchSynonymsResponse, error) {
+func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...RequestOption) (*SearchSynonymsResponse, error) {
 	var returnValue *SearchSynonymsResponse
 
 	res, resBody, err := c.SearchSynonymsWithHTTPInfo(r, opts...)
@@ -8466,34 +8713,34 @@ To ensure rapid updates, the user IDs index isn't built at the same time as the 
 
 	Request can be constructed by NewApiSearchUserIdsRequest with parameters below.
 	  @param searchUserIdsParams SearchUserIdsParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchUserIdsWithHTTPInfo(r ApiSearchUserIdsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchUserIdsWithHTTPInfo(r ApiSearchUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/search"
 
 	if r.searchUserIdsParams == nil {
 		return nil, nil, reportError("Parameter `searchUserIdsParams` is required when calling `SearchUserIds`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.searchUserIdsParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8517,7 +8764,7 @@ Request can be constructed by NewApiSearchUserIdsRequest with parameters below.
 	@param searchUserIdsParams SearchUserIdsParams
 	@return SearchUserIdsResponse
 */
-func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...utils.RequestOption) (*SearchUserIdsResponse, error) {
+func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...RequestOption) (*SearchUserIdsResponse, error) {
 	var returnValue *SearchUserIdsResponse
 
 	res, resBody, err := c.SearchUserIdsWithHTTPInfo(r, opts...)
@@ -8598,34 +8845,34 @@ SetDictionarySettings calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiSetDictionarySettingsRequest with parameters below.
 	  @param dictionarySettingsParams DictionarySettingsParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SetDictionarySettingsWithHTTPInfo(r ApiSetDictionarySettingsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SetDictionarySettingsWithHTTPInfo(r ApiSetDictionarySettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/dictionaries/*/settings"
 
 	if r.dictionarySettingsParams == nil {
 		return nil, nil, reportError("Parameter `dictionarySettingsParams` is required when calling `SetDictionarySettings`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.dictionarySettingsParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8646,7 +8893,7 @@ Request can be constructed by NewApiSetDictionarySettingsRequest with parameters
 	@param dictionarySettingsParams DictionarySettingsParams
 	@return UpdatedAtResponse
 */
-func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.SetDictionarySettingsWithHTTPInfo(r, opts...)
@@ -8761,12 +9008,12 @@ For best performance, update the index settings before you add new records to yo
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param indexSettings IndexSettings
 	  @param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SetSettingsWithHTTPInfo(r ApiSetSettingsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SetSettingsWithHTTPInfo(r ApiSetSettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/settings"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 
@@ -8778,26 +9025,26 @@ func (c *APIClient) SetSettingsWithHTTPInfo(r ApiSetSettingsRequest, opts ...uti
 		return nil, nil, reportError("Parameter `indexSettings` is required when calling `SetSettings`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
-		options.QueryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
+		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.indexSettings
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8825,7 +9072,7 @@ Request can be constructed by NewApiSetSettingsRequest with parameters below.
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
 	@return UpdatedAtResponse
 */
-func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...utils.RequestOption) (*UpdatedAtResponse, error) {
+func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
 	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.SetSettingsWithHTTPInfo(r, opts...)
@@ -8920,12 +9167,12 @@ Any unspecified attribute resets that attribute to its default value.
 	Request can be constructed by NewApiUpdateApiKeyRequest with parameters below.
 	  @param key string - API key.
 	  @param apiKey ApiKey
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) UpdateApiKeyWithHTTPInfo(r ApiUpdateApiKeyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) UpdateApiKeyWithHTTPInfo(r ApiUpdateApiKeyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/keys/{key}"
 	requestPath = strings.ReplaceAll(requestPath, "{key}", url.PathEscape(utils.ParameterToString(r.key)))
 
@@ -8937,22 +9184,22 @@ func (c *APIClient) UpdateApiKeyWithHTTPInfo(r ApiUpdateApiKeyRequest, opts ...u
 		return nil, nil, reportError("Parameter `apiKey` is required when calling `UpdateApiKey`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.apiKey
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8976,7 +9223,7 @@ Request can be constructed by NewApiUpdateApiKeyRequest with parameters below.
 	@param apiKey ApiKey
 	@return UpdateApiKeyResponse
 */
-func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...utils.RequestOption) (*UpdateApiKeyResponse, error) {
+func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...RequestOption) (*UpdateApiKeyResponse, error) {
 	var returnValue *UpdateApiKeyResponse
 
 	res, resBody, err := c.UpdateApiKeyWithHTTPInfo(r, opts...)
@@ -9011,16 +9258,70 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...utils.Request
 	return returnValue, nil
 }
 
+type IterableError struct {
+	Validate func(any, error) bool
+	Message  func(any, error) string
+}
+
+func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T, error) bool, opts ...IterableOption) (*T, error) {
+	conf := config{
+		maxRetries: 50,
+		timeout: func(_ int) time.Duration {
+			return 1 * time.Second
+		},
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var executor func(*T, error) (*T, error)
+
+	retryCount := 0
+
+	executor = func(previousResponse *T, previousError error) (*T, error) {
+		response, responseErr := execute(previousResponse, previousError)
+
+		retryCount++
+
+		if conf.aggregator != nil {
+			conf.aggregator(response, responseErr)
+		}
+
+		if validate(response, responseErr) {
+			return response, nil
+		}
+
+		if retryCount >= conf.maxRetries {
+			return nil, errs.NewWaitError(fmt.Sprintf("The maximum number of retries exceeded. (%d/%d)", retryCount, conf.maxRetries))
+		}
+
+		if conf.iterableError != nil && conf.iterableError.Validate(response, responseErr) {
+			if conf.iterableError.Message != nil {
+				return nil, errs.NewWaitError(conf.iterableError.Message(response, responseErr))
+			}
+
+			return nil, errs.NewWaitError("an error occurred")
+		}
+
+		time.Sleep(conf.timeout(retryCount))
+
+		return executor(response, responseErr)
+	}
+
+	return executor(nil, nil)
+}
+
 /*
 SearchForHits calls the `search` method but with certainty that we will only request Algolia records (hits) and not facets.
 Disclaimer: We don't assert that the parameters you pass to this method only contains `hits` requests to prevent impacting search performances, this helper is purely for typing purposes.
 
 	@param r ApiSearchRequest - Body of the `search` operation.
-	@param opts ...utils.RequestOption - Optional parameters for the request.
+	@param opts ...RequestOption - Optional parameters for the request.
 	@return []SearchResponse - List of hits.
 	@return error - Error if any.
 */
-func (c *APIClient) SearchForHits(r ApiSearchRequest, opts ...utils.RequestOption) ([]SearchResponse, error) {
+func (c *APIClient) SearchForHits(r ApiSearchRequest, opts ...RequestOption) ([]SearchResponse, error) {
 	res, err := c.Search(r, opts...)
 	if err != nil {
 		return nil, err
@@ -9042,11 +9343,11 @@ SearchForFacets calls the `search` method but with certainty that we will only r
 Disclaimer: We don't assert that the parameters you pass to this method only contains `facets` requests to prevent impacting search performances, this helper is purely for typing purposes.
 
 	@param r ApiSearchRequest - Body of the `search` operation.
-	@param opts ...utils.RequestOption - Optional parameters for the request.
+	@param opts ...RequestOption - Optional parameters for the request.
 	@return []SearchForFacetValuesResponse - List of facet hits.
 	@return error - Error if any.
 */
-func (c *APIClient) SearchForFacets(r ApiSearchRequest, opts ...utils.RequestOption) ([]SearchForFacetValuesResponse, error) {
+func (c *APIClient) SearchForFacets(r ApiSearchRequest, opts ...RequestOption) ([]SearchForFacetValuesResponse, error) {
 	res, err := c.Search(r, opts...)
 	if err != nil {
 		return nil, err
@@ -9070,23 +9371,23 @@ It returns an error if the operation failed.
 
 	@param indexName string - Index name.
 	@param taskID int64 - Task ID.
-	@param opts ...utils.IterableOption - Optional parameters for the request.
+	@param opts ...IterableOption - Optional parameters for the request.
 	@return *GetTaskResponse - Task response.
 	@return error - Error if any.
 */
 func (c *APIClient) WaitForTask(
 	indexName string,
 	taskID int64,
-	opts ...utils.IterableOption,
+	opts ...IterableOption,
 ) (*GetTaskResponse, error) {
 	// provide a defalut timeout function
-	opts = append([]utils.IterableOption{utils.WithTimeout(func(count int) time.Duration {
+	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	})}, opts...)
 
-	return utils.CreateIterable( //nolint:wrapcheck
+	return CreateIterable( 
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
-			return c.GetTask(c.NewApiGetTaskRequest(indexName, taskID), utils.ToRequestOptions(opts)...)
+			return c.GetTask(c.NewApiGetTaskRequest(indexName, taskID), toRequestOptions(opts)...)
 		},
 		func(response *GetTaskResponse, err error) bool {
 			if err != nil || response == nil {
@@ -9105,22 +9406,22 @@ It returns the task response if the operation was successful.
 It returns an error if the operation failed.
 
 	@param taskID int64 - Task ID.
-	@param opts ...utils.IterableOption - Optional parameters for the request.
+	@param opts ...IterableOption - Optional parameters for the request.
 	@return *GetTaskResponse - Task response.
 	@return error - Error if any.
 */
 func (c *APIClient) WaitForAppTask(
 	taskID int64,
-	opts ...utils.IterableOption,
+	opts ...IterableOption,
 ) (*GetTaskResponse, error) {
 	// provide a defalut timeout function
-	opts = append([]utils.IterableOption{utils.WithTimeout(func(count int) time.Duration {
+	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	})}, opts...)
 
-	return utils.CreateIterable( //nolint:wrapcheck
+	return CreateIterable( 
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
-			return c.GetAppTask(c.NewApiGetAppTaskRequest(taskID), utils.ToRequestOptions(opts)...)
+			return c.GetAppTask(c.NewApiGetAppTaskRequest(taskID), toRequestOptions(opts)...)
 		},
 		func(response *GetTaskResponse, err error) bool {
 			if err != nil || response == nil {
@@ -9131,6 +9432,24 @@ func (c *APIClient) WaitForAppTask(
 		},
 		opts...,
 	)
+}
+
+func slicesEqualUnordered[T cmp.Ordered](a []T, b []T) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	// make a copy and sort it to avoid modifying the original slice
+	aCopy := make([]T, len(a))
+	copy(aCopy, a)
+
+	bCopy := make([]T, len(b))
+	copy(bCopy, b)
+
+	slices.Sort(aCopy)
+	slices.Sort(bCopy)
+
+	return slices.Equal(aCopy, bCopy)
 }
 
 /*
@@ -9146,32 +9465,28 @@ The operation can be one of the following:
 If the operation is "update", the apiKey parameter must be set.
 If the operation is "delete" or "add", the apiKey parameter is not used.
 
-	@param operation ApiKeyOperation - Operation type - add, delete or update.
 	@param key string - API key.
-	@param apiKey *ApiKey - API key structure - required for update operation.
-	@param opts ...utils.IterableOption - Optional parameters for the request.
+	@param operation ApiKeyOperation - Operation type - add, delete or update.
+	@param opts ...WaitForApiKeyOption - Optional parameters for the request, you must provide WithApiKey if the operation is "update".
 	@return *GetApiKeyResponse - API key response.
 	@return error - Error if any.
 */
 func (c *APIClient) WaitForApiKey(
-	operation ApiKeyOperation,
 	key string,
-	apiKey *ApiKey,
-	opts ...utils.IterableOption,
+	operation ApiKeyOperation,
+	opts ...WaitForApiKeyOption,
 ) (*GetApiKeyResponse, error) {
-	if operation != API_KEY_OPERATION_ADD && operation != API_KEY_OPERATION_DELETE && operation != API_KEY_OPERATION_UPDATE {
-		return nil, &errs.WaitKeyOperationError{}
-	}
+	conf := config{}
 
-	// provide a defalut timeout function
-	opts = append([]utils.IterableOption{utils.WithTimeout(func(count int) time.Duration {
-		return time.Duration(min(200*count, 5000)) * time.Millisecond
-	})}, opts...)
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
 
 	var validateFunc func(*GetApiKeyResponse, error) bool
 
-	if operation == API_KEY_OPERATION_UPDATE {
-		if apiKey == nil {
+	switch operation {
+	case API_KEY_OPERATION_UPDATE:
+		if conf.apiKey == nil {
 			return nil, &errs.WaitKeyUpdateError{}
 		}
 
@@ -9180,75 +9495,66 @@ func (c *APIClient) WaitForApiKey(
 				return false
 			}
 
-			if apiKey.GetDescription() != response.GetDescription() {
+			if conf.apiKey.GetDescription() != response.GetDescription() {
 				return false
 			}
 
-			if apiKey.GetQueryParameters() != response.GetQueryParameters() {
+			if conf.apiKey.GetQueryParameters() != response.GetQueryParameters() {
 				return false
 			}
 
-			if apiKey.GetMaxHitsPerQuery() != response.GetMaxHitsPerQuery() {
+			if conf.apiKey.GetMaxHitsPerQuery() != response.GetMaxHitsPerQuery() {
 				return false
 			}
 
-			if apiKey.GetMaxQueriesPerIPPerHour() != response.GetMaxQueriesPerIPPerHour() {
+			if conf.apiKey.GetMaxQueriesPerIPPerHour() != response.GetMaxQueriesPerIPPerHour() {
 				return false
 			}
 
-			if apiKey.GetValidity() != response.GetValidity() {
+			if conf.apiKey.GetValidity() != response.GetValidity() {
 				return false
 			}
 
-			slices.Sort(apiKey.Acl)
-			slices.Sort(response.Acl)
-
-			if !slices.Equal(apiKey.Acl, response.Acl) {
+			if !slicesEqualUnordered(conf.apiKey.Acl, response.Acl) {
 				return false
 			}
 
-			slices.Sort(apiKey.Indexes)
-			slices.Sort(response.Indexes)
-
-			if !slices.Equal(apiKey.Indexes, response.Indexes) {
+			if !slicesEqualUnordered(conf.apiKey.Indexes, response.Indexes) {
 				return false
 			}
 
-			slices.Sort(apiKey.Referers)
-			slices.Sort(response.Referers)
-
-			return slices.Equal(apiKey.Referers, response.Referers)
+			return slicesEqualUnordered(conf.apiKey.Referers, response.Referers)
 		}
-	} else {
+	case API_KEY_OPERATION_ADD:
 		validateFunc = func(response *GetApiKeyResponse, err error) bool {
-			switch operation {
-			case API_KEY_OPERATION_ADD:
-				if _, ok := err.(*APIError); ok {
-					apiErr := err.(*APIError)
-
-					return apiErr.Status != 404
-				}
-
-				return true
-			case API_KEY_OPERATION_DELETE:
-				if _, ok := err.(*APIError); ok {
-					apiErr := err.(*APIError)
-
-					return apiErr.Status == 404
-				}
-
-				return false
+			var apiErr *APIError
+			if errors.As(err, &apiErr) {
+				return apiErr.Status != 404
 			}
-			return false
+
+			return true
 		}
+	case API_KEY_OPERATION_DELETE:
+		validateFunc = func(response *GetApiKeyResponse, err error) bool {
+			var apiErr *APIError
+
+			return errors.As(err, &apiErr) && apiErr.Status == 404
+		}
+	default:
+		return nil, &errs.WaitKeyOperationError{}
 	}
 
-	return utils.CreateIterable( //nolint:wrapcheck
+	// provide a defalut timeout function
+	opts = append([]WaitForApiKeyOption{WithTimeout(func(count int) time.Duration {
+		return time.Duration(min(200*count, 5000)) * time.Millisecond
+	})}, opts...)
+
+	return CreateIterable( 
 		func(*GetApiKeyResponse, error) (*GetApiKeyResponse, error) {
-			return c.GetApiKey(c.NewApiGetApiKeyRequest(key), utils.ToRequestOptions(opts)...)
+			return c.GetApiKey(c.NewApiGetApiKeyRequest(key), toRequestOptions(opts)...)
 		},
 		validateFunc,
-		opts...,
+		toIterableOptionsWaitFor(opts)...,
 	)
 }
 
@@ -9257,16 +9563,16 @@ BrowseObjects allows to aggregate all the hits returned by the API calls.
 
 	  @param indexName string - Index name.
 	  @param browseParams BrowseParamsObject - Browse parameters.
-		@param opts ...utils.IterableOption - Optional parameters for the request.
+		@param opts ...IterableOption - Optional parameters for the request.
 		@return *BrowseResponse - Browse response.
 		@return error - Error if any.
 */
 func (c *APIClient) BrowseObjects(
 	indexName string,
 	browseParams BrowseParamsObject,
-	opts ...utils.IterableOption,
+	opts ...IterableOption,
 ) (*BrowseResponse, error) {
-	return utils.CreateIterable( //nolint:wrapcheck
+	return CreateIterable( 
 		func(previousResponse *BrowseResponse, previousErr error) (*BrowseResponse, error) {
 			if previousResponse != nil {
 				browseParams.Cursor = previousResponse.Cursor
@@ -9274,7 +9580,7 @@ func (c *APIClient) BrowseObjects(
 
 			return c.Browse(
 				c.NewApiBrowseRequest(indexName).WithBrowseParams(BrowseParamsObjectAsBrowseParams(&browseParams)),
-				utils.ToRequestOptions(opts)...,
+				toRequestOptions(opts)...,
 			)
 		},
 		func(response *BrowseResponse, responseErr error) bool {
@@ -9289,21 +9595,21 @@ BrowseRules allows to aggregate all the rules returned by the API calls.
 
 	@param indexName string - Index name.
 	@param searchRulesParams SearchRulesParams - Search rules parameters.
-	@param opts ...utils.IterableOption - Optional parameters for the request.
+	@param opts ...IterableOption - Optional parameters for the request.
 	@return *SearchRulesResponse - Search rules response.
 	@return error - Error if any.
 */
 func (c *APIClient) BrowseRules(
 	indexName string,
 	searchRulesParams SearchRulesParams,
-	opts ...utils.IterableOption,
+	opts ...IterableOption,
 ) (*SearchRulesResponse, error) {
 	hitsPerPage := int32(1000)
 	if searchRulesParams.HitsPerPage != nil {
 		hitsPerPage = *searchRulesParams.HitsPerPage
 	}
 
-	return utils.CreateIterable( //nolint:wrapcheck
+	return CreateIterable( 
 		func(previousResponse *SearchRulesResponse, previousErr error) (*SearchRulesResponse, error) {
 			searchRulesParams.HitsPerPage = &hitsPerPage
 
@@ -9317,7 +9623,7 @@ func (c *APIClient) BrowseRules(
 
 			return c.SearchRules(
 				c.NewApiSearchRulesRequest(indexName).WithSearchRulesParams(&searchRulesParams),
-				utils.ToRequestOptions(opts)...,
+				toRequestOptions(opts)...,
 			)
 		},
 		func(response *SearchRulesResponse, responseErr error) bool {
@@ -9332,14 +9638,14 @@ BrowseSynonyms allows to aggregate all the synonyms returned by the API calls.
 
 	@param indexName string - Index name.
 	@param searchSynonymsParams SearchSynonymsParams - Search synonyms parameters.
-	@param opts ...utils.IterableOption - Optional parameters for the request.
+	@param opts ...IterableOption - Optional parameters for the request.
 	@return *SearchSynonymsResponse - Search synonyms response.
 	@return error - Error if any.
 */
 func (c *APIClient) BrowseSynonyms(
 	indexName string,
 	searchSynonymsParams SearchSynonymsParams,
-	opts ...utils.IterableOption,
+	opts ...IterableOption,
 ) (*SearchSynonymsResponse, error) {
 	hitsPerPage := int32(1000)
 	if searchSynonymsParams.HitsPerPage != nil {
@@ -9350,7 +9656,7 @@ func (c *APIClient) BrowseSynonyms(
 		searchSynonymsParams.Page = utils.ToPtr(int32(0))
 	}
 
-	return utils.CreateIterable( //nolint:wrapcheck
+	return CreateIterable( 
 		func(previousResponse *SearchSynonymsResponse, previousErr error) (*SearchSynonymsResponse, error) {
 			searchSynonymsParams.HitsPerPage = &hitsPerPage
 
@@ -9360,7 +9666,7 @@ func (c *APIClient) BrowseSynonyms(
 
 			return c.SearchSynonyms(
 				c.NewApiSearchSynonymsRequest(indexName).WithSearchSynonymsParams(&searchSynonymsParams),
-				utils.ToRequestOptions(opts)...,
+				toRequestOptions(opts)...,
 			)
 		},
 		func(response *SearchSynonymsResponse, responseErr error) bool {
@@ -9465,12 +9771,12 @@ func (c *APIClient) GetSecuredApiKeyRemainingValidity(securedApiKey string) (tim
 }
 
 // Helper: Saves the given array of objects in the given index. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
-func (c *APIClient) SaveObjects(indexName string, objects []map[string]any, opts ...utils.ChunkedBatchOption) ([]BatchResponse, error) {
+func (c *APIClient) SaveObjects(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) ([]BatchResponse, error) {
 	return c.ChunkedBatch(indexName, objects, ACTION_ADD_OBJECT, opts...)
 }
 
 // Helper: Deletes every records for the given objectIDs. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objectIDs in it.
-func (c *APIClient) DeleteObjects(indexName string, objectIDs []string, opts ...utils.ChunkedBatchOption) ([]BatchResponse, error) {
+func (c *APIClient) DeleteObjects(indexName string, objectIDs []string, opts ...ChunkedBatchOption) ([]BatchResponse, error) {
 	objects := make([]map[string]any, 0, len(objectIDs))
 
 	for _, id := range objectIDs {
@@ -9481,49 +9787,57 @@ func (c *APIClient) DeleteObjects(indexName string, objectIDs []string, opts ...
 }
 
 // Helper: Replaces object content of all the given objects according to their respective `objectID` field. The `chunkedBatch` helper is used under the hood, which creates a `batch` requests with at most 1000 objects in it.
-func (c *APIClient) PartialUpdateObjects(indexName string, objects []map[string]any, createIfNotExists bool, opts ...utils.ChunkedBatchOption) ([]BatchResponse, error) {
+func (c *APIClient) PartialUpdateObjects(indexName string, objects []map[string]any, opts ...PartialUpdateObjectsOption) ([]BatchResponse, error) {
+	conf := config{
+		createIfNotExists: true,
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
 	var action Action
 
-	if createIfNotExists {
+	if conf.createIfNotExists {
 		action = ACTION_PARTIAL_UPDATE_OBJECT
 	} else {
 		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
 	}
 
-	return c.ChunkedBatch(indexName, objects, action, opts...)
+	return c.ChunkedBatch(indexName, objects, action, toChunkedBatchOptions(opts)...)
 }
 
 // ChunkedBatch chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `batch` requests.
-func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, action Action, opts ...utils.ChunkedBatchOption) ([]BatchResponse, error) {
-	options := utils.Options{
-		WaitForTasks: false,
-		BatchSize:    1000,
+func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, action Action, opts ...ChunkedBatchOption) ([]BatchResponse, error) {
+	conf := config{
+		waitForTasks: false,
+		batchSize:    1000,
 	}
 
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
-	requests := make([]BatchRequest, 0, len(objects)%options.BatchSize)
-	responses := make([]BatchResponse, 0, len(objects)%options.BatchSize)
+	requests := make([]BatchRequest, 0, len(objects)%conf.batchSize)
+	responses := make([]BatchResponse, 0, len(objects)%conf.batchSize)
 
 	for i, obj := range objects {
 		requests = append(requests, *NewBatchRequest(action, obj))
 
-		if len(requests) == options.BatchSize || i == len(objects)-1 {
-			resp, err := c.Batch(c.NewApiBatchRequest(indexName, NewBatchWriteParams(requests)), utils.ToRequestOptions(opts)...)
+		if len(requests) == conf.batchSize || i == len(objects)-1 {
+			resp, err := c.Batch(c.NewApiBatchRequest(indexName, NewBatchWriteParams(requests)), toRequestOptions(opts)...)
 			if err != nil {
 				return nil, err
 			}
 
 			responses = append(responses, *resp)
-			requests = make([]BatchRequest, 0, len(objects)%options.BatchSize)
+			requests = make([]BatchRequest, 0, len(objects)%conf.batchSize)
 		}
 	}
 
-	if options.WaitForTasks {
+	if conf.waitForTasks {
 		for _, resp := range responses {
-			_, err := c.WaitForTask(indexName, resp.TaskID, utils.ToIterableOptions(opts)...)
+			_, err := c.WaitForTask(indexName, resp.TaskID, toIterableOptions(opts)...)
 			if err != nil {
 				return nil, err
 			}
@@ -9535,42 +9849,42 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 
 // ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
 // See https://api-clients-automation.netlify.app/docs/contributing/add-new-api-client#5-helpers for implementation details.
-func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, opts ...utils.ChunkedBatchOption) (*ReplaceAllObjectsResponse, error) {
+func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) (*ReplaceAllObjectsResponse, error) {
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), utils.ToRequestOptions(opts)...)
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), toRequestOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	opts = append(opts, utils.WithWaitForTasks(true))
+	opts = append(opts, WithWaitForTasks(true))
 
 	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, opts...)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, utils.ToIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), utils.ToRequestOptions(opts)...)
+	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), toRequestOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, utils.ToIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), utils.ToRequestOptions(opts)...)
+	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), toRequestOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, utils.ToIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}

@@ -12,6 +12,41 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
+type config struct {
+	// -- Request options for API calls
+	context      context.Context
+	queryParams  url.Values
+	headerParams map[string]string
+}
+
+type RequestOption interface {
+	apply(*config)
+}
+
+type requestOption func(*config)
+
+func (r requestOption) apply(c *config) {
+	r(c)
+}
+
+func WithContext(ctx context.Context) requestOption {
+	return requestOption(func(c *config) {
+		c.context = ctx
+	})
+}
+
+func WithHeaderParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.headerParams[key] = utils.ParameterToString(value)
+	})
+}
+
+func WithQueryParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -68,12 +103,12 @@ CustomDelete calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -81,26 +116,26 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...u
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +154,7 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
@@ -210,12 +245,12 @@ CustomGet calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -223,26 +258,26 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -261,7 +296,7 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
@@ -369,12 +404,12 @@ CustomPost calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -382,21 +417,21 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -407,7 +442,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -427,7 +462,7 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
@@ -535,12 +570,12 @@ CustomPut calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -548,21 +583,21 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -573,7 +608,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -593,7 +628,7 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
@@ -671,12 +706,12 @@ The response includes a date and time when the user profile can safely be consid
 
 	Request can be constructed by NewApiDeleteUserProfileRequest with parameters below.
 	  @param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteUserProfileWithHTTPInfo(r ApiDeleteUserProfileRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteUserProfileWithHTTPInfo(r ApiDeleteUserProfileRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/profiles/{userToken}"
 	requestPath = strings.ReplaceAll(requestPath, "{userToken}", url.PathEscape(utils.ParameterToString(r.userToken)))
 
@@ -684,20 +719,20 @@ func (c *APIClient) DeleteUserProfileWithHTTPInfo(r ApiDeleteUserProfileRequest,
 		return nil, nil, reportError("Parameter `userToken` is required when calling `DeleteUserProfile`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -720,7 +755,7 @@ Request can be constructed by NewApiDeleteUserProfileRequest with parameters bel
 	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return DeleteUserProfileResponse
 */
-func (c *APIClient) DeleteUserProfile(r ApiDeleteUserProfileRequest, opts ...utils.RequestOption) (*DeleteUserProfileResponse, error) {
+func (c *APIClient) DeleteUserProfile(r ApiDeleteUserProfileRequest, opts ...RequestOption) (*DeleteUserProfileResponse, error) {
 	var returnValue *DeleteUserProfileResponse
 
 	res, resBody, err := c.DeleteUserProfileWithHTTPInfo(r, opts...)
@@ -764,28 +799,28 @@ GetPersonalizationStrategy calls the API and returns the raw response from it.
 	    - recommendation
 
 	Request can be constructed by NewApiGetPersonalizationStrategyRequest with parameters below.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetPersonalizationStrategyWithHTTPInfo(opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetPersonalizationStrategyWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/strategies/personalization"
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -805,7 +840,7 @@ Request can be constructed by NewApiGetPersonalizationStrategyRequest with param
 
 	@return PersonalizationStrategyParams
 */
-func (c *APIClient) GetPersonalizationStrategy(opts ...utils.RequestOption) (*PersonalizationStrategyParams, error) {
+func (c *APIClient) GetPersonalizationStrategy(opts ...RequestOption) (*PersonalizationStrategyParams, error) {
 	var returnValue *PersonalizationStrategyParams
 
 	res, resBody, err := c.GetPersonalizationStrategyWithHTTPInfo(opts...)
@@ -881,12 +916,12 @@ GetUserTokenProfile calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetUserTokenProfileRequest with parameters below.
 	  @param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetUserTokenProfileWithHTTPInfo(r ApiGetUserTokenProfileRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetUserTokenProfileWithHTTPInfo(r ApiGetUserTokenProfileRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/profiles/personalization/{userToken}"
 	requestPath = strings.ReplaceAll(requestPath, "{userToken}", url.PathEscape(utils.ParameterToString(r.userToken)))
 
@@ -894,20 +929,20 @@ func (c *APIClient) GetUserTokenProfileWithHTTPInfo(r ApiGetUserTokenProfileRequ
 		return nil, nil, reportError("Parameter `userToken` is required when calling `GetUserTokenProfile`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -928,7 +963,7 @@ Request can be constructed by NewApiGetUserTokenProfileRequest with parameters b
 	@param userToken string - Unique identifier representing a user for which to fetch the personalization profile.
 	@return GetUserTokenResponse
 */
-func (c *APIClient) GetUserTokenProfile(r ApiGetUserTokenProfileRequest, opts ...utils.RequestOption) (*GetUserTokenResponse, error) {
+func (c *APIClient) GetUserTokenProfile(r ApiGetUserTokenProfileRequest, opts ...RequestOption) (*GetUserTokenResponse, error) {
 	var returnValue *GetUserTokenResponse
 
 	res, resBody, err := c.GetUserTokenProfileWithHTTPInfo(r, opts...)
@@ -1009,34 +1044,34 @@ SetPersonalizationStrategy calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiSetPersonalizationStrategyRequest with parameters below.
 	  @param personalizationStrategyParams PersonalizationStrategyParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SetPersonalizationStrategyWithHTTPInfo(r ApiSetPersonalizationStrategyRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SetPersonalizationStrategyWithHTTPInfo(r ApiSetPersonalizationStrategyRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/strategies/personalization"
 
 	if r.personalizationStrategyParams == nil {
 		return nil, nil, reportError("Parameter `personalizationStrategyParams` is required when calling `SetPersonalizationStrategy`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.personalizationStrategyParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1057,7 +1092,7 @@ Request can be constructed by NewApiSetPersonalizationStrategyRequest with param
 	@param personalizationStrategyParams PersonalizationStrategyParams
 	@return SetPersonalizationStrategyResponse
 */
-func (c *APIClient) SetPersonalizationStrategy(r ApiSetPersonalizationStrategyRequest, opts ...utils.RequestOption) (*SetPersonalizationStrategyResponse, error) {
+func (c *APIClient) SetPersonalizationStrategy(r ApiSetPersonalizationStrategyRequest, opts ...RequestOption) (*SetPersonalizationStrategyResponse, error) {
 	var returnValue *SetPersonalizationStrategyResponse
 
 	res, resBody, err := c.SetPersonalizationStrategyWithHTTPInfo(r, opts...)

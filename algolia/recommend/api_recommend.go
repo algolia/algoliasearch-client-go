@@ -12,6 +12,41 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
+type config struct {
+	// -- Request options for API calls
+	context      context.Context
+	queryParams  url.Values
+	headerParams map[string]string
+}
+
+type RequestOption interface {
+	apply(*config)
+}
+
+type requestOption func(*config)
+
+func (r requestOption) apply(c *config) {
+	r(c)
+}
+
+func WithContext(ctx context.Context) requestOption {
+	return requestOption(func(c *config) {
+		c.context = ctx
+	})
+}
+
+func WithHeaderParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.headerParams[key] = utils.ParameterToString(value)
+	})
+}
+
+func WithQueryParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -68,12 +103,12 @@ CustomDelete calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -81,26 +116,26 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...u
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -119,7 +154,7 @@ Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
@@ -210,12 +245,12 @@ CustomGet calls the API and returns the raw response from it.
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -223,26 +258,26 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -261,7 +296,7 @@ Request can be constructed by NewApiCustomGetRequest with parameters below.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
-func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
@@ -369,12 +404,12 @@ CustomPost calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -382,21 +417,21 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -407,7 +442,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...utils
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -427,7 +462,7 @@ Request can be constructed by NewApiCustomPostRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
@@ -535,12 +570,12 @@ CustomPut calls the API and returns the raw response from it.
 	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/{path}"
 	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
 
@@ -548,21 +583,21 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	if !utils.IsNilOrEmpty(r.parameters) {
 		for k, v := range r.parameters {
-			options.QueryParams.Set(k, utils.QueryParameterToString(v))
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
 		}
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -573,7 +608,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...utils.R
 	} else {
 		postBody = r.body
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPut, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -593,7 +628,7 @@ Request can be constructed by NewApiCustomPutRequest with parameters below.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
 */
-func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...utils.RequestOption) (*map[string]any, error) {
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
 	var returnValue *map[string]any
 
 	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
@@ -693,12 +728,12 @@ DeleteRecommendRule calls the API and returns the raw response from it.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	  @param objectID string - Unique record identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) DeleteRecommendRuleWithHTTPInfo(r ApiDeleteRecommendRuleRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) DeleteRecommendRuleWithHTTPInfo(r ApiDeleteRecommendRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(utils.ParameterToString(r.model)))
@@ -712,20 +747,20 @@ func (c *APIClient) DeleteRecommendRuleWithHTTPInfo(r ApiDeleteRecommendRuleRequ
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteRecommendRule`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodDelete, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -748,7 +783,7 @@ Request can be constructed by NewApiDeleteRecommendRuleRequest with parameters b
 	@param objectID string - Unique record identifier.
 	@return DeletedAtResponse
 */
-func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ...utils.RequestOption) (*DeletedAtResponse, error) {
+func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
 	var returnValue *DeletedAtResponse
 
 	res, resBody, err := c.DeleteRecommendRuleWithHTTPInfo(r, opts...)
@@ -848,12 +883,12 @@ GetRecommendRule calls the API and returns the raw response from it.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	  @param objectID string - Unique record identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetRecommendRuleWithHTTPInfo(r ApiGetRecommendRuleRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetRecommendRuleWithHTTPInfo(r ApiGetRecommendRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/{objectID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(utils.ParameterToString(r.model)))
@@ -867,20 +902,20 @@ func (c *APIClient) GetRecommendRuleWithHTTPInfo(r ApiGetRecommendRuleRequest, o
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetRecommendRule`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -903,7 +938,7 @@ Request can be constructed by NewApiGetRecommendRuleRequest with parameters belo
 	@param objectID string - Unique record identifier.
 	@return RecommendRule
 */
-func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...utils.RequestOption) (*RecommendRule, error) {
+func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...RequestOption) (*RecommendRule, error) {
 	var returnValue *RecommendRule
 
 	res, resBody, err := c.GetRecommendRuleWithHTTPInfo(r, opts...)
@@ -1007,12 +1042,12 @@ The API response includes a task ID that you can use to check the status.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	  @param taskID int64 - Unique task identifier.
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetRecommendStatusWithHTTPInfo(r ApiGetRecommendStatusRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetRecommendStatusWithHTTPInfo(r ApiGetRecommendStatusRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{model}/task/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(utils.ParameterToString(r.model)))
@@ -1022,20 +1057,20 @@ func (c *APIClient) GetRecommendStatusWithHTTPInfo(r ApiGetRecommendStatusReques
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetRecommendStatus`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodGet, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1062,7 +1097,7 @@ Request can be constructed by NewApiGetRecommendStatusRequest with parameters be
 	@param taskID int64 - Unique task identifier.
 	@return GetRecommendTaskResponse
 */
-func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...utils.RequestOption) (*GetRecommendTaskResponse, error) {
+func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...RequestOption) (*GetRecommendTaskResponse, error) {
 	var returnValue *GetRecommendTaskResponse
 
 	res, resBody, err := c.GetRecommendStatusWithHTTPInfo(r, opts...)
@@ -1144,34 +1179,34 @@ GetRecommendations calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetRecommendationsRequest with parameters below.
 	  @param getRecommendationsParams GetRecommendationsParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetRecommendationsWithHTTPInfo(r ApiGetRecommendationsRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetRecommendationsWithHTTPInfo(r ApiGetRecommendationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/*/recommendations"
 
 	if r.getRecommendationsParams == nil {
 		return nil, nil, reportError("Parameter `getRecommendationsParams` is required when calling `GetRecommendations`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
 
 	// body params
 	postBody = r.getRecommendationsParams
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1192,7 +1227,7 @@ Request can be constructed by NewApiGetRecommendationsRequest with parameters be
 	@param getRecommendationsParams GetRecommendationsParams
 	@return GetRecommendationsResponse
 */
-func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...utils.RequestOption) (*GetRecommendationsResponse, error) {
+func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...RequestOption) (*GetRecommendationsResponse, error) {
 	var returnValue *GetRecommendationsResponse
 
 	res, resBody, err := c.GetRecommendationsWithHTTPInfo(r, opts...)
@@ -1299,12 +1334,12 @@ Use an empty query to list all rules for this recommendation scenario.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
 	  @param searchRecommendRulesParams SearchRecommendRulesParams
-	@param opts ...Option - Optional parameters for the API call
+	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRequest, opts ...utils.RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/search"
 	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
 	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(utils.ParameterToString(r.model)))
@@ -1313,15 +1348,15 @@ func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRe
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SearchRecommendRules`.")
 	}
 
-	options := utils.Options{
-		Context:      context.Background(),
-		QueryParams:  url.Values{},
-		HeaderParams: map[string]string{},
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
 	}
 
 	// optional params if any
 	for _, opt := range opts {
-		opt.Apply(&options)
+		opt.apply(&conf)
 	}
 
 	var postBody any
@@ -1332,7 +1367,7 @@ func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRe
 	} else {
 		postBody = r.searchRecommendRulesParams
 	}
-	req, err := c.prepareRequest(options.Context, requestPath, http.MethodPost, postBody, options.HeaderParams, options.QueryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1357,7 +1392,7 @@ Request can be constructed by NewApiSearchRecommendRulesRequest with parameters 
 	@param searchRecommendRulesParams SearchRecommendRulesParams
 	@return SearchRecommendRulesResponse
 */
-func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts ...utils.RequestOption) (*SearchRecommendRulesResponse, error) {
+func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts ...RequestOption) (*SearchRecommendRulesResponse, error) {
 	var returnValue *SearchRecommendRulesResponse
 
 	res, resBody, err := c.SearchRecommendRulesWithHTTPInfo(r, opts...)

@@ -8,8 +8,6 @@ import (
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
 )
 
 // ToPtr is a helper routine that returns a pointer to the given value.
@@ -66,60 +64,6 @@ func IsNilOrEmpty(i any) bool {
 	default:
 		return reflect.ValueOf(i).IsZero()
 	}
-}
-
-type IterableError struct {
-	Validate func(any, error) bool
-	Message  func(any, error) string
-}
-
-func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T, error) bool, opts ...IterableOption) (*T, error) {
-	options := Options{
-		MaxRetries: 50,
-		Timeout: func(_ int) time.Duration {
-			return 1 * time.Second
-		},
-	}
-
-	for _, opt := range opts {
-		opt.Apply(&options)
-	}
-
-	var executor func(*T, error) (*T, error)
-
-	retryCount := 0
-
-	executor = func(previousResponse *T, previousError error) (*T, error) {
-		response, responseErr := execute(previousResponse, previousError)
-
-		retryCount++
-
-		if options.Aggregator != nil {
-			options.Aggregator(response, responseErr)
-		}
-
-		if validate(response, responseErr) {
-			return response, responseErr
-		}
-
-		if retryCount >= options.MaxRetries {
-			return nil, errs.NewWaitError(fmt.Sprintf("The maximum number of retries exceeded. (%d/%d)", retryCount, options.MaxRetries))
-		}
-
-		if options.IterableError != nil && options.IterableError.Validate(response, responseErr) {
-			if options.IterableError.Message != nil {
-				return nil, errs.NewWaitError(options.IterableError.Message(response, responseErr))
-			}
-
-			return nil, errs.NewWaitError("an error occurred")
-		}
-
-		time.Sleep(options.Timeout(retryCount))
-
-		return executor(response, responseErr)
-	}
-
-	return executor(nil, nil)
 }
 
 // QueryParameterToString convert any query parameters to string.
