@@ -1,3 +1,12 @@
+## [4.0.0-beta.24](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.23...4.0.0-beta.24)
+
+- [280037178](https://github.com/algolia/api-clients-automation/commit/280037178) fix(specs): update shopify feature flags ([#3380](https://github.com/algolia/api-clients-automation/pull/3380)) by [@millotp](https://github.com/millotp/)
+- [a68907d1c](https://github.com/algolia/api-clients-automation/commit/a68907d1c) feat(clients): add api key helper test ([#3338](https://github.com/algolia/api-clients-automation/pull/3338)) by [@Fluf22](https://github.com/Fluf22/)
+- [7d2b42002](https://github.com/algolia/api-clients-automation/commit/7d2b42002) fix(go): use options for more helpers ([#3383](https://github.com/algolia/api-clients-automation/pull/3383)) by [@millotp](https://github.com/millotp/)
+- [e3d766adb](https://github.com/algolia/api-clients-automation/commit/e3d766adb) fix(go): use functional options pattern ([#3306](https://github.com/algolia/api-clients-automation/pull/3306)) by [@millotp](https://github.com/millotp/)
+- [31ba7f6d0](https://github.com/algolia/api-clients-automation/commit/31ba7f6d0) fix(specs): recommend non required parameters ([#3355](https://github.com/algolia/api-clients-automation/pull/3355)) by [@shortcuts](https://github.com/shortcuts/)
+- [337eea93e](https://github.com/algolia/api-clients-automation/commit/337eea93e) fix(specs): results is required in GetRecommendationsResponse ([#3357](https://github.com/algolia/api-clients-automation/pull/3357)) by [@millotp](https://github.com/millotp/)
+
 ## [4.0.0-beta.23](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.22...4.0.0-beta.23)
 
 - [a009967f6](https://github.com/algolia/api-clients-automation/commit/a009967f6) fix(specs): browse response required properties ([#3348](https://github.com/algolia/api-clients-automation/pull/3348)) by [@millotp](https://github.com/millotp/)
