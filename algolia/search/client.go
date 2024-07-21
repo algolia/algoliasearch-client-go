@@ -44,8 +44,6 @@ func NewClient(appID, apiKey string) (*APIClient, error) {
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
 func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
-	var hosts []transport.StatefulHost
-
 	if cfg.AppID == "" {
 		return nil, errors.New("`appId` is missing.")
 	}
@@ -53,12 +51,7 @@ func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
 		return nil, errors.New("`apiKey` is missing.")
 	}
 	if len(cfg.Hosts) == 0 {
-		hosts = getDefaultHosts(cfg.AppID)
-	} else {
-		hosts = cfg.Hosts
-	}
-	if cfg.Requester == nil {
-		cfg.Requester = transport.NewDefaultRequester(&cfg.ConnectTimeout)
+		cfg.Hosts = getDefaultHosts(cfg.AppID)
 	}
 	if cfg.UserAgent == "" {
 		cfg.UserAgent = getUserAgent()
@@ -68,12 +61,7 @@ func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
 		appID: cfg.AppID,
 		cfg:   &cfg,
 		transport: transport.New(
-			hosts,
-			cfg.Requester,
-			cfg.ReadTimeout,
-			cfg.WriteTimeout,
-			cfg.ConnectTimeout,
-			cfg.Compression,
+			cfg.Configuration,
 		),
 	}, nil
 }

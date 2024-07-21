@@ -17,5 +17,5 @@ func (e *NoMoreHostToTryError) IntermediateNetworkErrors() []error {
 }
 
 func (e *NoMoreHostToTryError) Error() string {
-	return "all hosts have been contacted unsuccessfully, it can either be a server or a network error or wrong appID/key credentials were used. You can use opt.ExposeIntermediateNetworkErrors(true) to investigate."
+	return "all hosts have been contacted unsuccessfully, it can either be a server or a network error or wrong appID/key credentials were used. You can use 'ExposeIntermediateNetworkErrors: true' in the config to investigate."
 }

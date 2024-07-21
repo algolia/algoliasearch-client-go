@@ -10,12 +10,13 @@ type Configuration struct {
 	AppID  string
 	ApiKey string
 
-	Hosts          []StatefulHost
-	DefaultHeader  map[string]string
-	UserAgent      string
-	Requester      Requester
-	ReadTimeout    time.Duration
-	WriteTimeout   time.Duration
-	ConnectTimeout time.Duration
-	Compression    compression.Compression
+	Hosts                           []StatefulHost
+	DefaultHeader                   map[string]string
+	UserAgent                       string
+	Requester                       Requester
+	ReadTimeout                     time.Duration
+	WriteTimeout                    time.Duration
+	ConnectTimeout                  time.Duration
+	Compression                     compression.Compression
+	ExposeIntermediateNetworkErrors bool
 }

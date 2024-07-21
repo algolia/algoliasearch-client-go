@@ -17,38 +17,34 @@ import (
 )
 
 type Transport struct {
-	requester      Requester
-	retryStrategy  *RetryStrategy
-	compression    compression.Compression
-	connectTimeout time.Duration
+	requester                       Requester
+	retryStrategy                   *RetryStrategy
+	compression                     compression.Compression
+	connectTimeout                  time.Duration
+	exposeIntermediateNetworkErrors bool
 }
 
-func New(
-	hosts []StatefulHost,
-	requester Requester,
-	readTimeout time.Duration,
-	writeTimeout time.Duration,
-	connectTimeout time.Duration,
-	compression compression.Compression,
-) *Transport {
-	if connectTimeout == 0 {
-		connectTimeout = DefaultConnectTimeout
+func New(cfg Configuration) *Transport {
+	transport := &Transport{
+		requester:                       cfg.Requester,
+		retryStrategy:                   newRetryStrategy(cfg.Hosts, cfg.ReadTimeout, cfg.WriteTimeout),
+		connectTimeout:                  cfg.ConnectTimeout,
+		compression:                     cfg.Compression,
+		exposeIntermediateNetworkErrors: cfg.ExposeIntermediateNetworkErrors,
 	}
 
-	if requester == nil {
-		requester = NewDefaultRequester(&connectTimeout)
+	if transport.connectTimeout == 0 {
+		transport.connectTimeout = DefaultConnectTimeout
 	}
 
-	return &Transport{
-		requester:      requester,
-		retryStrategy:  newRetryStrategy(hosts, readTimeout, writeTimeout),
-		compression:    compression,
-		connectTimeout: connectTimeout,
+	if transport.requester == nil {
+		transport.requester = NewDefaultRequester(&transport.connectTimeout)
 	}
+
+	return transport
 }
 
 func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind) (*http.Response, []byte, error) {
-	exposeIntermediateNetworkErrors := false // todo: expose this option to the user
 	var intermediateNetworkErrors []error
 
 	// Add Content-Encoding header, if needed
@@ -109,7 +105,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind)
 		cancel()
 	}
 
-	if exposeIntermediateNetworkErrors {
+	if t.exposeIntermediateNetworkErrors {
 		return nil, nil, errs.NewNoMoreHostToTryError(intermediateNetworkErrors...)
 	}
 
@@ -126,8 +122,8 @@ func (t *Transport) request(req *http.Request, host Host, timeout time.Duration,
 
 	if err != nil {
 		msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
-		nerr, ok := err.(net.Error)
-		if ok {
+		var nerr net.Error
+		if errors.As(err, &nerr) {
 			// Because net.Error and error have different meanings for the
 			// retry strategy, we cannot simply return a new error, which
 			// would make all net.Error simple errors instead. To keep this
