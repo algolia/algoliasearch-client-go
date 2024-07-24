@@ -496,7 +496,7 @@ CreateTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) CreateTaskWithHTTPInfo(r ApiCreateTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks"
+	requestPath := "/2/tasks"
 
 	if r.taskCreate == nil {
 		return nil, nil, reportError("Parameter `taskCreate` is required when calling `CreateTask`.")
@@ -539,6 +539,130 @@ func (c *APIClient) CreateTask(r ApiCreateTaskRequest, opts ...RequestOption) (*
 	var returnValue *TaskCreateResponse
 
 	res, resBody, err := c.CreateTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiCreateTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskCreate"]; ok {
+		err = json.Unmarshal(v, &r.taskCreate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskCreate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskCreate: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.taskCreate)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter taskCreate: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiCreateTaskV1Request represents the request with all the parameters for the API call.
+type ApiCreateTaskV1Request struct {
+	taskCreate *TaskCreateV1
+}
+
+// NewApiCreateTaskV1Request creates an instance of the ApiCreateTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiCreateTaskV1Request(taskCreate *TaskCreateV1) ApiCreateTaskV1Request {
+	return ApiCreateTaskV1Request{
+		taskCreate: taskCreate,
+	}
+}
+
+/*
+CreateTaskV1 calls the API and returns the raw response from it.
+
+	  Creates a new task using the v1 endpoint, please use `createTask` instead.
+
+
+	Request can be constructed by NewApiCreateTaskV1Request with parameters below.
+	  @param taskCreate TaskCreateV1 - Request body for creating a task.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks"
+
+	if r.taskCreate == nil {
+		return nil, nil, reportError("Parameter `taskCreate` is required when calling `CreateTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskCreate
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+CreateTaskV1 casts the HTTP response body to a defined struct.
+
+Creates a new task using the v1 endpoint, please use `createTask` instead.
+
+Request can be constructed by NewApiCreateTaskV1Request with parameters below.
+
+	@param taskCreate TaskCreateV1 - Request body for creating a task.
+	@return TaskCreateResponse
+*/
+func (c *APIClient) CreateTaskV1(r ApiCreateTaskV1Request, opts ...RequestOption) (*TaskCreateResponse, error) {
+	var returnValue *TaskCreateResponse
+
+	res, resBody, err := c.CreateTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1736,7 +1860,7 @@ DeleteTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) DeleteTaskWithHTTPInfo(r ApiDeleteTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}"
+	requestPath := "/2/tasks/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -1778,6 +1902,124 @@ func (c *APIClient) DeleteTask(r ApiDeleteTaskRequest, opts ...RequestOption) (*
 	var returnValue *DeleteResponse
 
 	res, resBody, err := c.DeleteTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiDeleteTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDeleteTaskV1Request represents the request with all the parameters for the API call.
+type ApiDeleteTaskV1Request struct {
+	taskID string
+}
+
+// NewApiDeleteTaskV1Request creates an instance of the ApiDeleteTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiDeleteTaskV1Request(taskID string) ApiDeleteTaskV1Request {
+	return ApiDeleteTaskV1Request{
+		taskID: taskID,
+	}
+}
+
+/*
+DeleteTaskV1 calls the API and returns the raw response from it.
+
+	  Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
+
+
+	Request can be constructed by NewApiDeleteTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `DeleteTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+DeleteTaskV1 casts the HTTP response body to a defined struct.
+
+Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
+
+Request can be constructed by NewApiDeleteTaskV1Request with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@return DeleteResponse
+*/
+func (c *APIClient) DeleteTaskV1(r ApiDeleteTaskV1Request, opts ...RequestOption) (*DeleteResponse, error) {
+	var returnValue *DeleteResponse
+
+	res, resBody, err := c.DeleteTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -1976,7 +2218,7 @@ DisableTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) DisableTaskWithHTTPInfo(r ApiDisableTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}/disable"
+	requestPath := "/2/tasks/{taskID}/disable"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -2023,6 +2265,138 @@ func (c *APIClient) DisableTask(r ApiDisableTaskRequest, opts ...RequestOption) 
 	var returnValue *TaskUpdateResponse
 
 	res, resBody, err := c.DisableTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiDisableTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDisableTaskV1Request represents the request with all the parameters for the API call.
+type ApiDisableTaskV1Request struct {
+	taskID string
+}
+
+// Deprecated
+// NewApiDisableTaskV1Request creates an instance of the ApiDisableTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiDisableTaskV1Request(taskID string) ApiDisableTaskV1Request {
+	return ApiDisableTaskV1Request{
+		taskID: taskID,
+	}
+}
+
+/*
+DisableTaskV1 calls the API and returns the raw response from it.
+
+	  Disables a task using the v1 endpoint, please use `disableTask` instead.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiDisableTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+
+	  Deprecated
+*/
+func (c *APIClient) DisableTaskV1WithHTTPInfo(r ApiDisableTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}/disable"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `DisableTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+DisableTaskV1 casts the HTTP response body to a defined struct.
+
+Disables a task using the v1 endpoint, please use `disableTask` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiDisableTaskV1Request with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@return TaskUpdateResponse
+
+Deprecated.
+*/
+func (c *APIClient) DisableTaskV1(r ApiDisableTaskV1Request, opts ...RequestOption) (*TaskUpdateResponse, error) {
+	var returnValue *TaskUpdateResponse
+
+	res, resBody, err := c.DisableTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2103,7 +2477,7 @@ EnableTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) EnableTaskWithHTTPInfo(r ApiEnableTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}/enable"
+	requestPath := "/2/tasks/{taskID}/enable"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -2150,6 +2524,133 @@ func (c *APIClient) EnableTask(r ApiEnableTaskRequest, opts ...RequestOption) (*
 	var returnValue *TaskUpdateResponse
 
 	res, resBody, err := c.EnableTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiEnableTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiEnableTaskV1Request represents the request with all the parameters for the API call.
+type ApiEnableTaskV1Request struct {
+	taskID string
+}
+
+// NewApiEnableTaskV1Request creates an instance of the ApiEnableTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiEnableTaskV1Request(taskID string) ApiEnableTaskV1Request {
+	return ApiEnableTaskV1Request{
+		taskID: taskID,
+	}
+}
+
+/*
+EnableTaskV1 calls the API and returns the raw response from it.
+
+	  Enables a task using the v1 endpoint, please use `enableTask` instead.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiEnableTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) EnableTaskV1WithHTTPInfo(r ApiEnableTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}/enable"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `EnableTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+EnableTaskV1 casts the HTTP response body to a defined struct.
+
+Enables a task using the v1 endpoint, please use `enableTask` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiEnableTaskV1Request with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@return TaskUpdateResponse
+*/
+func (c *APIClient) EnableTaskV1(r ApiEnableTaskV1Request, opts ...RequestOption) (*TaskUpdateResponse, error) {
+	var returnValue *TaskUpdateResponse
+
+	res, resBody, err := c.EnableTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -2308,241 +2809,6 @@ func (c *APIClient) GetAuthentication(r ApiGetAuthenticationRequest, opts ...Req
 	return returnValue, nil
 }
 
-func (r *ApiGetAuthenticationsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["type"]; ok {
-		err = json.Unmarshal(v, &r.type_)
-		if err != nil {
-			err = json.Unmarshal(b, &r.type_)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal type_: %w", err)
-			}
-		}
-	}
-	if v, ok := req["platform"]; ok {
-		err = json.Unmarshal(v, &r.platform)
-		if err != nil {
-			err = json.Unmarshal(b, &r.platform)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal platform: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetAuthenticationsRequest represents the request with all the parameters for the API call.
-type ApiGetAuthenticationsRequest struct {
-	itemsPerPage *int32
-	page         *int32
-	type_        []AuthenticationType
-	platform     []PlatformWithNone
-	sort         AuthenticationSortKeys
-	order        OrderKeys
-}
-
-// NewApiGetAuthenticationsRequest creates an instance of the ApiGetAuthenticationsRequest to be used for the API call.
-func (c *APIClient) NewApiGetAuthenticationsRequest() ApiGetAuthenticationsRequest {
-	return ApiGetAuthenticationsRequest{}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetAuthenticationsRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithPage(page int32) ApiGetAuthenticationsRequest {
-	r.page = &page
-	return r
-}
-
-// WithType adds the type_ to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithType(type_ []AuthenticationType) ApiGetAuthenticationsRequest {
-	r.type_ = type_
-	return r
-}
-
-// WithPlatform adds the platform to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithPlatform(platform []PlatformWithNone) ApiGetAuthenticationsRequest {
-	r.platform = platform
-	return r
-}
-
-// WithSort adds the sort to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithSort(sort AuthenticationSortKeys) ApiGetAuthenticationsRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetAuthenticationsRequest and returns the request for chaining.
-func (r ApiGetAuthenticationsRequest) WithOrder(order OrderKeys) ApiGetAuthenticationsRequest {
-	r.order = order
-	return r
-}
-
-/*
-GetAuthentications calls the API and returns the raw response from it.
-
-	  Retrieves a list of all authentication resources.
-
-	    Required API Key ACLs:
-	    - addObject
-	    - deleteIndex
-	    - editSettings
-
-	Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param type_ []AuthenticationType - Type of authentication resource to retrieve.
-	  @param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
-	  @param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	@param opts ...RequestOption - Optional parameters for the API call
-	@return *http.Response - The raw response from the API
-	@return []byte - The raw response body from the API
-	@return error - An error if the API call fails
-*/
-func (c *APIClient) GetAuthenticationsWithHTTPInfo(r ApiGetAuthenticationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/authentications"
-
-	conf := config{
-		context:      context.Background(),
-		queryParams:  url.Values{},
-		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.type_) {
-		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
-	}
-	if !utils.IsNilOrEmpty(r.platform) {
-		conf.queryParams.Set("platform", utils.QueryParameterToString(r.platform))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		opt.apply(&conf)
-	}
-
-	var postBody any
-
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return c.callAPI(req, false)
-}
-
-/*
-GetAuthentications casts the HTTP response body to a defined struct.
-
-Retrieves a list of all authentication resources.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetAuthenticationsRequest with parameters below.
-
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param type_ []AuthenticationType - Type of authentication resource to retrieve.
-	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
-	@param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@return ListAuthenticationsResponse
-*/
-func (c *APIClient) GetAuthentications(r ApiGetAuthenticationsRequest, opts ...RequestOption) (*ListAuthenticationsResponse, error) {
-	var returnValue *ListAuthenticationsResponse
-
-	res, resBody, err := c.GetAuthenticationsWithHTTPInfo(r, opts...)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
 func (r *ApiGetDestinationRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -2639,241 +2905,6 @@ func (c *APIClient) GetDestination(r ApiGetDestinationRequest, opts ...RequestOp
 	var returnValue *Destination
 
 	res, resBody, err := c.GetDestinationWithHTTPInfo(r, opts...)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
-func (r *ApiGetDestinationsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["type"]; ok {
-		err = json.Unmarshal(v, &r.type_)
-		if err != nil {
-			err = json.Unmarshal(b, &r.type_)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal type_: %w", err)
-			}
-		}
-	}
-	if v, ok := req["authenticationID"]; ok {
-		err = json.Unmarshal(v, &r.authenticationID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.authenticationID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal authenticationID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetDestinationsRequest represents the request with all the parameters for the API call.
-type ApiGetDestinationsRequest struct {
-	itemsPerPage     *int32
-	page             *int32
-	type_            []DestinationType
-	authenticationID []string
-	sort             DestinationSortKeys
-	order            OrderKeys
-}
-
-// NewApiGetDestinationsRequest creates an instance of the ApiGetDestinationsRequest to be used for the API call.
-func (c *APIClient) NewApiGetDestinationsRequest() ApiGetDestinationsRequest {
-	return ApiGetDestinationsRequest{}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetDestinationsRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithPage(page int32) ApiGetDestinationsRequest {
-	r.page = &page
-	return r
-}
-
-// WithType adds the type_ to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithType(type_ []DestinationType) ApiGetDestinationsRequest {
-	r.type_ = type_
-	return r
-}
-
-// WithAuthenticationID adds the authenticationID to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithAuthenticationID(authenticationID []string) ApiGetDestinationsRequest {
-	r.authenticationID = authenticationID
-	return r
-}
-
-// WithSort adds the sort to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithSort(sort DestinationSortKeys) ApiGetDestinationsRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetDestinationsRequest and returns the request for chaining.
-func (r ApiGetDestinationsRequest) WithOrder(order OrderKeys) ApiGetDestinationsRequest {
-	r.order = order
-	return r
-}
-
-/*
-GetDestinations calls the API and returns the raw response from it.
-
-	  Retrieves a list of destinations.
-
-	    Required API Key ACLs:
-	    - addObject
-	    - deleteIndex
-	    - editSettings
-
-	Request can be constructed by NewApiGetDestinationsRequest with parameters below.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param type_ []DestinationType - Destination type.
-	  @param authenticationID []string - Authentication ID used by destinations.
-	  @param sort DestinationSortKeys - Property by which to sort the destinations.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	@param opts ...RequestOption - Optional parameters for the API call
-	@return *http.Response - The raw response from the API
-	@return []byte - The raw response body from the API
-	@return error - An error if the API call fails
-*/
-func (c *APIClient) GetDestinationsWithHTTPInfo(r ApiGetDestinationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/destinations"
-
-	conf := config{
-		context:      context.Background(),
-		queryParams:  url.Values{},
-		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.type_) {
-		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
-	}
-	if !utils.IsNilOrEmpty(r.authenticationID) {
-		conf.queryParams.Set("authenticationID", utils.QueryParameterToString(r.authenticationID))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		opt.apply(&conf)
-	}
-
-	var postBody any
-
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return c.callAPI(req, false)
-}
-
-/*
-GetDestinations casts the HTTP response body to a defined struct.
-
-Retrieves a list of destinations.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetDestinationsRequest with parameters below.
-
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param type_ []DestinationType - Destination type.
-	@param authenticationID []string - Authentication ID used by destinations.
-	@param sort DestinationSortKeys - Property by which to sort the destinations.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@return ListDestinationsResponse
-*/
-func (c *APIClient) GetDestinations(r ApiGetDestinationsRequest, opts ...RequestOption) (*ListDestinationsResponse, error) {
-	var returnValue *ListDestinationsResponse
-
-	res, resBody, err := c.GetDestinationsWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3049,302 +3080,6 @@ func (c *APIClient) GetEvent(r ApiGetEventRequest, opts ...RequestOption) (*Even
 	return returnValue, nil
 }
 
-func (r *ApiGetEventsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["runID"]; ok {
-		err = json.Unmarshal(v, &r.runID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.runID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal runID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["status"]; ok {
-		err = json.Unmarshal(v, &r.status)
-		if err != nil {
-			err = json.Unmarshal(b, &r.status)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal status: %w", err)
-			}
-		}
-	}
-	if v, ok := req["type"]; ok {
-		err = json.Unmarshal(v, &r.type_)
-		if err != nil {
-			err = json.Unmarshal(b, &r.type_)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal type_: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
-			}
-		}
-	}
-	if v, ok := req["startDate"]; ok {
-		err = json.Unmarshal(v, &r.startDate)
-		if err != nil {
-			err = json.Unmarshal(b, &r.startDate)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal startDate: %w", err)
-			}
-		}
-	}
-	if v, ok := req["endDate"]; ok {
-		err = json.Unmarshal(v, &r.endDate)
-		if err != nil {
-			err = json.Unmarshal(b, &r.endDate)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal endDate: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetEventsRequest represents the request with all the parameters for the API call.
-type ApiGetEventsRequest struct {
-	runID        string
-	itemsPerPage *int32
-	page         *int32
-	status       []EventStatus
-	type_        []EventType
-	sort         EventSortKeys
-	order        OrderKeys
-	startDate    *string
-	endDate      *string
-}
-
-// NewApiGetEventsRequest creates an instance of the ApiGetEventsRequest to be used for the API call.
-func (c *APIClient) NewApiGetEventsRequest(runID string) ApiGetEventsRequest {
-	return ApiGetEventsRequest{
-		runID: runID,
-	}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetEventsRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithPage(page int32) ApiGetEventsRequest {
-	r.page = &page
-	return r
-}
-
-// WithStatus adds the status to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithStatus(status []EventStatus) ApiGetEventsRequest {
-	r.status = status
-	return r
-}
-
-// WithType adds the type_ to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithType(type_ []EventType) ApiGetEventsRequest {
-	r.type_ = type_
-	return r
-}
-
-// WithSort adds the sort to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithSort(sort EventSortKeys) ApiGetEventsRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithOrder(order OrderKeys) ApiGetEventsRequest {
-	r.order = order
-	return r
-}
-
-// WithStartDate adds the startDate to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithStartDate(startDate string) ApiGetEventsRequest {
-	r.startDate = &startDate
-	return r
-}
-
-// WithEndDate adds the endDate to the ApiGetEventsRequest and returns the request for chaining.
-func (r ApiGetEventsRequest) WithEndDate(endDate string) ApiGetEventsRequest {
-	r.endDate = &endDate
-	return r
-}
-
-/*
-GetEvents calls the API and returns the raw response from it.
-
-	  Retrieves a list of events for a task run, identified by it's ID.
-
-	    Required API Key ACLs:
-	    - addObject
-	    - deleteIndex
-	    - editSettings
-
-	Request can be constructed by NewApiGetEventsRequest with parameters below.
-	  @param runID string - Unique identifier of a task run.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param status []EventStatus - Event status for filtering the list of task runs.
-	  @param type_ []EventType - Event type for filtering the list of task runs.
-	  @param sort EventSortKeys - Property by which to sort the list of task run events.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	  @param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
-	  @param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
-	@param opts ...RequestOption - Optional parameters for the API call
-	@return *http.Response - The raw response from the API
-	@return []byte - The raw response body from the API
-	@return error - An error if the API call fails
-*/
-func (c *APIClient) GetEventsWithHTTPInfo(r ApiGetEventsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/runs/{runID}/events"
-	requestPath = strings.ReplaceAll(requestPath, "{runID}", url.PathEscape(utils.ParameterToString(r.runID)))
-
-	if r.runID == "" {
-		return nil, nil, reportError("Parameter `runID` is required when calling `GetEvents`.")
-	}
-
-	conf := config{
-		context:      context.Background(),
-		queryParams:  url.Values{},
-		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.status) {
-		conf.queryParams.Set("status", utils.QueryParameterToString(r.status))
-	}
-	if !utils.IsNilOrEmpty(r.type_) {
-		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
-	}
-	if !utils.IsNilOrEmpty(r.startDate) {
-		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
-	}
-	if !utils.IsNilOrEmpty(r.endDate) {
-		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		opt.apply(&conf)
-	}
-
-	var postBody any
-
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return c.callAPI(req, false)
-}
-
-/*
-GetEvents casts the HTTP response body to a defined struct.
-
-Retrieves a list of events for a task run, identified by it's ID.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetEventsRequest with parameters below.
-
-	@param runID string - Unique identifier of a task run.
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param status []EventStatus - Event status for filtering the list of task runs.
-	@param type_ []EventType - Event type for filtering the list of task runs.
-	@param sort EventSortKeys - Property by which to sort the list of task run events.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
-	@param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
-	@return ListEventsResponse
-*/
-func (c *APIClient) GetEvents(r ApiGetEventsRequest, opts ...RequestOption) (*ListEventsResponse, error) {
-	var returnValue *ListEventsResponse
-
-	res, resBody, err := c.GetEventsWithHTTPInfo(r, opts...)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
 func (r *ApiGetRunRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -3441,283 +3176,6 @@ func (c *APIClient) GetRun(r ApiGetRunRequest, opts ...RequestOption) (*Run, err
 	var returnValue *Run
 
 	res, resBody, err := c.GetRunWithHTTPInfo(r, opts...)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
-func (r *ApiGetRunsRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["status"]; ok {
-		err = json.Unmarshal(v, &r.status)
-		if err != nil {
-			err = json.Unmarshal(b, &r.status)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal status: %w", err)
-			}
-		}
-	}
-	if v, ok := req["taskID"]; ok {
-		err = json.Unmarshal(v, &r.taskID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.taskID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal taskID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
-			}
-		}
-	}
-	if v, ok := req["startDate"]; ok {
-		err = json.Unmarshal(v, &r.startDate)
-		if err != nil {
-			err = json.Unmarshal(b, &r.startDate)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal startDate: %w", err)
-			}
-		}
-	}
-	if v, ok := req["endDate"]; ok {
-		err = json.Unmarshal(v, &r.endDate)
-		if err != nil {
-			err = json.Unmarshal(b, &r.endDate)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal endDate: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetRunsRequest represents the request with all the parameters for the API call.
-type ApiGetRunsRequest struct {
-	itemsPerPage *int32
-	page         *int32
-	status       []RunStatus
-	taskID       *string
-	sort         RunSortKeys
-	order        OrderKeys
-	startDate    *string
-	endDate      *string
-}
-
-// NewApiGetRunsRequest creates an instance of the ApiGetRunsRequest to be used for the API call.
-func (c *APIClient) NewApiGetRunsRequest() ApiGetRunsRequest {
-	return ApiGetRunsRequest{}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithItemsPerPage(itemsPerPage int32) ApiGetRunsRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithPage(page int32) ApiGetRunsRequest {
-	r.page = &page
-	return r
-}
-
-// WithStatus adds the status to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithStatus(status []RunStatus) ApiGetRunsRequest {
-	r.status = status
-	return r
-}
-
-// WithTaskID adds the taskID to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithTaskID(taskID string) ApiGetRunsRequest {
-	r.taskID = &taskID
-	return r
-}
-
-// WithSort adds the sort to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithSort(sort RunSortKeys) ApiGetRunsRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithOrder(order OrderKeys) ApiGetRunsRequest {
-	r.order = order
-	return r
-}
-
-// WithStartDate adds the startDate to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithStartDate(startDate string) ApiGetRunsRequest {
-	r.startDate = &startDate
-	return r
-}
-
-// WithEndDate adds the endDate to the ApiGetRunsRequest and returns the request for chaining.
-func (r ApiGetRunsRequest) WithEndDate(endDate string) ApiGetRunsRequest {
-	r.endDate = &endDate
-	return r
-}
-
-/*
-GetRuns calls the API and returns the raw response from it.
-
-	  Retrieve a list of task runs.
-
-	    Required API Key ACLs:
-	    - addObject
-	    - deleteIndex
-	    - editSettings
-
-	Request can be constructed by NewApiGetRunsRequest with parameters below.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param status []RunStatus - Run status for filtering the list of task runs.
-	  @param taskID string - Task ID for filtering the list of task runs.
-	  @param sort RunSortKeys - Property by which to sort the list of task runs.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	  @param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	  @param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
-	@param opts ...RequestOption - Optional parameters for the API call
-	@return *http.Response - The raw response from the API
-	@return []byte - The raw response body from the API
-	@return error - An error if the API call fails
-*/
-func (c *APIClient) GetRunsWithHTTPInfo(r ApiGetRunsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/runs"
-
-	conf := config{
-		context:      context.Background(),
-		queryParams:  url.Values{},
-		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.status) {
-		conf.queryParams.Set("status", utils.QueryParameterToString(r.status))
-	}
-	if !utils.IsNilOrEmpty(r.taskID) {
-		conf.queryParams.Set("taskID", utils.QueryParameterToString(*r.taskID))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
-	}
-	if !utils.IsNilOrEmpty(r.startDate) {
-		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
-	}
-	if !utils.IsNilOrEmpty(r.endDate) {
-		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		opt.apply(&conf)
-	}
-
-	var postBody any
-
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return c.callAPI(req, false)
-}
-
-/*
-GetRuns casts the HTTP response body to a defined struct.
-
-Retrieve a list of task runs.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetRunsRequest with parameters below.
-
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param status []RunStatus - Run status for filtering the list of task runs.
-	@param taskID string - Task ID for filtering the list of task runs.
-	@param sort RunSortKeys - Property by which to sort the list of task runs.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	@param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
-	@return RunListResponse
-*/
-func (c *APIClient) GetRuns(r ApiGetRunsRequest, opts ...RequestOption) (*RunListResponse, error) {
-	var returnValue *RunListResponse
-
-	res, resBody, err := c.GetRunsWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -3876,241 +3334,6 @@ func (c *APIClient) GetSource(r ApiGetSourceRequest, opts ...RequestOption) (*So
 	return returnValue, nil
 }
 
-func (r *ApiGetSourcesRequest) UnmarshalJSON(b []byte) error {
-	req := map[string]json.RawMessage{}
-	err := json.Unmarshal(b, &req)
-	if err != nil {
-		return fmt.Errorf("cannot unmarshal request: %w", err)
-	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
-		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["type"]; ok {
-		err = json.Unmarshal(v, &r.type_)
-		if err != nil {
-			err = json.Unmarshal(b, &r.type_)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal type_: %w", err)
-			}
-		}
-	}
-	if v, ok := req["authenticationID"]; ok {
-		err = json.Unmarshal(v, &r.authenticationID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.authenticationID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal authenticationID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
-			}
-		}
-	}
-
-	return nil
-}
-
-// ApiGetSourcesRequest represents the request with all the parameters for the API call.
-type ApiGetSourcesRequest struct {
-	itemsPerPage     *int32
-	page             *int32
-	type_            []SourceType
-	authenticationID []string
-	sort             SourceSortKeys
-	order            OrderKeys
-}
-
-// NewApiGetSourcesRequest creates an instance of the ApiGetSourcesRequest to be used for the API call.
-func (c *APIClient) NewApiGetSourcesRequest() ApiGetSourcesRequest {
-	return ApiGetSourcesRequest{}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithItemsPerPage(itemsPerPage int32) ApiGetSourcesRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithPage(page int32) ApiGetSourcesRequest {
-	r.page = &page
-	return r
-}
-
-// WithType adds the type_ to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithType(type_ []SourceType) ApiGetSourcesRequest {
-	r.type_ = type_
-	return r
-}
-
-// WithAuthenticationID adds the authenticationID to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithAuthenticationID(authenticationID []string) ApiGetSourcesRequest {
-	r.authenticationID = authenticationID
-	return r
-}
-
-// WithSort adds the sort to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithSort(sort SourceSortKeys) ApiGetSourcesRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetSourcesRequest and returns the request for chaining.
-func (r ApiGetSourcesRequest) WithOrder(order OrderKeys) ApiGetSourcesRequest {
-	r.order = order
-	return r
-}
-
-/*
-GetSources calls the API and returns the raw response from it.
-
-	  Retrieves a list of sources.
-
-	    Required API Key ACLs:
-	    - addObject
-	    - deleteIndex
-	    - editSettings
-
-	Request can be constructed by NewApiGetSourcesRequest with parameters below.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param type_ []SourceType - Source type. Some sources require authentication.
-	  @param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
-	  @param sort SourceSortKeys - Property by which to sort the list of sources.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	@param opts ...RequestOption - Optional parameters for the API call
-	@return *http.Response - The raw response from the API
-	@return []byte - The raw response body from the API
-	@return error - An error if the API call fails
-*/
-func (c *APIClient) GetSourcesWithHTTPInfo(r ApiGetSourcesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/sources"
-
-	conf := config{
-		context:      context.Background(),
-		queryParams:  url.Values{},
-		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.type_) {
-		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
-	}
-	if !utils.IsNilOrEmpty(r.authenticationID) {
-		conf.queryParams.Set("authenticationID", utils.QueryParameterToString(r.authenticationID))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
-	}
-
-	// optional params if any
-	for _, opt := range opts {
-		opt.apply(&conf)
-	}
-
-	var postBody any
-
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return c.callAPI(req, false)
-}
-
-/*
-GetSources casts the HTTP response body to a defined struct.
-
-Retrieves a list of sources.
-
-Required API Key ACLs:
-  - addObject
-  - deleteIndex
-  - editSettings
-
-Request can be constructed by NewApiGetSourcesRequest with parameters below.
-
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param type_ []SourceType - Source type. Some sources require authentication.
-	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
-	@param sort SourceSortKeys - Property by which to sort the list of sources.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@return ListSourcesResponse
-*/
-func (c *APIClient) GetSources(r ApiGetSourcesRequest, opts ...RequestOption) (*ListSourcesResponse, error) {
-	var returnValue *ListSourcesResponse
-
-	res, resBody, err := c.GetSourcesWithHTTPInfo(r, opts...)
-	if err != nil {
-		return returnValue, err
-	}
-	if res == nil {
-		return returnValue, reportError("res is nil")
-	}
-
-	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
-	}
-
-	err = c.decode(&returnValue, resBody)
-	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
-	}
-
-	return returnValue, nil
-}
-
 func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -4160,7 +3383,7 @@ GetTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}"
+	requestPath := "/2/tasks/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -4238,90 +3461,18 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*Task, 
 	return returnValue, nil
 }
 
-func (r *ApiGetTasksRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiGetTaskV1Request) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
-	if v, ok := req["itemsPerPage"]; ok {
-		err = json.Unmarshal(v, &r.itemsPerPage)
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
-			err = json.Unmarshal(b, &r.itemsPerPage)
+			err = json.Unmarshal(b, &r.taskID)
 			if err != nil {
-				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
-			}
-		}
-	}
-	if v, ok := req["page"]; ok {
-		err = json.Unmarshal(v, &r.page)
-		if err != nil {
-			err = json.Unmarshal(b, &r.page)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal page: %w", err)
-			}
-		}
-	}
-	if v, ok := req["action"]; ok {
-		err = json.Unmarshal(v, &r.action)
-		if err != nil {
-			err = json.Unmarshal(b, &r.action)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal action: %w", err)
-			}
-		}
-	}
-	if v, ok := req["enabled"]; ok {
-		err = json.Unmarshal(v, &r.enabled)
-		if err != nil {
-			err = json.Unmarshal(b, &r.enabled)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal enabled: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sourceID"]; ok {
-		err = json.Unmarshal(v, &r.sourceID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sourceID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sourceID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["destinationID"]; ok {
-		err = json.Unmarshal(v, &r.destinationID)
-		if err != nil {
-			err = json.Unmarshal(b, &r.destinationID)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal destinationID: %w", err)
-			}
-		}
-	}
-	if v, ok := req["triggerType"]; ok {
-		err = json.Unmarshal(v, &r.triggerType)
-		if err != nil {
-			err = json.Unmarshal(b, &r.triggerType)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal triggerType: %w", err)
-			}
-		}
-	}
-	if v, ok := req["sort"]; ok {
-		err = json.Unmarshal(v, &r.sort)
-		if err != nil {
-			err = json.Unmarshal(b, &r.sort)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal sort: %w", err)
-			}
-		}
-	}
-	if v, ok := req["order"]; ok {
-		err = json.Unmarshal(v, &r.order)
-		if err != nil {
-			err = json.Unmarshal(b, &r.order)
-			if err != nil {
-				return fmt.Errorf("cannot unmarshal order: %w", err)
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
 			}
 		}
 	}
@@ -4329,138 +3480,47 @@ func (r *ApiGetTasksRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiGetTasksRequest represents the request with all the parameters for the API call.
-type ApiGetTasksRequest struct {
-	itemsPerPage  *int32
-	page          *int32
-	action        []ActionType
-	enabled       *bool
-	sourceID      []string
-	destinationID []string
-	triggerType   []TriggerType
-	sort          TaskSortKeys
-	order         OrderKeys
+// ApiGetTaskV1Request represents the request with all the parameters for the API call.
+type ApiGetTaskV1Request struct {
+	taskID string
 }
 
-// NewApiGetTasksRequest creates an instance of the ApiGetTasksRequest to be used for the API call.
-func (c *APIClient) NewApiGetTasksRequest() ApiGetTasksRequest {
-	return ApiGetTasksRequest{}
-}
-
-// WithItemsPerPage adds the itemsPerPage to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithItemsPerPage(itemsPerPage int32) ApiGetTasksRequest {
-	r.itemsPerPage = &itemsPerPage
-	return r
-}
-
-// WithPage adds the page to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithPage(page int32) ApiGetTasksRequest {
-	r.page = &page
-	return r
-}
-
-// WithAction adds the action to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithAction(action []ActionType) ApiGetTasksRequest {
-	r.action = action
-	return r
-}
-
-// WithEnabled adds the enabled to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithEnabled(enabled bool) ApiGetTasksRequest {
-	r.enabled = &enabled
-	return r
-}
-
-// WithSourceID adds the sourceID to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithSourceID(sourceID []string) ApiGetTasksRequest {
-	r.sourceID = sourceID
-	return r
-}
-
-// WithDestinationID adds the destinationID to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithDestinationID(destinationID []string) ApiGetTasksRequest {
-	r.destinationID = destinationID
-	return r
-}
-
-// WithTriggerType adds the triggerType to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithTriggerType(triggerType []TriggerType) ApiGetTasksRequest {
-	r.triggerType = triggerType
-	return r
-}
-
-// WithSort adds the sort to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithSort(sort TaskSortKeys) ApiGetTasksRequest {
-	r.sort = sort
-	return r
-}
-
-// WithOrder adds the order to the ApiGetTasksRequest and returns the request for chaining.
-func (r ApiGetTasksRequest) WithOrder(order OrderKeys) ApiGetTasksRequest {
-	r.order = order
-	return r
+// NewApiGetTaskV1Request creates an instance of the ApiGetTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiGetTaskV1Request(taskID string) ApiGetTaskV1Request {
+	return ApiGetTaskV1Request{
+		taskID: taskID,
+	}
 }
 
 /*
-GetTasks calls the API and returns the raw response from it.
+GetTaskV1 calls the API and returns the raw response from it.
 
-	  Retrieves a list of tasks.
+	  Retrieves a task by its ID using the v1 endpoint, please use `getTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
 	    - deleteIndex
 	    - editSettings
 
-	Request can be constructed by NewApiGetTasksRequest with parameters below.
-	  @param itemsPerPage int32 - Number of items per page.
-	  @param page int32 - Page number of the paginated API response.
-	  @param action []ActionType - Actions for filtering the list of tasks.
-	  @param enabled bool - Whether to filter the list of tasks by the `enabled` status.
-	  @param sourceID []string - Source IDs for filtering the list of tasks.
-	  @param destinationID []string - Destination IDs for filtering the list of tasks.
-	  @param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
-	  @param sort TaskSortKeys - Property by which to sort the list of tasks.
-	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	Request can be constructed by NewApiGetTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetTasksWithHTTPInfo(r ApiGetTasksRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks"
+func (c *APIClient) GetTaskV1WithHTTPInfo(r ApiGetTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `GetTaskV1`.")
+	}
 
 	conf := config{
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
-	}
-
-	if !utils.IsNilOrEmpty(r.itemsPerPage) {
-		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
-	}
-	if !utils.IsNilOrEmpty(r.page) {
-		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
-	}
-	if !utils.IsNilOrEmpty(r.action) {
-		conf.queryParams.Set("action", utils.QueryParameterToString(r.action))
-	}
-	if !utils.IsNilOrEmpty(r.enabled) {
-		conf.queryParams.Set("enabled", utils.QueryParameterToString(*r.enabled))
-	}
-	if !utils.IsNilOrEmpty(r.sourceID) {
-		conf.queryParams.Set("sourceID", utils.QueryParameterToString(r.sourceID))
-	}
-	if !utils.IsNilOrEmpty(r.destinationID) {
-		conf.queryParams.Set("destinationID", utils.QueryParameterToString(r.destinationID))
-	}
-	if !utils.IsNilOrEmpty(r.triggerType) {
-		conf.queryParams.Set("triggerType", utils.QueryParameterToString(r.triggerType))
-	}
-	if !utils.IsNilOrEmpty(r.sort) {
-		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
-	}
-	if !utils.IsNilOrEmpty(r.order) {
-		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
 	}
 
 	// optional params if any
@@ -4479,32 +3539,24 @@ func (c *APIClient) GetTasksWithHTTPInfo(r ApiGetTasksRequest, opts ...RequestOp
 }
 
 /*
-GetTasks casts the HTTP response body to a defined struct.
+GetTaskV1 casts the HTTP response body to a defined struct.
 
-Retrieves a list of tasks.
+Retrieves a task by its ID using the v1 endpoint, please use `getTask` instead.
 
 Required API Key ACLs:
   - addObject
   - deleteIndex
   - editSettings
 
-Request can be constructed by NewApiGetTasksRequest with parameters below.
+Request can be constructed by NewApiGetTaskV1Request with parameters below.
 
-	@param itemsPerPage int32 - Number of items per page.
-	@param page int32 - Page number of the paginated API response.
-	@param action []ActionType - Actions for filtering the list of tasks.
-	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
-	@param sourceID []string - Source IDs for filtering the list of tasks.
-	@param destinationID []string - Destination IDs for filtering the list of tasks.
-	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
-	@param sort TaskSortKeys - Property by which to sort the list of tasks.
-	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@return ListTasksResponse
+	@param taskID string - Unique identifier of a task.
+	@return TaskV1
 */
-func (c *APIClient) GetTasks(r ApiGetTasksRequest, opts ...RequestOption) (*ListTasksResponse, error) {
-	var returnValue *ListTasksResponse
+func (c *APIClient) GetTaskV1(r ApiGetTaskV1Request, opts ...RequestOption) (*TaskV1, error) {
+	var returnValue *TaskV1
 
-	res, resBody, err := c.GetTasksWithHTTPInfo(r, opts...)
+	res, resBody, err := c.GetTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4663,7 +3715,1881 @@ func (c *APIClient) GetTransformation(r ApiGetTransformationRequest, opts ...Req
 	return returnValue, nil
 }
 
-func (r *ApiGetTransformationsRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiListAuthenticationsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
+	if v, ok := req["platform"]; ok {
+		err = json.Unmarshal(v, &r.platform)
+		if err != nil {
+			err = json.Unmarshal(b, &r.platform)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal platform: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListAuthenticationsRequest represents the request with all the parameters for the API call.
+type ApiListAuthenticationsRequest struct {
+	itemsPerPage *int32
+	page         *int32
+	type_        []AuthenticationType
+	platform     []PlatformWithNone
+	sort         AuthenticationSortKeys
+	order        OrderKeys
+}
+
+// NewApiListAuthenticationsRequest creates an instance of the ApiListAuthenticationsRequest to be used for the API call.
+func (c *APIClient) NewApiListAuthenticationsRequest() ApiListAuthenticationsRequest {
+	return ApiListAuthenticationsRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithItemsPerPage(itemsPerPage int32) ApiListAuthenticationsRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithPage(page int32) ApiListAuthenticationsRequest {
+	r.page = &page
+	return r
+}
+
+// WithType adds the type_ to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithType(type_ []AuthenticationType) ApiListAuthenticationsRequest {
+	r.type_ = type_
+	return r
+}
+
+// WithPlatform adds the platform to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithPlatform(platform []PlatformWithNone) ApiListAuthenticationsRequest {
+	r.platform = platform
+	return r
+}
+
+// WithSort adds the sort to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithSort(sort AuthenticationSortKeys) ApiListAuthenticationsRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListAuthenticationsRequest and returns the request for chaining.
+func (r ApiListAuthenticationsRequest) WithOrder(order OrderKeys) ApiListAuthenticationsRequest {
+	r.order = order
+	return r
+}
+
+/*
+ListAuthentications calls the API and returns the raw response from it.
+
+	  Retrieves a list of all authentication resources.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListAuthenticationsRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param type_ []AuthenticationType - Type of authentication resource to retrieve.
+	  @param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
+	  @param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListAuthenticationsWithHTTPInfo(r ApiListAuthenticationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/authentications"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
+	}
+	if !utils.IsNilOrEmpty(r.platform) {
+		conf.queryParams.Set("platform", utils.QueryParameterToString(r.platform))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListAuthentications casts the HTTP response body to a defined struct.
+
+Retrieves a list of all authentication resources.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListAuthenticationsRequest with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []AuthenticationType - Type of authentication resource to retrieve.
+	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
+	@param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListAuthenticationsResponse
+*/
+func (c *APIClient) ListAuthentications(r ApiListAuthenticationsRequest, opts ...RequestOption) (*ListAuthenticationsResponse, error) {
+	var returnValue *ListAuthenticationsResponse
+
+	res, resBody, err := c.ListAuthenticationsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListDestinationsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
+	if v, ok := req["authenticationID"]; ok {
+		err = json.Unmarshal(v, &r.authenticationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.authenticationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal authenticationID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListDestinationsRequest represents the request with all the parameters for the API call.
+type ApiListDestinationsRequest struct {
+	itemsPerPage     *int32
+	page             *int32
+	type_            []DestinationType
+	authenticationID []string
+	sort             DestinationSortKeys
+	order            OrderKeys
+}
+
+// NewApiListDestinationsRequest creates an instance of the ApiListDestinationsRequest to be used for the API call.
+func (c *APIClient) NewApiListDestinationsRequest() ApiListDestinationsRequest {
+	return ApiListDestinationsRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithItemsPerPage(itemsPerPage int32) ApiListDestinationsRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithPage(page int32) ApiListDestinationsRequest {
+	r.page = &page
+	return r
+}
+
+// WithType adds the type_ to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithType(type_ []DestinationType) ApiListDestinationsRequest {
+	r.type_ = type_
+	return r
+}
+
+// WithAuthenticationID adds the authenticationID to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithAuthenticationID(authenticationID []string) ApiListDestinationsRequest {
+	r.authenticationID = authenticationID
+	return r
+}
+
+// WithSort adds the sort to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithSort(sort DestinationSortKeys) ApiListDestinationsRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithOrder(order OrderKeys) ApiListDestinationsRequest {
+	r.order = order
+	return r
+}
+
+/*
+ListDestinations calls the API and returns the raw response from it.
+
+	  Retrieves a list of destinations.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListDestinationsRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param type_ []DestinationType - Destination type.
+	  @param authenticationID []string - Authentication ID used by destinations.
+	  @param sort DestinationSortKeys - Property by which to sort the destinations.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListDestinationsWithHTTPInfo(r ApiListDestinationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/destinations"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
+	}
+	if !utils.IsNilOrEmpty(r.authenticationID) {
+		conf.queryParams.Set("authenticationID", utils.QueryParameterToString(r.authenticationID))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListDestinations casts the HTTP response body to a defined struct.
+
+Retrieves a list of destinations.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListDestinationsRequest with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []DestinationType - Destination type.
+	@param authenticationID []string - Authentication ID used by destinations.
+	@param sort DestinationSortKeys - Property by which to sort the destinations.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListDestinationsResponse
+*/
+func (c *APIClient) ListDestinations(r ApiListDestinationsRequest, opts ...RequestOption) (*ListDestinationsResponse, error) {
+	var returnValue *ListDestinationsResponse
+
+	res, resBody, err := c.ListDestinationsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListEventsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["runID"]; ok {
+		err = json.Unmarshal(v, &r.runID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.runID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal runID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["status"]; ok {
+		err = json.Unmarshal(v, &r.status)
+		if err != nil {
+			err = json.Unmarshal(b, &r.status)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal status: %w", err)
+			}
+		}
+	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+	if v, ok := req["startDate"]; ok {
+		err = json.Unmarshal(v, &r.startDate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.startDate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
+			}
+		}
+	}
+	if v, ok := req["endDate"]; ok {
+		err = json.Unmarshal(v, &r.endDate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.endDate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListEventsRequest represents the request with all the parameters for the API call.
+type ApiListEventsRequest struct {
+	runID        string
+	itemsPerPage *int32
+	page         *int32
+	status       []EventStatus
+	type_        []EventType
+	sort         EventSortKeys
+	order        OrderKeys
+	startDate    *string
+	endDate      *string
+}
+
+// NewApiListEventsRequest creates an instance of the ApiListEventsRequest to be used for the API call.
+func (c *APIClient) NewApiListEventsRequest(runID string) ApiListEventsRequest {
+	return ApiListEventsRequest{
+		runID: runID,
+	}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithItemsPerPage(itemsPerPage int32) ApiListEventsRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithPage(page int32) ApiListEventsRequest {
+	r.page = &page
+	return r
+}
+
+// WithStatus adds the status to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithStatus(status []EventStatus) ApiListEventsRequest {
+	r.status = status
+	return r
+}
+
+// WithType adds the type_ to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithType(type_ []EventType) ApiListEventsRequest {
+	r.type_ = type_
+	return r
+}
+
+// WithSort adds the sort to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithSort(sort EventSortKeys) ApiListEventsRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithOrder(order OrderKeys) ApiListEventsRequest {
+	r.order = order
+	return r
+}
+
+// WithStartDate adds the startDate to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithStartDate(startDate string) ApiListEventsRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// WithEndDate adds the endDate to the ApiListEventsRequest and returns the request for chaining.
+func (r ApiListEventsRequest) WithEndDate(endDate string) ApiListEventsRequest {
+	r.endDate = &endDate
+	return r
+}
+
+/*
+ListEvents calls the API and returns the raw response from it.
+
+	  Retrieves a list of events for a task run, identified by it's ID.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListEventsRequest with parameters below.
+	  @param runID string - Unique identifier of a task run.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param status []EventStatus - Event status for filtering the list of task runs.
+	  @param type_ []EventType - Event type for filtering the list of task runs.
+	  @param sort EventSortKeys - Property by which to sort the list of task run events.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	  @param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	  @param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListEventsWithHTTPInfo(r ApiListEventsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/runs/{runID}/events"
+	requestPath = strings.ReplaceAll(requestPath, "{runID}", url.PathEscape(utils.ParameterToString(r.runID)))
+
+	if r.runID == "" {
+		return nil, nil, reportError("Parameter `runID` is required when calling `ListEvents`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.status) {
+		conf.queryParams.Set("status", utils.QueryParameterToString(r.status))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+	if !utils.IsNilOrEmpty(r.startDate) {
+		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
+	}
+	if !utils.IsNilOrEmpty(r.endDate) {
+		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListEvents casts the HTTP response body to a defined struct.
+
+Retrieves a list of events for a task run, identified by it's ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListEventsRequest with parameters below.
+
+	@param runID string - Unique identifier of a task run.
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []EventStatus - Event status for filtering the list of task runs.
+	@param type_ []EventType - Event type for filtering the list of task runs.
+	@param sort EventSortKeys - Property by which to sort the list of task run events.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date and time in RFC 3339 format for the earliest events to retrieve. By default, the current time minus three hours is used.
+	@param endDate string - Date and time in RFC 3339 format for the latest events to retrieve. By default, the current time is used.
+	@return ListEventsResponse
+*/
+func (c *APIClient) ListEvents(r ApiListEventsRequest, opts ...RequestOption) (*ListEventsResponse, error) {
+	var returnValue *ListEventsResponse
+
+	res, resBody, err := c.ListEventsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListRunsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["status"]; ok {
+		err = json.Unmarshal(v, &r.status)
+		if err != nil {
+			err = json.Unmarshal(b, &r.status)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal status: %w", err)
+			}
+		}
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+	if v, ok := req["startDate"]; ok {
+		err = json.Unmarshal(v, &r.startDate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.startDate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal startDate: %w", err)
+			}
+		}
+	}
+	if v, ok := req["endDate"]; ok {
+		err = json.Unmarshal(v, &r.endDate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.endDate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal endDate: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListRunsRequest represents the request with all the parameters for the API call.
+type ApiListRunsRequest struct {
+	itemsPerPage *int32
+	page         *int32
+	status       []RunStatus
+	taskID       *string
+	sort         RunSortKeys
+	order        OrderKeys
+	startDate    *string
+	endDate      *string
+}
+
+// NewApiListRunsRequest creates an instance of the ApiListRunsRequest to be used for the API call.
+func (c *APIClient) NewApiListRunsRequest() ApiListRunsRequest {
+	return ApiListRunsRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithItemsPerPage(itemsPerPage int32) ApiListRunsRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithPage(page int32) ApiListRunsRequest {
+	r.page = &page
+	return r
+}
+
+// WithStatus adds the status to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithStatus(status []RunStatus) ApiListRunsRequest {
+	r.status = status
+	return r
+}
+
+// WithTaskID adds the taskID to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithTaskID(taskID string) ApiListRunsRequest {
+	r.taskID = &taskID
+	return r
+}
+
+// WithSort adds the sort to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithSort(sort RunSortKeys) ApiListRunsRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithOrder(order OrderKeys) ApiListRunsRequest {
+	r.order = order
+	return r
+}
+
+// WithStartDate adds the startDate to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithStartDate(startDate string) ApiListRunsRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// WithEndDate adds the endDate to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithEndDate(endDate string) ApiListRunsRequest {
+	r.endDate = &endDate
+	return r
+}
+
+/*
+ListRuns calls the API and returns the raw response from it.
+
+	  Retrieve a list of task runs.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListRunsRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param status []RunStatus - Run status for filtering the list of task runs.
+	  @param taskID string - Task ID for filtering the list of task runs.
+	  @param sort RunSortKeys - Property by which to sort the list of task runs.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	  @param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	  @param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListRunsWithHTTPInfo(r ApiListRunsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/runs"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.status) {
+		conf.queryParams.Set("status", utils.QueryParameterToString(r.status))
+	}
+	if !utils.IsNilOrEmpty(r.taskID) {
+		conf.queryParams.Set("taskID", utils.QueryParameterToString(*r.taskID))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+	if !utils.IsNilOrEmpty(r.startDate) {
+		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
+	}
+	if !utils.IsNilOrEmpty(r.endDate) {
+		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListRuns casts the HTTP response body to a defined struct.
+
+Retrieve a list of task runs.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListRunsRequest with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param status []RunStatus - Run status for filtering the list of task runs.
+	@param taskID string - Task ID for filtering the list of task runs.
+	@param sort RunSortKeys - Property by which to sort the list of task runs.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
+	@param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
+	@return RunListResponse
+*/
+func (c *APIClient) ListRuns(r ApiListRunsRequest, opts ...RequestOption) (*RunListResponse, error) {
+	var returnValue *RunListResponse
+
+	res, resBody, err := c.ListRunsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListSourcesRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
+	if v, ok := req["authenticationID"]; ok {
+		err = json.Unmarshal(v, &r.authenticationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.authenticationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal authenticationID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListSourcesRequest represents the request with all the parameters for the API call.
+type ApiListSourcesRequest struct {
+	itemsPerPage     *int32
+	page             *int32
+	type_            []SourceType
+	authenticationID []string
+	sort             SourceSortKeys
+	order            OrderKeys
+}
+
+// NewApiListSourcesRequest creates an instance of the ApiListSourcesRequest to be used for the API call.
+func (c *APIClient) NewApiListSourcesRequest() ApiListSourcesRequest {
+	return ApiListSourcesRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithItemsPerPage(itemsPerPage int32) ApiListSourcesRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithPage(page int32) ApiListSourcesRequest {
+	r.page = &page
+	return r
+}
+
+// WithType adds the type_ to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithType(type_ []SourceType) ApiListSourcesRequest {
+	r.type_ = type_
+	return r
+}
+
+// WithAuthenticationID adds the authenticationID to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithAuthenticationID(authenticationID []string) ApiListSourcesRequest {
+	r.authenticationID = authenticationID
+	return r
+}
+
+// WithSort adds the sort to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithSort(sort SourceSortKeys) ApiListSourcesRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListSourcesRequest and returns the request for chaining.
+func (r ApiListSourcesRequest) WithOrder(order OrderKeys) ApiListSourcesRequest {
+	r.order = order
+	return r
+}
+
+/*
+ListSources calls the API and returns the raw response from it.
+
+	  Retrieves a list of sources.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListSourcesRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param type_ []SourceType - Source type. Some sources require authentication.
+	  @param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	  @param sort SourceSortKeys - Property by which to sort the list of sources.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListSourcesWithHTTPInfo(r ApiListSourcesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/sources"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
+	}
+	if !utils.IsNilOrEmpty(r.authenticationID) {
+		conf.queryParams.Set("authenticationID", utils.QueryParameterToString(r.authenticationID))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListSources casts the HTTP response body to a defined struct.
+
+Retrieves a list of sources.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListSourcesRequest with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param type_ []SourceType - Source type. Some sources require authentication.
+	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	@param sort SourceSortKeys - Property by which to sort the list of sources.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListSourcesResponse
+*/
+func (c *APIClient) ListSources(r ApiListSourcesRequest, opts ...RequestOption) (*ListSourcesResponse, error) {
+	var returnValue *ListSourcesResponse
+
+	res, resBody, err := c.ListSourcesWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListTasksRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["action"]; ok {
+		err = json.Unmarshal(v, &r.action)
+		if err != nil {
+			err = json.Unmarshal(b, &r.action)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal action: %w", err)
+			}
+		}
+	}
+	if v, ok := req["enabled"]; ok {
+		err = json.Unmarshal(v, &r.enabled)
+		if err != nil {
+			err = json.Unmarshal(b, &r.enabled)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal enabled: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sourceID"]; ok {
+		err = json.Unmarshal(v, &r.sourceID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sourceID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sourceID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["destinationID"]; ok {
+		err = json.Unmarshal(v, &r.destinationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.destinationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal destinationID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["triggerType"]; ok {
+		err = json.Unmarshal(v, &r.triggerType)
+		if err != nil {
+			err = json.Unmarshal(b, &r.triggerType)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal triggerType: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListTasksRequest represents the request with all the parameters for the API call.
+type ApiListTasksRequest struct {
+	itemsPerPage  *int32
+	page          *int32
+	action        []ActionType
+	enabled       *bool
+	sourceID      []string
+	destinationID []string
+	triggerType   []TriggerType
+	sort          TaskSortKeys
+	order         OrderKeys
+}
+
+// NewApiListTasksRequest creates an instance of the ApiListTasksRequest to be used for the API call.
+func (c *APIClient) NewApiListTasksRequest() ApiListTasksRequest {
+	return ApiListTasksRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithItemsPerPage(itemsPerPage int32) ApiListTasksRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithPage(page int32) ApiListTasksRequest {
+	r.page = &page
+	return r
+}
+
+// WithAction adds the action to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithAction(action []ActionType) ApiListTasksRequest {
+	r.action = action
+	return r
+}
+
+// WithEnabled adds the enabled to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithEnabled(enabled bool) ApiListTasksRequest {
+	r.enabled = &enabled
+	return r
+}
+
+// WithSourceID adds the sourceID to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithSourceID(sourceID []string) ApiListTasksRequest {
+	r.sourceID = sourceID
+	return r
+}
+
+// WithDestinationID adds the destinationID to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithDestinationID(destinationID []string) ApiListTasksRequest {
+	r.destinationID = destinationID
+	return r
+}
+
+// WithTriggerType adds the triggerType to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithTriggerType(triggerType []TriggerType) ApiListTasksRequest {
+	r.triggerType = triggerType
+	return r
+}
+
+// WithSort adds the sort to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithSort(sort TaskSortKeys) ApiListTasksRequest {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithOrder(order OrderKeys) ApiListTasksRequest {
+	r.order = order
+	return r
+}
+
+/*
+ListTasks calls the API and returns the raw response from it.
+
+	  Retrieves a list of tasks.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListTasksRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param action []ActionType - Actions for filtering the list of tasks.
+	  @param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	  @param sourceID []string - Source IDs for filtering the list of tasks.
+	  @param destinationID []string - Destination IDs for filtering the list of tasks.
+	  @param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	  @param sort TaskSortKeys - Property by which to sort the list of tasks.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListTasksWithHTTPInfo(r ApiListTasksRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/2/tasks"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.action) {
+		conf.queryParams.Set("action", utils.QueryParameterToString(r.action))
+	}
+	if !utils.IsNilOrEmpty(r.enabled) {
+		conf.queryParams.Set("enabled", utils.QueryParameterToString(*r.enabled))
+	}
+	if !utils.IsNilOrEmpty(r.sourceID) {
+		conf.queryParams.Set("sourceID", utils.QueryParameterToString(r.sourceID))
+	}
+	if !utils.IsNilOrEmpty(r.destinationID) {
+		conf.queryParams.Set("destinationID", utils.QueryParameterToString(r.destinationID))
+	}
+	if !utils.IsNilOrEmpty(r.triggerType) {
+		conf.queryParams.Set("triggerType", utils.QueryParameterToString(r.triggerType))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListTasks casts the HTTP response body to a defined struct.
+
+Retrieves a list of tasks.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListTasksRequest with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param action []ActionType - Actions for filtering the list of tasks.
+	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	@param sourceID []string - Source IDs for filtering the list of tasks.
+	@param destinationID []string - Destination IDs for filtering the list of tasks.
+	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	@param sort TaskSortKeys - Property by which to sort the list of tasks.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListTasksResponse
+*/
+func (c *APIClient) ListTasks(r ApiListTasksRequest, opts ...RequestOption) (*ListTasksResponse, error) {
+	var returnValue *ListTasksResponse
+
+	res, resBody, err := c.ListTasksWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListTasksV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["action"]; ok {
+		err = json.Unmarshal(v, &r.action)
+		if err != nil {
+			err = json.Unmarshal(b, &r.action)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal action: %w", err)
+			}
+		}
+	}
+	if v, ok := req["enabled"]; ok {
+		err = json.Unmarshal(v, &r.enabled)
+		if err != nil {
+			err = json.Unmarshal(b, &r.enabled)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal enabled: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sourceID"]; ok {
+		err = json.Unmarshal(v, &r.sourceID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sourceID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sourceID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["destinationID"]; ok {
+		err = json.Unmarshal(v, &r.destinationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.destinationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal destinationID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["triggerType"]; ok {
+		err = json.Unmarshal(v, &r.triggerType)
+		if err != nil {
+			err = json.Unmarshal(b, &r.triggerType)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal triggerType: %w", err)
+			}
+		}
+	}
+	if v, ok := req["sort"]; ok {
+		err = json.Unmarshal(v, &r.sort)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sort)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sort: %w", err)
+			}
+		}
+	}
+	if v, ok := req["order"]; ok {
+		err = json.Unmarshal(v, &r.order)
+		if err != nil {
+			err = json.Unmarshal(b, &r.order)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal order: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListTasksV1Request represents the request with all the parameters for the API call.
+type ApiListTasksV1Request struct {
+	itemsPerPage  *int32
+	page          *int32
+	action        []ActionType
+	enabled       *bool
+	sourceID      []string
+	destinationID []string
+	triggerType   []TriggerType
+	sort          TaskSortKeys
+	order         OrderKeys
+}
+
+// NewApiListTasksV1Request creates an instance of the ApiListTasksV1Request to be used for the API call.
+func (c *APIClient) NewApiListTasksV1Request() ApiListTasksV1Request {
+	return ApiListTasksV1Request{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithItemsPerPage(itemsPerPage int32) ApiListTasksV1Request {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithPage(page int32) ApiListTasksV1Request {
+	r.page = &page
+	return r
+}
+
+// WithAction adds the action to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithAction(action []ActionType) ApiListTasksV1Request {
+	r.action = action
+	return r
+}
+
+// WithEnabled adds the enabled to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithEnabled(enabled bool) ApiListTasksV1Request {
+	r.enabled = &enabled
+	return r
+}
+
+// WithSourceID adds the sourceID to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithSourceID(sourceID []string) ApiListTasksV1Request {
+	r.sourceID = sourceID
+	return r
+}
+
+// WithDestinationID adds the destinationID to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithDestinationID(destinationID []string) ApiListTasksV1Request {
+	r.destinationID = destinationID
+	return r
+}
+
+// WithTriggerType adds the triggerType to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithTriggerType(triggerType []TriggerType) ApiListTasksV1Request {
+	r.triggerType = triggerType
+	return r
+}
+
+// WithSort adds the sort to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithSort(sort TaskSortKeys) ApiListTasksV1Request {
+	r.sort = sort
+	return r
+}
+
+// WithOrder adds the order to the ApiListTasksV1Request and returns the request for chaining.
+func (r ApiListTasksV1Request) WithOrder(order OrderKeys) ApiListTasksV1Request {
+	r.order = order
+	return r
+}
+
+/*
+ListTasksV1 calls the API and returns the raw response from it.
+
+	  Retrieves a list of tasks using the v1 endpoint, please use `getTasks` instead.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListTasksV1Request with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
+	  @param action []ActionType - Actions for filtering the list of tasks.
+	  @param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	  @param sourceID []string - Source IDs for filtering the list of tasks.
+	  @param destinationID []string - Destination IDs for filtering the list of tasks.
+	  @param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	  @param sort TaskSortKeys - Property by which to sort the list of tasks.
+	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListTasksV1WithHTTPInfo(r ApiListTasksV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.action) {
+		conf.queryParams.Set("action", utils.QueryParameterToString(r.action))
+	}
+	if !utils.IsNilOrEmpty(r.enabled) {
+		conf.queryParams.Set("enabled", utils.QueryParameterToString(*r.enabled))
+	}
+	if !utils.IsNilOrEmpty(r.sourceID) {
+		conf.queryParams.Set("sourceID", utils.QueryParameterToString(r.sourceID))
+	}
+	if !utils.IsNilOrEmpty(r.destinationID) {
+		conf.queryParams.Set("destinationID", utils.QueryParameterToString(r.destinationID))
+	}
+	if !utils.IsNilOrEmpty(r.triggerType) {
+		conf.queryParams.Set("triggerType", utils.QueryParameterToString(r.triggerType))
+	}
+	if !utils.IsNilOrEmpty(r.sort) {
+		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
+	}
+	if !utils.IsNilOrEmpty(r.order) {
+		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListTasksV1 casts the HTTP response body to a defined struct.
+
+Retrieves a list of tasks using the v1 endpoint, please use `getTasks` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListTasksV1Request with parameters below.
+
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
+	@param action []ActionType - Actions for filtering the list of tasks.
+	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
+	@param sourceID []string - Source IDs for filtering the list of tasks.
+	@param destinationID []string - Destination IDs for filtering the list of tasks.
+	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
+	@param sort TaskSortKeys - Property by which to sort the list of tasks.
+	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@return ListTasksResponseV1
+*/
+func (c *APIClient) ListTasksV1(r ApiListTasksV1Request, opts ...RequestOption) (*ListTasksResponseV1, error) {
+	var returnValue *ListTasksResponseV1
+
+	res, resBody, err := c.ListTasksV1WithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
@@ -4691,31 +5617,31 @@ func (r *ApiGetTransformationsRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiGetTransformationsRequest represents the request with all the parameters for the API call.
-type ApiGetTransformationsRequest struct {
+// ApiListTransformationsRequest represents the request with all the parameters for the API call.
+type ApiListTransformationsRequest struct {
 	sort  SortKeys
 	order OrderKeys
 }
 
-// NewApiGetTransformationsRequest creates an instance of the ApiGetTransformationsRequest to be used for the API call.
-func (c *APIClient) NewApiGetTransformationsRequest() ApiGetTransformationsRequest {
-	return ApiGetTransformationsRequest{}
+// NewApiListTransformationsRequest creates an instance of the ApiListTransformationsRequest to be used for the API call.
+func (c *APIClient) NewApiListTransformationsRequest() ApiListTransformationsRequest {
+	return ApiListTransformationsRequest{}
 }
 
-// WithSort adds the sort to the ApiGetTransformationsRequest and returns the request for chaining.
-func (r ApiGetTransformationsRequest) WithSort(sort SortKeys) ApiGetTransformationsRequest {
+// WithSort adds the sort to the ApiListTransformationsRequest and returns the request for chaining.
+func (r ApiListTransformationsRequest) WithSort(sort SortKeys) ApiListTransformationsRequest {
 	r.sort = sort
 	return r
 }
 
-// WithOrder adds the order to the ApiGetTransformationsRequest and returns the request for chaining.
-func (r ApiGetTransformationsRequest) WithOrder(order OrderKeys) ApiGetTransformationsRequest {
+// WithOrder adds the order to the ApiListTransformationsRequest and returns the request for chaining.
+func (r ApiListTransformationsRequest) WithOrder(order OrderKeys) ApiListTransformationsRequest {
 	r.order = order
 	return r
 }
 
 /*
-GetTransformations calls the API and returns the raw response from it.
+ListTransformations calls the API and returns the raw response from it.
 
 	  Retrieves a list of transformations.
 
@@ -4724,7 +5650,7 @@ GetTransformations calls the API and returns the raw response from it.
 	    - deleteIndex
 	    - editSettings
 
-	Request can be constructed by NewApiGetTransformationsRequest with parameters below.
+	Request can be constructed by NewApiListTransformationsRequest with parameters below.
 	  @param sort SortKeys - Property by which to sort the list.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -4732,7 +5658,7 @@ GetTransformations calls the API and returns the raw response from it.
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetTransformationsWithHTTPInfo(r ApiGetTransformationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) ListTransformationsWithHTTPInfo(r ApiListTransformationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/transformations"
 
 	conf := config{
@@ -4764,7 +5690,7 @@ func (c *APIClient) GetTransformationsWithHTTPInfo(r ApiGetTransformationsReques
 }
 
 /*
-GetTransformations casts the HTTP response body to a defined struct.
+ListTransformations casts the HTTP response body to a defined struct.
 
 Retrieves a list of transformations.
 
@@ -4773,16 +5699,16 @@ Required API Key ACLs:
   - deleteIndex
   - editSettings
 
-Request can be constructed by NewApiGetTransformationsRequest with parameters below.
+Request can be constructed by NewApiListTransformationsRequest with parameters below.
 
 	@param sort SortKeys - Property by which to sort the list.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTransformationsResponse
 */
-func (c *APIClient) GetTransformations(r ApiGetTransformationsRequest, opts ...RequestOption) (*ListTransformationsResponse, error) {
+func (c *APIClient) ListTransformations(r ApiListTransformationsRequest, opts ...RequestOption) (*ListTransformationsResponse, error) {
 	var returnValue *ListTransformationsResponse
 
-	res, resBody, err := c.GetTransformationsWithHTTPInfo(r, opts...)
+	res, resBody, err := c.ListTransformationsWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -4863,7 +5789,7 @@ RunTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) RunTaskWithHTTPInfo(r ApiRunTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}/run"
+	requestPath := "/2/tasks/{taskID}/run"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -4910,6 +5836,133 @@ func (c *APIClient) RunTask(r ApiRunTaskRequest, opts ...RequestOption) (*RunRes
 	var returnValue *RunResponse
 
 	res, resBody, err := c.RunTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiRunTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiRunTaskV1Request represents the request with all the parameters for the API call.
+type ApiRunTaskV1Request struct {
+	taskID string
+}
+
+// NewApiRunTaskV1Request creates an instance of the ApiRunTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiRunTaskV1Request(taskID string) ApiRunTaskV1Request {
+	return ApiRunTaskV1Request{
+		taskID: taskID,
+	}
+}
+
+/*
+RunTaskV1 calls the API and returns the raw response from it.
+
+	  Runs a task using the v1 endpoint, please use `runTask` instead. You can check the status of task runs with the observability endpoints.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiRunTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}/run"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `RunTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+RunTaskV1 casts the HTTP response body to a defined struct.
+
+Runs a task using the v1 endpoint, please use `runTask` instead. You can check the status of task runs with the observability endpoints.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiRunTaskV1Request with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@return RunResponse
+*/
+func (c *APIClient) RunTaskV1(r ApiRunTaskV1Request, opts ...RequestOption) (*RunResponse, error) {
+	var returnValue *RunResponse
+
+	res, resBody, err := c.RunTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -5394,7 +6447,7 @@ SearchTasks calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) SearchTasksWithHTTPInfo(r ApiSearchTasksRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/search"
+	requestPath := "/2/tasks/search"
 
 	if r.taskSearch == nil {
 		return nil, nil, reportError("Parameter `taskSearch` is required when calling `SearchTasks`.")
@@ -5442,6 +6495,139 @@ func (c *APIClient) SearchTasks(r ApiSearchTasksRequest, opts ...RequestOption) 
 	var returnValue []Task
 
 	res, resBody, err := c.SearchTasksWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiSearchTasksV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskSearch"]; ok {
+		err = json.Unmarshal(v, &r.taskSearch)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskSearch)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskSearch: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.taskSearch)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter taskSearch: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiSearchTasksV1Request represents the request with all the parameters for the API call.
+type ApiSearchTasksV1Request struct {
+	taskSearch *TaskSearch
+}
+
+// NewApiSearchTasksV1Request creates an instance of the ApiSearchTasksV1Request to be used for the API call.
+func (c *APIClient) NewApiSearchTasksV1Request(taskSearch *TaskSearch) ApiSearchTasksV1Request {
+	return ApiSearchTasksV1Request{
+		taskSearch: taskSearch,
+	}
+}
+
+/*
+SearchTasksV1 calls the API and returns the raw response from it.
+
+	  Searches for tasks using the v1 endpoint, please use `searchTasks` instead.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiSearchTasksV1Request with parameters below.
+	  @param taskSearch TaskSearch
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) SearchTasksV1WithHTTPInfo(r ApiSearchTasksV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/search"
+
+	if r.taskSearch == nil {
+		return nil, nil, reportError("Parameter `taskSearch` is required when calling `SearchTasksV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskSearch
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+SearchTasksV1 casts the HTTP response body to a defined struct.
+
+Searches for tasks using the v1 endpoint, please use `searchTasks` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiSearchTasksV1Request with parameters below.
+
+	@param taskSearch TaskSearch
+	@return []TaskV1
+*/
+func (c *APIClient) SearchTasksV1(r ApiSearchTasksV1Request, opts ...RequestOption) ([]TaskV1, error) {
+	var returnValue []TaskV1
+
+	res, resBody, err := c.SearchTasksV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
@@ -6384,7 +7570,7 @@ UpdateTask calls the API and returns the raw response from it.
 	@return error - An error if the API call fails
 */
 func (c *APIClient) UpdateTaskWithHTTPInfo(r ApiUpdateTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
-	requestPath := "/1/tasks/{taskID}"
+	requestPath := "/2/tasks/{taskID}"
 	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
 
 	if r.taskID == "" {
@@ -6433,6 +7619,148 @@ func (c *APIClient) UpdateTask(r ApiUpdateTaskRequest, opts ...RequestOption) (*
 	var returnValue *TaskUpdateResponse
 
 	res, resBody, err := c.UpdateTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiUpdateTaskV1Request) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["taskUpdate"]; ok {
+		err = json.Unmarshal(v, &r.taskUpdate)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskUpdate)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskUpdate: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.taskUpdate)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter taskUpdate: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiUpdateTaskV1Request represents the request with all the parameters for the API call.
+type ApiUpdateTaskV1Request struct {
+	taskID     string
+	taskUpdate *TaskUpdateV1
+}
+
+// NewApiUpdateTaskV1Request creates an instance of the ApiUpdateTaskV1Request to be used for the API call.
+func (c *APIClient) NewApiUpdateTaskV1Request(taskID string, taskUpdate *TaskUpdateV1) ApiUpdateTaskV1Request {
+	return ApiUpdateTaskV1Request{
+		taskID:     taskID,
+		taskUpdate: taskUpdate,
+	}
+}
+
+/*
+UpdateTaskV1 calls the API and returns the raw response from it.
+
+	  Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
+
+
+	Request can be constructed by NewApiUpdateTaskV1Request with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	  @param taskUpdate TaskUpdateV1
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/tasks/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `UpdateTaskV1`.")
+	}
+
+	if r.taskUpdate == nil {
+		return nil, nil, reportError("Parameter `taskUpdate` is required when calling `UpdateTaskV1`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskUpdate
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+UpdateTaskV1 casts the HTTP response body to a defined struct.
+
+Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
+
+Request can be constructed by NewApiUpdateTaskV1Request with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@param taskUpdate TaskUpdateV1
+	@return TaskUpdateResponse
+*/
+func (c *APIClient) UpdateTaskV1(r ApiUpdateTaskV1Request, opts ...RequestOption) (*TaskUpdateResponse, error) {
+	var returnValue *TaskUpdateResponse
+
+	res, resBody, err := c.UpdateTaskV1WithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}

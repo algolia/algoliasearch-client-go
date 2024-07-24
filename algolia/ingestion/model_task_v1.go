@@ -6,21 +6,16 @@ import (
 	"fmt"
 )
 
-// Task struct for Task.
-type Task struct {
+// TaskV1 The V1 task object, please use methods and types that don't contain the V1 suffix.
+type TaskV1 struct {
 	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
 	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
 	// Universally unique identifier (UUID) of a destination resource.
-	DestinationID string `json:"destinationID"`
-	// Cron expression for the task's schedule.
-	Cron *string `json:"cron,omitempty"`
-	// The last time the scheduled task ran in RFC 3339 format.
-	LastRun *string `json:"lastRun,omitempty"`
-	// The next scheduled run of the task in RFC 3339 format.
-	NextRun *string    `json:"nextRun,omitempty"`
-	Input   *TaskInput `json:"input,omitempty"`
+	DestinationID string     `json:"destinationID"`
+	Trigger       Trigger    `json:"trigger"`
+	Input         *TaskInput `json:"input,omitempty"`
 	// Whether the task is enabled.
 	Enabled bool `json:"enabled"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
@@ -34,59 +29,42 @@ type Task struct {
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
-type TaskOption func(f *Task)
+type TaskV1Option func(f *TaskV1)
 
-func WithTaskCron(val string) TaskOption {
-	return func(f *Task) {
-		f.Cron = &val
-	}
-}
-
-func WithTaskLastRun(val string) TaskOption {
-	return func(f *Task) {
-		f.LastRun = &val
-	}
-}
-
-func WithTaskNextRun(val string) TaskOption {
-	return func(f *Task) {
-		f.NextRun = &val
-	}
-}
-
-func WithTaskInput(val TaskInput) TaskOption {
-	return func(f *Task) {
+func WithTaskV1Input(val TaskInput) TaskV1Option {
+	return func(f *TaskV1) {
 		f.Input = &val
 	}
 }
 
-func WithTaskFailureThreshold(val int32) TaskOption {
-	return func(f *Task) {
+func WithTaskV1FailureThreshold(val int32) TaskV1Option {
+	return func(f *TaskV1) {
 		f.FailureThreshold = &val
 	}
 }
 
-func WithTaskCursor(val string) TaskOption {
-	return func(f *Task) {
+func WithTaskV1Cursor(val string) TaskV1Option {
+	return func(f *TaskV1) {
 		f.Cursor = &val
 	}
 }
 
-func WithTaskUpdatedAt(val string) TaskOption {
-	return func(f *Task) {
+func WithTaskV1UpdatedAt(val string) TaskV1Option {
+	return func(f *TaskV1) {
 		f.UpdatedAt = &val
 	}
 }
 
-// NewTask instantiates a new Task object
+// NewTaskV1 instantiates a new TaskV1 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTask(taskID string, sourceID string, destinationID string, enabled bool, action ActionType, createdAt string, opts ...TaskOption) *Task {
-	this := &Task{}
+func NewTaskV1(taskID string, sourceID string, destinationID string, trigger Trigger, enabled bool, action ActionType, createdAt string, opts ...TaskV1Option) *TaskV1 {
+	this := &TaskV1{}
 	this.TaskID = taskID
 	this.SourceID = sourceID
 	this.DestinationID = destinationID
+	this.Trigger = trigger
 	this.Enabled = enabled
 	this.Action = action
 	this.CreatedAt = createdAt
@@ -96,13 +74,13 @@ func NewTask(taskID string, sourceID string, destinationID string, enabled bool,
 	return this
 }
 
-// NewEmptyTask return a pointer to an empty Task object.
-func NewEmptyTask() *Task {
-	return &Task{}
+// NewEmptyTaskV1 return a pointer to an empty TaskV1 object.
+func NewEmptyTaskV1() *TaskV1 {
+	return &TaskV1{}
 }
 
 // GetTaskID returns the TaskID field value.
-func (o *Task) GetTaskID() string {
+func (o *TaskV1) GetTaskID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -113,7 +91,7 @@ func (o *Task) GetTaskID() string {
 
 // GetTaskIDOk returns a tuple with the TaskID field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetTaskIDOk() (*string, bool) {
+func (o *TaskV1) GetTaskIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,13 +99,13 @@ func (o *Task) GetTaskIDOk() (*string, bool) {
 }
 
 // SetTaskID sets field value.
-func (o *Task) SetTaskID(v string) *Task {
+func (o *TaskV1) SetTaskID(v string) *TaskV1 {
 	o.TaskID = v
 	return o
 }
 
 // GetSourceID returns the SourceID field value.
-func (o *Task) GetSourceID() string {
+func (o *TaskV1) GetSourceID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -138,7 +116,7 @@ func (o *Task) GetSourceID() string {
 
 // GetSourceIDOk returns a tuple with the SourceID field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetSourceIDOk() (*string, bool) {
+func (o *TaskV1) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -146,13 +124,13 @@ func (o *Task) GetSourceIDOk() (*string, bool) {
 }
 
 // SetSourceID sets field value.
-func (o *Task) SetSourceID(v string) *Task {
+func (o *TaskV1) SetSourceID(v string) *TaskV1 {
 	o.SourceID = v
 	return o
 }
 
 // GetDestinationID returns the DestinationID field value.
-func (o *Task) GetDestinationID() string {
+func (o *TaskV1) GetDestinationID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -163,7 +141,7 @@ func (o *Task) GetDestinationID() string {
 
 // GetDestinationIDOk returns a tuple with the DestinationID field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetDestinationIDOk() (*string, bool) {
+func (o *TaskV1) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -171,112 +149,38 @@ func (o *Task) GetDestinationIDOk() (*string, bool) {
 }
 
 // SetDestinationID sets field value.
-func (o *Task) SetDestinationID(v string) *Task {
+func (o *TaskV1) SetDestinationID(v string) *TaskV1 {
 	o.DestinationID = v
 	return o
 }
 
-// GetCron returns the Cron field value if set, zero value otherwise.
-func (o *Task) GetCron() string {
-	if o == nil || o.Cron == nil {
-		var ret string
+// GetTrigger returns the Trigger field value.
+func (o *TaskV1) GetTrigger() Trigger {
+	if o == nil {
+		var ret Trigger
 		return ret
 	}
-	return *o.Cron
+
+	return o.Trigger
 }
 
-// GetCronOk returns a tuple with the Cron field value if set, nil otherwise
+// GetTriggerOk returns a tuple with the Trigger field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetCronOk() (*string, bool) {
-	if o == nil || o.Cron == nil {
+func (o *TaskV1) GetTriggerOk() (*Trigger, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Cron, true
+	return &o.Trigger, true
 }
 
-// HasCron returns a boolean if a field has been set.
-func (o *Task) HasCron() bool {
-	if o != nil && o.Cron != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCron gets a reference to the given string and assigns it to the Cron field.
-func (o *Task) SetCron(v string) *Task {
-	o.Cron = &v
-	return o
-}
-
-// GetLastRun returns the LastRun field value if set, zero value otherwise.
-func (o *Task) GetLastRun() string {
-	if o == nil || o.LastRun == nil {
-		var ret string
-		return ret
-	}
-	return *o.LastRun
-}
-
-// GetLastRunOk returns a tuple with the LastRun field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Task) GetLastRunOk() (*string, bool) {
-	if o == nil || o.LastRun == nil {
-		return nil, false
-	}
-	return o.LastRun, true
-}
-
-// HasLastRun returns a boolean if a field has been set.
-func (o *Task) HasLastRun() bool {
-	if o != nil && o.LastRun != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastRun gets a reference to the given string and assigns it to the LastRun field.
-func (o *Task) SetLastRun(v string) *Task {
-	o.LastRun = &v
-	return o
-}
-
-// GetNextRun returns the NextRun field value if set, zero value otherwise.
-func (o *Task) GetNextRun() string {
-	if o == nil || o.NextRun == nil {
-		var ret string
-		return ret
-	}
-	return *o.NextRun
-}
-
-// GetNextRunOk returns a tuple with the NextRun field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Task) GetNextRunOk() (*string, bool) {
-	if o == nil || o.NextRun == nil {
-		return nil, false
-	}
-	return o.NextRun, true
-}
-
-// HasNextRun returns a boolean if a field has been set.
-func (o *Task) HasNextRun() bool {
-	if o != nil && o.NextRun != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNextRun gets a reference to the given string and assigns it to the NextRun field.
-func (o *Task) SetNextRun(v string) *Task {
-	o.NextRun = &v
+// SetTrigger sets field value.
+func (o *TaskV1) SetTrigger(v *Trigger) *TaskV1 {
+	o.Trigger = *v
 	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
-func (o *Task) GetInput() TaskInput {
+func (o *TaskV1) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
 		return ret
@@ -286,7 +190,7 @@ func (o *Task) GetInput() TaskInput {
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetInputOk() (*TaskInput, bool) {
+func (o *TaskV1) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
@@ -294,7 +198,7 @@ func (o *Task) GetInputOk() (*TaskInput, bool) {
 }
 
 // HasInput returns a boolean if a field has been set.
-func (o *Task) HasInput() bool {
+func (o *TaskV1) HasInput() bool {
 	if o != nil && o.Input != nil {
 		return true
 	}
@@ -303,13 +207,13 @@ func (o *Task) HasInput() bool {
 }
 
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
-func (o *Task) SetInput(v *TaskInput) *Task {
+func (o *TaskV1) SetInput(v *TaskInput) *TaskV1 {
 	o.Input = v
 	return o
 }
 
 // GetEnabled returns the Enabled field value.
-func (o *Task) GetEnabled() bool {
+func (o *TaskV1) GetEnabled() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -320,7 +224,7 @@ func (o *Task) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetEnabledOk() (*bool, bool) {
+func (o *TaskV1) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -328,13 +232,13 @@ func (o *Task) GetEnabledOk() (*bool, bool) {
 }
 
 // SetEnabled sets field value.
-func (o *Task) SetEnabled(v bool) *Task {
+func (o *TaskV1) SetEnabled(v bool) *TaskV1 {
 	o.Enabled = v
 	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
-func (o *Task) GetFailureThreshold() int32 {
+func (o *TaskV1) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
 		return ret
@@ -344,7 +248,7 @@ func (o *Task) GetFailureThreshold() int32 {
 
 // GetFailureThresholdOk returns a tuple with the FailureThreshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetFailureThresholdOk() (*int32, bool) {
+func (o *TaskV1) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
@@ -352,7 +256,7 @@ func (o *Task) GetFailureThresholdOk() (*int32, bool) {
 }
 
 // HasFailureThreshold returns a boolean if a field has been set.
-func (o *Task) HasFailureThreshold() bool {
+func (o *TaskV1) HasFailureThreshold() bool {
 	if o != nil && o.FailureThreshold != nil {
 		return true
 	}
@@ -361,13 +265,13 @@ func (o *Task) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *Task) SetFailureThreshold(v int32) *Task {
+func (o *TaskV1) SetFailureThreshold(v int32) *TaskV1 {
 	o.FailureThreshold = &v
 	return o
 }
 
 // GetAction returns the Action field value.
-func (o *Task) GetAction() ActionType {
+func (o *TaskV1) GetAction() ActionType {
 	if o == nil {
 		var ret ActionType
 		return ret
@@ -378,7 +282,7 @@ func (o *Task) GetAction() ActionType {
 
 // GetActionOk returns a tuple with the Action field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetActionOk() (*ActionType, bool) {
+func (o *TaskV1) GetActionOk() (*ActionType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -386,13 +290,13 @@ func (o *Task) GetActionOk() (*ActionType, bool) {
 }
 
 // SetAction sets field value.
-func (o *Task) SetAction(v ActionType) *Task {
+func (o *TaskV1) SetAction(v ActionType) *TaskV1 {
 	o.Action = v
 	return o
 }
 
 // GetCursor returns the Cursor field value if set, zero value otherwise.
-func (o *Task) GetCursor() string {
+func (o *TaskV1) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
 		return ret
@@ -402,7 +306,7 @@ func (o *Task) GetCursor() string {
 
 // GetCursorOk returns a tuple with the Cursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetCursorOk() (*string, bool) {
+func (o *TaskV1) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
@@ -410,7 +314,7 @@ func (o *Task) GetCursorOk() (*string, bool) {
 }
 
 // HasCursor returns a boolean if a field has been set.
-func (o *Task) HasCursor() bool {
+func (o *TaskV1) HasCursor() bool {
 	if o != nil && o.Cursor != nil {
 		return true
 	}
@@ -419,13 +323,13 @@ func (o *Task) HasCursor() bool {
 }
 
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
-func (o *Task) SetCursor(v string) *Task {
+func (o *TaskV1) SetCursor(v string) *TaskV1 {
 	o.Cursor = &v
 	return o
 }
 
 // GetCreatedAt returns the CreatedAt field value.
-func (o *Task) GetCreatedAt() string {
+func (o *TaskV1) GetCreatedAt() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -436,7 +340,7 @@ func (o *Task) GetCreatedAt() string {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
-func (o *Task) GetCreatedAtOk() (*string, bool) {
+func (o *TaskV1) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -444,13 +348,13 @@ func (o *Task) GetCreatedAtOk() (*string, bool) {
 }
 
 // SetCreatedAt sets field value.
-func (o *Task) SetCreatedAt(v string) *Task {
+func (o *TaskV1) SetCreatedAt(v string) *TaskV1 {
 	o.CreatedAt = v
 	return o
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *Task) GetUpdatedAt() string {
+func (o *TaskV1) GetUpdatedAt() string {
 	if o == nil || o.UpdatedAt == nil {
 		var ret string
 		return ret
@@ -460,7 +364,7 @@ func (o *Task) GetUpdatedAt() string {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Task) GetUpdatedAtOk() (*string, bool) {
+func (o *TaskV1) GetUpdatedAtOk() (*string, bool) {
 	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
@@ -468,7 +372,7 @@ func (o *Task) GetUpdatedAtOk() (*string, bool) {
 }
 
 // HasUpdatedAt returns a boolean if a field has been set.
-func (o *Task) HasUpdatedAt() bool {
+func (o *TaskV1) HasUpdatedAt() bool {
 	if o != nil && o.UpdatedAt != nil {
 		return true
 	}
@@ -477,12 +381,12 @@ func (o *Task) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
-func (o *Task) SetUpdatedAt(v string) *Task {
+func (o *TaskV1) SetUpdatedAt(v string) *TaskV1 {
 	o.UpdatedAt = &v
 	return o
 }
 
-func (o Task) MarshalJSON() ([]byte, error) {
+func (o TaskV1) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["taskID"] = o.TaskID
@@ -493,14 +397,8 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["destinationID"] = o.DestinationID
 	}
-	if o.Cron != nil {
-		toSerialize["cron"] = o.Cron
-	}
-	if o.LastRun != nil {
-		toSerialize["lastRun"] = o.LastRun
-	}
-	if o.NextRun != nil {
-		toSerialize["nextRun"] = o.NextRun
+	if true {
+		toSerialize["trigger"] = o.Trigger
 	}
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
@@ -525,20 +423,18 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal Task: %w", err)
+		return nil, fmt.Errorf("failed to marshal TaskV1: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o Task) String() string {
+func (o TaskV1) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  sourceID=%v\n", o.SourceID)
 	out += fmt.Sprintf("  destinationID=%v\n", o.DestinationID)
-	out += fmt.Sprintf("  cron=%v\n", o.Cron)
-	out += fmt.Sprintf("  lastRun=%v\n", o.LastRun)
-	out += fmt.Sprintf("  nextRun=%v\n", o.NextRun)
+	out += fmt.Sprintf("  trigger=%v\n", o.Trigger)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
@@ -546,5 +442,5 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
-	return fmt.Sprintf("Task {\n%s}", out)
+	return fmt.Sprintf("TaskV1 {\n%s}", out)
 }

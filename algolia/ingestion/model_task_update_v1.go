@@ -6,70 +6,69 @@ import (
 	"fmt"
 )
 
-// TaskUpdate API request body for updating a task.
-type TaskUpdate struct {
+// TaskUpdateV1 API request body for updating a task using the V1 shape, please use methods and types that don't contain the V1 suffix.
+type TaskUpdateV1 struct {
 	// Universally unique identifier (UUID) of a destination resource.
-	DestinationID *string `json:"destinationID,omitempty"`
-	// Cron expression for the task's schedule.
-	Cron  *string    `json:"cron,omitempty"`
-	Input *TaskInput `json:"input,omitempty"`
+	DestinationID *string             `json:"destinationID,omitempty"`
+	Trigger       *TriggerUpdateInput `json:"trigger,omitempty"`
+	Input         *TaskInput          `json:"input,omitempty"`
 	// Whether the task is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32 `json:"failureThreshold,omitempty"`
 }
 
-type TaskUpdateOption func(f *TaskUpdate)
+type TaskUpdateV1Option func(f *TaskUpdateV1)
 
-func WithTaskUpdateDestinationID(val string) TaskUpdateOption {
-	return func(f *TaskUpdate) {
+func WithTaskUpdateV1DestinationID(val string) TaskUpdateV1Option {
+	return func(f *TaskUpdateV1) {
 		f.DestinationID = &val
 	}
 }
 
-func WithTaskUpdateCron(val string) TaskUpdateOption {
-	return func(f *TaskUpdate) {
-		f.Cron = &val
+func WithTaskUpdateV1Trigger(val TriggerUpdateInput) TaskUpdateV1Option {
+	return func(f *TaskUpdateV1) {
+		f.Trigger = &val
 	}
 }
 
-func WithTaskUpdateInput(val TaskInput) TaskUpdateOption {
-	return func(f *TaskUpdate) {
+func WithTaskUpdateV1Input(val TaskInput) TaskUpdateV1Option {
+	return func(f *TaskUpdateV1) {
 		f.Input = &val
 	}
 }
 
-func WithTaskUpdateEnabled(val bool) TaskUpdateOption {
-	return func(f *TaskUpdate) {
+func WithTaskUpdateV1Enabled(val bool) TaskUpdateV1Option {
+	return func(f *TaskUpdateV1) {
 		f.Enabled = &val
 	}
 }
 
-func WithTaskUpdateFailureThreshold(val int32) TaskUpdateOption {
-	return func(f *TaskUpdate) {
+func WithTaskUpdateV1FailureThreshold(val int32) TaskUpdateV1Option {
+	return func(f *TaskUpdateV1) {
 		f.FailureThreshold = &val
 	}
 }
 
-// NewTaskUpdate instantiates a new TaskUpdate object
+// NewTaskUpdateV1 instantiates a new TaskUpdateV1 object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTaskUpdate(opts ...TaskUpdateOption) *TaskUpdate {
-	this := &TaskUpdate{}
+func NewTaskUpdateV1(opts ...TaskUpdateV1Option) *TaskUpdateV1 {
+	this := &TaskUpdateV1{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyTaskUpdate return a pointer to an empty TaskUpdate object.
-func NewEmptyTaskUpdate() *TaskUpdate {
-	return &TaskUpdate{}
+// NewEmptyTaskUpdateV1 return a pointer to an empty TaskUpdateV1 object.
+func NewEmptyTaskUpdateV1() *TaskUpdateV1 {
+	return &TaskUpdateV1{}
 }
 
 // GetDestinationID returns the DestinationID field value if set, zero value otherwise.
-func (o *TaskUpdate) GetDestinationID() string {
+func (o *TaskUpdateV1) GetDestinationID() string {
 	if o == nil || o.DestinationID == nil {
 		var ret string
 		return ret
@@ -79,7 +78,7 @@ func (o *TaskUpdate) GetDestinationID() string {
 
 // GetDestinationIDOk returns a tuple with the DestinationID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskUpdate) GetDestinationIDOk() (*string, bool) {
+func (o *TaskUpdateV1) GetDestinationIDOk() (*string, bool) {
 	if o == nil || o.DestinationID == nil {
 		return nil, false
 	}
@@ -87,7 +86,7 @@ func (o *TaskUpdate) GetDestinationIDOk() (*string, bool) {
 }
 
 // HasDestinationID returns a boolean if a field has been set.
-func (o *TaskUpdate) HasDestinationID() bool {
+func (o *TaskUpdateV1) HasDestinationID() bool {
 	if o != nil && o.DestinationID != nil {
 		return true
 	}
@@ -96,46 +95,46 @@ func (o *TaskUpdate) HasDestinationID() bool {
 }
 
 // SetDestinationID gets a reference to the given string and assigns it to the DestinationID field.
-func (o *TaskUpdate) SetDestinationID(v string) *TaskUpdate {
+func (o *TaskUpdateV1) SetDestinationID(v string) *TaskUpdateV1 {
 	o.DestinationID = &v
 	return o
 }
 
-// GetCron returns the Cron field value if set, zero value otherwise.
-func (o *TaskUpdate) GetCron() string {
-	if o == nil || o.Cron == nil {
-		var ret string
+// GetTrigger returns the Trigger field value if set, zero value otherwise.
+func (o *TaskUpdateV1) GetTrigger() TriggerUpdateInput {
+	if o == nil || o.Trigger == nil {
+		var ret TriggerUpdateInput
 		return ret
 	}
-	return *o.Cron
+	return *o.Trigger
 }
 
-// GetCronOk returns a tuple with the Cron field value if set, nil otherwise
+// GetTriggerOk returns a tuple with the Trigger field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskUpdate) GetCronOk() (*string, bool) {
-	if o == nil || o.Cron == nil {
+func (o *TaskUpdateV1) GetTriggerOk() (*TriggerUpdateInput, bool) {
+	if o == nil || o.Trigger == nil {
 		return nil, false
 	}
-	return o.Cron, true
+	return o.Trigger, true
 }
 
-// HasCron returns a boolean if a field has been set.
-func (o *TaskUpdate) HasCron() bool {
-	if o != nil && o.Cron != nil {
+// HasTrigger returns a boolean if a field has been set.
+func (o *TaskUpdateV1) HasTrigger() bool {
+	if o != nil && o.Trigger != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCron gets a reference to the given string and assigns it to the Cron field.
-func (o *TaskUpdate) SetCron(v string) *TaskUpdate {
-	o.Cron = &v
+// SetTrigger gets a reference to the given TriggerUpdateInput and assigns it to the Trigger field.
+func (o *TaskUpdateV1) SetTrigger(v *TriggerUpdateInput) *TaskUpdateV1 {
+	o.Trigger = v
 	return o
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
-func (o *TaskUpdate) GetInput() TaskInput {
+func (o *TaskUpdateV1) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
 		return ret
@@ -145,7 +144,7 @@ func (o *TaskUpdate) GetInput() TaskInput {
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskUpdate) GetInputOk() (*TaskInput, bool) {
+func (o *TaskUpdateV1) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
@@ -153,7 +152,7 @@ func (o *TaskUpdate) GetInputOk() (*TaskInput, bool) {
 }
 
 // HasInput returns a boolean if a field has been set.
-func (o *TaskUpdate) HasInput() bool {
+func (o *TaskUpdateV1) HasInput() bool {
 	if o != nil && o.Input != nil {
 		return true
 	}
@@ -162,13 +161,13 @@ func (o *TaskUpdate) HasInput() bool {
 }
 
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
-func (o *TaskUpdate) SetInput(v *TaskInput) *TaskUpdate {
+func (o *TaskUpdateV1) SetInput(v *TaskInput) *TaskUpdateV1 {
 	o.Input = v
 	return o
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
-func (o *TaskUpdate) GetEnabled() bool {
+func (o *TaskUpdateV1) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
 		return ret
@@ -178,7 +177,7 @@ func (o *TaskUpdate) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskUpdate) GetEnabledOk() (*bool, bool) {
+func (o *TaskUpdateV1) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
@@ -186,7 +185,7 @@ func (o *TaskUpdate) GetEnabledOk() (*bool, bool) {
 }
 
 // HasEnabled returns a boolean if a field has been set.
-func (o *TaskUpdate) HasEnabled() bool {
+func (o *TaskUpdateV1) HasEnabled() bool {
 	if o != nil && o.Enabled != nil {
 		return true
 	}
@@ -195,13 +194,13 @@ func (o *TaskUpdate) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
-func (o *TaskUpdate) SetEnabled(v bool) *TaskUpdate {
+func (o *TaskUpdateV1) SetEnabled(v bool) *TaskUpdateV1 {
 	o.Enabled = &v
 	return o
 }
 
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
-func (o *TaskUpdate) GetFailureThreshold() int32 {
+func (o *TaskUpdateV1) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
 		return ret
@@ -211,7 +210,7 @@ func (o *TaskUpdate) GetFailureThreshold() int32 {
 
 // GetFailureThresholdOk returns a tuple with the FailureThreshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TaskUpdate) GetFailureThresholdOk() (*int32, bool) {
+func (o *TaskUpdateV1) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
@@ -219,7 +218,7 @@ func (o *TaskUpdate) GetFailureThresholdOk() (*int32, bool) {
 }
 
 // HasFailureThreshold returns a boolean if a field has been set.
-func (o *TaskUpdate) HasFailureThreshold() bool {
+func (o *TaskUpdateV1) HasFailureThreshold() bool {
 	if o != nil && o.FailureThreshold != nil {
 		return true
 	}
@@ -228,18 +227,18 @@ func (o *TaskUpdate) HasFailureThreshold() bool {
 }
 
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
-func (o *TaskUpdate) SetFailureThreshold(v int32) *TaskUpdate {
+func (o *TaskUpdateV1) SetFailureThreshold(v int32) *TaskUpdateV1 {
 	o.FailureThreshold = &v
 	return o
 }
 
-func (o TaskUpdate) MarshalJSON() ([]byte, error) {
+func (o TaskUpdateV1) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.DestinationID != nil {
 		toSerialize["destinationID"] = o.DestinationID
 	}
-	if o.Cron != nil {
-		toSerialize["cron"] = o.Cron
+	if o.Trigger != nil {
+		toSerialize["trigger"] = o.Trigger
 	}
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
@@ -252,18 +251,18 @@ func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal TaskUpdate: %w", err)
+		return nil, fmt.Errorf("failed to marshal TaskUpdateV1: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o TaskUpdate) String() string {
+func (o TaskUpdateV1) String() string {
 	out := ""
 	out += fmt.Sprintf("  destinationID=%v\n", o.DestinationID)
-	out += fmt.Sprintf("  cron=%v\n", o.Cron)
+	out += fmt.Sprintf("  trigger=%v\n", o.Trigger)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
-	return fmt.Sprintf("TaskUpdate {\n%s}", out)
+	return fmt.Sprintf("TaskUpdateV1 {\n%s}", out)
 }
