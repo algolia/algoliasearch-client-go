@@ -4678,10 +4678,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@return IndexSettings
+	@return SettingsResponse
 */
-func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) (*IndexSettings, error) {
-	var returnValue *IndexSettings
+func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) (*SettingsResponse, error) {
+	var returnValue *SettingsResponse
 
 	res, resBody, err := c.GetSettingsWithHTTPInfo(r, opts...)
 	if err != nil {
