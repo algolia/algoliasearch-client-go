@@ -5740,6 +5740,157 @@ func (c *APIClient) ListTransformations(r ApiListTransformationsRequest, opts ..
 	return returnValue, nil
 }
 
+func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["batchWriteParams"]; ok {
+		err = json.Unmarshal(v, &r.batchWriteParams)
+		if err != nil {
+			err = json.Unmarshal(b, &r.batchWriteParams)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal batchWriteParams: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.batchWriteParams)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter batchWriteParams: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiPushTaskRequest represents the request with all the parameters for the API call.
+type ApiPushTaskRequest struct {
+	taskID           string
+	batchWriteParams *BatchWriteParams
+}
+
+// NewApiPushTaskRequest creates an instance of the ApiPushTaskRequest to be used for the API call.
+func (c *APIClient) NewApiPushTaskRequest(taskID string, batchWriteParams *BatchWriteParams) ApiPushTaskRequest {
+	return ApiPushTaskRequest{
+		taskID:           taskID,
+		batchWriteParams: batchWriteParams,
+	}
+}
+
+/*
+PushTask calls the API and returns the raw response from it.
+
+	  Push a `batch` request payload through the Pipeline. You can check the status of task pushes with the observability endpoints.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiPushTaskRequest with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	  @param batchWriteParams BatchWriteParams - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/2/tasks/{taskID}/push"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `PushTask`.")
+	}
+
+	if r.batchWriteParams == nil {
+		return nil, nil, reportError("Parameter `batchWriteParams` is required when calling `PushTask`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.batchWriteParams
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+PushTask casts the HTTP response body to a defined struct.
+
+Push a `batch` request payload through the Pipeline. You can check the status of task pushes with the observability endpoints.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiPushTaskRequest with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@param batchWriteParams BatchWriteParams - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	@return RunResponse
+*/
+func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*RunResponse, error) {
+	var returnValue *RunResponse
+
+	res, resBody, err := c.PushTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiRunTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
