@@ -4272,10 +4272,10 @@ Request can be constructed by NewApiGetObjectRequest with parameters below.
 	@param indexName string - Name of the index on which to perform the operation.
 	@param objectID string - Unique record identifier.
 	@param attributesToRetrieve []string - Attributes to include with the records in the response. This is useful to reduce the size of the API response. By default, all retrievable attributes are returned.  `objectID` is always retrieved.  Attributes included in `unretrievableAttributes` won't be retrieved unless the request is authenticated with the admin API key.
-	@return map[string]string
+	@return map[string]any
 */
-func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (map[string]string, error) {
-	var returnValue map[string]string
+func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (*map[string]any, error) {
+	var returnValue *map[string]any
 
 	res, resBody, err := c.GetObjectWithHTTPInfo(r, opts...)
 	if err != nil {
