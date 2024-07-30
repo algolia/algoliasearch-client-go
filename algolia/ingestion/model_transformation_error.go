@@ -6,47 +6,47 @@ import (
 	"fmt"
 )
 
-// TransformationTryResponseError The error if the transformation failed.
-type TransformationTryResponseError struct {
+// TransformationError The error if the transformation failed.
+type TransformationError struct {
 	// The error status code.
 	Code *int32 `json:"code,omitempty"`
 	// A descriptive message explaining the failure.
 	Message *string `json:"message,omitempty"`
 }
 
-type TransformationTryResponseErrorOption func(f *TransformationTryResponseError)
+type TransformationErrorOption func(f *TransformationError)
 
-func WithTransformationTryResponseErrorCode(val int32) TransformationTryResponseErrorOption {
-	return func(f *TransformationTryResponseError) {
+func WithTransformationErrorCode(val int32) TransformationErrorOption {
+	return func(f *TransformationError) {
 		f.Code = &val
 	}
 }
 
-func WithTransformationTryResponseErrorMessage(val string) TransformationTryResponseErrorOption {
-	return func(f *TransformationTryResponseError) {
+func WithTransformationErrorMessage(val string) TransformationErrorOption {
+	return func(f *TransformationError) {
 		f.Message = &val
 	}
 }
 
-// NewTransformationTryResponseError instantiates a new TransformationTryResponseError object
+// NewTransformationError instantiates a new TransformationError object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationTryResponseError(opts ...TransformationTryResponseErrorOption) *TransformationTryResponseError {
-	this := &TransformationTryResponseError{}
+func NewTransformationError(opts ...TransformationErrorOption) *TransformationError {
+	this := &TransformationError{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyTransformationTryResponseError return a pointer to an empty TransformationTryResponseError object.
-func NewEmptyTransformationTryResponseError() *TransformationTryResponseError {
-	return &TransformationTryResponseError{}
+// NewEmptyTransformationError return a pointer to an empty TransformationError object.
+func NewEmptyTransformationError() *TransformationError {
+	return &TransformationError{}
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *TransformationTryResponseError) GetCode() int32 {
+func (o *TransformationError) GetCode() int32 {
 	if o == nil || o.Code == nil {
 		var ret int32
 		return ret
@@ -56,7 +56,7 @@ func (o *TransformationTryResponseError) GetCode() int32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransformationTryResponseError) GetCodeOk() (*int32, bool) {
+func (o *TransformationError) GetCodeOk() (*int32, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *TransformationTryResponseError) GetCodeOk() (*int32, bool) {
 }
 
 // HasCode returns a boolean if a field has been set.
-func (o *TransformationTryResponseError) HasCode() bool {
+func (o *TransformationError) HasCode() bool {
 	if o != nil && o.Code != nil {
 		return true
 	}
@@ -73,13 +73,13 @@ func (o *TransformationTryResponseError) HasCode() bool {
 }
 
 // SetCode gets a reference to the given int32 and assigns it to the Code field.
-func (o *TransformationTryResponseError) SetCode(v int32) *TransformationTryResponseError {
+func (o *TransformationError) SetCode(v int32) *TransformationError {
 	o.Code = &v
 	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *TransformationTryResponseError) GetMessage() string {
+func (o *TransformationError) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
 		return ret
@@ -89,7 +89,7 @@ func (o *TransformationTryResponseError) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransformationTryResponseError) GetMessageOk() (*string, bool) {
+func (o *TransformationError) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *TransformationTryResponseError) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *TransformationTryResponseError) HasMessage() bool {
+func (o *TransformationError) HasMessage() bool {
 	if o != nil && o.Message != nil {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *TransformationTryResponseError) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *TransformationTryResponseError) SetMessage(v string) *TransformationTryResponseError {
+func (o *TransformationError) SetMessage(v string) *TransformationError {
 	o.Message = &v
 	return o
 }
 
-func (o TransformationTryResponseError) MarshalJSON() ([]byte, error) {
+func (o TransformationError) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
@@ -121,15 +121,15 @@ func (o TransformationTryResponseError) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal TransformationTryResponseError: %w", err)
+		return nil, fmt.Errorf("failed to marshal TransformationError: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o TransformationTryResponseError) String() string {
+func (o TransformationError) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
-	return fmt.Sprintf("TransformationTryResponseError {\n%s}", out)
+	return fmt.Sprintf("TransformationError {\n%s}", out)
 }

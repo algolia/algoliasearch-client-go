@@ -8,12 +8,12 @@ import (
 
 // InfrastructureResponse struct for InfrastructureResponse.
 type InfrastructureResponse struct {
-	Metrics *InfrastructureResponseMetrics `json:"metrics,omitempty"`
+	Metrics *Metrics `json:"metrics,omitempty"`
 }
 
 type InfrastructureResponseOption func(f *InfrastructureResponse)
 
-func WithInfrastructureResponseMetrics(val InfrastructureResponseMetrics) InfrastructureResponseOption {
+func WithInfrastructureResponseMetrics(val Metrics) InfrastructureResponseOption {
 	return func(f *InfrastructureResponse) {
 		f.Metrics = &val
 	}
@@ -37,9 +37,9 @@ func NewEmptyInfrastructureResponse() *InfrastructureResponse {
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
-func (o *InfrastructureResponse) GetMetrics() InfrastructureResponseMetrics {
+func (o *InfrastructureResponse) GetMetrics() Metrics {
 	if o == nil || o.Metrics == nil {
-		var ret InfrastructureResponseMetrics
+		var ret Metrics
 		return ret
 	}
 	return *o.Metrics
@@ -47,7 +47,7 @@ func (o *InfrastructureResponse) GetMetrics() InfrastructureResponseMetrics {
 
 // GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponse) GetMetricsOk() (*InfrastructureResponseMetrics, bool) {
+func (o *InfrastructureResponse) GetMetricsOk() (*Metrics, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
@@ -63,8 +63,8 @@ func (o *InfrastructureResponse) HasMetrics() bool {
 	return false
 }
 
-// SetMetrics gets a reference to the given InfrastructureResponseMetrics and assigns it to the Metrics field.
-func (o *InfrastructureResponse) SetMetrics(v *InfrastructureResponseMetrics) *InfrastructureResponse {
+// SetMetrics gets a reference to the given Metrics and assigns it to the Metrics field.
+func (o *InfrastructureResponse) SetMetrics(v *Metrics) *InfrastructureResponse {
 	o.Metrics = v
 	return o
 }

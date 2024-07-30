@@ -15,15 +15,15 @@ type RedirectRuleIndexMetadata struct {
 	// Reason for the redirect rule.
 	Reason string `json:"reason"`
 	// Redirect rule status.
-	Succeed bool                          `json:"succeed"`
-	Data    RedirectRuleIndexMetadataData `json:"data"`
+	Succeed bool                  `json:"succeed"`
+	Data    RedirectRuleIndexData `json:"data"`
 }
 
 // NewRedirectRuleIndexMetadata instantiates a new RedirectRuleIndexMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRedirectRuleIndexMetadata(source string, dest string, reason string, succeed bool, data RedirectRuleIndexMetadataData) *RedirectRuleIndexMetadata {
+func NewRedirectRuleIndexMetadata(source string, dest string, reason string, succeed bool, data RedirectRuleIndexData) *RedirectRuleIndexMetadata {
 	this := &RedirectRuleIndexMetadata{}
 	this.Source = source
 	this.Dest = dest
@@ -139,9 +139,9 @@ func (o *RedirectRuleIndexMetadata) SetSucceed(v bool) *RedirectRuleIndexMetadat
 }
 
 // GetData returns the Data field value.
-func (o *RedirectRuleIndexMetadata) GetData() RedirectRuleIndexMetadataData {
+func (o *RedirectRuleIndexMetadata) GetData() RedirectRuleIndexData {
 	if o == nil {
-		var ret RedirectRuleIndexMetadataData
+		var ret RedirectRuleIndexData
 		return ret
 	}
 
@@ -150,7 +150,7 @@ func (o *RedirectRuleIndexMetadata) GetData() RedirectRuleIndexMetadataData {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *RedirectRuleIndexMetadata) GetDataOk() (*RedirectRuleIndexMetadataData, bool) {
+func (o *RedirectRuleIndexMetadata) GetDataOk() (*RedirectRuleIndexData, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -158,7 +158,7 @@ func (o *RedirectRuleIndexMetadata) GetDataOk() (*RedirectRuleIndexMetadataData,
 }
 
 // SetData sets field value.
-func (o *RedirectRuleIndexMetadata) SetData(v *RedirectRuleIndexMetadataData) *RedirectRuleIndexMetadata {
+func (o *RedirectRuleIndexMetadata) SetData(v *RedirectRuleIndexData) *RedirectRuleIndexMetadata {
 	o.Data = *v
 	return o
 }

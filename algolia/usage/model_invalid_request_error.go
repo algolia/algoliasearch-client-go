@@ -6,52 +6,52 @@ import (
 	"fmt"
 )
 
-// GetUsage400ResponseError struct for GetUsage400ResponseError.
-type GetUsage400ResponseError struct {
-	Code    *string                               `json:"code,omitempty"`
-	Message *string                               `json:"message,omitempty"`
-	Errors  []GetUsage400ResponseErrorErrorsInner `json:"errors,omitempty"`
+// InvalidRequestError struct for InvalidRequestError.
+type InvalidRequestError struct {
+	Code    *string     `json:"code,omitempty"`
+	Message *string     `json:"message,omitempty"`
+	Errors  []ErrorItem `json:"errors,omitempty"`
 }
 
-type GetUsage400ResponseErrorOption func(f *GetUsage400ResponseError)
+type InvalidRequestErrorOption func(f *InvalidRequestError)
 
-func WithGetUsage400ResponseErrorCode(val string) GetUsage400ResponseErrorOption {
-	return func(f *GetUsage400ResponseError) {
+func WithInvalidRequestErrorCode(val string) InvalidRequestErrorOption {
+	return func(f *InvalidRequestError) {
 		f.Code = &val
 	}
 }
 
-func WithGetUsage400ResponseErrorMessage(val string) GetUsage400ResponseErrorOption {
-	return func(f *GetUsage400ResponseError) {
+func WithInvalidRequestErrorMessage(val string) InvalidRequestErrorOption {
+	return func(f *InvalidRequestError) {
 		f.Message = &val
 	}
 }
 
-func WithGetUsage400ResponseErrorErrors(val []GetUsage400ResponseErrorErrorsInner) GetUsage400ResponseErrorOption {
-	return func(f *GetUsage400ResponseError) {
+func WithInvalidRequestErrorErrors(val []ErrorItem) InvalidRequestErrorOption {
+	return func(f *InvalidRequestError) {
 		f.Errors = val
 	}
 }
 
-// NewGetUsage400ResponseError instantiates a new GetUsage400ResponseError object
+// NewInvalidRequestError instantiates a new InvalidRequestError object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUsage400ResponseError(opts ...GetUsage400ResponseErrorOption) *GetUsage400ResponseError {
-	this := &GetUsage400ResponseError{}
+func NewInvalidRequestError(opts ...InvalidRequestErrorOption) *InvalidRequestError {
+	this := &InvalidRequestError{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyGetUsage400ResponseError return a pointer to an empty GetUsage400ResponseError object.
-func NewEmptyGetUsage400ResponseError() *GetUsage400ResponseError {
-	return &GetUsage400ResponseError{}
+// NewEmptyInvalidRequestError return a pointer to an empty InvalidRequestError object.
+func NewEmptyInvalidRequestError() *InvalidRequestError {
+	return &InvalidRequestError{}
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *GetUsage400ResponseError) GetCode() string {
+func (o *InvalidRequestError) GetCode() string {
 	if o == nil || o.Code == nil {
 		var ret string
 		return ret
@@ -61,7 +61,7 @@ func (o *GetUsage400ResponseError) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseError) GetCodeOk() (*string, bool) {
+func (o *InvalidRequestError) GetCodeOk() (*string, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *GetUsage400ResponseError) GetCodeOk() (*string, bool) {
 }
 
 // HasCode returns a boolean if a field has been set.
-func (o *GetUsage400ResponseError) HasCode() bool {
+func (o *InvalidRequestError) HasCode() bool {
 	if o != nil && o.Code != nil {
 		return true
 	}
@@ -78,13 +78,13 @@ func (o *GetUsage400ResponseError) HasCode() bool {
 }
 
 // SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *GetUsage400ResponseError) SetCode(v string) *GetUsage400ResponseError {
+func (o *InvalidRequestError) SetCode(v string) *InvalidRequestError {
 	o.Code = &v
 	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *GetUsage400ResponseError) GetMessage() string {
+func (o *InvalidRequestError) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
 		return ret
@@ -94,7 +94,7 @@ func (o *GetUsage400ResponseError) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseError) GetMessageOk() (*string, bool) {
+func (o *InvalidRequestError) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *GetUsage400ResponseError) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *GetUsage400ResponseError) HasMessage() bool {
+func (o *InvalidRequestError) HasMessage() bool {
 	if o != nil && o.Message != nil {
 		return true
 	}
@@ -111,15 +111,15 @@ func (o *GetUsage400ResponseError) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *GetUsage400ResponseError) SetMessage(v string) *GetUsage400ResponseError {
+func (o *InvalidRequestError) SetMessage(v string) *InvalidRequestError {
 	o.Message = &v
 	return o
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *GetUsage400ResponseError) GetErrors() []GetUsage400ResponseErrorErrorsInner {
+func (o *InvalidRequestError) GetErrors() []ErrorItem {
 	if o == nil || o.Errors == nil {
-		var ret []GetUsage400ResponseErrorErrorsInner
+		var ret []ErrorItem
 		return ret
 	}
 	return o.Errors
@@ -127,7 +127,7 @@ func (o *GetUsage400ResponseError) GetErrors() []GetUsage400ResponseErrorErrorsI
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseError) GetErrorsOk() ([]GetUsage400ResponseErrorErrorsInner, bool) {
+func (o *InvalidRequestError) GetErrorsOk() ([]ErrorItem, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *GetUsage400ResponseError) GetErrorsOk() ([]GetUsage400ResponseErrorErro
 }
 
 // HasErrors returns a boolean if a field has been set.
-func (o *GetUsage400ResponseError) HasErrors() bool {
+func (o *InvalidRequestError) HasErrors() bool {
 	if o != nil && o.Errors != nil {
 		return true
 	}
@@ -143,13 +143,13 @@ func (o *GetUsage400ResponseError) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given []GetUsage400ResponseErrorErrorsInner and assigns it to the Errors field.
-func (o *GetUsage400ResponseError) SetErrors(v []GetUsage400ResponseErrorErrorsInner) *GetUsage400ResponseError {
+// SetErrors gets a reference to the given []ErrorItem and assigns it to the Errors field.
+func (o *InvalidRequestError) SetErrors(v []ErrorItem) *InvalidRequestError {
 	o.Errors = v
 	return o
 }
 
-func (o GetUsage400ResponseError) MarshalJSON() ([]byte, error) {
+func (o InvalidRequestError) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
@@ -162,16 +162,16 @@ func (o GetUsage400ResponseError) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetUsage400ResponseError: %w", err)
+		return nil, fmt.Errorf("failed to marshal InvalidRequestError: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetUsage400ResponseError) String() string {
+func (o InvalidRequestError) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  errors=%v\n", o.Errors)
-	return fmt.Sprintf("GetUsage400ResponseError {\n%s}", out)
+	return fmt.Sprintf("InvalidRequestError {\n%s}", out)
 }

@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// InfrastructureResponseMetrics struct for InfrastructureResponseMetrics.
-type InfrastructureResponseMetrics struct {
+// Metrics struct for Metrics.
+type Metrics struct {
 	// CPU idleness in %.
 	CpuUsage *map[string][]ProbesMetric `json:"cpu_usage,omitempty"`
 	// RAM used for indexing in MB.
@@ -20,57 +20,57 @@ type InfrastructureResponseMetrics struct {
 	AvgBuildTime *map[string][]ProbesMetric `json:"avg_build_time,omitempty"`
 }
 
-type InfrastructureResponseMetricsOption func(f *InfrastructureResponseMetrics)
+type MetricsOption func(f *Metrics)
 
-func WithInfrastructureResponseMetricsCpuUsage(val map[string][]ProbesMetric) InfrastructureResponseMetricsOption {
-	return func(f *InfrastructureResponseMetrics) {
+func WithMetricsCpuUsage(val map[string][]ProbesMetric) MetricsOption {
+	return func(f *Metrics) {
 		f.CpuUsage = &val
 	}
 }
 
-func WithInfrastructureResponseMetricsRamIndexingUsage(val map[string][]ProbesMetric) InfrastructureResponseMetricsOption {
-	return func(f *InfrastructureResponseMetrics) {
+func WithMetricsRamIndexingUsage(val map[string][]ProbesMetric) MetricsOption {
+	return func(f *Metrics) {
 		f.RamIndexingUsage = &val
 	}
 }
 
-func WithInfrastructureResponseMetricsRamSearchUsage(val map[string][]ProbesMetric) InfrastructureResponseMetricsOption {
-	return func(f *InfrastructureResponseMetrics) {
+func WithMetricsRamSearchUsage(val map[string][]ProbesMetric) MetricsOption {
+	return func(f *Metrics) {
 		f.RamSearchUsage = &val
 	}
 }
 
-func WithInfrastructureResponseMetricsSsdUsage(val map[string][]ProbesMetric) InfrastructureResponseMetricsOption {
-	return func(f *InfrastructureResponseMetrics) {
+func WithMetricsSsdUsage(val map[string][]ProbesMetric) MetricsOption {
+	return func(f *Metrics) {
 		f.SsdUsage = &val
 	}
 }
 
-func WithInfrastructureResponseMetricsAvgBuildTime(val map[string][]ProbesMetric) InfrastructureResponseMetricsOption {
-	return func(f *InfrastructureResponseMetrics) {
+func WithMetricsAvgBuildTime(val map[string][]ProbesMetric) MetricsOption {
+	return func(f *Metrics) {
 		f.AvgBuildTime = &val
 	}
 }
 
-// NewInfrastructureResponseMetrics instantiates a new InfrastructureResponseMetrics object
+// NewMetrics instantiates a new Metrics object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInfrastructureResponseMetrics(opts ...InfrastructureResponseMetricsOption) *InfrastructureResponseMetrics {
-	this := &InfrastructureResponseMetrics{}
+func NewMetrics(opts ...MetricsOption) *Metrics {
+	this := &Metrics{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyInfrastructureResponseMetrics return a pointer to an empty InfrastructureResponseMetrics object.
-func NewEmptyInfrastructureResponseMetrics() *InfrastructureResponseMetrics {
-	return &InfrastructureResponseMetrics{}
+// NewEmptyMetrics return a pointer to an empty Metrics object.
+func NewEmptyMetrics() *Metrics {
+	return &Metrics{}
 }
 
 // GetCpuUsage returns the CpuUsage field value if set, zero value otherwise.
-func (o *InfrastructureResponseMetrics) GetCpuUsage() map[string][]ProbesMetric {
+func (o *Metrics) GetCpuUsage() map[string][]ProbesMetric {
 	if o == nil || o.CpuUsage == nil {
 		var ret map[string][]ProbesMetric
 		return ret
@@ -80,7 +80,7 @@ func (o *InfrastructureResponseMetrics) GetCpuUsage() map[string][]ProbesMetric 
 
 // GetCpuUsageOk returns a tuple with the CpuUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponseMetrics) GetCpuUsageOk() (*map[string][]ProbesMetric, bool) {
+func (o *Metrics) GetCpuUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.CpuUsage == nil {
 		return nil, false
 	}
@@ -88,7 +88,7 @@ func (o *InfrastructureResponseMetrics) GetCpuUsageOk() (*map[string][]ProbesMet
 }
 
 // HasCpuUsage returns a boolean if a field has been set.
-func (o *InfrastructureResponseMetrics) HasCpuUsage() bool {
+func (o *Metrics) HasCpuUsage() bool {
 	if o != nil && o.CpuUsage != nil {
 		return true
 	}
@@ -97,13 +97,13 @@ func (o *InfrastructureResponseMetrics) HasCpuUsage() bool {
 }
 
 // SetCpuUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the CpuUsage field.
-func (o *InfrastructureResponseMetrics) SetCpuUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
+func (o *Metrics) SetCpuUsage(v map[string][]ProbesMetric) *Metrics {
 	o.CpuUsage = &v
 	return o
 }
 
 // GetRamIndexingUsage returns the RamIndexingUsage field value if set, zero value otherwise.
-func (o *InfrastructureResponseMetrics) GetRamIndexingUsage() map[string][]ProbesMetric {
+func (o *Metrics) GetRamIndexingUsage() map[string][]ProbesMetric {
 	if o == nil || o.RamIndexingUsage == nil {
 		var ret map[string][]ProbesMetric
 		return ret
@@ -113,7 +113,7 @@ func (o *InfrastructureResponseMetrics) GetRamIndexingUsage() map[string][]Probe
 
 // GetRamIndexingUsageOk returns a tuple with the RamIndexingUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponseMetrics) GetRamIndexingUsageOk() (*map[string][]ProbesMetric, bool) {
+func (o *Metrics) GetRamIndexingUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.RamIndexingUsage == nil {
 		return nil, false
 	}
@@ -121,7 +121,7 @@ func (o *InfrastructureResponseMetrics) GetRamIndexingUsageOk() (*map[string][]P
 }
 
 // HasRamIndexingUsage returns a boolean if a field has been set.
-func (o *InfrastructureResponseMetrics) HasRamIndexingUsage() bool {
+func (o *Metrics) HasRamIndexingUsage() bool {
 	if o != nil && o.RamIndexingUsage != nil {
 		return true
 	}
@@ -130,13 +130,13 @@ func (o *InfrastructureResponseMetrics) HasRamIndexingUsage() bool {
 }
 
 // SetRamIndexingUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamIndexingUsage field.
-func (o *InfrastructureResponseMetrics) SetRamIndexingUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
+func (o *Metrics) SetRamIndexingUsage(v map[string][]ProbesMetric) *Metrics {
 	o.RamIndexingUsage = &v
 	return o
 }
 
 // GetRamSearchUsage returns the RamSearchUsage field value if set, zero value otherwise.
-func (o *InfrastructureResponseMetrics) GetRamSearchUsage() map[string][]ProbesMetric {
+func (o *Metrics) GetRamSearchUsage() map[string][]ProbesMetric {
 	if o == nil || o.RamSearchUsage == nil {
 		var ret map[string][]ProbesMetric
 		return ret
@@ -146,7 +146,7 @@ func (o *InfrastructureResponseMetrics) GetRamSearchUsage() map[string][]ProbesM
 
 // GetRamSearchUsageOk returns a tuple with the RamSearchUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponseMetrics) GetRamSearchUsageOk() (*map[string][]ProbesMetric, bool) {
+func (o *Metrics) GetRamSearchUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.RamSearchUsage == nil {
 		return nil, false
 	}
@@ -154,7 +154,7 @@ func (o *InfrastructureResponseMetrics) GetRamSearchUsageOk() (*map[string][]Pro
 }
 
 // HasRamSearchUsage returns a boolean if a field has been set.
-func (o *InfrastructureResponseMetrics) HasRamSearchUsage() bool {
+func (o *Metrics) HasRamSearchUsage() bool {
 	if o != nil && o.RamSearchUsage != nil {
 		return true
 	}
@@ -163,13 +163,13 @@ func (o *InfrastructureResponseMetrics) HasRamSearchUsage() bool {
 }
 
 // SetRamSearchUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamSearchUsage field.
-func (o *InfrastructureResponseMetrics) SetRamSearchUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
+func (o *Metrics) SetRamSearchUsage(v map[string][]ProbesMetric) *Metrics {
 	o.RamSearchUsage = &v
 	return o
 }
 
 // GetSsdUsage returns the SsdUsage field value if set, zero value otherwise.
-func (o *InfrastructureResponseMetrics) GetSsdUsage() map[string][]ProbesMetric {
+func (o *Metrics) GetSsdUsage() map[string][]ProbesMetric {
 	if o == nil || o.SsdUsage == nil {
 		var ret map[string][]ProbesMetric
 		return ret
@@ -179,7 +179,7 @@ func (o *InfrastructureResponseMetrics) GetSsdUsage() map[string][]ProbesMetric 
 
 // GetSsdUsageOk returns a tuple with the SsdUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponseMetrics) GetSsdUsageOk() (*map[string][]ProbesMetric, bool) {
+func (o *Metrics) GetSsdUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.SsdUsage == nil {
 		return nil, false
 	}
@@ -187,7 +187,7 @@ func (o *InfrastructureResponseMetrics) GetSsdUsageOk() (*map[string][]ProbesMet
 }
 
 // HasSsdUsage returns a boolean if a field has been set.
-func (o *InfrastructureResponseMetrics) HasSsdUsage() bool {
+func (o *Metrics) HasSsdUsage() bool {
 	if o != nil && o.SsdUsage != nil {
 		return true
 	}
@@ -196,13 +196,13 @@ func (o *InfrastructureResponseMetrics) HasSsdUsage() bool {
 }
 
 // SetSsdUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the SsdUsage field.
-func (o *InfrastructureResponseMetrics) SetSsdUsage(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
+func (o *Metrics) SetSsdUsage(v map[string][]ProbesMetric) *Metrics {
 	o.SsdUsage = &v
 	return o
 }
 
 // GetAvgBuildTime returns the AvgBuildTime field value if set, zero value otherwise.
-func (o *InfrastructureResponseMetrics) GetAvgBuildTime() map[string][]ProbesMetric {
+func (o *Metrics) GetAvgBuildTime() map[string][]ProbesMetric {
 	if o == nil || o.AvgBuildTime == nil {
 		var ret map[string][]ProbesMetric
 		return ret
@@ -212,7 +212,7 @@ func (o *InfrastructureResponseMetrics) GetAvgBuildTime() map[string][]ProbesMet
 
 // GetAvgBuildTimeOk returns a tuple with the AvgBuildTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InfrastructureResponseMetrics) GetAvgBuildTimeOk() (*map[string][]ProbesMetric, bool) {
+func (o *Metrics) GetAvgBuildTimeOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.AvgBuildTime == nil {
 		return nil, false
 	}
@@ -220,7 +220,7 @@ func (o *InfrastructureResponseMetrics) GetAvgBuildTimeOk() (*map[string][]Probe
 }
 
 // HasAvgBuildTime returns a boolean if a field has been set.
-func (o *InfrastructureResponseMetrics) HasAvgBuildTime() bool {
+func (o *Metrics) HasAvgBuildTime() bool {
 	if o != nil && o.AvgBuildTime != nil {
 		return true
 	}
@@ -229,12 +229,12 @@ func (o *InfrastructureResponseMetrics) HasAvgBuildTime() bool {
 }
 
 // SetAvgBuildTime gets a reference to the given map[string][]ProbesMetric and assigns it to the AvgBuildTime field.
-func (o *InfrastructureResponseMetrics) SetAvgBuildTime(v map[string][]ProbesMetric) *InfrastructureResponseMetrics {
+func (o *Metrics) SetAvgBuildTime(v map[string][]ProbesMetric) *Metrics {
 	o.AvgBuildTime = &v
 	return o
 }
 
-func (o InfrastructureResponseMetrics) MarshalJSON() ([]byte, error) {
+func (o Metrics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.CpuUsage != nil {
 		toSerialize["cpu_usage"] = o.CpuUsage
@@ -253,18 +253,18 @@ func (o InfrastructureResponseMetrics) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal InfrastructureResponseMetrics: %w", err)
+		return nil, fmt.Errorf("failed to marshal Metrics: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o InfrastructureResponseMetrics) String() string {
+func (o Metrics) String() string {
 	out := ""
 	out += fmt.Sprintf("  cpu_usage=%v\n", o.CpuUsage)
 	out += fmt.Sprintf("  ram_indexing_usage=%v\n", o.RamIndexingUsage)
 	out += fmt.Sprintf("  ram_search_usage=%v\n", o.RamSearchUsage)
 	out += fmt.Sprintf("  ssd_usage=%v\n", o.SsdUsage)
 	out += fmt.Sprintf("  avg_build_time=%v\n", o.AvgBuildTime)
-	return fmt.Sprintf("InfrastructureResponseMetrics {\n%s}", out)
+	return fmt.Sprintf("Metrics {\n%s}", out)
 }

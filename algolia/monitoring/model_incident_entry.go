@@ -6,47 +6,46 @@ import (
 	"fmt"
 )
 
-// TimeInner struct for TimeInner.
-type TimeInner struct {
+// IncidentEntry struct for IncidentEntry.
+type IncidentEntry struct {
 	// Timestamp, measured in milliseconds since the Unix epoch.
-	T *int64 `json:"t,omitempty"`
-	// Time in ms.
-	V *int32 `json:"v,omitempty"`
+	T *int64    `json:"t,omitempty"`
+	V *Incident `json:"v,omitempty"`
 }
 
-type TimeInnerOption func(f *TimeInner)
+type IncidentEntryOption func(f *IncidentEntry)
 
-func WithTimeInnerT(val int64) TimeInnerOption {
-	return func(f *TimeInner) {
+func WithIncidentEntryT(val int64) IncidentEntryOption {
+	return func(f *IncidentEntry) {
 		f.T = &val
 	}
 }
 
-func WithTimeInnerV(val int32) TimeInnerOption {
-	return func(f *TimeInner) {
+func WithIncidentEntryV(val Incident) IncidentEntryOption {
+	return func(f *IncidentEntry) {
 		f.V = &val
 	}
 }
 
-// NewTimeInner instantiates a new TimeInner object
+// NewIncidentEntry instantiates a new IncidentEntry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTimeInner(opts ...TimeInnerOption) *TimeInner {
-	this := &TimeInner{}
+func NewIncidentEntry(opts ...IncidentEntryOption) *IncidentEntry {
+	this := &IncidentEntry{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyTimeInner return a pointer to an empty TimeInner object.
-func NewEmptyTimeInner() *TimeInner {
-	return &TimeInner{}
+// NewEmptyIncidentEntry return a pointer to an empty IncidentEntry object.
+func NewEmptyIncidentEntry() *IncidentEntry {
+	return &IncidentEntry{}
 }
 
 // GetT returns the T field value if set, zero value otherwise.
-func (o *TimeInner) GetT() int64 {
+func (o *IncidentEntry) GetT() int64 {
 	if o == nil || o.T == nil {
 		var ret int64
 		return ret
@@ -56,7 +55,7 @@ func (o *TimeInner) GetT() int64 {
 
 // GetTOk returns a tuple with the T field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimeInner) GetTOk() (*int64, bool) {
+func (o *IncidentEntry) GetTOk() (*int64, bool) {
 	if o == nil || o.T == nil {
 		return nil, false
 	}
@@ -64,7 +63,7 @@ func (o *TimeInner) GetTOk() (*int64, bool) {
 }
 
 // HasT returns a boolean if a field has been set.
-func (o *TimeInner) HasT() bool {
+func (o *IncidentEntry) HasT() bool {
 	if o != nil && o.T != nil {
 		return true
 	}
@@ -73,15 +72,15 @@ func (o *TimeInner) HasT() bool {
 }
 
 // SetT gets a reference to the given int64 and assigns it to the T field.
-func (o *TimeInner) SetT(v int64) *TimeInner {
+func (o *IncidentEntry) SetT(v int64) *IncidentEntry {
 	o.T = &v
 	return o
 }
 
 // GetV returns the V field value if set, zero value otherwise.
-func (o *TimeInner) GetV() int32 {
+func (o *IncidentEntry) GetV() Incident {
 	if o == nil || o.V == nil {
-		var ret int32
+		var ret Incident
 		return ret
 	}
 	return *o.V
@@ -89,7 +88,7 @@ func (o *TimeInner) GetV() int32 {
 
 // GetVOk returns a tuple with the V field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TimeInner) GetVOk() (*int32, bool) {
+func (o *IncidentEntry) GetVOk() (*Incident, bool) {
 	if o == nil || o.V == nil {
 		return nil, false
 	}
@@ -97,7 +96,7 @@ func (o *TimeInner) GetVOk() (*int32, bool) {
 }
 
 // HasV returns a boolean if a field has been set.
-func (o *TimeInner) HasV() bool {
+func (o *IncidentEntry) HasV() bool {
 	if o != nil && o.V != nil {
 		return true
 	}
@@ -105,13 +104,13 @@ func (o *TimeInner) HasV() bool {
 	return false
 }
 
-// SetV gets a reference to the given int32 and assigns it to the V field.
-func (o *TimeInner) SetV(v int32) *TimeInner {
-	o.V = &v
+// SetV gets a reference to the given Incident and assigns it to the V field.
+func (o *IncidentEntry) SetV(v *Incident) *IncidentEntry {
+	o.V = v
 	return o
 }
 
-func (o TimeInner) MarshalJSON() ([]byte, error) {
+func (o IncidentEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.T != nil {
 		toSerialize["t"] = o.T
@@ -121,15 +120,15 @@ func (o TimeInner) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal TimeInner: %w", err)
+		return nil, fmt.Errorf("failed to marshal IncidentEntry: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o TimeInner) String() string {
+func (o IncidentEntry) String() string {
 	out := ""
 	out += fmt.Sprintf("  t=%v\n", o.T)
 	out += fmt.Sprintf("  v=%v\n", o.V)
-	return fmt.Sprintf("TimeInner {\n%s}", out)
+	return fmt.Sprintf("IncidentEntry {\n%s}", out)
 }

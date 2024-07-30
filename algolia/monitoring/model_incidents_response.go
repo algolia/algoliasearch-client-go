@@ -8,12 +8,12 @@ import (
 
 // IncidentsResponse struct for IncidentsResponse.
 type IncidentsResponse struct {
-	Incidents *map[string][]IncidentsInner `json:"incidents,omitempty"`
+	Incidents *map[string][]IncidentEntry `json:"incidents,omitempty"`
 }
 
 type IncidentsResponseOption func(f *IncidentsResponse)
 
-func WithIncidentsResponseIncidents(val map[string][]IncidentsInner) IncidentsResponseOption {
+func WithIncidentsResponseIncidents(val map[string][]IncidentEntry) IncidentsResponseOption {
 	return func(f *IncidentsResponse) {
 		f.Incidents = &val
 	}
@@ -37,9 +37,9 @@ func NewEmptyIncidentsResponse() *IncidentsResponse {
 }
 
 // GetIncidents returns the Incidents field value if set, zero value otherwise.
-func (o *IncidentsResponse) GetIncidents() map[string][]IncidentsInner {
+func (o *IncidentsResponse) GetIncidents() map[string][]IncidentEntry {
 	if o == nil || o.Incidents == nil {
-		var ret map[string][]IncidentsInner
+		var ret map[string][]IncidentEntry
 		return ret
 	}
 	return *o.Incidents
@@ -47,7 +47,7 @@ func (o *IncidentsResponse) GetIncidents() map[string][]IncidentsInner {
 
 // GetIncidentsOk returns a tuple with the Incidents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IncidentsResponse) GetIncidentsOk() (*map[string][]IncidentsInner, bool) {
+func (o *IncidentsResponse) GetIncidentsOk() (*map[string][]IncidentEntry, bool) {
 	if o == nil || o.Incidents == nil {
 		return nil, false
 	}
@@ -63,8 +63,8 @@ func (o *IncidentsResponse) HasIncidents() bool {
 	return false
 }
 
-// SetIncidents gets a reference to the given map[string][]IncidentsInner and assigns it to the Incidents field.
-func (o *IncidentsResponse) SetIncidents(v map[string][]IncidentsInner) *IncidentsResponse {
+// SetIncidents gets a reference to the given map[string][]IncidentEntry and assigns it to the Incidents field.
+func (o *IncidentsResponse) SetIncidents(v map[string][]IncidentEntry) *IncidentsResponse {
 	o.Incidents = &v
 	return o
 }

@@ -6,47 +6,47 @@ import (
 	"fmt"
 )
 
-// FilterEffectsOutliers Outliers removed from the A/B test as a result of configuration settings.
-type FilterEffectsOutliers struct {
+// EmptySearchFilter Empty searches removed from the A/B test as a result of configuration settings.
+type EmptySearchFilter struct {
 	// Number of users removed from the A/B test.
 	UsersCount *int32 `json:"usersCount,omitempty"`
 	// Number of tracked searches removed from the A/B test.
 	TrackedSearchesCount *int32 `json:"trackedSearchesCount,omitempty"`
 }
 
-type FilterEffectsOutliersOption func(f *FilterEffectsOutliers)
+type EmptySearchFilterOption func(f *EmptySearchFilter)
 
-func WithFilterEffectsOutliersUsersCount(val int32) FilterEffectsOutliersOption {
-	return func(f *FilterEffectsOutliers) {
+func WithEmptySearchFilterUsersCount(val int32) EmptySearchFilterOption {
+	return func(f *EmptySearchFilter) {
 		f.UsersCount = &val
 	}
 }
 
-func WithFilterEffectsOutliersTrackedSearchesCount(val int32) FilterEffectsOutliersOption {
-	return func(f *FilterEffectsOutliers) {
+func WithEmptySearchFilterTrackedSearchesCount(val int32) EmptySearchFilterOption {
+	return func(f *EmptySearchFilter) {
 		f.TrackedSearchesCount = &val
 	}
 }
 
-// NewFilterEffectsOutliers instantiates a new FilterEffectsOutliers object
+// NewEmptySearchFilter instantiates a new EmptySearchFilter object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewFilterEffectsOutliers(opts ...FilterEffectsOutliersOption) *FilterEffectsOutliers {
-	this := &FilterEffectsOutliers{}
+func NewEmptySearchFilter(opts ...EmptySearchFilterOption) *EmptySearchFilter {
+	this := &EmptySearchFilter{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyFilterEffectsOutliers return a pointer to an empty FilterEffectsOutliers object.
-func NewEmptyFilterEffectsOutliers() *FilterEffectsOutliers {
-	return &FilterEffectsOutliers{}
+// NewEmptyEmptySearchFilter return a pointer to an empty EmptySearchFilter object.
+func NewEmptyEmptySearchFilter() *EmptySearchFilter {
+	return &EmptySearchFilter{}
 }
 
 // GetUsersCount returns the UsersCount field value if set, zero value otherwise.
-func (o *FilterEffectsOutliers) GetUsersCount() int32 {
+func (o *EmptySearchFilter) GetUsersCount() int32 {
 	if o == nil || o.UsersCount == nil {
 		var ret int32
 		return ret
@@ -56,7 +56,7 @@ func (o *FilterEffectsOutliers) GetUsersCount() int32 {
 
 // GetUsersCountOk returns a tuple with the UsersCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilterEffectsOutliers) GetUsersCountOk() (*int32, bool) {
+func (o *EmptySearchFilter) GetUsersCountOk() (*int32, bool) {
 	if o == nil || o.UsersCount == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *FilterEffectsOutliers) GetUsersCountOk() (*int32, bool) {
 }
 
 // HasUsersCount returns a boolean if a field has been set.
-func (o *FilterEffectsOutliers) HasUsersCount() bool {
+func (o *EmptySearchFilter) HasUsersCount() bool {
 	if o != nil && o.UsersCount != nil {
 		return true
 	}
@@ -73,13 +73,13 @@ func (o *FilterEffectsOutliers) HasUsersCount() bool {
 }
 
 // SetUsersCount gets a reference to the given int32 and assigns it to the UsersCount field.
-func (o *FilterEffectsOutliers) SetUsersCount(v int32) *FilterEffectsOutliers {
+func (o *EmptySearchFilter) SetUsersCount(v int32) *EmptySearchFilter {
 	o.UsersCount = &v
 	return o
 }
 
 // GetTrackedSearchesCount returns the TrackedSearchesCount field value if set, zero value otherwise.
-func (o *FilterEffectsOutliers) GetTrackedSearchesCount() int32 {
+func (o *EmptySearchFilter) GetTrackedSearchesCount() int32 {
 	if o == nil || o.TrackedSearchesCount == nil {
 		var ret int32
 		return ret
@@ -89,7 +89,7 @@ func (o *FilterEffectsOutliers) GetTrackedSearchesCount() int32 {
 
 // GetTrackedSearchesCountOk returns a tuple with the TrackedSearchesCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilterEffectsOutliers) GetTrackedSearchesCountOk() (*int32, bool) {
+func (o *EmptySearchFilter) GetTrackedSearchesCountOk() (*int32, bool) {
 	if o == nil || o.TrackedSearchesCount == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *FilterEffectsOutliers) GetTrackedSearchesCountOk() (*int32, bool) {
 }
 
 // HasTrackedSearchesCount returns a boolean if a field has been set.
-func (o *FilterEffectsOutliers) HasTrackedSearchesCount() bool {
+func (o *EmptySearchFilter) HasTrackedSearchesCount() bool {
 	if o != nil && o.TrackedSearchesCount != nil {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *FilterEffectsOutliers) HasTrackedSearchesCount() bool {
 }
 
 // SetTrackedSearchesCount gets a reference to the given int32 and assigns it to the TrackedSearchesCount field.
-func (o *FilterEffectsOutliers) SetTrackedSearchesCount(v int32) *FilterEffectsOutliers {
+func (o *EmptySearchFilter) SetTrackedSearchesCount(v int32) *EmptySearchFilter {
 	o.TrackedSearchesCount = &v
 	return o
 }
 
-func (o FilterEffectsOutliers) MarshalJSON() ([]byte, error) {
+func (o EmptySearchFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.UsersCount != nil {
 		toSerialize["usersCount"] = o.UsersCount
@@ -121,15 +121,15 @@ func (o FilterEffectsOutliers) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal FilterEffectsOutliers: %w", err)
+		return nil, fmt.Errorf("failed to marshal EmptySearchFilter: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o FilterEffectsOutliers) String() string {
+func (o EmptySearchFilter) String() string {
 	out := ""
 	out += fmt.Sprintf("  usersCount=%v\n", o.UsersCount)
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
-	return fmt.Sprintf("FilterEffectsOutliers {\n%s}", out)
+	return fmt.Sprintf("EmptySearchFilter {\n%s}", out)
 }

@@ -6,40 +6,40 @@ import (
 	"fmt"
 )
 
-// GetUsage400ResponseErrorErrorsInner struct for GetUsage400ResponseErrorErrorsInner.
-type GetUsage400ResponseErrorErrorsInner struct {
+// ErrorItem struct for ErrorItem.
+type ErrorItem struct {
 	Code     *string `json:"code,omitempty"`
 	Message  string  `json:"message"`
 	Line     *int32  `json:"line,omitempty"`
 	Position *int32  `json:"position,omitempty"`
 }
 
-type GetUsage400ResponseErrorErrorsInnerOption func(f *GetUsage400ResponseErrorErrorsInner)
+type ErrorItemOption func(f *ErrorItem)
 
-func WithGetUsage400ResponseErrorErrorsInnerCode(val string) GetUsage400ResponseErrorErrorsInnerOption {
-	return func(f *GetUsage400ResponseErrorErrorsInner) {
+func WithErrorItemCode(val string) ErrorItemOption {
+	return func(f *ErrorItem) {
 		f.Code = &val
 	}
 }
 
-func WithGetUsage400ResponseErrorErrorsInnerLine(val int32) GetUsage400ResponseErrorErrorsInnerOption {
-	return func(f *GetUsage400ResponseErrorErrorsInner) {
+func WithErrorItemLine(val int32) ErrorItemOption {
+	return func(f *ErrorItem) {
 		f.Line = &val
 	}
 }
 
-func WithGetUsage400ResponseErrorErrorsInnerPosition(val int32) GetUsage400ResponseErrorErrorsInnerOption {
-	return func(f *GetUsage400ResponseErrorErrorsInner) {
+func WithErrorItemPosition(val int32) ErrorItemOption {
+	return func(f *ErrorItem) {
 		f.Position = &val
 	}
 }
 
-// NewGetUsage400ResponseErrorErrorsInner instantiates a new GetUsage400ResponseErrorErrorsInner object
+// NewErrorItem instantiates a new ErrorItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUsage400ResponseErrorErrorsInner(message string, opts ...GetUsage400ResponseErrorErrorsInnerOption) *GetUsage400ResponseErrorErrorsInner {
-	this := &GetUsage400ResponseErrorErrorsInner{}
+func NewErrorItem(message string, opts ...ErrorItemOption) *ErrorItem {
+	this := &ErrorItem{}
 	this.Message = message
 	for _, opt := range opts {
 		opt(this)
@@ -47,13 +47,13 @@ func NewGetUsage400ResponseErrorErrorsInner(message string, opts ...GetUsage400R
 	return this
 }
 
-// NewEmptyGetUsage400ResponseErrorErrorsInner return a pointer to an empty GetUsage400ResponseErrorErrorsInner object.
-func NewEmptyGetUsage400ResponseErrorErrorsInner() *GetUsage400ResponseErrorErrorsInner {
-	return &GetUsage400ResponseErrorErrorsInner{}
+// NewEmptyErrorItem return a pointer to an empty ErrorItem object.
+func NewEmptyErrorItem() *ErrorItem {
+	return &ErrorItem{}
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *GetUsage400ResponseErrorErrorsInner) GetCode() string {
+func (o *ErrorItem) GetCode() string {
 	if o == nil || o.Code == nil {
 		var ret string
 		return ret
@@ -63,7 +63,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) GetCodeOk() (*string, bool) {
+func (o *ErrorItem) GetCodeOk() (*string, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetCodeOk() (*string, bool) {
 }
 
 // HasCode returns a boolean if a field has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) HasCode() bool {
+func (o *ErrorItem) HasCode() bool {
 	if o != nil && o.Code != nil {
 		return true
 	}
@@ -80,13 +80,13 @@ func (o *GetUsage400ResponseErrorErrorsInner) HasCode() bool {
 }
 
 // SetCode gets a reference to the given string and assigns it to the Code field.
-func (o *GetUsage400ResponseErrorErrorsInner) SetCode(v string) *GetUsage400ResponseErrorErrorsInner {
+func (o *ErrorItem) SetCode(v string) *ErrorItem {
 	o.Code = &v
 	return o
 }
 
 // GetMessage returns the Message field value.
-func (o *GetUsage400ResponseErrorErrorsInner) GetMessage() string {
+func (o *ErrorItem) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -97,7 +97,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) GetMessageOk() (*string, bool) {
+func (o *ErrorItem) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,13 +105,13 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value.
-func (o *GetUsage400ResponseErrorErrorsInner) SetMessage(v string) *GetUsage400ResponseErrorErrorsInner {
+func (o *ErrorItem) SetMessage(v string) *ErrorItem {
 	o.Message = v
 	return o
 }
 
 // GetLine returns the Line field value if set, zero value otherwise.
-func (o *GetUsage400ResponseErrorErrorsInner) GetLine() int32 {
+func (o *ErrorItem) GetLine() int32 {
 	if o == nil || o.Line == nil {
 		var ret int32
 		return ret
@@ -121,7 +121,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetLine() int32 {
 
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) GetLineOk() (*int32, bool) {
+func (o *ErrorItem) GetLineOk() (*int32, bool) {
 	if o == nil || o.Line == nil {
 		return nil, false
 	}
@@ -129,7 +129,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetLineOk() (*int32, bool) {
 }
 
 // HasLine returns a boolean if a field has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) HasLine() bool {
+func (o *ErrorItem) HasLine() bool {
 	if o != nil && o.Line != nil {
 		return true
 	}
@@ -138,13 +138,13 @@ func (o *GetUsage400ResponseErrorErrorsInner) HasLine() bool {
 }
 
 // SetLine gets a reference to the given int32 and assigns it to the Line field.
-func (o *GetUsage400ResponseErrorErrorsInner) SetLine(v int32) *GetUsage400ResponseErrorErrorsInner {
+func (o *ErrorItem) SetLine(v int32) *ErrorItem {
 	o.Line = &v
 	return o
 }
 
 // GetPosition returns the Position field value if set, zero value otherwise.
-func (o *GetUsage400ResponseErrorErrorsInner) GetPosition() int32 {
+func (o *ErrorItem) GetPosition() int32 {
 	if o == nil || o.Position == nil {
 		var ret int32
 		return ret
@@ -154,7 +154,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetPosition() int32 {
 
 // GetPositionOk returns a tuple with the Position field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) GetPositionOk() (*int32, bool) {
+func (o *ErrorItem) GetPositionOk() (*int32, bool) {
 	if o == nil || o.Position == nil {
 		return nil, false
 	}
@@ -162,7 +162,7 @@ func (o *GetUsage400ResponseErrorErrorsInner) GetPositionOk() (*int32, bool) {
 }
 
 // HasPosition returns a boolean if a field has been set.
-func (o *GetUsage400ResponseErrorErrorsInner) HasPosition() bool {
+func (o *ErrorItem) HasPosition() bool {
 	if o != nil && o.Position != nil {
 		return true
 	}
@@ -171,12 +171,12 @@ func (o *GetUsage400ResponseErrorErrorsInner) HasPosition() bool {
 }
 
 // SetPosition gets a reference to the given int32 and assigns it to the Position field.
-func (o *GetUsage400ResponseErrorErrorsInner) SetPosition(v int32) *GetUsage400ResponseErrorErrorsInner {
+func (o *ErrorItem) SetPosition(v int32) *ErrorItem {
 	o.Position = &v
 	return o
 }
 
-func (o GetUsage400ResponseErrorErrorsInner) MarshalJSON() ([]byte, error) {
+func (o ErrorItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
@@ -192,17 +192,17 @@ func (o GetUsage400ResponseErrorErrorsInner) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetUsage400ResponseErrorErrorsInner: %w", err)
+		return nil, fmt.Errorf("failed to marshal ErrorItem: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetUsage400ResponseErrorErrorsInner) String() string {
+func (o ErrorItem) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  line=%v\n", o.Line)
 	out += fmt.Sprintf("  position=%v\n", o.Position)
-	return fmt.Sprintf("GetUsage400ResponseErrorErrorsInner {\n%s}", out)
+	return fmt.Sprintf("ErrorItem {\n%s}", out)
 }

@@ -6,47 +6,47 @@ import (
 	"fmt"
 )
 
-// ClickPositionsInner Click position.
-type ClickPositionsInner struct {
+// ClickPosition Click position.
+type ClickPosition struct {
 	// Range of positions in the search results, using the pattern `[start,end]`.  For positions 11 and up, click events are summed over the specified range. `-1` indicates the end of the list of search results.
 	Position []int32 `json:"position,omitempty"`
 	// Number of times this search has been clicked at that position.
 	ClickCount *int32 `json:"clickCount,omitempty"`
 }
 
-type ClickPositionsInnerOption func(f *ClickPositionsInner)
+type ClickPositionOption func(f *ClickPosition)
 
-func WithClickPositionsInnerPosition(val []int32) ClickPositionsInnerOption {
-	return func(f *ClickPositionsInner) {
+func WithClickPositionPosition(val []int32) ClickPositionOption {
+	return func(f *ClickPosition) {
 		f.Position = val
 	}
 }
 
-func WithClickPositionsInnerClickCount(val int32) ClickPositionsInnerOption {
-	return func(f *ClickPositionsInner) {
+func WithClickPositionClickCount(val int32) ClickPositionOption {
+	return func(f *ClickPosition) {
 		f.ClickCount = &val
 	}
 }
 
-// NewClickPositionsInner instantiates a new ClickPositionsInner object
+// NewClickPosition instantiates a new ClickPosition object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewClickPositionsInner(opts ...ClickPositionsInnerOption) *ClickPositionsInner {
-	this := &ClickPositionsInner{}
+func NewClickPosition(opts ...ClickPositionOption) *ClickPosition {
+	this := &ClickPosition{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyClickPositionsInner return a pointer to an empty ClickPositionsInner object.
-func NewEmptyClickPositionsInner() *ClickPositionsInner {
-	return &ClickPositionsInner{}
+// NewEmptyClickPosition return a pointer to an empty ClickPosition object.
+func NewEmptyClickPosition() *ClickPosition {
+	return &ClickPosition{}
 }
 
 // GetPosition returns the Position field value if set, zero value otherwise.
-func (o *ClickPositionsInner) GetPosition() []int32 {
+func (o *ClickPosition) GetPosition() []int32 {
 	if o == nil || o.Position == nil {
 		var ret []int32
 		return ret
@@ -56,7 +56,7 @@ func (o *ClickPositionsInner) GetPosition() []int32 {
 
 // GetPositionOk returns a tuple with the Position field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClickPositionsInner) GetPositionOk() ([]int32, bool) {
+func (o *ClickPosition) GetPositionOk() ([]int32, bool) {
 	if o == nil || o.Position == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *ClickPositionsInner) GetPositionOk() ([]int32, bool) {
 }
 
 // HasPosition returns a boolean if a field has been set.
-func (o *ClickPositionsInner) HasPosition() bool {
+func (o *ClickPosition) HasPosition() bool {
 	if o != nil && o.Position != nil {
 		return true
 	}
@@ -73,13 +73,13 @@ func (o *ClickPositionsInner) HasPosition() bool {
 }
 
 // SetPosition gets a reference to the given []int32 and assigns it to the Position field.
-func (o *ClickPositionsInner) SetPosition(v []int32) *ClickPositionsInner {
+func (o *ClickPosition) SetPosition(v []int32) *ClickPosition {
 	o.Position = v
 	return o
 }
 
 // GetClickCount returns the ClickCount field value if set, zero value otherwise.
-func (o *ClickPositionsInner) GetClickCount() int32 {
+func (o *ClickPosition) GetClickCount() int32 {
 	if o == nil || o.ClickCount == nil {
 		var ret int32
 		return ret
@@ -89,7 +89,7 @@ func (o *ClickPositionsInner) GetClickCount() int32 {
 
 // GetClickCountOk returns a tuple with the ClickCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ClickPositionsInner) GetClickCountOk() (*int32, bool) {
+func (o *ClickPosition) GetClickCountOk() (*int32, bool) {
 	if o == nil || o.ClickCount == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *ClickPositionsInner) GetClickCountOk() (*int32, bool) {
 }
 
 // HasClickCount returns a boolean if a field has been set.
-func (o *ClickPositionsInner) HasClickCount() bool {
+func (o *ClickPosition) HasClickCount() bool {
 	if o != nil && o.ClickCount != nil {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *ClickPositionsInner) HasClickCount() bool {
 }
 
 // SetClickCount gets a reference to the given int32 and assigns it to the ClickCount field.
-func (o *ClickPositionsInner) SetClickCount(v int32) *ClickPositionsInner {
+func (o *ClickPosition) SetClickCount(v int32) *ClickPosition {
 	o.ClickCount = &v
 	return o
 }
 
-func (o ClickPositionsInner) MarshalJSON() ([]byte, error) {
+func (o ClickPosition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Position != nil {
 		toSerialize["position"] = o.Position
@@ -121,15 +121,15 @@ func (o ClickPositionsInner) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal ClickPositionsInner: %w", err)
+		return nil, fmt.Errorf("failed to marshal ClickPosition: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o ClickPositionsInner) String() string {
+func (o ClickPosition) String() string {
 	out := ""
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
-	return fmt.Sprintf("ClickPositionsInner {\n%s}", out)
+	return fmt.Sprintf("ClickPosition {\n%s}", out)
 }

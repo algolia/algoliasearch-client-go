@@ -8,12 +8,12 @@ import (
 
 // LatencyResponse struct for LatencyResponse.
 type LatencyResponse struct {
-	Metrics *LatencyResponseMetrics `json:"metrics,omitempty"`
+	Metrics *LatencyMetric `json:"metrics,omitempty"`
 }
 
 type LatencyResponseOption func(f *LatencyResponse)
 
-func WithLatencyResponseMetrics(val LatencyResponseMetrics) LatencyResponseOption {
+func WithLatencyResponseMetrics(val LatencyMetric) LatencyResponseOption {
 	return func(f *LatencyResponse) {
 		f.Metrics = &val
 	}
@@ -37,9 +37,9 @@ func NewEmptyLatencyResponse() *LatencyResponse {
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
-func (o *LatencyResponse) GetMetrics() LatencyResponseMetrics {
+func (o *LatencyResponse) GetMetrics() LatencyMetric {
 	if o == nil || o.Metrics == nil {
-		var ret LatencyResponseMetrics
+		var ret LatencyMetric
 		return ret
 	}
 	return *o.Metrics
@@ -47,7 +47,7 @@ func (o *LatencyResponse) GetMetrics() LatencyResponseMetrics {
 
 // GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LatencyResponse) GetMetricsOk() (*LatencyResponseMetrics, bool) {
+func (o *LatencyResponse) GetMetricsOk() (*LatencyMetric, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
@@ -63,8 +63,8 @@ func (o *LatencyResponse) HasMetrics() bool {
 	return false
 }
 
-// SetMetrics gets a reference to the given LatencyResponseMetrics and assigns it to the Metrics field.
-func (o *LatencyResponse) SetMetrics(v *LatencyResponseMetrics) *LatencyResponse {
+// SetMetrics gets a reference to the given LatencyMetric and assigns it to the Metrics field.
+func (o *LatencyResponse) SetMetrics(v *LatencyMetric) *LatencyResponse {
 	o.Metrics = v
 	return o
 }

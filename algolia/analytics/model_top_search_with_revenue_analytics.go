@@ -19,7 +19,7 @@ type TopSearchWithRevenueAnalytics struct {
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition"`
 	// List of positions in the search results and clicks associated with this search.
-	ClickPositions []ClickPositionsInner `json:"clickPositions"`
+	ClickPositions []ClickPosition `json:"clickPositions"`
 	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
@@ -46,7 +46,7 @@ type TopSearchWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPositionsInner, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrenciesValue, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
+func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPosition, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrenciesValue, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
 	this := &TopSearchWithRevenueAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -176,9 +176,9 @@ func (o *TopSearchWithRevenueAnalytics) SetAverageClickPosition(v float64) *TopS
 }
 
 // GetClickPositions returns the ClickPositions field value.
-func (o *TopSearchWithRevenueAnalytics) GetClickPositions() []ClickPositionsInner {
+func (o *TopSearchWithRevenueAnalytics) GetClickPositions() []ClickPosition {
 	if o == nil {
-		var ret []ClickPositionsInner
+		var ret []ClickPosition
 		return ret
 	}
 
@@ -187,7 +187,7 @@ func (o *TopSearchWithRevenueAnalytics) GetClickPositions() []ClickPositionsInne
 
 // GetClickPositionsOk returns a tuple with the ClickPositions field value
 // and a boolean to check if the value has been set.
-func (o *TopSearchWithRevenueAnalytics) GetClickPositionsOk() ([]ClickPositionsInner, bool) {
+func (o *TopSearchWithRevenueAnalytics) GetClickPositionsOk() ([]ClickPosition, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *TopSearchWithRevenueAnalytics) GetClickPositionsOk() ([]ClickPositionsI
 }
 
 // SetClickPositions sets field value.
-func (o *TopSearchWithRevenueAnalytics) SetClickPositions(v []ClickPositionsInner) *TopSearchWithRevenueAnalytics {
+func (o *TopSearchWithRevenueAnalytics) SetClickPositions(v []ClickPosition) *TopSearchWithRevenueAnalytics {
 	o.ClickPositions = v
 	return o
 }

@@ -6,39 +6,39 @@ import (
 	"fmt"
 )
 
-// RecommendRuleMetadata Rule metadata.
-type RecommendRuleMetadata struct {
+// RuleMetadata Rule metadata.
+type RuleMetadata struct {
 	// Date and time when the object was updated, in RFC 3339 format.
 	LastUpdate *string `json:"lastUpdate,omitempty"`
 }
 
-type RecommendRuleMetadataOption func(f *RecommendRuleMetadata)
+type RuleMetadataOption func(f *RuleMetadata)
 
-func WithRecommendRuleMetadataLastUpdate(val string) RecommendRuleMetadataOption {
-	return func(f *RecommendRuleMetadata) {
+func WithRuleMetadataLastUpdate(val string) RuleMetadataOption {
+	return func(f *RuleMetadata) {
 		f.LastUpdate = &val
 	}
 }
 
-// NewRecommendRuleMetadata instantiates a new RecommendRuleMetadata object
+// NewRuleMetadata instantiates a new RuleMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendRuleMetadata(opts ...RecommendRuleMetadataOption) *RecommendRuleMetadata {
-	this := &RecommendRuleMetadata{}
+func NewRuleMetadata(opts ...RuleMetadataOption) *RuleMetadata {
+	this := &RuleMetadata{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyRecommendRuleMetadata return a pointer to an empty RecommendRuleMetadata object.
-func NewEmptyRecommendRuleMetadata() *RecommendRuleMetadata {
-	return &RecommendRuleMetadata{}
+// NewEmptyRuleMetadata return a pointer to an empty RuleMetadata object.
+func NewEmptyRuleMetadata() *RuleMetadata {
+	return &RuleMetadata{}
 }
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
-func (o *RecommendRuleMetadata) GetLastUpdate() string {
+func (o *RuleMetadata) GetLastUpdate() string {
 	if o == nil || o.LastUpdate == nil {
 		var ret string
 		return ret
@@ -48,7 +48,7 @@ func (o *RecommendRuleMetadata) GetLastUpdate() string {
 
 // GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendRuleMetadata) GetLastUpdateOk() (*string, bool) {
+func (o *RuleMetadata) GetLastUpdateOk() (*string, bool) {
 	if o == nil || o.LastUpdate == nil {
 		return nil, false
 	}
@@ -56,7 +56,7 @@ func (o *RecommendRuleMetadata) GetLastUpdateOk() (*string, bool) {
 }
 
 // HasLastUpdate returns a boolean if a field has been set.
-func (o *RecommendRuleMetadata) HasLastUpdate() bool {
+func (o *RuleMetadata) HasLastUpdate() bool {
 	if o != nil && o.LastUpdate != nil {
 		return true
 	}
@@ -65,26 +65,26 @@ func (o *RecommendRuleMetadata) HasLastUpdate() bool {
 }
 
 // SetLastUpdate gets a reference to the given string and assigns it to the LastUpdate field.
-func (o *RecommendRuleMetadata) SetLastUpdate(v string) *RecommendRuleMetadata {
+func (o *RuleMetadata) SetLastUpdate(v string) *RuleMetadata {
 	o.LastUpdate = &v
 	return o
 }
 
-func (o RecommendRuleMetadata) MarshalJSON() ([]byte, error) {
+func (o RuleMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.LastUpdate != nil {
 		toSerialize["lastUpdate"] = o.LastUpdate
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal RecommendRuleMetadata: %w", err)
+		return nil, fmt.Errorf("failed to marshal RuleMetadata: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o RecommendRuleMetadata) String() string {
+func (o RuleMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  lastUpdate=%v\n", o.LastUpdate)
-	return fmt.Sprintf("RecommendRuleMetadata {\n%s}", out)
+	return fmt.Sprintf("RuleMetadata {\n%s}", out)
 }

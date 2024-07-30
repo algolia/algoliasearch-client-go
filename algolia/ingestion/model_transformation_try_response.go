@@ -9,13 +9,13 @@ import (
 // TransformationTryResponse struct for TransformationTryResponse.
 type TransformationTryResponse struct {
 	// The array of records returned by the transformation service.
-	Payloads []map[string]any                `json:"payloads"`
-	Error    *TransformationTryResponseError `json:"error,omitempty"`
+	Payloads []map[string]any     `json:"payloads"`
+	Error    *TransformationError `json:"error,omitempty"`
 }
 
 type TransformationTryResponseOption func(f *TransformationTryResponse)
 
-func WithTransformationTryResponseError(val TransformationTryResponseError) TransformationTryResponseOption {
+func WithTransformationTryResponseError(val TransformationError) TransformationTryResponseOption {
 	return func(f *TransformationTryResponse) {
 		f.Error = &val
 	}
@@ -65,9 +65,9 @@ func (o *TransformationTryResponse) SetPayloads(v []map[string]any) *Transformat
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *TransformationTryResponse) GetError() TransformationTryResponseError {
+func (o *TransformationTryResponse) GetError() TransformationError {
 	if o == nil || o.Error == nil {
-		var ret TransformationTryResponseError
+		var ret TransformationError
 		return ret
 	}
 	return *o.Error
@@ -75,7 +75,7 @@ func (o *TransformationTryResponse) GetError() TransformationTryResponseError {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransformationTryResponse) GetErrorOk() (*TransformationTryResponseError, bool) {
+func (o *TransformationTryResponse) GetErrorOk() (*TransformationError, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -91,8 +91,8 @@ func (o *TransformationTryResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given TransformationTryResponseError and assigns it to the Error field.
-func (o *TransformationTryResponse) SetError(v *TransformationTryResponseError) *TransformationTryResponse {
+// SetError gets a reference to the given TransformationError and assigns it to the Error field.
+func (o *TransformationTryResponse) SetError(v *TransformationError) *TransformationTryResponse {
 	o.Error = v
 	return o
 }

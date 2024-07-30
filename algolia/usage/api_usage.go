@@ -815,10 +815,10 @@ Request can be constructed by NewApiGetIndexUsageRequest with parameters below.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
-	@return GetUsage200Response
+	@return IndexUsage
 */
-func (c *APIClient) GetIndexUsage(r ApiGetIndexUsageRequest, opts ...RequestOption) (*GetUsage200Response, error) {
-	var returnValue *GetUsage200Response
+func (c *APIClient) GetIndexUsage(r ApiGetIndexUsageRequest, opts ...RequestOption) (*IndexUsage, error) {
+	var returnValue *IndexUsage
 
 	res, resBody, err := c.GetIndexUsageWithHTTPInfo(r, opts...)
 	if err != nil {
@@ -987,10 +987,10 @@ Request can be constructed by NewApiGetUsageRequest with parameters below.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param granularity Granularity - Granularity of the aggregated metrics.  - `hourly`: the maximum time range for hourly metrics is 7 days. - `daily`: the maximum time range for daily metrics is 365 days.
-	@return GetUsage200Response
+	@return IndexUsage
 */
-func (c *APIClient) GetUsage(r ApiGetUsageRequest, opts ...RequestOption) (*GetUsage200Response, error) {
-	var returnValue *GetUsage200Response
+func (c *APIClient) GetUsage(r ApiGetUsageRequest, opts ...RequestOption) (*IndexUsage, error) {
+	var returnValue *IndexUsage
 
 	res, resBody, err := c.GetUsageWithHTTPInfo(r, opts...)
 	if err != nil {

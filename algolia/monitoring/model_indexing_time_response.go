@@ -8,12 +8,12 @@ import (
 
 // IndexingTimeResponse struct for IndexingTimeResponse.
 type IndexingTimeResponse struct {
-	Metrics *IndexingTimeResponseMetrics `json:"metrics,omitempty"`
+	Metrics *IndexingMetric `json:"metrics,omitempty"`
 }
 
 type IndexingTimeResponseOption func(f *IndexingTimeResponse)
 
-func WithIndexingTimeResponseMetrics(val IndexingTimeResponseMetrics) IndexingTimeResponseOption {
+func WithIndexingTimeResponseMetrics(val IndexingMetric) IndexingTimeResponseOption {
 	return func(f *IndexingTimeResponse) {
 		f.Metrics = &val
 	}
@@ -37,9 +37,9 @@ func NewEmptyIndexingTimeResponse() *IndexingTimeResponse {
 }
 
 // GetMetrics returns the Metrics field value if set, zero value otherwise.
-func (o *IndexingTimeResponse) GetMetrics() IndexingTimeResponseMetrics {
+func (o *IndexingTimeResponse) GetMetrics() IndexingMetric {
 	if o == nil || o.Metrics == nil {
-		var ret IndexingTimeResponseMetrics
+		var ret IndexingMetric
 		return ret
 	}
 	return *o.Metrics
@@ -47,7 +47,7 @@ func (o *IndexingTimeResponse) GetMetrics() IndexingTimeResponseMetrics {
 
 // GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IndexingTimeResponse) GetMetricsOk() (*IndexingTimeResponseMetrics, bool) {
+func (o *IndexingTimeResponse) GetMetricsOk() (*IndexingMetric, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
@@ -63,8 +63,8 @@ func (o *IndexingTimeResponse) HasMetrics() bool {
 	return false
 }
 
-// SetMetrics gets a reference to the given IndexingTimeResponseMetrics and assigns it to the Metrics field.
-func (o *IndexingTimeResponse) SetMetrics(v *IndexingTimeResponseMetrics) *IndexingTimeResponse {
+// SetMetrics gets a reference to the given IndexingMetric and assigns it to the Metrics field.
+func (o *IndexingTimeResponse) SetMetrics(v *IndexingMetric) *IndexingTimeResponse {
 	o.Metrics = v
 	return o
 }

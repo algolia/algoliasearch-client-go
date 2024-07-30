@@ -1219,10 +1219,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetConfigStatusRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@return GetConfigStatus200Response
+	@return ConfigStatus
 */
-func (c *APIClient) GetConfigStatus(r ApiGetConfigStatusRequest, opts ...RequestOption) (*GetConfigStatus200Response, error) {
-	var returnValue *GetConfigStatus200Response
+func (c *APIClient) GetConfigStatus(r ApiGetConfigStatusRequest, opts ...RequestOption) (*ConfigStatus, error) {
+	var returnValue *ConfigStatus
 
 	res, resBody, err := c.GetConfigStatusWithHTTPInfo(r, opts...)
 	if err != nil {
@@ -1342,10 +1342,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetLogFileRequest with parameters below.
 
 	@param indexName string - Query Suggestions index name.
-	@return GetLogFile200Response
+	@return LogFile
 */
-func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...RequestOption) (*GetLogFile200Response, error) {
-	var returnValue *GetLogFile200Response
+func (c *APIClient) GetLogFile(r ApiGetLogFileRequest, opts ...RequestOption) (*LogFile, error) {
+	var returnValue *LogFile
 
 	res, resBody, err := c.GetLogFileWithHTTPInfo(r, opts...)
 	if err != nil {

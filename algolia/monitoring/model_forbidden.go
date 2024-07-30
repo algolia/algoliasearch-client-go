@@ -6,38 +6,38 @@ import (
 	"fmt"
 )
 
-// GetServers403Response struct for GetServers403Response.
-type GetServers403Response struct {
+// Forbidden struct for Forbidden.
+type Forbidden struct {
 	Reason *string `json:"reason,omitempty"`
 }
 
-type GetServers403ResponseOption func(f *GetServers403Response)
+type ForbiddenOption func(f *Forbidden)
 
-func WithGetServers403ResponseReason(val string) GetServers403ResponseOption {
-	return func(f *GetServers403Response) {
+func WithForbiddenReason(val string) ForbiddenOption {
+	return func(f *Forbidden) {
 		f.Reason = &val
 	}
 }
 
-// NewGetServers403Response instantiates a new GetServers403Response object
+// NewForbidden instantiates a new Forbidden object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetServers403Response(opts ...GetServers403ResponseOption) *GetServers403Response {
-	this := &GetServers403Response{}
+func NewForbidden(opts ...ForbiddenOption) *Forbidden {
+	this := &Forbidden{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyGetServers403Response return a pointer to an empty GetServers403Response object.
-func NewEmptyGetServers403Response() *GetServers403Response {
-	return &GetServers403Response{}
+// NewEmptyForbidden return a pointer to an empty Forbidden object.
+func NewEmptyForbidden() *Forbidden {
+	return &Forbidden{}
 }
 
 // GetReason returns the Reason field value if set, zero value otherwise.
-func (o *GetServers403Response) GetReason() string {
+func (o *Forbidden) GetReason() string {
 	if o == nil || o.Reason == nil {
 		var ret string
 		return ret
@@ -47,7 +47,7 @@ func (o *GetServers403Response) GetReason() string {
 
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetServers403Response) GetReasonOk() (*string, bool) {
+func (o *Forbidden) GetReasonOk() (*string, bool) {
 	if o == nil || o.Reason == nil {
 		return nil, false
 	}
@@ -55,7 +55,7 @@ func (o *GetServers403Response) GetReasonOk() (*string, bool) {
 }
 
 // HasReason returns a boolean if a field has been set.
-func (o *GetServers403Response) HasReason() bool {
+func (o *Forbidden) HasReason() bool {
 	if o != nil && o.Reason != nil {
 		return true
 	}
@@ -64,26 +64,26 @@ func (o *GetServers403Response) HasReason() bool {
 }
 
 // SetReason gets a reference to the given string and assigns it to the Reason field.
-func (o *GetServers403Response) SetReason(v string) *GetServers403Response {
+func (o *Forbidden) SetReason(v string) *Forbidden {
 	o.Reason = &v
 	return o
 }
 
-func (o GetServers403Response) MarshalJSON() ([]byte, error) {
+func (o Forbidden) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Reason != nil {
 		toSerialize["reason"] = o.Reason
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetServers403Response: %w", err)
+		return nil, fmt.Errorf("failed to marshal Forbidden: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetServers403Response) String() string {
+func (o Forbidden) String() string {
 	out := ""
 	out += fmt.Sprintf("  reason=%v\n", o.Reason)
-	return fmt.Sprintf("GetServers403Response {\n%s}", out)
+	return fmt.Sprintf("Forbidden {\n%s}", out)
 }

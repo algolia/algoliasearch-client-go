@@ -8,8 +8,8 @@ import (
 
 // AroundPrecision - Precision of a coordinate-based search in meters to group results with similar distances.  The Geo ranking criterion considers all matches within the same range of distances to be equal.
 type AroundPrecision struct {
-	ArrayOfAroundPrecisionFromValueInner *[]AroundPrecisionFromValueInner
-	Int32                                *int32
+	ArrayOfModelRange *[]ModelRange
+	Int32             *int32
 }
 
 // int32AsAroundPrecision is a convenience function that returns int32 wrapped in AroundPrecision.
@@ -19,27 +19,27 @@ func Int32AsAroundPrecision(v int32) *AroundPrecision {
 	}
 }
 
-// []AroundPrecisionFromValueInnerAsAroundPrecision is a convenience function that returns []AroundPrecisionFromValueInner wrapped in AroundPrecision.
-func ArrayOfAroundPrecisionFromValueInnerAsAroundPrecision(v []AroundPrecisionFromValueInner) *AroundPrecision {
+// []ModelRangeAsAroundPrecision is a convenience function that returns []ModelRange wrapped in AroundPrecision.
+func ArrayOfModelRangeAsAroundPrecision(v []ModelRange) *AroundPrecision {
 	return &AroundPrecision{
-		ArrayOfAroundPrecisionFromValueInner: &v,
+		ArrayOfModelRange: &v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *AroundPrecision) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into ArrayOfAroundPrecisionFromValueInner
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfAroundPrecisionFromValueInner)
-	if err == nil && validateStruct(dst.ArrayOfAroundPrecisionFromValueInner) == nil {
-		jsonArrayOfAroundPrecisionFromValueInner, _ := json.Marshal(dst.ArrayOfAroundPrecisionFromValueInner)
-		if string(jsonArrayOfAroundPrecisionFromValueInner) == "{}" { // empty struct
-			dst.ArrayOfAroundPrecisionFromValueInner = nil
+	// try to unmarshal data into ArrayOfModelRange
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfModelRange)
+	if err == nil && validateStruct(dst.ArrayOfModelRange) == nil {
+		jsonArrayOfModelRange, _ := json.Marshal(dst.ArrayOfModelRange)
+		if string(jsonArrayOfModelRange) == "{}" { // empty struct
+			dst.ArrayOfModelRange = nil
 		} else {
 			return nil
 		}
 	} else {
-		dst.ArrayOfAroundPrecisionFromValueInner = nil
+		dst.ArrayOfModelRange = nil
 	}
 
 	// try to unmarshal data into Int32
@@ -60,10 +60,10 @@ func (dst *AroundPrecision) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AroundPrecision) MarshalJSON() ([]byte, error) {
-	if src.ArrayOfAroundPrecisionFromValueInner != nil {
-		serialized, err := json.Marshal(&src.ArrayOfAroundPrecisionFromValueInner)
+	if src.ArrayOfModelRange != nil {
+		serialized, err := json.Marshal(&src.ArrayOfModelRange)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfAroundPrecisionFromValueInner of AroundPrecision: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfModelRange of AroundPrecision: %w", err)
 		}
 
 		return serialized, nil
@@ -83,8 +83,8 @@ func (src AroundPrecision) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj AroundPrecision) GetActualInstance() any {
-	if obj.ArrayOfAroundPrecisionFromValueInner != nil {
-		return *obj.ArrayOfAroundPrecisionFromValueInner
+	if obj.ArrayOfModelRange != nil {
+		return *obj.ArrayOfModelRange
 	}
 
 	if obj.Int32 != nil {

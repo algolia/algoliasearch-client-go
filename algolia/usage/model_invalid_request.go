@@ -6,30 +6,30 @@ import (
 	"fmt"
 )
 
-// GetUsage400Response struct for GetUsage400Response.
-type GetUsage400Response struct {
-	Error GetUsage400ResponseError `json:"error"`
+// InvalidRequest struct for InvalidRequest.
+type InvalidRequest struct {
+	Error InvalidRequestError `json:"error"`
 }
 
-// NewGetUsage400Response instantiates a new GetUsage400Response object
+// NewInvalidRequest instantiates a new InvalidRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUsage400Response(error_ GetUsage400ResponseError) *GetUsage400Response {
-	this := &GetUsage400Response{}
+func NewInvalidRequest(error_ InvalidRequestError) *InvalidRequest {
+	this := &InvalidRequest{}
 	this.Error = error_
 	return this
 }
 
-// NewEmptyGetUsage400Response return a pointer to an empty GetUsage400Response object.
-func NewEmptyGetUsage400Response() *GetUsage400Response {
-	return &GetUsage400Response{}
+// NewEmptyInvalidRequest return a pointer to an empty InvalidRequest object.
+func NewEmptyInvalidRequest() *InvalidRequest {
+	return &InvalidRequest{}
 }
 
 // GetError returns the Error field value.
-func (o *GetUsage400Response) GetError() GetUsage400ResponseError {
+func (o *InvalidRequest) GetError() InvalidRequestError {
 	if o == nil {
-		var ret GetUsage400ResponseError
+		var ret InvalidRequestError
 		return ret
 	}
 
@@ -38,7 +38,7 @@ func (o *GetUsage400Response) GetError() GetUsage400ResponseError {
 
 // GetErrorOk returns a tuple with the Error field value
 // and a boolean to check if the value has been set.
-func (o *GetUsage400Response) GetErrorOk() (*GetUsage400ResponseError, bool) {
+func (o *InvalidRequest) GetErrorOk() (*InvalidRequestError, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,26 +46,26 @@ func (o *GetUsage400Response) GetErrorOk() (*GetUsage400ResponseError, bool) {
 }
 
 // SetError sets field value.
-func (o *GetUsage400Response) SetError(v *GetUsage400ResponseError) *GetUsage400Response {
+func (o *InvalidRequest) SetError(v *InvalidRequestError) *InvalidRequest {
 	o.Error = *v
 	return o
 }
 
-func (o GetUsage400Response) MarshalJSON() ([]byte, error) {
+func (o InvalidRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["error"] = o.Error
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetUsage400Response: %w", err)
+		return nil, fmt.Errorf("failed to marshal InvalidRequest: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetUsage400Response) String() string {
+func (o InvalidRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  error=%v\n", o.Error)
-	return fmt.Sprintf("GetUsage400Response {\n%s}", out)
+	return fmt.Sprintf("InvalidRequest {\n%s}", out)
 }

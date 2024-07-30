@@ -6,46 +6,46 @@ import (
 	"fmt"
 )
 
-// GetUsage200ResponseStatisticsInner struct for GetUsage200ResponseStatisticsInner.
-type GetUsage200ResponseStatisticsInner struct {
+// StatisticEntry struct for StatisticEntry.
+type StatisticEntry struct {
 	// Timestamp, measured in milliseconds since the Unix epoch.
 	T *int32          `json:"t,omitempty"`
 	V *StatisticValue `json:"v,omitempty"`
 }
 
-type GetUsage200ResponseStatisticsInnerOption func(f *GetUsage200ResponseStatisticsInner)
+type StatisticEntryOption func(f *StatisticEntry)
 
-func WithGetUsage200ResponseStatisticsInnerT(val int32) GetUsage200ResponseStatisticsInnerOption {
-	return func(f *GetUsage200ResponseStatisticsInner) {
+func WithStatisticEntryT(val int32) StatisticEntryOption {
+	return func(f *StatisticEntry) {
 		f.T = &val
 	}
 }
 
-func WithGetUsage200ResponseStatisticsInnerV(val StatisticValue) GetUsage200ResponseStatisticsInnerOption {
-	return func(f *GetUsage200ResponseStatisticsInner) {
+func WithStatisticEntryV(val StatisticValue) StatisticEntryOption {
+	return func(f *StatisticEntry) {
 		f.V = &val
 	}
 }
 
-// NewGetUsage200ResponseStatisticsInner instantiates a new GetUsage200ResponseStatisticsInner object
+// NewStatisticEntry instantiates a new StatisticEntry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetUsage200ResponseStatisticsInner(opts ...GetUsage200ResponseStatisticsInnerOption) *GetUsage200ResponseStatisticsInner {
-	this := &GetUsage200ResponseStatisticsInner{}
+func NewStatisticEntry(opts ...StatisticEntryOption) *StatisticEntry {
+	this := &StatisticEntry{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyGetUsage200ResponseStatisticsInner return a pointer to an empty GetUsage200ResponseStatisticsInner object.
-func NewEmptyGetUsage200ResponseStatisticsInner() *GetUsage200ResponseStatisticsInner {
-	return &GetUsage200ResponseStatisticsInner{}
+// NewEmptyStatisticEntry return a pointer to an empty StatisticEntry object.
+func NewEmptyStatisticEntry() *StatisticEntry {
+	return &StatisticEntry{}
 }
 
 // GetT returns the T field value if set, zero value otherwise.
-func (o *GetUsage200ResponseStatisticsInner) GetT() int32 {
+func (o *StatisticEntry) GetT() int32 {
 	if o == nil || o.T == nil {
 		var ret int32
 		return ret
@@ -55,7 +55,7 @@ func (o *GetUsage200ResponseStatisticsInner) GetT() int32 {
 
 // GetTOk returns a tuple with the T field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage200ResponseStatisticsInner) GetTOk() (*int32, bool) {
+func (o *StatisticEntry) GetTOk() (*int32, bool) {
 	if o == nil || o.T == nil {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *GetUsage200ResponseStatisticsInner) GetTOk() (*int32, bool) {
 }
 
 // HasT returns a boolean if a field has been set.
-func (o *GetUsage200ResponseStatisticsInner) HasT() bool {
+func (o *StatisticEntry) HasT() bool {
 	if o != nil && o.T != nil {
 		return true
 	}
@@ -72,13 +72,13 @@ func (o *GetUsage200ResponseStatisticsInner) HasT() bool {
 }
 
 // SetT gets a reference to the given int32 and assigns it to the T field.
-func (o *GetUsage200ResponseStatisticsInner) SetT(v int32) *GetUsage200ResponseStatisticsInner {
+func (o *StatisticEntry) SetT(v int32) *StatisticEntry {
 	o.T = &v
 	return o
 }
 
 // GetV returns the V field value if set, zero value otherwise.
-func (o *GetUsage200ResponseStatisticsInner) GetV() StatisticValue {
+func (o *StatisticEntry) GetV() StatisticValue {
 	if o == nil || o.V == nil {
 		var ret StatisticValue
 		return ret
@@ -88,7 +88,7 @@ func (o *GetUsage200ResponseStatisticsInner) GetV() StatisticValue {
 
 // GetVOk returns a tuple with the V field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetUsage200ResponseStatisticsInner) GetVOk() (*StatisticValue, bool) {
+func (o *StatisticEntry) GetVOk() (*StatisticValue, bool) {
 	if o == nil || o.V == nil {
 		return nil, false
 	}
@@ -96,7 +96,7 @@ func (o *GetUsage200ResponseStatisticsInner) GetVOk() (*StatisticValue, bool) {
 }
 
 // HasV returns a boolean if a field has been set.
-func (o *GetUsage200ResponseStatisticsInner) HasV() bool {
+func (o *StatisticEntry) HasV() bool {
 	if o != nil && o.V != nil {
 		return true
 	}
@@ -105,12 +105,12 @@ func (o *GetUsage200ResponseStatisticsInner) HasV() bool {
 }
 
 // SetV gets a reference to the given StatisticValue and assigns it to the V field.
-func (o *GetUsage200ResponseStatisticsInner) SetV(v *StatisticValue) *GetUsage200ResponseStatisticsInner {
+func (o *StatisticEntry) SetV(v *StatisticValue) *StatisticEntry {
 	o.V = v
 	return o
 }
 
-func (o GetUsage200ResponseStatisticsInner) MarshalJSON() ([]byte, error) {
+func (o StatisticEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.T != nil {
 		toSerialize["t"] = o.T
@@ -120,15 +120,15 @@ func (o GetUsage200ResponseStatisticsInner) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetUsage200ResponseStatisticsInner: %w", err)
+		return nil, fmt.Errorf("failed to marshal StatisticEntry: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetUsage200ResponseStatisticsInner) String() string {
+func (o StatisticEntry) String() string {
 	out := ""
 	out += fmt.Sprintf("  t=%v\n", o.T)
 	out += fmt.Sprintf("  v=%v\n", o.V)
-	return fmt.Sprintf("GetUsage200ResponseStatisticsInner {\n%s}", out)
+	return fmt.Sprintf("StatisticEntry {\n%s}", out)
 }

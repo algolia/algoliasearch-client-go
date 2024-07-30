@@ -8,7 +8,7 @@ import (
 
 // RecommendRule Recommend rule.
 type RecommendRule struct {
-	Metadata *RecommendRuleMetadata `json:"_metadata,omitempty"`
+	Metadata *RuleMetadata `json:"_metadata,omitempty"`
 	// Unique identifier of a rule object.
 	ObjectID    *string      `json:"objectID,omitempty"`
 	Condition   *Condition   `json:"condition,omitempty"`
@@ -21,7 +21,7 @@ type RecommendRule struct {
 
 type RecommendRuleOption func(f *RecommendRule)
 
-func WithRecommendRuleMetadata(val RecommendRuleMetadata) RecommendRuleOption {
+func WithRecommendRuleMetadata(val RuleMetadata) RecommendRuleOption {
 	return func(f *RecommendRule) {
 		f.Metadata = &val
 	}
@@ -75,9 +75,9 @@ func NewEmptyRecommendRule() *RecommendRule {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *RecommendRule) GetMetadata() RecommendRuleMetadata {
+func (o *RecommendRule) GetMetadata() RuleMetadata {
 	if o == nil || o.Metadata == nil {
-		var ret RecommendRuleMetadata
+		var ret RuleMetadata
 		return ret
 	}
 	return *o.Metadata
@@ -85,7 +85,7 @@ func (o *RecommendRule) GetMetadata() RecommendRuleMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendRule) GetMetadataOk() (*RecommendRuleMetadata, bool) {
+func (o *RecommendRule) GetMetadataOk() (*RuleMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *RecommendRule) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given RecommendRuleMetadata and assigns it to the Metadata field.
-func (o *RecommendRule) SetMetadata(v *RecommendRuleMetadata) *RecommendRule {
+// SetMetadata gets a reference to the given RuleMetadata and assigns it to the Metadata field.
+func (o *RecommendRule) SetMetadata(v *RuleMetadata) *RecommendRule {
 	o.Metadata = v
 	return o
 }

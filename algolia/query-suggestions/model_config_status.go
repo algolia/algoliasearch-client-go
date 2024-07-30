@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// GetConfigStatus200Response struct for GetConfigStatus200Response.
-type GetConfigStatus200Response struct {
+// ConfigStatus struct for ConfigStatus.
+type ConfigStatus struct {
 	// Name of the Query Suggestions index (case-sensitive).
 	IndexName *string `json:"indexName,omitempty"`
 	// Whether the creation or update of the Query Suggestions index is in progress.
@@ -20,57 +20,57 @@ type GetConfigStatus200Response struct {
 	LastSuccessfulBuildDuration *string `json:"lastSuccessfulBuildDuration,omitempty"`
 }
 
-type GetConfigStatus200ResponseOption func(f *GetConfigStatus200Response)
+type ConfigStatusOption func(f *ConfigStatus)
 
-func WithGetConfigStatus200ResponseIndexName(val string) GetConfigStatus200ResponseOption {
-	return func(f *GetConfigStatus200Response) {
+func WithConfigStatusIndexName(val string) ConfigStatusOption {
+	return func(f *ConfigStatus) {
 		f.IndexName = &val
 	}
 }
 
-func WithGetConfigStatus200ResponseIsRunning(val bool) GetConfigStatus200ResponseOption {
-	return func(f *GetConfigStatus200Response) {
+func WithConfigStatusIsRunning(val bool) ConfigStatusOption {
+	return func(f *ConfigStatus) {
 		f.IsRunning = &val
 	}
 }
 
-func WithGetConfigStatus200ResponseLastBuiltAt(val string) GetConfigStatus200ResponseOption {
-	return func(f *GetConfigStatus200Response) {
+func WithConfigStatusLastBuiltAt(val string) ConfigStatusOption {
+	return func(f *ConfigStatus) {
 		f.LastBuiltAt = &val
 	}
 }
 
-func WithGetConfigStatus200ResponseLastSuccessfulBuiltAt(val string) GetConfigStatus200ResponseOption {
-	return func(f *GetConfigStatus200Response) {
+func WithConfigStatusLastSuccessfulBuiltAt(val string) ConfigStatusOption {
+	return func(f *ConfigStatus) {
 		f.LastSuccessfulBuiltAt = &val
 	}
 }
 
-func WithGetConfigStatus200ResponseLastSuccessfulBuildDuration(val string) GetConfigStatus200ResponseOption {
-	return func(f *GetConfigStatus200Response) {
+func WithConfigStatusLastSuccessfulBuildDuration(val string) ConfigStatusOption {
+	return func(f *ConfigStatus) {
 		f.LastSuccessfulBuildDuration = &val
 	}
 }
 
-// NewGetConfigStatus200Response instantiates a new GetConfigStatus200Response object
+// NewConfigStatus instantiates a new ConfigStatus object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetConfigStatus200Response(opts ...GetConfigStatus200ResponseOption) *GetConfigStatus200Response {
-	this := &GetConfigStatus200Response{}
+func NewConfigStatus(opts ...ConfigStatusOption) *ConfigStatus {
+	this := &ConfigStatus{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyGetConfigStatus200Response return a pointer to an empty GetConfigStatus200Response object.
-func NewEmptyGetConfigStatus200Response() *GetConfigStatus200Response {
-	return &GetConfigStatus200Response{}
+// NewEmptyConfigStatus return a pointer to an empty ConfigStatus object.
+func NewEmptyConfigStatus() *ConfigStatus {
+	return &ConfigStatus{}
 }
 
 // GetIndexName returns the IndexName field value if set, zero value otherwise.
-func (o *GetConfigStatus200Response) GetIndexName() string {
+func (o *ConfigStatus) GetIndexName() string {
 	if o == nil || o.IndexName == nil {
 		var ret string
 		return ret
@@ -80,7 +80,7 @@ func (o *GetConfigStatus200Response) GetIndexName() string {
 
 // GetIndexNameOk returns a tuple with the IndexName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetConfigStatus200Response) GetIndexNameOk() (*string, bool) {
+func (o *ConfigStatus) GetIndexNameOk() (*string, bool) {
 	if o == nil || o.IndexName == nil {
 		return nil, false
 	}
@@ -88,7 +88,7 @@ func (o *GetConfigStatus200Response) GetIndexNameOk() (*string, bool) {
 }
 
 // HasIndexName returns a boolean if a field has been set.
-func (o *GetConfigStatus200Response) HasIndexName() bool {
+func (o *ConfigStatus) HasIndexName() bool {
 	if o != nil && o.IndexName != nil {
 		return true
 	}
@@ -97,13 +97,13 @@ func (o *GetConfigStatus200Response) HasIndexName() bool {
 }
 
 // SetIndexName gets a reference to the given string and assigns it to the IndexName field.
-func (o *GetConfigStatus200Response) SetIndexName(v string) *GetConfigStatus200Response {
+func (o *ConfigStatus) SetIndexName(v string) *ConfigStatus {
 	o.IndexName = &v
 	return o
 }
 
 // GetIsRunning returns the IsRunning field value if set, zero value otherwise.
-func (o *GetConfigStatus200Response) GetIsRunning() bool {
+func (o *ConfigStatus) GetIsRunning() bool {
 	if o == nil || o.IsRunning == nil {
 		var ret bool
 		return ret
@@ -113,7 +113,7 @@ func (o *GetConfigStatus200Response) GetIsRunning() bool {
 
 // GetIsRunningOk returns a tuple with the IsRunning field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetConfigStatus200Response) GetIsRunningOk() (*bool, bool) {
+func (o *ConfigStatus) GetIsRunningOk() (*bool, bool) {
 	if o == nil || o.IsRunning == nil {
 		return nil, false
 	}
@@ -121,7 +121,7 @@ func (o *GetConfigStatus200Response) GetIsRunningOk() (*bool, bool) {
 }
 
 // HasIsRunning returns a boolean if a field has been set.
-func (o *GetConfigStatus200Response) HasIsRunning() bool {
+func (o *ConfigStatus) HasIsRunning() bool {
 	if o != nil && o.IsRunning != nil {
 		return true
 	}
@@ -130,13 +130,13 @@ func (o *GetConfigStatus200Response) HasIsRunning() bool {
 }
 
 // SetIsRunning gets a reference to the given bool and assigns it to the IsRunning field.
-func (o *GetConfigStatus200Response) SetIsRunning(v bool) *GetConfigStatus200Response {
+func (o *ConfigStatus) SetIsRunning(v bool) *ConfigStatus {
 	o.IsRunning = &v
 	return o
 }
 
 // GetLastBuiltAt returns the LastBuiltAt field value if set, zero value otherwise.
-func (o *GetConfigStatus200Response) GetLastBuiltAt() string {
+func (o *ConfigStatus) GetLastBuiltAt() string {
 	if o == nil || o.LastBuiltAt == nil {
 		var ret string
 		return ret
@@ -146,7 +146,7 @@ func (o *GetConfigStatus200Response) GetLastBuiltAt() string {
 
 // GetLastBuiltAtOk returns a tuple with the LastBuiltAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetConfigStatus200Response) GetLastBuiltAtOk() (*string, bool) {
+func (o *ConfigStatus) GetLastBuiltAtOk() (*string, bool) {
 	if o == nil || o.LastBuiltAt == nil {
 		return nil, false
 	}
@@ -154,7 +154,7 @@ func (o *GetConfigStatus200Response) GetLastBuiltAtOk() (*string, bool) {
 }
 
 // HasLastBuiltAt returns a boolean if a field has been set.
-func (o *GetConfigStatus200Response) HasLastBuiltAt() bool {
+func (o *ConfigStatus) HasLastBuiltAt() bool {
 	if o != nil && o.LastBuiltAt != nil {
 		return true
 	}
@@ -163,13 +163,13 @@ func (o *GetConfigStatus200Response) HasLastBuiltAt() bool {
 }
 
 // SetLastBuiltAt gets a reference to the given string and assigns it to the LastBuiltAt field.
-func (o *GetConfigStatus200Response) SetLastBuiltAt(v string) *GetConfigStatus200Response {
+func (o *ConfigStatus) SetLastBuiltAt(v string) *ConfigStatus {
 	o.LastBuiltAt = &v
 	return o
 }
 
 // GetLastSuccessfulBuiltAt returns the LastSuccessfulBuiltAt field value if set, zero value otherwise.
-func (o *GetConfigStatus200Response) GetLastSuccessfulBuiltAt() string {
+func (o *ConfigStatus) GetLastSuccessfulBuiltAt() string {
 	if o == nil || o.LastSuccessfulBuiltAt == nil {
 		var ret string
 		return ret
@@ -179,7 +179,7 @@ func (o *GetConfigStatus200Response) GetLastSuccessfulBuiltAt() string {
 
 // GetLastSuccessfulBuiltAtOk returns a tuple with the LastSuccessfulBuiltAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetConfigStatus200Response) GetLastSuccessfulBuiltAtOk() (*string, bool) {
+func (o *ConfigStatus) GetLastSuccessfulBuiltAtOk() (*string, bool) {
 	if o == nil || o.LastSuccessfulBuiltAt == nil {
 		return nil, false
 	}
@@ -187,7 +187,7 @@ func (o *GetConfigStatus200Response) GetLastSuccessfulBuiltAtOk() (*string, bool
 }
 
 // HasLastSuccessfulBuiltAt returns a boolean if a field has been set.
-func (o *GetConfigStatus200Response) HasLastSuccessfulBuiltAt() bool {
+func (o *ConfigStatus) HasLastSuccessfulBuiltAt() bool {
 	if o != nil && o.LastSuccessfulBuiltAt != nil {
 		return true
 	}
@@ -196,13 +196,13 @@ func (o *GetConfigStatus200Response) HasLastSuccessfulBuiltAt() bool {
 }
 
 // SetLastSuccessfulBuiltAt gets a reference to the given string and assigns it to the LastSuccessfulBuiltAt field.
-func (o *GetConfigStatus200Response) SetLastSuccessfulBuiltAt(v string) *GetConfigStatus200Response {
+func (o *ConfigStatus) SetLastSuccessfulBuiltAt(v string) *ConfigStatus {
 	o.LastSuccessfulBuiltAt = &v
 	return o
 }
 
 // GetLastSuccessfulBuildDuration returns the LastSuccessfulBuildDuration field value if set, zero value otherwise.
-func (o *GetConfigStatus200Response) GetLastSuccessfulBuildDuration() string {
+func (o *ConfigStatus) GetLastSuccessfulBuildDuration() string {
 	if o == nil || o.LastSuccessfulBuildDuration == nil {
 		var ret string
 		return ret
@@ -212,7 +212,7 @@ func (o *GetConfigStatus200Response) GetLastSuccessfulBuildDuration() string {
 
 // GetLastSuccessfulBuildDurationOk returns a tuple with the LastSuccessfulBuildDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetConfigStatus200Response) GetLastSuccessfulBuildDurationOk() (*string, bool) {
+func (o *ConfigStatus) GetLastSuccessfulBuildDurationOk() (*string, bool) {
 	if o == nil || o.LastSuccessfulBuildDuration == nil {
 		return nil, false
 	}
@@ -220,7 +220,7 @@ func (o *GetConfigStatus200Response) GetLastSuccessfulBuildDurationOk() (*string
 }
 
 // HasLastSuccessfulBuildDuration returns a boolean if a field has been set.
-func (o *GetConfigStatus200Response) HasLastSuccessfulBuildDuration() bool {
+func (o *ConfigStatus) HasLastSuccessfulBuildDuration() bool {
 	if o != nil && o.LastSuccessfulBuildDuration != nil {
 		return true
 	}
@@ -229,12 +229,12 @@ func (o *GetConfigStatus200Response) HasLastSuccessfulBuildDuration() bool {
 }
 
 // SetLastSuccessfulBuildDuration gets a reference to the given string and assigns it to the LastSuccessfulBuildDuration field.
-func (o *GetConfigStatus200Response) SetLastSuccessfulBuildDuration(v string) *GetConfigStatus200Response {
+func (o *ConfigStatus) SetLastSuccessfulBuildDuration(v string) *ConfigStatus {
 	o.LastSuccessfulBuildDuration = &v
 	return o
 }
 
-func (o GetConfigStatus200Response) MarshalJSON() ([]byte, error) {
+func (o ConfigStatus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.IndexName != nil {
 		toSerialize["indexName"] = o.IndexName
@@ -253,18 +253,18 @@ func (o GetConfigStatus200Response) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetConfigStatus200Response: %w", err)
+		return nil, fmt.Errorf("failed to marshal ConfigStatus: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetConfigStatus200Response) String() string {
+func (o ConfigStatus) String() string {
 	out := ""
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  isRunning=%v\n", o.IsRunning)
 	out += fmt.Sprintf("  lastBuiltAt=%v\n", o.LastBuiltAt)
 	out += fmt.Sprintf("  lastSuccessfulBuiltAt=%v\n", o.LastSuccessfulBuiltAt)
 	out += fmt.Sprintf("  lastSuccessfulBuildDuration=%v\n", o.LastSuccessfulBuildDuration)
-	return fmt.Sprintf("GetConfigStatus200Response {\n%s}", out)
+	return fmt.Sprintf("ConfigStatus {\n%s}", out)
 }

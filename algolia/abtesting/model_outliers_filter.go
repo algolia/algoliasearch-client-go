@@ -6,47 +6,47 @@ import (
 	"fmt"
 )
 
-// FilterEffectsEmptySearch Empty searches removed from the A/B test as a result of configuration settings.
-type FilterEffectsEmptySearch struct {
+// OutliersFilter Outliers removed from the A/B test as a result of configuration settings.
+type OutliersFilter struct {
 	// Number of users removed from the A/B test.
 	UsersCount *int32 `json:"usersCount,omitempty"`
 	// Number of tracked searches removed from the A/B test.
 	TrackedSearchesCount *int32 `json:"trackedSearchesCount,omitempty"`
 }
 
-type FilterEffectsEmptySearchOption func(f *FilterEffectsEmptySearch)
+type OutliersFilterOption func(f *OutliersFilter)
 
-func WithFilterEffectsEmptySearchUsersCount(val int32) FilterEffectsEmptySearchOption {
-	return func(f *FilterEffectsEmptySearch) {
+func WithOutliersFilterUsersCount(val int32) OutliersFilterOption {
+	return func(f *OutliersFilter) {
 		f.UsersCount = &val
 	}
 }
 
-func WithFilterEffectsEmptySearchTrackedSearchesCount(val int32) FilterEffectsEmptySearchOption {
-	return func(f *FilterEffectsEmptySearch) {
+func WithOutliersFilterTrackedSearchesCount(val int32) OutliersFilterOption {
+	return func(f *OutliersFilter) {
 		f.TrackedSearchesCount = &val
 	}
 }
 
-// NewFilterEffectsEmptySearch instantiates a new FilterEffectsEmptySearch object
+// NewOutliersFilter instantiates a new OutliersFilter object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewFilterEffectsEmptySearch(opts ...FilterEffectsEmptySearchOption) *FilterEffectsEmptySearch {
-	this := &FilterEffectsEmptySearch{}
+func NewOutliersFilter(opts ...OutliersFilterOption) *OutliersFilter {
+	this := &OutliersFilter{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyFilterEffectsEmptySearch return a pointer to an empty FilterEffectsEmptySearch object.
-func NewEmptyFilterEffectsEmptySearch() *FilterEffectsEmptySearch {
-	return &FilterEffectsEmptySearch{}
+// NewEmptyOutliersFilter return a pointer to an empty OutliersFilter object.
+func NewEmptyOutliersFilter() *OutliersFilter {
+	return &OutliersFilter{}
 }
 
 // GetUsersCount returns the UsersCount field value if set, zero value otherwise.
-func (o *FilterEffectsEmptySearch) GetUsersCount() int32 {
+func (o *OutliersFilter) GetUsersCount() int32 {
 	if o == nil || o.UsersCount == nil {
 		var ret int32
 		return ret
@@ -56,7 +56,7 @@ func (o *FilterEffectsEmptySearch) GetUsersCount() int32 {
 
 // GetUsersCountOk returns a tuple with the UsersCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilterEffectsEmptySearch) GetUsersCountOk() (*int32, bool) {
+func (o *OutliersFilter) GetUsersCountOk() (*int32, bool) {
 	if o == nil || o.UsersCount == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *FilterEffectsEmptySearch) GetUsersCountOk() (*int32, bool) {
 }
 
 // HasUsersCount returns a boolean if a field has been set.
-func (o *FilterEffectsEmptySearch) HasUsersCount() bool {
+func (o *OutliersFilter) HasUsersCount() bool {
 	if o != nil && o.UsersCount != nil {
 		return true
 	}
@@ -73,13 +73,13 @@ func (o *FilterEffectsEmptySearch) HasUsersCount() bool {
 }
 
 // SetUsersCount gets a reference to the given int32 and assigns it to the UsersCount field.
-func (o *FilterEffectsEmptySearch) SetUsersCount(v int32) *FilterEffectsEmptySearch {
+func (o *OutliersFilter) SetUsersCount(v int32) *OutliersFilter {
 	o.UsersCount = &v
 	return o
 }
 
 // GetTrackedSearchesCount returns the TrackedSearchesCount field value if set, zero value otherwise.
-func (o *FilterEffectsEmptySearch) GetTrackedSearchesCount() int32 {
+func (o *OutliersFilter) GetTrackedSearchesCount() int32 {
 	if o == nil || o.TrackedSearchesCount == nil {
 		var ret int32
 		return ret
@@ -89,7 +89,7 @@ func (o *FilterEffectsEmptySearch) GetTrackedSearchesCount() int32 {
 
 // GetTrackedSearchesCountOk returns a tuple with the TrackedSearchesCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilterEffectsEmptySearch) GetTrackedSearchesCountOk() (*int32, bool) {
+func (o *OutliersFilter) GetTrackedSearchesCountOk() (*int32, bool) {
 	if o == nil || o.TrackedSearchesCount == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *FilterEffectsEmptySearch) GetTrackedSearchesCountOk() (*int32, bool) {
 }
 
 // HasTrackedSearchesCount returns a boolean if a field has been set.
-func (o *FilterEffectsEmptySearch) HasTrackedSearchesCount() bool {
+func (o *OutliersFilter) HasTrackedSearchesCount() bool {
 	if o != nil && o.TrackedSearchesCount != nil {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *FilterEffectsEmptySearch) HasTrackedSearchesCount() bool {
 }
 
 // SetTrackedSearchesCount gets a reference to the given int32 and assigns it to the TrackedSearchesCount field.
-func (o *FilterEffectsEmptySearch) SetTrackedSearchesCount(v int32) *FilterEffectsEmptySearch {
+func (o *OutliersFilter) SetTrackedSearchesCount(v int32) *OutliersFilter {
 	o.TrackedSearchesCount = &v
 	return o
 }
 
-func (o FilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {
+func (o OutliersFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.UsersCount != nil {
 		toSerialize["usersCount"] = o.UsersCount
@@ -121,15 +121,15 @@ func (o FilterEffectsEmptySearch) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal FilterEffectsEmptySearch: %w", err)
+		return nil, fmt.Errorf("failed to marshal OutliersFilter: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o FilterEffectsEmptySearch) String() string {
+func (o OutliersFilter) String() string {
 	out := ""
 	out += fmt.Sprintf("  usersCount=%v\n", o.UsersCount)
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
-	return fmt.Sprintf("FilterEffectsEmptySearch {\n%s}", out)
+	return fmt.Sprintf("OutliersFilter {\n%s}", out)
 }

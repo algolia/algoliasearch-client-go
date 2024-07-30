@@ -6,28 +6,28 @@ import (
 	"fmt"
 )
 
-// RedirectRuleIndexMetadataData Redirect rule data.
-type RedirectRuleIndexMetadataData struct {
+// RedirectRuleIndexData Redirect rule data.
+type RedirectRuleIndexData struct {
 	RuleObjectID string `json:"ruleObjectID"`
 }
 
-// NewRedirectRuleIndexMetadataData instantiates a new RedirectRuleIndexMetadataData object
+// NewRedirectRuleIndexData instantiates a new RedirectRuleIndexData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRedirectRuleIndexMetadataData(ruleObjectID string) *RedirectRuleIndexMetadataData {
-	this := &RedirectRuleIndexMetadataData{}
+func NewRedirectRuleIndexData(ruleObjectID string) *RedirectRuleIndexData {
+	this := &RedirectRuleIndexData{}
 	this.RuleObjectID = ruleObjectID
 	return this
 }
 
-// NewEmptyRedirectRuleIndexMetadataData return a pointer to an empty RedirectRuleIndexMetadataData object.
-func NewEmptyRedirectRuleIndexMetadataData() *RedirectRuleIndexMetadataData {
-	return &RedirectRuleIndexMetadataData{}
+// NewEmptyRedirectRuleIndexData return a pointer to an empty RedirectRuleIndexData object.
+func NewEmptyRedirectRuleIndexData() *RedirectRuleIndexData {
+	return &RedirectRuleIndexData{}
 }
 
 // GetRuleObjectID returns the RuleObjectID field value.
-func (o *RedirectRuleIndexMetadataData) GetRuleObjectID() string {
+func (o *RedirectRuleIndexData) GetRuleObjectID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -38,7 +38,7 @@ func (o *RedirectRuleIndexMetadataData) GetRuleObjectID() string {
 
 // GetRuleObjectIDOk returns a tuple with the RuleObjectID field value
 // and a boolean to check if the value has been set.
-func (o *RedirectRuleIndexMetadataData) GetRuleObjectIDOk() (*string, bool) {
+func (o *RedirectRuleIndexData) GetRuleObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,26 +46,26 @@ func (o *RedirectRuleIndexMetadataData) GetRuleObjectIDOk() (*string, bool) {
 }
 
 // SetRuleObjectID sets field value.
-func (o *RedirectRuleIndexMetadataData) SetRuleObjectID(v string) *RedirectRuleIndexMetadataData {
+func (o *RedirectRuleIndexData) SetRuleObjectID(v string) *RedirectRuleIndexData {
 	o.RuleObjectID = v
 	return o
 }
 
-func (o RedirectRuleIndexMetadataData) MarshalJSON() ([]byte, error) {
+func (o RedirectRuleIndexData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["ruleObjectID"] = o.RuleObjectID
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexMetadataData: %w", err)
+		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexData: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o RedirectRuleIndexMetadataData) String() string {
+func (o RedirectRuleIndexData) String() string {
 	out := ""
 	out += fmt.Sprintf("  ruleObjectID=%v\n", o.RuleObjectID)
-	return fmt.Sprintf("RedirectRuleIndexMetadataData {\n%s}", out)
+	return fmt.Sprintf("RedirectRuleIndexData {\n%s}", out)
 }

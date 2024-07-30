@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// GetLogFile200Response struct for GetLogFile200Response.
-type GetLogFile200Response struct {
+// LogFile struct for LogFile.
+type LogFile struct {
 	// Date and time of the log entry, in RFC 3339 format.
 	Timestamp *string   `json:"timestamp,omitempty"`
 	Level     *LogLevel `json:"level,omitempty"`
@@ -17,51 +17,51 @@ type GetLogFile200Response struct {
 	ContextLevel *int32 `json:"contextLevel,omitempty"`
 }
 
-type GetLogFile200ResponseOption func(f *GetLogFile200Response)
+type LogFileOption func(f *LogFile)
 
-func WithGetLogFile200ResponseTimestamp(val string) GetLogFile200ResponseOption {
-	return func(f *GetLogFile200Response) {
+func WithLogFileTimestamp(val string) LogFileOption {
+	return func(f *LogFile) {
 		f.Timestamp = &val
 	}
 }
 
-func WithGetLogFile200ResponseLevel(val LogLevel) GetLogFile200ResponseOption {
-	return func(f *GetLogFile200Response) {
+func WithLogFileLevel(val LogLevel) LogFileOption {
+	return func(f *LogFile) {
 		f.Level = &val
 	}
 }
 
-func WithGetLogFile200ResponseMessage(val string) GetLogFile200ResponseOption {
-	return func(f *GetLogFile200Response) {
+func WithLogFileMessage(val string) LogFileOption {
+	return func(f *LogFile) {
 		f.Message = &val
 	}
 }
 
-func WithGetLogFile200ResponseContextLevel(val int32) GetLogFile200ResponseOption {
-	return func(f *GetLogFile200Response) {
+func WithLogFileContextLevel(val int32) LogFileOption {
+	return func(f *LogFile) {
 		f.ContextLevel = &val
 	}
 }
 
-// NewGetLogFile200Response instantiates a new GetLogFile200Response object
+// NewLogFile instantiates a new LogFile object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetLogFile200Response(opts ...GetLogFile200ResponseOption) *GetLogFile200Response {
-	this := &GetLogFile200Response{}
+func NewLogFile(opts ...LogFileOption) *LogFile {
+	this := &LogFile{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyGetLogFile200Response return a pointer to an empty GetLogFile200Response object.
-func NewEmptyGetLogFile200Response() *GetLogFile200Response {
-	return &GetLogFile200Response{}
+// NewEmptyLogFile return a pointer to an empty LogFile object.
+func NewEmptyLogFile() *LogFile {
+	return &LogFile{}
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
-func (o *GetLogFile200Response) GetTimestamp() string {
+func (o *LogFile) GetTimestamp() string {
 	if o == nil || o.Timestamp == nil {
 		var ret string
 		return ret
@@ -71,7 +71,7 @@ func (o *GetLogFile200Response) GetTimestamp() string {
 
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetLogFile200Response) GetTimestampOk() (*string, bool) {
+func (o *LogFile) GetTimestampOk() (*string, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
@@ -79,7 +79,7 @@ func (o *GetLogFile200Response) GetTimestampOk() (*string, bool) {
 }
 
 // HasTimestamp returns a boolean if a field has been set.
-func (o *GetLogFile200Response) HasTimestamp() bool {
+func (o *LogFile) HasTimestamp() bool {
 	if o != nil && o.Timestamp != nil {
 		return true
 	}
@@ -88,13 +88,13 @@ func (o *GetLogFile200Response) HasTimestamp() bool {
 }
 
 // SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
-func (o *GetLogFile200Response) SetTimestamp(v string) *GetLogFile200Response {
+func (o *LogFile) SetTimestamp(v string) *LogFile {
 	o.Timestamp = &v
 	return o
 }
 
 // GetLevel returns the Level field value if set, zero value otherwise.
-func (o *GetLogFile200Response) GetLevel() LogLevel {
+func (o *LogFile) GetLevel() LogLevel {
 	if o == nil || o.Level == nil {
 		var ret LogLevel
 		return ret
@@ -104,7 +104,7 @@ func (o *GetLogFile200Response) GetLevel() LogLevel {
 
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetLogFile200Response) GetLevelOk() (*LogLevel, bool) {
+func (o *LogFile) GetLevelOk() (*LogLevel, bool) {
 	if o == nil || o.Level == nil {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (o *GetLogFile200Response) GetLevelOk() (*LogLevel, bool) {
 }
 
 // HasLevel returns a boolean if a field has been set.
-func (o *GetLogFile200Response) HasLevel() bool {
+func (o *LogFile) HasLevel() bool {
 	if o != nil && o.Level != nil {
 		return true
 	}
@@ -121,13 +121,13 @@ func (o *GetLogFile200Response) HasLevel() bool {
 }
 
 // SetLevel gets a reference to the given LogLevel and assigns it to the Level field.
-func (o *GetLogFile200Response) SetLevel(v LogLevel) *GetLogFile200Response {
+func (o *LogFile) SetLevel(v LogLevel) *LogFile {
 	o.Level = &v
 	return o
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
-func (o *GetLogFile200Response) GetMessage() string {
+func (o *LogFile) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
 		return ret
@@ -137,7 +137,7 @@ func (o *GetLogFile200Response) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetLogFile200Response) GetMessageOk() (*string, bool) {
+func (o *LogFile) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
@@ -145,7 +145,7 @@ func (o *GetLogFile200Response) GetMessageOk() (*string, bool) {
 }
 
 // HasMessage returns a boolean if a field has been set.
-func (o *GetLogFile200Response) HasMessage() bool {
+func (o *LogFile) HasMessage() bool {
 	if o != nil && o.Message != nil {
 		return true
 	}
@@ -154,13 +154,13 @@ func (o *GetLogFile200Response) HasMessage() bool {
 }
 
 // SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *GetLogFile200Response) SetMessage(v string) *GetLogFile200Response {
+func (o *LogFile) SetMessage(v string) *LogFile {
 	o.Message = &v
 	return o
 }
 
 // GetContextLevel returns the ContextLevel field value if set, zero value otherwise.
-func (o *GetLogFile200Response) GetContextLevel() int32 {
+func (o *LogFile) GetContextLevel() int32 {
 	if o == nil || o.ContextLevel == nil {
 		var ret int32
 		return ret
@@ -170,7 +170,7 @@ func (o *GetLogFile200Response) GetContextLevel() int32 {
 
 // GetContextLevelOk returns a tuple with the ContextLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetLogFile200Response) GetContextLevelOk() (*int32, bool) {
+func (o *LogFile) GetContextLevelOk() (*int32, bool) {
 	if o == nil || o.ContextLevel == nil {
 		return nil, false
 	}
@@ -178,7 +178,7 @@ func (o *GetLogFile200Response) GetContextLevelOk() (*int32, bool) {
 }
 
 // HasContextLevel returns a boolean if a field has been set.
-func (o *GetLogFile200Response) HasContextLevel() bool {
+func (o *LogFile) HasContextLevel() bool {
 	if o != nil && o.ContextLevel != nil {
 		return true
 	}
@@ -187,12 +187,12 @@ func (o *GetLogFile200Response) HasContextLevel() bool {
 }
 
 // SetContextLevel gets a reference to the given int32 and assigns it to the ContextLevel field.
-func (o *GetLogFile200Response) SetContextLevel(v int32) *GetLogFile200Response {
+func (o *LogFile) SetContextLevel(v int32) *LogFile {
 	o.ContextLevel = &v
 	return o
 }
 
-func (o GetLogFile200Response) MarshalJSON() ([]byte, error) {
+func (o LogFile) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
@@ -208,17 +208,17 @@ func (o GetLogFile200Response) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal GetLogFile200Response: %w", err)
+		return nil, fmt.Errorf("failed to marshal LogFile: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o GetLogFile200Response) String() string {
+func (o LogFile) String() string {
 	out := ""
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  level=%v\n", o.Level)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  contextLevel=%v\n", o.ContextLevel)
-	return fmt.Sprintf("GetLogFile200Response {\n%s}", out)
+	return fmt.Sprintf("LogFile {\n%s}", out)
 }

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SearchParamsString struct for SearchParamsString.
+// SearchParamsString Search parameters as query string.
 type SearchParamsString struct {
 	// Search parameters as a URL-encoded query string.
 	Params *string `json:"params,omitempty"`
