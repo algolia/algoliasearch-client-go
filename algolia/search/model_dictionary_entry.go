@@ -9,8 +9,8 @@ import (
 // DictionaryEntry Dictionary entry.
 type DictionaryEntry struct {
 	// Unique identifier for the dictionary entry.
-	ObjectID string            `json:"objectID"`
-	Language SupportedLanguage `json:"language"`
+	ObjectID string             `json:"objectID"`
+	Language *SupportedLanguage `json:"language,omitempty"`
 	// Matching dictionary word for `stopwords` and `compounds` dictionaries.
 	Word *string `json:"word,omitempty"`
 	// Matching words in the `plurals` dictionary including declensions.
@@ -24,6 +24,12 @@ type DictionaryEntry struct {
 type _DictionaryEntry DictionaryEntry
 
 type DictionaryEntryOption func(f *DictionaryEntry)
+
+func WithDictionaryEntryLanguage(val SupportedLanguage) DictionaryEntryOption {
+	return func(f *DictionaryEntry) {
+		f.Language = &val
+	}
+}
 
 func WithDictionaryEntryWord(val string) DictionaryEntryOption {
 	return func(f *DictionaryEntry) {
@@ -53,10 +59,9 @@ func WithDictionaryEntryState(val DictionaryEntryState) DictionaryEntryOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDictionaryEntry(objectID string, language SupportedLanguage, opts ...DictionaryEntryOption) *DictionaryEntry {
+func NewDictionaryEntry(objectID string, opts ...DictionaryEntryOption) *DictionaryEntry {
 	this := &DictionaryEntry{}
 	this.ObjectID = objectID
-	this.Language = language
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -93,28 +98,36 @@ func (o *DictionaryEntry) SetObjectID(v string) *DictionaryEntry {
 	return o
 }
 
-// GetLanguage returns the Language field value.
+// GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *DictionaryEntry) GetLanguage() SupportedLanguage {
-	if o == nil {
+	if o == nil || o.Language == nil {
 		var ret SupportedLanguage
 		return ret
 	}
-
-	return o.Language
+	return *o.Language
 }
 
-// GetLanguageOk returns a tuple with the Language field value
+// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DictionaryEntry) GetLanguageOk() (*SupportedLanguage, bool) {
-	if o == nil {
+	if o == nil || o.Language == nil {
 		return nil, false
 	}
-	return &o.Language, true
+	return o.Language, true
 }
 
-// SetLanguage sets field value.
+// HasLanguage returns a boolean if a field has been set.
+func (o *DictionaryEntry) HasLanguage() bool {
+	if o != nil && o.Language != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLanguage gets a reference to the given SupportedLanguage and assigns it to the Language field.
 func (o *DictionaryEntry) SetLanguage(v SupportedLanguage) *DictionaryEntry {
-	o.Language = v
+	o.Language = &v
 	return o
 }
 
@@ -265,7 +278,7 @@ func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["objectID"] = o.ObjectID
 	}
-	if true {
+	if o.Language != nil {
 		toSerialize["language"] = o.Language
 	}
 	if o.Word != nil {
