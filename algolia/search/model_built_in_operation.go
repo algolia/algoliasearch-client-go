@@ -8,16 +8,15 @@ import (
 
 // BuiltInOperation Update to perform on the attribute.
 type BuiltInOperation struct {
-	Operation BuiltInOperationType `json:"_operation"`
-	// Value that corresponds to the operation, for example an `Increment` or `Decrement` step, or an `Add` or `Remove` value.
-	Value string `json:"value"`
+	Operation BuiltInOperationType  `json:"_operation"`
+	Value     BuiltInOperationValue `json:"value"`
 }
 
 // NewBuiltInOperation instantiates a new BuiltInOperation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBuiltInOperation(operation BuiltInOperationType, value string) *BuiltInOperation {
+func NewBuiltInOperation(operation BuiltInOperationType, value BuiltInOperationValue) *BuiltInOperation {
 	this := &BuiltInOperation{}
 	this.Operation = operation
 	this.Value = value
@@ -55,9 +54,9 @@ func (o *BuiltInOperation) SetOperation(v BuiltInOperationType) *BuiltInOperatio
 }
 
 // GetValue returns the Value field value.
-func (o *BuiltInOperation) GetValue() string {
+func (o *BuiltInOperation) GetValue() BuiltInOperationValue {
 	if o == nil {
-		var ret string
+		var ret BuiltInOperationValue
 		return ret
 	}
 
@@ -66,7 +65,7 @@ func (o *BuiltInOperation) GetValue() string {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *BuiltInOperation) GetValueOk() (*string, bool) {
+func (o *BuiltInOperation) GetValueOk() (*BuiltInOperationValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -74,8 +73,8 @@ func (o *BuiltInOperation) GetValueOk() (*string, bool) {
 }
 
 // SetValue sets field value.
-func (o *BuiltInOperation) SetValue(v string) *BuiltInOperation {
-	o.Value = v
+func (o *BuiltInOperation) SetValue(v *BuiltInOperationValue) *BuiltInOperation {
+	o.Value = *v
 	return o
 }
 
