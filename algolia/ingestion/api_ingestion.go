@@ -5891,6 +5891,157 @@ func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*RunR
 	return returnValue, nil
 }
 
+func (r *ApiRunSourceRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["sourceID"]; ok {
+		err = json.Unmarshal(v, &r.sourceID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sourceID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sourceID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["runSourcePayload"]; ok {
+		err = json.Unmarshal(v, &r.runSourcePayload)
+		if err != nil {
+			err = json.Unmarshal(b, &r.runSourcePayload)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal runSourcePayload: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiRunSourceRequest represents the request with all the parameters for the API call.
+type ApiRunSourceRequest struct {
+	sourceID         string
+	runSourcePayload *RunSourcePayload
+}
+
+// NewApiRunSourceRequest creates an instance of the ApiRunSourceRequest to be used for the API call.
+func (c *APIClient) NewApiRunSourceRequest(sourceID string) ApiRunSourceRequest {
+	return ApiRunSourceRequest{
+		sourceID: sourceID,
+	}
+}
+
+// WithRunSourcePayload adds the runSourcePayload to the ApiRunSourceRequest and returns the request for chaining.
+func (r ApiRunSourceRequest) WithRunSourcePayload(runSourcePayload *RunSourcePayload) ApiRunSourceRequest {
+	r.runSourcePayload = runSourcePayload
+	return r
+}
+
+/*
+RunSource calls the API and returns the raw response from it.
+
+	  Runs all tasks linked to a source, only available for Shopify sources. It will create 1 run per task.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiRunSourceRequest with parameters below.
+	  @param sourceID string - Unique identifier of a source.
+	  @param runSourcePayload RunSourcePayload -
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) RunSourceWithHTTPInfo(r ApiRunSourceRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/sources/{sourceID}/run"
+	requestPath = strings.ReplaceAll(requestPath, "{sourceID}", url.PathEscape(utils.ParameterToString(r.sourceID)))
+
+	if r.sourceID == "" {
+		return nil, nil, reportError("Parameter `sourceID` is required when calling `RunSource`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	if utils.IsNilOrEmpty(r.runSourcePayload) {
+		postBody = "{}"
+	} else {
+		postBody = r.runSourcePayload
+	}
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+RunSource casts the HTTP response body to a defined struct.
+
+Runs all tasks linked to a source, only available for Shopify sources. It will create 1 run per task.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiRunSourceRequest with parameters below.
+
+	@param sourceID string - Unique identifier of a source.
+	@param runSourcePayload RunSourcePayload -
+	@return RunSourceResponse
+*/
+func (c *APIClient) RunSource(r ApiRunSourceRequest, opts ...RequestOption) (*RunSourceResponse, error) {
+	var returnValue *RunSourceResponse
+
+	res, resBody, err := c.RunSourceWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiRunTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
