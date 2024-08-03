@@ -10,20 +10,30 @@ import (
 type MultipleBatchRequest struct {
 	Action Action `json:"action"`
 	// Operation arguments (varies with specified `action`).
-	Body map[string]any `json:"body"`
+	Body map[string]any `json:"body,omitempty"`
 	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
+}
+
+type MultipleBatchRequestOption func(f *MultipleBatchRequest)
+
+func WithMultipleBatchRequestBody(val map[string]any) MultipleBatchRequestOption {
+	return func(f *MultipleBatchRequest) {
+		f.Body = val
+	}
 }
 
 // NewMultipleBatchRequest instantiates a new MultipleBatchRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMultipleBatchRequest(action Action, body map[string]any, indexName string) *MultipleBatchRequest {
+func NewMultipleBatchRequest(action Action, indexName string, opts ...MultipleBatchRequestOption) *MultipleBatchRequest {
 	this := &MultipleBatchRequest{}
 	this.Action = action
-	this.Body = body
 	this.IndexName = indexName
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -57,26 +67,34 @@ func (o *MultipleBatchRequest) SetAction(v Action) *MultipleBatchRequest {
 	return o
 }
 
-// GetBody returns the Body field value.
+// GetBody returns the Body field value if set, zero value otherwise.
 func (o *MultipleBatchRequest) GetBody() map[string]any {
-	if o == nil {
+	if o == nil || o.Body == nil {
 		var ret map[string]any
 		return ret
 	}
-
 	return o.Body
 }
 
-// GetBodyOk returns a tuple with the Body field value
+// GetBodyOk returns a tuple with the Body field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MultipleBatchRequest) GetBodyOk() (map[string]any, bool) {
-	if o == nil {
+	if o == nil || o.Body == nil {
 		return nil, false
 	}
 	return o.Body, true
 }
 
-// SetBody sets field value.
+// HasBody returns a boolean if a field has been set.
+func (o *MultipleBatchRequest) HasBody() bool {
+	if o != nil && o.Body != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBody gets a reference to the given map[string]any and assigns it to the Body field.
 func (o *MultipleBatchRequest) SetBody(v map[string]any) *MultipleBatchRequest {
 	o.Body = v
 	return o
@@ -112,7 +130,7 @@ func (o MultipleBatchRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["action"] = o.Action
 	}
-	if true {
+	if o.Body != nil {
 		toSerialize["body"] = o.Body
 	}
 	if true {
