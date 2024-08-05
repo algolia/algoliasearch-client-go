@@ -18,6 +18,7 @@ type DictionaryEntry struct {
 	// Invividual components of a compound word in the `compounds` dictionary.
 	Decomposition        []string              `json:"decomposition,omitempty"`
 	State                *DictionaryEntryState `json:"state,omitempty"`
+	Type                 *DictionaryEntryType  `json:"type,omitempty"`
 	AdditionalProperties map[string]any
 }
 
@@ -52,6 +53,12 @@ func WithDictionaryEntryDecomposition(val []string) DictionaryEntryOption {
 func WithDictionaryEntryState(val DictionaryEntryState) DictionaryEntryOption {
 	return func(f *DictionaryEntry) {
 		f.State = &val
+	}
+}
+
+func WithDictionaryEntryType(val DictionaryEntryType) DictionaryEntryOption {
+	return func(f *DictionaryEntry) {
+		f.Type = &val
 	}
 }
 
@@ -263,6 +270,39 @@ func (o *DictionaryEntry) SetState(v DictionaryEntryState) *DictionaryEntry {
 	return o
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *DictionaryEntry) GetType() DictionaryEntryType {
+	if o == nil || o.Type == nil {
+		var ret DictionaryEntryType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DictionaryEntry) GetTypeOk() (*DictionaryEntryType, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *DictionaryEntry) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given DictionaryEntryType and assigns it to the Type field.
+func (o *DictionaryEntry) SetType(v DictionaryEntryType) *DictionaryEntry {
+	o.Type = &v
+	return o
+}
+
 func (o *DictionaryEntry) SetAdditionalProperty(key string, value any) *DictionaryEntry {
 	if o.AdditionalProperties == nil {
 		o.AdditionalProperties = make(map[string]any)
@@ -292,6 +332,9 @@ func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 	}
 	if o.State != nil {
 		toSerialize["state"] = o.State
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -329,6 +372,7 @@ func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "words")
 	delete(additionalProperties, "decomposition")
 	delete(additionalProperties, "state")
+	delete(additionalProperties, "type")
 	o.AdditionalProperties = additionalProperties
 
 	return nil
@@ -342,6 +386,7 @@ func (o DictionaryEntry) String() string {
 	out += fmt.Sprintf("  words=%v\n", o.Words)
 	out += fmt.Sprintf("  decomposition=%v\n", o.Decomposition)
 	out += fmt.Sprintf("  state=%v\n", o.State)
+	out += fmt.Sprintf("  type=%v\n", o.Type)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
