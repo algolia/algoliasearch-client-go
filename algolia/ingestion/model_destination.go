@@ -19,7 +19,8 @@ type Destination struct {
 	// Date of last update in RFC 3339 format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
-	AuthenticationID *string `json:"authenticationID,omitempty"`
+	AuthenticationID  *string  `json:"authenticationID,omitempty"`
+	TransformationIDs []string `json:"transformationIDs,omitempty"`
 }
 
 type DestinationOption func(f *Destination)
@@ -33,6 +34,12 @@ func WithDestinationUpdatedAt(val string) DestinationOption {
 func WithDestinationAuthenticationID(val string) DestinationOption {
 	return func(f *Destination) {
 		f.AuthenticationID = &val
+	}
+}
+
+func WithDestinationTransformationIDs(val []string) DestinationOption {
+	return func(f *Destination) {
+		f.TransformationIDs = val
 	}
 }
 
@@ -249,6 +256,39 @@ func (o *Destination) SetAuthenticationID(v string) *Destination {
 	return o
 }
 
+// GetTransformationIDs returns the TransformationIDs field value if set, zero value otherwise.
+func (o *Destination) GetTransformationIDs() []string {
+	if o == nil || o.TransformationIDs == nil {
+		var ret []string
+		return ret
+	}
+	return o.TransformationIDs
+}
+
+// GetTransformationIDsOk returns a tuple with the TransformationIDs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Destination) GetTransformationIDsOk() ([]string, bool) {
+	if o == nil || o.TransformationIDs == nil {
+		return nil, false
+	}
+	return o.TransformationIDs, true
+}
+
+// HasTransformationIDs returns a boolean if a field has been set.
+func (o *Destination) HasTransformationIDs() bool {
+	if o != nil && o.TransformationIDs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTransformationIDs gets a reference to the given []string and assigns it to the TransformationIDs field.
+func (o *Destination) SetTransformationIDs(v []string) *Destination {
+	o.TransformationIDs = v
+	return o
+}
+
 func (o Destination) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -272,6 +312,9 @@ func (o Destination) MarshalJSON() ([]byte, error) {
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+	if o.TransformationIDs != nil {
+		toSerialize["transformationIDs"] = o.TransformationIDs
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Destination: %w", err)
@@ -289,5 +332,6 @@ func (o Destination) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
+	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
 	return fmt.Sprintf("Destination {\n%s}", out)
 }

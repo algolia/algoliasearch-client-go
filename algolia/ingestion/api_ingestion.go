@@ -5595,6 +5595,24 @@ func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+	if v, ok := req["itemsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.itemsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.itemsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal itemsPerPage: %w", err)
+			}
+		}
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
 	if v, ok := req["sort"]; ok {
 		err = json.Unmarshal(v, &r.sort)
 		if err != nil {
@@ -5619,13 +5637,27 @@ func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 
 // ApiListTransformationsRequest represents the request with all the parameters for the API call.
 type ApiListTransformationsRequest struct {
-	sort  SortKeys
-	order OrderKeys
+	itemsPerPage *int32
+	page         *int32
+	sort         SortKeys
+	order        OrderKeys
 }
 
 // NewApiListTransformationsRequest creates an instance of the ApiListTransformationsRequest to be used for the API call.
 func (c *APIClient) NewApiListTransformationsRequest() ApiListTransformationsRequest {
 	return ApiListTransformationsRequest{}
+}
+
+// WithItemsPerPage adds the itemsPerPage to the ApiListTransformationsRequest and returns the request for chaining.
+func (r ApiListTransformationsRequest) WithItemsPerPage(itemsPerPage int32) ApiListTransformationsRequest {
+	r.itemsPerPage = &itemsPerPage
+	return r
+}
+
+// WithPage adds the page to the ApiListTransformationsRequest and returns the request for chaining.
+func (r ApiListTransformationsRequest) WithPage(page int32) ApiListTransformationsRequest {
+	r.page = &page
+	return r
 }
 
 // WithSort adds the sort to the ApiListTransformationsRequest and returns the request for chaining.
@@ -5651,6 +5683,8 @@ ListTransformations calls the API and returns the raw response from it.
 	    - editSettings
 
 	Request can be constructed by NewApiListTransformationsRequest with parameters below.
+	  @param itemsPerPage int32 - Number of items per page.
+	  @param page int32 - Page number of the paginated API response.
 	  @param sort SortKeys - Property by which to sort the list.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -5667,6 +5701,12 @@ func (c *APIClient) ListTransformationsWithHTTPInfo(r ApiListTransformationsRequ
 		headerParams: map[string]string{},
 	}
 
+	if !utils.IsNilOrEmpty(r.itemsPerPage) {
+		conf.queryParams.Set("itemsPerPage", utils.QueryParameterToString(*r.itemsPerPage))
+	}
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
 	if !utils.IsNilOrEmpty(r.sort) {
 		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
 	}
@@ -5701,6 +5741,8 @@ Required API Key ACLs:
 
 Request can be constructed by NewApiListTransformationsRequest with parameters below.
 
+	@param itemsPerPage int32 - Number of items per page.
+	@param page int32 - Page number of the paginated API response.
 	@param sort SortKeys - Property by which to sort the list.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTransformationsResponse
