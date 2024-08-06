@@ -5589,6 +5589,95 @@ func (c *APIClient) ListTasksV1(r ApiListTasksV1Request, opts ...RequestOption) 
 	return returnValue, nil
 }
 
+/*
+ListTransformationModels calls the API and returns the raw response from it.
+
+	  Retrieves a list of existing LLM transformation helpers.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiListTransformationModelsRequest with parameters below.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListTransformationModelsWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/transformations/copilot"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+ListTransformationModels casts the HTTP response body to a defined struct.
+
+Retrieves a list of existing LLM transformation helpers.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiListTransformationModelsRequest with parameters below.
+
+	@return TransformationModels
+*/
+func (c *APIClient) ListTransformationModels(opts ...RequestOption) (*TransformationModels, error) {
+	var returnValue *TransformationModels
+
+	res, resBody, err := c.ListTransformationModelsWithHTTPInfo(opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
