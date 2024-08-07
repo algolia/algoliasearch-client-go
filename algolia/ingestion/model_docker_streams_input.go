@@ -8,14 +8,14 @@ import (
 
 // DockerStreamsInput The selected streams of a singer or airbyte connector.
 type DockerStreamsInput struct {
-	Streams map[string]any `json:"streams"`
+	Streams []DockerStreams `json:"streams"`
 }
 
 // NewDockerStreamsInput instantiates a new DockerStreamsInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDockerStreamsInput(streams map[string]any) *DockerStreamsInput {
+func NewDockerStreamsInput(streams []DockerStreams) *DockerStreamsInput {
 	this := &DockerStreamsInput{}
 	this.Streams = streams
 	return this
@@ -27,9 +27,9 @@ func NewEmptyDockerStreamsInput() *DockerStreamsInput {
 }
 
 // GetStreams returns the Streams field value.
-func (o *DockerStreamsInput) GetStreams() map[string]any {
+func (o *DockerStreamsInput) GetStreams() []DockerStreams {
 	if o == nil {
-		var ret map[string]any
+		var ret []DockerStreams
 		return ret
 	}
 
@@ -38,7 +38,7 @@ func (o *DockerStreamsInput) GetStreams() map[string]any {
 
 // GetStreamsOk returns a tuple with the Streams field value
 // and a boolean to check if the value has been set.
-func (o *DockerStreamsInput) GetStreamsOk() (map[string]any, bool) {
+func (o *DockerStreamsInput) GetStreamsOk() ([]DockerStreams, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -46,7 +46,7 @@ func (o *DockerStreamsInput) GetStreamsOk() (map[string]any, bool) {
 }
 
 // SetStreams sets field value.
-func (o *DockerStreamsInput) SetStreams(v map[string]any) *DockerStreamsInput {
+func (o *DockerStreamsInput) SetStreams(v []DockerStreams) *DockerStreamsInput {
 	o.Streams = v
 	return o
 }

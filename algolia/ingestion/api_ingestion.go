@@ -7355,7 +7355,7 @@ func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscover
 	return returnValue, nil
 }
 
-func (r *ApiTryTransformationsRequest) UnmarshalJSON(b []byte) error {
+func (r *ApiTryTransformationRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
 	if err != nil {
@@ -7379,20 +7379,20 @@ func (r *ApiTryTransformationsRequest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// ApiTryTransformationsRequest represents the request with all the parameters for the API call.
-type ApiTryTransformationsRequest struct {
+// ApiTryTransformationRequest represents the request with all the parameters for the API call.
+type ApiTryTransformationRequest struct {
 	transformationTry *TransformationTry
 }
 
-// NewApiTryTransformationsRequest creates an instance of the ApiTryTransformationsRequest to be used for the API call.
-func (c *APIClient) NewApiTryTransformationsRequest(transformationTry *TransformationTry) ApiTryTransformationsRequest {
-	return ApiTryTransformationsRequest{
+// NewApiTryTransformationRequest creates an instance of the ApiTryTransformationRequest to be used for the API call.
+func (c *APIClient) NewApiTryTransformationRequest(transformationTry *TransformationTry) ApiTryTransformationRequest {
+	return ApiTryTransformationRequest{
 		transformationTry: transformationTry,
 	}
 }
 
 /*
-TryTransformations calls the API and returns the raw response from it.
+TryTransformation calls the API and returns the raw response from it.
 
 	  Try a transformation.
 
@@ -7401,18 +7401,18 @@ TryTransformations calls the API and returns the raw response from it.
 	    - deleteIndex
 	    - editSettings
 
-	Request can be constructed by NewApiTryTransformationsRequest with parameters below.
+	Request can be constructed by NewApiTryTransformationRequest with parameters below.
 	  @param transformationTry TransformationTry
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) TryTransformationsWithHTTPInfo(r ApiTryTransformationsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) TryTransformationWithHTTPInfo(r ApiTryTransformationRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/transformations/try"
 
 	if r.transformationTry == nil {
-		return nil, nil, reportError("Parameter `transformationTry` is required when calling `TryTransformations`.")
+		return nil, nil, reportError("Parameter `transformationTry` is required when calling `TryTransformation`.")
 	}
 
 	conf := config{
@@ -7439,7 +7439,7 @@ func (c *APIClient) TryTransformationsWithHTTPInfo(r ApiTryTransformationsReques
 }
 
 /*
-TryTransformations casts the HTTP response body to a defined struct.
+TryTransformation casts the HTTP response body to a defined struct.
 
 Try a transformation.
 
@@ -7448,15 +7448,15 @@ Required API Key ACLs:
   - deleteIndex
   - editSettings
 
-Request can be constructed by NewApiTryTransformationsRequest with parameters below.
+Request can be constructed by NewApiTryTransformationRequest with parameters below.
 
 	@param transformationTry TransformationTry
 	@return TransformationTryResponse
 */
-func (c *APIClient) TryTransformations(r ApiTryTransformationsRequest, opts ...RequestOption) (*TransformationTryResponse, error) {
+func (c *APIClient) TryTransformation(r ApiTryTransformationRequest, opts ...RequestOption) (*TransformationTryResponse, error) {
 	var returnValue *TransformationTryResponse
 
-	res, resBody, err := c.TryTransformationsWithHTTPInfo(r, opts...)
+	res, resBody, err := c.TryTransformationWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
