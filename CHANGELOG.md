@@ -1,3 +1,9 @@
+## [4.0.0-beta.28](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.27...4.0.0-beta.28)
+
+- [2c6147ee7](https://github.com/algolia/api-clients-automation/commit/2c6147ee7) feat(specs): add generate code endpoint to ingestion specs ([#3489](https://github.com/algolia/api-clients-automation/pull/3489)) by [@shortcuts](https://github.com/shortcuts/)
+- [6c62a81a7](https://github.com/algolia/api-clients-automation/commit/6c62a81a7) fix(specs): ingestion docker task input ([#3488](https://github.com/algolia/api-clients-automation/pull/3488)) by [@shortcuts](https://github.com/shortcuts/)
+- [eab2887f8](https://github.com/algolia/api-clients-automation/commit/eab2887f8) fix(specs): ingestion search endpoint ([#3487](https://github.com/algolia/api-clients-automation/pull/3487)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-beta.27](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.26...4.0.0-beta.27)
 
 - [ac0cadb8a](https://github.com/algolia/api-clients-automation/commit/ac0cadb8a) feat(specs): add transformation copilot to ingestion ([#3479](https://github.com/algolia/api-clients-automation/pull/3479)) by [@Fluf22](https://github.com/Fluf22/)
