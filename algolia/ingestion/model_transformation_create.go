@@ -14,6 +14,8 @@ type TransformationCreate struct {
 	Name string `json:"name"`
 	// A descriptive name for your transformation of what it does.
 	Description *string `json:"description,omitempty"`
+	// The authentications associated for the current transformation.
+	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
 }
 
 type TransformationCreateOption func(f *TransformationCreate)
@@ -21,6 +23,12 @@ type TransformationCreateOption func(f *TransformationCreate)
 func WithTransformationCreateDescription(val string) TransformationCreateOption {
 	return func(f *TransformationCreate) {
 		f.Description = &val
+	}
+}
+
+func WithTransformationCreateAuthenticationIDs(val []string) TransformationCreateOption {
+	return func(f *TransformationCreate) {
+		f.AuthenticationIDs = val
 	}
 }
 
@@ -126,6 +134,39 @@ func (o *TransformationCreate) SetDescription(v string) *TransformationCreate {
 	return o
 }
 
+// GetAuthenticationIDs returns the AuthenticationIDs field value if set, zero value otherwise.
+func (o *TransformationCreate) GetAuthenticationIDs() []string {
+	if o == nil || o.AuthenticationIDs == nil {
+		var ret []string
+		return ret
+	}
+	return o.AuthenticationIDs
+}
+
+// GetAuthenticationIDsOk returns a tuple with the AuthenticationIDs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransformationCreate) GetAuthenticationIDsOk() ([]string, bool) {
+	if o == nil || o.AuthenticationIDs == nil {
+		return nil, false
+	}
+	return o.AuthenticationIDs, true
+}
+
+// HasAuthenticationIDs returns a boolean if a field has been set.
+func (o *TransformationCreate) HasAuthenticationIDs() bool {
+	if o != nil && o.AuthenticationIDs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthenticationIDs gets a reference to the given []string and assigns it to the AuthenticationIDs field.
+func (o *TransformationCreate) SetAuthenticationIDs(v []string) *TransformationCreate {
+	o.AuthenticationIDs = v
+	return o
+}
+
 func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -136,6 +177,9 @@ func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.AuthenticationIDs != nil {
+		toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -150,5 +194,6 @@ func (o TransformationCreate) String() string {
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
+	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
 	return fmt.Sprintf("TransformationCreate {\n%s}", out)
 }

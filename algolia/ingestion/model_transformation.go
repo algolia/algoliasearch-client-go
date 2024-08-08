@@ -10,6 +10,8 @@ import (
 type Transformation struct {
 	// Universally unique identifier (UUID) of a transformation.
 	TransformationID string `json:"transformationID"`
+	// The authentications associated for the current transformation.
+	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
 	// The source code of the transformation.
 	Code string `json:"code"`
 	// The uniquely identified name of your transformation.
@@ -23,6 +25,12 @@ type Transformation struct {
 }
 
 type TransformationOption func(f *Transformation)
+
+func WithTransformationAuthenticationIDs(val []string) TransformationOption {
+	return func(f *Transformation) {
+		f.AuthenticationIDs = val
+	}
+}
 
 func WithTransformationDescription(val string) TransformationOption {
 	return func(f *Transformation) {
@@ -79,6 +87,39 @@ func (o *Transformation) GetTransformationIDOk() (*string, bool) {
 // SetTransformationID sets field value.
 func (o *Transformation) SetTransformationID(v string) *Transformation {
 	o.TransformationID = v
+	return o
+}
+
+// GetAuthenticationIDs returns the AuthenticationIDs field value if set, zero value otherwise.
+func (o *Transformation) GetAuthenticationIDs() []string {
+	if o == nil || o.AuthenticationIDs == nil {
+		var ret []string
+		return ret
+	}
+	return o.AuthenticationIDs
+}
+
+// GetAuthenticationIDsOk returns a tuple with the AuthenticationIDs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transformation) GetAuthenticationIDsOk() ([]string, bool) {
+	if o == nil || o.AuthenticationIDs == nil {
+		return nil, false
+	}
+	return o.AuthenticationIDs, true
+}
+
+// HasAuthenticationIDs returns a boolean if a field has been set.
+func (o *Transformation) HasAuthenticationIDs() bool {
+	if o != nil && o.AuthenticationIDs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthenticationIDs gets a reference to the given []string and assigns it to the AuthenticationIDs field.
+func (o *Transformation) SetAuthenticationIDs(v []string) *Transformation {
+	o.AuthenticationIDs = v
 	return o
 }
 
@@ -228,6 +269,9 @@ func (o Transformation) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["transformationID"] = o.TransformationID
 	}
+	if o.AuthenticationIDs != nil {
+		toSerialize["authenticationIDs"] = o.AuthenticationIDs
+	}
 	if true {
 		toSerialize["code"] = o.Code
 	}
@@ -254,6 +298,7 @@ func (o Transformation) MarshalJSON() ([]byte, error) {
 func (o Transformation) String() string {
 	out := ""
 	out += fmt.Sprintf("  transformationID=%v\n", o.TransformationID)
+	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  description=%v\n", o.Description)

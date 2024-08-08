@@ -11,17 +11,29 @@ type TransformationTry struct {
 	// The source code of the transformation.
 	Code string `json:"code"`
 	// The record to apply the given code to.
-	SampleRecord map[string]any `json:"sampleRecord"`
+	SampleRecord    map[string]any         `json:"sampleRecord"`
+	Authentications []AuthenticationCreate `json:"authentications,omitempty"`
+}
+
+type TransformationTryOption func(f *TransformationTry)
+
+func WithTransformationTryAuthentications(val []AuthenticationCreate) TransformationTryOption {
+	return func(f *TransformationTry) {
+		f.Authentications = val
+	}
 }
 
 // NewTransformationTry instantiates a new TransformationTry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationTry(code string, sampleRecord map[string]any) *TransformationTry {
+func NewTransformationTry(code string, sampleRecord map[string]any, opts ...TransformationTryOption) *TransformationTry {
 	this := &TransformationTry{}
 	this.Code = code
 	this.SampleRecord = sampleRecord
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -80,6 +92,39 @@ func (o *TransformationTry) SetSampleRecord(v map[string]any) *TransformationTry
 	return o
 }
 
+// GetAuthentications returns the Authentications field value if set, zero value otherwise.
+func (o *TransformationTry) GetAuthentications() []AuthenticationCreate {
+	if o == nil || o.Authentications == nil {
+		var ret []AuthenticationCreate
+		return ret
+	}
+	return o.Authentications
+}
+
+// GetAuthenticationsOk returns a tuple with the Authentications field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransformationTry) GetAuthenticationsOk() ([]AuthenticationCreate, bool) {
+	if o == nil || o.Authentications == nil {
+		return nil, false
+	}
+	return o.Authentications, true
+}
+
+// HasAuthentications returns a boolean if a field has been set.
+func (o *TransformationTry) HasAuthentications() bool {
+	if o != nil && o.Authentications != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthentications gets a reference to the given []AuthenticationCreate and assigns it to the Authentications field.
+func (o *TransformationTry) SetAuthentications(v []AuthenticationCreate) *TransformationTry {
+	o.Authentications = v
+	return o
+}
+
 func (o TransformationTry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -87,6 +132,9 @@ func (o TransformationTry) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["sampleRecord"] = o.SampleRecord
+	}
+	if o.Authentications != nil {
+		toSerialize["authentications"] = o.Authentications
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -100,5 +148,6 @@ func (o TransformationTry) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  sampleRecord=%v\n", o.SampleRecord)
+	out += fmt.Sprintf("  authentications=%v\n", o.Authentications)
 	return fmt.Sprintf("TransformationTry {\n%s}", out)
 }
