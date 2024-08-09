@@ -1,3 +1,7 @@
+## [4.0.0-beta.30](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.29...4.0.0-beta.30)
+
+- [4c052002e](https://github.com/algolia/api-clients-automation/commit/4c052002e) feat(specs): recursive snippets and highlights result ([#3497](https://github.com/algolia/api-clients-automation/pull/3497)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.0.0-beta.29](https://github.com/algolia/algoliasearch-client-go/compare/4.0.0-beta.28...4.0.0-beta.29)
 
 - [7d2ab99ce](https://github.com/algolia/api-clients-automation/commit/7d2ab99ce) feat(specs): add authentications to ingestion transformations ([#3494](https://github.com/algolia/api-clients-automation/pull/3494)) by [@shortcuts](https://github.com/shortcuts/)
