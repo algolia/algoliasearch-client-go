@@ -10,7 +10,15 @@ import (
 type SnippetResult struct {
 	SnippetResultOption               *SnippetResultOption
 	ArrayOfSnippetResultOption        *[]SnippetResultOption
+	MapmapOfStringSnippetResult       *map[string]SnippetResult
 	MapmapOfStringSnippetResultOption *map[string]SnippetResultOption
+}
+
+// map[string]SnippetResultAsSnippetResult is a convenience function that returns map[string]SnippetResult wrapped in SnippetResult.
+func MapmapOfStringSnippetResultAsSnippetResult(v map[string]SnippetResult) *SnippetResult {
+	return &SnippetResult{
+		MapmapOfStringSnippetResult: &v,
+	}
 }
 
 // SnippetResultOptionAsSnippetResult is a convenience function that returns SnippetResultOption wrapped in SnippetResult.
@@ -63,6 +71,19 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfSnippetResultOption = nil
 	}
 
+	// try to unmarshal data into MapmapOfStringSnippetResult
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResult)
+	if err == nil && validateStruct(dst.MapmapOfStringSnippetResult) == nil {
+		jsonMapmapOfStringSnippetResult, _ := json.Marshal(dst.MapmapOfStringSnippetResult)
+		if string(jsonMapmapOfStringSnippetResult) == "{}" { // empty struct
+			dst.MapmapOfStringSnippetResult = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.MapmapOfStringSnippetResult = nil
+	}
+
 	// try to unmarshal data into MapmapOfStringSnippetResultOption
 	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResultOption)
 	if err == nil && validateStruct(dst.MapmapOfStringSnippetResultOption) == nil {
@@ -99,6 +120,15 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.MapmapOfStringSnippetResult != nil {
+		serialized, err := json.Marshal(&src.MapmapOfStringSnippetResult)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringSnippetResult of SnippetResult: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.MapmapOfStringSnippetResultOption != nil {
 		serialized, err := json.Marshal(&src.MapmapOfStringSnippetResultOption)
 		if err != nil {
@@ -119,6 +149,10 @@ func (obj SnippetResult) GetActualInstance() any {
 
 	if obj.ArrayOfSnippetResultOption != nil {
 		return *obj.ArrayOfSnippetResultOption
+	}
+
+	if obj.MapmapOfStringSnippetResult != nil {
+		return *obj.MapmapOfStringSnippetResult
 	}
 
 	if obj.MapmapOfStringSnippetResultOption != nil {

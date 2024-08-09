@@ -10,7 +10,15 @@ import (
 type HighlightResult struct {
 	HighlightResultOption               *HighlightResultOption
 	ArrayOfHighlightResultOption        *[]HighlightResultOption
+	MapmapOfStringHighlightResult       *map[string]HighlightResult
 	MapmapOfStringHighlightResultOption *map[string]HighlightResultOption
+}
+
+// map[string]HighlightResultAsHighlightResult is a convenience function that returns map[string]HighlightResult wrapped in HighlightResult.
+func MapmapOfStringHighlightResultAsHighlightResult(v map[string]HighlightResult) *HighlightResult {
+	return &HighlightResult{
+		MapmapOfStringHighlightResult: &v,
+	}
 }
 
 // HighlightResultOptionAsHighlightResult is a convenience function that returns HighlightResultOption wrapped in HighlightResult.
@@ -63,6 +71,19 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfHighlightResultOption = nil
 	}
 
+	// try to unmarshal data into MapmapOfStringHighlightResult
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringHighlightResult)
+	if err == nil && validateStruct(dst.MapmapOfStringHighlightResult) == nil {
+		jsonMapmapOfStringHighlightResult, _ := json.Marshal(dst.MapmapOfStringHighlightResult)
+		if string(jsonMapmapOfStringHighlightResult) == "{}" { // empty struct
+			dst.MapmapOfStringHighlightResult = nil
+		} else {
+			return nil
+		}
+	} else {
+		dst.MapmapOfStringHighlightResult = nil
+	}
+
 	// try to unmarshal data into MapmapOfStringHighlightResultOption
 	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringHighlightResultOption)
 	if err == nil && validateStruct(dst.MapmapOfStringHighlightResultOption) == nil {
@@ -99,6 +120,15 @@ func (src HighlightResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.MapmapOfStringHighlightResult != nil {
+		serialized, err := json.Marshal(&src.MapmapOfStringHighlightResult)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringHighlightResult of HighlightResult: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.MapmapOfStringHighlightResultOption != nil {
 		serialized, err := json.Marshal(&src.MapmapOfStringHighlightResultOption)
 		if err != nil {
@@ -119,6 +149,10 @@ func (obj HighlightResult) GetActualInstance() any {
 
 	if obj.ArrayOfHighlightResultOption != nil {
 		return *obj.ArrayOfHighlightResultOption
+	}
+
+	if obj.MapmapOfStringHighlightResult != nil {
+		return *obj.MapmapOfStringHighlightResult
 	}
 
 	if obj.MapmapOfStringHighlightResultOption != nil {
