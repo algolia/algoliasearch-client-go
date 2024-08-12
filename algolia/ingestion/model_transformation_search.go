@@ -8,26 +8,16 @@ import (
 
 // TransformationSearch struct for TransformationSearch.
 type TransformationSearch struct {
-	TransformationIDs []string `json:"transformationIDs,omitempty"`
-}
-
-type TransformationSearchOption func(f *TransformationSearch)
-
-func WithTransformationSearchTransformationIDs(val []string) TransformationSearchOption {
-	return func(f *TransformationSearch) {
-		f.TransformationIDs = val
-	}
+	TransformationIDs []string `json:"transformationIDs"`
 }
 
 // NewTransformationSearch instantiates a new TransformationSearch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationSearch(opts ...TransformationSearchOption) *TransformationSearch {
+func NewTransformationSearch(transformationIDs []string) *TransformationSearch {
 	this := &TransformationSearch{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.TransformationIDs = transformationIDs
 	return this
 }
 
@@ -36,34 +26,26 @@ func NewEmptyTransformationSearch() *TransformationSearch {
 	return &TransformationSearch{}
 }
 
-// GetTransformationIDs returns the TransformationIDs field value if set, zero value otherwise.
+// GetTransformationIDs returns the TransformationIDs field value.
 func (o *TransformationSearch) GetTransformationIDs() []string {
-	if o == nil || o.TransformationIDs == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.TransformationIDs
 }
 
-// GetTransformationIDsOk returns a tuple with the TransformationIDs field value if set, nil otherwise
+// GetTransformationIDsOk returns a tuple with the TransformationIDs field value
 // and a boolean to check if the value has been set.
 func (o *TransformationSearch) GetTransformationIDsOk() ([]string, bool) {
-	if o == nil || o.TransformationIDs == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.TransformationIDs, true
 }
 
-// HasTransformationIDs returns a boolean if a field has been set.
-func (o *TransformationSearch) HasTransformationIDs() bool {
-	if o != nil && o.TransformationIDs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTransformationIDs gets a reference to the given []string and assigns it to the TransformationIDs field.
+// SetTransformationIDs sets field value.
 func (o *TransformationSearch) SetTransformationIDs(v []string) *TransformationSearch {
 	o.TransformationIDs = v
 	return o
@@ -71,7 +53,7 @@ func (o *TransformationSearch) SetTransformationIDs(v []string) *TransformationS
 
 func (o TransformationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.TransformationIDs != nil {
+	if true {
 		toSerialize["transformationIDs"] = o.TransformationIDs
 	}
 	serialized, err := json.Marshal(toSerialize)
