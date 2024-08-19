@@ -9887,7 +9887,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 
 /*
 ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
-See https://api-clients-automation.netlify.app/docs/contributing/add-new-api-client#5-helpers for implementation details.
+See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers for implementation details.
 
 	@param indexName string - the index name to replace objects into.
 	@param objects []map[string]any - List of objects to replace.
