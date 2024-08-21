@@ -6874,7 +6874,7 @@ SaveObject calls the API and returns the raw response from it.
 - If a record with the specified object ID doesn't exist, a new record is added to your index.
 - If you add a record to an index that doesn't exist yet, a new index is created.
 
-To update _some_ attributes of a record, use the [`partial` operation](#tag/Records/operation/partial).
+To update _some_ attributes of a record, use the [`partial` operation](#tag/Records/operation/partialUpdateObject).
 To add, update, or replace multiple records, use the [`batch` operation](#tag/Records/operation/batch).
 
 	    Required API Key ACLs:
@@ -6933,7 +6933,7 @@ Adds a record to an index or replace it.
 - If a record with the specified object ID doesn't exist, a new record is added to your index.
 - If you add a record to an index that doesn't exist yet, a new index is created.
 
-To update _some_ attributes of a record, use the [`partial` operation](#tag/Records/operation/partial).
+To update _some_ attributes of a record, use the [`partial` operation](#tag/Records/operation/partialUpdateObject).
 To add, update, or replace multiple records, use the [`batch` operation](#tag/Records/operation/batch).
 
 Required API Key ACLs:
