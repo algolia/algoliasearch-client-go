@@ -32,25 +32,14 @@ func (dst *StatisticValue) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into Int32
 	err = newStrictDecoder(data).Decode(&dst.Int32)
 	if err == nil && validateStruct(dst.Int32) == nil {
-		jsonInt32, _ := json.Marshal(dst.Int32)
-		if string(jsonInt32) == "{}" { // empty struct
-			dst.Int32 = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Int32 = nil
 	}
-
 	// try to unmarshal data into MapmapOfStringint32
 	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringint32)
 	if err == nil && validateStruct(dst.MapmapOfStringint32) == nil {
-		jsonMapmapOfStringint32, _ := json.Marshal(dst.MapmapOfStringint32)
-		if string(jsonMapmapOfStringint32) == "{}" { // empty struct
-			dst.MapmapOfStringint32 = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringint32 = nil
 	}

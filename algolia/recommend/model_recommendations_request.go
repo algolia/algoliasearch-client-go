@@ -64,79 +64,44 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into BoughtTogetherQuery
 	err = newStrictDecoder(data).Decode(&dst.BoughtTogetherQuery)
 	if err == nil && validateStruct(dst.BoughtTogetherQuery) == nil {
-		jsonBoughtTogetherQuery, _ := json.Marshal(dst.BoughtTogetherQuery)
-		if string(jsonBoughtTogetherQuery) == "{}" { // empty struct
-			dst.BoughtTogetherQuery = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.BoughtTogetherQuery = nil
 	}
-
-	// try to unmarshal data into LookingSimilarQuery
-	err = newStrictDecoder(data).Decode(&dst.LookingSimilarQuery)
-	if err == nil && validateStruct(dst.LookingSimilarQuery) == nil {
-		jsonLookingSimilarQuery, _ := json.Marshal(dst.LookingSimilarQuery)
-		if string(jsonLookingSimilarQuery) == "{}" { // empty struct
-			dst.LookingSimilarQuery = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.LookingSimilarQuery = nil
-	}
-
-	// try to unmarshal data into RecommendedForYouQuery
-	err = newStrictDecoder(data).Decode(&dst.RecommendedForYouQuery)
-	if err == nil && validateStruct(dst.RecommendedForYouQuery) == nil {
-		jsonRecommendedForYouQuery, _ := json.Marshal(dst.RecommendedForYouQuery)
-		if string(jsonRecommendedForYouQuery) == "{}" { // empty struct
-			dst.RecommendedForYouQuery = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.RecommendedForYouQuery = nil
-	}
-
 	// try to unmarshal data into RelatedQuery
 	err = newStrictDecoder(data).Decode(&dst.RelatedQuery)
 	if err == nil && validateStruct(dst.RelatedQuery) == nil {
-		jsonRelatedQuery, _ := json.Marshal(dst.RelatedQuery)
-		if string(jsonRelatedQuery) == "{}" { // empty struct
-			dst.RelatedQuery = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.RelatedQuery = nil
 	}
-
-	// try to unmarshal data into TrendingFacetsQuery
-	err = newStrictDecoder(data).Decode(&dst.TrendingFacetsQuery)
-	if err == nil && validateStruct(dst.TrendingFacetsQuery) == nil {
-		jsonTrendingFacetsQuery, _ := json.Marshal(dst.TrendingFacetsQuery)
-		if string(jsonTrendingFacetsQuery) == "{}" { // empty struct
-			dst.TrendingFacetsQuery = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.TrendingFacetsQuery = nil
-	}
-
 	// try to unmarshal data into TrendingItemsQuery
 	err = newStrictDecoder(data).Decode(&dst.TrendingItemsQuery)
 	if err == nil && validateStruct(dst.TrendingItemsQuery) == nil {
-		jsonTrendingItemsQuery, _ := json.Marshal(dst.TrendingItemsQuery)
-		if string(jsonTrendingItemsQuery) == "{}" { // empty struct
-			dst.TrendingItemsQuery = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TrendingItemsQuery = nil
+	}
+	// try to unmarshal data into TrendingFacetsQuery
+	err = newStrictDecoder(data).Decode(&dst.TrendingFacetsQuery)
+	if err == nil && validateStruct(dst.TrendingFacetsQuery) == nil {
+		return nil // found the correct type
+	} else {
+		dst.TrendingFacetsQuery = nil
+	}
+	// try to unmarshal data into LookingSimilarQuery
+	err = newStrictDecoder(data).Decode(&dst.LookingSimilarQuery)
+	if err == nil && validateStruct(dst.LookingSimilarQuery) == nil {
+		return nil // found the correct type
+	} else {
+		dst.LookingSimilarQuery = nil
+	}
+	// try to unmarshal data into RecommendedForYouQuery
+	err = newStrictDecoder(data).Decode(&dst.RecommendedForYouQuery)
+	if err == nil && validateStruct(dst.RecommendedForYouQuery) == nil {
+		return nil // found the correct type
+	} else {
+		dst.RecommendedForYouQuery = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(RecommendationsRequest)")

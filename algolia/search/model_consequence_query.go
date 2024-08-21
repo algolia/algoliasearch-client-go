@@ -32,25 +32,14 @@ func (dst *ConsequenceQuery) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ConsequenceQueryObject
 	err = newStrictDecoder(data).Decode(&dst.ConsequenceQueryObject)
 	if err == nil && validateStruct(dst.ConsequenceQueryObject) == nil {
-		jsonConsequenceQueryObject, _ := json.Marshal(dst.ConsequenceQueryObject)
-		if string(jsonConsequenceQueryObject) == "{}" { // empty struct
-			dst.ConsequenceQueryObject = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ConsequenceQueryObject = nil
 	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}

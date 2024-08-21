@@ -29,30 +29,19 @@ func Int32AsBuiltInOperationValue(v int32) *BuiltInOperationValue {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *BuiltInOperationValue) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into Int32
-	err = newStrictDecoder(data).Decode(&dst.Int32)
-	if err == nil && validateStruct(dst.Int32) == nil {
-		jsonInt32, _ := json.Marshal(dst.Int32)
-		if string(jsonInt32) == "{}" { // empty struct
-			dst.Int32 = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.Int32 = nil
-	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
+	}
+	// try to unmarshal data into Int32
+	err = newStrictDecoder(data).Decode(&dst.Int32)
+	if err == nil && validateStruct(dst.Int32) == nil {
+		return nil // found the correct type
+	} else {
+		dst.Int32 = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(BuiltInOperationValue)")

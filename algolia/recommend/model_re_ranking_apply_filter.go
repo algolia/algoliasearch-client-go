@@ -32,25 +32,14 @@ func (dst *ReRankingApplyFilter) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfReRankingApplyFilter
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfReRankingApplyFilter)
 	if err == nil && validateStruct(dst.ArrayOfReRankingApplyFilter) == nil {
-		jsonArrayOfReRankingApplyFilter, _ := json.Marshal(dst.ArrayOfReRankingApplyFilter)
-		if string(jsonArrayOfReRankingApplyFilter) == "{}" { // empty struct
-			dst.ArrayOfReRankingApplyFilter = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfReRankingApplyFilter = nil
 	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}

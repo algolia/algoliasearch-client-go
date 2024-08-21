@@ -29,30 +29,19 @@ func TypoToleranceEnumAsTypoTolerance(v TypoToleranceEnum) *TypoTolerance {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TypoTolerance) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into TypoToleranceEnum
-	err = newStrictDecoder(data).Decode(&dst.TypoToleranceEnum)
-	if err == nil && validateStruct(dst.TypoToleranceEnum) == nil {
-		jsonTypoToleranceEnum, _ := json.Marshal(dst.TypoToleranceEnum)
-		if string(jsonTypoToleranceEnum) == "{}" { // empty struct
-			dst.TypoToleranceEnum = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.TypoToleranceEnum = nil
-	}
-
 	// try to unmarshal data into Bool
 	err = newStrictDecoder(data).Decode(&dst.Bool)
 	if err == nil && validateStruct(dst.Bool) == nil {
-		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
-			dst.Bool = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Bool = nil
+	}
+	// try to unmarshal data into TypoToleranceEnum
+	err = newStrictDecoder(data).Decode(&dst.TypoToleranceEnum)
+	if err == nil && validateStruct(dst.TypoToleranceEnum) == nil {
+		return nil // found the correct type
+	} else {
+		dst.TypoToleranceEnum = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(TypoTolerance)")

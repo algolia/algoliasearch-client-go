@@ -32,25 +32,14 @@ func (dst *RemoveStopWords) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfSupportedLanguage
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfSupportedLanguage)
 	if err == nil && validateStruct(dst.ArrayOfSupportedLanguage) == nil {
-		jsonArrayOfSupportedLanguage, _ := json.Marshal(dst.ArrayOfSupportedLanguage)
-		if string(jsonArrayOfSupportedLanguage) == "{}" { // empty struct
-			dst.ArrayOfSupportedLanguage = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfSupportedLanguage = nil
 	}
-
 	// try to unmarshal data into Bool
 	err = newStrictDecoder(data).Decode(&dst.Bool)
 	if err == nil && validateStruct(dst.Bool) == nil {
-		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
-			dst.Bool = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Bool = nil
 	}

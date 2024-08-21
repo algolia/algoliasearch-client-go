@@ -40,38 +40,21 @@ func (dst *GetTopSearchesResponse) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into TopSearchesResponse
 	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponse)
 	if err == nil && validateStruct(dst.TopSearchesResponse) == nil {
-		jsonTopSearchesResponse, _ := json.Marshal(dst.TopSearchesResponse)
-		if string(jsonTopSearchesResponse) == "{}" { // empty struct
-			dst.TopSearchesResponse = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponse = nil
 	}
-
 	// try to unmarshal data into TopSearchesResponseWithAnalytics
 	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponseWithAnalytics)
 	if err == nil && validateStruct(dst.TopSearchesResponseWithAnalytics) == nil {
-		jsonTopSearchesResponseWithAnalytics, _ := json.Marshal(dst.TopSearchesResponseWithAnalytics)
-		if string(jsonTopSearchesResponseWithAnalytics) == "{}" { // empty struct
-			dst.TopSearchesResponseWithAnalytics = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponseWithAnalytics = nil
 	}
-
 	// try to unmarshal data into TopSearchesResponseWithRevenueAnalytics
 	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponseWithRevenueAnalytics)
 	if err == nil && validateStruct(dst.TopSearchesResponseWithRevenueAnalytics) == nil {
-		jsonTopSearchesResponseWithRevenueAnalytics, _ := json.Marshal(dst.TopSearchesResponseWithRevenueAnalytics)
-		if string(jsonTopSearchesResponseWithRevenueAnalytics) == "{}" { // empty struct
-			dst.TopSearchesResponseWithRevenueAnalytics = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponseWithRevenueAnalytics = nil
 	}

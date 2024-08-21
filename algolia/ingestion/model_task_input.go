@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // TaskInput - Configuration of the task, depending on its type.
@@ -37,43 +39,33 @@ func ShopifyInputAsTaskInput(v *ShopifyInput) *TaskInput {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into DockerStreamsInput
-	err = newStrictDecoder(data).Decode(&dst.DockerStreamsInput)
-	if err == nil && validateStruct(dst.DockerStreamsInput) == nil {
-		jsonDockerStreamsInput, _ := json.Marshal(dst.DockerStreamsInput)
-		if string(jsonDockerStreamsInput) == "{}" { // empty struct
-			dst.DockerStreamsInput = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "mapping") {
+		// try to unmarshal data into StreamingInput
+		err = newStrictDecoder(data).Decode(&dst.StreamingInput)
+		if err == nil && validateStruct(dst.StreamingInput) == nil {
+			return nil // found the correct type
 		} else {
-			return nil
+			dst.StreamingInput = nil
 		}
-	} else {
-		dst.DockerStreamsInput = nil
 	}
-
+	if utils.HasKey(jsonDict, "streams") {
+		// try to unmarshal data into DockerStreamsInput
+		err = newStrictDecoder(data).Decode(&dst.DockerStreamsInput)
+		if err == nil && validateStruct(dst.DockerStreamsInput) == nil {
+			return nil // found the correct type
+		} else {
+			dst.DockerStreamsInput = nil
+		}
+	}
 	// try to unmarshal data into ShopifyInput
 	err = newStrictDecoder(data).Decode(&dst.ShopifyInput)
 	if err == nil && validateStruct(dst.ShopifyInput) == nil {
-		jsonShopifyInput, _ := json.Marshal(dst.ShopifyInput)
-		if string(jsonShopifyInput) == "{}" { // empty struct
-			dst.ShopifyInput = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ShopifyInput = nil
-	}
-
-	// try to unmarshal data into StreamingInput
-	err = newStrictDecoder(data).Decode(&dst.StreamingInput)
-	if err == nil && validateStruct(dst.StreamingInput) == nil {
-		jsonStreamingInput, _ := json.Marshal(dst.StreamingInput)
-		if string(jsonStreamingInput) == "{}" { // empty struct
-			dst.StreamingInput = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.StreamingInput = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(TaskInput)")

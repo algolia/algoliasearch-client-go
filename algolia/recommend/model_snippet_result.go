@@ -4,6 +4,8 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SnippetResult - struct for SnippetResult.
@@ -14,17 +16,17 @@ type SnippetResult struct {
 	MapmapOfStringSnippetResultOption *map[string]SnippetResultOption
 }
 
-// map[string]SnippetResultAsSnippetResult is a convenience function that returns map[string]SnippetResult wrapped in SnippetResult.
-func MapmapOfStringSnippetResultAsSnippetResult(v map[string]SnippetResult) *SnippetResult {
-	return &SnippetResult{
-		MapmapOfStringSnippetResult: &v,
-	}
-}
-
 // SnippetResultOptionAsSnippetResult is a convenience function that returns SnippetResultOption wrapped in SnippetResult.
 func SnippetResultOptionAsSnippetResult(v *SnippetResultOption) *SnippetResult {
 	return &SnippetResult{
 		SnippetResultOption: v,
+	}
+}
+
+// map[string]SnippetResultAsSnippetResult is a convenience function that returns map[string]SnippetResult wrapped in SnippetResult.
+func MapmapOfStringSnippetResultAsSnippetResult(v map[string]SnippetResult) *SnippetResult {
+	return &SnippetResult{
+		MapmapOfStringSnippetResult: &v,
 	}
 }
 
@@ -45,56 +47,38 @@ func ArrayOfSnippetResultOptionAsSnippetResult(v []SnippetResultOption) *Snippet
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into SnippetResultOption
-	err = newStrictDecoder(data).Decode(&dst.SnippetResultOption)
-	if err == nil && validateStruct(dst.SnippetResultOption) == nil {
-		jsonSnippetResultOption, _ := json.Marshal(dst.SnippetResultOption)
-		if string(jsonSnippetResultOption) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "matchLevel") {
+		// try to unmarshal data into SnippetResultOption
+		err = newStrictDecoder(data).Decode(&dst.SnippetResultOption)
+		if err == nil && validateStruct(dst.SnippetResultOption) == nil {
+			return nil // found the correct type
+		} else {
 			dst.SnippetResultOption = nil
-		} else {
-			return nil
 		}
-	} else {
-		dst.SnippetResultOption = nil
 	}
-
-	// try to unmarshal data into ArrayOfSnippetResultOption
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResultOption)
-	if err == nil && validateStruct(dst.ArrayOfSnippetResultOption) == nil {
-		jsonArrayOfSnippetResultOption, _ := json.Marshal(dst.ArrayOfSnippetResultOption)
-		if string(jsonArrayOfSnippetResultOption) == "{}" { // empty struct
-			dst.ArrayOfSnippetResultOption = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.ArrayOfSnippetResultOption = nil
-	}
-
 	// try to unmarshal data into MapmapOfStringSnippetResult
 	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResult)
 	if err == nil && validateStruct(dst.MapmapOfStringSnippetResult) == nil {
-		jsonMapmapOfStringSnippetResult, _ := json.Marshal(dst.MapmapOfStringSnippetResult)
-		if string(jsonMapmapOfStringSnippetResult) == "{}" { // empty struct
-			dst.MapmapOfStringSnippetResult = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringSnippetResult = nil
 	}
-
 	// try to unmarshal data into MapmapOfStringSnippetResultOption
 	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResultOption)
 	if err == nil && validateStruct(dst.MapmapOfStringSnippetResultOption) == nil {
-		jsonMapmapOfStringSnippetResultOption, _ := json.Marshal(dst.MapmapOfStringSnippetResultOption)
-		if string(jsonMapmapOfStringSnippetResultOption) == "{}" { // empty struct
-			dst.MapmapOfStringSnippetResultOption = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringSnippetResultOption = nil
+	}
+	// try to unmarshal data into ArrayOfSnippetResultOption
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResultOption)
+	if err == nil && validateStruct(dst.ArrayOfSnippetResultOption) == nil {
+		return nil // found the correct type
+	} else {
+		dst.ArrayOfSnippetResultOption = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(SnippetResult)")

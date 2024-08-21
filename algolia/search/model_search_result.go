@@ -4,19 +4,14 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchResult - struct for SearchResult.
 type SearchResult struct {
 	SearchForFacetValuesResponse *SearchForFacetValuesResponse
 	SearchResponse               *SearchResponse
-}
-
-// SearchResponseAsSearchResult is a convenience function that returns SearchResponse wrapped in SearchResult.
-func SearchResponseAsSearchResult(v *SearchResponse) *SearchResult {
-	return &SearchResult{
-		SearchResponse: v,
-	}
 }
 
 // SearchForFacetValuesResponseAsSearchResult is a convenience function that returns SearchForFacetValuesResponse wrapped in SearchResult.
@@ -26,53 +21,32 @@ func SearchForFacetValuesResponseAsSearchResult(v *SearchForFacetValuesResponse)
 	}
 }
 
+// SearchResponseAsSearchResult is a convenience function that returns SearchResponse wrapped in SearchResult.
+func SearchResponseAsSearchResult(v *SearchResponse) *SearchResult {
+	return &SearchResult{
+		SearchResponse: v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SearchResult) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SearchForFacetValuesResponse).")
-	}
-
-	// Hold the schema validity between checks
-	validSchemaForModel := true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'facetHits'
-		if _, ok := jsonDict["facetHits"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "facetHits") {
 		// try to unmarshal data into SearchForFacetValuesResponse
 		err = newStrictDecoder(data).Decode(&dst.SearchForFacetValuesResponse)
 		if err == nil && validateStruct(dst.SearchForFacetValuesResponse) == nil {
-			jsonSearchForFacetValuesResponse, _ := json.Marshal(dst.SearchForFacetValuesResponse)
-			if string(jsonSearchForFacetValuesResponse) == "{}" { // empty struct
-				dst.SearchForFacetValuesResponse = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.SearchForFacetValuesResponse = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
 	// try to unmarshal data into SearchResponse
 	err = newStrictDecoder(data).Decode(&dst.SearchResponse)
 	if err == nil && validateStruct(dst.SearchResponse) == nil {
-		jsonSearchResponse, _ := json.Marshal(dst.SearchResponse)
-		if string(jsonSearchResponse) == "{}" { // empty struct
-			dst.SearchResponse = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SearchResponse = nil
 	}

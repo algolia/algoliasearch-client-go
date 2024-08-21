@@ -48,53 +48,30 @@ func (dst *Trigger) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into OnDemandTrigger
 	err = newStrictDecoder(data).Decode(&dst.OnDemandTrigger)
 	if err == nil && validateStruct(dst.OnDemandTrigger) == nil {
-		jsonOnDemandTrigger, _ := json.Marshal(dst.OnDemandTrigger)
-		if string(jsonOnDemandTrigger) == "{}" { // empty struct
-			dst.OnDemandTrigger = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.OnDemandTrigger = nil
 	}
-
 	// try to unmarshal data into ScheduleTrigger
 	err = newStrictDecoder(data).Decode(&dst.ScheduleTrigger)
 	if err == nil && validateStruct(dst.ScheduleTrigger) == nil {
-		jsonScheduleTrigger, _ := json.Marshal(dst.ScheduleTrigger)
-		if string(jsonScheduleTrigger) == "{}" { // empty struct
-			dst.ScheduleTrigger = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ScheduleTrigger = nil
 	}
-
-	// try to unmarshal data into StreamingTrigger
-	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
-	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
-		jsonStreamingTrigger, _ := json.Marshal(dst.StreamingTrigger)
-		if string(jsonStreamingTrigger) == "{}" { // empty struct
-			dst.StreamingTrigger = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.StreamingTrigger = nil
-	}
-
 	// try to unmarshal data into SubscriptionTrigger
 	err = newStrictDecoder(data).Decode(&dst.SubscriptionTrigger)
 	if err == nil && validateStruct(dst.SubscriptionTrigger) == nil {
-		jsonSubscriptionTrigger, _ := json.Marshal(dst.SubscriptionTrigger)
-		if string(jsonSubscriptionTrigger) == "{}" { // empty struct
-			dst.SubscriptionTrigger = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SubscriptionTrigger = nil
+	}
+	// try to unmarshal data into StreamingTrigger
+	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
+	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+		return nil // found the correct type
+	} else {
+		dst.StreamingTrigger = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(Trigger)")

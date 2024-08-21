@@ -32,25 +32,14 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into RecommendHit
 	err = newStrictDecoder(data).Decode(&dst.RecommendHit)
 	if err == nil && validateStruct(dst.RecommendHit) == nil {
-		jsonRecommendHit, _ := json.Marshal(dst.RecommendHit)
-		if string(jsonRecommendHit) == "{}" { // empty struct
-			dst.RecommendHit = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.RecommendHit = nil
 	}
-
 	// try to unmarshal data into TrendingFacetHit
 	err = newStrictDecoder(data).Decode(&dst.TrendingFacetHit)
 	if err == nil && validateStruct(dst.TrendingFacetHit) == nil {
-		jsonTrendingFacetHit, _ := json.Marshal(dst.TrendingFacetHit)
-		if string(jsonTrendingFacetHit) == "{}" { // empty struct
-			dst.TrendingFacetHit = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TrendingFacetHit = nil
 	}

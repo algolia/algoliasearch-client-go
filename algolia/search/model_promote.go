@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Promote - struct for Promote.
@@ -29,30 +31,26 @@ func PromoteObjectIDAsPromote(v *PromoteObjectID) *Promote {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *Promote) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into PromoteObjectID
-	err = newStrictDecoder(data).Decode(&dst.PromoteObjectID)
-	if err == nil && validateStruct(dst.PromoteObjectID) == nil {
-		jsonPromoteObjectID, _ := json.Marshal(dst.PromoteObjectID)
-		if string(jsonPromoteObjectID) == "{}" { // empty struct
-			dst.PromoteObjectID = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "objectIDs") {
+		// try to unmarshal data into PromoteObjectIDs
+		err = newStrictDecoder(data).Decode(&dst.PromoteObjectIDs)
+		if err == nil && validateStruct(dst.PromoteObjectIDs) == nil {
+			return nil // found the correct type
 		} else {
-			return nil
-		}
-	} else {
-		dst.PromoteObjectID = nil
-	}
-
-	// try to unmarshal data into PromoteObjectIDs
-	err = newStrictDecoder(data).Decode(&dst.PromoteObjectIDs)
-	if err == nil && validateStruct(dst.PromoteObjectIDs) == nil {
-		jsonPromoteObjectIDs, _ := json.Marshal(dst.PromoteObjectIDs)
-		if string(jsonPromoteObjectIDs) == "{}" { // empty struct
 			dst.PromoteObjectIDs = nil
-		} else {
-			return nil
 		}
-	} else {
-		dst.PromoteObjectIDs = nil
+	}
+	if utils.HasKey(jsonDict, "objectID") {
+		// try to unmarshal data into PromoteObjectID
+		err = newStrictDecoder(data).Decode(&dst.PromoteObjectID)
+		if err == nil && validateStruct(dst.PromoteObjectID) == nil {
+			return nil // found the correct type
+		} else {
+			dst.PromoteObjectID = nil
+		}
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(Promote)")

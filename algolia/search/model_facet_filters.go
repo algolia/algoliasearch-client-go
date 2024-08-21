@@ -32,25 +32,14 @@ func (dst *FacetFilters) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfFacetFilters
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfFacetFilters)
 	if err == nil && validateStruct(dst.ArrayOfFacetFilters) == nil {
-		jsonArrayOfFacetFilters, _ := json.Marshal(dst.ArrayOfFacetFilters)
-		if string(jsonArrayOfFacetFilters) == "{}" { // empty struct
-			dst.ArrayOfFacetFilters = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfFacetFilters = nil
 	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}

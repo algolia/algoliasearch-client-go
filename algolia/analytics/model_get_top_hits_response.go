@@ -40,38 +40,21 @@ func (dst *GetTopHitsResponse) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into TopHitsResponse
 	err = newStrictDecoder(data).Decode(&dst.TopHitsResponse)
 	if err == nil && validateStruct(dst.TopHitsResponse) == nil {
-		jsonTopHitsResponse, _ := json.Marshal(dst.TopHitsResponse)
-		if string(jsonTopHitsResponse) == "{}" { // empty struct
-			dst.TopHitsResponse = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopHitsResponse = nil
 	}
-
 	// try to unmarshal data into TopHitsResponseWithAnalytics
 	err = newStrictDecoder(data).Decode(&dst.TopHitsResponseWithAnalytics)
 	if err == nil && validateStruct(dst.TopHitsResponseWithAnalytics) == nil {
-		jsonTopHitsResponseWithAnalytics, _ := json.Marshal(dst.TopHitsResponseWithAnalytics)
-		if string(jsonTopHitsResponseWithAnalytics) == "{}" { // empty struct
-			dst.TopHitsResponseWithAnalytics = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopHitsResponseWithAnalytics = nil
 	}
-
 	// try to unmarshal data into TopHitsResponseWithRevenueAnalytics
 	err = newStrictDecoder(data).Decode(&dst.TopHitsResponseWithRevenueAnalytics)
 	if err == nil && validateStruct(dst.TopHitsResponseWithRevenueAnalytics) == nil {
-		jsonTopHitsResponseWithRevenueAnalytics, _ := json.Marshal(dst.TopHitsResponseWithRevenueAnalytics)
-		if string(jsonTopHitsResponseWithRevenueAnalytics) == "{}" { // empty struct
-			dst.TopHitsResponseWithRevenueAnalytics = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.TopHitsResponseWithRevenueAnalytics = nil
 	}

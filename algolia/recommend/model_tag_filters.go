@@ -32,25 +32,14 @@ func (dst *TagFilters) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfTagFilters
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfTagFilters)
 	if err == nil && validateStruct(dst.ArrayOfTagFilters) == nil {
-		jsonArrayOfTagFilters, _ := json.Marshal(dst.ArrayOfTagFilters)
-		if string(jsonArrayOfTagFilters) == "{}" { // empty struct
-			dst.ArrayOfTagFilters = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfTagFilters = nil
 	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}

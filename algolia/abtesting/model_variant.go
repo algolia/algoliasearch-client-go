@@ -13,17 +13,17 @@ type Variant struct {
 	// Number of add-to-cart events for this variant.
 	AddToCartCount int32 `json:"addToCartCount"`
 	// [Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.
-	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
+	AddToCartRate utils.Nullable[float64] `json:"addToCartRate,omitempty"`
 	// [Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.
-	AverageClickPosition utils.Nullable[int32] `json:"averageClickPosition"`
+	AverageClickPosition utils.Nullable[int32] `json:"averageClickPosition,omitempty"`
 	// Number of click events for this variant.
 	ClickCount int32 `json:"clickCount"`
 	// [Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.
-	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
+	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate,omitempty"`
 	// Number of click events for this variant.
 	ConversionCount int32 `json:"conversionCount"`
 	// [Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.
-	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
+	ConversionRate utils.Nullable[float64] `json:"conversionRate,omitempty"`
 	// A/B test currencies.
 	Currencies *map[string]Currency `json:"currencies,omitempty"`
 	// Description for this variant.
@@ -38,7 +38,7 @@ type Variant struct {
 	// Number of purchase events for this variant.
 	PurchaseCount int32 `json:"purchaseCount"`
 	// [Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.
-	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
+	PurchaseRate utils.Nullable[float64] `json:"purchaseRate,omitempty"`
 	// Number of searches for this variant.
 	SearchCount utils.Nullable[int32] `json:"searchCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
@@ -52,6 +52,30 @@ type Variant struct {
 }
 
 type VariantOption func(f *Variant)
+
+func WithVariantAddToCartRate(val utils.Nullable[float64]) VariantOption {
+	return func(f *Variant) {
+		f.AddToCartRate = val
+	}
+}
+
+func WithVariantAverageClickPosition(val utils.Nullable[int32]) VariantOption {
+	return func(f *Variant) {
+		f.AverageClickPosition = val
+	}
+}
+
+func WithVariantClickThroughRate(val utils.Nullable[float64]) VariantOption {
+	return func(f *Variant) {
+		f.ClickThroughRate = val
+	}
+}
+
+func WithVariantConversionRate(val utils.Nullable[float64]) VariantOption {
+	return func(f *Variant) {
+		f.ConversionRate = val
+	}
+}
 
 func WithVariantCurrencies(val map[string]Currency) VariantOption {
 	return func(f *Variant) {
@@ -71,6 +95,12 @@ func WithVariantFilterEffects(val FilterEffects) VariantOption {
 	}
 }
 
+func WithVariantPurchaseRate(val utils.Nullable[float64]) VariantOption {
+	return func(f *Variant) {
+		f.PurchaseRate = val
+	}
+}
+
 func WithVariantTrackedSearchCount(val int32) VariantOption {
 	return func(f *Variant) {
 		f.TrackedSearchCount = &val
@@ -81,20 +111,15 @@ func WithVariantTrackedSearchCount(val int32) VariantOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, addToCartRate utils.Nullable[float64], averageClickPosition utils.Nullable[int32], clickCount int32, clickThroughRate utils.Nullable[float64], conversionCount int32, conversionRate utils.Nullable[float64], description string, index string, noResultCount utils.Nullable[int32], purchaseCount int32, purchaseRate utils.Nullable[float64], searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
+func NewVariant(addToCartCount int32, clickCount int32, conversionCount int32, description string, index string, noResultCount utils.Nullable[int32], purchaseCount int32, searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
-	this.AddToCartRate = addToCartRate
-	this.AverageClickPosition = averageClickPosition
 	this.ClickCount = clickCount
-	this.ClickThroughRate = clickThroughRate
 	this.ConversionCount = conversionCount
-	this.ConversionRate = conversionRate
 	this.Description = description
 	this.Index = index
 	this.NoResultCount = noResultCount
 	this.PurchaseCount = purchaseCount
-	this.PurchaseRate = purchaseRate
 	this.SearchCount = searchCount
 	this.TrafficPercentage = trafficPercentage
 	this.UserCount = userCount
@@ -135,18 +160,16 @@ func (o *Variant) SetAddToCartCount(v int32) *Variant {
 	return o
 }
 
-// GetAddToCartRate returns the AddToCartRate field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// GetAddToCartRate returns the AddToCartRate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Variant) GetAddToCartRate() float64 {
 	if o == nil || o.AddToCartRate.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.AddToCartRate.Get()
 }
 
-// GetAddToCartRateOk returns a tuple with the AddToCartRate field value
+// GetAddToCartRateOk returns a tuple with the AddToCartRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetAddToCartRateOk() (*float64, bool) {
@@ -156,24 +179,41 @@ func (o *Variant) GetAddToCartRateOk() (*float64, bool) {
 	return o.AddToCartRate.Get(), o.AddToCartRate.IsSet()
 }
 
-// SetAddToCartRate sets field value.
+// HasAddToCartRate returns a boolean if a field has been set.
+func (o *Variant) HasAddToCartRate() bool {
+	if o != nil && o.AddToCartRate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAddToCartRate gets a reference to the given utils.Nullable[float64] and assigns it to the AddToCartRate field.
 func (o *Variant) SetAddToCartRate(v float64) *Variant {
 	o.AddToCartRate.Set(&v)
 	return o
 }
 
-// GetAverageClickPosition returns the AverageClickPosition field value.
-// If the value is explicit nil, the zero value for int32 will be returned.
+// SetAddToCartRateNil sets the value for AddToCartRate to be an explicit nil.
+func (o *Variant) SetAddToCartRateNil() {
+	o.AddToCartRate.Set(nil)
+}
+
+// UnsetAddToCartRate ensures that no value is present for AddToCartRate, not even an explicit nil.
+func (o *Variant) UnsetAddToCartRate() {
+	o.AddToCartRate.Unset()
+}
+
+// GetAverageClickPosition returns the AverageClickPosition field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Variant) GetAverageClickPosition() int32 {
 	if o == nil || o.AverageClickPosition.Get() == nil {
 		var ret int32
 		return ret
 	}
-
 	return *o.AverageClickPosition.Get()
 }
 
-// GetAverageClickPositionOk returns a tuple with the AverageClickPosition field value
+// GetAverageClickPositionOk returns a tuple with the AverageClickPosition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetAverageClickPositionOk() (*int32, bool) {
@@ -183,10 +223,29 @@ func (o *Variant) GetAverageClickPositionOk() (*int32, bool) {
 	return o.AverageClickPosition.Get(), o.AverageClickPosition.IsSet()
 }
 
-// SetAverageClickPosition sets field value.
+// HasAverageClickPosition returns a boolean if a field has been set.
+func (o *Variant) HasAverageClickPosition() bool {
+	if o != nil && o.AverageClickPosition.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAverageClickPosition gets a reference to the given utils.Nullable[int32] and assigns it to the AverageClickPosition field.
 func (o *Variant) SetAverageClickPosition(v int32) *Variant {
 	o.AverageClickPosition.Set(&v)
 	return o
+}
+
+// SetAverageClickPositionNil sets the value for AverageClickPosition to be an explicit nil.
+func (o *Variant) SetAverageClickPositionNil() {
+	o.AverageClickPosition.Set(nil)
+}
+
+// UnsetAverageClickPosition ensures that no value is present for AverageClickPosition, not even an explicit nil.
+func (o *Variant) UnsetAverageClickPosition() {
+	o.AverageClickPosition.Unset()
 }
 
 // GetClickCount returns the ClickCount field value.
@@ -214,18 +273,16 @@ func (o *Variant) SetClickCount(v int32) *Variant {
 	return o
 }
 
-// GetClickThroughRate returns the ClickThroughRate field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// GetClickThroughRate returns the ClickThroughRate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Variant) GetClickThroughRate() float64 {
 	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.ClickThroughRate.Get()
 }
 
-// GetClickThroughRateOk returns a tuple with the ClickThroughRate field value
+// GetClickThroughRateOk returns a tuple with the ClickThroughRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetClickThroughRateOk() (*float64, bool) {
@@ -235,10 +292,29 @@ func (o *Variant) GetClickThroughRateOk() (*float64, bool) {
 	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
-// SetClickThroughRate sets field value.
+// HasClickThroughRate returns a boolean if a field has been set.
+func (o *Variant) HasClickThroughRate() bool {
+	if o != nil && o.ClickThroughRate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetClickThroughRate gets a reference to the given utils.Nullable[float64] and assigns it to the ClickThroughRate field.
 func (o *Variant) SetClickThroughRate(v float64) *Variant {
 	o.ClickThroughRate.Set(&v)
 	return o
+}
+
+// SetClickThroughRateNil sets the value for ClickThroughRate to be an explicit nil.
+func (o *Variant) SetClickThroughRateNil() {
+	o.ClickThroughRate.Set(nil)
+}
+
+// UnsetClickThroughRate ensures that no value is present for ClickThroughRate, not even an explicit nil.
+func (o *Variant) UnsetClickThroughRate() {
+	o.ClickThroughRate.Unset()
 }
 
 // GetConversionCount returns the ConversionCount field value.
@@ -266,18 +342,16 @@ func (o *Variant) SetConversionCount(v int32) *Variant {
 	return o
 }
 
-// GetConversionRate returns the ConversionRate field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// GetConversionRate returns the ConversionRate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Variant) GetConversionRate() float64 {
 	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.ConversionRate.Get()
 }
 
-// GetConversionRateOk returns a tuple with the ConversionRate field value
+// GetConversionRateOk returns a tuple with the ConversionRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetConversionRateOk() (*float64, bool) {
@@ -287,10 +361,29 @@ func (o *Variant) GetConversionRateOk() (*float64, bool) {
 	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
-// SetConversionRate sets field value.
+// HasConversionRate returns a boolean if a field has been set.
+func (o *Variant) HasConversionRate() bool {
+	if o != nil && o.ConversionRate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConversionRate gets a reference to the given utils.Nullable[float64] and assigns it to the ConversionRate field.
 func (o *Variant) SetConversionRate(v float64) *Variant {
 	o.ConversionRate.Set(&v)
 	return o
+}
+
+// SetConversionRateNil sets the value for ConversionRate to be an explicit nil.
+func (o *Variant) SetConversionRateNil() {
+	o.ConversionRate.Set(nil)
+}
+
+// UnsetConversionRate ensures that no value is present for ConversionRate, not even an explicit nil.
+func (o *Variant) UnsetConversionRate() {
+	o.ConversionRate.Unset()
 }
 
 // GetCurrencies returns the Currencies field value if set, zero value otherwise.
@@ -494,18 +587,16 @@ func (o *Variant) SetPurchaseCount(v int32) *Variant {
 	return o
 }
 
-// GetPurchaseRate returns the PurchaseRate field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// GetPurchaseRate returns the PurchaseRate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Variant) GetPurchaseRate() float64 {
 	if o == nil || o.PurchaseRate.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.PurchaseRate.Get()
 }
 
-// GetPurchaseRateOk returns a tuple with the PurchaseRate field value
+// GetPurchaseRateOk returns a tuple with the PurchaseRate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Variant) GetPurchaseRateOk() (*float64, bool) {
@@ -515,10 +606,29 @@ func (o *Variant) GetPurchaseRateOk() (*float64, bool) {
 	return o.PurchaseRate.Get(), o.PurchaseRate.IsSet()
 }
 
-// SetPurchaseRate sets field value.
+// HasPurchaseRate returns a boolean if a field has been set.
+func (o *Variant) HasPurchaseRate() bool {
+	if o != nil && o.PurchaseRate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPurchaseRate gets a reference to the given utils.Nullable[float64] and assigns it to the PurchaseRate field.
 func (o *Variant) SetPurchaseRate(v float64) *Variant {
 	o.PurchaseRate.Set(&v)
 	return o
+}
+
+// SetPurchaseRateNil sets the value for PurchaseRate to be an explicit nil.
+func (o *Variant) SetPurchaseRateNil() {
+	o.PurchaseRate.Set(nil)
+}
+
+// UnsetPurchaseRate ensures that no value is present for PurchaseRate, not even an explicit nil.
+func (o *Variant) UnsetPurchaseRate() {
+	o.PurchaseRate.Unset()
 }
 
 // GetSearchCount returns the SearchCount field value.
@@ -665,22 +775,22 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["addToCartCount"] = o.AddToCartCount
 	}
-	if true {
+	if o.AddToCartRate.IsSet() {
 		toSerialize["addToCartRate"] = o.AddToCartRate.Get()
 	}
-	if true {
+	if o.AverageClickPosition.IsSet() {
 		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
 	}
 	if true {
 		toSerialize["clickCount"] = o.ClickCount
 	}
-	if true {
+	if o.ClickThroughRate.IsSet() {
 		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
 	}
 	if true {
 		toSerialize["conversionCount"] = o.ConversionCount
 	}
-	if true {
+	if o.ConversionRate.IsSet() {
 		toSerialize["conversionRate"] = o.ConversionRate.Get()
 	}
 	if o.Currencies != nil {
@@ -704,7 +814,7 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["purchaseCount"] = o.PurchaseCount
 	}
-	if true {
+	if o.PurchaseRate.IsSet() {
 		toSerialize["purchaseRate"] = o.PurchaseRate.Get()
 	}
 	if true {

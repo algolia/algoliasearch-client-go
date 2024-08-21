@@ -4,6 +4,8 @@ package insights
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // EventsItems - struct for EventsItems.
@@ -22,13 +24,6 @@ type EventsItems struct {
 	ViewedObjectIDs                 *ViewedObjectIDs
 }
 
-// ClickedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ClickedObjectIDsAfterSearch wrapped in EventsItems.
-func ClickedObjectIDsAfterSearchAsEventsItems(v *ClickedObjectIDsAfterSearch) *EventsItems {
-	return &EventsItems{
-		ClickedObjectIDsAfterSearch: v,
-	}
-}
-
 // AddedToCartObjectIDsAfterSearchAsEventsItems is a convenience function that returns AddedToCartObjectIDsAfterSearch wrapped in EventsItems.
 func AddedToCartObjectIDsAfterSearchAsEventsItems(v *AddedToCartObjectIDsAfterSearch) *EventsItems {
 	return &EventsItems{
@@ -43,17 +38,10 @@ func PurchasedObjectIDsAfterSearchAsEventsItems(v *PurchasedObjectIDsAfterSearch
 	}
 }
 
-// ConvertedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ConvertedObjectIDsAfterSearch wrapped in EventsItems.
-func ConvertedObjectIDsAfterSearchAsEventsItems(v *ConvertedObjectIDsAfterSearch) *EventsItems {
+// ClickedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ClickedObjectIDsAfterSearch wrapped in EventsItems.
+func ClickedObjectIDsAfterSearchAsEventsItems(v *ClickedObjectIDsAfterSearch) *EventsItems {
 	return &EventsItems{
-		ConvertedObjectIDsAfterSearch: v,
-	}
-}
-
-// ClickedObjectIDsAsEventsItems is a convenience function that returns ClickedObjectIDs wrapped in EventsItems.
-func ClickedObjectIDsAsEventsItems(v *ClickedObjectIDs) *EventsItems {
-	return &EventsItems{
-		ClickedObjectIDs: v,
+		ClickedObjectIDsAfterSearch: v,
 	}
 }
 
@@ -68,6 +56,20 @@ func PurchasedObjectIDsAsEventsItems(v *PurchasedObjectIDs) *EventsItems {
 func AddedToCartObjectIDsAsEventsItems(v *AddedToCartObjectIDs) *EventsItems {
 	return &EventsItems{
 		AddedToCartObjectIDs: v,
+	}
+}
+
+// ConvertedObjectIDsAfterSearchAsEventsItems is a convenience function that returns ConvertedObjectIDsAfterSearch wrapped in EventsItems.
+func ConvertedObjectIDsAfterSearchAsEventsItems(v *ConvertedObjectIDsAfterSearch) *EventsItems {
+	return &EventsItems{
+		ConvertedObjectIDsAfterSearch: v,
+	}
+}
+
+// ClickedObjectIDsAsEventsItems is a convenience function that returns ClickedObjectIDs wrapped in EventsItems.
+func ClickedObjectIDsAsEventsItems(v *ClickedObjectIDs) *EventsItems {
+	return &EventsItems{
+		ClickedObjectIDs: v,
 	}
 }
 
@@ -109,476 +111,118 @@ func ViewedFiltersAsEventsItems(v *ViewedFilters) *EventsItems {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (AddedToCartObjectIDsAfterSearch).")
-	}
-
-	// Hold the schema validity between checks
-	validSchemaForModel := true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventSubtype'
-		if _, ok := jsonDict["eventSubtype"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'queryID'
-		if _, ok := jsonDict["queryID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into AddedToCartObjectIDsAfterSearch
 		err = newStrictDecoder(data).Decode(&dst.AddedToCartObjectIDsAfterSearch)
 		if err == nil && validateStruct(dst.AddedToCartObjectIDsAfterSearch) == nil {
-			jsonAddedToCartObjectIDsAfterSearch, _ := json.Marshal(dst.AddedToCartObjectIDsAfterSearch)
-			if string(jsonAddedToCartObjectIDsAfterSearch) == "{}" { // empty struct
-				dst.AddedToCartObjectIDsAfterSearch = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.AddedToCartObjectIDsAfterSearch = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventSubtype'
-		if _, ok := jsonDict["eventSubtype"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectData'
-		if _, ok := jsonDict["objectData"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") && utils.HasKey(jsonDict, "objectData") {
 		// try to unmarshal data into PurchasedObjectIDsAfterSearch
 		err = newStrictDecoder(data).Decode(&dst.PurchasedObjectIDsAfterSearch)
 		if err == nil && validateStruct(dst.PurchasedObjectIDsAfterSearch) == nil {
-			jsonPurchasedObjectIDsAfterSearch, _ := json.Marshal(dst.PurchasedObjectIDsAfterSearch)
-			if string(jsonPurchasedObjectIDsAfterSearch) == "{}" { // empty struct
-				dst.PurchasedObjectIDsAfterSearch = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.PurchasedObjectIDsAfterSearch = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventSubtype'
-		if _, ok := jsonDict["eventSubtype"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into AddedToCartObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.AddedToCartObjectIDs)
-		if err == nil && validateStruct(dst.AddedToCartObjectIDs) == nil {
-			jsonAddedToCartObjectIDs, _ := json.Marshal(dst.AddedToCartObjectIDs)
-			if string(jsonAddedToCartObjectIDs) == "{}" { // empty struct
-				dst.AddedToCartObjectIDs = nil
-			} else {
-				return nil
-			}
-		} else {
-			dst.AddedToCartObjectIDs = nil
-		}
-	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'positions'
-		if _, ok := jsonDict["positions"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'queryID'
-		if _, ok := jsonDict["queryID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "positions") && utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ClickedObjectIDsAfterSearch
 		err = newStrictDecoder(data).Decode(&dst.ClickedObjectIDsAfterSearch)
 		if err == nil && validateStruct(dst.ClickedObjectIDsAfterSearch) == nil {
-			jsonClickedObjectIDsAfterSearch, _ := json.Marshal(dst.ClickedObjectIDsAfterSearch)
-			if string(jsonClickedObjectIDsAfterSearch) == "{}" { // empty struct
-				dst.ClickedObjectIDsAfterSearch = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.ClickedObjectIDsAfterSearch = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventSubtype'
-		if _, ok := jsonDict["eventSubtype"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PurchasedObjectIDs
 		err = newStrictDecoder(data).Decode(&dst.PurchasedObjectIDs)
 		if err == nil && validateStruct(dst.PurchasedObjectIDs) == nil {
-			jsonPurchasedObjectIDs, _ := json.Marshal(dst.PurchasedObjectIDs)
-			if string(jsonPurchasedObjectIDs) == "{}" { // empty struct
-				dst.PurchasedObjectIDs = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.PurchasedObjectIDs = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'filters'
-		if _, ok := jsonDict["filters"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into ClickedFilters
-		err = newStrictDecoder(data).Decode(&dst.ClickedFilters)
-		if err == nil && validateStruct(dst.ClickedFilters) == nil {
-			jsonClickedFilters, _ := json.Marshal(dst.ClickedFilters)
-			if string(jsonClickedFilters) == "{}" { // empty struct
-				dst.ClickedFilters = nil
-			} else {
-				return nil
-			}
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
+		// try to unmarshal data into AddedToCartObjectIDs
+		err = newStrictDecoder(data).Decode(&dst.AddedToCartObjectIDs)
+		if err == nil && validateStruct(dst.AddedToCartObjectIDs) == nil {
+			return nil // found the correct type
 		} else {
-			dst.ClickedFilters = nil
+			dst.AddedToCartObjectIDs = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into ClickedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ClickedObjectIDs)
-		if err == nil && validateStruct(dst.ClickedObjectIDs) == nil {
-			jsonClickedObjectIDs, _ := json.Marshal(dst.ClickedObjectIDs)
-			if string(jsonClickedObjectIDs) == "{}" { // empty struct
-				dst.ClickedObjectIDs = nil
-			} else {
-				return nil
-			}
-		} else {
-			dst.ClickedObjectIDs = nil
-		}
-	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'filters'
-		if _, ok := jsonDict["filters"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into ConvertedFilters
-		err = newStrictDecoder(data).Decode(&dst.ConvertedFilters)
-		if err == nil && validateStruct(dst.ConvertedFilters) == nil {
-			jsonConvertedFilters, _ := json.Marshal(dst.ConvertedFilters)
-			if string(jsonConvertedFilters) == "{}" { // empty struct
-				dst.ConvertedFilters = nil
-			} else {
-				return nil
-			}
-		} else {
-			dst.ConvertedFilters = nil
-		}
-	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into ConvertedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ConvertedObjectIDs)
-		if err == nil && validateStruct(dst.ConvertedObjectIDs) == nil {
-			jsonConvertedObjectIDs, _ := json.Marshal(dst.ConvertedObjectIDs)
-			if string(jsonConvertedObjectIDs) == "{}" { // empty struct
-				dst.ConvertedObjectIDs = nil
-			} else {
-				return nil
-			}
-		} else {
-			dst.ConvertedObjectIDs = nil
-		}
-	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'queryID'
-		if _, ok := jsonDict["queryID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ConvertedObjectIDsAfterSearch
 		err = newStrictDecoder(data).Decode(&dst.ConvertedObjectIDsAfterSearch)
 		if err == nil && validateStruct(dst.ConvertedObjectIDsAfterSearch) == nil {
-			jsonConvertedObjectIDsAfterSearch, _ := json.Marshal(dst.ConvertedObjectIDsAfterSearch)
-			if string(jsonConvertedObjectIDsAfterSearch) == "{}" { // empty struct
-				dst.ConvertedObjectIDsAfterSearch = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.ConvertedObjectIDsAfterSearch = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
+		// try to unmarshal data into ClickedObjectIDs
+		err = newStrictDecoder(data).Decode(&dst.ClickedObjectIDs)
+		if err == nil && validateStruct(dst.ClickedObjectIDs) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ClickedObjectIDs = nil
 		}
 	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'filters'
-		if _, ok := jsonDict["filters"]; !ok {
-			validSchemaForModel = false
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
+		// try to unmarshal data into ConvertedObjectIDs
+		err = newStrictDecoder(data).Decode(&dst.ConvertedObjectIDs)
+		if err == nil && validateStruct(dst.ConvertedObjectIDs) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ConvertedObjectIDs = nil
 		}
 	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
+		// try to unmarshal data into ClickedFilters
+		err = newStrictDecoder(data).Decode(&dst.ClickedFilters)
+		if err == nil && validateStruct(dst.ClickedFilters) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ClickedFilters = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
+		// try to unmarshal data into ConvertedFilters
+		err = newStrictDecoder(data).Decode(&dst.ConvertedFilters)
+		if err == nil && validateStruct(dst.ConvertedFilters) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ConvertedFilters = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
+		// try to unmarshal data into ViewedObjectIDs
+		err = newStrictDecoder(data).Decode(&dst.ViewedObjectIDs)
+		if err == nil && validateStruct(dst.ViewedObjectIDs) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ViewedObjectIDs = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ViewedFilters
 		err = newStrictDecoder(data).Decode(&dst.ViewedFilters)
 		if err == nil && validateStruct(dst.ViewedFilters) == nil {
-			jsonViewedFilters, _ := json.Marshal(dst.ViewedFilters)
-			if string(jsonViewedFilters) == "{}" { // empty struct
-				dst.ViewedFilters = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.ViewedFilters = nil
 		}
 	}
 
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'eventType'
-		if _, ok := jsonDict["eventType"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'objectIDs'
-		if _, ok := jsonDict["objectIDs"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
-		// try to unmarshal data into ViewedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ViewedObjectIDs)
-		if err == nil && validateStruct(dst.ViewedObjectIDs) == nil {
-			jsonViewedObjectIDs, _ := json.Marshal(dst.ViewedObjectIDs)
-			if string(jsonViewedObjectIDs) == "{}" { // empty struct
-				dst.ViewedObjectIDs = nil
-			} else {
-				return nil
-			}
-		} else {
-			dst.ViewedObjectIDs = nil
-		}
-	}
 	return fmt.Errorf("Data failed to match schemas in oneOf(EventsItems)")
 }
 

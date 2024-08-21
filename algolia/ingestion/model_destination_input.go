@@ -24,12 +24,7 @@ func (dst *DestinationInput) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into DestinationIndexName
 	err = newStrictDecoder(data).Decode(&dst.DestinationIndexName)
 	if err == nil && validateStruct(dst.DestinationIndexName) == nil {
-		jsonDestinationIndexName, _ := json.Marshal(dst.DestinationIndexName)
-		if string(jsonDestinationIndexName) == "{}" { // empty struct
-			dst.DestinationIndexName = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.DestinationIndexName = nil
 	}

@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // TaskCreateTrigger - struct for TaskCreateTrigger.
@@ -14,17 +16,17 @@ type TaskCreateTrigger struct {
 	SubscriptionTrigger  *SubscriptionTrigger
 }
 
-// OnDemandTriggerInputAsTaskCreateTrigger is a convenience function that returns OnDemandTriggerInput wrapped in TaskCreateTrigger.
-func OnDemandTriggerInputAsTaskCreateTrigger(v *OnDemandTriggerInput) *TaskCreateTrigger {
-	return &TaskCreateTrigger{
-		OnDemandTriggerInput: v,
-	}
-}
-
 // ScheduleTriggerInputAsTaskCreateTrigger is a convenience function that returns ScheduleTriggerInput wrapped in TaskCreateTrigger.
 func ScheduleTriggerInputAsTaskCreateTrigger(v *ScheduleTriggerInput) *TaskCreateTrigger {
 	return &TaskCreateTrigger{
 		ScheduleTriggerInput: v,
+	}
+}
+
+// OnDemandTriggerInputAsTaskCreateTrigger is a convenience function that returns OnDemandTriggerInput wrapped in TaskCreateTrigger.
+func OnDemandTriggerInputAsTaskCreateTrigger(v *OnDemandTriggerInput) *TaskCreateTrigger {
+	return &TaskCreateTrigger{
+		OnDemandTriggerInput: v,
 	}
 }
 
@@ -45,56 +47,38 @@ func StreamingTriggerAsTaskCreateTrigger(v *StreamingTrigger) *TaskCreateTrigger
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 	var err error
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "cron") {
+		// try to unmarshal data into ScheduleTriggerInput
+		err = newStrictDecoder(data).Decode(&dst.ScheduleTriggerInput)
+		if err == nil && validateStruct(dst.ScheduleTriggerInput) == nil {
+			return nil // found the correct type
+		} else {
+			dst.ScheduleTriggerInput = nil
+		}
+	}
 	// try to unmarshal data into OnDemandTriggerInput
 	err = newStrictDecoder(data).Decode(&dst.OnDemandTriggerInput)
 	if err == nil && validateStruct(dst.OnDemandTriggerInput) == nil {
-		jsonOnDemandTriggerInput, _ := json.Marshal(dst.OnDemandTriggerInput)
-		if string(jsonOnDemandTriggerInput) == "{}" { // empty struct
-			dst.OnDemandTriggerInput = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.OnDemandTriggerInput = nil
 	}
-
-	// try to unmarshal data into ScheduleTriggerInput
-	err = newStrictDecoder(data).Decode(&dst.ScheduleTriggerInput)
-	if err == nil && validateStruct(dst.ScheduleTriggerInput) == nil {
-		jsonScheduleTriggerInput, _ := json.Marshal(dst.ScheduleTriggerInput)
-		if string(jsonScheduleTriggerInput) == "{}" { // empty struct
-			dst.ScheduleTriggerInput = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.ScheduleTriggerInput = nil
-	}
-
-	// try to unmarshal data into StreamingTrigger
-	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
-	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
-		jsonStreamingTrigger, _ := json.Marshal(dst.StreamingTrigger)
-		if string(jsonStreamingTrigger) == "{}" { // empty struct
-			dst.StreamingTrigger = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.StreamingTrigger = nil
-	}
-
 	// try to unmarshal data into SubscriptionTrigger
 	err = newStrictDecoder(data).Decode(&dst.SubscriptionTrigger)
 	if err == nil && validateStruct(dst.SubscriptionTrigger) == nil {
-		jsonSubscriptionTrigger, _ := json.Marshal(dst.SubscriptionTrigger)
-		if string(jsonSubscriptionTrigger) == "{}" { // empty struct
-			dst.SubscriptionTrigger = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SubscriptionTrigger = nil
+	}
+	// try to unmarshal data into StreamingTrigger
+	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
+	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+		return nil // found the correct type
+	} else {
+		dst.StreamingTrigger = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(TaskCreateTrigger)")

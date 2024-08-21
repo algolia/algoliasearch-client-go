@@ -12,11 +12,11 @@ import (
 type ABTest struct {
 	// Unique A/B test identifier.
 	AbTestID               int32                   `json:"abTestID"`
-	ClickSignificance      utils.Nullable[float64] `json:"clickSignificance"`
-	ConversionSignificance utils.Nullable[float64] `json:"conversionSignificance"`
-	AddToCartSignificance  utils.Nullable[float64] `json:"addToCartSignificance"`
-	PurchaseSignificance   utils.Nullable[float64] `json:"purchaseSignificance"`
-	RevenueSignificance    map[string]float64      `json:"revenueSignificance"`
+	ClickSignificance      utils.Nullable[float64] `json:"clickSignificance,omitempty"`
+	ConversionSignificance utils.Nullable[float64] `json:"conversionSignificance,omitempty"`
+	AddToCartSignificance  utils.Nullable[float64] `json:"addToCartSignificance,omitempty"`
+	PurchaseSignificance   utils.Nullable[float64] `json:"purchaseSignificance,omitempty"`
+	RevenueSignificance    map[string]float64      `json:"revenueSignificance,omitempty"`
 	// Date and time when the A/B test was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 	// Date and time when the A/B test was created, in RFC 3339 format.
@@ -33,6 +33,36 @@ type ABTest struct {
 
 type ABTestOption func(f *ABTest)
 
+func WithABTestClickSignificance(val utils.Nullable[float64]) ABTestOption {
+	return func(f *ABTest) {
+		f.ClickSignificance = val
+	}
+}
+
+func WithABTestConversionSignificance(val utils.Nullable[float64]) ABTestOption {
+	return func(f *ABTest) {
+		f.ConversionSignificance = val
+	}
+}
+
+func WithABTestAddToCartSignificance(val utils.Nullable[float64]) ABTestOption {
+	return func(f *ABTest) {
+		f.AddToCartSignificance = val
+	}
+}
+
+func WithABTestPurchaseSignificance(val utils.Nullable[float64]) ABTestOption {
+	return func(f *ABTest) {
+		f.PurchaseSignificance = val
+	}
+}
+
+func WithABTestRevenueSignificance(val map[string]float64) ABTestOption {
+	return func(f *ABTest) {
+		f.RevenueSignificance = val
+	}
+}
+
 func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 	return func(f *ABTest) {
 		f.Configuration = &val
@@ -43,14 +73,9 @@ func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, clickSignificance utils.Nullable[float64], conversionSignificance utils.Nullable[float64], addToCartSignificance utils.Nullable[float64], purchaseSignificance utils.Nullable[float64], revenueSignificance map[string]float64, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
+func NewABTest(abTestID int32, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
-	this.ClickSignificance = clickSignificance
-	this.ConversionSignificance = conversionSignificance
-	this.AddToCartSignificance = addToCartSignificance
-	this.PurchaseSignificance = purchaseSignificance
-	this.RevenueSignificance = revenueSignificance
 	this.UpdatedAt = updatedAt
 	this.CreatedAt = createdAt
 	this.EndAt = endAt
@@ -93,18 +118,16 @@ func (o *ABTest) SetAbTestID(v int32) *ABTest {
 	return o
 }
 
-// GetClickSignificance returns the ClickSignificance field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// GetClickSignificance returns the ClickSignificance field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ABTest) GetClickSignificance() float64 {
 	if o == nil || o.ClickSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.ClickSignificance.Get()
 }
 
-// GetClickSignificanceOk returns a tuple with the ClickSignificance field value
+// GetClickSignificanceOk returns a tuple with the ClickSignificance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetClickSignificanceOk() (*float64, bool) {
@@ -114,24 +137,41 @@ func (o *ABTest) GetClickSignificanceOk() (*float64, bool) {
 	return o.ClickSignificance.Get(), o.ClickSignificance.IsSet()
 }
 
-// SetClickSignificance sets field value.
+// HasClickSignificance returns a boolean if a field has been set.
+func (o *ABTest) HasClickSignificance() bool {
+	if o != nil && o.ClickSignificance.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetClickSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the ClickSignificance field.
 func (o *ABTest) SetClickSignificance(v float64) *ABTest {
 	o.ClickSignificance.Set(&v)
 	return o
 }
 
-// GetConversionSignificance returns the ConversionSignificance field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// SetClickSignificanceNil sets the value for ClickSignificance to be an explicit nil.
+func (o *ABTest) SetClickSignificanceNil() {
+	o.ClickSignificance.Set(nil)
+}
+
+// UnsetClickSignificance ensures that no value is present for ClickSignificance, not even an explicit nil.
+func (o *ABTest) UnsetClickSignificance() {
+	o.ClickSignificance.Unset()
+}
+
+// GetConversionSignificance returns the ConversionSignificance field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ABTest) GetConversionSignificance() float64 {
 	if o == nil || o.ConversionSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.ConversionSignificance.Get()
 }
 
-// GetConversionSignificanceOk returns a tuple with the ConversionSignificance field value
+// GetConversionSignificanceOk returns a tuple with the ConversionSignificance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetConversionSignificanceOk() (*float64, bool) {
@@ -141,24 +181,41 @@ func (o *ABTest) GetConversionSignificanceOk() (*float64, bool) {
 	return o.ConversionSignificance.Get(), o.ConversionSignificance.IsSet()
 }
 
-// SetConversionSignificance sets field value.
+// HasConversionSignificance returns a boolean if a field has been set.
+func (o *ABTest) HasConversionSignificance() bool {
+	if o != nil && o.ConversionSignificance.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConversionSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the ConversionSignificance field.
 func (o *ABTest) SetConversionSignificance(v float64) *ABTest {
 	o.ConversionSignificance.Set(&v)
 	return o
 }
 
-// GetAddToCartSignificance returns the AddToCartSignificance field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// SetConversionSignificanceNil sets the value for ConversionSignificance to be an explicit nil.
+func (o *ABTest) SetConversionSignificanceNil() {
+	o.ConversionSignificance.Set(nil)
+}
+
+// UnsetConversionSignificance ensures that no value is present for ConversionSignificance, not even an explicit nil.
+func (o *ABTest) UnsetConversionSignificance() {
+	o.ConversionSignificance.Unset()
+}
+
+// GetAddToCartSignificance returns the AddToCartSignificance field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ABTest) GetAddToCartSignificance() float64 {
 	if o == nil || o.AddToCartSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.AddToCartSignificance.Get()
 }
 
-// GetAddToCartSignificanceOk returns a tuple with the AddToCartSignificance field value
+// GetAddToCartSignificanceOk returns a tuple with the AddToCartSignificance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetAddToCartSignificanceOk() (*float64, bool) {
@@ -168,24 +225,41 @@ func (o *ABTest) GetAddToCartSignificanceOk() (*float64, bool) {
 	return o.AddToCartSignificance.Get(), o.AddToCartSignificance.IsSet()
 }
 
-// SetAddToCartSignificance sets field value.
+// HasAddToCartSignificance returns a boolean if a field has been set.
+func (o *ABTest) HasAddToCartSignificance() bool {
+	if o != nil && o.AddToCartSignificance.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAddToCartSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the AddToCartSignificance field.
 func (o *ABTest) SetAddToCartSignificance(v float64) *ABTest {
 	o.AddToCartSignificance.Set(&v)
 	return o
 }
 
-// GetPurchaseSignificance returns the PurchaseSignificance field value.
-// If the value is explicit nil, the zero value for float64 will be returned.
+// SetAddToCartSignificanceNil sets the value for AddToCartSignificance to be an explicit nil.
+func (o *ABTest) SetAddToCartSignificanceNil() {
+	o.AddToCartSignificance.Set(nil)
+}
+
+// UnsetAddToCartSignificance ensures that no value is present for AddToCartSignificance, not even an explicit nil.
+func (o *ABTest) UnsetAddToCartSignificance() {
+	o.AddToCartSignificance.Unset()
+}
+
+// GetPurchaseSignificance returns the PurchaseSignificance field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ABTest) GetPurchaseSignificance() float64 {
 	if o == nil || o.PurchaseSignificance.Get() == nil {
 		var ret float64
 		return ret
 	}
-
 	return *o.PurchaseSignificance.Get()
 }
 
-// GetPurchaseSignificanceOk returns a tuple with the PurchaseSignificance field value
+// GetPurchaseSignificanceOk returns a tuple with the PurchaseSignificance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetPurchaseSignificanceOk() (*float64, bool) {
@@ -195,24 +269,41 @@ func (o *ABTest) GetPurchaseSignificanceOk() (*float64, bool) {
 	return o.PurchaseSignificance.Get(), o.PurchaseSignificance.IsSet()
 }
 
-// SetPurchaseSignificance sets field value.
+// HasPurchaseSignificance returns a boolean if a field has been set.
+func (o *ABTest) HasPurchaseSignificance() bool {
+	if o != nil && o.PurchaseSignificance.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPurchaseSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the PurchaseSignificance field.
 func (o *ABTest) SetPurchaseSignificance(v float64) *ABTest {
 	o.PurchaseSignificance.Set(&v)
 	return o
 }
 
-// GetRevenueSignificance returns the RevenueSignificance field value.
-// If the value is explicit nil, the zero value for map[string]float64 will be returned.
+// SetPurchaseSignificanceNil sets the value for PurchaseSignificance to be an explicit nil.
+func (o *ABTest) SetPurchaseSignificanceNil() {
+	o.PurchaseSignificance.Set(nil)
+}
+
+// UnsetPurchaseSignificance ensures that no value is present for PurchaseSignificance, not even an explicit nil.
+func (o *ABTest) UnsetPurchaseSignificance() {
+	o.PurchaseSignificance.Unset()
+}
+
+// GetRevenueSignificance returns the RevenueSignificance field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ABTest) GetRevenueSignificance() map[string]float64 {
 	if o == nil {
 		var ret map[string]float64
 		return ret
 	}
-
 	return o.RevenueSignificance
 }
 
-// GetRevenueSignificanceOk returns a tuple with the RevenueSignificance field value
+// GetRevenueSignificanceOk returns a tuple with the RevenueSignificance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ABTest) GetRevenueSignificanceOk() (*map[string]float64, bool) {
@@ -222,7 +313,16 @@ func (o *ABTest) GetRevenueSignificanceOk() (*map[string]float64, bool) {
 	return &o.RevenueSignificance, true
 }
 
-// SetRevenueSignificance sets field value.
+// HasRevenueSignificance returns a boolean if a field has been set.
+func (o *ABTest) HasRevenueSignificance() bool {
+	if o != nil && o.RevenueSignificance != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRevenueSignificance gets a reference to the given map[string]float64 and assigns it to the RevenueSignificance field.
 func (o *ABTest) SetRevenueSignificance(v map[string]float64) *ABTest {
 	o.RevenueSignificance = v
 	return o
@@ -416,16 +516,16 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["abTestID"] = o.AbTestID
 	}
-	if true {
+	if o.ClickSignificance.IsSet() {
 		toSerialize["clickSignificance"] = o.ClickSignificance.Get()
 	}
-	if true {
+	if o.ConversionSignificance.IsSet() {
 		toSerialize["conversionSignificance"] = o.ConversionSignificance.Get()
 	}
-	if true {
+	if o.AddToCartSignificance.IsSet() {
 		toSerialize["addToCartSignificance"] = o.AddToCartSignificance.Get()
 	}
-	if true {
+	if o.PurchaseSignificance.IsSet() {
 		toSerialize["purchaseSignificance"] = o.PurchaseSignificance.Get()
 	}
 	if o.RevenueSignificance != nil {

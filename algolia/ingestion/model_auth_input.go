@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AuthInput - struct for AuthInput.
@@ -14,6 +16,13 @@ type AuthInput struct {
 	AuthBasic                *AuthBasic
 	AuthGoogleServiceAccount *AuthGoogleServiceAccount
 	AuthOAuth                *AuthOAuth
+}
+
+// AuthOAuthAsAuthInput is a convenience function that returns AuthOAuth wrapped in AuthInput.
+func AuthOAuthAsAuthInput(v *AuthOAuth) *AuthInput {
+	return &AuthInput{
+		AuthOAuth: v,
+	}
 }
 
 // AuthGoogleServiceAccountAsAuthInput is a convenience function that returns AuthGoogleServiceAccount wrapped in AuthInput.
@@ -37,13 +46,6 @@ func AuthAPIKeyAsAuthInput(v *AuthAPIKey) *AuthInput {
 	}
 }
 
-// AuthOAuthAsAuthInput is a convenience function that returns AuthOAuth wrapped in AuthInput.
-func AuthOAuthAsAuthInput(v *AuthOAuth) *AuthInput {
-	return &AuthInput{
-		AuthOAuth: v,
-	}
-}
-
 // AuthAlgoliaAsAuthInput is a convenience function that returns AuthAlgolia wrapped in AuthInput.
 func AuthAlgoliaAsAuthInput(v *AuthAlgolia) *AuthInput {
 	return &AuthInput{
@@ -61,82 +63,58 @@ func AuthAlgoliaInsightsAsAuthInput(v *AuthAlgoliaInsights) *AuthInput {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into AuthAPIKey
-	err = newStrictDecoder(data).Decode(&dst.AuthAPIKey)
-	if err == nil && validateStruct(dst.AuthAPIKey) == nil {
-		jsonAuthAPIKey, _ := json.Marshal(dst.AuthAPIKey)
-		if string(jsonAuthAPIKey) == "{}" { // empty struct
-			dst.AuthAPIKey = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") {
+		// try to unmarshal data into AuthOAuth
+		err = newStrictDecoder(data).Decode(&dst.AuthOAuth)
+		if err == nil && validateStruct(dst.AuthOAuth) == nil {
+			return nil // found the correct type
 		} else {
-			return nil
+			dst.AuthOAuth = nil
 		}
-	} else {
-		dst.AuthAPIKey = nil
 	}
-
+	if utils.HasKey(jsonDict, "clientEmail") && utils.HasKey(jsonDict, "privateKey") {
+		// try to unmarshal data into AuthGoogleServiceAccount
+		err = newStrictDecoder(data).Decode(&dst.AuthGoogleServiceAccount)
+		if err == nil && validateStruct(dst.AuthGoogleServiceAccount) == nil {
+			return nil // found the correct type
+		} else {
+			dst.AuthGoogleServiceAccount = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "username") && utils.HasKey(jsonDict, "password") {
+		// try to unmarshal data into AuthBasic
+		err = newStrictDecoder(data).Decode(&dst.AuthBasic)
+		if err == nil && validateStruct(dst.AuthBasic) == nil {
+			return nil // found the correct type
+		} else {
+			dst.AuthBasic = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "key") {
+		// try to unmarshal data into AuthAPIKey
+		err = newStrictDecoder(data).Decode(&dst.AuthAPIKey)
+		if err == nil && validateStruct(dst.AuthAPIKey) == nil {
+			return nil // found the correct type
+		} else {
+			dst.AuthAPIKey = nil
+		}
+	}
 	// try to unmarshal data into AuthAlgolia
 	err = newStrictDecoder(data).Decode(&dst.AuthAlgolia)
 	if err == nil && validateStruct(dst.AuthAlgolia) == nil {
-		jsonAuthAlgolia, _ := json.Marshal(dst.AuthAlgolia)
-		if string(jsonAuthAlgolia) == "{}" { // empty struct
-			dst.AuthAlgolia = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.AuthAlgolia = nil
 	}
-
 	// try to unmarshal data into AuthAlgoliaInsights
 	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsights)
 	if err == nil && validateStruct(dst.AuthAlgoliaInsights) == nil {
-		jsonAuthAlgoliaInsights, _ := json.Marshal(dst.AuthAlgoliaInsights)
-		if string(jsonAuthAlgoliaInsights) == "{}" { // empty struct
-			dst.AuthAlgoliaInsights = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.AuthAlgoliaInsights = nil
-	}
-
-	// try to unmarshal data into AuthBasic
-	err = newStrictDecoder(data).Decode(&dst.AuthBasic)
-	if err == nil && validateStruct(dst.AuthBasic) == nil {
-		jsonAuthBasic, _ := json.Marshal(dst.AuthBasic)
-		if string(jsonAuthBasic) == "{}" { // empty struct
-			dst.AuthBasic = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.AuthBasic = nil
-	}
-
-	// try to unmarshal data into AuthGoogleServiceAccount
-	err = newStrictDecoder(data).Decode(&dst.AuthGoogleServiceAccount)
-	if err == nil && validateStruct(dst.AuthGoogleServiceAccount) == nil {
-		jsonAuthGoogleServiceAccount, _ := json.Marshal(dst.AuthGoogleServiceAccount)
-		if string(jsonAuthGoogleServiceAccount) == "{}" { // empty struct
-			dst.AuthGoogleServiceAccount = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.AuthGoogleServiceAccount = nil
-	}
-
-	// try to unmarshal data into AuthOAuth
-	err = newStrictDecoder(data).Decode(&dst.AuthOAuth)
-	if err == nil && validateStruct(dst.AuthOAuth) == nil {
-		jsonAuthOAuth, _ := json.Marshal(dst.AuthOAuth)
-		if string(jsonAuthOAuth) == "{}" { // empty struct
-			dst.AuthOAuth = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.AuthOAuth = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInput)")

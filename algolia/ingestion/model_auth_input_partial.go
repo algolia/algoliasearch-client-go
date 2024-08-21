@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AuthInputPartial - struct for AuthInputPartial.
@@ -61,82 +63,58 @@ func AuthAlgoliaInsightsPartialAsAuthInputPartial(v *AuthAlgoliaInsightsPartial)
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into AuthAPIKeyPartial
-	err = newStrictDecoder(data).Decode(&dst.AuthAPIKeyPartial)
-	if err == nil && validateStruct(dst.AuthAPIKeyPartial) == nil {
-		jsonAuthAPIKeyPartial, _ := json.Marshal(dst.AuthAPIKeyPartial)
-		if string(jsonAuthAPIKeyPartial) == "{}" { // empty struct
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "clientEmail") {
+		// try to unmarshal data into AuthGoogleServiceAccountPartial
+		err = newStrictDecoder(data).Decode(&dst.AuthGoogleServiceAccountPartial)
+		if err == nil && validateStruct(dst.AuthGoogleServiceAccountPartial) == nil {
+			return nil // found the correct type
+		} else {
+			dst.AuthGoogleServiceAccountPartial = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "username") {
+		// try to unmarshal data into AuthBasicPartial
+		err = newStrictDecoder(data).Decode(&dst.AuthBasicPartial)
+		if err == nil && validateStruct(dst.AuthBasicPartial) == nil {
+			return nil // found the correct type
+		} else {
+			dst.AuthBasicPartial = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "key") {
+		// try to unmarshal data into AuthAPIKeyPartial
+		err = newStrictDecoder(data).Decode(&dst.AuthAPIKeyPartial)
+		if err == nil && validateStruct(dst.AuthAPIKeyPartial) == nil {
+			return nil // found the correct type
+		} else {
 			dst.AuthAPIKeyPartial = nil
-		} else {
-			return nil
 		}
-	} else {
-		dst.AuthAPIKeyPartial = nil
 	}
-
-	// try to unmarshal data into AuthAlgoliaInsightsPartial
-	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsightsPartial)
-	if err == nil && validateStruct(dst.AuthAlgoliaInsightsPartial) == nil {
-		jsonAuthAlgoliaInsightsPartial, _ := json.Marshal(dst.AuthAlgoliaInsightsPartial)
-		if string(jsonAuthAlgoliaInsightsPartial) == "{}" { // empty struct
-			dst.AuthAlgoliaInsightsPartial = nil
+	if utils.HasKey(jsonDict, "url") {
+		// try to unmarshal data into AuthOAuthPartial
+		err = newStrictDecoder(data).Decode(&dst.AuthOAuthPartial)
+		if err == nil && validateStruct(dst.AuthOAuthPartial) == nil {
+			return nil // found the correct type
 		} else {
-			return nil
+			dst.AuthOAuthPartial = nil
 		}
-	} else {
-		dst.AuthAlgoliaInsightsPartial = nil
 	}
-
 	// try to unmarshal data into AuthAlgoliaPartial
 	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaPartial)
 	if err == nil && validateStruct(dst.AuthAlgoliaPartial) == nil {
-		jsonAuthAlgoliaPartial, _ := json.Marshal(dst.AuthAlgoliaPartial)
-		if string(jsonAuthAlgoliaPartial) == "{}" { // empty struct
-			dst.AuthAlgoliaPartial = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.AuthAlgoliaPartial = nil
 	}
-
-	// try to unmarshal data into AuthBasicPartial
-	err = newStrictDecoder(data).Decode(&dst.AuthBasicPartial)
-	if err == nil && validateStruct(dst.AuthBasicPartial) == nil {
-		jsonAuthBasicPartial, _ := json.Marshal(dst.AuthBasicPartial)
-		if string(jsonAuthBasicPartial) == "{}" { // empty struct
-			dst.AuthBasicPartial = nil
-		} else {
-			return nil
-		}
+	// try to unmarshal data into AuthAlgoliaInsightsPartial
+	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsightsPartial)
+	if err == nil && validateStruct(dst.AuthAlgoliaInsightsPartial) == nil {
+		return nil // found the correct type
 	} else {
-		dst.AuthBasicPartial = nil
-	}
-
-	// try to unmarshal data into AuthGoogleServiceAccountPartial
-	err = newStrictDecoder(data).Decode(&dst.AuthGoogleServiceAccountPartial)
-	if err == nil && validateStruct(dst.AuthGoogleServiceAccountPartial) == nil {
-		jsonAuthGoogleServiceAccountPartial, _ := json.Marshal(dst.AuthGoogleServiceAccountPartial)
-		if string(jsonAuthGoogleServiceAccountPartial) == "{}" { // empty struct
-			dst.AuthGoogleServiceAccountPartial = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.AuthGoogleServiceAccountPartial = nil
-	}
-
-	// try to unmarshal data into AuthOAuthPartial
-	err = newStrictDecoder(data).Decode(&dst.AuthOAuthPartial)
-	if err == nil && validateStruct(dst.AuthOAuthPartial) == nil {
-		jsonAuthOAuthPartial, _ := json.Marshal(dst.AuthOAuthPartial)
-		if string(jsonAuthOAuthPartial) == "{}" { // empty struct
-			dst.AuthOAuthPartial = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.AuthOAuthPartial = nil
+		dst.AuthAlgoliaInsightsPartial = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInputPartial)")

@@ -32,25 +32,14 @@ func (dst *PlatformWithNone) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into Platform
 	err = newStrictDecoder(data).Decode(&dst.Platform)
 	if err == nil && validateStruct(dst.Platform) == nil {
-		jsonPlatform, _ := json.Marshal(dst.Platform)
-		if string(jsonPlatform) == "{}" { // empty struct
-			dst.Platform = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Platform = nil
 	}
-
 	// try to unmarshal data into PlatformNone
 	err = newStrictDecoder(data).Decode(&dst.PlatformNone)
 	if err == nil && validateStruct(dst.PlatformNone) == nil {
-		jsonPlatformNone, _ := json.Marshal(dst.PlatformNone)
-		if string(jsonPlatformNone) == "{}" { // empty struct
-			dst.PlatformNone = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.PlatformNone = nil
 	}

@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchParams - struct for SearchParams.
@@ -29,50 +31,22 @@ func SearchParamsObjectAsSearchParams(v *SearchParamsObject) *SearchParams {
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SearchParams) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SearchParamsString).")
-	}
-
-	// Hold the schema validity between checks
-	validSchemaForModel := true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'params'
-		if _, ok := jsonDict["params"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "params") {
 		// try to unmarshal data into SearchParamsString
 		err = newStrictDecoder(data).Decode(&dst.SearchParamsString)
 		if err == nil && validateStruct(dst.SearchParamsString) == nil {
-			jsonSearchParamsString, _ := json.Marshal(dst.SearchParamsString)
-			if string(jsonSearchParamsString) == "{}" { // empty struct
-				dst.SearchParamsString = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.SearchParamsString = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
 	// try to unmarshal data into SearchParamsObject
 	err = newStrictDecoder(data).Decode(&dst.SearchParamsObject)
 	if err == nil && validateStruct(dst.SearchParamsObject) == nil {
-		jsonSearchParamsObject, _ := json.Marshal(dst.SearchParamsObject)
-		if string(jsonSearchParamsObject) == "{}" { // empty struct
-			dst.SearchParamsObject = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SearchParamsObject = nil
 	}

@@ -32,25 +32,14 @@ func (dst *Languages) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfString
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfString)
 	if err == nil && validateStruct(dst.ArrayOfString) == nil {
-		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-		if string(jsonArrayOfString) == "{}" { // empty struct
-			dst.ArrayOfString = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfString = nil
 	}
-
 	// try to unmarshal data into Bool
 	err = newStrictDecoder(data).Decode(&dst.Bool)
 	if err == nil && validateStruct(dst.Bool) == nil {
-		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
-			dst.Bool = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Bool = nil
 	}

@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SourceUpdateInput - struct for SourceUpdateInput.
@@ -15,6 +17,27 @@ type SourceUpdateInput struct {
 	SourceUpdateCommercetools *SourceUpdateCommercetools
 	SourceUpdateDocker        *SourceUpdateDocker
 	SourceUpdateShopify       *SourceUpdateShopify
+}
+
+// SourceGA4BigQueryExportAsSourceUpdateInput is a convenience function that returns SourceGA4BigQueryExport wrapped in SourceUpdateInput.
+func SourceGA4BigQueryExportAsSourceUpdateInput(v *SourceGA4BigQueryExport) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceGA4BigQueryExport: v,
+	}
+}
+
+// SourceBigQueryAsSourceUpdateInput is a convenience function that returns SourceBigQuery wrapped in SourceUpdateInput.
+func SourceBigQueryAsSourceUpdateInput(v *SourceBigQuery) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceBigQuery: v,
+	}
+}
+
+// SourceUpdateDockerAsSourceUpdateInput is a convenience function that returns SourceUpdateDocker wrapped in SourceUpdateInput.
+func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceUpdateDocker: v,
+	}
 }
 
 // SourceUpdateCommercetoolsAsSourceUpdateInput is a convenience function that returns SourceUpdateCommercetools wrapped in SourceUpdateInput.
@@ -38,27 +61,6 @@ func SourceCSVAsSourceUpdateInput(v *SourceCSV) *SourceUpdateInput {
 	}
 }
 
-// SourceBigQueryAsSourceUpdateInput is a convenience function that returns SourceBigQuery wrapped in SourceUpdateInput.
-func SourceBigQueryAsSourceUpdateInput(v *SourceBigQuery) *SourceUpdateInput {
-	return &SourceUpdateInput{
-		SourceBigQuery: v,
-	}
-}
-
-// SourceGA4BigQueryExportAsSourceUpdateInput is a convenience function that returns SourceGA4BigQueryExport wrapped in SourceUpdateInput.
-func SourceGA4BigQueryExportAsSourceUpdateInput(v *SourceGA4BigQueryExport) *SourceUpdateInput {
-	return &SourceUpdateInput{
-		SourceGA4BigQueryExport: v,
-	}
-}
-
-// SourceUpdateDockerAsSourceUpdateInput is a convenience function that returns SourceUpdateDocker wrapped in SourceUpdateInput.
-func SourceUpdateDockerAsSourceUpdateInput(v *SourceUpdateDocker) *SourceUpdateInput {
-	return &SourceUpdateInput{
-		SourceUpdateDocker: v,
-	}
-}
-
 // SourceUpdateShopifyAsSourceUpdateInput is a convenience function that returns SourceUpdateShopify wrapped in SourceUpdateInput.
 func SourceUpdateShopifyAsSourceUpdateInput(v *SourceUpdateShopify) *SourceUpdateInput {
 	return &SourceUpdateInput{
@@ -69,144 +71,61 @@ func SourceUpdateShopifyAsSourceUpdateInput(v *SourceUpdateShopify) *SourceUpdat
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup (SourceGA4BigQueryExport).")
-	}
-
-	// Hold the schema validity between checks
-	validSchemaForModel := true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'projectID'
-		if _, ok := jsonDict["projectID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'datasetID'
-		if _, ok := jsonDict["datasetID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'tablePrefix'
-		if _, ok := jsonDict["tablePrefix"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
 		err = newStrictDecoder(data).Decode(&dst.SourceGA4BigQueryExport)
 		if err == nil && validateStruct(dst.SourceGA4BigQueryExport) == nil {
-			jsonSourceGA4BigQueryExport, _ := json.Marshal(dst.SourceGA4BigQueryExport)
-			if string(jsonSourceGA4BigQueryExport) == "{}" { // empty struct
-				dst.SourceGA4BigQueryExport = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.SourceGA4BigQueryExport = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-
-	// If the model wasn't discriminated yet, continue checking for other discriminating properties
-	if validSchemaForModel {
-		// Check if the model holds a property 'projectID'
-		if _, ok := jsonDict["projectID"]; !ok {
-			validSchemaForModel = false
-		}
-	}
-
-	if validSchemaForModel {
+	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
 		err = newStrictDecoder(data).Decode(&dst.SourceBigQuery)
 		if err == nil && validateStruct(dst.SourceBigQuery) == nil {
-			jsonSourceBigQuery, _ := json.Marshal(dst.SourceBigQuery)
-			if string(jsonSourceBigQuery) == "{}" { // empty struct
-				dst.SourceBigQuery = nil
-			} else {
-				return nil
-			}
+			return nil // found the correct type
 		} else {
 			dst.SourceBigQuery = nil
 		}
 	}
-
-	// Reset the schema validity for the next class check
-	validSchemaForModel = true
-	// try to unmarshal data into SourceCSV
-	err = newStrictDecoder(data).Decode(&dst.SourceCSV)
-	if err == nil && validateStruct(dst.SourceCSV) == nil {
-		jsonSourceCSV, _ := json.Marshal(dst.SourceCSV)
-		if string(jsonSourceCSV) == "{}" { // empty struct
-			dst.SourceCSV = nil
+	if utils.HasKey(jsonDict, "configuration") {
+		// try to unmarshal data into SourceUpdateDocker
+		err = newStrictDecoder(data).Decode(&dst.SourceUpdateDocker)
+		if err == nil && validateStruct(dst.SourceUpdateDocker) == nil {
+			return nil // found the correct type
 		} else {
-			return nil
+			dst.SourceUpdateDocker = nil
 		}
-	} else {
-		dst.SourceCSV = nil
 	}
-
-	// try to unmarshal data into SourceJSON
-	err = newStrictDecoder(data).Decode(&dst.SourceJSON)
-	if err == nil && validateStruct(dst.SourceJSON) == nil {
-		jsonSourceJSON, _ := json.Marshal(dst.SourceJSON)
-		if string(jsonSourceJSON) == "{}" { // empty struct
-			dst.SourceJSON = nil
-		} else {
-			return nil
-		}
-	} else {
-		dst.SourceJSON = nil
-	}
-
 	// try to unmarshal data into SourceUpdateCommercetools
 	err = newStrictDecoder(data).Decode(&dst.SourceUpdateCommercetools)
 	if err == nil && validateStruct(dst.SourceUpdateCommercetools) == nil {
-		jsonSourceUpdateCommercetools, _ := json.Marshal(dst.SourceUpdateCommercetools)
-		if string(jsonSourceUpdateCommercetools) == "{}" { // empty struct
-			dst.SourceUpdateCommercetools = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SourceUpdateCommercetools = nil
 	}
-
-	// try to unmarshal data into SourceUpdateDocker
-	err = newStrictDecoder(data).Decode(&dst.SourceUpdateDocker)
-	if err == nil && validateStruct(dst.SourceUpdateDocker) == nil {
-		jsonSourceUpdateDocker, _ := json.Marshal(dst.SourceUpdateDocker)
-		if string(jsonSourceUpdateDocker) == "{}" { // empty struct
-			dst.SourceUpdateDocker = nil
-		} else {
-			return nil
-		}
+	// try to unmarshal data into SourceJSON
+	err = newStrictDecoder(data).Decode(&dst.SourceJSON)
+	if err == nil && validateStruct(dst.SourceJSON) == nil {
+		return nil // found the correct type
 	} else {
-		dst.SourceUpdateDocker = nil
+		dst.SourceJSON = nil
 	}
-
+	// try to unmarshal data into SourceCSV
+	err = newStrictDecoder(data).Decode(&dst.SourceCSV)
+	if err == nil && validateStruct(dst.SourceCSV) == nil {
+		return nil // found the correct type
+	} else {
+		dst.SourceCSV = nil
+	}
 	// try to unmarshal data into SourceUpdateShopify
 	err = newStrictDecoder(data).Decode(&dst.SourceUpdateShopify)
 	if err == nil && validateStruct(dst.SourceUpdateShopify) == nil {
-		jsonSourceUpdateShopify, _ := json.Marshal(dst.SourceUpdateShopify)
-		if string(jsonSourceUpdateShopify) == "{}" { // empty struct
-			dst.SourceUpdateShopify = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.SourceUpdateShopify = nil
 	}

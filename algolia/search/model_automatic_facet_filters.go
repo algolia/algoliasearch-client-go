@@ -32,25 +32,14 @@ func (dst *AutomaticFacetFilters) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ArrayOfAutomaticFacetFilter
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfAutomaticFacetFilter)
 	if err == nil && validateStruct(dst.ArrayOfAutomaticFacetFilter) == nil {
-		jsonArrayOfAutomaticFacetFilter, _ := json.Marshal(dst.ArrayOfAutomaticFacetFilter)
-		if string(jsonArrayOfAutomaticFacetFilter) == "{}" { // empty struct
-			dst.ArrayOfAutomaticFacetFilter = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfAutomaticFacetFilter = nil
 	}
-
 	// try to unmarshal data into ArrayOfString
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfString)
 	if err == nil && validateStruct(dst.ArrayOfString) == nil {
-		jsonArrayOfString, _ := json.Marshal(dst.ArrayOfString)
-		if string(jsonArrayOfString) == "{}" { // empty struct
-			dst.ArrayOfString = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.ArrayOfString = nil
 	}

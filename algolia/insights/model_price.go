@@ -32,25 +32,14 @@ func (dst *Price) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into Float64
 	err = newStrictDecoder(data).Decode(&dst.Float64)
 	if err == nil && validateStruct(dst.Float64) == nil {
-		jsonFloat64, _ := json.Marshal(dst.Float64)
-		if string(jsonFloat64) == "{}" { // empty struct
-			dst.Float64 = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.Float64 = nil
 	}
-
 	// try to unmarshal data into String
 	err = newStrictDecoder(data).Decode(&dst.String)
 	if err == nil && validateStruct(dst.String) == nil {
-		jsonString, _ := json.Marshal(dst.String)
-		if string(jsonString) == "{}" { // empty struct
-			dst.String = nil
-		} else {
-			return nil
-		}
+		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}
