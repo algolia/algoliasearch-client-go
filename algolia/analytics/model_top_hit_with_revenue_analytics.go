@@ -33,14 +33,14 @@ type TopHitWithRevenueAnalytics struct {
 	// Number of purchase events from this search.
 	PurchaseCount int32 `json:"purchaseCount"`
 	// Revenue associated with this search, broken-down by currencies.
-	Currencies map[string]CurrenciesValue `json:"currencies"`
+	Currencies map[string]CurrencyCode `json:"currencies"`
 }
 
 // NewTopHitWithRevenueAnalytics instantiates a new TopHitWithRevenueAnalytics object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32, currencies map[string]CurrenciesValue) *TopHitWithRevenueAnalytics {
+func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32, currencies map[string]CurrencyCode) *TopHitWithRevenueAnalytics {
 	this := &TopHitWithRevenueAnalytics{}
 	this.Hit = hit
 	this.Count = count
@@ -346,9 +346,9 @@ func (o *TopHitWithRevenueAnalytics) SetPurchaseCount(v int32) *TopHitWithRevenu
 }
 
 // GetCurrencies returns the Currencies field value.
-func (o *TopHitWithRevenueAnalytics) GetCurrencies() map[string]CurrenciesValue {
+func (o *TopHitWithRevenueAnalytics) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
-		var ret map[string]CurrenciesValue
+		var ret map[string]CurrencyCode
 		return ret
 	}
 
@@ -357,7 +357,7 @@ func (o *TopHitWithRevenueAnalytics) GetCurrencies() map[string]CurrenciesValue 
 
 // GetCurrenciesOk returns a tuple with the Currencies field value
 // and a boolean to check if the value has been set.
-func (o *TopHitWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
+func (o *TopHitWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrencyCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -365,7 +365,7 @@ func (o *TopHitWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrenciesVa
 }
 
 // SetCurrencies sets field value.
-func (o *TopHitWithRevenueAnalytics) SetCurrencies(v map[string]CurrenciesValue) *TopHitWithRevenueAnalytics {
+func (o *TopHitWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode) *TopHitWithRevenueAnalytics {
 	o.Currencies = v
 	return o
 }

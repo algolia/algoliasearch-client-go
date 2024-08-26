@@ -29,7 +29,7 @@ type BrowseResponse struct {
 	// Facet counts.
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
-	FacetsStats *map[string]FacetsStats `json:"facets_stats,omitempty"`
+	FacetsStats *map[string]FacetStats `json:"facets_stats,omitempty"`
 	// Index name used for the query.
 	Index *string `json:"index,omitempty"`
 	// Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.
@@ -130,7 +130,7 @@ func WithBrowseResponseFacets(val map[string]map[string]int32) BrowseResponseOpt
 	}
 }
 
-func WithBrowseResponseFacetsStats(val map[string]FacetsStats) BrowseResponseOption {
+func WithBrowseResponseFacetsStats(val map[string]FacetStats) BrowseResponseOption {
 	return func(f *BrowseResponse) {
 		f.FacetsStats = &val
 	}
@@ -572,9 +572,9 @@ func (o *BrowseResponse) SetFacets(v map[string]map[string]int32) *BrowseRespons
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
-func (o *BrowseResponse) GetFacetsStats() map[string]FacetsStats {
+func (o *BrowseResponse) GetFacetsStats() map[string]FacetStats {
 	if o == nil || o.FacetsStats == nil {
-		var ret map[string]FacetsStats
+		var ret map[string]FacetStats
 		return ret
 	}
 	return *o.FacetsStats
@@ -582,7 +582,7 @@ func (o *BrowseResponse) GetFacetsStats() map[string]FacetsStats {
 
 // GetFacetsStatsOk returns a tuple with the FacetsStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BrowseResponse) GetFacetsStatsOk() (*map[string]FacetsStats, bool) {
+func (o *BrowseResponse) GetFacetsStatsOk() (*map[string]FacetStats, bool) {
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
@@ -598,8 +598,8 @@ func (o *BrowseResponse) HasFacetsStats() bool {
 	return false
 }
 
-// SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *BrowseResponse) SetFacetsStats(v map[string]FacetsStats) *BrowseResponse {
+// SetFacetsStats gets a reference to the given map[string]FacetStats and assigns it to the FacetsStats field.
+func (o *BrowseResponse) SetFacetsStats(v map[string]FacetStats) *BrowseResponse {
 	o.FacetsStats = &v
 	return o
 }

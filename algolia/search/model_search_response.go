@@ -29,7 +29,7 @@ type SearchResponse struct {
 	// Facet counts.
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
-	FacetsStats *map[string]FacetsStats `json:"facets_stats,omitempty"`
+	FacetsStats *map[string]FacetStats `json:"facets_stats,omitempty"`
 	// Index name used for the query.
 	Index *string `json:"index,omitempty"`
 	// Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.
@@ -131,7 +131,7 @@ func WithSearchResponseFacets(val map[string]map[string]int32) SearchResponseOpt
 	}
 }
 
-func WithSearchResponseFacetsStats(val map[string]FacetsStats) SearchResponseOption {
+func WithSearchResponseFacetsStats(val map[string]FacetStats) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.FacetsStats = &val
 	}
@@ -547,9 +547,9 @@ func (o *SearchResponse) SetFacets(v map[string]map[string]int32) *SearchRespons
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
-func (o *SearchResponse) GetFacetsStats() map[string]FacetsStats {
+func (o *SearchResponse) GetFacetsStats() map[string]FacetStats {
 	if o == nil || o.FacetsStats == nil {
-		var ret map[string]FacetsStats
+		var ret map[string]FacetStats
 		return ret
 	}
 	return *o.FacetsStats
@@ -557,7 +557,7 @@ func (o *SearchResponse) GetFacetsStats() map[string]FacetsStats {
 
 // GetFacetsStatsOk returns a tuple with the FacetsStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchResponse) GetFacetsStatsOk() (*map[string]FacetsStats, bool) {
+func (o *SearchResponse) GetFacetsStatsOk() (*map[string]FacetStats, bool) {
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
@@ -573,8 +573,8 @@ func (o *SearchResponse) HasFacetsStats() bool {
 	return false
 }
 
-// SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *SearchResponse) SetFacetsStats(v map[string]FacetsStats) *SearchResponse {
+// SetFacetsStats gets a reference to the given map[string]FacetStats and assigns it to the FacetsStats field.
+func (o *SearchResponse) SetFacetsStats(v map[string]FacetStats) *SearchResponse {
 	o.FacetsStats = &v
 	return o
 }

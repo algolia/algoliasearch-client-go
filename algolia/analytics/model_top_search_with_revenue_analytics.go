@@ -31,7 +31,7 @@ type TopSearchWithRevenueAnalytics struct {
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 	// Revenue associated with this search, broken-down by currencies.
-	Currencies map[string]CurrenciesValue `json:"currencies"`
+	Currencies map[string]CurrencyCode `json:"currencies"`
 	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// Number of add-to-cart events from this search.
@@ -46,7 +46,7 @@ type TopSearchWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPosition, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrenciesValue, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
+func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPosition, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrencyCode, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
 	this := &TopSearchWithRevenueAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -328,9 +328,9 @@ func (o *TopSearchWithRevenueAnalytics) SetNbHits(v int32) *TopSearchWithRevenue
 }
 
 // GetCurrencies returns the Currencies field value.
-func (o *TopSearchWithRevenueAnalytics) GetCurrencies() map[string]CurrenciesValue {
+func (o *TopSearchWithRevenueAnalytics) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
-		var ret map[string]CurrenciesValue
+		var ret map[string]CurrencyCode
 		return ret
 	}
 
@@ -339,7 +339,7 @@ func (o *TopSearchWithRevenueAnalytics) GetCurrencies() map[string]CurrenciesVal
 
 // GetCurrenciesOk returns a tuple with the Currencies field value
 // and a boolean to check if the value has been set.
-func (o *TopSearchWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
+func (o *TopSearchWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrencyCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -347,7 +347,7 @@ func (o *TopSearchWithRevenueAnalytics) GetCurrenciesOk() (*map[string]Currencie
 }
 
 // SetCurrencies sets field value.
-func (o *TopSearchWithRevenueAnalytics) SetCurrencies(v map[string]CurrenciesValue) *TopSearchWithRevenueAnalytics {
+func (o *TopSearchWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode) *TopSearchWithRevenueAnalytics {
 	o.Currencies = v
 	return o
 }

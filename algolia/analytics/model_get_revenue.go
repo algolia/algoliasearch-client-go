@@ -9,7 +9,7 @@ import (
 // GetRevenue struct for GetRevenue.
 type GetRevenue struct {
 	// Revenue associated with this search, broken-down by currencies.
-	Currencies map[string]CurrenciesValue `json:"currencies"`
+	Currencies map[string]CurrencyCode `json:"currencies"`
 	// Daily revenue.
 	Dates []DailyRevenue `json:"dates"`
 }
@@ -18,7 +18,7 @@ type GetRevenue struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetRevenue(currencies map[string]CurrenciesValue, dates []DailyRevenue) *GetRevenue {
+func NewGetRevenue(currencies map[string]CurrencyCode, dates []DailyRevenue) *GetRevenue {
 	this := &GetRevenue{}
 	this.Currencies = currencies
 	this.Dates = dates
@@ -31,9 +31,9 @@ func NewEmptyGetRevenue() *GetRevenue {
 }
 
 // GetCurrencies returns the Currencies field value.
-func (o *GetRevenue) GetCurrencies() map[string]CurrenciesValue {
+func (o *GetRevenue) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
-		var ret map[string]CurrenciesValue
+		var ret map[string]CurrencyCode
 		return ret
 	}
 
@@ -42,7 +42,7 @@ func (o *GetRevenue) GetCurrencies() map[string]CurrenciesValue {
 
 // GetCurrenciesOk returns a tuple with the Currencies field value
 // and a boolean to check if the value has been set.
-func (o *GetRevenue) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
+func (o *GetRevenue) GetCurrenciesOk() (*map[string]CurrencyCode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -50,7 +50,7 @@ func (o *GetRevenue) GetCurrenciesOk() (*map[string]CurrenciesValue, bool) {
 }
 
 // SetCurrencies sets field value.
-func (o *GetRevenue) SetCurrencies(v map[string]CurrenciesValue) *GetRevenue {
+func (o *GetRevenue) SetCurrencies(v map[string]CurrencyCode) *GetRevenue {
 	o.Currencies = v
 	return o
 }

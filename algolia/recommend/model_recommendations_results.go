@@ -29,7 +29,7 @@ type RecommendationsResults struct {
 	// Facet counts.
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
-	FacetsStats *map[string]FacetsStats `json:"facets_stats,omitempty"`
+	FacetsStats *map[string]FacetStats `json:"facets_stats,omitempty"`
 	// Index name used for the query.
 	Index *string `json:"index,omitempty"`
 	// Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.
@@ -123,7 +123,7 @@ func WithRecommendationsResultsFacets(val map[string]map[string]int32) Recommend
 	}
 }
 
-func WithRecommendationsResultsFacetsStats(val map[string]FacetsStats) RecommendationsResultsOption {
+func WithRecommendationsResultsFacetsStats(val map[string]FacetStats) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.FacetsStats = &val
 	}
@@ -537,9 +537,9 @@ func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) *Recom
 }
 
 // GetFacetsStats returns the FacetsStats field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetFacetsStats() map[string]FacetsStats {
+func (o *RecommendationsResults) GetFacetsStats() map[string]FacetStats {
 	if o == nil || o.FacetsStats == nil {
-		var ret map[string]FacetsStats
+		var ret map[string]FacetStats
 		return ret
 	}
 	return *o.FacetsStats
@@ -547,7 +547,7 @@ func (o *RecommendationsResults) GetFacetsStats() map[string]FacetsStats {
 
 // GetFacetsStatsOk returns a tuple with the FacetsStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetFacetsStatsOk() (*map[string]FacetsStats, bool) {
+func (o *RecommendationsResults) GetFacetsStatsOk() (*map[string]FacetStats, bool) {
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
@@ -563,8 +563,8 @@ func (o *RecommendationsResults) HasFacetsStats() bool {
 	return false
 }
 
-// SetFacetsStats gets a reference to the given map[string]FacetsStats and assigns it to the FacetsStats field.
-func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetsStats) *RecommendationsResults {
+// SetFacetsStats gets a reference to the given map[string]FacetStats and assigns it to the FacetsStats field.
+func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetStats) *RecommendationsResults {
 	o.FacetsStats = &v
 	return o
 }

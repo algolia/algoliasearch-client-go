@@ -6,47 +6,47 @@ import (
 	"fmt"
 )
 
-// CurrenciesValue Currency code.
-type CurrenciesValue struct {
+// CurrencyCode Currency code.
+type CurrencyCode struct {
 	// Currency code.
 	Currency *string `json:"currency,omitempty"`
 	// Revenue associated with this search in this currency.
 	Revenue *float32 `json:"revenue,omitempty"`
 }
 
-type CurrenciesValueOption func(f *CurrenciesValue)
+type CurrencyCodeOption func(f *CurrencyCode)
 
-func WithCurrenciesValueCurrency(val string) CurrenciesValueOption {
-	return func(f *CurrenciesValue) {
+func WithCurrencyCodeCurrency(val string) CurrencyCodeOption {
+	return func(f *CurrencyCode) {
 		f.Currency = &val
 	}
 }
 
-func WithCurrenciesValueRevenue(val float32) CurrenciesValueOption {
-	return func(f *CurrenciesValue) {
+func WithCurrencyCodeRevenue(val float32) CurrencyCodeOption {
+	return func(f *CurrencyCode) {
 		f.Revenue = &val
 	}
 }
 
-// NewCurrenciesValue instantiates a new CurrenciesValue object
+// NewCurrencyCode instantiates a new CurrencyCode object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCurrenciesValue(opts ...CurrenciesValueOption) *CurrenciesValue {
-	this := &CurrenciesValue{}
+func NewCurrencyCode(opts ...CurrencyCodeOption) *CurrencyCode {
+	this := &CurrencyCode{}
 	for _, opt := range opts {
 		opt(this)
 	}
 	return this
 }
 
-// NewEmptyCurrenciesValue return a pointer to an empty CurrenciesValue object.
-func NewEmptyCurrenciesValue() *CurrenciesValue {
-	return &CurrenciesValue{}
+// NewEmptyCurrencyCode return a pointer to an empty CurrencyCode object.
+func NewEmptyCurrencyCode() *CurrencyCode {
+	return &CurrencyCode{}
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *CurrenciesValue) GetCurrency() string {
+func (o *CurrencyCode) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		var ret string
 		return ret
@@ -56,7 +56,7 @@ func (o *CurrenciesValue) GetCurrency() string {
 
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CurrenciesValue) GetCurrencyOk() (*string, bool) {
+func (o *CurrencyCode) GetCurrencyOk() (*string, bool) {
 	if o == nil || o.Currency == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *CurrenciesValue) GetCurrencyOk() (*string, bool) {
 }
 
 // HasCurrency returns a boolean if a field has been set.
-func (o *CurrenciesValue) HasCurrency() bool {
+func (o *CurrencyCode) HasCurrency() bool {
 	if o != nil && o.Currency != nil {
 		return true
 	}
@@ -73,13 +73,13 @@ func (o *CurrenciesValue) HasCurrency() bool {
 }
 
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *CurrenciesValue) SetCurrency(v string) *CurrenciesValue {
+func (o *CurrencyCode) SetCurrency(v string) *CurrencyCode {
 	o.Currency = &v
 	return o
 }
 
 // GetRevenue returns the Revenue field value if set, zero value otherwise.
-func (o *CurrenciesValue) GetRevenue() float32 {
+func (o *CurrencyCode) GetRevenue() float32 {
 	if o == nil || o.Revenue == nil {
 		var ret float32
 		return ret
@@ -89,7 +89,7 @@ func (o *CurrenciesValue) GetRevenue() float32 {
 
 // GetRevenueOk returns a tuple with the Revenue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CurrenciesValue) GetRevenueOk() (*float32, bool) {
+func (o *CurrencyCode) GetRevenueOk() (*float32, bool) {
 	if o == nil || o.Revenue == nil {
 		return nil, false
 	}
@@ -97,7 +97,7 @@ func (o *CurrenciesValue) GetRevenueOk() (*float32, bool) {
 }
 
 // HasRevenue returns a boolean if a field has been set.
-func (o *CurrenciesValue) HasRevenue() bool {
+func (o *CurrencyCode) HasRevenue() bool {
 	if o != nil && o.Revenue != nil {
 		return true
 	}
@@ -106,12 +106,12 @@ func (o *CurrenciesValue) HasRevenue() bool {
 }
 
 // SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
-func (o *CurrenciesValue) SetRevenue(v float32) *CurrenciesValue {
+func (o *CurrencyCode) SetRevenue(v float32) *CurrencyCode {
 	o.Revenue = &v
 	return o
 }
 
-func (o CurrenciesValue) MarshalJSON() ([]byte, error) {
+func (o CurrencyCode) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
@@ -121,15 +121,15 @@ func (o CurrenciesValue) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal CurrenciesValue: %w", err)
+		return nil, fmt.Errorf("failed to marshal CurrencyCode: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o CurrenciesValue) String() string {
+func (o CurrencyCode) String() string {
 	out := ""
 	out += fmt.Sprintf("  currency=%v\n", o.Currency)
 	out += fmt.Sprintf("  revenue=%v\n", o.Revenue)
-	return fmt.Sprintf("CurrenciesValue {\n%s}", out)
+	return fmt.Sprintf("CurrencyCode {\n%s}", out)
 }
