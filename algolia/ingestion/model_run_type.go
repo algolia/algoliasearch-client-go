@@ -14,6 +14,8 @@ const (
 	RUN_TYPE_REINDEX  RunType = "reindex"
 	RUN_TYPE_UPDATE   RunType = "update"
 	RUN_TYPE_DISCOVER RunType = "discover"
+	RUN_TYPE_VALIDATE RunType = "validate"
+	RUN_TYPE_PUSH     RunType = "push"
 )
 
 // All allowed values of RunType enum.
@@ -21,6 +23,8 @@ var AllowedRunTypeEnumValues = []RunType{
 	"reindex",
 	"update",
 	"discover",
+	"validate",
+	"push",
 }
 
 func (v *RunType) UnmarshalJSON(src []byte) error {

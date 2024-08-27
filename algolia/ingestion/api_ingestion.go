@@ -4647,6 +4647,15 @@ func (r *ApiListRunsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
 	if v, ok := req["taskID"]; ok {
 		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
@@ -4701,6 +4710,7 @@ type ApiListRunsRequest struct {
 	itemsPerPage *int32
 	page         *int32
 	status       []RunStatus
+	type_        []RunType
 	taskID       *string
 	sort         RunSortKeys
 	order        OrderKeys
@@ -4728,6 +4738,12 @@ func (r ApiListRunsRequest) WithPage(page int32) ApiListRunsRequest {
 // WithStatus adds the status to the ApiListRunsRequest and returns the request for chaining.
 func (r ApiListRunsRequest) WithStatus(status []RunStatus) ApiListRunsRequest {
 	r.status = status
+	return r
+}
+
+// WithType adds the type_ to the ApiListRunsRequest and returns the request for chaining.
+func (r ApiListRunsRequest) WithType(type_ []RunType) ApiListRunsRequest {
+	r.type_ = type_
 	return r
 }
 
@@ -4775,6 +4791,7 @@ ListRuns calls the API and returns the raw response from it.
 	  @param itemsPerPage int32 - Number of items per page.
 	  @param page int32 - Page number of the paginated API response.
 	  @param status []RunStatus - Run status for filtering the list of task runs.
+	  @param type_ []RunType - Run type for filtering the list of task runs.
 	  @param taskID string - Task ID for filtering the list of task runs.
 	  @param sort RunSortKeys - Property by which to sort the list of task runs.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
@@ -4802,6 +4819,9 @@ func (c *APIClient) ListRunsWithHTTPInfo(r ApiListRunsRequest, opts ...RequestOp
 	}
 	if !utils.IsNilOrEmpty(r.status) {
 		conf.queryParams.Set("status", utils.QueryParameterToString(r.status))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
 	}
 	if !utils.IsNilOrEmpty(r.taskID) {
 		conf.queryParams.Set("taskID", utils.QueryParameterToString(*r.taskID))
@@ -4849,6 +4869,7 @@ Request can be constructed by NewApiListRunsRequest with parameters below.
 	@param itemsPerPage int32 - Number of items per page.
 	@param page int32 - Page number of the paginated API response.
 	@param status []RunStatus - Run status for filtering the list of task runs.
+	@param type_ []RunType - Run type for filtering the list of task runs.
 	@param taskID string - Task ID for filtering the list of task runs.
 	@param sort RunSortKeys - Property by which to sort the list of task runs.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
