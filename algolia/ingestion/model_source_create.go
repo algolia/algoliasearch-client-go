@@ -10,13 +10,19 @@ import (
 type SourceCreate struct {
 	Type SourceType `json:"type"`
 	// Descriptive name of the source.
-	Name  string      `json:"name"`
-	Input SourceInput `json:"input"`
+	Name  string       `json:"name"`
+	Input *SourceInput `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 
 type SourceCreateOption func(f *SourceCreate)
+
+func WithSourceCreateInput(val SourceInput) SourceCreateOption {
+	return func(f *SourceCreate) {
+		f.Input = &val
+	}
+}
 
 func WithSourceCreateAuthenticationID(val string) SourceCreateOption {
 	return func(f *SourceCreate) {
@@ -28,11 +34,10 @@ func WithSourceCreateAuthenticationID(val string) SourceCreateOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceCreate(type_ SourceType, name string, input SourceInput, opts ...SourceCreateOption) *SourceCreate {
+func NewSourceCreate(type_ SourceType, name string, opts ...SourceCreateOption) *SourceCreate {
 	this := &SourceCreate{}
 	this.Type = type_
 	this.Name = name
-	this.Input = input
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -94,28 +99,36 @@ func (o *SourceCreate) SetName(v string) *SourceCreate {
 	return o
 }
 
-// GetInput returns the Input field value.
+// GetInput returns the Input field value if set, zero value otherwise.
 func (o *SourceCreate) GetInput() SourceInput {
-	if o == nil {
+	if o == nil || o.Input == nil {
 		var ret SourceInput
 		return ret
 	}
-
-	return o.Input
+	return *o.Input
 }
 
-// GetInputOk returns a tuple with the Input field value
+// GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceCreate) GetInputOk() (*SourceInput, bool) {
-	if o == nil {
+	if o == nil || o.Input == nil {
 		return nil, false
 	}
-	return &o.Input, true
+	return o.Input, true
 }
 
-// SetInput sets field value.
+// HasInput returns a boolean if a field has been set.
+func (o *SourceCreate) HasInput() bool {
+	if o != nil && o.Input != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInput gets a reference to the given SourceInput and assigns it to the Input field.
 func (o *SourceCreate) SetInput(v *SourceInput) *SourceCreate {
-	o.Input = *v
+	o.Input = v
 	return o
 }
 
@@ -160,7 +173,7 @@ func (o SourceCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
+	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
 	if o.AuthenticationID != nil {

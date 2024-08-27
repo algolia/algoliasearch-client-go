@@ -20,6 +20,7 @@ const (
 	SOURCE_TYPE_JSON                SourceType = "json"
 	SOURCE_TYPE_SHOPIFY             SourceType = "shopify"
 	SOURCE_TYPE_SFCC                SourceType = "sfcc"
+	SOURCE_TYPE_PUSH                SourceType = "push"
 )
 
 // All allowed values of SourceType enum.
@@ -33,6 +34,7 @@ var AllowedSourceTypeEnumValues = []SourceType{
 	"json",
 	"shopify",
 	"sfcc",
+	"push",
 }
 
 func (v *SourceType) UnmarshalJSON(src []byte) error {
