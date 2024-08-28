@@ -6283,12 +6283,12 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 type ApiPartialUpdateObjectRequest struct {
 	indexName          string
 	objectID           string
-	attributesToUpdate map[string]AttributeToUpdate
+	attributesToUpdate map[string]any
 	createIfNotExists  *bool
 }
 
 // NewApiPartialUpdateObjectRequest creates an instance of the ApiPartialUpdateObjectRequest to be used for the API call.
-func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID string, attributesToUpdate map[string]AttributeToUpdate) ApiPartialUpdateObjectRequest {
+func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID string, attributesToUpdate map[string]any) ApiPartialUpdateObjectRequest {
 	return ApiPartialUpdateObjectRequest{
 		indexName:          indexName,
 		objectID:           objectID,
@@ -6309,25 +6309,37 @@ PartialUpdateObject calls the API and returns the raw response from it.
 
 	  - If a record with the specified object ID doesn't exist,
 	    a new record is added to the index **if** `createIfNotExists` is true.
-
 	  - If the index doesn't exist yet, this method creates a new index.
-
 	  - You can use any first-level attribute but not nested attributes.
 	    If you specify a nested attribute, the engine treats it as a replacement for its first-level ancestor.
 
+To update an attribute without pushing the entire record, you can use these built-in operations. These operations can be helpful if you don't have access to your initial data.
+
+- Increment: increment a numeric attribute
+- Decrement: decrement a numeric attribute
+- Add: append a number or string element to an array attribute
+- Remove: remove all matching number or string elements from an array attribute made of numbers or strings
+- AddUnique: add a number or string element to an array attribute made of numbers or strings only if it's not already present
+- IncrementFrom: increment a numeric integer attribute only if the provided value matches the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementFrom value of 2 for the version attribute, but the current value of the attribute is 1, the engine ignores the update. If the object doesn't exist, the engine only creates it if you pass an IncrementFrom value of 0.
+- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value that's greater than 0.
+
+You can specify an operation by providing an object with the attribute to update as the key and its value being an object with the following properties:
+
+- _operation: the operation to apply on the attribute
+- value: the right-hand side argument to the operation, for example, increment or decrement step, value to add or remove.
+
 	    Required API Key ACLs:
+	    - addObject
 
-	  - addObject
-
-	    Request can be constructed by NewApiPartialUpdateObjectRequest with parameters below.
-	    @param indexName string - Name of the index on which to perform the operation.
-	    @param objectID string - Unique record identifier.
-	    @param attributesToUpdate map[string]AttributeToUpdate - Attributes with their values.
-	    @param createIfNotExists bool - Whether to create a new record if it doesn't exist.
-	    @param opts ...RequestOption - Optional parameters for the API call
-	    @return *http.Response - The raw response from the API
-	    @return []byte - The raw response body from the API
-	    @return error - An error if the API call fails
+	Request can be constructed by NewApiPartialUpdateObjectRequest with parameters below.
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param objectID string - Unique record identifier.
+	  @param attributesToUpdate map[string]any - Attributes with their values.
+	  @param createIfNotExists bool - Whether to create a new record if it doesn't exist.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/{objectID}/partial"
@@ -6341,9 +6353,6 @@ func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequ
 		return nil, nil, reportError("Parameter `objectID` is required when calling `PartialUpdateObject`.")
 	}
 
-	if len(r.attributesToUpdate) == 0 {
-		return nil, nil, reportError("Parameter `attributesToUpdate` is required when calling `PartialUpdateObject`.")
-	}
 	if len(r.attributesToUpdate) == 0 {
 		return nil, nil, reportError("Parameter `attributesToUpdate` is required when calling `PartialUpdateObject`.")
 	}
@@ -6386,6 +6395,21 @@ Adds new attributes to a record, or update existing ones.
   - You can use any first-level attribute but not nested attributes.
     If you specify a nested attribute, the engine treats it as a replacement for its first-level ancestor.
 
+To update an attribute without pushing the entire record, you can use these built-in operations. These operations can be helpful if you don't have access to your initial data.
+
+- Increment: increment a numeric attribute
+- Decrement: decrement a numeric attribute
+- Add: append a number or string element to an array attribute
+- Remove: remove all matching number or string elements from an array attribute made of numbers or strings
+- AddUnique: add a number or string element to an array attribute made of numbers or strings only if it's not already present
+- IncrementFrom: increment a numeric integer attribute only if the provided value matches the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementFrom value of 2 for the version attribute, but the current value of the attribute is 1, the engine ignores the update. If the object doesn't exist, the engine only creates it if you pass an IncrementFrom value of 0.
+- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value that's greater than 0.
+
+You can specify an operation by providing an object with the attribute to update as the key and its value being an object with the following properties:
+
+- _operation: the operation to apply on the attribute
+- value: the right-hand side argument to the operation, for example, increment or decrement step, value to add or remove.
+
 Required API Key ACLs:
   - addObject
 
@@ -6393,7 +6417,7 @@ Request can be constructed by NewApiPartialUpdateObjectRequest with parameters b
 
 	@param indexName string - Name of the index on which to perform the operation.
 	@param objectID string - Unique record identifier.
-	@param attributesToUpdate map[string]AttributeToUpdate - Attributes with their values.
+	@param attributesToUpdate map[string]any - Attributes with their values.
 	@param createIfNotExists bool - Whether to create a new record if it doesn't exist.
 	@return UpdatedAtWithObjectIdResponse
 */
