@@ -1210,8 +1210,8 @@ func (o *BrowseResponse) GetHitsOk() ([]Hit, bool) {
 }
 
 // SetHits sets field value.
-func (o *BrowseResponse) SetHits(v *[]Hit) *BrowseResponse {
-	o.Hits = *v
+func (o *BrowseResponse) SetHits(v []Hit) *BrowseResponse {
+	o.Hits = v
 	return o
 }
 

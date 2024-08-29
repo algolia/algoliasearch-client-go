@@ -56,8 +56,8 @@ func (o *SearchDictionaryEntriesResponse) GetHitsOk() ([]DictionaryEntry, bool) 
 }
 
 // SetHits sets field value.
-func (o *SearchDictionaryEntriesResponse) SetHits(v *[]DictionaryEntry) *SearchDictionaryEntriesResponse {
-	o.Hits = *v
+func (o *SearchDictionaryEntriesResponse) SetHits(v []DictionaryEntry) *SearchDictionaryEntriesResponse {
+	o.Hits = v
 	return o
 }
 

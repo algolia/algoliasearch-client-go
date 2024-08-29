@@ -6040,18 +6040,18 @@ func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
-	if v, ok := req["batchWriteParams"]; ok {
-		err = json.Unmarshal(v, &r.batchWriteParams)
+	if v, ok := req["pushTaskPayload"]; ok {
+		err = json.Unmarshal(v, &r.pushTaskPayload)
 		if err != nil {
-			err = json.Unmarshal(b, &r.batchWriteParams)
+			err = json.Unmarshal(b, &r.pushTaskPayload)
 			if err != nil {
-				return fmt.Errorf("cannot unmarshal batchWriteParams: %w", err)
+				return fmt.Errorf("cannot unmarshal pushTaskPayload: %w", err)
 			}
 		}
 	} else {
-		err = json.Unmarshal(b, &r.batchWriteParams)
+		err = json.Unmarshal(b, &r.pushTaskPayload)
 		if err != nil {
-			return fmt.Errorf("cannot unmarshal body parameter batchWriteParams: %w", err)
+			return fmt.Errorf("cannot unmarshal body parameter pushTaskPayload: %w", err)
 		}
 	}
 
@@ -6060,15 +6060,15 @@ func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
 
 // ApiPushTaskRequest represents the request with all the parameters for the API call.
 type ApiPushTaskRequest struct {
-	taskID           string
-	batchWriteParams *BatchWriteParams
+	taskID          string
+	pushTaskPayload *PushTaskPayload
 }
 
 // NewApiPushTaskRequest creates an instance of the ApiPushTaskRequest to be used for the API call.
-func (c *APIClient) NewApiPushTaskRequest(taskID string, batchWriteParams *BatchWriteParams) ApiPushTaskRequest {
+func (c *APIClient) NewApiPushTaskRequest(taskID string, pushTaskPayload *PushTaskPayload) ApiPushTaskRequest {
 	return ApiPushTaskRequest{
-		taskID:           taskID,
-		batchWriteParams: batchWriteParams,
+		taskID:          taskID,
+		pushTaskPayload: pushTaskPayload,
 	}
 }
 
@@ -6084,7 +6084,7 @@ PushTask calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiPushTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
-	  @param batchWriteParams BatchWriteParams - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	  @param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -6098,8 +6098,8 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 		return nil, nil, reportError("Parameter `taskID` is required when calling `PushTask`.")
 	}
 
-	if r.batchWriteParams == nil {
-		return nil, nil, reportError("Parameter `batchWriteParams` is required when calling `PushTask`.")
+	if r.pushTaskPayload == nil {
+		return nil, nil, reportError("Parameter `pushTaskPayload` is required when calling `PushTask`.")
 	}
 
 	conf := config{
@@ -6116,7 +6116,7 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 	var postBody any
 
 	// body params
-	postBody = r.batchWriteParams
+	postBody = r.pushTaskPayload
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6138,7 +6138,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiPushTaskRequest with parameters below.
 
 	@param taskID string - Unique identifier of a task.
-	@param batchWriteParams BatchWriteParams - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	@param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
 	@return RunResponse
 */
 func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*RunResponse, error) {

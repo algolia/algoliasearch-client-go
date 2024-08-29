@@ -1153,8 +1153,8 @@ func (o *SearchResponse) GetHitsOk() ([]Hit, bool) {
 }
 
 // SetHits sets field value.
-func (o *SearchResponse) SetHits(v *[]Hit) *SearchResponse {
-	o.Hits = *v
+func (o *SearchResponse) SetHits(v []Hit) *SearchResponse {
+	o.Hits = v
 	return o
 }
 
