@@ -51,7 +51,7 @@ func NewClientWithConfig(cfg UsageConfiguration) (*APIClient, error) {
 		return nil, errors.New("`apiKey` is missing.")
 	}
 	if len(cfg.Hosts) == 0 {
-		cfg.Hosts = getDefaultHosts(cfg.AppID)
+		cfg.Hosts = getDefaultHosts()
 	}
 	if cfg.UserAgent == "" {
 		cfg.UserAgent = getUserAgent()
@@ -66,19 +66,11 @@ func NewClientWithConfig(cfg UsageConfiguration) (*APIClient, error) {
 	}, nil
 }
 
-func getDefaultHosts(appID string) []transport.StatefulHost {
-	hosts := []transport.StatefulHost{
-		transport.NewStatefulHost("https", appID+"-dsn.algolia.net", call.IsRead),
-		transport.NewStatefulHost("https", appID+".algolia.net", call.IsWrite),
+func getDefaultHosts() []transport.StatefulHost {
+	return []transport.StatefulHost{
+		transport.NewStatefulHost("https", "usage.algolia.com", call.IsReadWrite),
+		transport.NewStatefulHost("https", "usage-dev.algolia.com", call.IsReadWrite),
 	}
-	hosts = append(hosts, transport.Shuffle(
-		[]transport.StatefulHost{
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-1.algolianet.com", appID), call.IsReadWrite),
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-2.algolianet.com", appID), call.IsReadWrite),
-			transport.NewStatefulHost("https", fmt.Sprintf("%s-3.algolianet.com", appID), call.IsReadWrite),
-		},
-	)...)
-	return hosts
 }
 
 func getUserAgent() string {
