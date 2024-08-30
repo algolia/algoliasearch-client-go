@@ -8,6 +8,7 @@ import (
 
 // IgnorePlurals - Treat singular, plurals, and other forms of declensions as equivalent. You should only use this feature for the languages used in your index.
 type IgnorePlurals struct {
+	BooleanString            *BooleanString
 	ArrayOfSupportedLanguage *[]SupportedLanguage
 	Bool                     *bool
 }
@@ -16,6 +17,13 @@ type IgnorePlurals struct {
 func ArrayOfSupportedLanguageAsIgnorePlurals(v []SupportedLanguage) *IgnorePlurals {
 	return &IgnorePlurals{
 		ArrayOfSupportedLanguage: &v,
+	}
+}
+
+// BooleanStringAsIgnorePlurals is a convenience function that returns BooleanString wrapped in IgnorePlurals.
+func BooleanStringAsIgnorePlurals(v BooleanString) *IgnorePlurals {
+	return &IgnorePlurals{
+		BooleanString: &v,
 	}
 }
 
@@ -36,6 +44,13 @@ func (dst *IgnorePlurals) UnmarshalJSON(data []byte) error {
 	} else {
 		dst.ArrayOfSupportedLanguage = nil
 	}
+	// try to unmarshal data into BooleanString
+	err = newStrictDecoder(data).Decode(&dst.BooleanString)
+	if err == nil && validateStruct(dst.BooleanString) == nil {
+		return nil // found the correct type
+	} else {
+		dst.BooleanString = nil
+	}
 	// try to unmarshal data into Bool
 	err = newStrictDecoder(data).Decode(&dst.Bool)
 	if err == nil && validateStruct(dst.Bool) == nil {
@@ -49,6 +64,15 @@ func (dst *IgnorePlurals) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src IgnorePlurals) MarshalJSON() ([]byte, error) {
+	if src.BooleanString != nil {
+		serialized, err := json.Marshal(&src.BooleanString)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of BooleanString of IgnorePlurals: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.ArrayOfSupportedLanguage != nil {
 		serialized, err := json.Marshal(&src.ArrayOfSupportedLanguage)
 		if err != nil {
@@ -72,6 +96,10 @@ func (src IgnorePlurals) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj IgnorePlurals) GetActualInstance() any {
+	if obj.BooleanString != nil {
+		return *obj.BooleanString
+	}
+
 	if obj.ArrayOfSupportedLanguage != nil {
 		return *obj.ArrayOfSupportedLanguage
 	}
