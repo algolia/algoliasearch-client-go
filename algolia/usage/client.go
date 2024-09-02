@@ -69,7 +69,6 @@ func NewClientWithConfig(cfg UsageConfiguration) (*APIClient, error) {
 func getDefaultHosts() []transport.StatefulHost {
 	return []transport.StatefulHost{
 		transport.NewStatefulHost("https", "usage.algolia.com", call.IsReadWrite),
-		transport.NewStatefulHost("https", "usage-dev.algolia.com", call.IsReadWrite),
 	}
 }
 

@@ -833,7 +833,7 @@ DeleteConfig calls the API and returns the raw response from it.
 	Deletes a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
-To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
+To delete the Query Suggestions index itself, use the Search API and the `Delete an index` operation.
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -880,7 +880,7 @@ DeleteConfig casts the HTTP response body to a defined struct.
 Deletes a Query Suggestions configuration.
 
 Deleting only removes the configuration and stops updates to the Query Suggestions index.
-To delete the Query Suggestions index itself, use the Search API and the [Delete an index](/specs/search#tag/Indices/operation/deleteIndex) operation.
+To delete the Query Suggestions index itself, use the Search API and the `Delete an index` operation.
 
 Required API Key ACLs:
   - editSettings
