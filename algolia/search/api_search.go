@@ -9385,7 +9385,7 @@ func (c *APIClient) WaitForTask(
 	taskID int64,
 	opts ...IterableOption,
 ) (*GetTaskResponse, error) {
-	// provide a defalut timeout function
+	// provide a default timeout function
 	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
@@ -9419,7 +9419,7 @@ func (c *APIClient) WaitForAppTask(
 	taskID int64,
 	opts ...IterableOption,
 ) (*GetTaskResponse, error) {
-	// provide a defalut timeout function
+	// provide a default timeout function
 	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
@@ -9552,7 +9552,7 @@ func (c *APIClient) WaitForApiKey(
 		return nil, &errs.WaitKeyOperationError{}
 	}
 
-	// provide a defalut timeout function
+	// provide a default timeout function
 	opts = append([]WaitForApiKeyOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
