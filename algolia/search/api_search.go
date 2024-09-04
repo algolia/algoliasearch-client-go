@@ -9965,3 +9965,20 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		MoveOperationResponse: *moveResp,
 	}, nil
 }
+
+// Exists returns whether an initialized index exists or not, along with a nil
+// error. When encountering a network error, a non-nil error is returned along
+// with false.
+func (c *APIClient) IndexExists(indexName string) (bool, error) {
+	_, err := c.GetSettings(c.NewApiGetSettingsRequest(indexName))
+	if err == nil {
+		return true, nil
+	}
+
+	var apiErr *APIError
+	if errors.As(err, &apiErr) && apiErr.Status == http.StatusNotFound {
+		return false, nil
+	}
+
+	return false, err
+}
