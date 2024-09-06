@@ -102,6 +102,17 @@ func (c *APIClient) GetConfiguration() *MonitoringConfiguration {
 	return c.cfg
 }
 
+// Allow update of stored API key used to authenticate requests.
+func (c *APIClient) SetClientApiKey(apiKey string) error {
+	if c.cfg == nil {
+		return errors.New("client config is not set")
+	}
+
+	c.cfg.ApiKey = apiKey
+
+	return nil
+}
+
 // prepareRequest build the request.
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
