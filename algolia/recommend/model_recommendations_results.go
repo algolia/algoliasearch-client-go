@@ -56,6 +56,8 @@ type RecommendationsResults struct {
 	UserData map[string]any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string `json:"queryID,omitempty"`
+	// Whether automatic events collection is enabled for the application.
+	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`
 	// Page of search results to retrieve.
 	Page int32 `json:"page"`
 	// Number of results (hits).
@@ -204,6 +206,12 @@ func WithRecommendationsResultsUserData(val map[string]any) RecommendationsResul
 func WithRecommendationsResultsQueryID(val string) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.QueryID = &val
+	}
+}
+
+func WithRecommendationsResultsAutomaticInsights(val bool) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.AutomaticInsights = &val
 	}
 }
 
@@ -1023,6 +1031,39 @@ func (o *RecommendationsResults) SetQueryID(v string) *RecommendationsResults {
 	return o
 }
 
+// GetAutomaticInsights returns the AutomaticInsights field value if set, zero value otherwise.
+func (o *RecommendationsResults) GetAutomaticInsights() bool {
+	if o == nil || o.AutomaticInsights == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AutomaticInsights
+}
+
+// GetAutomaticInsightsOk returns a tuple with the AutomaticInsights field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendationsResults) GetAutomaticInsightsOk() (*bool, bool) {
+	if o == nil || o.AutomaticInsights == nil {
+		return nil, false
+	}
+	return o.AutomaticInsights, true
+}
+
+// HasAutomaticInsights returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasAutomaticInsights() bool {
+	if o != nil && o.AutomaticInsights != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutomaticInsights gets a reference to the given bool and assigns it to the AutomaticInsights field.
+func (o *RecommendationsResults) SetAutomaticInsights(v bool) *RecommendationsResults {
+	o.AutomaticInsights = &v
+	return o
+}
+
 // GetPage returns the Page field value.
 func (o *RecommendationsResults) GetPage() int32 {
 	if o == nil {
@@ -1222,6 +1263,9 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if o.QueryID != nil {
 		toSerialize["queryID"] = o.QueryID
 	}
+	if o.AutomaticInsights != nil {
+		toSerialize["_automaticInsights"] = o.AutomaticInsights
+	}
 	if true {
 		toSerialize["page"] = o.Page
 	}
@@ -1271,6 +1315,7 @@ func (o RecommendationsResults) String() string {
 	out += fmt.Sprintf("  serverUsed=%v\n", o.ServerUsed)
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
+	out += fmt.Sprintf("  _automaticInsights=%v\n", o.AutomaticInsights)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
