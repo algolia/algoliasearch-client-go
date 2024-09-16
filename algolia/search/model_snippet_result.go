@@ -10,10 +10,9 @@ import (
 
 // SnippetResult - struct for SnippetResult.
 type SnippetResult struct {
-	SnippetResultOption               *SnippetResultOption
-	ArrayOfSnippetResultOption        *[]SnippetResultOption
-	MapmapOfStringSnippetResult       *map[string]SnippetResult
-	MapmapOfStringSnippetResultOption *map[string]SnippetResultOption
+	SnippetResultOption         *SnippetResultOption
+	ArrayOfSnippetResult        *[]SnippetResult
+	MapmapOfStringSnippetResult *map[string]SnippetResult
 }
 
 // SnippetResultOptionAsSnippetResult is a convenience function that returns SnippetResultOption wrapped in SnippetResult.
@@ -30,17 +29,10 @@ func MapmapOfStringSnippetResultAsSnippetResult(v map[string]SnippetResult) *Sni
 	}
 }
 
-// map[string]SnippetResultOptionAsSnippetResult is a convenience function that returns map[string]SnippetResultOption wrapped in SnippetResult.
-func MapmapOfStringSnippetResultOptionAsSnippetResult(v map[string]SnippetResultOption) *SnippetResult {
+// []SnippetResultAsSnippetResult is a convenience function that returns []SnippetResult wrapped in SnippetResult.
+func ArrayOfSnippetResultAsSnippetResult(v []SnippetResult) *SnippetResult {
 	return &SnippetResult{
-		MapmapOfStringSnippetResultOption: &v,
-	}
-}
-
-// []SnippetResultOptionAsSnippetResult is a convenience function that returns []SnippetResultOption wrapped in SnippetResult.
-func ArrayOfSnippetResultOptionAsSnippetResult(v []SnippetResultOption) *SnippetResult {
-	return &SnippetResult{
-		ArrayOfSnippetResultOption: &v,
+		ArrayOfSnippetResult: &v,
 	}
 }
 
@@ -66,19 +58,12 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	} else {
 		dst.MapmapOfStringSnippetResult = nil
 	}
-	// try to unmarshal data into MapmapOfStringSnippetResultOption
-	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResultOption)
-	if err == nil && validateStruct(dst.MapmapOfStringSnippetResultOption) == nil {
+	// try to unmarshal data into ArrayOfSnippetResult
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResult)
+	if err == nil && validateStruct(dst.ArrayOfSnippetResult) == nil {
 		return nil // found the correct type
 	} else {
-		dst.MapmapOfStringSnippetResultOption = nil
-	}
-	// try to unmarshal data into ArrayOfSnippetResultOption
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResultOption)
-	if err == nil && validateStruct(dst.ArrayOfSnippetResultOption) == nil {
-		return nil // found the correct type
-	} else {
-		dst.ArrayOfSnippetResultOption = nil
+		dst.ArrayOfSnippetResult = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(SnippetResult)")
@@ -95,10 +80,10 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.ArrayOfSnippetResultOption != nil {
-		serialized, err := json.Marshal(&src.ArrayOfSnippetResultOption)
+	if src.ArrayOfSnippetResult != nil {
+		serialized, err := json.Marshal(&src.ArrayOfSnippetResult)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfSnippetResultOption of SnippetResult: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfSnippetResult of SnippetResult: %w", err)
 		}
 
 		return serialized, nil
@@ -113,15 +98,6 @@ func (src SnippetResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.MapmapOfStringSnippetResultOption != nil {
-		serialized, err := json.Marshal(&src.MapmapOfStringSnippetResultOption)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringSnippetResultOption of SnippetResult: %w", err)
-		}
-
-		return serialized, nil
-	}
-
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -131,16 +107,12 @@ func (obj SnippetResult) GetActualInstance() any {
 		return *obj.SnippetResultOption
 	}
 
-	if obj.ArrayOfSnippetResultOption != nil {
-		return *obj.ArrayOfSnippetResultOption
+	if obj.ArrayOfSnippetResult != nil {
+		return *obj.ArrayOfSnippetResult
 	}
 
 	if obj.MapmapOfStringSnippetResult != nil {
 		return *obj.MapmapOfStringSnippetResult
-	}
-
-	if obj.MapmapOfStringSnippetResultOption != nil {
-		return *obj.MapmapOfStringSnippetResultOption
 	}
 
 	// all schemas are nil

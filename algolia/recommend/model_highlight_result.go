@@ -10,10 +10,9 @@ import (
 
 // HighlightResult - struct for HighlightResult.
 type HighlightResult struct {
-	HighlightResultOption               *HighlightResultOption
-	ArrayOfHighlightResultOption        *[]HighlightResultOption
-	MapmapOfStringHighlightResult       *map[string]HighlightResult
-	MapmapOfStringHighlightResultOption *map[string]HighlightResultOption
+	HighlightResultOption         *HighlightResultOption
+	ArrayOfHighlightResult        *[]HighlightResult
+	MapmapOfStringHighlightResult *map[string]HighlightResult
 }
 
 // HighlightResultOptionAsHighlightResult is a convenience function that returns HighlightResultOption wrapped in HighlightResult.
@@ -30,17 +29,10 @@ func MapmapOfStringHighlightResultAsHighlightResult(v map[string]HighlightResult
 	}
 }
 
-// map[string]HighlightResultOptionAsHighlightResult is a convenience function that returns map[string]HighlightResultOption wrapped in HighlightResult.
-func MapmapOfStringHighlightResultOptionAsHighlightResult(v map[string]HighlightResultOption) *HighlightResult {
+// []HighlightResultAsHighlightResult is a convenience function that returns []HighlightResult wrapped in HighlightResult.
+func ArrayOfHighlightResultAsHighlightResult(v []HighlightResult) *HighlightResult {
 	return &HighlightResult{
-		MapmapOfStringHighlightResultOption: &v,
-	}
-}
-
-// []HighlightResultOptionAsHighlightResult is a convenience function that returns []HighlightResultOption wrapped in HighlightResult.
-func ArrayOfHighlightResultOptionAsHighlightResult(v []HighlightResultOption) *HighlightResult {
-	return &HighlightResult{
-		ArrayOfHighlightResultOption: &v,
+		ArrayOfHighlightResult: &v,
 	}
 }
 
@@ -66,19 +58,12 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 	} else {
 		dst.MapmapOfStringHighlightResult = nil
 	}
-	// try to unmarshal data into MapmapOfStringHighlightResultOption
-	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringHighlightResultOption)
-	if err == nil && validateStruct(dst.MapmapOfStringHighlightResultOption) == nil {
+	// try to unmarshal data into ArrayOfHighlightResult
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfHighlightResult)
+	if err == nil && validateStruct(dst.ArrayOfHighlightResult) == nil {
 		return nil // found the correct type
 	} else {
-		dst.MapmapOfStringHighlightResultOption = nil
-	}
-	// try to unmarshal data into ArrayOfHighlightResultOption
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfHighlightResultOption)
-	if err == nil && validateStruct(dst.ArrayOfHighlightResultOption) == nil {
-		return nil // found the correct type
-	} else {
-		dst.ArrayOfHighlightResultOption = nil
+		dst.ArrayOfHighlightResult = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(HighlightResult)")
@@ -95,10 +80,10 @@ func (src HighlightResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.ArrayOfHighlightResultOption != nil {
-		serialized, err := json.Marshal(&src.ArrayOfHighlightResultOption)
+	if src.ArrayOfHighlightResult != nil {
+		serialized, err := json.Marshal(&src.ArrayOfHighlightResult)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfHighlightResultOption of HighlightResult: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of ArrayOfHighlightResult of HighlightResult: %w", err)
 		}
 
 		return serialized, nil
@@ -113,15 +98,6 @@ func (src HighlightResult) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.MapmapOfStringHighlightResultOption != nil {
-		serialized, err := json.Marshal(&src.MapmapOfStringHighlightResultOption)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringHighlightResultOption of HighlightResult: %w", err)
-		}
-
-		return serialized, nil
-	}
-
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -131,16 +107,12 @@ func (obj HighlightResult) GetActualInstance() any {
 		return *obj.HighlightResultOption
 	}
 
-	if obj.ArrayOfHighlightResultOption != nil {
-		return *obj.ArrayOfHighlightResultOption
+	if obj.ArrayOfHighlightResult != nil {
+		return *obj.ArrayOfHighlightResult
 	}
 
 	if obj.MapmapOfStringHighlightResult != nil {
 		return *obj.MapmapOfStringHighlightResult
-	}
-
-	if obj.MapmapOfStringHighlightResultOption != nil {
-		return *obj.MapmapOfStringHighlightResultOption
 	}
 
 	// all schemas are nil

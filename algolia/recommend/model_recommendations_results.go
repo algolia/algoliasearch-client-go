@@ -59,13 +59,13 @@ type RecommendationsResults struct {
 	// Whether automatic events collection is enabled for the application.
 	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`
 	// Page of search results to retrieve.
-	Page int32 `json:"page"`
+	Page *int32 `json:"page,omitempty"`
 	// Number of results (hits).
-	NbHits int32 `json:"nbHits"`
+	NbHits *int32 `json:"nbHits,omitempty"`
 	// Number of pages of results.
-	NbPages int32 `json:"nbPages"`
+	NbPages *int32 `json:"nbPages,omitempty"`
 	// Number of hits per page.
-	HitsPerPage int32                `json:"hitsPerPage"`
+	HitsPerPage *int32               `json:"hitsPerPage,omitempty"`
 	Hits        []RecommendationsHit `json:"hits"`
 }
 
@@ -215,17 +215,37 @@ func WithRecommendationsResultsAutomaticInsights(val bool) RecommendationsResult
 	}
 }
 
+func WithRecommendationsResultsPage(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.Page = &val
+	}
+}
+
+func WithRecommendationsResultsNbHits(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.NbHits = &val
+	}
+}
+
+func WithRecommendationsResultsNbPages(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.NbPages = &val
+	}
+}
+
+func WithRecommendationsResultsHitsPerPage(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.HitsPerPage = &val
+	}
+}
+
 // NewRecommendationsResults instantiates a new RecommendationsResults object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendationsResults(processingTimeMS int32, page int32, nbHits int32, nbPages int32, hitsPerPage int32, hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
+func NewRecommendationsResults(processingTimeMS int32, hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
 	this := &RecommendationsResults{}
 	this.ProcessingTimeMS = processingTimeMS
-	this.Page = page
-	this.NbHits = nbHits
-	this.NbPages = nbPages
-	this.HitsPerPage = hitsPerPage
 	this.Hits = hits
 	for _, opt := range opts {
 		opt(this)
@@ -1064,103 +1084,135 @@ func (o *RecommendationsResults) SetAutomaticInsights(v bool) *RecommendationsRe
 	return o
 }
 
-// GetPage returns the Page field value.
+// GetPage returns the Page field value if set, zero value otherwise.
 func (o *RecommendationsResults) GetPage() int32 {
-	if o == nil {
+	if o == nil || o.Page == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.Page
+	return *o.Page
 }
 
-// GetPageOk returns a tuple with the Page field value
+// GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendationsResults) GetPageOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.Page == nil {
 		return nil, false
 	}
-	return &o.Page, true
+	return o.Page, true
 }
 
-// SetPage sets field value.
+// HasPage returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasPage() bool {
+	if o != nil && o.Page != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *RecommendationsResults) SetPage(v int32) *RecommendationsResults {
-	o.Page = v
+	o.Page = &v
 	return o
 }
 
-// GetNbHits returns the NbHits field value.
+// GetNbHits returns the NbHits field value if set, zero value otherwise.
 func (o *RecommendationsResults) GetNbHits() int32 {
-	if o == nil {
+	if o == nil || o.NbHits == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.NbHits
+	return *o.NbHits
 }
 
-// GetNbHitsOk returns a tuple with the NbHits field value
+// GetNbHitsOk returns a tuple with the NbHits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendationsResults) GetNbHitsOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.NbHits == nil {
 		return nil, false
 	}
-	return &o.NbHits, true
+	return o.NbHits, true
 }
 
-// SetNbHits sets field value.
+// HasNbHits returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasNbHits() bool {
+	if o != nil && o.NbHits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNbHits gets a reference to the given int32 and assigns it to the NbHits field.
 func (o *RecommendationsResults) SetNbHits(v int32) *RecommendationsResults {
-	o.NbHits = v
+	o.NbHits = &v
 	return o
 }
 
-// GetNbPages returns the NbPages field value.
+// GetNbPages returns the NbPages field value if set, zero value otherwise.
 func (o *RecommendationsResults) GetNbPages() int32 {
-	if o == nil {
+	if o == nil || o.NbPages == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.NbPages
+	return *o.NbPages
 }
 
-// GetNbPagesOk returns a tuple with the NbPages field value
+// GetNbPagesOk returns a tuple with the NbPages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendationsResults) GetNbPagesOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.NbPages == nil {
 		return nil, false
 	}
-	return &o.NbPages, true
+	return o.NbPages, true
 }
 
-// SetNbPages sets field value.
+// HasNbPages returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasNbPages() bool {
+	if o != nil && o.NbPages != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNbPages gets a reference to the given int32 and assigns it to the NbPages field.
 func (o *RecommendationsResults) SetNbPages(v int32) *RecommendationsResults {
-	o.NbPages = v
+	o.NbPages = &v
 	return o
 }
 
-// GetHitsPerPage returns the HitsPerPage field value.
+// GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
 func (o *RecommendationsResults) GetHitsPerPage() int32 {
-	if o == nil {
+	if o == nil || o.HitsPerPage == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.HitsPerPage
+	return *o.HitsPerPage
 }
 
-// GetHitsPerPageOk returns a tuple with the HitsPerPage field value
+// GetHitsPerPageOk returns a tuple with the HitsPerPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendationsResults) GetHitsPerPageOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
-	return &o.HitsPerPage, true
+	return o.HitsPerPage, true
 }
 
-// SetHitsPerPage sets field value.
+// HasHitsPerPage returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasHitsPerPage() bool {
+	if o != nil && o.HitsPerPage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *RecommendationsResults) SetHitsPerPage(v int32) *RecommendationsResults {
-	o.HitsPerPage = v
+	o.HitsPerPage = &v
 	return o
 }
 
@@ -1266,16 +1318,16 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if o.AutomaticInsights != nil {
 		toSerialize["_automaticInsights"] = o.AutomaticInsights
 	}
-	if true {
+	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
-	if true {
+	if o.NbHits != nil {
 		toSerialize["nbHits"] = o.NbHits
 	}
-	if true {
+	if o.NbPages != nil {
 		toSerialize["nbPages"] = o.NbPages
 	}
-	if true {
+	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
 	if true {
