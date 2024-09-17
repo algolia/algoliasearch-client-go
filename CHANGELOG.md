@@ -1,3 +1,7 @@
+## [4.3.2](https://github.com/algolia/algoliasearch-client-go/compare/4.3.1...4.3.2)
+
+- [638058eae](https://github.com/algolia/api-clients-automation/commit/638058eae) fix(specs): update search api specs [skip-bc] ([#3760](https://github.com/algolia/api-clients-automation/pull/3760)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.3.1](https://github.com/algolia/algoliasearch-client-go/compare/4.3.0...4.3.1)
 
 - [d4df544d6](https://github.com/algolia/api-clients-automation/commit/d4df544d6) fix(specs): remove usage [skip-bc] ([#3691](https://github.com/algolia/api-clients-automation/pull/3691)) by [@kai687](https://github.com/kai687/)
