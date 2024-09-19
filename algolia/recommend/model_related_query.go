@@ -13,9 +13,9 @@ type RelatedQuery struct {
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
-	MaxRecommendations *int32        `json:"maxRecommendations,omitempty"`
-	QueryParameters    *SearchParams `json:"queryParameters,omitempty"`
-	Model              RelatedModel  `json:"model"`
+	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
+	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
+	Model              RelatedModel           `json:"model"`
 	// Unique record identifier.
 	ObjectID           string          `json:"objectID"`
 	FallbackParameters *FallbackParams `json:"fallbackParameters,omitempty"`
@@ -29,7 +29,7 @@ func WithRelatedQueryMaxRecommendations(val int32) RelatedQueryOption {
 	}
 }
 
-func WithRelatedQueryQueryParameters(val SearchParams) RelatedQueryOption {
+func WithRelatedQueryQueryParameters(val RecommendSearchParams) RelatedQueryOption {
 	return func(f *RelatedQuery) {
 		f.QueryParameters = &val
 	}
@@ -146,9 +146,9 @@ func (o *RelatedQuery) SetMaxRecommendations(v int32) *RelatedQuery {
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *RelatedQuery) GetQueryParameters() SearchParams {
+func (o *RelatedQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
-		var ret SearchParams
+		var ret RecommendSearchParams
 		return ret
 	}
 	return *o.QueryParameters
@@ -156,7 +156,7 @@ func (o *RelatedQuery) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelatedQuery) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *RelatedQuery) GetQueryParametersOk() (*RecommendSearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *RelatedQuery) HasQueryParameters() bool {
 	return false
 }
 
-// SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *RelatedQuery) SetQueryParameters(v *SearchParams) *RelatedQuery {
+// SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
+func (o *RelatedQuery) SetQueryParameters(v *RecommendSearchParams) *RelatedQuery {
 	o.QueryParameters = v
 	return o
 }

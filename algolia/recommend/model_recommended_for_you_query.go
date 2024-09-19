@@ -14,7 +14,7 @@ type RecommendedForYouQuery struct {
 	Threshold float64 `json:"threshold"`
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
 	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
-	QueryParameters    *SearchParams          `json:"queryParameters,omitempty"`
+	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	Model              RecommendedForYouModel `json:"model"`
 	FallbackParameters *FallbackParams        `json:"fallbackParameters,omitempty"`
 }
@@ -27,7 +27,7 @@ func WithRecommendedForYouQueryMaxRecommendations(val int32) RecommendedForYouQu
 	}
 }
 
-func WithRecommendedForYouQueryQueryParameters(val SearchParams) RecommendedForYouQueryOption {
+func WithRecommendedForYouQueryQueryParameters(val RecommendSearchParams) RecommendedForYouQueryOption {
 	return func(f *RecommendedForYouQuery) {
 		f.QueryParameters = &val
 	}
@@ -143,9 +143,9 @@ func (o *RecommendedForYouQuery) SetMaxRecommendations(v int32) *RecommendedForY
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *RecommendedForYouQuery) GetQueryParameters() SearchParams {
+func (o *RecommendedForYouQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
-		var ret SearchParams
+		var ret RecommendSearchParams
 		return ret
 	}
 	return *o.QueryParameters
@@ -153,7 +153,7 @@ func (o *RecommendedForYouQuery) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendedForYouQuery) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *RecommendedForYouQuery) GetQueryParametersOk() (*RecommendSearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -169,8 +169,8 @@ func (o *RecommendedForYouQuery) HasQueryParameters() bool {
 	return false
 }
 
-// SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *RecommendedForYouQuery) SetQueryParameters(v *SearchParams) *RecommendedForYouQuery {
+// SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
+func (o *RecommendedForYouQuery) SetQueryParameters(v *RecommendSearchParams) *RecommendedForYouQuery {
 	o.QueryParameters = v
 	return o
 }

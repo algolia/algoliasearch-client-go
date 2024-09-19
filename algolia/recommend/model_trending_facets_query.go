@@ -13,8 +13,8 @@ type TrendingFacetsQuery struct {
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
-	MaxRecommendations *int32        `json:"maxRecommendations,omitempty"`
-	QueryParameters    *SearchParams `json:"queryParameters,omitempty"`
+	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
+	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	// Facet attribute for which to retrieve trending facet values.
 	FacetName          any                 `json:"facetName"`
 	Model              TrendingFacetsModel `json:"model"`
@@ -29,7 +29,7 @@ func WithTrendingFacetsQueryMaxRecommendations(val int32) TrendingFacetsQueryOpt
 	}
 }
 
-func WithTrendingFacetsQueryQueryParameters(val SearchParams) TrendingFacetsQueryOption {
+func WithTrendingFacetsQueryQueryParameters(val RecommendSearchParams) TrendingFacetsQueryOption {
 	return func(f *TrendingFacetsQuery) {
 		f.QueryParameters = &val
 	}
@@ -146,9 +146,9 @@ func (o *TrendingFacetsQuery) SetMaxRecommendations(v int32) *TrendingFacetsQuer
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *TrendingFacetsQuery) GetQueryParameters() SearchParams {
+func (o *TrendingFacetsQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
-		var ret SearchParams
+		var ret RecommendSearchParams
 		return ret
 	}
 	return *o.QueryParameters
@@ -156,7 +156,7 @@ func (o *TrendingFacetsQuery) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingFacetsQuery) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *TrendingFacetsQuery) GetQueryParametersOk() (*RecommendSearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *TrendingFacetsQuery) HasQueryParameters() bool {
 	return false
 }
 
-// SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *TrendingFacetsQuery) SetQueryParameters(v *SearchParams) *TrendingFacetsQuery {
+// SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
+func (o *TrendingFacetsQuery) SetQueryParameters(v *RecommendSearchParams) *TrendingFacetsQuery {
 	o.QueryParameters = v
 	return o
 }

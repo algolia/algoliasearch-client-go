@@ -13,14 +13,14 @@ type TrendingItemsQuery struct {
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
 	// Maximum number of recommendations to retrieve. By default, all recommendations are returned and no fallback request is made. Depending on the available recommendations and the other request parameters, the actual number of recommendations may be lower than this value.
-	MaxRecommendations *int32        `json:"maxRecommendations,omitempty"`
-	QueryParameters    *SearchParams `json:"queryParameters,omitempty"`
+	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
+	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	// Facet attribute. To be used in combination with `facetValue`. If specified, only recommendations matching the facet filter will be returned.
 	FacetName *string `json:"facetName,omitempty"`
 	// Facet value. To be used in combination with `facetName`. If specified, only recommendations matching the facet filter will be returned.
-	FacetValue         *string             `json:"facetValue,omitempty"`
-	Model              TrendingItemsModel  `json:"model"`
-	FallbackParameters *SearchParamsObject `json:"fallbackParameters,omitempty"`
+	FacetValue         *string            `json:"facetValue,omitempty"`
+	Model              TrendingItemsModel `json:"model"`
+	FallbackParameters *FallbackParams    `json:"fallbackParameters,omitempty"`
 }
 
 type TrendingItemsQueryOption func(f *TrendingItemsQuery)
@@ -31,7 +31,7 @@ func WithTrendingItemsQueryMaxRecommendations(val int32) TrendingItemsQueryOptio
 	}
 }
 
-func WithTrendingItemsQueryQueryParameters(val SearchParams) TrendingItemsQueryOption {
+func WithTrendingItemsQueryQueryParameters(val RecommendSearchParams) TrendingItemsQueryOption {
 	return func(f *TrendingItemsQuery) {
 		f.QueryParameters = &val
 	}
@@ -49,7 +49,7 @@ func WithTrendingItemsQueryFacetValue(val string) TrendingItemsQueryOption {
 	}
 }
 
-func WithTrendingItemsQueryFallbackParameters(val SearchParamsObject) TrendingItemsQueryOption {
+func WithTrendingItemsQueryFallbackParameters(val FallbackParams) TrendingItemsQueryOption {
 	return func(f *TrendingItemsQuery) {
 		f.FallbackParameters = &val
 	}
@@ -159,9 +159,9 @@ func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) *TrendingItemsQuery 
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *TrendingItemsQuery) GetQueryParameters() SearchParams {
+func (o *TrendingItemsQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
-		var ret SearchParams
+		var ret RecommendSearchParams
 		return ret
 	}
 	return *o.QueryParameters
@@ -169,7 +169,7 @@ func (o *TrendingItemsQuery) GetQueryParameters() SearchParams {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingItemsQuery) GetQueryParametersOk() (*SearchParams, bool) {
+func (o *TrendingItemsQuery) GetQueryParametersOk() (*RecommendSearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -185,8 +185,8 @@ func (o *TrendingItemsQuery) HasQueryParameters() bool {
 	return false
 }
 
-// SetQueryParameters gets a reference to the given SearchParams and assigns it to the QueryParameters field.
-func (o *TrendingItemsQuery) SetQueryParameters(v *SearchParams) *TrendingItemsQuery {
+// SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
+func (o *TrendingItemsQuery) SetQueryParameters(v *RecommendSearchParams) *TrendingItemsQuery {
 	o.QueryParameters = v
 	return o
 }
@@ -283,9 +283,9 @@ func (o *TrendingItemsQuery) SetModel(v TrendingItemsModel) *TrendingItemsQuery 
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
-func (o *TrendingItemsQuery) GetFallbackParameters() SearchParamsObject {
+func (o *TrendingItemsQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
-		var ret SearchParamsObject
+		var ret FallbackParams
 		return ret
 	}
 	return *o.FallbackParameters
@@ -293,7 +293,7 @@ func (o *TrendingItemsQuery) GetFallbackParameters() SearchParamsObject {
 
 // GetFallbackParametersOk returns a tuple with the FallbackParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TrendingItemsQuery) GetFallbackParametersOk() (*SearchParamsObject, bool) {
+func (o *TrendingItemsQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
@@ -309,8 +309,8 @@ func (o *TrendingItemsQuery) HasFallbackParameters() bool {
 	return false
 }
 
-// SetFallbackParameters gets a reference to the given SearchParamsObject and assigns it to the FallbackParameters field.
-func (o *TrendingItemsQuery) SetFallbackParameters(v *SearchParamsObject) *TrendingItemsQuery {
+// SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
+func (o *TrendingItemsQuery) SetFallbackParameters(v *FallbackParams) *TrendingItemsQuery {
 	o.FallbackParameters = v
 	return o
 }

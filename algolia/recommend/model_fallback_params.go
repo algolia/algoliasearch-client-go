@@ -8,8 +8,6 @@ import (
 
 // FallbackParams struct for FallbackParams.
 type FallbackParams struct {
-	// Search query.
-	Query *string `json:"query,omitempty"`
 	// Keywords to be used instead of the search query to conduct a more broader search.  Using the `similarQuery` parameter changes other settings:  - `queryType` is set to `prefixNone`. - `removeStopWords` is set to true. - `words` is set as the first ranking criterion. - All remaining words are treated as `optionalWords`.  Since the `similarQuery` is supposed to do a broad search, they usually return many results. Combine it with `filters` to narrow down the list of results.
 	SimilarQuery *string `json:"similarQuery,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>` where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>` where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes around your filters, if the facet attribute name or facet value has spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/).
@@ -26,12 +24,6 @@ type FallbackParams struct {
 	Facets []string `json:"facets,omitempty"`
 	// Whether faceting should be applied after deduplication with `distinct`.  This leads to accurate facet counts when using faceting in combination with `distinct`. It's usually better to use `afterDistinct` modifiers in the `attributesForFaceting` setting, as `facetingAfterDistinct` only computes correct facet counts if all records have the same facet values for the `attributeForDistinct`.
 	FacetingAfterDistinct *bool `json:"facetingAfterDistinct,omitempty"`
-	// Page of search results to retrieve.
-	Page *int32 `json:"page,omitempty"`
-	// Position of the first hit to retrieve.
-	Offset *int32 `json:"offset,omitempty"`
-	// Number of hits to retrieve (used in combination with `offset`).
-	Length *int32 `json:"length,omitempty"`
 	// Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.  Only records included within circle around this central location are included in the results. The radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings. This parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.
 	AroundLatLng *string `json:"aroundLatLng,omitempty"`
 	// Whether to obtain the coordinates from the request's IP address.
@@ -66,12 +58,46 @@ type FallbackParams struct {
 	PercentileComputation *bool `json:"percentileComputation,omitempty"`
 	// Whether to enable A/B testing for this search.
 	EnableABTest *bool `json:"enableABTest,omitempty"`
+	// Search query.
+	Query *string `json:"query,omitempty"`
+	// Attributes used for [faceting](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/).  Facets are attributes that let you categorize search results. They can be used for filtering search results. By default, no attribute is used for faceting. Attribute names are case-sensitive.  **Modifiers**  - `filterOnly(\"ATTRIBUTE\")`.   Allows using this attribute as a filter, but doesn't evalue the facet values.  - `searchable(\"ATTRIBUTE\")`.   Allows searching for facet values.  - `afterDistinct(\"ATTRIBUTE\")`.   Evaluates the facet count _after_ deduplication with `distinct`.   This ensures accurate facet counts.   You can apply this modifier to searchable facets: `afterDistinct(searchable(ATTRIBUTE))`.
+	AttributesForFaceting []string `json:"attributesForFaceting,omitempty"`
+	// Creates [replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/).  Replicas are copies of a primary index with the same records but different settings, synonyms, or rules. If you want to offer a different ranking or sorting of your search results, you'll use replica indices. All index operations on a primary index are automatically forwarded to its replicas. To add a replica index, you must provide the complete set of replicas to this parameter. If you omit a replica from this list, the replica turns into a regular, standalone index that will no longer by synced with the primary index.  **Modifier**  - `virtual(\"REPLICA\")`.   Create a virtual replica,   Virtual replicas don't increase the number of records and are optimized for [Relevant sorting](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/relevant-sort/).
+	Replicas []string `json:"replicas,omitempty"`
+	// Maximum number of search results that can be obtained through pagination.  Higher pagination limits might slow down your search. For pagination limits above 1,000, the sorting of results beyond the 1,000th hit can't be guaranteed.
+	PaginationLimitedTo *int32 `json:"paginationLimitedTo,omitempty"`
+	// Attributes that can't be retrieved at query time.  This can be useful if you want to use an attribute for ranking or to [restrict access](https://www.algolia.com/doc/guides/security/api-keys/how-to/user-restricted-access-to-data/), but don't want to include it in the search results. Attribute names are case-sensitive.
+	UnretrievableAttributes []string `json:"unretrievableAttributes,omitempty"`
+	// Words for which you want to turn off [typo tolerance](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/). This also turns off [word splitting and concatenation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/splitting-and-concatenation/) for the specified words.
+	DisableTypoToleranceOnWords []string `json:"disableTypoToleranceOnWords,omitempty"`
+	// Attributes, for which you want to support [Japanese transliteration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#japanese-transliteration-and-type-ahead).  Transliteration supports searching in any of the Japanese writing systems. To support transliteration, you must set the indexing language to Japanese. Attribute names are case-sensitive.
+	AttributesToTransliterate []string `json:"attributesToTransliterate,omitempty"`
+	// Attributes for which to split [camel case](https://wikipedia.org/wiki/Camel_case) words. Attribute names are case-sensitive.
+	CamelCaseAttributes []string `json:"camelCaseAttributes,omitempty"`
+	// Searchable attributes to which Algolia should apply [word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/how-to/customize-segmentation/) (decompounding). Attribute names are case-sensitive.  Compound words are formed by combining two or more individual words, and are particularly prevalent in Germanic languages—for example, \"firefighter\". With decompounding, the individual components are indexed separately.  You can specify different lists for different languages. Decompounding is supported for these languages: Dutch (`nl`), German (`de`), Finnish (`fi`), Danish (`da`), Swedish (`sv`), and Norwegian (`no`). Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
+	DecompoundedAttributes map[string]any `json:"decompoundedAttributes,omitempty"`
+	// Languages for language-specific processing steps, such as word detection and dictionary settings.  **You should always specify an indexing language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
+	IndexLanguages []SupportedLanguage `json:"indexLanguages,omitempty"`
+	// Searchable attributes for which you want to turn off [prefix matching](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/#adjusting-prefix-search). Attribute names are case-sensitive.
+	DisablePrefixOnAttributes []string `json:"disablePrefixOnAttributes,omitempty"`
+	// Whether arrays with exclusively non-negative integers should be compressed for better performance. If true, the compressed arrays may be reordered.
+	AllowCompressionOfIntegerArray *bool `json:"allowCompressionOfIntegerArray,omitempty"`
+	// Numeric attributes that can be used as [numerical filters](https://www.algolia.com/doc/guides/managing-results/rules/detecting-intent/how-to/applying-a-custom-filter-for-a-specific-query/#numerical-filters). Attribute names are case-sensitive.  By default, all numeric attributes are available as numerical filters. For faster indexing, reduce the number of numeric attributes.  If you want to turn off filtering for all numeric attributes, specify an attribute that doesn't exist in your index, such as `NO_NUMERIC_FILTERING`.  **Modifier**  - `equalOnly(\"ATTRIBUTE\")`.   Support only filtering based on equality comparisons `=` and `!=`.
+	NumericAttributesForFiltering []string `json:"numericAttributesForFiltering,omitempty"`
+	// Controls which separators are indexed.  Separators are all non-letter characters except spaces and currency characters, such as $€£¥. By default, separator characters aren't indexed. With `separatorsToIndex`, Algolia treats separator characters as separate words. For example, a search for `C#` would report two matches.
+	SeparatorsToIndex *string `json:"separatorsToIndex,omitempty"`
+	// Attributes used for searching. Attribute names are case-sensitive.  By default, all attributes are searchable and the [Attribute](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#attribute) ranking criterion is turned off. With a non-empty list, Algolia only returns results with matches in the selected attributes. In addition, the Attribute ranking criterion is turned on: matches in attributes that are higher in the list of `searchableAttributes` rank first. To make matches in two attributes rank equally, include them in a comma-separated string, such as `\"title,alternate_title\"`. Attributes with the same priority are always unordered.  For more information, see [Searchable attributes](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/setting-searchable-attributes/).  **Modifier**  - `unordered(\"ATTRIBUTE\")`.   Ignore the position of a match within the attribute.  Without modifier, matches at the beginning of an attribute rank higher than matches at the end.
+	SearchableAttributes []string `json:"searchableAttributes,omitempty"`
+	// An object with custom data.  You can store up to 32kB as custom data.
+	UserData map[string]any `json:"userData,omitempty"`
+	// Characters and their normalized replacements. This overrides Algolia's default [normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/).
+	CustomNormalization *map[string]map[string]string `json:"customNormalization,omitempty"`
+	// Attribute that should be used to establish groups of results. Attribute names are case-sensitive.  All records with the same value for this attribute are considered a group. You can combine `attributeForDistinct` with the `distinct` search parameter to control how many items per group are included in the search results.  If you want to use the same attribute also for faceting, use the `afterDistinct` modifier of the `attributesForFaceting` setting. This applies faceting _after_ deduplication, which will result in accurate facet counts.
+	AttributeForDistinct *string `json:"attributeForDistinct,omitempty"`
 	// Attributes to include in the API response.  To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive.  - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute/), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, you should test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/).
 	Ranking []string `json:"ranking,omitempty"`
-	// Attributes to use as [custom ranking](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/). Attribute names are case-sensitive.  The custom ranking attributes decide which items are shown first if the other ranking criteria are equal.  Records with missing values for your selected custom ranking attributes are always sorted last. Boolean attributes are sorted based on their alphabetical order.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order.  - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  If you use two or more custom ranking attributes, [reduce the precision](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/how-to/controlling-custom-ranking-metrics-precision/) of your first attributes, or the other attributes will never be applied.
-	CustomRanking []string `json:"customRanking,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results.  You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Attributes to highlight.  By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive.  With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI.  For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js/).
@@ -86,8 +112,6 @@ type FallbackParams struct {
 	SnippetEllipsisText *string `json:"snippetEllipsisText,omitempty"`
 	// Whether to restrict highlighting and snippeting to items that at least partially matched the search query. By default, all items are highlighted and snippeted.
 	RestrictHighlightAndSnippetArrays *bool `json:"restrictHighlightAndSnippetArrays,omitempty"`
-	// Number of hits per page.
-	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Minimum number of characters a word in the search query must contain to accept matches with [one typo](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/in-depth/configuring-typo-tolerance/#configuring-word-length-for-typos).
 	MinWordSizefor1Typo *int32 `json:"minWordSizefor1Typo,omitempty"`
 	// Minimum number of characters a word in the search query must contain to accept matches with [two typos](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/in-depth/configuring-typo-tolerance/#configuring-word-length-for-typos).
@@ -99,8 +123,6 @@ type FallbackParams struct {
 	DisableTypoToleranceOnAttributes []string         `json:"disableTypoToleranceOnAttributes,omitempty"`
 	IgnorePlurals                    *IgnorePlurals   `json:"ignorePlurals,omitempty"`
 	RemoveStopWords                  *RemoveStopWords `json:"removeStopWords,omitempty"`
-	// Characters for which diacritics should be preserved.  By default, Algolia removes diacritics from letters. For example, `é` becomes `e`. If this causes issues in your search, you can specify characters that should keep their diacritics.
-	KeepDiacriticsOnCharacters *string `json:"keepDiacriticsOnCharacters,omitempty"`
 	// Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries.  This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, you must place the CJK language **first**.  **You should always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Whether to split compound words in the query into their building blocks.  For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian. Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
@@ -111,8 +133,6 @@ type FallbackParams struct {
 	EnablePersonalization  *bool                   `json:"enablePersonalization,omitempty"`
 	QueryType              *QueryType              `json:"queryType,omitempty"`
 	RemoveWordsIfNoResults *RemoveWordsIfNoResults `json:"removeWordsIfNoResults,omitempty"`
-	Mode                   *Mode                   `json:"mode,omitempty"`
-	SemanticSearch         *SemanticSearch         `json:"semanticSearch,omitempty"`
 	// Whether to support phrase matching and excluding words from search queries.  Use the `advancedSyntaxFeatures` parameter to control which feature is supported.
 	AdvancedSyntax *bool `json:"advancedSyntax,omitempty"`
 	// Words that should be considered optional when found in the query.  By default, records must match all words in the search query to be included in the search results. Adding optional words can help to increase the number of search results by running an additional search query that doesn't include the optional words. For example, if the search query is \"action video\" and \"video\" is an optional word, the search engine runs two queries. One for \"action video\" and one for \"action\". Records that match all words are ranked higher.  For a search query with 4 or more words **and** all its words are optional, the number of matched words required for a record to be included in the search results increases for every 1,000 records:  - If `optionalWords` has less than 10 words, the required number of matched words increases by 1:   results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 2 matched words. - If `optionalWords` has 10 or more words, the number of required matched words increases by the number of optional words dividied by 5 (rounded down).   For example, with 18 optional words: results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 4 matched words.  For more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#creating-a-list-of-optional-words).
@@ -146,12 +166,6 @@ type FallbackParams struct {
 }
 
 type FallbackParamsOption func(f *FallbackParams)
-
-func WithFallbackParamsQuery(val string) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Query = &val
-	}
-}
 
 func WithFallbackParamsSimilarQuery(val string) FallbackParamsOption {
 	return func(f *FallbackParams) {
@@ -210,24 +224,6 @@ func WithFallbackParamsFacets(val []string) FallbackParamsOption {
 func WithFallbackParamsFacetingAfterDistinct(val bool) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.FacetingAfterDistinct = &val
-	}
-}
-
-func WithFallbackParamsPage(val int32) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Page = &val
-	}
-}
-
-func WithFallbackParamsOffset(val int32) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Offset = &val
-	}
-}
-
-func WithFallbackParamsLength(val int32) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Length = &val
 	}
 }
 
@@ -339,6 +335,114 @@ func WithFallbackParamsEnableABTest(val bool) FallbackParamsOption {
 	}
 }
 
+func WithFallbackParamsQuery(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.Query = &val
+	}
+}
+
+func WithFallbackParamsAttributesForFaceting(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.AttributesForFaceting = val
+	}
+}
+
+func WithFallbackParamsReplicas(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.Replicas = val
+	}
+}
+
+func WithFallbackParamsPaginationLimitedTo(val int32) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.PaginationLimitedTo = &val
+	}
+}
+
+func WithFallbackParamsUnretrievableAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.UnretrievableAttributes = val
+	}
+}
+
+func WithFallbackParamsDisableTypoToleranceOnWords(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.DisableTypoToleranceOnWords = val
+	}
+}
+
+func WithFallbackParamsAttributesToTransliterate(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.AttributesToTransliterate = val
+	}
+}
+
+func WithFallbackParamsCamelCaseAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.CamelCaseAttributes = val
+	}
+}
+
+func WithFallbackParamsDecompoundedAttributes(val map[string]any) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.DecompoundedAttributes = val
+	}
+}
+
+func WithFallbackParamsIndexLanguages(val []SupportedLanguage) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.IndexLanguages = val
+	}
+}
+
+func WithFallbackParamsDisablePrefixOnAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.DisablePrefixOnAttributes = val
+	}
+}
+
+func WithFallbackParamsAllowCompressionOfIntegerArray(val bool) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.AllowCompressionOfIntegerArray = &val
+	}
+}
+
+func WithFallbackParamsNumericAttributesForFiltering(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.NumericAttributesForFiltering = val
+	}
+}
+
+func WithFallbackParamsSeparatorsToIndex(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.SeparatorsToIndex = &val
+	}
+}
+
+func WithFallbackParamsSearchableAttributes(val []string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.SearchableAttributes = val
+	}
+}
+
+func WithFallbackParamsUserData(val map[string]any) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.UserData = val
+	}
+}
+
+func WithFallbackParamsCustomNormalization(val map[string]map[string]string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.CustomNormalization = &val
+	}
+}
+
+func WithFallbackParamsAttributeForDistinct(val string) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.AttributeForDistinct = &val
+	}
+}
+
 func WithFallbackParamsAttributesToRetrieve(val []string) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.AttributesToRetrieve = val
@@ -348,12 +452,6 @@ func WithFallbackParamsAttributesToRetrieve(val []string) FallbackParamsOption {
 func WithFallbackParamsRanking(val []string) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.Ranking = val
-	}
-}
-
-func WithFallbackParamsCustomRanking(val []string) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.CustomRanking = val
 	}
 }
 
@@ -399,12 +497,6 @@ func WithFallbackParamsRestrictHighlightAndSnippetArrays(val bool) FallbackParam
 	}
 }
 
-func WithFallbackParamsHitsPerPage(val int32) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.HitsPerPage = &val
-	}
-}
-
 func WithFallbackParamsMinWordSizefor1Typo(val int32) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.MinWordSizefor1Typo = &val
@@ -447,12 +539,6 @@ func WithFallbackParamsRemoveStopWords(val RemoveStopWords) FallbackParamsOption
 	}
 }
 
-func WithFallbackParamsKeepDiacriticsOnCharacters(val string) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.KeepDiacriticsOnCharacters = &val
-	}
-}
-
 func WithFallbackParamsQueryLanguages(val []SupportedLanguage) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.QueryLanguages = val
@@ -486,18 +572,6 @@ func WithFallbackParamsQueryType(val QueryType) FallbackParamsOption {
 func WithFallbackParamsRemoveWordsIfNoResults(val RemoveWordsIfNoResults) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.RemoveWordsIfNoResults = &val
-	}
-}
-
-func WithFallbackParamsMode(val Mode) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Mode = &val
-	}
-}
-
-func WithFallbackParamsSemanticSearch(val SemanticSearch) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.SemanticSearch = &val
 	}
 }
 
@@ -618,39 +692,6 @@ func NewFallbackParams(opts ...FallbackParamsOption) *FallbackParams {
 // NewEmptyFallbackParams return a pointer to an empty FallbackParams object.
 func NewEmptyFallbackParams() *FallbackParams {
 	return &FallbackParams{}
-}
-
-// GetQuery returns the Query field value if set, zero value otherwise.
-func (o *FallbackParams) GetQuery() string {
-	if o == nil || o.Query == nil {
-		var ret string
-		return ret
-	}
-	return *o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetQueryOk() (*string, bool) {
-	if o == nil || o.Query == nil {
-		return nil, false
-	}
-	return o.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (o *FallbackParams) HasQuery() bool {
-	if o != nil && o.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery gets a reference to the given string and assigns it to the Query field.
-func (o *FallbackParams) SetQuery(v string) *FallbackParams {
-	o.Query = &v
-	return o
 }
 
 // GetSimilarQuery returns the SimilarQuery field value if set, zero value otherwise.
@@ -980,105 +1021,6 @@ func (o *FallbackParams) HasFacetingAfterDistinct() bool {
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
 func (o *FallbackParams) SetFacetingAfterDistinct(v bool) *FallbackParams {
 	o.FacetingAfterDistinct = &v
-	return o
-}
-
-// GetPage returns the Page field value if set, zero value otherwise.
-func (o *FallbackParams) GetPage() int32 {
-	if o == nil || o.Page == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Page
-}
-
-// GetPageOk returns a tuple with the Page field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetPageOk() (*int32, bool) {
-	if o == nil || o.Page == nil {
-		return nil, false
-	}
-	return o.Page, true
-}
-
-// HasPage returns a boolean if a field has been set.
-func (o *FallbackParams) HasPage() bool {
-	if o != nil && o.Page != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *FallbackParams) SetPage(v int32) *FallbackParams {
-	o.Page = &v
-	return o
-}
-
-// GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *FallbackParams) GetOffset() int32 {
-	if o == nil || o.Offset == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Offset
-}
-
-// GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetOffsetOk() (*int32, bool) {
-	if o == nil || o.Offset == nil {
-		return nil, false
-	}
-	return o.Offset, true
-}
-
-// HasOffset returns a boolean if a field has been set.
-func (o *FallbackParams) HasOffset() bool {
-	if o != nil && o.Offset != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetOffset gets a reference to the given int32 and assigns it to the Offset field.
-func (o *FallbackParams) SetOffset(v int32) *FallbackParams {
-	o.Offset = &v
-	return o
-}
-
-// GetLength returns the Length field value if set, zero value otherwise.
-func (o *FallbackParams) GetLength() int32 {
-	if o == nil || o.Length == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Length
-}
-
-// GetLengthOk returns a tuple with the Length field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetLengthOk() (*int32, bool) {
-	if o == nil || o.Length == nil {
-		return nil, false
-	}
-	return o.Length, true
-}
-
-// HasLength returns a boolean if a field has been set.
-func (o *FallbackParams) HasLength() bool {
-	if o != nil && o.Length != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *FallbackParams) SetLength(v int32) *FallbackParams {
-	o.Length = &v
 	return o
 }
 
@@ -1676,6 +1618,600 @@ func (o *FallbackParams) SetEnableABTest(v bool) *FallbackParams {
 	return o
 }
 
+// GetQuery returns the Query field value if set, zero value otherwise.
+func (o *FallbackParams) GetQuery() string {
+	if o == nil || o.Query == nil {
+		var ret string
+		return ret
+	}
+	return *o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetQueryOk() (*string, bool) {
+	if o == nil || o.Query == nil {
+		return nil, false
+	}
+	return o.Query, true
+}
+
+// HasQuery returns a boolean if a field has been set.
+func (o *FallbackParams) HasQuery() bool {
+	if o != nil && o.Query != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQuery gets a reference to the given string and assigns it to the Query field.
+func (o *FallbackParams) SetQuery(v string) *FallbackParams {
+	o.Query = &v
+	return o
+}
+
+// GetAttributesForFaceting returns the AttributesForFaceting field value if set, zero value otherwise.
+func (o *FallbackParams) GetAttributesForFaceting() []string {
+	if o == nil || o.AttributesForFaceting == nil {
+		var ret []string
+		return ret
+	}
+	return o.AttributesForFaceting
+}
+
+// GetAttributesForFacetingOk returns a tuple with the AttributesForFaceting field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetAttributesForFacetingOk() ([]string, bool) {
+	if o == nil || o.AttributesForFaceting == nil {
+		return nil, false
+	}
+	return o.AttributesForFaceting, true
+}
+
+// HasAttributesForFaceting returns a boolean if a field has been set.
+func (o *FallbackParams) HasAttributesForFaceting() bool {
+	if o != nil && o.AttributesForFaceting != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
+func (o *FallbackParams) SetAttributesForFaceting(v []string) *FallbackParams {
+	o.AttributesForFaceting = v
+	return o
+}
+
+// GetReplicas returns the Replicas field value if set, zero value otherwise.
+func (o *FallbackParams) GetReplicas() []string {
+	if o == nil || o.Replicas == nil {
+		var ret []string
+		return ret
+	}
+	return o.Replicas
+}
+
+// GetReplicasOk returns a tuple with the Replicas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetReplicasOk() ([]string, bool) {
+	if o == nil || o.Replicas == nil {
+		return nil, false
+	}
+	return o.Replicas, true
+}
+
+// HasReplicas returns a boolean if a field has been set.
+func (o *FallbackParams) HasReplicas() bool {
+	if o != nil && o.Replicas != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
+func (o *FallbackParams) SetReplicas(v []string) *FallbackParams {
+	o.Replicas = v
+	return o
+}
+
+// GetPaginationLimitedTo returns the PaginationLimitedTo field value if set, zero value otherwise.
+func (o *FallbackParams) GetPaginationLimitedTo() int32 {
+	if o == nil || o.PaginationLimitedTo == nil {
+		var ret int32
+		return ret
+	}
+	return *o.PaginationLimitedTo
+}
+
+// GetPaginationLimitedToOk returns a tuple with the PaginationLimitedTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetPaginationLimitedToOk() (*int32, bool) {
+	if o == nil || o.PaginationLimitedTo == nil {
+		return nil, false
+	}
+	return o.PaginationLimitedTo, true
+}
+
+// HasPaginationLimitedTo returns a boolean if a field has been set.
+func (o *FallbackParams) HasPaginationLimitedTo() bool {
+	if o != nil && o.PaginationLimitedTo != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
+func (o *FallbackParams) SetPaginationLimitedTo(v int32) *FallbackParams {
+	o.PaginationLimitedTo = &v
+	return o
+}
+
+// GetUnretrievableAttributes returns the UnretrievableAttributes field value if set, zero value otherwise.
+func (o *FallbackParams) GetUnretrievableAttributes() []string {
+	if o == nil || o.UnretrievableAttributes == nil {
+		var ret []string
+		return ret
+	}
+	return o.UnretrievableAttributes
+}
+
+// GetUnretrievableAttributesOk returns a tuple with the UnretrievableAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetUnretrievableAttributesOk() ([]string, bool) {
+	if o == nil || o.UnretrievableAttributes == nil {
+		return nil, false
+	}
+	return o.UnretrievableAttributes, true
+}
+
+// HasUnretrievableAttributes returns a boolean if a field has been set.
+func (o *FallbackParams) HasUnretrievableAttributes() bool {
+	if o != nil && o.UnretrievableAttributes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
+func (o *FallbackParams) SetUnretrievableAttributes(v []string) *FallbackParams {
+	o.UnretrievableAttributes = v
+	return o
+}
+
+// GetDisableTypoToleranceOnWords returns the DisableTypoToleranceOnWords field value if set, zero value otherwise.
+func (o *FallbackParams) GetDisableTypoToleranceOnWords() []string {
+	if o == nil || o.DisableTypoToleranceOnWords == nil {
+		var ret []string
+		return ret
+	}
+	return o.DisableTypoToleranceOnWords
+}
+
+// GetDisableTypoToleranceOnWordsOk returns a tuple with the DisableTypoToleranceOnWords field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetDisableTypoToleranceOnWordsOk() ([]string, bool) {
+	if o == nil || o.DisableTypoToleranceOnWords == nil {
+		return nil, false
+	}
+	return o.DisableTypoToleranceOnWords, true
+}
+
+// HasDisableTypoToleranceOnWords returns a boolean if a field has been set.
+func (o *FallbackParams) HasDisableTypoToleranceOnWords() bool {
+	if o != nil && o.DisableTypoToleranceOnWords != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
+func (o *FallbackParams) SetDisableTypoToleranceOnWords(v []string) *FallbackParams {
+	o.DisableTypoToleranceOnWords = v
+	return o
+}
+
+// GetAttributesToTransliterate returns the AttributesToTransliterate field value if set, zero value otherwise.
+func (o *FallbackParams) GetAttributesToTransliterate() []string {
+	if o == nil || o.AttributesToTransliterate == nil {
+		var ret []string
+		return ret
+	}
+	return o.AttributesToTransliterate
+}
+
+// GetAttributesToTransliterateOk returns a tuple with the AttributesToTransliterate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetAttributesToTransliterateOk() ([]string, bool) {
+	if o == nil || o.AttributesToTransliterate == nil {
+		return nil, false
+	}
+	return o.AttributesToTransliterate, true
+}
+
+// HasAttributesToTransliterate returns a boolean if a field has been set.
+func (o *FallbackParams) HasAttributesToTransliterate() bool {
+	if o != nil && o.AttributesToTransliterate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
+func (o *FallbackParams) SetAttributesToTransliterate(v []string) *FallbackParams {
+	o.AttributesToTransliterate = v
+	return o
+}
+
+// GetCamelCaseAttributes returns the CamelCaseAttributes field value if set, zero value otherwise.
+func (o *FallbackParams) GetCamelCaseAttributes() []string {
+	if o == nil || o.CamelCaseAttributes == nil {
+		var ret []string
+		return ret
+	}
+	return o.CamelCaseAttributes
+}
+
+// GetCamelCaseAttributesOk returns a tuple with the CamelCaseAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetCamelCaseAttributesOk() ([]string, bool) {
+	if o == nil || o.CamelCaseAttributes == nil {
+		return nil, false
+	}
+	return o.CamelCaseAttributes, true
+}
+
+// HasCamelCaseAttributes returns a boolean if a field has been set.
+func (o *FallbackParams) HasCamelCaseAttributes() bool {
+	if o != nil && o.CamelCaseAttributes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
+func (o *FallbackParams) SetCamelCaseAttributes(v []string) *FallbackParams {
+	o.CamelCaseAttributes = v
+	return o
+}
+
+// GetDecompoundedAttributes returns the DecompoundedAttributes field value if set, zero value otherwise.
+func (o *FallbackParams) GetDecompoundedAttributes() map[string]any {
+	if o == nil || o.DecompoundedAttributes == nil {
+		var ret map[string]any
+		return ret
+	}
+	return o.DecompoundedAttributes
+}
+
+// GetDecompoundedAttributesOk returns a tuple with the DecompoundedAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetDecompoundedAttributesOk() (map[string]any, bool) {
+	if o == nil || o.DecompoundedAttributes == nil {
+		return nil, false
+	}
+	return o.DecompoundedAttributes, true
+}
+
+// HasDecompoundedAttributes returns a boolean if a field has been set.
+func (o *FallbackParams) HasDecompoundedAttributes() bool {
+	if o != nil && o.DecompoundedAttributes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
+func (o *FallbackParams) SetDecompoundedAttributes(v map[string]any) *FallbackParams {
+	o.DecompoundedAttributes = v
+	return o
+}
+
+// GetIndexLanguages returns the IndexLanguages field value if set, zero value otherwise.
+func (o *FallbackParams) GetIndexLanguages() []SupportedLanguage {
+	if o == nil || o.IndexLanguages == nil {
+		var ret []SupportedLanguage
+		return ret
+	}
+	return o.IndexLanguages
+}
+
+// GetIndexLanguagesOk returns a tuple with the IndexLanguages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetIndexLanguagesOk() ([]SupportedLanguage, bool) {
+	if o == nil || o.IndexLanguages == nil {
+		return nil, false
+	}
+	return o.IndexLanguages, true
+}
+
+// HasIndexLanguages returns a boolean if a field has been set.
+func (o *FallbackParams) HasIndexLanguages() bool {
+	if o != nil && o.IndexLanguages != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIndexLanguages gets a reference to the given []SupportedLanguage and assigns it to the IndexLanguages field.
+func (o *FallbackParams) SetIndexLanguages(v []SupportedLanguage) *FallbackParams {
+	o.IndexLanguages = v
+	return o
+}
+
+// GetDisablePrefixOnAttributes returns the DisablePrefixOnAttributes field value if set, zero value otherwise.
+func (o *FallbackParams) GetDisablePrefixOnAttributes() []string {
+	if o == nil || o.DisablePrefixOnAttributes == nil {
+		var ret []string
+		return ret
+	}
+	return o.DisablePrefixOnAttributes
+}
+
+// GetDisablePrefixOnAttributesOk returns a tuple with the DisablePrefixOnAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetDisablePrefixOnAttributesOk() ([]string, bool) {
+	if o == nil || o.DisablePrefixOnAttributes == nil {
+		return nil, false
+	}
+	return o.DisablePrefixOnAttributes, true
+}
+
+// HasDisablePrefixOnAttributes returns a boolean if a field has been set.
+func (o *FallbackParams) HasDisablePrefixOnAttributes() bool {
+	if o != nil && o.DisablePrefixOnAttributes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
+func (o *FallbackParams) SetDisablePrefixOnAttributes(v []string) *FallbackParams {
+	o.DisablePrefixOnAttributes = v
+	return o
+}
+
+// GetAllowCompressionOfIntegerArray returns the AllowCompressionOfIntegerArray field value if set, zero value otherwise.
+func (o *FallbackParams) GetAllowCompressionOfIntegerArray() bool {
+	if o == nil || o.AllowCompressionOfIntegerArray == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AllowCompressionOfIntegerArray
+}
+
+// GetAllowCompressionOfIntegerArrayOk returns a tuple with the AllowCompressionOfIntegerArray field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetAllowCompressionOfIntegerArrayOk() (*bool, bool) {
+	if o == nil || o.AllowCompressionOfIntegerArray == nil {
+		return nil, false
+	}
+	return o.AllowCompressionOfIntegerArray, true
+}
+
+// HasAllowCompressionOfIntegerArray returns a boolean if a field has been set.
+func (o *FallbackParams) HasAllowCompressionOfIntegerArray() bool {
+	if o != nil && o.AllowCompressionOfIntegerArray != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
+func (o *FallbackParams) SetAllowCompressionOfIntegerArray(v bool) *FallbackParams {
+	o.AllowCompressionOfIntegerArray = &v
+	return o
+}
+
+// GetNumericAttributesForFiltering returns the NumericAttributesForFiltering field value if set, zero value otherwise.
+func (o *FallbackParams) GetNumericAttributesForFiltering() []string {
+	if o == nil || o.NumericAttributesForFiltering == nil {
+		var ret []string
+		return ret
+	}
+	return o.NumericAttributesForFiltering
+}
+
+// GetNumericAttributesForFilteringOk returns a tuple with the NumericAttributesForFiltering field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetNumericAttributesForFilteringOk() ([]string, bool) {
+	if o == nil || o.NumericAttributesForFiltering == nil {
+		return nil, false
+	}
+	return o.NumericAttributesForFiltering, true
+}
+
+// HasNumericAttributesForFiltering returns a boolean if a field has been set.
+func (o *FallbackParams) HasNumericAttributesForFiltering() bool {
+	if o != nil && o.NumericAttributesForFiltering != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
+func (o *FallbackParams) SetNumericAttributesForFiltering(v []string) *FallbackParams {
+	o.NumericAttributesForFiltering = v
+	return o
+}
+
+// GetSeparatorsToIndex returns the SeparatorsToIndex field value if set, zero value otherwise.
+func (o *FallbackParams) GetSeparatorsToIndex() string {
+	if o == nil || o.SeparatorsToIndex == nil {
+		var ret string
+		return ret
+	}
+	return *o.SeparatorsToIndex
+}
+
+// GetSeparatorsToIndexOk returns a tuple with the SeparatorsToIndex field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetSeparatorsToIndexOk() (*string, bool) {
+	if o == nil || o.SeparatorsToIndex == nil {
+		return nil, false
+	}
+	return o.SeparatorsToIndex, true
+}
+
+// HasSeparatorsToIndex returns a boolean if a field has been set.
+func (o *FallbackParams) HasSeparatorsToIndex() bool {
+	if o != nil && o.SeparatorsToIndex != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
+func (o *FallbackParams) SetSeparatorsToIndex(v string) *FallbackParams {
+	o.SeparatorsToIndex = &v
+	return o
+}
+
+// GetSearchableAttributes returns the SearchableAttributes field value if set, zero value otherwise.
+func (o *FallbackParams) GetSearchableAttributes() []string {
+	if o == nil || o.SearchableAttributes == nil {
+		var ret []string
+		return ret
+	}
+	return o.SearchableAttributes
+}
+
+// GetSearchableAttributesOk returns a tuple with the SearchableAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetSearchableAttributesOk() ([]string, bool) {
+	if o == nil || o.SearchableAttributes == nil {
+		return nil, false
+	}
+	return o.SearchableAttributes, true
+}
+
+// HasSearchableAttributes returns a boolean if a field has been set.
+func (o *FallbackParams) HasSearchableAttributes() bool {
+	if o != nil && o.SearchableAttributes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
+func (o *FallbackParams) SetSearchableAttributes(v []string) *FallbackParams {
+	o.SearchableAttributes = v
+	return o
+}
+
+// GetUserData returns the UserData field value if set, zero value otherwise.
+func (o *FallbackParams) GetUserData() map[string]any {
+	if o == nil || o.UserData == nil {
+		var ret map[string]any
+		return ret
+	}
+	return o.UserData
+}
+
+// GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetUserDataOk() (map[string]any, bool) {
+	if o == nil || o.UserData == nil {
+		return nil, false
+	}
+	return o.UserData, true
+}
+
+// HasUserData returns a boolean if a field has been set.
+func (o *FallbackParams) HasUserData() bool {
+	if o != nil && o.UserData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *FallbackParams) SetUserData(v map[string]any) *FallbackParams {
+	o.UserData = v
+	return o
+}
+
+// GetCustomNormalization returns the CustomNormalization field value if set, zero value otherwise.
+func (o *FallbackParams) GetCustomNormalization() map[string]map[string]string {
+	if o == nil || o.CustomNormalization == nil {
+		var ret map[string]map[string]string
+		return ret
+	}
+	return *o.CustomNormalization
+}
+
+// GetCustomNormalizationOk returns a tuple with the CustomNormalization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetCustomNormalizationOk() (*map[string]map[string]string, bool) {
+	if o == nil || o.CustomNormalization == nil {
+		return nil, false
+	}
+	return o.CustomNormalization, true
+}
+
+// HasCustomNormalization returns a boolean if a field has been set.
+func (o *FallbackParams) HasCustomNormalization() bool {
+	if o != nil && o.CustomNormalization != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
+func (o *FallbackParams) SetCustomNormalization(v map[string]map[string]string) *FallbackParams {
+	o.CustomNormalization = &v
+	return o
+}
+
+// GetAttributeForDistinct returns the AttributeForDistinct field value if set, zero value otherwise.
+func (o *FallbackParams) GetAttributeForDistinct() string {
+	if o == nil || o.AttributeForDistinct == nil {
+		var ret string
+		return ret
+	}
+	return *o.AttributeForDistinct
+}
+
+// GetAttributeForDistinctOk returns a tuple with the AttributeForDistinct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetAttributeForDistinctOk() (*string, bool) {
+	if o == nil || o.AttributeForDistinct == nil {
+		return nil, false
+	}
+	return o.AttributeForDistinct, true
+}
+
+// HasAttributeForDistinct returns a boolean if a field has been set.
+func (o *FallbackParams) HasAttributeForDistinct() bool {
+	if o != nil && o.AttributeForDistinct != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
+func (o *FallbackParams) SetAttributeForDistinct(v string) *FallbackParams {
+	o.AttributeForDistinct = &v
+	return o
+}
+
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
 func (o *FallbackParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
@@ -1739,39 +2275,6 @@ func (o *FallbackParams) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *FallbackParams) SetRanking(v []string) *FallbackParams {
 	o.Ranking = v
-	return o
-}
-
-// GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
-func (o *FallbackParams) GetCustomRanking() []string {
-	if o == nil || o.CustomRanking == nil {
-		var ret []string
-		return ret
-	}
-	return o.CustomRanking
-}
-
-// GetCustomRankingOk returns a tuple with the CustomRanking field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetCustomRankingOk() ([]string, bool) {
-	if o == nil || o.CustomRanking == nil {
-		return nil, false
-	}
-	return o.CustomRanking, true
-}
-
-// HasCustomRanking returns a boolean if a field has been set.
-func (o *FallbackParams) HasCustomRanking() bool {
-	if o != nil && o.CustomRanking != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *FallbackParams) SetCustomRanking(v []string) *FallbackParams {
-	o.CustomRanking = v
 	return o
 }
 
@@ -2006,39 +2509,6 @@ func (o *FallbackParams) SetRestrictHighlightAndSnippetArrays(v bool) *FallbackP
 	return o
 }
 
-// GetHitsPerPage returns the HitsPerPage field value if set, zero value otherwise.
-func (o *FallbackParams) GetHitsPerPage() int32 {
-	if o == nil || o.HitsPerPage == nil {
-		var ret int32
-		return ret
-	}
-	return *o.HitsPerPage
-}
-
-// GetHitsPerPageOk returns a tuple with the HitsPerPage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetHitsPerPageOk() (*int32, bool) {
-	if o == nil || o.HitsPerPage == nil {
-		return nil, false
-	}
-	return o.HitsPerPage, true
-}
-
-// HasHitsPerPage returns a boolean if a field has been set.
-func (o *FallbackParams) HasHitsPerPage() bool {
-	if o != nil && o.HitsPerPage != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
-func (o *FallbackParams) SetHitsPerPage(v int32) *FallbackParams {
-	o.HitsPerPage = &v
-	return o
-}
-
 // GetMinWordSizefor1Typo returns the MinWordSizefor1Typo field value if set, zero value otherwise.
 func (o *FallbackParams) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
@@ -2270,39 +2740,6 @@ func (o *FallbackParams) SetRemoveStopWords(v *RemoveStopWords) *FallbackParams 
 	return o
 }
 
-// GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
-func (o *FallbackParams) GetKeepDiacriticsOnCharacters() string {
-	if o == nil || o.KeepDiacriticsOnCharacters == nil {
-		var ret string
-		return ret
-	}
-	return *o.KeepDiacriticsOnCharacters
-}
-
-// GetKeepDiacriticsOnCharactersOk returns a tuple with the KeepDiacriticsOnCharacters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
-	if o == nil || o.KeepDiacriticsOnCharacters == nil {
-		return nil, false
-	}
-	return o.KeepDiacriticsOnCharacters, true
-}
-
-// HasKeepDiacriticsOnCharacters returns a boolean if a field has been set.
-func (o *FallbackParams) HasKeepDiacriticsOnCharacters() bool {
-	if o != nil && o.KeepDiacriticsOnCharacters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *FallbackParams) SetKeepDiacriticsOnCharacters(v string) *FallbackParams {
-	o.KeepDiacriticsOnCharacters = &v
-	return o
-}
-
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
 func (o *FallbackParams) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
@@ -2498,72 +2935,6 @@ func (o *FallbackParams) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *FallbackParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *FallbackParams {
 	o.RemoveWordsIfNoResults = &v
-	return o
-}
-
-// GetMode returns the Mode field value if set, zero value otherwise.
-func (o *FallbackParams) GetMode() Mode {
-	if o == nil || o.Mode == nil {
-		var ret Mode
-		return ret
-	}
-	return *o.Mode
-}
-
-// GetModeOk returns a tuple with the Mode field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetModeOk() (*Mode, bool) {
-	if o == nil || o.Mode == nil {
-		return nil, false
-	}
-	return o.Mode, true
-}
-
-// HasMode returns a boolean if a field has been set.
-func (o *FallbackParams) HasMode() bool {
-	if o != nil && o.Mode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMode gets a reference to the given Mode and assigns it to the Mode field.
-func (o *FallbackParams) SetMode(v Mode) *FallbackParams {
-	o.Mode = &v
-	return o
-}
-
-// GetSemanticSearch returns the SemanticSearch field value if set, zero value otherwise.
-func (o *FallbackParams) GetSemanticSearch() SemanticSearch {
-	if o == nil || o.SemanticSearch == nil {
-		var ret SemanticSearch
-		return ret
-	}
-	return *o.SemanticSearch
-}
-
-// GetSemanticSearchOk returns a tuple with the SemanticSearch field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetSemanticSearchOk() (*SemanticSearch, bool) {
-	if o == nil || o.SemanticSearch == nil {
-		return nil, false
-	}
-	return o.SemanticSearch, true
-}
-
-// HasSemanticSearch returns a boolean if a field has been set.
-func (o *FallbackParams) HasSemanticSearch() bool {
-	if o != nil && o.SemanticSearch != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
-func (o *FallbackParams) SetSemanticSearch(v *SemanticSearch) *FallbackParams {
-	o.SemanticSearch = v
 	return o
 }
 
@@ -3130,9 +3501,6 @@ func (o *FallbackParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *Fallb
 
 func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Query != nil {
-		toSerialize["query"] = o.Query
-	}
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
@@ -3162,15 +3530,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	}
 	if o.FacetingAfterDistinct != nil {
 		toSerialize["facetingAfterDistinct"] = o.FacetingAfterDistinct
-	}
-	if o.Page != nil {
-		toSerialize["page"] = o.Page
-	}
-	if o.Offset != nil {
-		toSerialize["offset"] = o.Offset
-	}
-	if o.Length != nil {
-		toSerialize["length"] = o.Length
 	}
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
@@ -3226,14 +3585,65 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+	if o.Query != nil {
+		toSerialize["query"] = o.Query
+	}
+	if o.AttributesForFaceting != nil {
+		toSerialize["attributesForFaceting"] = o.AttributesForFaceting
+	}
+	if o.Replicas != nil {
+		toSerialize["replicas"] = o.Replicas
+	}
+	if o.PaginationLimitedTo != nil {
+		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
+	}
+	if o.UnretrievableAttributes != nil {
+		toSerialize["unretrievableAttributes"] = o.UnretrievableAttributes
+	}
+	if o.DisableTypoToleranceOnWords != nil {
+		toSerialize["disableTypoToleranceOnWords"] = o.DisableTypoToleranceOnWords
+	}
+	if o.AttributesToTransliterate != nil {
+		toSerialize["attributesToTransliterate"] = o.AttributesToTransliterate
+	}
+	if o.CamelCaseAttributes != nil {
+		toSerialize["camelCaseAttributes"] = o.CamelCaseAttributes
+	}
+	if o.DecompoundedAttributes != nil {
+		toSerialize["decompoundedAttributes"] = o.DecompoundedAttributes
+	}
+	if o.IndexLanguages != nil {
+		toSerialize["indexLanguages"] = o.IndexLanguages
+	}
+	if o.DisablePrefixOnAttributes != nil {
+		toSerialize["disablePrefixOnAttributes"] = o.DisablePrefixOnAttributes
+	}
+	if o.AllowCompressionOfIntegerArray != nil {
+		toSerialize["allowCompressionOfIntegerArray"] = o.AllowCompressionOfIntegerArray
+	}
+	if o.NumericAttributesForFiltering != nil {
+		toSerialize["numericAttributesForFiltering"] = o.NumericAttributesForFiltering
+	}
+	if o.SeparatorsToIndex != nil {
+		toSerialize["separatorsToIndex"] = o.SeparatorsToIndex
+	}
+	if o.SearchableAttributes != nil {
+		toSerialize["searchableAttributes"] = o.SearchableAttributes
+	}
+	if o.UserData != nil {
+		toSerialize["userData"] = o.UserData
+	}
+	if o.CustomNormalization != nil {
+		toSerialize["customNormalization"] = o.CustomNormalization
+	}
+	if o.AttributeForDistinct != nil {
+		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
+	}
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
-	}
-	if o.CustomRanking != nil {
-		toSerialize["customRanking"] = o.CustomRanking
 	}
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
@@ -3256,9 +3666,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
-	if o.HitsPerPage != nil {
-		toSerialize["hitsPerPage"] = o.HitsPerPage
-	}
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
@@ -3280,9 +3687,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
-	if o.KeepDiacriticsOnCharacters != nil {
-		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
-	}
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
@@ -3300,12 +3704,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
-	}
-	if o.Mode != nil {
-		toSerialize["mode"] = o.Mode
-	}
-	if o.SemanticSearch != nil {
-		toSerialize["semanticSearch"] = o.SemanticSearch
 	}
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
@@ -3368,7 +3766,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 
 func (o FallbackParams) String() string {
 	out := ""
-	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  similarQuery=%v\n", o.SimilarQuery)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
@@ -3379,9 +3776,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  restrictSearchableAttributes=%v\n", o.RestrictSearchableAttributes)
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  facetingAfterDistinct=%v\n", o.FacetingAfterDistinct)
-	out += fmt.Sprintf("  page=%v\n", o.Page)
-	out += fmt.Sprintf("  offset=%v\n", o.Offset)
-	out += fmt.Sprintf("  length=%v\n", o.Length)
 	out += fmt.Sprintf("  aroundLatLng=%v\n", o.AroundLatLng)
 	out += fmt.Sprintf("  aroundLatLngViaIP=%v\n", o.AroundLatLngViaIP)
 	out += fmt.Sprintf("  aroundRadius=%v\n", o.AroundRadius)
@@ -3400,9 +3794,26 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  analyticsTags=%v\n", o.AnalyticsTags)
 	out += fmt.Sprintf("  percentileComputation=%v\n", o.PercentileComputation)
 	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
+	out += fmt.Sprintf("  query=%v\n", o.Query)
+	out += fmt.Sprintf("  attributesForFaceting=%v\n", o.AttributesForFaceting)
+	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
+	out += fmt.Sprintf("  paginationLimitedTo=%v\n", o.PaginationLimitedTo)
+	out += fmt.Sprintf("  unretrievableAttributes=%v\n", o.UnretrievableAttributes)
+	out += fmt.Sprintf("  disableTypoToleranceOnWords=%v\n", o.DisableTypoToleranceOnWords)
+	out += fmt.Sprintf("  attributesToTransliterate=%v\n", o.AttributesToTransliterate)
+	out += fmt.Sprintf("  camelCaseAttributes=%v\n", o.CamelCaseAttributes)
+	out += fmt.Sprintf("  decompoundedAttributes=%v\n", o.DecompoundedAttributes)
+	out += fmt.Sprintf("  indexLanguages=%v\n", o.IndexLanguages)
+	out += fmt.Sprintf("  disablePrefixOnAttributes=%v\n", o.DisablePrefixOnAttributes)
+	out += fmt.Sprintf("  allowCompressionOfIntegerArray=%v\n", o.AllowCompressionOfIntegerArray)
+	out += fmt.Sprintf("  numericAttributesForFiltering=%v\n", o.NumericAttributesForFiltering)
+	out += fmt.Sprintf("  separatorsToIndex=%v\n", o.SeparatorsToIndex)
+	out += fmt.Sprintf("  searchableAttributes=%v\n", o.SearchableAttributes)
+	out += fmt.Sprintf("  userData=%v\n", o.UserData)
+	out += fmt.Sprintf("  customNormalization=%v\n", o.CustomNormalization)
+	out += fmt.Sprintf("  attributeForDistinct=%v\n", o.AttributeForDistinct)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
-	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  attributesToHighlight=%v\n", o.AttributesToHighlight)
 	out += fmt.Sprintf("  attributesToSnippet=%v\n", o.AttributesToSnippet)
@@ -3410,7 +3821,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  highlightPostTag=%v\n", o.HighlightPostTag)
 	out += fmt.Sprintf("  snippetEllipsisText=%v\n", o.SnippetEllipsisText)
 	out += fmt.Sprintf("  restrictHighlightAndSnippetArrays=%v\n", o.RestrictHighlightAndSnippetArrays)
-	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  minWordSizefor1Typo=%v\n", o.MinWordSizefor1Typo)
 	out += fmt.Sprintf("  minWordSizefor2Typos=%v\n", o.MinWordSizefor2Typos)
 	out += fmt.Sprintf("  typoTolerance=%v\n", o.TypoTolerance)
@@ -3418,15 +3828,12 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  disableTypoToleranceOnAttributes=%v\n", o.DisableTypoToleranceOnAttributes)
 	out += fmt.Sprintf("  ignorePlurals=%v\n", o.IgnorePlurals)
 	out += fmt.Sprintf("  removeStopWords=%v\n", o.RemoveStopWords)
-	out += fmt.Sprintf("  keepDiacriticsOnCharacters=%v\n", o.KeepDiacriticsOnCharacters)
 	out += fmt.Sprintf("  queryLanguages=%v\n", o.QueryLanguages)
 	out += fmt.Sprintf("  decompoundQuery=%v\n", o.DecompoundQuery)
 	out += fmt.Sprintf("  enableRules=%v\n", o.EnableRules)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  queryType=%v\n", o.QueryType)
 	out += fmt.Sprintf("  removeWordsIfNoResults=%v\n", o.RemoveWordsIfNoResults)
-	out += fmt.Sprintf("  mode=%v\n", o.Mode)
-	out += fmt.Sprintf("  semanticSearch=%v\n", o.SemanticSearch)
 	out += fmt.Sprintf("  advancedSyntax=%v\n", o.AdvancedSyntax)
 	out += fmt.Sprintf("  optionalWords=%v\n", o.OptionalWords)
 	out += fmt.Sprintf("  disableExactOnAttributes=%v\n", o.DisableExactOnAttributes)
