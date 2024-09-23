@@ -4,19 +4,14 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // RecommendationsHit - struct for RecommendationsHit.
 type RecommendationsHit struct {
 	RecommendHit     *RecommendHit
 	TrendingFacetHit *TrendingFacetHit
-}
-
-// RecommendHitAsRecommendationsHit is a convenience function that returns RecommendHit wrapped in RecommendationsHit.
-func RecommendHitAsRecommendationsHit(v RecommendHit) *RecommendationsHit {
-	return &RecommendationsHit{
-		RecommendHit: &v,
-	}
 }
 
 // TrendingFacetHitAsRecommendationsHit is a convenience function that returns TrendingFacetHit wrapped in RecommendationsHit.
@@ -26,22 +21,36 @@ func TrendingFacetHitAsRecommendationsHit(v *TrendingFacetHit) *RecommendationsH
 	}
 }
 
+// RecommendHitAsRecommendationsHit is a convenience function that returns RecommendHit wrapped in RecommendationsHit.
+func RecommendHitAsRecommendationsHit(v RecommendHit) *RecommendationsHit {
+	return &RecommendationsHit{
+		RecommendHit: &v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into RecommendHit
-	err = newStrictDecoder(data).Decode(&dst.RecommendHit)
-	if err == nil && validateStruct(dst.RecommendHit) == nil {
-		return nil // found the correct type
-	} else {
-		dst.RecommendHit = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+	_ = newStrictDecoder(data).Decode(&jsonDict)
+	if utils.HasKey(jsonDict, "facetName") && utils.HasKey(jsonDict, "facetValue") {
+		// try to unmarshal data into TrendingFacetHit
+		err = newStrictDecoder(data).Decode(&dst.TrendingFacetHit)
+		if err == nil && validateStruct(dst.TrendingFacetHit) == nil {
+			return nil // found the correct type
+		} else {
+			dst.TrendingFacetHit = nil
+		}
 	}
-	// try to unmarshal data into TrendingFacetHit
-	err = newStrictDecoder(data).Decode(&dst.TrendingFacetHit)
-	if err == nil && validateStruct(dst.TrendingFacetHit) == nil {
-		return nil // found the correct type
-	} else {
-		dst.TrendingFacetHit = nil
+	if utils.HasKey(jsonDict, "objectID") {
+		// try to unmarshal data into RecommendHit
+		err = newStrictDecoder(data).Decode(&dst.RecommendHit)
+		if err == nil && validateStruct(dst.RecommendHit) == nil {
+			return nil // found the correct type
+		} else {
+			dst.RecommendHit = nil
+		}
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(RecommendationsHit)")
