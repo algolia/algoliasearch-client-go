@@ -43,6 +43,7 @@ type QueryRes struct {
 	ABTestVariantID            int                               `json:"abTestVariantID"`
 	ABTestID                   uint32                            `json:"abTestID"`
 	RenderingContent           *RenderingContent                 `json:"renderingContent"`
+	AutomaticInsights          *bool                             `json:"_automaticInsights,omitempty"`
 }
 
 type AppliedRule struct {
