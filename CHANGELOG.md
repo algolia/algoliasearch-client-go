@@ -1,3 +1,7 @@
+## [4.3.4](https://github.com/algolia/algoliasearch-client-go/compare/4.3.3...4.3.4)
+
+- [4e8275165](https://github.com/algolia/api-clients-automation/commit/4e8275165) fix(clients): deserialization ([#3822](https://github.com/algolia/api-clients-automation/pull/3822)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.3.3](https://github.com/algolia/algoliasearch-client-go/compare/4.3.2...4.3.3)
 
 - [1a73994ff](https://github.com/algolia/api-clients-automation/commit/1a73994ff) fix(specs): recommend remove unsupported query parameters [RECO-2345] [skip-bc] ([#3692](https://github.com/algolia/api-clients-automation/pull/3692)) by [@raed667](https://github.com/raed667/)
