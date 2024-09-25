@@ -3844,8 +3844,8 @@ ListAuthentications calls the API and returns the raw response from it.
 	  @param itemsPerPage int32 - Number of items per page.
 	  @param page int32 - Page number of the paginated API response.
 	  @param type_ []AuthenticationType - Type of authentication resource to retrieve.
-	  @param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
-	  @param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	  @param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentications.
+	  @param sort AuthenticationSortKeys - Property by which to sort the list of authentications.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3910,8 +3910,8 @@ Request can be constructed by NewApiListAuthenticationsRequest with parameters b
 	@param itemsPerPage int32 - Number of items per page.
 	@param page int32 - Page number of the paginated API response.
 	@param type_ []AuthenticationType - Type of authentication resource to retrieve.
-	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentication resources.
-	@param sort AuthenticationSortKeys - Property by which to sort the list of authentication resources.
+	@param platform []PlatformWithNone - Ecommerce platform for which to retrieve authentications.
+	@param sort AuthenticationSortKeys - Property by which to sort the list of authentications.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListAuthenticationsResponse
 */
@@ -3992,6 +3992,15 @@ func (r *ApiListDestinationsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["transformationID"]; ok {
+		err = json.Unmarshal(v, &r.transformationID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.transformationID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal transformationID: %w", err)
+			}
+		}
+	}
 	if v, ok := req["sort"]; ok {
 		err = json.Unmarshal(v, &r.sort)
 		if err != nil {
@@ -4020,6 +4029,7 @@ type ApiListDestinationsRequest struct {
 	page             *int32
 	type_            []DestinationType
 	authenticationID []string
+	transformationID *string
 	sort             DestinationSortKeys
 	order            OrderKeys
 }
@@ -4053,6 +4063,12 @@ func (r ApiListDestinationsRequest) WithAuthenticationID(authenticationID []stri
 	return r
 }
 
+// WithTransformationID adds the transformationID to the ApiListDestinationsRequest and returns the request for chaining.
+func (r ApiListDestinationsRequest) WithTransformationID(transformationID string) ApiListDestinationsRequest {
+	r.transformationID = &transformationID
+	return r
+}
+
 // WithSort adds the sort to the ApiListDestinationsRequest and returns the request for chaining.
 func (r ApiListDestinationsRequest) WithSort(sort DestinationSortKeys) ApiListDestinationsRequest {
 	r.sort = sort
@@ -4080,6 +4096,7 @@ ListDestinations calls the API and returns the raw response from it.
 	  @param page int32 - Page number of the paginated API response.
 	  @param type_ []DestinationType - Destination type.
 	  @param authenticationID []string - Authentication ID used by destinations.
+	  @param transformationID string - Get the list of destinations used by a transformation.
 	  @param sort DestinationSortKeys - Property by which to sort the destinations.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -4107,6 +4124,9 @@ func (c *APIClient) ListDestinationsWithHTTPInfo(r ApiListDestinationsRequest, o
 	}
 	if !utils.IsNilOrEmpty(r.authenticationID) {
 		conf.queryParams.Set("authenticationID", utils.QueryParameterToString(r.authenticationID))
+	}
+	if !utils.IsNilOrEmpty(r.transformationID) {
+		conf.queryParams.Set("transformationID", utils.QueryParameterToString(*r.transformationID))
 	}
 	if !utils.IsNilOrEmpty(r.sort) {
 		conf.queryParams.Set("sort", utils.QueryParameterToString(r.sort))
@@ -4146,6 +4166,7 @@ Request can be constructed by NewApiListDestinationsRequest with parameters belo
 	@param page int32 - Page number of the paginated API response.
 	@param type_ []DestinationType - Destination type.
 	@param authenticationID []string - Authentication ID used by destinations.
+	@param transformationID string - Get the list of destinations used by a transformation.
 	@param sort DestinationSortKeys - Property by which to sort the destinations.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListDestinationsResponse
@@ -4908,7 +4929,7 @@ ListSources calls the API and returns the raw response from it.
 	  @param itemsPerPage int32 - Number of items per page.
 	  @param page int32 - Page number of the paginated API response.
 	  @param type_ []SourceType - Source type. Some sources require authentication.
-	  @param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	  @param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication.
 	  @param sort SourceSortKeys - Property by which to sort the list of sources.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -4974,7 +4995,7 @@ Request can be constructed by NewApiListSourcesRequest with parameters below.
 	@param itemsPerPage int32 - Number of items per page.
 	@param page int32 - Page number of the paginated API response.
 	@param type_ []SourceType - Source type. Some sources require authentication.
-	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication resource.
+	@param authenticationID []string - Authentication IDs of the sources to retrieve. 'none' returns sources that doesn't have an authentication.
 	@param sort SourceSortKeys - Property by which to sort the list of sources.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListSourcesResponse
@@ -5660,7 +5681,7 @@ func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 type ApiListTransformationsRequest struct {
 	itemsPerPage *int32
 	page         *int32
-	sort         SortKeys
+	sort         TransformationSortKeys
 	order        OrderKeys
 }
 
@@ -5682,7 +5703,7 @@ func (r ApiListTransformationsRequest) WithPage(page int32) ApiListTransformatio
 }
 
 // WithSort adds the sort to the ApiListTransformationsRequest and returns the request for chaining.
-func (r ApiListTransformationsRequest) WithSort(sort SortKeys) ApiListTransformationsRequest {
+func (r ApiListTransformationsRequest) WithSort(sort TransformationSortKeys) ApiListTransformationsRequest {
 	r.sort = sort
 	return r
 }
@@ -5706,7 +5727,7 @@ ListTransformations calls the API and returns the raw response from it.
 	Request can be constructed by NewApiListTransformationsRequest with parameters below.
 	  @param itemsPerPage int32 - Number of items per page.
 	  @param page int32 - Page number of the paginated API response.
-	  @param sort SortKeys - Property by which to sort the list.
+	  @param sort TransformationSortKeys - Property by which to sort the list of transformations.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -5764,7 +5785,7 @@ Request can be constructed by NewApiListTransformationsRequest with parameters b
 
 	@param itemsPerPage int32 - Number of items per page.
 	@param page int32 - Page number of the paginated API response.
-	@param sort SortKeys - Property by which to sort the list.
+	@param sort TransformationSortKeys - Property by which to sort the list of transformations.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTransformationsResponse
 */

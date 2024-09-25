@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-// AuthenticationSortKeys Property by which to sort the list of authentication resources.
+// AuthenticationSortKeys Property by which to sort the list of authentications.
 type AuthenticationSortKeys string
 
 // List of authenticationSortKeys.
 const (
 	AUTHENTICATION_SORT_KEYS_NAME       AuthenticationSortKeys = "name"
-	AUTHENTICATION_SORT_KEYS_AUTH_TYPE  AuthenticationSortKeys = "auth_type"
+	AUTHENTICATION_SORT_KEYS_TYPE       AuthenticationSortKeys = "type"
 	AUTHENTICATION_SORT_KEYS_PLATFORM   AuthenticationSortKeys = "platform"
 	AUTHENTICATION_SORT_KEYS_UPDATED_AT AuthenticationSortKeys = "updatedAt"
 	AUTHENTICATION_SORT_KEYS_CREATED_AT AuthenticationSortKeys = "createdAt"
@@ -21,7 +21,7 @@ const (
 // All allowed values of AuthenticationSortKeys enum.
 var AllowedAuthenticationSortKeysEnumValues = []AuthenticationSortKeys{
 	"name",
-	"auth_type",
+	"type",
 	"platform",
 	"updatedAt",
 	"createdAt",
