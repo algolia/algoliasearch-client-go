@@ -3569,7 +3569,8 @@ GetApiKey calls the API and returns the raw response from it.
 	Gets the permissions and restrictions of an API key.
 
 When authenticating with the admin API key, you can request information for any of your application's keys.
-When authenticating with other API keys, you can only retrieve information for that key.
+When authenticating with other API keys, you can only retrieve information for that key,
+with the description replaced by `<redacted>`.
 
 	Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 	  @param key string - API key.
@@ -3613,7 +3614,8 @@ GetApiKey casts the HTTP response body to a defined struct.
 Gets the permissions and restrictions of an API key.
 
 When authenticating with the admin API key, you can request information for any of your application's keys.
-When authenticating with other API keys, you can only retrieve information for that key.
+When authenticating with other API keys, you can only retrieve information for that key,
+with the description replaced by `<redacted>`.
 
 Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 
