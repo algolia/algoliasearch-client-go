@@ -17,6 +17,8 @@ type RecommendRule struct {
 	Description *string `json:"description,omitempty"`
 	// Indicates whether to enable the rule. If it isn't enabled, it isn't applied at query time.
 	Enabled *bool `json:"enabled,omitempty"`
+	// Time periods when the rule is active.
+	Validity []TimeRange `json:"validity,omitempty"`
 }
 
 type RecommendRuleOption func(f *RecommendRule)
@@ -54,6 +56,12 @@ func WithRecommendRuleDescription(val string) RecommendRuleOption {
 func WithRecommendRuleEnabled(val bool) RecommendRuleOption {
 	return func(f *RecommendRule) {
 		f.Enabled = &val
+	}
+}
+
+func WithRecommendRuleValidity(val []TimeRange) RecommendRuleOption {
+	return func(f *RecommendRule) {
+		f.Validity = val
 	}
 }
 
@@ -272,6 +280,39 @@ func (o *RecommendRule) SetEnabled(v bool) *RecommendRule {
 	return o
 }
 
+// GetValidity returns the Validity field value if set, zero value otherwise.
+func (o *RecommendRule) GetValidity() []TimeRange {
+	if o == nil || o.Validity == nil {
+		var ret []TimeRange
+		return ret
+	}
+	return o.Validity
+}
+
+// GetValidityOk returns a tuple with the Validity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendRule) GetValidityOk() ([]TimeRange, bool) {
+	if o == nil || o.Validity == nil {
+		return nil, false
+	}
+	return o.Validity, true
+}
+
+// HasValidity returns a boolean if a field has been set.
+func (o *RecommendRule) HasValidity() bool {
+	if o != nil && o.Validity != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValidity gets a reference to the given []TimeRange and assigns it to the Validity field.
+func (o *RecommendRule) SetValidity(v []TimeRange) *RecommendRule {
+	o.Validity = v
+	return o
+}
+
 func (o RecommendRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Metadata != nil {
@@ -292,6 +333,9 @@ func (o RecommendRule) MarshalJSON() ([]byte, error) {
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+	if o.Validity != nil {
+		toSerialize["validity"] = o.Validity
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendRule: %w", err)
@@ -308,5 +352,6 @@ func (o RecommendRule) String() string {
 	out += fmt.Sprintf("  consequence=%v\n", o.Consequence)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 	return fmt.Sprintf("RecommendRule {\n%s}", out)
 }

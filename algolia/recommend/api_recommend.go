@@ -47,6 +47,187 @@ func WithQueryParam(key string, value any) requestOption {
 	})
 }
 
+func (r *ApiBatchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["indexName"]; ok {
+		err = json.Unmarshal(v, &r.indexName)
+		if err != nil {
+			err = json.Unmarshal(b, &r.indexName)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
+			}
+		}
+	}
+	if v, ok := req["model"]; ok {
+		err = json.Unmarshal(v, &r.model)
+		if err != nil {
+			err = json.Unmarshal(b, &r.model)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal model: %w", err)
+			}
+		}
+	}
+	if v, ok := req["recommendRule"]; ok {
+		err = json.Unmarshal(v, &r.recommendRule)
+		if err != nil {
+			err = json.Unmarshal(b, &r.recommendRule)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal recommendRule: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiBatchRecommendRulesRequest represents the request with all the parameters for the API call.
+type ApiBatchRecommendRulesRequest struct {
+	indexName     string
+	model         RecommendModels
+	recommendRule []RecommendRule
+}
+
+// NewApiBatchRecommendRulesRequest creates an instance of the ApiBatchRecommendRulesRequest to be used for the API call.
+func (c *APIClient) NewApiBatchRecommendRulesRequest(indexName string, model RecommendModels) ApiBatchRecommendRulesRequest {
+	return ApiBatchRecommendRulesRequest{
+		indexName: indexName,
+		model:     model,
+	}
+}
+
+// WithRecommendRule adds the recommendRule to the ApiBatchRecommendRulesRequest and returns the request for chaining.
+func (r ApiBatchRecommendRulesRequest) WithRecommendRule(recommendRule []RecommendRule) ApiBatchRecommendRulesRequest {
+	r.recommendRule = recommendRule
+	return r
+}
+
+/*
+BatchRecommendRules calls the API and returns the raw response from it.
+
+	Create or update a batch of Recommend Rules
+
+Each Recommend Rule is created or updated, depending on whether a Recommend Rule with the same `objectID` already exists.
+You may also specify `true` for `clearExistingRules`, in which case the batch will atomically replace all the existing Recommend Rules.
+
+Recommend Rules are similar to Search Rules, except that the conditions and consequences apply to a [source item](/doc/guides/algolia-recommend/overview/#recommend-models) instead of a query. The main differences are the following:
+- Conditions `pattern` and `anchoring` are unavailable.
+- Condition `filters` triggers if the source item matches the specified filters.
+- Condition `filters` accepts numeric filters.
+- Consequence `params` only covers filtering parameters.
+- Consequence `automaticFacetFilters` doesn't require a facet value placeholder (it tries to match the data source item's attributes instead).
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiBatchRecommendRulesRequest with parameters below.
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	  @param recommendRule []RecommendRule
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) BatchRecommendRulesWithHTTPInfo(r ApiBatchRecommendRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/indexes/{indexName}/{model}/recommend/rules/batch"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
+	requestPath = strings.ReplaceAll(requestPath, "{model}", url.PathEscape(utils.ParameterToString(r.model)))
+
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `BatchRecommendRules`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	if utils.IsNilOrEmpty(r.recommendRule) {
+		postBody = "{}"
+	} else {
+		postBody = r.recommendRule
+	}
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+BatchRecommendRules casts the HTTP response body to a defined struct.
+
+# Create or update a batch of Recommend Rules
+
+Each Recommend Rule is created or updated, depending on whether a Recommend Rule with the same `objectID` already exists.
+You may also specify `true` for `clearExistingRules`, in which case the batch will atomically replace all the existing Recommend Rules.
+
+Recommend Rules are similar to Search Rules, except that the conditions and consequences apply to a [source item](/doc/guides/algolia-recommend/overview/#recommend-models) instead of a query. The main differences are the following:
+- Conditions `pattern` and `anchoring` are unavailable.
+- Condition `filters` triggers if the source item matches the specified filters.
+- Condition `filters` accepts numeric filters.
+- Consequence `params` only covers filtering parameters.
+- Consequence `automaticFacetFilters` doesn't require a facet value placeholder (it tries to match the data source item's attributes instead).
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiBatchRecommendRulesRequest with parameters below.
+
+	@param indexName string - Name of the index on which to perform the operation.
+	@param model RecommendModels - [Recommend model](https://www.algolia.com/doc/guides/algolia-recommend/overview/#recommend-models).
+	@param recommendRule []RecommendRule
+	@return RecommendUpdatedAtResponse
+*/
+func (c *APIClient) BatchRecommendRules(r ApiBatchRecommendRulesRequest, opts ...RequestOption) (*RecommendUpdatedAtResponse, error) {
+	var returnValue *RecommendUpdatedAtResponse
+
+	res, resBody, err := c.BatchRecommendRulesWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
