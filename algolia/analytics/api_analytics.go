@@ -2702,8 +2702,8 @@ GetSearchesNoClicks calls the API and returns the raw response from it.
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2768,8 +2768,8 @@ Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters b
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetSearchesNoClicksResponse
 */
@@ -2931,8 +2931,8 @@ GetSearchesNoResults calls the API and returns the raw response from it.
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2997,8 +2997,8 @@ Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters 
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetSearchesNoResultsResponse
 */
@@ -3288,8 +3288,8 @@ GetTopCountries calls the API and returns the raw response from it.
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3354,8 +3354,8 @@ Request can be constructed by NewApiGetTopCountriesRequest with parameters below
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopCountriesResponse
 */
@@ -3536,8 +3536,8 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param search string - Search query.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3608,8 +3608,8 @@ Request can be constructed by NewApiGetTopFilterAttributesRequest with parameter
 	@param search string - Search query.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopFilterAttributesResponse
 */
@@ -3802,8 +3802,8 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param search string - Search query.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3879,8 +3879,8 @@ Request can be constructed by NewApiGetTopFilterForAttributeRequest with paramet
 	@param search string - Search query.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopFilterForAttributeResponse
 */
@@ -4061,8 +4061,8 @@ To get the most frequent searches without results, use the [Retrieve searches wi
 	  @param search string - Search query.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4133,8 +4133,8 @@ Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameter
 	@param search string - Search query.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopFiltersNoResultsResponse
 */
@@ -4347,8 +4347,8 @@ GetTopHits calls the API and returns the raw response from it.
 	  @param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4425,8 +4425,8 @@ Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 	@param revenueAnalytics bool - Whether to include revenue-related metrics in the response.  If true, metrics related to click and conversion events are also included in the response.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopHitsResponse
 */
@@ -4656,8 +4656,8 @@ GetTopSearches calls the API and returns the raw response from it.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 	  @param direction Direction - Sorting direction of the results: ascending or descending.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+	  @param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	  @param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4738,8 +4738,8 @@ Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
-	@param limit int32 - Number of items to return.
-	@param offset int32 - Position of the first item to return.
+	@param limit int32 - Number of items to return.  Combined with the `offset` parameter, only the first 1000 items can be retrieved.
+	@param offset int32 - Position of the first item to return.  Combined with the `limit` parameter, only the first 1000 items can be retrieved.
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
 	@return GetTopSearchesResponse
 */
