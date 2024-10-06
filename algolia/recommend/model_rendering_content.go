@@ -10,6 +10,7 @@ import (
 type RenderingContent struct {
 	FacetOrdering *FacetOrdering `json:"facetOrdering,omitempty"`
 	Redirect      *RedirectURL   `json:"redirect,omitempty"`
+	Widgets       *Widgets       `json:"widgets,omitempty"`
 }
 
 type RenderingContentOption func(f *RenderingContent)
@@ -23,6 +24,12 @@ func WithRenderingContentFacetOrdering(val FacetOrdering) RenderingContentOption
 func WithRenderingContentRedirect(val RedirectURL) RenderingContentOption {
 	return func(f *RenderingContent) {
 		f.Redirect = &val
+	}
+}
+
+func WithRenderingContentWidgets(val Widgets) RenderingContentOption {
+	return func(f *RenderingContent) {
+		f.Widgets = &val
 	}
 }
 
@@ -109,6 +116,39 @@ func (o *RenderingContent) SetRedirect(v *RedirectURL) *RenderingContent {
 	return o
 }
 
+// GetWidgets returns the Widgets field value if set, zero value otherwise.
+func (o *RenderingContent) GetWidgets() Widgets {
+	if o == nil || o.Widgets == nil {
+		var ret Widgets
+		return ret
+	}
+	return *o.Widgets
+}
+
+// GetWidgetsOk returns a tuple with the Widgets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RenderingContent) GetWidgetsOk() (*Widgets, bool) {
+	if o == nil || o.Widgets == nil {
+		return nil, false
+	}
+	return o.Widgets, true
+}
+
+// HasWidgets returns a boolean if a field has been set.
+func (o *RenderingContent) HasWidgets() bool {
+	if o != nil && o.Widgets != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWidgets gets a reference to the given Widgets and assigns it to the Widgets field.
+func (o *RenderingContent) SetWidgets(v *Widgets) *RenderingContent {
+	o.Widgets = v
+	return o
+}
+
 func (o RenderingContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.FacetOrdering != nil {
@@ -116,6 +156,9 @@ func (o RenderingContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Redirect != nil {
 		toSerialize["redirect"] = o.Redirect
+	}
+	if o.Widgets != nil {
+		toSerialize["widgets"] = o.Widgets
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -129,5 +172,6 @@ func (o RenderingContent) String() string {
 	out := ""
 	out += fmt.Sprintf("  facetOrdering=%v\n", o.FacetOrdering)
 	out += fmt.Sprintf("  redirect=%v\n", o.Redirect)
+	out += fmt.Sprintf("  widgets=%v\n", o.Widgets)
 	return fmt.Sprintf("RenderingContent {\n%s}", out)
 }
