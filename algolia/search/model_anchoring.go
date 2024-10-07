@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Anchoring Which part of the search query the pattern should match:  - `startsWith`. The pattern must match the begginning of the query. - `endsWith`. The pattern must match the end of the query. - `is`. The pattern must match the query exactly. - `contains`. The pattern must match anywhere in the query.  Empty queries are only allowed as pattern with `anchoring: is`.
+// Anchoring Which part of the search query the pattern should match:  - `startsWith`. The pattern must match the beginning of the query. - `endsWith`. The pattern must match the end of the query. - `is`. The pattern must match the query exactly. - `contains`. The pattern must match anywhere in the query.  Empty queries are only allowed as patterns with `anchoring: is`.
 type Anchoring string
 
 // List of anchoring.

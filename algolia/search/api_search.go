@@ -466,7 +466,7 @@ To add, update, or replace multiple records, use the [`batch` operation](#tag/Re
 	Request can be constructed by NewApiAddOrUpdateObjectRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique record identifier.
-	  @param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
+	  @param body map[string]any - The record. A schemaless object with attributes that are useful in the context of search and discovery.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -527,7 +527,7 @@ Request can be constructed by NewApiAddOrUpdateObjectRequest with parameters bel
 
 	@param indexName string - Name of the index on which to perform the operation.
 	@param objectID string - Unique record identifier.
-	@param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
+	@param body map[string]any - The record. A schemaless object with attributes that are useful in the context of search and discovery.
 	@return UpdatedAtWithObjectIdResponse
 */
 func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...RequestOption) (*UpdatedAtWithObjectIdResponse, error) {
@@ -1364,7 +1364,7 @@ Browse requests automatically apply these settings:
 - `getRankingInfo`: `false`
 - `ignorePlurals`: `false`
 - `optionalFilters`: `[]`
-- `typoTolerance`: `true` or `false` (`min` and `strict` is evaluated to `true`)
+- `typoTolerance`: `true` or `false` (`min` and `strict` evaluate to `true`)
 
 If you send these parameters with your browse requests, they'll be ignored.
 
@@ -1439,7 +1439,7 @@ Browse requests automatically apply these settings:
 - `getRankingInfo`: `false`
 - `ignorePlurals`: `false`
 - `optionalFilters`: `[]`
-- `typoTolerance`: `true` or `false` (`min` and `strict` is evaluated to `true`)
+- `typoTolerance`: `true` or `false` (`min` and `strict` evaluate to `true`)
 
 If you send these parameters with your browse requests, they'll be ignored.
 
@@ -4840,7 +4840,7 @@ func (c *APIClient) NewApiGetSynonymRequest(indexName string, objectID string) A
 /*
 GetSynonym calls the API and returns the raw response from it.
 
-	Retrieves a syonym by its ID.
+	Retrieves a synonym by its ID.
 
 To find the object IDs for your synonyms,
 use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
@@ -4892,7 +4892,7 @@ func (c *APIClient) GetSynonymWithHTTPInfo(r ApiGetSynonymRequest, opts ...Reque
 /*
 GetSynonym casts the HTTP response body to a defined struct.
 
-Retrieves a syonym by its ID.
+Retrieves a synonym by its ID.
 To find the object IDs for your synonyms,
 use the [`search` operation](#tag/Synonyms/operation/searchSynonyms).
 
@@ -6107,7 +6107,7 @@ OperationIndex calls the API and returns the raw response from it.
 
   - Moving a source index that doesn't exist is ignored without returning an error.
 
-  - When moving an index, the analytics data keep their original name and a new set of analytics data is started for the new name.
+  - When moving an index, the analytics data keeps its original name, and a new set of analytics data is started for the new name.
     To access the original analytics in the dashboard, create an index with the original name.
 
   - If the destination index has replicas, moving will overwrite the existing index and copy the data to the replica indices.
@@ -6181,7 +6181,7 @@ Copies or moves (renames) an index within the same Algolia application.
 **Move**
 
   - Moving a source index that doesn't exist is ignored without returning an error.
-  - When moving an index, the analytics data keep their original name and a new set of analytics data is started for the new name.
+  - When moving an index, the analytics data keeps its original name, and a new set of analytics data is started for the new name.
     To access the original analytics in the dashboard, create an index with the original name.
   - If the destination index has replicas, moving will overwrite the existing index and copy the data to the replica indices.
   - Related guide: [Move indices](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/how-to/move-indices/).
@@ -6307,7 +6307,7 @@ func (r ApiPartialUpdateObjectRequest) WithCreateIfNotExists(createIfNotExists b
 /*
 PartialUpdateObject calls the API and returns the raw response from it.
 
-		Adds new attributes to a record, or update existing ones.
+		Adds new attributes to a record, or updates existing ones.
 
 	  - If a record with the specified object ID doesn't exist,
 	    a new record is added to the index **if** `createIfNotExists` is true.
@@ -6323,7 +6323,7 @@ To update an attribute without pushing the entire record, you can use these buil
 - Remove: remove all matching number or string elements from an array attribute made of numbers or strings
 - AddUnique: add a number or string element to an array attribute made of numbers or strings only if it's not already present
 - IncrementFrom: increment a numeric integer attribute only if the provided value matches the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementFrom value of 2 for the version attribute, but the current value of the attribute is 1, the engine ignores the update. If the object doesn't exist, the engine only creates it if you pass an IncrementFrom value of 0.
-- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value that's greater than 0.
+- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value greater than 0.
 
 You can specify an operation by providing an object with the attribute to update as the key and its value being an object with the following properties:
 
@@ -6389,7 +6389,7 @@ func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequ
 /*
 PartialUpdateObject casts the HTTP response body to a defined struct.
 
-Adds new attributes to a record, or update existing ones.
+Adds new attributes to a record, or updates existing ones.
 
   - If a record with the specified object ID doesn't exist,
     a new record is added to the index **if** `createIfNotExists` is true.
@@ -6405,7 +6405,7 @@ To update an attribute without pushing the entire record, you can use these buil
 - Remove: remove all matching number or string elements from an array attribute made of numbers or strings
 - AddUnique: add a number or string element to an array attribute made of numbers or strings only if it's not already present
 - IncrementFrom: increment a numeric integer attribute only if the provided value matches the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementFrom value of 2 for the version attribute, but the current value of the attribute is 1, the engine ignores the update. If the object doesn't exist, the engine only creates it if you pass an IncrementFrom value of 0.
-- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value that's greater than 0.
+- IncrementSet: increment a numeric integer attribute only if the provided value is greater than the current value, and otherwise ignore the whole object update. For example, if you pass an IncrementSet value of 2 for the version attribute, and the current value of the attribute is 1, the engine updates the object. If the object doesn't exist yet, the engine only creates it if you pass an IncrementSet value greater than 0.
 
 You can specify an operation by providing an object with the attribute to update as the key and its value being an object with the following properties:
 
@@ -6908,7 +6908,7 @@ To add, update, or replace multiple records, use the [`batch` operation](#tag/Re
 
 	Request can be constructed by NewApiSaveObjectRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
-	  @param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
+	  @param body map[string]any - The record. A schemaless object with attributes that are useful in the context of search and discovery.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -6968,7 +6968,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiSaveObjectRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
-	@param body map[string]any - The record, a schemaless object with attributes that are useful in the context of search and discovery.
+	@param body map[string]any - The record. A schemaless object with attributes that are useful in the context of search and discovery.
 	@return SaveObjectResponse
 */
 func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...RequestOption) (*SaveObjectResponse, error) {
@@ -7818,7 +7818,7 @@ func (c *APIClient) NewApiSearchRequest(searchMethodParams *SearchMethodParams) 
 /*
 Search calls the API and returns the raw response from it.
 
-	Sends multiple search request to one or more indices.
+	Sends multiple search requests to one or more indices.
 
 This can be useful in these cases:
 
@@ -7868,7 +7868,7 @@ func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption
 /*
 Search casts the HTTP response body to a defined struct.
 
-Sends multiple search request to one or more indices.
+Sends multiple search requests to one or more indices.
 
 This can be useful in these cases:
 
@@ -8432,7 +8432,7 @@ func (r ApiSearchSingleIndexRequest) WithSearchParams(searchParams *SearchParams
 /*
 SearchSingleIndex calls the API and returns the raw response from it.
 
-	Searches a single index and return matching search results (_hits_).
+	Searches a single index and returns matching search results (_hits_).
 
 This method lets you retrieve up to 1,000 hits.
 If you need more, use the [`browse` operation](#tag/Search/operation/browse) or increase the `paginatedLimitedTo` index setting.
@@ -8486,7 +8486,7 @@ func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest,
 /*
 SearchSingleIndex casts the HTTP response body to a defined struct.
 
-Searches a single index and return matching search results (_hits_).
+Searches a single index and returns matching search results (_hits_).
 
 This method lets you retrieve up to 1,000 hits.
 If you need more, use the [`browse` operation](#tag/Search/operation/browse) or increase the `paginatedLimitedTo` index setting.
