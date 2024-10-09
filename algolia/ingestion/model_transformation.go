@@ -10,7 +10,7 @@ import (
 type Transformation struct {
 	// Universally unique identifier (UUID) of a transformation.
 	TransformationID string `json:"transformationID"`
-	// The authentications associated for the current transformation.
+	// The authentications associated with the current transformation.
 	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
 	// The source code of the transformation.
 	Code string `json:"code"`

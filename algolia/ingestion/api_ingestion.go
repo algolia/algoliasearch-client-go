@@ -4368,7 +4368,7 @@ func (r ApiListEventsRequest) WithEndDate(endDate string) ApiListEventsRequest {
 /*
 ListEvents calls the API and returns the raw response from it.
 
-	  Retrieves a list of events for a task run, identified by it's ID.
+	  Retrieves a list of events for a task run, identified by its ID.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -4447,7 +4447,7 @@ func (c *APIClient) ListEventsWithHTTPInfo(r ApiListEventsRequest, opts ...Reque
 /*
 ListEvents casts the HTTP response body to a defined struct.
 
-Retrieves a list of events for a task run, identified by it's ID.
+Retrieves a list of events for a task run, identified by its ID.
 
 Required API Key ACLs:
   - addObject

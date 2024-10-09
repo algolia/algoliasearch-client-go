@@ -701,7 +701,7 @@ GetClusterIncidents calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
-	  @param clusters string - Subset of clusters, separated by comma.
+	  @param clusters string - Subset of clusters, separated by commas.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -743,7 +743,7 @@ Retrieves known incidents for the selected clusters.
 
 Request can be constructed by NewApiGetClusterIncidentsRequest with parameters below.
 
-	@param clusters string - Subset of clusters, separated by comma.
+	@param clusters string - Subset of clusters, separated by commas.
 	@return IncidentsResponse
 */
 func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ...RequestOption) (*IncidentsResponse, error) {
@@ -819,7 +819,7 @@ GetClusterStatus calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
-	  @param clusters string - Subset of clusters, separated by comma.
+	  @param clusters string - Subset of clusters, separated by commas.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -861,7 +861,7 @@ Retrieves the status of selected clusters.
 
 Request can be constructed by NewApiGetClusterStatusRequest with parameters below.
 
-	@param clusters string - Subset of clusters, separated by comma.
+	@param clusters string - Subset of clusters, separated by commas.
 	@return StatusResponse
 */
 func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...RequestOption) (*StatusResponse, error) {
@@ -1017,7 +1017,7 @@ GetIndexingTime calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
-	  @param clusters string - Subset of clusters, separated by comma.
+	  @param clusters string - Subset of clusters, separated by commas.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1059,7 +1059,7 @@ Retrieves average times for indexing operations for selected clusters.
 
 Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 
-	@param clusters string - Subset of clusters, separated by comma.
+	@param clusters string - Subset of clusters, separated by commas.
 	@return IndexingTimeResponse
 */
 func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...RequestOption) (*IndexingTimeResponse, error) {
@@ -1135,7 +1135,7 @@ GetLatency calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetLatencyRequest with parameters below.
-	  @param clusters string - Subset of clusters, separated by comma.
+	  @param clusters string - Subset of clusters, separated by commas.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1177,7 +1177,7 @@ Retrieves the average latency for search requests for selected clusters.
 
 Request can be constructed by NewApiGetLatencyRequest with parameters below.
 
-	@param clusters string - Subset of clusters, separated by comma.
+	@param clusters string - Subset of clusters, separated by commas.
 	@return LatencyResponse
 */
 func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...RequestOption) (*LatencyResponse, error) {
@@ -1386,7 +1386,7 @@ GetReachability calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiGetReachabilityRequest with parameters below.
-	  @param clusters string - Subset of clusters, separated by comma.
+	  @param clusters string - Subset of clusters, separated by commas.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1428,7 +1428,7 @@ Test whether clusters are reachable or not.
 
 Request can be constructed by NewApiGetReachabilityRequest with parameters below.
 
-	@param clusters string - Subset of clusters, separated by comma.
+	@param clusters string - Subset of clusters, separated by commas.
 	@return map[string]map[string]bool
 */
 func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...RequestOption) (*map[string]map[string]bool, error) {

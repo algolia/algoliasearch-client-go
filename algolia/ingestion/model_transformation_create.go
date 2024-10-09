@@ -14,7 +14,7 @@ type TransformationCreate struct {
 	Name string `json:"name"`
 	// A descriptive name for your transformation of what it does.
 	Description *string `json:"description,omitempty"`
-	// The authentications associated for the current transformation.
+	// The authentications associated with the current transformation.
 	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
 }
 
