@@ -716,12 +716,6 @@ func (c *APIClient) DeleteUserTokenWithHTTPInfo(r ApiDeleteUserTokenRequest, opt
 	if r.userToken == "" {
 		return nil, nil, reportError("Parameter `userToken` is required when calling `DeleteUserToken`.")
 	}
-	if len(r.userToken) < 1 {
-		return nil, nil, reportError("userToken must have at least 1 elements")
-	}
-	if len(r.userToken) > 129 {
-		return nil, nil, reportError("userToken must have less than 129 elements")
-	}
 
 	conf := config{
 		context:      context.Background(),
