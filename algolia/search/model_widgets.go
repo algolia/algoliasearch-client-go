@@ -8,14 +8,15 @@ import (
 
 // Widgets widgets returned from any rules that are applied to the current search.
 type Widgets struct {
-	Banners *Banners `json:"banners,omitempty"`
+	// banners defined in the merchandising studio for the given search.
+	Banners []Banner `json:"banners,omitempty"`
 }
 
 type WidgetsOption func(f *Widgets)
 
-func WithWidgetsBanners(val Banners) WidgetsOption {
+func WithWidgetsBanners(val []Banner) WidgetsOption {
 	return func(f *Widgets) {
-		f.Banners = &val
+		f.Banners = val
 	}
 }
 
@@ -37,17 +38,17 @@ func NewEmptyWidgets() *Widgets {
 }
 
 // GetBanners returns the Banners field value if set, zero value otherwise.
-func (o *Widgets) GetBanners() Banners {
+func (o *Widgets) GetBanners() []Banner {
 	if o == nil || o.Banners == nil {
-		var ret Banners
+		var ret []Banner
 		return ret
 	}
-	return *o.Banners
+	return o.Banners
 }
 
 // GetBannersOk returns a tuple with the Banners field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Widgets) GetBannersOk() (*Banners, bool) {
+func (o *Widgets) GetBannersOk() ([]Banner, bool) {
 	if o == nil || o.Banners == nil {
 		return nil, false
 	}
@@ -63,8 +64,8 @@ func (o *Widgets) HasBanners() bool {
 	return false
 }
 
-// SetBanners gets a reference to the given Banners and assigns it to the Banners field.
-func (o *Widgets) SetBanners(v *Banners) *Widgets {
+// SetBanners gets a reference to the given []Banner and assigns it to the Banners field.
+func (o *Widgets) SetBanners(v []Banner) *Widgets {
 	o.Banners = v
 	return o
 }

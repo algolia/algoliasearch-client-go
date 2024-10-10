@@ -8,15 +8,15 @@ import (
 
 // BannerImage image of a search banner.
 type BannerImage struct {
-	Urls  *BannerImageUrl `json:"urls,omitempty"`
-	Title *string         `json:"title,omitempty"`
+	Urls  []BannerImageUrl `json:"urls,omitempty"`
+	Title *string          `json:"title,omitempty"`
 }
 
 type BannerImageOption func(f *BannerImage)
 
-func WithBannerImageUrls(val BannerImageUrl) BannerImageOption {
+func WithBannerImageUrls(val []BannerImageUrl) BannerImageOption {
 	return func(f *BannerImage) {
-		f.Urls = &val
+		f.Urls = val
 	}
 }
 
@@ -44,17 +44,17 @@ func NewEmptyBannerImage() *BannerImage {
 }
 
 // GetUrls returns the Urls field value if set, zero value otherwise.
-func (o *BannerImage) GetUrls() BannerImageUrl {
+func (o *BannerImage) GetUrls() []BannerImageUrl {
 	if o == nil || o.Urls == nil {
-		var ret BannerImageUrl
+		var ret []BannerImageUrl
 		return ret
 	}
-	return *o.Urls
+	return o.Urls
 }
 
 // GetUrlsOk returns a tuple with the Urls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BannerImage) GetUrlsOk() (*BannerImageUrl, bool) {
+func (o *BannerImage) GetUrlsOk() ([]BannerImageUrl, bool) {
 	if o == nil || o.Urls == nil {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *BannerImage) HasUrls() bool {
 	return false
 }
 
-// SetUrls gets a reference to the given BannerImageUrl and assigns it to the Urls field.
-func (o *BannerImage) SetUrls(v *BannerImageUrl) *BannerImage {
+// SetUrls gets a reference to the given []BannerImageUrl and assigns it to the Urls field.
+func (o *BannerImage) SetUrls(v []BannerImageUrl) *BannerImage {
 	o.Urls = v
 	return o
 }
