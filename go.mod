@@ -1,6 +1,6 @@
 module github.com/algolia/algoliasearch-client-go/v4
 
-go 1.21
+go 1.21.11
 
 require github.com/go-playground/validator/v10 v10.22.1
 
