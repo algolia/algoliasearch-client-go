@@ -15,9 +15,9 @@ type SearchRulesParams struct {
 	Anchoring *Anchoring `json:"anchoring,omitempty"`
 	// Only return rules that match the context (exact match).
 	Context *string `json:"context,omitempty"`
-	// Requested page of the API response.
+	// Requested page of the API response.  Algolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js/)).  - `hitsPerPage`: sets the number of search results (_hits_) displayed per page. - `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.  For example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.
 	Page *int32 `json:"page,omitempty"`
-	// Maximum number of hits per page.
+	// Maximum number of hits per page.  Algolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js/)).  - `hitsPerPage`: sets the number of search results (_hits_) displayed per page. - `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.  For example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// If `true`, return only enabled rules. If `false`, return only inactive rules. By default, _all_ rules are returned.
 	Enabled utils.Nullable[bool] `json:"enabled,omitempty"`
