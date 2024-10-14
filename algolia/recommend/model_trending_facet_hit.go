@@ -9,22 +9,32 @@ import (
 // TrendingFacetHit Trending facet hit.
 type TrendingFacetHit struct {
 	// Recommendation score.
-	Score float64 `json:"_score"`
+	Score *float64 `json:"_score,omitempty"`
 	// Facet attribute. To be used in combination with `facetValue`. If specified, only recommendations matching the facet filter will be returned.
 	FacetName string `json:"facetName"`
 	// Facet value. To be used in combination with `facetName`. If specified, only recommendations matching the facet filter will be returned.
 	FacetValue string `json:"facetValue"`
 }
 
+type TrendingFacetHitOption func(f *TrendingFacetHit)
+
+func WithTrendingFacetHitScore(val float64) TrendingFacetHitOption {
+	return func(f *TrendingFacetHit) {
+		f.Score = &val
+	}
+}
+
 // NewTrendingFacetHit instantiates a new TrendingFacetHit object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingFacetHit(score float64, facetName string, facetValue string) *TrendingFacetHit {
+func NewTrendingFacetHit(facetName string, facetValue string, opts ...TrendingFacetHitOption) *TrendingFacetHit {
 	this := &TrendingFacetHit{}
-	this.Score = score
 	this.FacetName = facetName
 	this.FacetValue = facetValue
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -33,28 +43,36 @@ func NewEmptyTrendingFacetHit() *TrendingFacetHit {
 	return &TrendingFacetHit{}
 }
 
-// GetScore returns the Score field value.
+// GetScore returns the Score field value if set, zero value otherwise.
 func (o *TrendingFacetHit) GetScore() float64 {
-	if o == nil {
+	if o == nil || o.Score == nil {
 		var ret float64
 		return ret
 	}
-
-	return o.Score
+	return *o.Score
 }
 
-// GetScoreOk returns a tuple with the Score field value
+// GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrendingFacetHit) GetScoreOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || o.Score == nil {
 		return nil, false
 	}
-	return &o.Score, true
+	return o.Score, true
 }
 
-// SetScore sets field value.
+// HasScore returns a boolean if a field has been set.
+func (o *TrendingFacetHit) HasScore() bool {
+	if o != nil && o.Score != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
 func (o *TrendingFacetHit) SetScore(v float64) *TrendingFacetHit {
-	o.Score = v
+	o.Score = &v
 	return o
 }
 
@@ -110,7 +128,7 @@ func (o *TrendingFacetHit) SetFacetValue(v string) *TrendingFacetHit {
 
 func (o TrendingFacetHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.Score != nil {
 		toSerialize["_score"] = o.Score
 	}
 	if true {

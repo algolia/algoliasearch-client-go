@@ -17,7 +17,7 @@ type RecommendHit struct {
 	RankingInfo   *RankingInfo              `json:"_rankingInfo,omitempty"`
 	DistinctSeqID *int32                    `json:"_distinctSeqID,omitempty"`
 	// Recommendation score.
-	Score                float64 `json:"_score"`
+	Score                *float64 `json:"_score,omitempty"`
 	AdditionalProperties map[string]any
 }
 
@@ -49,14 +49,19 @@ func WithRecommendHitDistinctSeqID(val int32) RecommendHitOption {
 	}
 }
 
+func WithRecommendHitScore(val float64) RecommendHitOption {
+	return func(f *RecommendHit) {
+		f.Score = &val
+	}
+}
+
 // NewRecommendHit instantiates a new RecommendHit object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendHit(objectID string, score float64, opts ...RecommendHitOption) *RecommendHit {
+func NewRecommendHit(objectID string, opts ...RecommendHitOption) *RecommendHit {
 	this := &RecommendHit{}
 	this.ObjectID = objectID
-	this.Score = score
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -225,28 +230,36 @@ func (o *RecommendHit) SetDistinctSeqID(v int32) *RecommendHit {
 	return o
 }
 
-// GetScore returns the Score field value.
+// GetScore returns the Score field value if set, zero value otherwise.
 func (o *RecommendHit) GetScore() float64 {
-	if o == nil {
+	if o == nil || o.Score == nil {
 		var ret float64
 		return ret
 	}
-
-	return o.Score
+	return *o.Score
 }
 
-// GetScoreOk returns a tuple with the Score field value
+// GetScoreOk returns a tuple with the Score field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendHit) GetScoreOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || o.Score == nil {
 		return nil, false
 	}
-	return &o.Score, true
+	return o.Score, true
 }
 
-// SetScore sets field value.
+// HasScore returns a boolean if a field has been set.
+func (o *RecommendHit) HasScore() bool {
+	if o != nil && o.Score != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScore gets a reference to the given float64 and assigns it to the Score field.
 func (o *RecommendHit) SetScore(v float64) *RecommendHit {
-	o.Score = v
+	o.Score = &v
 	return o
 }
 
@@ -277,7 +290,7 @@ func (o RecommendHit) MarshalJSON() ([]byte, error) {
 	if o.DistinctSeqID != nil {
 		toSerialize["_distinctSeqID"] = o.DistinctSeqID
 	}
-	if true {
+	if o.Score != nil {
 		toSerialize["_score"] = o.Score
 	}
 
