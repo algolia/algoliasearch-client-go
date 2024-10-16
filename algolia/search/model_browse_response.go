@@ -17,6 +17,8 @@ type BrowseResponse struct {
 	// Distance from a central coordinate provided by `aroundLatLng`.
 	AutomaticRadius *string     `json:"automaticRadius,omitempty"`
 	Exhaustive      *Exhaustive `json:"exhaustive,omitempty"`
+	// Rules applied to the query.
+	AppliedRules []map[string]any `json:"appliedRules,omitempty"`
 	// See the `facetsCount` field of the `exhaustive` object in the response.
 	// Deprecated
 	ExhaustiveFacetsCount *bool `json:"exhaustiveFacetsCount,omitempty"`
@@ -105,6 +107,12 @@ func WithBrowseResponseAutomaticRadius(val string) BrowseResponseOption {
 func WithBrowseResponseExhaustive(val Exhaustive) BrowseResponseOption {
 	return func(f *BrowseResponse) {
 		f.Exhaustive = &val
+	}
+}
+
+func WithBrowseResponseAppliedRules(val []map[string]any) BrowseResponseOption {
+	return func(f *BrowseResponse) {
+		f.AppliedRules = val
 	}
 }
 
@@ -435,6 +443,39 @@ func (o *BrowseResponse) HasExhaustive() bool {
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
 func (o *BrowseResponse) SetExhaustive(v *Exhaustive) *BrowseResponse {
 	o.Exhaustive = v
+	return o
+}
+
+// GetAppliedRules returns the AppliedRules field value if set, zero value otherwise.
+func (o *BrowseResponse) GetAppliedRules() []map[string]any {
+	if o == nil || o.AppliedRules == nil {
+		var ret []map[string]any
+		return ret
+	}
+	return o.AppliedRules
+}
+
+// GetAppliedRulesOk returns a tuple with the AppliedRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BrowseResponse) GetAppliedRulesOk() ([]map[string]any, bool) {
+	if o == nil || o.AppliedRules == nil {
+		return nil, false
+	}
+	return o.AppliedRules, true
+}
+
+// HasAppliedRules returns a boolean if a field has been set.
+func (o *BrowseResponse) HasAppliedRules() bool {
+	if o != nil && o.AppliedRules != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAppliedRules gets a reference to the given []map[string]any and assigns it to the AppliedRules field.
+func (o *BrowseResponse) SetAppliedRules(v []map[string]any) *BrowseResponse {
+	o.AppliedRules = v
 	return o
 }
 
@@ -1356,6 +1397,9 @@ func (o BrowseResponse) MarshalJSON() ([]byte, error) {
 	if o.Exhaustive != nil {
 		toSerialize["exhaustive"] = o.Exhaustive
 	}
+	if o.AppliedRules != nil {
+		toSerialize["appliedRules"] = o.AppliedRules
+	}
 	if o.ExhaustiveFacetsCount != nil {
 		toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
 	}
@@ -1455,6 +1499,7 @@ func (o BrowseResponse) String() string {
 	out += fmt.Sprintf("  aroundLatLng=%v\n", o.AroundLatLng)
 	out += fmt.Sprintf("  automaticRadius=%v\n", o.AutomaticRadius)
 	out += fmt.Sprintf("  exhaustive=%v\n", o.Exhaustive)
+	out += fmt.Sprintf("  appliedRules=%v\n", o.AppliedRules)
 	out += fmt.Sprintf("  exhaustiveFacetsCount=%v\n", o.ExhaustiveFacetsCount)
 	out += fmt.Sprintf("  exhaustiveNbHits=%v\n", o.ExhaustiveNbHits)
 	out += fmt.Sprintf("  exhaustiveTypo=%v\n", o.ExhaustiveTypo)

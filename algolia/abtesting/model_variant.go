@@ -27,7 +27,7 @@ type Variant struct {
 	// A/B test currencies.
 	Currencies *map[string]Currency `json:"currencies,omitempty"`
 	// Description for this variant.
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
 	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `mininmumDetectableEffect` setting for this number to be included in the response.
 	EstimatedSampleSize *int32         `json:"estimatedSampleSize,omitempty"`
 	FilterEffects       *FilterEffects `json:"filterEffects,omitempty"`
@@ -83,6 +83,12 @@ func WithVariantCurrencies(val map[string]Currency) VariantOption {
 	}
 }
 
+func WithVariantDescription(val string) VariantOption {
+	return func(f *Variant) {
+		f.Description = &val
+	}
+}
+
 func WithVariantEstimatedSampleSize(val int32) VariantOption {
 	return func(f *Variant) {
 		f.EstimatedSampleSize = &val
@@ -111,12 +117,11 @@ func WithVariantTrackedSearchCount(val int32) VariantOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, clickCount int32, conversionCount int32, description string, index string, noResultCount utils.Nullable[int32], purchaseCount int32, searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
+func NewVariant(addToCartCount int32, clickCount int32, conversionCount int32, index string, noResultCount utils.Nullable[int32], purchaseCount int32, searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
 	this.ClickCount = clickCount
 	this.ConversionCount = conversionCount
-	this.Description = description
 	this.Index = index
 	this.NoResultCount = noResultCount
 	this.PurchaseCount = purchaseCount
@@ -419,28 +424,36 @@ func (o *Variant) SetCurrencies(v map[string]Currency) *Variant {
 	return o
 }
 
-// GetDescription returns the Description field value.
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Variant) GetDescription() string {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Variant) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value.
+// HasDescription returns a boolean if a field has been set.
+func (o *Variant) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Variant) SetDescription(v string) *Variant {
-	o.Description = v
+	o.Description = &v
 	return o
 }
 
@@ -796,7 +809,7 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
 	}
-	if true {
+	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if o.EstimatedSampleSize != nil {

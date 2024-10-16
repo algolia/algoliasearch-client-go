@@ -9,7 +9,7 @@ import (
 // GetApiKeyResponse struct for GetApiKeyResponse.
 type GetApiKeyResponse struct {
 	// API key.
-	Value *string `json:"value,omitempty"`
+	Value string `json:"value"`
 	// Timestamp when the object was created, in milliseconds since the Unix epoch.
 	CreatedAt int64 `json:"createdAt"`
 	// Permissions that determine the type of API requests this key can make. The required ACL is listed in each endpoint's reference. For more information, see [access control list](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
@@ -31,12 +31,6 @@ type GetApiKeyResponse struct {
 }
 
 type GetApiKeyResponseOption func(f *GetApiKeyResponse)
-
-func WithGetApiKeyResponseValue(val string) GetApiKeyResponseOption {
-	return func(f *GetApiKeyResponse) {
-		f.Value = &val
-	}
-}
 
 func WithGetApiKeyResponseDescription(val string) GetApiKeyResponseOption {
 	return func(f *GetApiKeyResponse) {
@@ -84,8 +78,9 @@ func WithGetApiKeyResponseValidity(val int32) GetApiKeyResponseOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetApiKeyResponse(createdAt int64, acl []Acl, opts ...GetApiKeyResponseOption) *GetApiKeyResponse {
+func NewGetApiKeyResponse(value string, createdAt int64, acl []Acl, opts ...GetApiKeyResponseOption) *GetApiKeyResponse {
 	this := &GetApiKeyResponse{}
+	this.Value = value
 	this.CreatedAt = createdAt
 	this.Acl = acl
 	for _, opt := range opts {
@@ -99,36 +94,28 @@ func NewEmptyGetApiKeyResponse() *GetApiKeyResponse {
 	return &GetApiKeyResponse{}
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
+// GetValue returns the Value field value.
 func (o *GetApiKeyResponse) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Value
+
+	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *GetApiKeyResponse) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Value, true
+	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *GetApiKeyResponse) HasValue() bool {
-	if o != nil && o.Value != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given string and assigns it to the Value field.
+// SetValue sets field value.
 func (o *GetApiKeyResponse) SetValue(v string) *GetApiKeyResponse {
-	o.Value = &v
+	o.Value = v
 	return o
 }
 
@@ -415,7 +402,7 @@ func (o *GetApiKeyResponse) SetValidity(v int32) *GetApiKeyResponse {
 
 func (o GetApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Value != nil {
+	if true {
 		toSerialize["value"] = o.Value
 	}
 	if true {

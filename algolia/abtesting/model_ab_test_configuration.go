@@ -8,12 +8,18 @@ import (
 
 // ABTestConfiguration A/B test configuration.
 type ABTestConfiguration struct {
-	Outliers                Outliers                 `json:"outliers"`
+	Outliers                *Outliers                `json:"outliers,omitempty"`
 	EmptySearch             *EmptySearch             `json:"emptySearch,omitempty"`
 	MinimumDetectableEffect *MinimumDetectableEffect `json:"minimumDetectableEffect,omitempty"`
 }
 
 type ABTestConfigurationOption func(f *ABTestConfiguration)
+
+func WithABTestConfigurationOutliers(val Outliers) ABTestConfigurationOption {
+	return func(f *ABTestConfiguration) {
+		f.Outliers = &val
+	}
+}
 
 func WithABTestConfigurationEmptySearch(val EmptySearch) ABTestConfigurationOption {
 	return func(f *ABTestConfiguration) {
@@ -31,9 +37,8 @@ func WithABTestConfigurationMinimumDetectableEffect(val MinimumDetectableEffect)
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTestConfiguration(outliers Outliers, opts ...ABTestConfigurationOption) *ABTestConfiguration {
+func NewABTestConfiguration(opts ...ABTestConfigurationOption) *ABTestConfiguration {
 	this := &ABTestConfiguration{}
-	this.Outliers = outliers
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -45,28 +50,36 @@ func NewEmptyABTestConfiguration() *ABTestConfiguration {
 	return &ABTestConfiguration{}
 }
 
-// GetOutliers returns the Outliers field value.
+// GetOutliers returns the Outliers field value if set, zero value otherwise.
 func (o *ABTestConfiguration) GetOutliers() Outliers {
-	if o == nil {
+	if o == nil || o.Outliers == nil {
 		var ret Outliers
 		return ret
 	}
-
-	return o.Outliers
+	return *o.Outliers
 }
 
-// GetOutliersOk returns a tuple with the Outliers field value
+// GetOutliersOk returns a tuple with the Outliers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ABTestConfiguration) GetOutliersOk() (*Outliers, bool) {
-	if o == nil {
+	if o == nil || o.Outliers == nil {
 		return nil, false
 	}
-	return &o.Outliers, true
+	return o.Outliers, true
 }
 
-// SetOutliers sets field value.
+// HasOutliers returns a boolean if a field has been set.
+func (o *ABTestConfiguration) HasOutliers() bool {
+	if o != nil && o.Outliers != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOutliers gets a reference to the given Outliers and assigns it to the Outliers field.
 func (o *ABTestConfiguration) SetOutliers(v *Outliers) *ABTestConfiguration {
-	o.Outliers = *v
+	o.Outliers = v
 	return o
 }
 
@@ -138,7 +151,7 @@ func (o *ABTestConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEff
 
 func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
+	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
 	if o.EmptySearch != nil {
