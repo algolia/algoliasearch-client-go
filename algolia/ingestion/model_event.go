@@ -11,11 +11,9 @@ type Event struct {
 	// Universally unique identifier (UUID) of an event.
 	EventID string `json:"eventID"`
 	// Universally unique identifier (UUID) of a task run.
-	RunID string `json:"runID"`
-	// The parent event, the cause of this event.
-	ParentID *string     `json:"parentID,omitempty"`
-	Status   EventStatus `json:"status"`
-	Type     EventType   `json:"type"`
+	RunID  string      `json:"runID"`
+	Status EventStatus `json:"status"`
+	Type   EventType   `json:"type"`
 	// The extracted record batch size.
 	BatchSize int32          `json:"batchSize"`
 	Data      map[string]any `json:"data,omitempty"`
@@ -24,12 +22,6 @@ type Event struct {
 }
 
 type EventOption func(f *Event)
-
-func WithEventParentID(val string) EventOption {
-	return func(f *Event) {
-		f.ParentID = &val
-	}
-}
 
 func WithEventData(val map[string]any) EventOption {
 	return func(f *Event) {
@@ -107,39 +99,6 @@ func (o *Event) GetRunIDOk() (*string, bool) {
 // SetRunID sets field value.
 func (o *Event) SetRunID(v string) *Event {
 	o.RunID = v
-	return o
-}
-
-// GetParentID returns the ParentID field value if set, zero value otherwise.
-func (o *Event) GetParentID() string {
-	if o == nil || o.ParentID == nil {
-		var ret string
-		return ret
-	}
-	return *o.ParentID
-}
-
-// GetParentIDOk returns a tuple with the ParentID field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Event) GetParentIDOk() (*string, bool) {
-	if o == nil || o.ParentID == nil {
-		return nil, false
-	}
-	return o.ParentID, true
-}
-
-// HasParentID returns a boolean if a field has been set.
-func (o *Event) HasParentID() bool {
-	if o != nil && o.ParentID != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParentID gets a reference to the given string and assigns it to the ParentID field.
-func (o *Event) SetParentID(v string) *Event {
-	o.ParentID = &v
 	return o
 }
 
@@ -284,9 +243,6 @@ func (o Event) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["runID"] = o.RunID
 	}
-	if o.ParentID != nil {
-		toSerialize["parentID"] = o.ParentID
-	}
 	if true {
 		toSerialize["status"] = o.Status
 	}
@@ -314,7 +270,6 @@ func (o Event) String() string {
 	out := ""
 	out += fmt.Sprintf("  eventID=%v\n", o.EventID)
 	out += fmt.Sprintf("  runID=%v\n", o.RunID)
-	out += fmt.Sprintf("  parentID=%v\n", o.ParentID)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  batchSize=%v\n", o.BatchSize)
