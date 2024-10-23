@@ -9,26 +9,16 @@ import (
 // GetObjectsResponse struct for GetObjectsResponse.
 type GetObjectsResponse struct {
 	// Retrieved records.
-	Results []map[string]any `json:"results,omitempty"`
-}
-
-type GetObjectsResponseOption func(f *GetObjectsResponse)
-
-func WithGetObjectsResponseResults(val []map[string]any) GetObjectsResponseOption {
-	return func(f *GetObjectsResponse) {
-		f.Results = val
-	}
+	Results []map[string]any `json:"results"`
 }
 
 // NewGetObjectsResponse instantiates a new GetObjectsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetObjectsResponse(opts ...GetObjectsResponseOption) *GetObjectsResponse {
+func NewGetObjectsResponse(results []map[string]any) *GetObjectsResponse {
 	this := &GetObjectsResponse{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.Results = results
 	return this
 }
 
@@ -37,34 +27,26 @@ func NewEmptyGetObjectsResponse() *GetObjectsResponse {
 	return &GetObjectsResponse{}
 }
 
-// GetResults returns the Results field value if set, zero value otherwise.
+// GetResults returns the Results field value.
 func (o *GetObjectsResponse) GetResults() []map[string]any {
-	if o == nil || o.Results == nil {
+	if o == nil {
 		var ret []map[string]any
 		return ret
 	}
+
 	return o.Results
 }
 
-// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// GetResultsOk returns a tuple with the Results field value
 // and a boolean to check if the value has been set.
 func (o *GetObjectsResponse) GetResultsOk() ([]map[string]any, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Results, true
 }
 
-// HasResults returns a boolean if a field has been set.
-func (o *GetObjectsResponse) HasResults() bool {
-	if o != nil && o.Results != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResults gets a reference to the given []map[string]any and assigns it to the Results field.
+// SetResults sets field value.
 func (o *GetObjectsResponse) SetResults(v []map[string]any) *GetObjectsResponse {
 	o.Results = v
 	return o
@@ -72,7 +54,7 @@ func (o *GetObjectsResponse) SetResults(v []map[string]any) *GetObjectsResponse 
 
 func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Results != nil {
+	if true {
 		toSerialize["results"] = o.Results
 	}
 	serialized, err := json.Marshal(toSerialize)
