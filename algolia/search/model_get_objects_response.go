@@ -8,23 +8,69 @@ import (
 
 // GetObjectsResponse struct for GetObjectsResponse.
 type GetObjectsResponse struct {
+	// An optional status message.
+	Message *string `json:"message,omitempty"`
 	// Retrieved records.
 	Results []map[string]any `json:"results"`
+}
+
+type GetObjectsResponseOption func(f *GetObjectsResponse)
+
+func WithGetObjectsResponseMessage(val string) GetObjectsResponseOption {
+	return func(f *GetObjectsResponse) {
+		f.Message = &val
+	}
 }
 
 // NewGetObjectsResponse instantiates a new GetObjectsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetObjectsResponse(results []map[string]any) *GetObjectsResponse {
+func NewGetObjectsResponse(results []map[string]any, opts ...GetObjectsResponseOption) *GetObjectsResponse {
 	this := &GetObjectsResponse{}
 	this.Results = results
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
 // NewEmptyGetObjectsResponse return a pointer to an empty GetObjectsResponse object.
 func NewEmptyGetObjectsResponse() *GetObjectsResponse {
 	return &GetObjectsResponse{}
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *GetObjectsResponse) GetMessage() string {
+	if o == nil || o.Message == nil {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetObjectsResponse) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *GetObjectsResponse) HasMessage() bool {
+	if o != nil && o.Message != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *GetObjectsResponse) SetMessage(v string) *GetObjectsResponse {
+	o.Message = &v
+	return o
 }
 
 // GetResults returns the Results field value.
@@ -54,6 +100,9 @@ func (o *GetObjectsResponse) SetResults(v []map[string]any) *GetObjectsResponse 
 
 func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
 	if true {
 		toSerialize["results"] = o.Results
 	}
@@ -67,6 +116,7 @@ func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {
 
 func (o GetObjectsResponse) String() string {
 	out := ""
+	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  results=%v\n", o.Results)
 	return fmt.Sprintf("GetObjectsResponse {\n%s}", out)
 }
