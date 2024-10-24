@@ -9,16 +9,16 @@ import (
 // TimeRange struct for TimeRange.
 type TimeRange struct {
 	// When the rule should start to be active, in Unix epoch time.
-	From int32 `json:"from"`
+	From int64 `json:"from"`
 	// When the rule should stop to be active, in Unix epoch time.
-	Until int32 `json:"until"`
+	Until int64 `json:"until"`
 }
 
 // NewTimeRange instantiates a new TimeRange object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTimeRange(from int32, until int32) *TimeRange {
+func NewTimeRange(from int64, until int64) *TimeRange {
 	this := &TimeRange{}
 	this.From = from
 	this.Until = until
@@ -31,9 +31,9 @@ func NewEmptyTimeRange() *TimeRange {
 }
 
 // GetFrom returns the From field value.
-func (o *TimeRange) GetFrom() int32 {
+func (o *TimeRange) GetFrom() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -42,7 +42,7 @@ func (o *TimeRange) GetFrom() int32 {
 
 // GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
-func (o *TimeRange) GetFromOk() (*int32, bool) {
+func (o *TimeRange) GetFromOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -50,15 +50,15 @@ func (o *TimeRange) GetFromOk() (*int32, bool) {
 }
 
 // SetFrom sets field value.
-func (o *TimeRange) SetFrom(v int32) *TimeRange {
+func (o *TimeRange) SetFrom(v int64) *TimeRange {
 	o.From = v
 	return o
 }
 
 // GetUntil returns the Until field value.
-func (o *TimeRange) GetUntil() int32 {
+func (o *TimeRange) GetUntil() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -67,7 +67,7 @@ func (o *TimeRange) GetUntil() int32 {
 
 // GetUntilOk returns a tuple with the Until field value
 // and a boolean to check if the value has been set.
-func (o *TimeRange) GetUntilOk() (*int32, bool) {
+func (o *TimeRange) GetUntilOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *TimeRange) GetUntilOk() (*int32, bool) {
 }
 
 // SetUntil sets field value.
-func (o *TimeRange) SetUntil(v int32) *TimeRange {
+func (o *TimeRange) SetUntil(v int64) *TimeRange {
 	o.Until = v
 	return o
 }
