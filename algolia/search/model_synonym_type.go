@@ -11,11 +11,14 @@ type SynonymType string
 
 // List of SynonymType.
 const (
-	SYNONYM_TYPE_SYNONYM        SynonymType = "synonym"
-	SYNONYM_TYPE_ONEWAYSYNONYM  SynonymType = "onewaysynonym"
-	SYNONYM_TYPE_ALTCORRECTION1 SynonymType = "altcorrection1"
-	SYNONYM_TYPE_ALTCORRECTION2 SynonymType = "altcorrection2"
-	SYNONYM_TYPE_PLACEHOLDER    SynonymType = "placeholder"
+	SYNONYM_TYPE_SYNONYM         SynonymType = "synonym"
+	SYNONYM_TYPE_ONEWAYSYNONYM   SynonymType = "onewaysynonym"
+	SYNONYM_TYPE_ALTCORRECTION1  SynonymType = "altcorrection1"
+	SYNONYM_TYPE_ALTCORRECTION2  SynonymType = "altcorrection2"
+	SYNONYM_TYPE_PLACEHOLDER     SynonymType = "placeholder"
+	SYNONYM_TYPE_ONE_WAY_SYNONYM SynonymType = "oneWaySynonym"
+	SYNONYM_TYPE_ALT_CORRECTION1 SynonymType = "altCorrection1"
+	SYNONYM_TYPE_ALT_CORRECTION2 SynonymType = "altCorrection2"
 )
 
 // All allowed values of SynonymType enum.
@@ -25,6 +28,9 @@ var AllowedSynonymTypeEnumValues = []SynonymType{
 	"altcorrection1",
 	"altcorrection2",
 	"placeholder",
+	"oneWaySynonym",
+	"altCorrection1",
+	"altCorrection2",
 }
 
 func (v *SynonymType) UnmarshalJSON(src []byte) error {
