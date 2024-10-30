@@ -16,6 +16,7 @@ type AuthInput struct {
 	AuthBasic                *AuthBasic
 	AuthGoogleServiceAccount *AuthGoogleServiceAccount
 	AuthOAuth                *AuthOAuth
+	MapmapOfStringstring     *map[string]string
 }
 
 // AuthOAuthAsAuthInput is a convenience function that returns AuthOAuth wrapped in AuthInput.
@@ -57,6 +58,13 @@ func AuthAlgoliaAsAuthInput(v *AuthAlgolia) *AuthInput {
 func AuthAlgoliaInsightsAsAuthInput(v *AuthAlgoliaInsights) *AuthInput {
 	return &AuthInput{
 		AuthAlgoliaInsights: v,
+	}
+}
+
+// map[string]stringAsAuthInput is a convenience function that returns map[string]string wrapped in AuthInput.
+func MapmapOfStringstringAsAuthInput(v map[string]string) *AuthInput {
+	return &AuthInput{
+		MapmapOfStringstring: &v,
 	}
 }
 
@@ -115,6 +123,13 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 		return nil // found the correct type
 	} else {
 		dst.AuthAlgoliaInsights = nil
+	}
+	// try to unmarshal data into MapmapOfStringstring
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringstring)
+	if err == nil && validateStruct(dst.MapmapOfStringstring) == nil {
+		return nil // found the correct type
+	} else {
+		dst.MapmapOfStringstring = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInput)")
@@ -176,6 +191,15 @@ func (src AuthInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.MapmapOfStringstring != nil {
+		serialized, err := json.Marshal(&src.MapmapOfStringstring)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringstring of AuthInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -203,6 +227,10 @@ func (obj AuthInput) GetActualInstance() any {
 
 	if obj.AuthOAuth != nil {
 		return *obj.AuthOAuth
+	}
+
+	if obj.MapmapOfStringstring != nil {
+		return *obj.MapmapOfStringstring
 	}
 
 	// all schemas are nil
