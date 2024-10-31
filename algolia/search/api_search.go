@@ -9583,6 +9583,10 @@ func (c *APIClient) BrowseObjects(
 	browseParams BrowseParamsObject,
 	opts ...IterableOption,
 ) error {
+	if browseParams.HitsPerPage == nil {
+		browseParams.HitsPerPage = utils.ToPtr(int32(1000))
+	}
+
 	_, err := CreateIterable( 
 		func(previousResponse *BrowseResponse, previousErr error) (*BrowseResponse, error) {
 			if previousResponse != nil {
@@ -9641,7 +9645,7 @@ func (c *APIClient) BrowseRules(
 			)
 		},
 		func(response *SearchRulesResponse, err error) (bool, error) {
-			return err != nil || (response != nil && response.NbHits < hitsPerPage), err
+			return err != nil || (response != nil && len(response.Hits) < int(hitsPerPage)), err
 		},
 		opts...,
 	)
@@ -9687,7 +9691,7 @@ func (c *APIClient) BrowseSynonyms(
 			)
 		},
 		func(response *SearchSynonymsResponse, err error) (bool, error) {
-			return err != nil || (response != nil && response.NbHits < hitsPerPage), err
+			return err != nil || (response != nil && len(response.Hits) < int(hitsPerPage)), err
 		},
 		opts...,
 	)
