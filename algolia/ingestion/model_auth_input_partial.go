@@ -16,6 +16,7 @@ type AuthInputPartial struct {
 	AuthBasicPartial                *AuthBasicPartial
 	AuthGoogleServiceAccountPartial *AuthGoogleServiceAccountPartial
 	AuthOAuthPartial                *AuthOAuthPartial
+	MapmapOfStringstring            *map[string]string
 }
 
 // AuthGoogleServiceAccountPartialAsAuthInputPartial is a convenience function that returns AuthGoogleServiceAccountPartial wrapped in AuthInputPartial.
@@ -57,6 +58,13 @@ func AuthAlgoliaPartialAsAuthInputPartial(v *AuthAlgoliaPartial) *AuthInputParti
 func AuthAlgoliaInsightsPartialAsAuthInputPartial(v *AuthAlgoliaInsightsPartial) *AuthInputPartial {
 	return &AuthInputPartial{
 		AuthAlgoliaInsightsPartial: v,
+	}
+}
+
+// map[string]stringAsAuthInputPartial is a convenience function that returns map[string]string wrapped in AuthInputPartial.
+func MapmapOfStringstringAsAuthInputPartial(v map[string]string) *AuthInputPartial {
+	return &AuthInputPartial{
+		MapmapOfStringstring: &v,
 	}
 }
 
@@ -115,6 +123,13 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 		return nil // found the correct type
 	} else {
 		dst.AuthAlgoliaInsightsPartial = nil
+	}
+	// try to unmarshal data into MapmapOfStringstring
+	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringstring)
+	if err == nil && validateStruct(dst.MapmapOfStringstring) == nil {
+		return nil // found the correct type
+	} else {
+		dst.MapmapOfStringstring = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInputPartial)")
@@ -176,6 +191,15 @@ func (src AuthInputPartial) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.MapmapOfStringstring != nil {
+		serialized, err := json.Marshal(&src.MapmapOfStringstring)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MapmapOfStringstring of AuthInputPartial: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -203,6 +227,10 @@ func (obj AuthInputPartial) GetActualInstance() any {
 
 	if obj.AuthOAuthPartial != nil {
 		return *obj.AuthOAuthPartial
+	}
+
+	if obj.MapmapOfStringstring != nil {
+		return *obj.MapmapOfStringstring
 	}
 
 	// all schemas are nil
