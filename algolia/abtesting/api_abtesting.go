@@ -911,6 +911,135 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption
 	return returnValue, nil
 }
 
+func (r *ApiEstimateABTestRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["estimateABTestRequest"]; ok {
+		err = json.Unmarshal(v, &r.estimateABTestRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.estimateABTestRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal estimateABTestRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.estimateABTestRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter estimateABTestRequest: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiEstimateABTestRequest represents the request with all the parameters for the API call.
+type ApiEstimateABTestRequest struct {
+	estimateABTestRequest *EstimateABTestRequest
+}
+
+// NewApiEstimateABTestRequest creates an instance of the ApiEstimateABTestRequest to be used for the API call.
+func (c *APIClient) NewApiEstimateABTestRequest(estimateABTestRequest *EstimateABTestRequest) ApiEstimateABTestRequest {
+	return ApiEstimateABTestRequest{
+		estimateABTestRequest: estimateABTestRequest,
+	}
+}
+
+/*
+EstimateABTest calls the API and returns the raw response from it.
+
+	  Given the traffic percentage and the expected effect size, this endpoint estimates the sample size and duration of an A/B test based on historical traffic.
+
+	    Required API Key ACLs:
+	    - analytics
+
+	Request can be constructed by NewApiEstimateABTestRequest with parameters below.
+	  @param estimateABTestRequest EstimateABTestRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) EstimateABTestWithHTTPInfo(r ApiEstimateABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/2/abtests/estimate"
+
+	if r.estimateABTestRequest == nil {
+		return nil, nil, reportError("Parameter `estimateABTestRequest` is required when calling `EstimateABTest`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.estimateABTestRequest
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false)
+}
+
+/*
+EstimateABTest casts the HTTP response body to a defined struct.
+
+Given the traffic percentage and the expected effect size, this endpoint estimates the sample size and duration of an A/B test based on historical traffic.
+
+Required API Key ACLs:
+  - analytics
+
+Request can be constructed by NewApiEstimateABTestRequest with parameters below.
+
+	@param estimateABTestRequest EstimateABTestRequest
+	@return EstimateABTestResponse
+*/
+func (c *APIClient) EstimateABTest(r ApiEstimateABTestRequest, opts ...RequestOption) (*EstimateABTestResponse, error) {
+	var returnValue *EstimateABTestResponse
+
+	res, resBody, err := c.EstimateABTestWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		newErr := &APIError{
+			Message: string(resBody),
+			Status:  res.StatusCode,
+		}
+
+		var v ErrorBase
+		err = c.decode(&v, resBody)
+		if err != nil {
+			newErr.Message = err.Error()
+			return returnValue, newErr
+		}
+
+		return returnValue, newErr
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiGetABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)

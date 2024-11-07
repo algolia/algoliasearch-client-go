@@ -9,33 +9,18 @@ import (
 // MinimumDetectableEffect Configuration for the smallest difference between test variants you want to detect.
 type MinimumDetectableEffect struct {
 	// Smallest difference in an observable metric between variants. For example, to detect a 10% difference between variants, set this value to 0.1.
-	Size   *float64 `json:"size,omitempty"`
-	Effect *Effect  `json:"effect,omitempty"`
-}
-
-type MinimumDetectableEffectOption func(f *MinimumDetectableEffect)
-
-func WithMinimumDetectableEffectSize(val float64) MinimumDetectableEffectOption {
-	return func(f *MinimumDetectableEffect) {
-		f.Size = &val
-	}
-}
-
-func WithMinimumDetectableEffectEffect(val Effect) MinimumDetectableEffectOption {
-	return func(f *MinimumDetectableEffect) {
-		f.Effect = &val
-	}
+	Size   float64      `json:"size"`
+	Metric EffectMetric `json:"metric"`
 }
 
 // NewMinimumDetectableEffect instantiates a new MinimumDetectableEffect object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMinimumDetectableEffect(opts ...MinimumDetectableEffectOption) *MinimumDetectableEffect {
+func NewMinimumDetectableEffect(size float64, metric EffectMetric) *MinimumDetectableEffect {
 	this := &MinimumDetectableEffect{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.Size = size
+	this.Metric = metric
 	return this
 }
 
@@ -44,79 +29,63 @@ func NewEmptyMinimumDetectableEffect() *MinimumDetectableEffect {
 	return &MinimumDetectableEffect{}
 }
 
-// GetSize returns the Size field value if set, zero value otherwise.
+// GetSize returns the Size field value.
 func (o *MinimumDetectableEffect) GetSize() float64 {
-	if o == nil || o.Size == nil {
+	if o == nil {
 		var ret float64
 		return ret
 	}
-	return *o.Size
+
+	return o.Size
 }
 
-// GetSizeOk returns a tuple with the Size field value if set, nil otherwise
+// GetSizeOk returns a tuple with the Size field value
 // and a boolean to check if the value has been set.
 func (o *MinimumDetectableEffect) GetSizeOk() (*float64, bool) {
-	if o == nil || o.Size == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Size, true
+	return &o.Size, true
 }
 
-// HasSize returns a boolean if a field has been set.
-func (o *MinimumDetectableEffect) HasSize() bool {
-	if o != nil && o.Size != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSize gets a reference to the given float64 and assigns it to the Size field.
+// SetSize sets field value.
 func (o *MinimumDetectableEffect) SetSize(v float64) *MinimumDetectableEffect {
-	o.Size = &v
+	o.Size = v
 	return o
 }
 
-// GetEffect returns the Effect field value if set, zero value otherwise.
-func (o *MinimumDetectableEffect) GetEffect() Effect {
-	if o == nil || o.Effect == nil {
-		var ret Effect
+// GetMetric returns the Metric field value.
+func (o *MinimumDetectableEffect) GetMetric() EffectMetric {
+	if o == nil {
+		var ret EffectMetric
 		return ret
 	}
-	return *o.Effect
+
+	return o.Metric
 }
 
-// GetEffectOk returns a tuple with the Effect field value if set, nil otherwise
+// GetMetricOk returns a tuple with the Metric field value
 // and a boolean to check if the value has been set.
-func (o *MinimumDetectableEffect) GetEffectOk() (*Effect, bool) {
-	if o == nil || o.Effect == nil {
+func (o *MinimumDetectableEffect) GetMetricOk() (*EffectMetric, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Effect, true
+	return &o.Metric, true
 }
 
-// HasEffect returns a boolean if a field has been set.
-func (o *MinimumDetectableEffect) HasEffect() bool {
-	if o != nil && o.Effect != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEffect gets a reference to the given Effect and assigns it to the Effect field.
-func (o *MinimumDetectableEffect) SetEffect(v Effect) *MinimumDetectableEffect {
-	o.Effect = &v
+// SetMetric sets field value.
+func (o *MinimumDetectableEffect) SetMetric(v EffectMetric) *MinimumDetectableEffect {
+	o.Metric = v
 	return o
 }
 
 func (o MinimumDetectableEffect) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Size != nil {
+	if true {
 		toSerialize["size"] = o.Size
 	}
-	if o.Effect != nil {
-		toSerialize["effect"] = o.Effect
+	if true {
+		toSerialize["metric"] = o.Metric
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -129,6 +98,6 @@ func (o MinimumDetectableEffect) MarshalJSON() ([]byte, error) {
 func (o MinimumDetectableEffect) String() string {
 	out := ""
 	out += fmt.Sprintf("  size=%v\n", o.Size)
-	out += fmt.Sprintf("  effect=%v\n", o.Effect)
+	out += fmt.Sprintf("  metric=%v\n", o.Metric)
 	return fmt.Sprintf("MinimumDetectableEffect {\n%s}", out)
 }
