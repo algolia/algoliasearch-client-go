@@ -24,8 +24,8 @@ type Task struct {
 	// Whether the task is enabled.
 	Enabled bool `json:"enabled"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
-	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
-	Action           ActionType `json:"action"`
+	FailureThreshold *int32      `json:"failureThreshold,omitempty"`
+	Action           *ActionType `json:"action,omitempty"`
 	// Date of the last cursor in RFC 3339 format.
 	Cursor *string `json:"cursor,omitempty"`
 	// Date of creation in RFC 3339 format.
@@ -66,6 +66,12 @@ func WithTaskFailureThreshold(val int32) TaskOption {
 	}
 }
 
+func WithTaskAction(val ActionType) TaskOption {
+	return func(f *Task) {
+		f.Action = &val
+	}
+}
+
 func WithTaskCursor(val string) TaskOption {
 	return func(f *Task) {
 		f.Cursor = &val
@@ -82,13 +88,12 @@ func WithTaskUpdatedAt(val string) TaskOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTask(taskID string, sourceID string, destinationID string, enabled bool, action ActionType, createdAt string, opts ...TaskOption) *Task {
+func NewTask(taskID string, sourceID string, destinationID string, enabled bool, createdAt string, opts ...TaskOption) *Task {
 	this := &Task{}
 	this.TaskID = taskID
 	this.SourceID = sourceID
 	this.DestinationID = destinationID
 	this.Enabled = enabled
-	this.Action = action
 	this.CreatedAt = createdAt
 	for _, opt := range opts {
 		opt(this)
@@ -366,28 +371,36 @@ func (o *Task) SetFailureThreshold(v int32) *Task {
 	return o
 }
 
-// GetAction returns the Action field value.
+// GetAction returns the Action field value if set, zero value otherwise.
 func (o *Task) GetAction() ActionType {
-	if o == nil {
+	if o == nil || o.Action == nil {
 		var ret ActionType
 		return ret
 	}
-
-	return o.Action
+	return *o.Action
 }
 
-// GetActionOk returns a tuple with the Action field value
+// GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Task) GetActionOk() (*ActionType, bool) {
-	if o == nil {
+	if o == nil || o.Action == nil {
 		return nil, false
 	}
-	return &o.Action, true
+	return o.Action, true
 }
 
-// SetAction sets field value.
+// HasAction returns a boolean if a field has been set.
+func (o *Task) HasAction() bool {
+	if o != nil && o.Action != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAction gets a reference to the given ActionType and assigns it to the Action field.
 func (o *Task) SetAction(v ActionType) *Task {
-	o.Action = v
+	o.Action = &v
 	return o
 }
 
@@ -511,7 +524,7 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
-	if true {
+	if o.Action != nil {
 		toSerialize["action"] = o.Action
 	}
 	if o.Cursor != nil {
