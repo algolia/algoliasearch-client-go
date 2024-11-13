@@ -16,17 +16,28 @@ const (
 	EventSubtypeAddToCart = "addToCart"
 )
 
+type ObjectData struct {
+	Discount interface{} `json:"discount,omitempty"`
+	Price    interface{} `json:"price,omitempty"`
+	Quantity int32       `json:"quantity,omitempty"`
+	QueryID  *string     `json:"queryID,omitempty"`
+}
+
 type Event struct {
-	EventType    string    `json:"eventType"`
-	EventSubtype string    `json:"eventSubtype,omitempty"`
-	EventName    string    `json:"eventName"`
-	Index        string    `json:"index"`
-	UserToken    string    `json:"userToken"`
-	Timestamp    time.Time `json:"-"`
-	ObjectIDs    []string  `json:"objectIDs,omitempty"`
-	Positions    []int     `json:"positions,omitempty"`
-	QueryID      string    `json:"queryID,omitempty"`
-	Filters      []string  `json:"filters,omitempty"`
+	EventName              string       `json:"eventName"`
+	EventType              string       `json:"eventType"`
+	EventSubtype           string       `json:"eventSubtype,omitempty"`
+	Index                  string       `json:"index"`
+	ObjectIDs              []string     `json:"objectIDs,omitempty"`
+	Positions              []int        `json:"positions,omitempty"`
+	QueryID                string       `json:"queryID,omitempty"`
+	UserToken              string       `json:"userToken"`
+	AuthenticatedUserToken *string      `json:"authenticatedUserToken"`
+	Currency               *string      `json:"currency,omitempty"`
+	ObjectData             []ObjectData `json:"objectData,omitempty"`
+	Timestamp              time.Time    `json:"-"`
+	Filters                []string     `json:"filters,omitempty"`
+	Value                  interface{}  `json:"value,omitempty"`
 }
 
 func (e Event) MarshalJSON() ([]byte, error) {
