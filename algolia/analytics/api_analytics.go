@@ -166,19 +166,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -308,19 +296,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -474,19 +450,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -640,19 +604,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -831,19 +783,7 @@ func (c *APIClient) GetAddToCartRate(r ApiGetAddToCartRateRequest, opts ...Reque
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1026,19 +966,7 @@ func (c *APIClient) GetAverageClickPosition(r ApiGetAverageClickPositionRequest,
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1217,19 +1145,7 @@ func (c *APIClient) GetClickPositions(r ApiGetClickPositionsRequest, opts ...Req
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1408,19 +1324,7 @@ func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ..
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1599,19 +1503,7 @@ func (c *APIClient) GetConversionRate(r ApiGetConversionRateRequest, opts ...Req
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1790,19 +1682,7 @@ func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1981,19 +1861,7 @@ func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...Reque
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2172,19 +2040,7 @@ func (c *APIClient) GetPurchaseRate(r ApiGetPurchaseRateRequest, opts ...Request
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2365,19 +2221,7 @@ func (c *APIClient) GetRevenue(r ApiGetRevenueRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2556,19 +2400,7 @@ func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...Reque
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2785,19 +2617,7 @@ func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ..
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3014,19 +2834,7 @@ func (c *APIClient) GetSearchesNoResults(r ApiGetSearchesNoResultsRequest, opts 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3142,19 +2950,7 @@ func (c *APIClient) GetStatus(r ApiGetStatusRequest, opts ...RequestOption) (*Ge
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3371,19 +3167,7 @@ func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...Request
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3625,19 +3409,7 @@ func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, o
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3896,19 +3668,7 @@ func (c *APIClient) GetTopFilterForAttribute(r ApiGetTopFilterForAttributeReques
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4150,19 +3910,7 @@ func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, o
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4442,19 +4190,7 @@ func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4755,19 +4491,7 @@ func (c *APIClient) GetTopSearches(r ApiGetTopSearchesRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4952,19 +4676,7 @@ func (c *APIClient) GetUsersCount(r ApiGetUsersCountRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)

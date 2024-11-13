@@ -205,13 +205,40 @@ func (c *APIClient) decode(v any, b []byte) error {
 				return fmt.Errorf("failed to unmarshal one of in response body: %w", err)
 			}
 		} else {
-			return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
+			return errors.New("unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 		}
 	} else if err := json.Unmarshal(b, v); err != nil { // simple model
 		return fmt.Errorf("failed to unmarshal response body: %w", err)
 	}
 
 	return nil
+}
+
+func (c *APIClient) decodeError(res *http.Response, body []byte) error {
+	apiErr := &APIError{
+		Message: string(body), // default to the full body if we cannot guess the type of the error.
+		Status:  res.StatusCode,
+	}
+
+	if strings.Contains(res.Header.Get("Content-Type"), "application/json") {
+		var errBase ErrorBase
+
+		err := c.decode(&errBase, body)
+		if err != nil {
+			apiErr.Message = err.Error()
+
+			return apiErr
+		}
+		if errBase.Message != nil {
+			apiErr.Message = *errBase.Message
+		}
+
+		apiErr.AdditionalProperties = errBase.AdditionalProperties
+	} else if strings.Contains(res.Header.Get("Content-Type"), "text/html") {
+		apiErr.Message = http.StatusText(res.StatusCode)
+	}
+
+	return apiErr
 }
 
 // Prevent trying to import "fmt".
@@ -270,16 +297,58 @@ func setBody(body any, c compression.Compression) (*bytes.Buffer, error) {
 	}
 
 	if bodyBuf.Len() == 0 {
-		return nil, errors.New("Invalid body type, or empty body")
+		return nil, errors.New("invalid body type, or empty body")
 	}
 	return bodyBuf, nil
 }
 
 type APIError struct {
-	Message string
-	Status  int
+	Message              string
+	Status               int
+	AdditionalProperties map[string]any
 }
 
 func (e APIError) Error() string {
 	return fmt.Sprintf("API error [%d] %s", e.Status, e.Message)
+}
+
+func (o APIError) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]any{
+		"message": o.Message,
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal APIError: %w", err)
+	}
+
+	return serialized, nil
+}
+
+func (o *APIError) UnmarshalJSON(bytes []byte) error {
+	type _APIError APIError
+	apiErr := _APIError{}
+
+	err := json.Unmarshal(bytes, &apiErr)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal APIError: %w", err)
+	}
+
+	*o = APIError(apiErr)
+
+	additionalProperties := make(map[string]any)
+
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal additionalProperties in APIError: %w", err)
+	}
+
+	delete(additionalProperties, "message")
+	o.AdditionalProperties = additionalProperties
+
+	return nil
 }

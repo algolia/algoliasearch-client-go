@@ -166,19 +166,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -308,19 +296,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -474,19 +450,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -640,19 +604,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -759,19 +711,7 @@ func (c *APIClient) DeleteUserToken(r ApiDeleteUserTokenRequest, opts ...Request
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return newErr
-		}
-
-		return newErr
+		return c.decodeError(res, resBody)
 	}
 
 	return nil
@@ -883,19 +823,7 @@ func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)

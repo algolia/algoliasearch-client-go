@@ -369,19 +369,7 @@ func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...RequestOption) (*Ad
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -542,19 +530,7 @@ func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...Req
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -671,19 +647,7 @@ func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -823,19 +787,7 @@ func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -974,19 +926,7 @@ func (c *APIClient) Batch(r ApiBatchRequest, opts ...RequestOption) (*BatchRespo
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1126,19 +1066,7 @@ func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...R
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1269,19 +1197,7 @@ func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, o
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1464,19 +1380,7 @@ func (c *APIClient) Browse(r ApiBrowseRequest, opts ...RequestOption) (*BrowseRe
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1587,19 +1491,7 @@ func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1732,19 +1624,7 @@ func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1877,19 +1757,7 @@ func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2019,19 +1887,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2161,19 +2017,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2327,19 +2171,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2493,19 +2325,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2616,19 +2436,7 @@ func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2769,19 +2577,7 @@ func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*Dele
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -2908,19 +2704,7 @@ func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3054,19 +2838,7 @@ func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3221,19 +2993,7 @@ func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3344,19 +3104,7 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3509,19 +3257,7 @@ func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3634,19 +3370,7 @@ func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...RequestOption) (*Ge
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3754,19 +3478,7 @@ func (c *APIClient) GetAppTask(r ApiGetAppTaskRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3840,19 +3552,7 @@ func (c *APIClient) GetDictionaryLanguages(opts ...RequestOption) (*map[string]L
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -3925,19 +3625,7 @@ func (c *APIClient) GetDictionarySettings(opts ...RequestOption) (*GetDictionary
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4122,19 +3810,7 @@ func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...RequestOption) (*GetLog
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4288,19 +3964,7 @@ func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4421,19 +4085,7 @@ func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4564,19 +4216,7 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Rule, 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4687,19 +4327,7 @@ func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4772,19 +4400,7 @@ func (c *APIClient) GetSources(opts ...RequestOption) ([]Source, error) {
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -4917,19 +4533,7 @@ func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5066,19 +4670,7 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTas
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5157,19 +4749,7 @@ func (c *APIClient) GetTopUserIds(opts ...RequestOption) (*GetTopUserIdsResponse
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5286,19 +4866,7 @@ func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...RequestOption) (*Us
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5413,19 +4981,7 @@ func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...R
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5498,19 +5054,7 @@ func (c *APIClient) ListApiKeys(opts ...RequestOption) (*ListApiKeysResponse, er
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5583,19 +5127,7 @@ func (c *APIClient) ListClusters(opts ...RequestOption) (*ListClustersResponse, 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5734,19 +5266,7 @@ func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -5887,19 +5407,7 @@ func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6016,19 +5524,7 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6207,19 +5703,7 @@ func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6435,19 +5919,7 @@ func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ..
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6558,19 +6030,7 @@ func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6687,19 +6147,7 @@ func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6820,19 +6268,7 @@ func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -6983,19 +6419,7 @@ func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -7176,19 +6600,7 @@ func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*Upda
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -7372,19 +6784,7 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Up
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -7563,19 +6963,7 @@ func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -7756,19 +7144,7 @@ func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -7895,19 +7271,7 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8038,19 +7402,7 @@ func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest,
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8212,19 +7564,7 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8359,19 +7699,7 @@ func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8512,19 +7840,7 @@ func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...Req
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8659,19 +7975,7 @@ func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8795,19 +8099,7 @@ func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...RequestOpti
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -8924,19 +8216,7 @@ func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opt
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -9103,19 +8383,7 @@ func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -9254,19 +8522,7 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)

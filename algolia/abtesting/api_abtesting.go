@@ -153,19 +153,7 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -295,19 +283,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -437,19 +413,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -603,19 +567,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -769,19 +721,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -888,19 +828,7 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1017,19 +945,7 @@ func (c *APIClient) EstimateABTest(r ApiEstimateABTestRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1136,19 +1052,7 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*AB
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1325,19 +1229,7 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) 
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1455,19 +1347,7 @@ func (c *APIClient) ScheduleABTest(r ApiScheduleABTestRequest, opts ...RequestOp
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
@@ -1578,19 +1458,7 @@ func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...RequestOption) (*
 	}
 
 	if res.StatusCode >= 300 {
-		newErr := &APIError{
-			Message: string(resBody),
-			Status:  res.StatusCode,
-		}
-
-		var v ErrorBase
-		err = c.decode(&v, resBody)
-		if err != nil {
-			newErr.Message = err.Error()
-			return returnValue, newErr
-		}
-
-		return returnValue, newErr
+		return returnValue, c.decodeError(res, resBody)
 	}
 
 	err = c.decode(&returnValue, resBody)
