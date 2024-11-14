@@ -10,10 +10,8 @@ import (
 type EstimateABTestResponse struct {
 	// Estimated number of days needed to reach the sample sizes required for detecting the configured effect. This value is based on historical traffic.
 	DurationDays *int64 `json:"durationDays,omitempty"`
-	// Number of tracked searches needed to be able to detect the configured effect for the control variant.
-	ControlSampleSize *int64 `json:"controlSampleSize,omitempty"`
-	// Number of tracked searches needed to be able to detect the configured effect for the experiment variant.
-	ExperimentSampleSize *int64 `json:"experimentSampleSize,omitempty"`
+	// Sample size estimates for each variant. The first element is the control variant. Each element is the estimated number of searches required to achieve the desired statistical significance.
+	SampleSizes []int64 `json:"sampleSizes,omitempty"`
 }
 
 type EstimateABTestResponseOption func(f *EstimateABTestResponse)
@@ -24,15 +22,9 @@ func WithEstimateABTestResponseDurationDays(val int64) EstimateABTestResponseOpt
 	}
 }
 
-func WithEstimateABTestResponseControlSampleSize(val int64) EstimateABTestResponseOption {
+func WithEstimateABTestResponseSampleSizes(val []int64) EstimateABTestResponseOption {
 	return func(f *EstimateABTestResponse) {
-		f.ControlSampleSize = &val
-	}
-}
-
-func WithEstimateABTestResponseExperimentSampleSize(val int64) EstimateABTestResponseOption {
-	return func(f *EstimateABTestResponse) {
-		f.ExperimentSampleSize = &val
+		f.SampleSizes = val
 	}
 }
 
@@ -86,69 +78,36 @@ func (o *EstimateABTestResponse) SetDurationDays(v int64) *EstimateABTestRespons
 	return o
 }
 
-// GetControlSampleSize returns the ControlSampleSize field value if set, zero value otherwise.
-func (o *EstimateABTestResponse) GetControlSampleSize() int64 {
-	if o == nil || o.ControlSampleSize == nil {
-		var ret int64
+// GetSampleSizes returns the SampleSizes field value if set, zero value otherwise.
+func (o *EstimateABTestResponse) GetSampleSizes() []int64 {
+	if o == nil || o.SampleSizes == nil {
+		var ret []int64
 		return ret
 	}
-	return *o.ControlSampleSize
+	return o.SampleSizes
 }
 
-// GetControlSampleSizeOk returns a tuple with the ControlSampleSize field value if set, nil otherwise
+// GetSampleSizesOk returns a tuple with the SampleSizes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EstimateABTestResponse) GetControlSampleSizeOk() (*int64, bool) {
-	if o == nil || o.ControlSampleSize == nil {
+func (o *EstimateABTestResponse) GetSampleSizesOk() ([]int64, bool) {
+	if o == nil || o.SampleSizes == nil {
 		return nil, false
 	}
-	return o.ControlSampleSize, true
+	return o.SampleSizes, true
 }
 
-// HasControlSampleSize returns a boolean if a field has been set.
-func (o *EstimateABTestResponse) HasControlSampleSize() bool {
-	if o != nil && o.ControlSampleSize != nil {
+// HasSampleSizes returns a boolean if a field has been set.
+func (o *EstimateABTestResponse) HasSampleSizes() bool {
+	if o != nil && o.SampleSizes != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetControlSampleSize gets a reference to the given int64 and assigns it to the ControlSampleSize field.
-func (o *EstimateABTestResponse) SetControlSampleSize(v int64) *EstimateABTestResponse {
-	o.ControlSampleSize = &v
-	return o
-}
-
-// GetExperimentSampleSize returns the ExperimentSampleSize field value if set, zero value otherwise.
-func (o *EstimateABTestResponse) GetExperimentSampleSize() int64 {
-	if o == nil || o.ExperimentSampleSize == nil {
-		var ret int64
-		return ret
-	}
-	return *o.ExperimentSampleSize
-}
-
-// GetExperimentSampleSizeOk returns a tuple with the ExperimentSampleSize field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EstimateABTestResponse) GetExperimentSampleSizeOk() (*int64, bool) {
-	if o == nil || o.ExperimentSampleSize == nil {
-		return nil, false
-	}
-	return o.ExperimentSampleSize, true
-}
-
-// HasExperimentSampleSize returns a boolean if a field has been set.
-func (o *EstimateABTestResponse) HasExperimentSampleSize() bool {
-	if o != nil && o.ExperimentSampleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExperimentSampleSize gets a reference to the given int64 and assigns it to the ExperimentSampleSize field.
-func (o *EstimateABTestResponse) SetExperimentSampleSize(v int64) *EstimateABTestResponse {
-	o.ExperimentSampleSize = &v
+// SetSampleSizes gets a reference to the given []int64 and assigns it to the SampleSizes field.
+func (o *EstimateABTestResponse) SetSampleSizes(v []int64) *EstimateABTestResponse {
+	o.SampleSizes = v
 	return o
 }
 
@@ -157,11 +116,8 @@ func (o EstimateABTestResponse) MarshalJSON() ([]byte, error) {
 	if o.DurationDays != nil {
 		toSerialize["durationDays"] = o.DurationDays
 	}
-	if o.ControlSampleSize != nil {
-		toSerialize["controlSampleSize"] = o.ControlSampleSize
-	}
-	if o.ExperimentSampleSize != nil {
-		toSerialize["experimentSampleSize"] = o.ExperimentSampleSize
+	if o.SampleSizes != nil {
+		toSerialize["sampleSizes"] = o.SampleSizes
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -174,7 +130,6 @@ func (o EstimateABTestResponse) MarshalJSON() ([]byte, error) {
 func (o EstimateABTestResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  durationDays=%v\n", o.DurationDays)
-	out += fmt.Sprintf("  controlSampleSize=%v\n", o.ControlSampleSize)
-	out += fmt.Sprintf("  experimentSampleSize=%v\n", o.ExperimentSampleSize)
+	out += fmt.Sprintf("  sampleSizes=%v\n", o.SampleSizes)
 	return fmt.Sprintf("EstimateABTestResponse {\n%s}", out)
 }
