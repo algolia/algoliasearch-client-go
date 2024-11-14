@@ -1,10 +1,16 @@
 # ChangeLog
 
-## [3.31.3](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.2...v3.31.3) (2024-11-14)
+## [3.31.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.3...v3.31.4) (2024-11-14)
 
 ## Fix
 
 - fix(insights): add missing props (#768) ([e3f2a86e](https://github.com/algolia/algoliasearch-client-go/commit/e3f2a86e))
+
+## [3.31.3](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.2...v3.31.3) (2024-11-14)
+
+## Feat
+
+- feat(specs): add (optional) _automaticInsights to search result (#766) ([808e2bc6](https://github.com/algolia/algoliasearch-client-go/commit/808e2bc6))
 
 ## [3.31.2](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.1...v3.31.2) (2024-06-25)
 
