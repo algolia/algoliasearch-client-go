@@ -8,12 +8,11 @@ import (
 
 // RecommendationsRequest - struct for RecommendationsRequest.
 type RecommendationsRequest struct {
-	BoughtTogetherQuery    *BoughtTogetherQuery
-	LookingSimilarQuery    *LookingSimilarQuery
-	RecommendedForYouQuery *RecommendedForYouQuery
-	RelatedQuery           *RelatedQuery
-	TrendingFacetsQuery    *TrendingFacetsQuery
-	TrendingItemsQuery     *TrendingItemsQuery
+	BoughtTogetherQuery *BoughtTogetherQuery
+	LookingSimilarQuery *LookingSimilarQuery
+	RelatedQuery        *RelatedQuery
+	TrendingFacetsQuery *TrendingFacetsQuery
+	TrendingItemsQuery  *TrendingItemsQuery
 }
 
 // BoughtTogetherQueryAsRecommendationsRequest is a convenience function that returns BoughtTogetherQuery wrapped in RecommendationsRequest.
@@ -48,13 +47,6 @@ func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) *Recomm
 func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *RecommendationsRequest {
 	return &RecommendationsRequest{
 		LookingSimilarQuery: v,
-	}
-}
-
-// RecommendedForYouQueryAsRecommendationsRequest is a convenience function that returns RecommendedForYouQuery wrapped in RecommendationsRequest.
-func RecommendedForYouQueryAsRecommendationsRequest(v *RecommendedForYouQuery) *RecommendationsRequest {
-	return &RecommendationsRequest{
-		RecommendedForYouQuery: v,
 	}
 }
 
@@ -96,13 +88,6 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	} else {
 		dst.LookingSimilarQuery = nil
 	}
-	// try to unmarshal data into RecommendedForYouQuery
-	err = newStrictDecoder(data).Decode(&dst.RecommendedForYouQuery)
-	if err == nil && validateStruct(dst.RecommendedForYouQuery) == nil {
-		return nil // found the correct type
-	} else {
-		dst.RecommendedForYouQuery = nil
-	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(RecommendationsRequest)")
 }
@@ -122,15 +107,6 @@ func (src RecommendationsRequest) MarshalJSON() ([]byte, error) {
 		serialized, err := json.Marshal(&src.LookingSimilarQuery)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal one of LookingSimilarQuery of RecommendationsRequest: %w", err)
-		}
-
-		return serialized, nil
-	}
-
-	if src.RecommendedForYouQuery != nil {
-		serialized, err := json.Marshal(&src.RecommendedForYouQuery)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of RecommendedForYouQuery of RecommendationsRequest: %w", err)
 		}
 
 		return serialized, nil
@@ -174,10 +150,6 @@ func (obj RecommendationsRequest) GetActualInstance() any {
 
 	if obj.LookingSimilarQuery != nil {
 		return *obj.LookingSimilarQuery
-	}
-
-	if obj.RecommendedForYouQuery != nil {
-		return *obj.RecommendedForYouQuery
 	}
 
 	if obj.RelatedQuery != nil {
