@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SettingsResponse struct for SettingsResponse.
@@ -42,6 +44,8 @@ type SettingsResponse struct {
 	CustomNormalization *map[string]map[string]string `json:"customNormalization,omitempty"`
 	// Attribute that should be used to establish groups of results. Attribute names are case-sensitive.  All records with the same value for this attribute are considered a group. You can combine `attributeForDistinct` with the `distinct` search parameter to control how many items per group are included in the search results.  If you want to use the same attribute also for faceting, use the `afterDistinct` modifier of the `attributesForFaceting` setting. This applies faceting _after_ deduplication, which will result in accurate facet counts.
 	AttributeForDistinct *string `json:"attributeForDistinct,omitempty"`
+	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
+	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
 	// Attributes to include in the API response.  To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive.  - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute/), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, you should test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/).
@@ -90,9 +94,8 @@ type SettingsResponse struct {
 	Mode                   *Mode                   `json:"mode,omitempty"`
 	SemanticSearch         *SemanticSearch         `json:"semanticSearch,omitempty"`
 	// Whether to support phrase matching and excluding words from search queries.  Use the `advancedSyntaxFeatures` parameter to control which feature is supported.
-	AdvancedSyntax *bool `json:"advancedSyntax,omitempty"`
-	// Words that should be considered optional when found in the query.  By default, records must match all words in the search query to be included in the search results. Adding optional words can help to increase the number of search results by running an additional search query that doesn't include the optional words. For example, if the search query is \"action video\" and \"video\" is an optional word, the search engine runs two queries. One for \"action video\" and one for \"action\". Records that match all words are ranked higher.  For a search query with 4 or more words **and** all its words are optional, the number of matched words required for a record to be included in the search results increases for every 1,000 records:  - If `optionalWords` has less than 10 words, the required number of matched words increases by 1:   results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 2 matched words. - If `optionalWords` has 10 or more words, the number of required matched words increases by the number of optional words divided by 5 (rounded down).   For example, with 18 optional words: results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 4 matched words.  For more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#creating-a-list-of-optional-words).
-	OptionalWords []string `json:"optionalWords,omitempty"`
+	AdvancedSyntax *bool                         `json:"advancedSyntax,omitempty"`
+	OptionalWords  utils.Nullable[OptionalWords] `json:"optionalWords,omitempty"`
 	// Searchable attributes for which you want to [turn off the Exact ranking criterion](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/in-depth/adjust-exact-settings/#turn-off-exact-for-some-attributes). Attribute names are case-sensitive.  This can be useful for attributes with long values, where the likelihood of an exact match is high, such as product descriptions. Turning off the Exact ranking criterion for these attributes favors exact matching on other attributes. This reduces the impact of individual attributes with a lot of content on ranking.
 	DisableExactOnAttributes []string                `json:"disableExactOnAttributes,omitempty"`
 	ExactOnSingleWordQuery   *ExactOnSingleWordQuery `json:"exactOnSingleWordQuery,omitempty"`
@@ -107,8 +110,6 @@ type SettingsResponse struct {
 	MinProximity *int32 `json:"minProximity,omitempty"`
 	// Properties to include in the API response of `search` and `browse` requests.  By default, all response properties are included. To reduce the response size, you can select, which attributes should be included.  You can't exclude these properties: `message`, `warning`, `cursor`, `serverUsed`, `indexUsed`, `abTestVariantID`, `parsedQuery`, or any property triggered by the `getRankingInfo` parameter.  Don't exclude properties that you might need in your search UI.
 	ResponseFields []string `json:"responseFields,omitempty"`
-	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
-	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
 	// Maximum number of facet values to return for each facet.
 	MaxValuesPerFacet *int32 `json:"maxValuesPerFacet,omitempty"`
 	// Order in which to retrieve facet values.  - `count`.   Facet values are retrieved by decreasing count.   The count is the number of matching records containing this facet value.  - `alpha`.   Retrieve facet values alphabetically.  This setting doesn't influence how facet values are displayed in your UI (see `renderingContent`). For more information, see [facet value display](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/facet-display/js/).
@@ -224,6 +225,12 @@ func WithSettingsResponseCustomNormalization(val map[string]map[string]string) S
 func WithSettingsResponseAttributeForDistinct(val string) SettingsResponseOption {
 	return func(f *SettingsResponse) {
 		f.AttributeForDistinct = &val
+	}
+}
+
+func WithSettingsResponseMaxFacetHits(val int32) SettingsResponseOption {
+	return func(f *SettingsResponse) {
+		f.MaxFacetHits = &val
 	}
 }
 
@@ -395,7 +402,7 @@ func WithSettingsResponseAdvancedSyntax(val bool) SettingsResponseOption {
 	}
 }
 
-func WithSettingsResponseOptionalWords(val []string) SettingsResponseOption {
+func WithSettingsResponseOptionalWords(val utils.Nullable[OptionalWords]) SettingsResponseOption {
 	return func(f *SettingsResponse) {
 		f.OptionalWords = val
 	}
@@ -446,12 +453,6 @@ func WithSettingsResponseMinProximity(val int32) SettingsResponseOption {
 func WithSettingsResponseResponseFields(val []string) SettingsResponseOption {
 	return func(f *SettingsResponse) {
 		f.ResponseFields = val
-	}
-}
-
-func WithSettingsResponseMaxFacetHits(val int32) SettingsResponseOption {
-	return func(f *SettingsResponse) {
-		f.MaxFacetHits = &val
 	}
 }
 
@@ -1072,6 +1073,39 @@ func (o *SettingsResponse) HasAttributeForDistinct() bool {
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
 func (o *SettingsResponse) SetAttributeForDistinct(v string) *SettingsResponse {
 	o.AttributeForDistinct = &v
+	return o
+}
+
+// GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
+func (o *SettingsResponse) GetMaxFacetHits() int32 {
+	if o == nil || o.MaxFacetHits == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MaxFacetHits
+}
+
+// GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SettingsResponse) GetMaxFacetHitsOk() (*int32, bool) {
+	if o == nil || o.MaxFacetHits == nil {
+		return nil, false
+	}
+	return o.MaxFacetHits, true
+}
+
+// HasMaxFacetHits returns a boolean if a field has been set.
+func (o *SettingsResponse) HasMaxFacetHits() bool {
+	if o != nil && o.MaxFacetHits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
+func (o *SettingsResponse) SetMaxFacetHits(v int32) *SettingsResponse {
+	o.MaxFacetHits = &v
 	return o
 }
 
@@ -1999,37 +2033,48 @@ func (o *SettingsResponse) SetAdvancedSyntax(v bool) *SettingsResponse {
 	return o
 }
 
-// GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
-func (o *SettingsResponse) GetOptionalWords() []string {
-	if o == nil || o.OptionalWords == nil {
-		var ret []string
+// GetOptionalWords returns the OptionalWords field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SettingsResponse) GetOptionalWords() OptionalWords {
+	if o == nil || o.OptionalWords.Get() == nil {
+		var ret OptionalWords
 		return ret
 	}
-	return o.OptionalWords
+	return *o.OptionalWords.Get()
 }
 
 // GetOptionalWordsOk returns a tuple with the OptionalWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetOptionalWordsOk() ([]string, bool) {
-	if o == nil || o.OptionalWords == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SettingsResponse) GetOptionalWordsOk() (*OptionalWords, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.OptionalWords, true
+	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
 // HasOptionalWords returns a boolean if a field has been set.
 func (o *SettingsResponse) HasOptionalWords() bool {
-	if o != nil && o.OptionalWords != nil {
+	if o != nil && o.OptionalWords.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *SettingsResponse) SetOptionalWords(v []string) *SettingsResponse {
-	o.OptionalWords = v
+// SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
+func (o *SettingsResponse) SetOptionalWords(v *OptionalWords) *SettingsResponse {
+	o.OptionalWords.Set(v)
 	return o
+}
+
+// SetOptionalWordsNil sets the value for OptionalWords to be an explicit nil.
+func (o *SettingsResponse) SetOptionalWordsNil() {
+	o.OptionalWords.Set(nil)
+}
+
+// UnsetOptionalWords ensures that no value is present for OptionalWords, not even an explicit nil.
+func (o *SettingsResponse) UnsetOptionalWords() {
+	o.OptionalWords.Unset()
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2293,39 +2338,6 @@ func (o *SettingsResponse) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *SettingsResponse) SetResponseFields(v []string) *SettingsResponse {
 	o.ResponseFields = v
-	return o
-}
-
-// GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
-func (o *SettingsResponse) GetMaxFacetHits() int32 {
-	if o == nil || o.MaxFacetHits == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MaxFacetHits
-}
-
-// GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SettingsResponse) GetMaxFacetHitsOk() (*int32, bool) {
-	if o == nil || o.MaxFacetHits == nil {
-		return nil, false
-	}
-	return o.MaxFacetHits, true
-}
-
-// HasMaxFacetHits returns a boolean if a field has been set.
-func (o *SettingsResponse) HasMaxFacetHits() bool {
-	if o != nil && o.MaxFacetHits != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *SettingsResponse) SetMaxFacetHits(v int32) *SettingsResponse {
-	o.MaxFacetHits = &v
 	return o
 }
 
@@ -2613,6 +2625,9 @@ func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	if o.AttributeForDistinct != nil {
 		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
 	}
+	if o.MaxFacetHits != nil {
+		toSerialize["maxFacetHits"] = o.MaxFacetHits
+	}
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
@@ -2697,8 +2712,8 @@ func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
-	if o.OptionalWords != nil {
-		toSerialize["optionalWords"] = o.OptionalWords
+	if o.OptionalWords.IsSet() {
+		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
@@ -2723,9 +2738,6 @@ func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
-	}
-	if o.MaxFacetHits != nil {
-		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
@@ -2775,6 +2787,7 @@ func (o SettingsResponse) String() string {
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 	out += fmt.Sprintf("  customNormalization=%v\n", o.CustomNormalization)
 	out += fmt.Sprintf("  attributeForDistinct=%v\n", o.AttributeForDistinct)
+	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
 	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
@@ -2812,7 +2825,6 @@ func (o SettingsResponse) String() string {
 	out += fmt.Sprintf("  replaceSynonymsInHighlight=%v\n", o.ReplaceSynonymsInHighlight)
 	out += fmt.Sprintf("  minProximity=%v\n", o.MinProximity)
 	out += fmt.Sprintf("  responseFields=%v\n", o.ResponseFields)
-	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
 	out += fmt.Sprintf("  sortFacetValuesBy=%v\n", o.SortFacetValuesBy)
 	out += fmt.Sprintf("  attributeCriteriaComputedByMinProximity=%v\n", o.AttributeCriteriaComputedByMinProximity)

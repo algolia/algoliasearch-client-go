@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // SearchForFacets struct for SearchForFacets.
@@ -41,9 +43,8 @@ type SearchForFacets struct {
 	AroundRadius      *AroundRadius    `json:"aroundRadius,omitempty"`
 	AroundPrecision   *AroundPrecision `json:"aroundPrecision,omitempty"`
 	// Minimum radius (in meters) for a search around a location when `aroundRadius` isn't set.
-	MinimumAroundRadius *int32 `json:"minimumAroundRadius,omitempty"`
-	// Coordinates for a rectangular area in which to search.  Each bounding box is defined by the two opposite points of its diagonal, and expressed as latitude and longitude pair: `[p1 lat, p1 long, p2 lat, p2 long]`. Provide multiple bounding boxes as nested arrays. For more information, see [rectangular area](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).
-	InsideBoundingBox [][]float64 `json:"insideBoundingBox,omitempty"`
+	MinimumAroundRadius *int32                            `json:"minimumAroundRadius,omitempty"`
+	InsideBoundingBox   utils.Nullable[InsideBoundingBox] `json:"insideBoundingBox,omitempty"`
 	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 	// ISO language codes that adjust settings that are useful for processing natural language queries (as opposed to keyword searches):  - Sets `removeStopWords` and `ignorePlurals` to the list of provided languages. - Sets `removeWordsIfNoResults` to `allOptional`. - Adds a `natural_language` attribute to `ruleContexts` and `analyticsTags`.
@@ -116,9 +117,8 @@ type SearchForFacets struct {
 	Mode                   *Mode                   `json:"mode,omitempty"`
 	SemanticSearch         *SemanticSearch         `json:"semanticSearch,omitempty"`
 	// Whether to support phrase matching and excluding words from search queries.  Use the `advancedSyntaxFeatures` parameter to control which feature is supported.
-	AdvancedSyntax *bool `json:"advancedSyntax,omitempty"`
-	// Words that should be considered optional when found in the query.  By default, records must match all words in the search query to be included in the search results. Adding optional words can help to increase the number of search results by running an additional search query that doesn't include the optional words. For example, if the search query is \"action video\" and \"video\" is an optional word, the search engine runs two queries. One for \"action video\" and one for \"action\". Records that match all words are ranked higher.  For a search query with 4 or more words **and** all its words are optional, the number of matched words required for a record to be included in the search results increases for every 1,000 records:  - If `optionalWords` has less than 10 words, the required number of matched words increases by 1:   results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 2 matched words. - If `optionalWords` has 10 or more words, the number of required matched words increases by the number of optional words divided by 5 (rounded down).   For example, with 18 optional words: results 1 to 1,000 require 1 matched word, results 1,001 to 2000 need 4 matched words.  For more information, see [Optional words](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/empty-or-insufficient-results/#creating-a-list-of-optional-words).
-	OptionalWords []string `json:"optionalWords,omitempty"`
+	AdvancedSyntax *bool                         `json:"advancedSyntax,omitempty"`
+	OptionalWords  utils.Nullable[OptionalWords] `json:"optionalWords,omitempty"`
 	// Searchable attributes for which you want to [turn off the Exact ranking criterion](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/in-depth/adjust-exact-settings/#turn-off-exact-for-some-attributes). Attribute names are case-sensitive.  This can be useful for attributes with long values, where the likelihood of an exact match is high, such as product descriptions. Turning off the Exact ranking criterion for these attributes favors exact matching on other attributes. This reduces the impact of individual attributes with a lot of content on ranking.
 	DisableExactOnAttributes []string                `json:"disableExactOnAttributes,omitempty"`
 	ExactOnSingleWordQuery   *ExactOnSingleWordQuery `json:"exactOnSingleWordQuery,omitempty"`
@@ -133,8 +133,6 @@ type SearchForFacets struct {
 	MinProximity *int32 `json:"minProximity,omitempty"`
 	// Properties to include in the API response of `search` and `browse` requests.  By default, all response properties are included. To reduce the response size, you can select, which attributes should be included.  You can't exclude these properties: `message`, `warning`, `cursor`, `serverUsed`, `indexUsed`, `abTestVariantID`, `parsedQuery`, or any property triggered by the `getRankingInfo` parameter.  Don't exclude properties that you might need in your search UI.
 	ResponseFields []string `json:"responseFields,omitempty"`
-	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
-	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
 	// Maximum number of facet values to return for each facet.
 	MaxValuesPerFacet *int32 `json:"maxValuesPerFacet,omitempty"`
 	// Order in which to retrieve facet values.  - `count`.   Facet values are retrieved by decreasing count.   The count is the number of matching records containing this facet value.  - `alpha`.   Retrieve facet values alphabetically.  This setting doesn't influence how facet values are displayed in your UI (see `renderingContent`). For more information, see [facet value display](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/facet-display/js/).
@@ -150,8 +148,10 @@ type SearchForFacets struct {
 	// Index name (case-sensitive).
 	IndexName string `json:"indexName"`
 	// Text to search inside the facet's values.
-	FacetQuery *string         `json:"facetQuery,omitempty"`
-	Type       SearchTypeFacet `json:"type"`
+	FacetQuery *string `json:"facetQuery,omitempty"`
+	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
+	MaxFacetHits *int32          `json:"maxFacetHits,omitempty"`
+	Type         SearchTypeFacet `json:"type"`
 }
 
 type SearchForFacetsOption func(f *SearchForFacets)
@@ -276,7 +276,7 @@ func WithSearchForFacetsMinimumAroundRadius(val int32) SearchForFacetsOption {
 	}
 }
 
-func WithSearchForFacetsInsideBoundingBox(val [][]float64) SearchForFacetsOption {
+func WithSearchForFacetsInsideBoundingBox(val utils.Nullable[InsideBoundingBox]) SearchForFacetsOption {
 	return func(f *SearchForFacets) {
 		f.InsideBoundingBox = val
 	}
@@ -522,7 +522,7 @@ func WithSearchForFacetsAdvancedSyntax(val bool) SearchForFacetsOption {
 	}
 }
 
-func WithSearchForFacetsOptionalWords(val []string) SearchForFacetsOption {
+func WithSearchForFacetsOptionalWords(val utils.Nullable[OptionalWords]) SearchForFacetsOption {
 	return func(f *SearchForFacets) {
 		f.OptionalWords = val
 	}
@@ -576,12 +576,6 @@ func WithSearchForFacetsResponseFields(val []string) SearchForFacetsOption {
 	}
 }
 
-func WithSearchForFacetsMaxFacetHits(val int32) SearchForFacetsOption {
-	return func(f *SearchForFacets) {
-		f.MaxFacetHits = &val
-	}
-}
-
 func WithSearchForFacetsMaxValuesPerFacet(val int32) SearchForFacetsOption {
 	return func(f *SearchForFacets) {
 		f.MaxValuesPerFacet = &val
@@ -621,6 +615,12 @@ func WithSearchForFacetsReRankingApplyFilter(val ReRankingApplyFilter) SearchFor
 func WithSearchForFacetsFacetQuery(val string) SearchForFacetsOption {
 	return func(f *SearchForFacets) {
 		f.FacetQuery = &val
+	}
+}
+
+func WithSearchForFacetsMaxFacetHits(val int32) SearchForFacetsOption {
+	return func(f *SearchForFacets) {
+		f.MaxFacetHits = &val
 	}
 }
 
@@ -1304,37 +1304,48 @@ func (o *SearchForFacets) SetMinimumAroundRadius(v int32) *SearchForFacets {
 	return o
 }
 
-// GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
-func (o *SearchForFacets) GetInsideBoundingBox() [][]float64 {
-	if o == nil || o.InsideBoundingBox == nil {
-		var ret [][]float64
+// GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchForFacets) GetInsideBoundingBox() InsideBoundingBox {
+	if o == nil || o.InsideBoundingBox.Get() == nil {
+		var ret InsideBoundingBox
 		return ret
 	}
-	return o.InsideBoundingBox
+	return *o.InsideBoundingBox.Get()
 }
 
 // GetInsideBoundingBoxOk returns a tuple with the InsideBoundingBox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchForFacets) GetInsideBoundingBoxOk() ([][]float64, bool) {
-	if o == nil || o.InsideBoundingBox == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchForFacets) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InsideBoundingBox, true
+	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
 // HasInsideBoundingBox returns a boolean if a field has been set.
 func (o *SearchForFacets) HasInsideBoundingBox() bool {
-	if o != nil && o.InsideBoundingBox != nil {
+	if o != nil && o.InsideBoundingBox.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *SearchForFacets) SetInsideBoundingBox(v [][]float64) *SearchForFacets {
-	o.InsideBoundingBox = v
+// SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
+func (o *SearchForFacets) SetInsideBoundingBox(v *InsideBoundingBox) *SearchForFacets {
+	o.InsideBoundingBox.Set(v)
 	return o
+}
+
+// SetInsideBoundingBoxNil sets the value for InsideBoundingBox to be an explicit nil.
+func (o *SearchForFacets) SetInsideBoundingBoxNil() {
+	o.InsideBoundingBox.Set(nil)
+}
+
+// UnsetInsideBoundingBox ensures that no value is present for InsideBoundingBox, not even an explicit nil.
+func (o *SearchForFacets) UnsetInsideBoundingBox() {
+	o.InsideBoundingBox.Unset()
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -2657,37 +2668,48 @@ func (o *SearchForFacets) SetAdvancedSyntax(v bool) *SearchForFacets {
 	return o
 }
 
-// GetOptionalWords returns the OptionalWords field value if set, zero value otherwise.
-func (o *SearchForFacets) GetOptionalWords() []string {
-	if o == nil || o.OptionalWords == nil {
-		var ret []string
+// GetOptionalWords returns the OptionalWords field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchForFacets) GetOptionalWords() OptionalWords {
+	if o == nil || o.OptionalWords.Get() == nil {
+		var ret OptionalWords
 		return ret
 	}
-	return o.OptionalWords
+	return *o.OptionalWords.Get()
 }
 
 // GetOptionalWordsOk returns a tuple with the OptionalWords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchForFacets) GetOptionalWordsOk() ([]string, bool) {
-	if o == nil || o.OptionalWords == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchForFacets) GetOptionalWordsOk() (*OptionalWords, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.OptionalWords, true
+	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
 // HasOptionalWords returns a boolean if a field has been set.
 func (o *SearchForFacets) HasOptionalWords() bool {
-	if o != nil && o.OptionalWords != nil {
+	if o != nil && o.OptionalWords.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetOptionalWords gets a reference to the given []string and assigns it to the OptionalWords field.
-func (o *SearchForFacets) SetOptionalWords(v []string) *SearchForFacets {
-	o.OptionalWords = v
+// SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
+func (o *SearchForFacets) SetOptionalWords(v *OptionalWords) *SearchForFacets {
+	o.OptionalWords.Set(v)
 	return o
+}
+
+// SetOptionalWordsNil sets the value for OptionalWords to be an explicit nil.
+func (o *SearchForFacets) SetOptionalWordsNil() {
+	o.OptionalWords.Set(nil)
+}
+
+// UnsetOptionalWords ensures that no value is present for OptionalWords, not even an explicit nil.
+func (o *SearchForFacets) UnsetOptionalWords() {
+	o.OptionalWords.Unset()
 }
 
 // GetDisableExactOnAttributes returns the DisableExactOnAttributes field value if set, zero value otherwise.
@@ -2951,39 +2973,6 @@ func (o *SearchForFacets) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *SearchForFacets) SetResponseFields(v []string) *SearchForFacets {
 	o.ResponseFields = v
-	return o
-}
-
-// GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
-func (o *SearchForFacets) GetMaxFacetHits() int32 {
-	if o == nil || o.MaxFacetHits == nil {
-		var ret int32
-		return ret
-	}
-	return *o.MaxFacetHits
-}
-
-// GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SearchForFacets) GetMaxFacetHitsOk() (*int32, bool) {
-	if o == nil || o.MaxFacetHits == nil {
-		return nil, false
-	}
-	return o.MaxFacetHits, true
-}
-
-// HasMaxFacetHits returns a boolean if a field has been set.
-func (o *SearchForFacets) HasMaxFacetHits() bool {
-	if o != nil && o.MaxFacetHits != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *SearchForFacets) SetMaxFacetHits(v int32) *SearchForFacets {
-	o.MaxFacetHits = &v
 	return o
 }
 
@@ -3268,6 +3257,39 @@ func (o *SearchForFacets) SetFacetQuery(v string) *SearchForFacets {
 	return o
 }
 
+// GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
+func (o *SearchForFacets) GetMaxFacetHits() int32 {
+	if o == nil || o.MaxFacetHits == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MaxFacetHits
+}
+
+// GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchForFacets) GetMaxFacetHitsOk() (*int32, bool) {
+	if o == nil || o.MaxFacetHits == nil {
+		return nil, false
+	}
+	return o.MaxFacetHits, true
+}
+
+// HasMaxFacetHits returns a boolean if a field has been set.
+func (o *SearchForFacets) HasMaxFacetHits() bool {
+	if o != nil && o.MaxFacetHits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
+func (o *SearchForFacets) SetMaxFacetHits(v int32) *SearchForFacets {
+	o.MaxFacetHits = &v
+	return o
+}
+
 // GetType returns the Type field value.
 func (o *SearchForFacets) GetType() SearchTypeFacet {
 	if o == nil {
@@ -3355,8 +3377,8 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
-	if o.InsideBoundingBox != nil {
-		toSerialize["insideBoundingBox"] = o.InsideBoundingBox
+	if o.InsideBoundingBox.IsSet() {
+		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
@@ -3478,8 +3500,8 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
-	if o.OptionalWords != nil {
-		toSerialize["optionalWords"] = o.OptionalWords
+	if o.OptionalWords.IsSet() {
+		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
@@ -3504,9 +3526,6 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	}
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
-	}
-	if o.MaxFacetHits != nil {
-		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
@@ -3534,6 +3553,9 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	}
 	if o.FacetQuery != nil {
 		toSerialize["facetQuery"] = o.FacetQuery
+	}
+	if o.MaxFacetHits != nil {
+		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
 	if true {
 		toSerialize["type"] = o.Type
@@ -3618,7 +3640,6 @@ func (o SearchForFacets) String() string {
 	out += fmt.Sprintf("  replaceSynonymsInHighlight=%v\n", o.ReplaceSynonymsInHighlight)
 	out += fmt.Sprintf("  minProximity=%v\n", o.MinProximity)
 	out += fmt.Sprintf("  responseFields=%v\n", o.ResponseFields)
-	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
 	out += fmt.Sprintf("  sortFacetValuesBy=%v\n", o.SortFacetValuesBy)
 	out += fmt.Sprintf("  attributeCriteriaComputedByMinProximity=%v\n", o.AttributeCriteriaComputedByMinProximity)
@@ -3628,6 +3649,7 @@ func (o SearchForFacets) String() string {
 	out += fmt.Sprintf("  facet=%v\n", o.Facet)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  facetQuery=%v\n", o.FacetQuery)
+	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	return fmt.Sprintf("SearchForFacets {\n%s}", out)
 }

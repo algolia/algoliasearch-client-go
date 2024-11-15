@@ -4,6 +4,8 @@ package search
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // DeleteByParams struct for DeleteByParams.
@@ -14,10 +16,9 @@ type DeleteByParams struct {
 	NumericFilters *NumericFilters `json:"numericFilters,omitempty"`
 	TagFilters     *TagFilters     `json:"tagFilters,omitempty"`
 	// Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.  Only records included within a circle around this central location are included in the results. The radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings. This parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.
-	AroundLatLng *string       `json:"aroundLatLng,omitempty"`
-	AroundRadius *AroundRadius `json:"aroundRadius,omitempty"`
-	// Coordinates for a rectangular area in which to search.  Each bounding box is defined by the two opposite points of its diagonal, and expressed as latitude and longitude pair: `[p1 lat, p1 long, p2 lat, p2 long]`. Provide multiple bounding boxes as nested arrays. For more information, see [rectangular area](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).
-	InsideBoundingBox [][]float64 `json:"insideBoundingBox,omitempty"`
+	AroundLatLng      *string                           `json:"aroundLatLng,omitempty"`
+	AroundRadius      *AroundRadius                     `json:"aroundRadius,omitempty"`
+	InsideBoundingBox utils.Nullable[InsideBoundingBox] `json:"insideBoundingBox,omitempty"`
 	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 }
@@ -60,7 +61,7 @@ func WithDeleteByParamsAroundRadius(val AroundRadius) DeleteByParamsOption {
 	}
 }
 
-func WithDeleteByParamsInsideBoundingBox(val [][]float64) DeleteByParamsOption {
+func WithDeleteByParamsInsideBoundingBox(val utils.Nullable[InsideBoundingBox]) DeleteByParamsOption {
 	return func(f *DeleteByParams) {
 		f.InsideBoundingBox = val
 	}
@@ -287,37 +288,48 @@ func (o *DeleteByParams) SetAroundRadius(v *AroundRadius) *DeleteByParams {
 	return o
 }
 
-// GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise.
-func (o *DeleteByParams) GetInsideBoundingBox() [][]float64 {
-	if o == nil || o.InsideBoundingBox == nil {
-		var ret [][]float64
+// GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeleteByParams) GetInsideBoundingBox() InsideBoundingBox {
+	if o == nil || o.InsideBoundingBox.Get() == nil {
+		var ret InsideBoundingBox
 		return ret
 	}
-	return o.InsideBoundingBox
+	return *o.InsideBoundingBox.Get()
 }
 
 // GetInsideBoundingBoxOk returns a tuple with the InsideBoundingBox field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeleteByParams) GetInsideBoundingBoxOk() ([][]float64, bool) {
-	if o == nil || o.InsideBoundingBox == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *DeleteByParams) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InsideBoundingBox, true
+	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
 // HasInsideBoundingBox returns a boolean if a field has been set.
 func (o *DeleteByParams) HasInsideBoundingBox() bool {
-	if o != nil && o.InsideBoundingBox != nil {
+	if o != nil && o.InsideBoundingBox.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInsideBoundingBox gets a reference to the given [][]float64 and assigns it to the InsideBoundingBox field.
-func (o *DeleteByParams) SetInsideBoundingBox(v [][]float64) *DeleteByParams {
-	o.InsideBoundingBox = v
+// SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
+func (o *DeleteByParams) SetInsideBoundingBox(v *InsideBoundingBox) *DeleteByParams {
+	o.InsideBoundingBox.Set(v)
 	return o
+}
+
+// SetInsideBoundingBoxNil sets the value for InsideBoundingBox to be an explicit nil.
+func (o *DeleteByParams) SetInsideBoundingBoxNil() {
+	o.InsideBoundingBox.Set(nil)
+}
+
+// UnsetInsideBoundingBox ensures that no value is present for InsideBoundingBox, not even an explicit nil.
+func (o *DeleteByParams) UnsetInsideBoundingBox() {
+	o.InsideBoundingBox.Unset()
 }
 
 // GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise.
@@ -373,8 +385,8 @@ func (o DeleteByParams) MarshalJSON() ([]byte, error) {
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
-	if o.InsideBoundingBox != nil {
-		toSerialize["insideBoundingBox"] = o.InsideBoundingBox
+	if o.InsideBoundingBox.IsSet() {
+		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
