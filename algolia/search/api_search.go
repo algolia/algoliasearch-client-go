@@ -2563,10 +2563,10 @@ Request can be constructed by NewApiDeleteByRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
 	@param deleteByParams DeleteByParams
-	@return DeletedAtResponse
+	@return UpdatedAtResponse
 */
-func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*DeletedAtResponse, error) {
-	var returnValue *DeletedAtResponse
+func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
+	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.DeleteByWithHTTPInfo(r, opts...)
 	if err != nil {
