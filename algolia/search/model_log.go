@@ -27,7 +27,7 @@ type Log struct {
 	// SHA1 signature of the log entry.
 	Sha1 string `json:"sha1"`
 	// Number of API requests.
-	NbApiCalls string `json:"nb_api_calls"`
+	NbApiCalls *string `json:"nb_api_calls,omitempty"`
 	// Processing time for the query in milliseconds. This doesn't include latency due to the network.
 	ProcessingTimeMs string `json:"processing_time_ms"`
 	// Index targeted by the query.
@@ -41,6 +41,12 @@ type Log struct {
 }
 
 type LogOption func(f *Log)
+
+func WithLogNbApiCalls(val string) LogOption {
+	return func(f *Log) {
+		f.NbApiCalls = &val
+	}
+}
 
 func WithLogIndex(val string) LogOption {
 	return func(f *Log) {
@@ -70,7 +76,7 @@ func WithLogInnerQueries(val []LogQuery) LogOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewLog(timestamp string, method string, answerCode string, queryBody string, answer string, url string, ip string, queryHeaders string, sha1 string, nbApiCalls string, processingTimeMs string, opts ...LogOption) *Log {
+func NewLog(timestamp string, method string, answerCode string, queryBody string, answer string, url string, ip string, queryHeaders string, sha1 string, processingTimeMs string, opts ...LogOption) *Log {
 	this := &Log{}
 	this.Timestamp = timestamp
 	this.Method = method
@@ -81,7 +87,6 @@ func NewLog(timestamp string, method string, answerCode string, queryBody string
 	this.Ip = ip
 	this.QueryHeaders = queryHeaders
 	this.Sha1 = sha1
-	this.NbApiCalls = nbApiCalls
 	this.ProcessingTimeMs = processingTimeMs
 	for _, opt := range opts {
 		opt(this)
@@ -319,28 +324,36 @@ func (o *Log) SetSha1(v string) *Log {
 	return o
 }
 
-// GetNbApiCalls returns the NbApiCalls field value.
+// GetNbApiCalls returns the NbApiCalls field value if set, zero value otherwise.
 func (o *Log) GetNbApiCalls() string {
-	if o == nil {
+	if o == nil || o.NbApiCalls == nil {
 		var ret string
 		return ret
 	}
-
-	return o.NbApiCalls
+	return *o.NbApiCalls
 }
 
-// GetNbApiCallsOk returns a tuple with the NbApiCalls field value
+// GetNbApiCallsOk returns a tuple with the NbApiCalls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Log) GetNbApiCallsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.NbApiCalls == nil {
 		return nil, false
 	}
-	return &o.NbApiCalls, true
+	return o.NbApiCalls, true
 }
 
-// SetNbApiCalls sets field value.
+// HasNbApiCalls returns a boolean if a field has been set.
+func (o *Log) HasNbApiCalls() bool {
+	if o != nil && o.NbApiCalls != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNbApiCalls gets a reference to the given string and assigns it to the NbApiCalls field.
 func (o *Log) SetNbApiCalls(v string) *Log {
-	o.NbApiCalls = v
+	o.NbApiCalls = &v
 	return o
 }
 
@@ -530,7 +543,7 @@ func (o Log) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["sha1"] = o.Sha1
 	}
-	if true {
+	if o.NbApiCalls != nil {
 		toSerialize["nb_api_calls"] = o.NbApiCalls
 	}
 	if true {
