@@ -11,8 +11,8 @@ type Rule struct {
 	// Unique identifier of a rule object.
 	ObjectID string `json:"objectID"`
 	// Conditions that trigger a rule.  Some consequences require specific conditions or don't require any condition. For more information, see [Conditions](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#conditions).
-	Conditions  []Condition  `json:"conditions,omitempty"`
-	Consequence *Consequence `json:"consequence,omitempty"`
+	Conditions  []Condition `json:"conditions,omitempty"`
+	Consequence Consequence `json:"consequence"`
 	// Description of the rule's purpose to help you distinguish between different rules.
 	Description *string `json:"description,omitempty"`
 	// Whether the rule is active.
@@ -26,12 +26,6 @@ type RuleOption func(f *Rule)
 func WithRuleConditions(val []Condition) RuleOption {
 	return func(f *Rule) {
 		f.Conditions = val
-	}
-}
-
-func WithRuleConsequence(val Consequence) RuleOption {
-	return func(f *Rule) {
-		f.Consequence = &val
 	}
 }
 
@@ -57,9 +51,10 @@ func WithRuleValidity(val []TimeRange) RuleOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRule(objectID string, opts ...RuleOption) *Rule {
+func NewRule(objectID string, consequence Consequence, opts ...RuleOption) *Rule {
 	this := &Rule{}
 	this.ObjectID = objectID
+	this.Consequence = consequence
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -129,36 +124,28 @@ func (o *Rule) SetConditions(v []Condition) *Rule {
 	return o
 }
 
-// GetConsequence returns the Consequence field value if set, zero value otherwise.
+// GetConsequence returns the Consequence field value.
 func (o *Rule) GetConsequence() Consequence {
-	if o == nil || o.Consequence == nil {
+	if o == nil {
 		var ret Consequence
 		return ret
 	}
-	return *o.Consequence
+
+	return o.Consequence
 }
 
-// GetConsequenceOk returns a tuple with the Consequence field value if set, nil otherwise
+// GetConsequenceOk returns a tuple with the Consequence field value
 // and a boolean to check if the value has been set.
 func (o *Rule) GetConsequenceOk() (*Consequence, bool) {
-	if o == nil || o.Consequence == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Consequence, true
+	return &o.Consequence, true
 }
 
-// HasConsequence returns a boolean if a field has been set.
-func (o *Rule) HasConsequence() bool {
-	if o != nil && o.Consequence != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConsequence gets a reference to the given Consequence and assigns it to the Consequence field.
+// SetConsequence sets field value.
 func (o *Rule) SetConsequence(v *Consequence) *Rule {
-	o.Consequence = v
+	o.Consequence = *v
 	return o
 }
 
@@ -269,7 +256,7 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 	if o.Conditions != nil {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if o.Consequence != nil {
+	if true {
 		toSerialize["consequence"] = o.Consequence
 	}
 	if o.Description != nil {
