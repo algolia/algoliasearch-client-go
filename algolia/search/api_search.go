@@ -6617,10 +6617,10 @@ Request can be constructed by NewApiSaveRuleRequest with parameters below.
 	@param objectID string - Unique identifier of a rule object.
 	@param rule Rule
 	@param forwardToReplicas bool - Whether changes are applied to replica indices.
-	@return UpdatedRuleResponse
+	@return UpdatedAtResponse
 */
-func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*UpdatedRuleResponse, error) {
-	var returnValue *UpdatedRuleResponse
+func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*UpdatedAtResponse, error) {
+	var returnValue *UpdatedAtResponse
 
 	res, resBody, err := c.SaveRuleWithHTTPInfo(r, opts...)
 	if err != nil {
