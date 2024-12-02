@@ -19,7 +19,6 @@ const (
 	SOURCE_TYPE_GA4_BIGQUERY_EXPORT SourceType = "ga4BigqueryExport"
 	SOURCE_TYPE_JSON                SourceType = "json"
 	SOURCE_TYPE_SHOPIFY             SourceType = "shopify"
-	SOURCE_TYPE_SFCC                SourceType = "sfcc"
 	SOURCE_TYPE_PUSH                SourceType = "push"
 )
 
@@ -33,7 +32,6 @@ var AllowedSourceTypeEnumValues = []SourceType{
 	"ga4BigqueryExport",
 	"json",
 	"shopify",
-	"sfcc",
 	"push",
 }
 
