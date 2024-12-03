@@ -4690,6 +4690,15 @@ func (r *ApiListTasksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["sourceType"]; ok {
+		err = json.Unmarshal(v, &r.sourceType)
+		if err != nil {
+			err = json.Unmarshal(b, &r.sourceType)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal sourceType: %w", err)
+			}
+		}
+	}
 	if v, ok := req["destinationID"]; ok {
 		err = json.Unmarshal(v, &r.destinationID)
 		if err != nil {
@@ -4737,6 +4746,7 @@ type ApiListTasksRequest struct {
 	action        []ActionType
 	enabled       *bool
 	sourceID      []string
+	sourceType    []SourceType
 	destinationID []string
 	triggerType   []TriggerType
 	sort          TaskSortKeys
@@ -4775,6 +4785,12 @@ func (r ApiListTasksRequest) WithEnabled(enabled bool) ApiListTasksRequest {
 // WithSourceID adds the sourceID to the ApiListTasksRequest and returns the request for chaining.
 func (r ApiListTasksRequest) WithSourceID(sourceID []string) ApiListTasksRequest {
 	r.sourceID = sourceID
+	return r
+}
+
+// WithSourceType adds the sourceType to the ApiListTasksRequest and returns the request for chaining.
+func (r ApiListTasksRequest) WithSourceType(sourceType []SourceType) ApiListTasksRequest {
+	r.sourceType = sourceType
 	return r
 }
 
@@ -4818,6 +4834,7 @@ ListTasks calls the API and returns the raw response from it.
 	  @param action []ActionType - Actions for filtering the list of tasks.
 	  @param enabled bool - Whether to filter the list of tasks by the `enabled` status.
 	  @param sourceID []string - Source IDs for filtering the list of tasks.
+	  @param sourceType []SourceType - Filters the tasks with the specified source type.
 	  @param destinationID []string - Destination IDs for filtering the list of tasks.
 	  @param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
 	  @param sort TaskSortKeys - Property by which to sort the list of tasks.
@@ -4850,6 +4867,9 @@ func (c *APIClient) ListTasksWithHTTPInfo(r ApiListTasksRequest, opts ...Request
 	}
 	if !utils.IsNilOrEmpty(r.sourceID) {
 		conf.queryParams.Set("sourceID", utils.QueryParameterToString(r.sourceID))
+	}
+	if !utils.IsNilOrEmpty(r.sourceType) {
+		conf.queryParams.Set("sourceType", utils.QueryParameterToString(r.sourceType))
 	}
 	if !utils.IsNilOrEmpty(r.destinationID) {
 		conf.queryParams.Set("destinationID", utils.QueryParameterToString(r.destinationID))
@@ -4896,6 +4916,7 @@ Request can be constructed by NewApiListTasksRequest with parameters below.
 	@param action []ActionType - Actions for filtering the list of tasks.
 	@param enabled bool - Whether to filter the list of tasks by the `enabled` status.
 	@param sourceID []string - Source IDs for filtering the list of tasks.
+	@param sourceType []SourceType - Filters the tasks with the specified source type.
 	@param destinationID []string - Destination IDs for filtering the list of tasks.
 	@param triggerType []TriggerType - Type of task trigger for filtering the list of tasks.
 	@param sort TaskSortKeys - Property by which to sort the list of tasks.
