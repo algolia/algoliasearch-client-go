@@ -14,6 +14,7 @@ import (
 	"runtime"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 
@@ -60,6 +61,15 @@ func NewClientWithConfig(cfg IngestionConfiguration) (*APIClient, error) {
 	}
 	if cfg.UserAgent == "" {
 		cfg.UserAgent = getUserAgent()
+	}
+	if cfg.ReadTimeout == 0 {
+		cfg.ReadTimeout = 25000 * time.Millisecond
+	}
+	if cfg.ConnectTimeout == 0 {
+		cfg.ConnectTimeout = 25000 * time.Millisecond
+	}
+	if cfg.WriteTimeout == 0 {
+		cfg.WriteTimeout = 25000 * time.Millisecond
 	}
 
 	return &APIClient{
