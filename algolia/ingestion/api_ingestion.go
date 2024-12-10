@@ -5442,6 +5442,15 @@ func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter pushTaskPayload: %w", err)
 		}
 	}
+	if v, ok := req["watch"]; ok {
+		err = json.Unmarshal(v, &r.watch)
+		if err != nil {
+			err = json.Unmarshal(b, &r.watch)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal watch: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
@@ -5450,6 +5459,7 @@ func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
 type ApiPushTaskRequest struct {
 	taskID          string
 	pushTaskPayload *PushTaskPayload
+	watch           *bool
 }
 
 // NewApiPushTaskRequest creates an instance of the ApiPushTaskRequest to be used for the API call.
@@ -5458,6 +5468,12 @@ func (c *APIClient) NewApiPushTaskRequest(taskID string, pushTaskPayload *PushTa
 		taskID:          taskID,
 		pushTaskPayload: pushTaskPayload,
 	}
+}
+
+// WithWatch adds the watch to the ApiPushTaskRequest and returns the request for chaining.
+func (r ApiPushTaskRequest) WithWatch(watch bool) ApiPushTaskRequest {
+	r.watch = &watch
+	return r
 }
 
 /*
@@ -5473,6 +5489,7 @@ PushTask calls the API and returns the raw response from it.
 	Request can be constructed by NewApiPushTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
 	  @param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	  @param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -5494,6 +5511,10 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.watch) {
+		conf.queryParams.Set("watch", utils.QueryParameterToString(*r.watch))
 	}
 
 	// optional params if any
@@ -5527,6 +5548,7 @@ Request can be constructed by NewApiPushTaskRequest with parameters below.
 
 	@param taskID string - Unique identifier of a task.
 	@param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	@param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
 	@return RunResponse
 */
 func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*RunResponse, error) {
