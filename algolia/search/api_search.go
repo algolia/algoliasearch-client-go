@@ -445,6 +445,7 @@ AddOrUpdateObject calls the API and returns the raw response from it.
 
 Otherwise, a new record is added to the index.
 
+If you want to use auto-generated object IDs, use the [`saveObject` operation](#tag/Records/operation/saveObject).
 To update _some_ attributes of an existing record, use the [`partial` operation](#tag/Records/operation/partialUpdateObject) instead.
 To add, update, or replace multiple records, use the [`batch` operation](#tag/Records/operation/batch).
 
@@ -505,6 +506,7 @@ AddOrUpdateObject casts the HTTP response body to a defined struct.
 If a record with the specified object ID exists, the existing record is replaced.
 Otherwise, a new record is added to the index.
 
+If you want to use auto-generated object IDs, use the [`saveObject` operation](#tag/Records/operation/saveObject).
 To update _some_ attributes of an existing record, use the [`partial` operation](#tag/Records/operation/partialUpdateObject) instead.
 To add, update, or replace multiple records, use the [`batch` operation](#tag/Records/operation/batch).
 
@@ -6356,7 +6358,7 @@ func (c *APIClient) NewApiSaveObjectRequest(indexName string, body map[string]an
 /*
 SaveObject calls the API and returns the raw response from it.
 
-	Adds a record to an index or replace it.
+	Adds a record to an index or replaces it.
 
 - If the record doesn't have an object ID, a new record with an auto-generated object ID is added to your index.
 - If a record with the specified object ID exists, the existing record is replaced.
@@ -6417,7 +6419,7 @@ func (c *APIClient) SaveObjectWithHTTPInfo(r ApiSaveObjectRequest, opts ...Reque
 /*
 SaveObject casts the HTTP response body to a defined struct.
 
-Adds a record to an index or replace it.
+Adds a record to an index or replaces it.
 
 - If the record doesn't have an object ID, a new record with an auto-generated object ID is added to your index.
 - If a record with the specified object ID exists, the existing record is replaced.
