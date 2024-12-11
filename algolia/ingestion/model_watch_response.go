@@ -6,11 +6,11 @@ import (
 	"fmt"
 )
 
-// SourceWatchResponse struct for SourceWatchResponse.
-type SourceWatchResponse struct {
+// WatchResponse struct for WatchResponse.
+type WatchResponse struct {
 	// Universally unique identifier (UUID) of a task run.
 	RunID *string `json:"runID,omitempty"`
-	// depending on the source type, the validation returns sampling data of your source (JSON, CSV, BigQuery).
+	// when used with discovering or validating sources, the sampled data of your source is returned.
 	Data []map[string]any `json:"data,omitempty"`
 	// in case of error, observability events will be added to the response, if any.
 	Events []Event `json:"events,omitempty"`
@@ -18,32 +18,32 @@ type SourceWatchResponse struct {
 	Message string `json:"message"`
 }
 
-type SourceWatchResponseOption func(f *SourceWatchResponse)
+type WatchResponseOption func(f *WatchResponse)
 
-func WithSourceWatchResponseRunID(val string) SourceWatchResponseOption {
-	return func(f *SourceWatchResponse) {
+func WithWatchResponseRunID(val string) WatchResponseOption {
+	return func(f *WatchResponse) {
 		f.RunID = &val
 	}
 }
 
-func WithSourceWatchResponseData(val []map[string]any) SourceWatchResponseOption {
-	return func(f *SourceWatchResponse) {
+func WithWatchResponseData(val []map[string]any) WatchResponseOption {
+	return func(f *WatchResponse) {
 		f.Data = val
 	}
 }
 
-func WithSourceWatchResponseEvents(val []Event) SourceWatchResponseOption {
-	return func(f *SourceWatchResponse) {
+func WithWatchResponseEvents(val []Event) WatchResponseOption {
+	return func(f *WatchResponse) {
 		f.Events = val
 	}
 }
 
-// NewSourceWatchResponse instantiates a new SourceWatchResponse object
+// NewWatchResponse instantiates a new WatchResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceWatchResponse(message string, opts ...SourceWatchResponseOption) *SourceWatchResponse {
-	this := &SourceWatchResponse{}
+func NewWatchResponse(message string, opts ...WatchResponseOption) *WatchResponse {
+	this := &WatchResponse{}
 	this.Message = message
 	for _, opt := range opts {
 		opt(this)
@@ -51,13 +51,13 @@ func NewSourceWatchResponse(message string, opts ...SourceWatchResponseOption) *
 	return this
 }
 
-// NewEmptySourceWatchResponse return a pointer to an empty SourceWatchResponse object.
-func NewEmptySourceWatchResponse() *SourceWatchResponse {
-	return &SourceWatchResponse{}
+// NewEmptyWatchResponse return a pointer to an empty WatchResponse object.
+func NewEmptyWatchResponse() *WatchResponse {
+	return &WatchResponse{}
 }
 
 // GetRunID returns the RunID field value if set, zero value otherwise.
-func (o *SourceWatchResponse) GetRunID() string {
+func (o *WatchResponse) GetRunID() string {
 	if o == nil || o.RunID == nil {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *SourceWatchResponse) GetRunID() string {
 
 // GetRunIDOk returns a tuple with the RunID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceWatchResponse) GetRunIDOk() (*string, bool) {
+func (o *WatchResponse) GetRunIDOk() (*string, bool) {
 	if o == nil || o.RunID == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *SourceWatchResponse) GetRunIDOk() (*string, bool) {
 }
 
 // HasRunID returns a boolean if a field has been set.
-func (o *SourceWatchResponse) HasRunID() bool {
+func (o *WatchResponse) HasRunID() bool {
 	if o != nil && o.RunID != nil {
 		return true
 	}
@@ -84,13 +84,13 @@ func (o *SourceWatchResponse) HasRunID() bool {
 }
 
 // SetRunID gets a reference to the given string and assigns it to the RunID field.
-func (o *SourceWatchResponse) SetRunID(v string) *SourceWatchResponse {
+func (o *WatchResponse) SetRunID(v string) *WatchResponse {
 	o.RunID = &v
 	return o
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *SourceWatchResponse) GetData() []map[string]any {
+func (o *WatchResponse) GetData() []map[string]any {
 	if o == nil || o.Data == nil {
 		var ret []map[string]any
 		return ret
@@ -100,7 +100,7 @@ func (o *SourceWatchResponse) GetData() []map[string]any {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceWatchResponse) GetDataOk() ([]map[string]any, bool) {
+func (o *WatchResponse) GetDataOk() ([]map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -108,7 +108,7 @@ func (o *SourceWatchResponse) GetDataOk() ([]map[string]any, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *SourceWatchResponse) HasData() bool {
+func (o *WatchResponse) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -117,13 +117,13 @@ func (o *SourceWatchResponse) HasData() bool {
 }
 
 // SetData gets a reference to the given []map[string]any and assigns it to the Data field.
-func (o *SourceWatchResponse) SetData(v []map[string]any) *SourceWatchResponse {
+func (o *WatchResponse) SetData(v []map[string]any) *WatchResponse {
 	o.Data = v
 	return o
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *SourceWatchResponse) GetEvents() []Event {
+func (o *WatchResponse) GetEvents() []Event {
 	if o == nil || o.Events == nil {
 		var ret []Event
 		return ret
@@ -133,7 +133,7 @@ func (o *SourceWatchResponse) GetEvents() []Event {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceWatchResponse) GetEventsOk() ([]Event, bool) {
+func (o *WatchResponse) GetEventsOk() ([]Event, bool) {
 	if o == nil || o.Events == nil {
 		return nil, false
 	}
@@ -141,7 +141,7 @@ func (o *SourceWatchResponse) GetEventsOk() ([]Event, bool) {
 }
 
 // HasEvents returns a boolean if a field has been set.
-func (o *SourceWatchResponse) HasEvents() bool {
+func (o *WatchResponse) HasEvents() bool {
 	if o != nil && o.Events != nil {
 		return true
 	}
@@ -150,13 +150,13 @@ func (o *SourceWatchResponse) HasEvents() bool {
 }
 
 // SetEvents gets a reference to the given []Event and assigns it to the Events field.
-func (o *SourceWatchResponse) SetEvents(v []Event) *SourceWatchResponse {
+func (o *WatchResponse) SetEvents(v []Event) *WatchResponse {
 	o.Events = v
 	return o
 }
 
 // GetMessage returns the Message field value.
-func (o *SourceWatchResponse) GetMessage() string {
+func (o *WatchResponse) GetMessage() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -167,7 +167,7 @@ func (o *SourceWatchResponse) GetMessage() string {
 
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
-func (o *SourceWatchResponse) GetMessageOk() (*string, bool) {
+func (o *WatchResponse) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,12 +175,12 @@ func (o *SourceWatchResponse) GetMessageOk() (*string, bool) {
 }
 
 // SetMessage sets field value.
-func (o *SourceWatchResponse) SetMessage(v string) *SourceWatchResponse {
+func (o *WatchResponse) SetMessage(v string) *WatchResponse {
 	o.Message = v
 	return o
 }
 
-func (o SourceWatchResponse) MarshalJSON() ([]byte, error) {
+func (o WatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.RunID != nil {
 		toSerialize["runID"] = o.RunID
@@ -196,17 +196,17 @@ func (o SourceWatchResponse) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal SourceWatchResponse: %w", err)
+		return nil, fmt.Errorf("failed to marshal WatchResponse: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o SourceWatchResponse) String() string {
+func (o WatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  runID=%v\n", o.RunID)
 	out += fmt.Sprintf("  data=%v\n", o.Data)
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
-	return fmt.Sprintf("SourceWatchResponse {\n%s}", out)
+	return fmt.Sprintf("WatchResponse {\n%s}", out)
 }

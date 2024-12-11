@@ -5549,10 +5549,10 @@ Request can be constructed by NewApiPushTaskRequest with parameters below.
 	@param taskID string - Unique identifier of a task.
 	@param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
 	@param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
-	@return RunResponse
+	@return WatchResponse
 */
-func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*RunResponse, error) {
-	var returnValue *RunResponse
+func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*WatchResponse, error) {
+	var returnValue *WatchResponse
 
 	res, resBody, err := c.PushTaskWithHTTPInfo(r, opts...)
 	if err != nil {
@@ -6762,10 +6762,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiTriggerDockerSourceDiscoverRequest with parameters below.
 
 	@param sourceID string - Unique identifier of a source.
-	@return SourceWatchResponse
+	@return WatchResponse
 */
-func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscoverRequest, opts ...RequestOption) (*SourceWatchResponse, error) {
-	var returnValue *SourceWatchResponse
+func (c *APIClient) TriggerDockerSourceDiscover(r ApiTriggerDockerSourceDiscoverRequest, opts ...RequestOption) (*WatchResponse, error) {
+	var returnValue *WatchResponse
 
 	res, resBody, err := c.TriggerDockerSourceDiscoverWithHTTPInfo(r, opts...)
 	if err != nil {
@@ -7950,10 +7950,10 @@ Required API Key ACLs:
 Request can be constructed by NewApiValidateSourceRequest with parameters below.
 
 	@param sourceCreate SourceCreate -
-	@return SourceWatchResponse
+	@return WatchResponse
 */
-func (c *APIClient) ValidateSource(r ApiValidateSourceRequest, opts ...RequestOption) (*SourceWatchResponse, error) {
-	var returnValue *SourceWatchResponse
+func (c *APIClient) ValidateSource(r ApiValidateSourceRequest, opts ...RequestOption) (*WatchResponse, error) {
+	var returnValue *WatchResponse
 
 	res, resBody, err := c.ValidateSourceWithHTTPInfo(r, opts...)
 	if err != nil {
@@ -8090,10 +8090,10 @@ Request can be constructed by NewApiValidateSourceBeforeUpdateRequest with param
 
 	@param sourceID string - Unique identifier of a source.
 	@param sourceUpdate SourceUpdate
-	@return SourceWatchResponse
+	@return WatchResponse
 */
-func (c *APIClient) ValidateSourceBeforeUpdate(r ApiValidateSourceBeforeUpdateRequest, opts ...RequestOption) (*SourceWatchResponse, error) {
-	var returnValue *SourceWatchResponse
+func (c *APIClient) ValidateSourceBeforeUpdate(r ApiValidateSourceBeforeUpdateRequest, opts ...RequestOption) (*WatchResponse, error) {
+	var returnValue *WatchResponse
 
 	res, resBody, err := c.ValidateSourceBeforeUpdateWithHTTPInfo(r, opts...)
 	if err != nil {
