@@ -14,6 +14,7 @@ const (
 	ALTERNATIVES_AS_EXACT_IGNORE_PLURALS      AlternativesAsExact = "ignorePlurals"
 	ALTERNATIVES_AS_EXACT_SINGLE_WORD_SYNONYM AlternativesAsExact = "singleWordSynonym"
 	ALTERNATIVES_AS_EXACT_MULTI_WORDS_SYNONYM AlternativesAsExact = "multiWordsSynonym"
+	ALTERNATIVES_AS_EXACT_IGNORE_CONJUGATIONS AlternativesAsExact = "ignoreConjugations"
 )
 
 // All allowed values of AlternativesAsExact enum.
@@ -21,6 +22,7 @@ var AllowedAlternativesAsExactEnumValues = []AlternativesAsExact{
 	"ignorePlurals",
 	"singleWordSynonym",
 	"multiWordsSynonym",
+	"ignoreConjugations",
 }
 
 func (v *AlternativesAsExact) UnmarshalJSON(src []byte) error {
