@@ -6705,7 +6705,7 @@ TriggerDockerSourceDiscover calls the API and returns the raw response from it.
 
 	Triggers a stream-listing request for a source.
 
-Triggering stream-listing requests only works with sources with `type: docker` and `imageType: singer`.
+Triggering stream-listing requests only works with sources with `type: docker` and `imageType: airbyte`.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6752,7 +6752,7 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithHTTPInfo(r ApiTriggerDockerSo
 TriggerDockerSourceDiscover casts the HTTP response body to a defined struct.
 
 Triggers a stream-listing request for a source.
-Triggering stream-listing requests only works with sources with `type: docker` and `imageType: singer`.
+Triggering stream-listing requests only works with sources with `type: docker` and `imageType: airbyte`.
 
 Required API Key ACLs:
   - addObject

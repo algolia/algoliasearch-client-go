@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// DockerStreamsInput The selected streams of a singer or airbyte connector.
+// DockerStreamsInput The selected streams of an airbyte connector.
 type DockerStreamsInput struct {
 	Streams []DockerStreams `json:"streams"`
 }
