@@ -9234,31 +9234,43 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 
 	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, opts...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
 	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
 	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), toRequestOptions(opts)...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
 	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
 	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), toRequestOptions(opts)...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
 	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, toIterableOptions(opts)...)
 	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
 		return nil, err
 	}
 
