@@ -6,32 +6,32 @@ import (
 	"fmt"
 )
 
-// FacetScoring struct for FacetScoring.
-type FacetScoring struct {
+// FacetsScoring struct for FacetsScoring.
+type FacetsScoring struct {
 	// Event score.
 	Score int32 `json:"score"`
 	// Facet attribute name.
 	FacetName string `json:"facetName"`
 }
 
-// NewFacetScoring instantiates a new FacetScoring object
+// NewFacetsScoring instantiates a new FacetsScoring object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewFacetScoring(score int32, facetName string) *FacetScoring {
-	this := &FacetScoring{}
+func NewFacetsScoring(score int32, facetName string) *FacetsScoring {
+	this := &FacetsScoring{}
 	this.Score = score
 	this.FacetName = facetName
 	return this
 }
 
-// NewEmptyFacetScoring return a pointer to an empty FacetScoring object.
-func NewEmptyFacetScoring() *FacetScoring {
-	return &FacetScoring{}
+// NewEmptyFacetsScoring return a pointer to an empty FacetsScoring object.
+func NewEmptyFacetsScoring() *FacetsScoring {
+	return &FacetsScoring{}
 }
 
 // GetScore returns the Score field value.
-func (o *FacetScoring) GetScore() int32 {
+func (o *FacetsScoring) GetScore() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -42,7 +42,7 @@ func (o *FacetScoring) GetScore() int32 {
 
 // GetScoreOk returns a tuple with the Score field value
 // and a boolean to check if the value has been set.
-func (o *FacetScoring) GetScoreOk() (*int32, bool) {
+func (o *FacetsScoring) GetScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -50,13 +50,13 @@ func (o *FacetScoring) GetScoreOk() (*int32, bool) {
 }
 
 // SetScore sets field value.
-func (o *FacetScoring) SetScore(v int32) *FacetScoring {
+func (o *FacetsScoring) SetScore(v int32) *FacetsScoring {
 	o.Score = v
 	return o
 }
 
 // GetFacetName returns the FacetName field value.
-func (o *FacetScoring) GetFacetName() string {
+func (o *FacetsScoring) GetFacetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *FacetScoring) GetFacetName() string {
 
 // GetFacetNameOk returns a tuple with the FacetName field value
 // and a boolean to check if the value has been set.
-func (o *FacetScoring) GetFacetNameOk() (*string, bool) {
+func (o *FacetsScoring) GetFacetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,12 +75,12 @@ func (o *FacetScoring) GetFacetNameOk() (*string, bool) {
 }
 
 // SetFacetName sets field value.
-func (o *FacetScoring) SetFacetName(v string) *FacetScoring {
+func (o *FacetsScoring) SetFacetName(v string) *FacetsScoring {
 	o.FacetName = v
 	return o
 }
 
-func (o FacetScoring) MarshalJSON() ([]byte, error) {
+func (o FacetsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["score"] = o.Score
@@ -90,15 +90,15 @@ func (o FacetScoring) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal FacetScoring: %w", err)
+		return nil, fmt.Errorf("failed to marshal FacetsScoring: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o FacetScoring) String() string {
+func (o FacetsScoring) String() string {
 	out := ""
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
-	return fmt.Sprintf("FacetScoring {\n%s}", out)
+	return fmt.Sprintf("FacetsScoring {\n%s}", out)
 }

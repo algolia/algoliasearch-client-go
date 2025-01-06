@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// EventScoring struct for EventScoring.
-type EventScoring struct {
+// EventsScoring struct for EventsScoring.
+type EventsScoring struct {
 	// Event score.
 	Score int32 `json:"score"`
 	// Event name.
@@ -15,25 +15,25 @@ type EventScoring struct {
 	EventType EventType `json:"eventType"`
 }
 
-// NewEventScoring instantiates a new EventScoring object
+// NewEventsScoring instantiates a new EventsScoring object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewEventScoring(score int32, eventName string, eventType EventType) *EventScoring {
-	this := &EventScoring{}
+func NewEventsScoring(score int32, eventName string, eventType EventType) *EventsScoring {
+	this := &EventsScoring{}
 	this.Score = score
 	this.EventName = eventName
 	this.EventType = eventType
 	return this
 }
 
-// NewEmptyEventScoring return a pointer to an empty EventScoring object.
-func NewEmptyEventScoring() *EventScoring {
-	return &EventScoring{}
+// NewEmptyEventsScoring return a pointer to an empty EventsScoring object.
+func NewEmptyEventsScoring() *EventsScoring {
+	return &EventsScoring{}
 }
 
 // GetScore returns the Score field value.
-func (o *EventScoring) GetScore() int32 {
+func (o *EventsScoring) GetScore() int32 {
 	if o == nil {
 		var ret int32
 		return ret
@@ -44,7 +44,7 @@ func (o *EventScoring) GetScore() int32 {
 
 // GetScoreOk returns a tuple with the Score field value
 // and a boolean to check if the value has been set.
-func (o *EventScoring) GetScoreOk() (*int32, bool) {
+func (o *EventsScoring) GetScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -52,13 +52,13 @@ func (o *EventScoring) GetScoreOk() (*int32, bool) {
 }
 
 // SetScore sets field value.
-func (o *EventScoring) SetScore(v int32) *EventScoring {
+func (o *EventsScoring) SetScore(v int32) *EventsScoring {
 	o.Score = v
 	return o
 }
 
 // GetEventName returns the EventName field value.
-func (o *EventScoring) GetEventName() string {
+func (o *EventsScoring) GetEventName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -69,7 +69,7 @@ func (o *EventScoring) GetEventName() string {
 
 // GetEventNameOk returns a tuple with the EventName field value
 // and a boolean to check if the value has been set.
-func (o *EventScoring) GetEventNameOk() (*string, bool) {
+func (o *EventsScoring) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,13 +77,13 @@ func (o *EventScoring) GetEventNameOk() (*string, bool) {
 }
 
 // SetEventName sets field value.
-func (o *EventScoring) SetEventName(v string) *EventScoring {
+func (o *EventsScoring) SetEventName(v string) *EventsScoring {
 	o.EventName = v
 	return o
 }
 
 // GetEventType returns the EventType field value.
-func (o *EventScoring) GetEventType() EventType {
+func (o *EventsScoring) GetEventType() EventType {
 	if o == nil {
 		var ret EventType
 		return ret
@@ -94,7 +94,7 @@ func (o *EventScoring) GetEventType() EventType {
 
 // GetEventTypeOk returns a tuple with the EventType field value
 // and a boolean to check if the value has been set.
-func (o *EventScoring) GetEventTypeOk() (*EventType, bool) {
+func (o *EventsScoring) GetEventTypeOk() (*EventType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,12 +102,12 @@ func (o *EventScoring) GetEventTypeOk() (*EventType, bool) {
 }
 
 // SetEventType sets field value.
-func (o *EventScoring) SetEventType(v EventType) *EventScoring {
+func (o *EventsScoring) SetEventType(v EventType) *EventsScoring {
 	o.EventType = v
 	return o
 }
 
-func (o EventScoring) MarshalJSON() ([]byte, error) {
+func (o EventsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
 		toSerialize["score"] = o.Score
@@ -120,16 +120,16 @@ func (o EventScoring) MarshalJSON() ([]byte, error) {
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal EventScoring: %w", err)
+		return nil, fmt.Errorf("failed to marshal EventsScoring: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o EventScoring) String() string {
+func (o EventsScoring) String() string {
 	out := ""
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	out += fmt.Sprintf("  eventName=%v\n", o.EventName)
 	out += fmt.Sprintf("  eventType=%v\n", o.EventType)
-	return fmt.Sprintf("EventScoring {\n%s}", out)
+	return fmt.Sprintf("EventsScoring {\n%s}", out)
 }

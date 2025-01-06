@@ -9,9 +9,9 @@ import (
 // PersonalizationStrategyParams struct for PersonalizationStrategyParams.
 type PersonalizationStrategyParams struct {
 	// Scores associated with each event.  The higher the scores, the higher the impact of those events on the personalization of search results.
-	EventScoring []EventScoring `json:"eventScoring"`
+	EventsScoring []EventsScoring `json:"eventsScoring"`
 	// Scores associated with each facet.  The higher the scores, the higher the impact of those events on the personalization of search results.
-	FacetScoring []FacetScoring `json:"facetScoring"`
+	FacetsScoring []FacetsScoring `json:"facetsScoring"`
 	// Impact of personalization on the search results.  If set to 0, personalization has no impact on the search results.
 	PersonalizationImpact int32 `json:"personalizationImpact"`
 }
@@ -20,10 +20,10 @@ type PersonalizationStrategyParams struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewPersonalizationStrategyParams(eventScoring []EventScoring, facetScoring []FacetScoring, personalizationImpact int32) *PersonalizationStrategyParams {
+func NewPersonalizationStrategyParams(eventsScoring []EventsScoring, facetsScoring []FacetsScoring, personalizationImpact int32) *PersonalizationStrategyParams {
 	this := &PersonalizationStrategyParams{}
-	this.EventScoring = eventScoring
-	this.FacetScoring = facetScoring
+	this.EventsScoring = eventsScoring
+	this.FacetsScoring = facetsScoring
 	this.PersonalizationImpact = personalizationImpact
 	return this
 }
@@ -33,53 +33,53 @@ func NewEmptyPersonalizationStrategyParams() *PersonalizationStrategyParams {
 	return &PersonalizationStrategyParams{}
 }
 
-// GetEventScoring returns the EventScoring field value.
-func (o *PersonalizationStrategyParams) GetEventScoring() []EventScoring {
+// GetEventsScoring returns the EventsScoring field value.
+func (o *PersonalizationStrategyParams) GetEventsScoring() []EventsScoring {
 	if o == nil {
-		var ret []EventScoring
+		var ret []EventsScoring
 		return ret
 	}
 
-	return o.EventScoring
+	return o.EventsScoring
 }
 
-// GetEventScoringOk returns a tuple with the EventScoring field value
+// GetEventsScoringOk returns a tuple with the EventsScoring field value
 // and a boolean to check if the value has been set.
-func (o *PersonalizationStrategyParams) GetEventScoringOk() ([]EventScoring, bool) {
+func (o *PersonalizationStrategyParams) GetEventsScoringOk() ([]EventsScoring, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.EventScoring, true
+	return o.EventsScoring, true
 }
 
-// SetEventScoring sets field value.
-func (o *PersonalizationStrategyParams) SetEventScoring(v []EventScoring) *PersonalizationStrategyParams {
-	o.EventScoring = v
+// SetEventsScoring sets field value.
+func (o *PersonalizationStrategyParams) SetEventsScoring(v []EventsScoring) *PersonalizationStrategyParams {
+	o.EventsScoring = v
 	return o
 }
 
-// GetFacetScoring returns the FacetScoring field value.
-func (o *PersonalizationStrategyParams) GetFacetScoring() []FacetScoring {
+// GetFacetsScoring returns the FacetsScoring field value.
+func (o *PersonalizationStrategyParams) GetFacetsScoring() []FacetsScoring {
 	if o == nil {
-		var ret []FacetScoring
+		var ret []FacetsScoring
 		return ret
 	}
 
-	return o.FacetScoring
+	return o.FacetsScoring
 }
 
-// GetFacetScoringOk returns a tuple with the FacetScoring field value
+// GetFacetsScoringOk returns a tuple with the FacetsScoring field value
 // and a boolean to check if the value has been set.
-func (o *PersonalizationStrategyParams) GetFacetScoringOk() ([]FacetScoring, bool) {
+func (o *PersonalizationStrategyParams) GetFacetsScoringOk() ([]FacetsScoring, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.FacetScoring, true
+	return o.FacetsScoring, true
 }
 
-// SetFacetScoring sets field value.
-func (o *PersonalizationStrategyParams) SetFacetScoring(v []FacetScoring) *PersonalizationStrategyParams {
-	o.FacetScoring = v
+// SetFacetsScoring sets field value.
+func (o *PersonalizationStrategyParams) SetFacetsScoring(v []FacetsScoring) *PersonalizationStrategyParams {
+	o.FacetsScoring = v
 	return o
 }
 
@@ -111,10 +111,10 @@ func (o *PersonalizationStrategyParams) SetPersonalizationImpact(v int32) *Perso
 func (o PersonalizationStrategyParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
-		toSerialize["eventScoring"] = o.EventScoring
+		toSerialize["eventsScoring"] = o.EventsScoring
 	}
 	if true {
-		toSerialize["facetScoring"] = o.FacetScoring
+		toSerialize["facetsScoring"] = o.FacetsScoring
 	}
 	if true {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
@@ -129,8 +129,8 @@ func (o PersonalizationStrategyParams) MarshalJSON() ([]byte, error) {
 
 func (o PersonalizationStrategyParams) String() string {
 	out := ""
-	out += fmt.Sprintf("  eventScoring=%v\n", o.EventScoring)
-	out += fmt.Sprintf("  facetScoring=%v\n", o.FacetScoring)
+	out += fmt.Sprintf("  eventsScoring=%v\n", o.EventsScoring)
+	out += fmt.Sprintf("  facetsScoring=%v\n", o.FacetsScoring)
 	out += fmt.Sprintf("  personalizationImpact=%v\n", o.PersonalizationImpact)
 	return fmt.Sprintf("PersonalizationStrategyParams {\n%s}", out)
 }
