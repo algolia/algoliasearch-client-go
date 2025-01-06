@@ -16,7 +16,9 @@ type TaskUpdate struct {
 	// Whether the task is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
-	FailureThreshold *int32 `json:"failureThreshold,omitempty"`
+	FailureThreshold *int32         `json:"failureThreshold,omitempty"`
+	Notifications    *Notifications `json:"notifications,omitempty"`
+	Policies         *Policies      `json:"policies,omitempty"`
 }
 
 type TaskUpdateOption func(f *TaskUpdate)
@@ -48,6 +50,18 @@ func WithTaskUpdateEnabled(val bool) TaskUpdateOption {
 func WithTaskUpdateFailureThreshold(val int32) TaskUpdateOption {
 	return func(f *TaskUpdate) {
 		f.FailureThreshold = &val
+	}
+}
+
+func WithTaskUpdateNotifications(val Notifications) TaskUpdateOption {
+	return func(f *TaskUpdate) {
+		f.Notifications = &val
+	}
+}
+
+func WithTaskUpdatePolicies(val Policies) TaskUpdateOption {
+	return func(f *TaskUpdate) {
+		f.Policies = &val
 	}
 }
 
@@ -233,6 +247,72 @@ func (o *TaskUpdate) SetFailureThreshold(v int32) *TaskUpdate {
 	return o
 }
 
+// GetNotifications returns the Notifications field value if set, zero value otherwise.
+func (o *TaskUpdate) GetNotifications() Notifications {
+	if o == nil || o.Notifications == nil {
+		var ret Notifications
+		return ret
+	}
+	return *o.Notifications
+}
+
+// GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskUpdate) GetNotificationsOk() (*Notifications, bool) {
+	if o == nil || o.Notifications == nil {
+		return nil, false
+	}
+	return o.Notifications, true
+}
+
+// HasNotifications returns a boolean if a field has been set.
+func (o *TaskUpdate) HasNotifications() bool {
+	if o != nil && o.Notifications != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
+func (o *TaskUpdate) SetNotifications(v *Notifications) *TaskUpdate {
+	o.Notifications = v
+	return o
+}
+
+// GetPolicies returns the Policies field value if set, zero value otherwise.
+func (o *TaskUpdate) GetPolicies() Policies {
+	if o == nil || o.Policies == nil {
+		var ret Policies
+		return ret
+	}
+	return *o.Policies
+}
+
+// GetPoliciesOk returns a tuple with the Policies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskUpdate) GetPoliciesOk() (*Policies, bool) {
+	if o == nil || o.Policies == nil {
+		return nil, false
+	}
+	return o.Policies, true
+}
+
+// HasPolicies returns a boolean if a field has been set.
+func (o *TaskUpdate) HasPolicies() bool {
+	if o != nil && o.Policies != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
+func (o *TaskUpdate) SetPolicies(v *Policies) *TaskUpdate {
+	o.Policies = v
+	return o
+}
+
 func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.DestinationID != nil {
@@ -250,6 +330,12 @@ func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+	if o.Notifications != nil {
+		toSerialize["notifications"] = o.Notifications
+	}
+	if o.Policies != nil {
+		toSerialize["policies"] = o.Policies
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskUpdate: %w", err)
@@ -265,5 +351,7 @@ func (o TaskUpdate) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
+	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
+	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 	return fmt.Sprintf("TaskUpdate {\n%s}", out)
 }

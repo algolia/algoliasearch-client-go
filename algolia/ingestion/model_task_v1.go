@@ -22,7 +22,9 @@ type TaskV1 struct {
 	FailureThreshold *int32      `json:"failureThreshold,omitempty"`
 	Action           *ActionType `json:"action,omitempty"`
 	// Date of the last cursor in RFC 3339 format.
-	Cursor *string `json:"cursor,omitempty"`
+	Cursor        *string        `json:"cursor,omitempty"`
+	Notifications *Notifications `json:"notifications,omitempty"`
+	Policies      *Policies      `json:"policies,omitempty"`
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
@@ -52,6 +54,18 @@ func WithTaskV1Action(val ActionType) TaskV1Option {
 func WithTaskV1Cursor(val string) TaskV1Option {
 	return func(f *TaskV1) {
 		f.Cursor = &val
+	}
+}
+
+func WithTaskV1Notifications(val Notifications) TaskV1Option {
+	return func(f *TaskV1) {
+		f.Notifications = &val
+	}
+}
+
+func WithTaskV1Policies(val Policies) TaskV1Option {
+	return func(f *TaskV1) {
+		f.Policies = &val
 	}
 }
 
@@ -341,6 +355,72 @@ func (o *TaskV1) SetCursor(v string) *TaskV1 {
 	return o
 }
 
+// GetNotifications returns the Notifications field value if set, zero value otherwise.
+func (o *TaskV1) GetNotifications() Notifications {
+	if o == nil || o.Notifications == nil {
+		var ret Notifications
+		return ret
+	}
+	return *o.Notifications
+}
+
+// GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskV1) GetNotificationsOk() (*Notifications, bool) {
+	if o == nil || o.Notifications == nil {
+		return nil, false
+	}
+	return o.Notifications, true
+}
+
+// HasNotifications returns a boolean if a field has been set.
+func (o *TaskV1) HasNotifications() bool {
+	if o != nil && o.Notifications != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
+func (o *TaskV1) SetNotifications(v *Notifications) *TaskV1 {
+	o.Notifications = v
+	return o
+}
+
+// GetPolicies returns the Policies field value if set, zero value otherwise.
+func (o *TaskV1) GetPolicies() Policies {
+	if o == nil || o.Policies == nil {
+		var ret Policies
+		return ret
+	}
+	return *o.Policies
+}
+
+// GetPoliciesOk returns a tuple with the Policies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskV1) GetPoliciesOk() (*Policies, bool) {
+	if o == nil || o.Policies == nil {
+		return nil, false
+	}
+	return o.Policies, true
+}
+
+// HasPolicies returns a boolean if a field has been set.
+func (o *TaskV1) HasPolicies() bool {
+	if o != nil && o.Policies != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
+func (o *TaskV1) SetPolicies(v *Policies) *TaskV1 {
+	o.Policies = v
+	return o
+}
+
 // GetCreatedAt returns the CreatedAt field value.
 func (o *TaskV1) GetCreatedAt() string {
 	if o == nil {
@@ -428,6 +508,12 @@ func (o TaskV1) MarshalJSON() ([]byte, error) {
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+	if o.Notifications != nil {
+		toSerialize["notifications"] = o.Notifications
+	}
+	if o.Policies != nil {
+		toSerialize["policies"] = o.Policies
+	}
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
@@ -453,6 +539,8 @@ func (o TaskV1) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  action=%v\n", o.Action)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
+	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
+	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	return fmt.Sprintf("TaskV1 {\n%s}", out)

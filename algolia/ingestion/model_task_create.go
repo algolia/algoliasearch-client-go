@@ -21,7 +21,9 @@ type TaskCreate struct {
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Input            *TaskInput `json:"input,omitempty"`
 	// Date of the last cursor in RFC 3339 format.
-	Cursor *string `json:"cursor,omitempty"`
+	Cursor        *string        `json:"cursor,omitempty"`
+	Notifications *Notifications `json:"notifications,omitempty"`
+	Policies      *Policies      `json:"policies,omitempty"`
 }
 
 type TaskCreateOption func(f *TaskCreate)
@@ -53,6 +55,18 @@ func WithTaskCreateInput(val TaskInput) TaskCreateOption {
 func WithTaskCreateCursor(val string) TaskCreateOption {
 	return func(f *TaskCreate) {
 		f.Cursor = &val
+	}
+}
+
+func WithTaskCreateNotifications(val Notifications) TaskCreateOption {
+	return func(f *TaskCreate) {
+		f.Notifications = &val
+	}
+}
+
+func WithTaskCreatePolicies(val Policies) TaskCreateOption {
+	return func(f *TaskCreate) {
+		f.Policies = &val
 	}
 }
 
@@ -316,6 +330,72 @@ func (o *TaskCreate) SetCursor(v string) *TaskCreate {
 	return o
 }
 
+// GetNotifications returns the Notifications field value if set, zero value otherwise.
+func (o *TaskCreate) GetNotifications() Notifications {
+	if o == nil || o.Notifications == nil {
+		var ret Notifications
+		return ret
+	}
+	return *o.Notifications
+}
+
+// GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskCreate) GetNotificationsOk() (*Notifications, bool) {
+	if o == nil || o.Notifications == nil {
+		return nil, false
+	}
+	return o.Notifications, true
+}
+
+// HasNotifications returns a boolean if a field has been set.
+func (o *TaskCreate) HasNotifications() bool {
+	if o != nil && o.Notifications != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
+func (o *TaskCreate) SetNotifications(v *Notifications) *TaskCreate {
+	o.Notifications = v
+	return o
+}
+
+// GetPolicies returns the Policies field value if set, zero value otherwise.
+func (o *TaskCreate) GetPolicies() Policies {
+	if o == nil || o.Policies == nil {
+		var ret Policies
+		return ret
+	}
+	return *o.Policies
+}
+
+// GetPoliciesOk returns a tuple with the Policies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskCreate) GetPoliciesOk() (*Policies, bool) {
+	if o == nil || o.Policies == nil {
+		return nil, false
+	}
+	return o.Policies, true
+}
+
+// HasPolicies returns a boolean if a field has been set.
+func (o *TaskCreate) HasPolicies() bool {
+	if o != nil && o.Policies != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
+func (o *TaskCreate) SetPolicies(v *Policies) *TaskCreate {
+	o.Policies = v
+	return o
+}
+
 func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
@@ -342,6 +422,12 @@ func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+	if o.Notifications != nil {
+		toSerialize["notifications"] = o.Notifications
+	}
+	if o.Policies != nil {
+		toSerialize["policies"] = o.Policies
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskCreate: %w", err)
@@ -360,5 +446,7 @@ func (o TaskCreate) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
+	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
+	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 	return fmt.Sprintf("TaskCreate {\n%s}", out)
 }
