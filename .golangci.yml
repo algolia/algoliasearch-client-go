@@ -61,6 +61,7 @@ linters:
 
     # Deprecated
     - execinquery
+    - exportloopref
 
 issues:
   exclude-generated: disable

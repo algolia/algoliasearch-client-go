@@ -38,6 +38,9 @@ type config struct {
 	// -- Partial update options
 	createIfNotExists bool
 
+	// -- ReplaceAllObjects options
+	scopes []ScopeType
+
 	// -- Iterable options
 	maxRetries int
 	timeout    func(int) time.Duration
@@ -97,19 +100,21 @@ func (c chunkedBatchOption) chunkedBatch() {}
 
 func (r requestOption) chunkedBatch() {}
 
+// WithWaitForTasks whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
 func WithWaitForTasks(waitForTasks bool) chunkedBatchOption {
 	return chunkedBatchOption(func(c *config) {
 		c.waitForTasks = waitForTasks
 	})
 }
 
+// WithBatchSize the size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
 func WithBatchSize(batchSize int) chunkedBatchOption {
 	return chunkedBatchOption(func(c *config) {
 		c.batchSize = batchSize
 	})
 }
 
-// --------- ChunkedBatch options ---------
+// --------- PartialUpdateObjects options ---------
 
 type PartialUpdateObjectsOption interface {
 	ChunkedBatchOption
@@ -136,9 +141,44 @@ func (c chunkedBatchOption) partialUpdateObjects() {}
 
 func (r requestOption) partialUpdateObjects() {}
 
+// WithCreateIfNotExists to be provided if non-existing objects are passed, otherwise, the call will fail.
 func WithCreateIfNotExists(createIfNotExists bool) partialUpdateObjectsOption {
 	return partialUpdateObjectsOption(func(c *config) {
 		c.createIfNotExists = createIfNotExists
+	})
+}
+
+// --------- ReplaceAllObjects options ---------
+
+type ReplaceAllObjectsOption interface {
+	ChunkedBatchOption
+	replaceAllObjects()
+}
+
+type replaceAllObjectsOption func(*config)
+
+var (
+	_ ReplaceAllObjectsOption = (*replaceAllObjectsOption)(nil)
+	_ ReplaceAllObjectsOption = (*chunkedBatchOption)(nil)
+	_ ReplaceAllObjectsOption = (*requestOption)(nil)
+)
+
+func (p replaceAllObjectsOption) apply(c *config) {
+	p(c)
+}
+
+func (p replaceAllObjectsOption) replaceAllObjects() {}
+
+func (p replaceAllObjectsOption) chunkedBatch() {}
+
+func (c chunkedBatchOption) replaceAllObjects() {}
+
+func (r requestOption) replaceAllObjects() {}
+
+// WithScopes the `scopes` to keep from the index. Defaults to ['settings', 'rules', 'synonyms'].
+func WithScopes(scopes []ScopeType) replaceAllObjectsOption {
+	return replaceAllObjectsOption(func(c *config) {
+		c.scopes = scopes
 	})
 }
 
@@ -164,18 +204,21 @@ func (r requestOption) iterable() {}
 
 func (i iterableOption) iterable() {}
 
+// WithMaxRetries the maximum number of retry. Default to 50.
 func WithMaxRetries(maxRetries int) iterableOption {
 	return iterableOption(func(c *config) {
 		c.maxRetries = maxRetries
 	})
 }
 
+// WithTimeout he function to decide how long to wait between retries. Default to min(retryCount * 200, 5000).
 func WithTimeout(timeout func(int) time.Duration) iterableOption {
 	return iterableOption(func(c *config) {
 		c.timeout = timeout
 	})
 }
 
+// WithAggregator the function to aggregate the results of the iterable.
 func WithAggregator(aggregator func(any, error)) iterableOption {
 	return iterableOption(func(c *config) {
 		c.aggregator = aggregator
@@ -209,6 +252,7 @@ func (r requestOption) waitForApiKey() {}
 
 func (i iterableOption) waitForApiKey() {}
 
+// WithApiKey necessary to know if an `update` operation has been processed, compare fields of the response with it. (optional - mandatory if operation is UPDATE).
 func WithApiKey(apiKey *ApiKey) waitForApiKeyOption {
 	return waitForApiKeyOption(func(c *config) {
 		c.apiKey = apiKey
@@ -239,7 +283,7 @@ func toIterableOptions(opts []ChunkedBatchOption) []IterableOption {
 	return iterableOpts
 }
 
-func toIterableOptionsWaitFor(opts []WaitForApiKeyOption) []IterableOption {
+func waitForApiKeyToIterableOptions(opts []WaitForApiKeyOption) []IterableOption {
 	iterableOpts := make([]IterableOption, 0, len(opts))
 
 	for _, opt := range opts {
@@ -251,7 +295,31 @@ func toIterableOptionsWaitFor(opts []WaitForApiKeyOption) []IterableOption {
 	return iterableOpts
 }
 
-func toChunkedBatchOptions(opts []PartialUpdateObjectsOption) []ChunkedBatchOption {
+func replaceAllObjectsToIterableOptions(opts []ReplaceAllObjectsOption) []IterableOption {
+	iterableOpts := make([]IterableOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(IterableOption); ok {
+			iterableOpts = append(iterableOpts, opt)
+		}
+	}
+
+	return iterableOpts
+}
+
+func partialUpdateObjectsToChunkedBatchOptions(opts []PartialUpdateObjectsOption) []ChunkedBatchOption {
+	chunkedBatchOpts := make([]ChunkedBatchOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(ChunkedBatchOption); ok {
+			chunkedBatchOpts = append(chunkedBatchOpts, opt)
+		}
+	}
+
+	return chunkedBatchOpts
+}
+
+func replaceAllObjectsToChunkBactchOptions(opts []ReplaceAllObjectsOption) []ChunkedBatchOption {
 	chunkedBatchOpts := make([]ChunkedBatchOption, 0, len(opts))
 
 	for _, opt := range opts {
@@ -8861,7 +8929,7 @@ func (c *APIClient) WaitForApiKey(
 			return c.GetApiKey(c.NewApiGetApiKeyRequest(key), toRequestOptions(opts)...)
 		},
 		validateFunc,
-		toIterableOptionsWaitFor(opts)...,
+		waitForApiKeyToIterableOptions(opts)...,
 	)
 }
 
@@ -9160,7 +9228,7 @@ func (c *APIClient) PartialUpdateObjects(indexName string, objects []map[string]
 		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
 	}
 
-	return c.ChunkedBatch(indexName, objects, action, toChunkedBatchOptions(opts)...)
+	return c.ChunkedBatch(indexName, objects, action, partialUpdateObjectsToChunkedBatchOptions(opts)...)
 }
 
 /*
@@ -9218,42 +9286,50 @@ See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers
 
 	@param indexName string - the index name to replace objects into.
 	@param objects []map[string]any - List of objects to replace.
-	@param opts ...ChunkedBatchOption - Optional parameters for the request.
+	@param opts ...ReplaceAllObjectsOption - Optional parameters for the request.
 	@return *ReplaceAllObjectsResponse - The response of the replace all objects operation.
 	@return error - Error if any.
 */
-func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) (*ReplaceAllObjectsResponse, error) {
+func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, opts ...ReplaceAllObjectsOption) (*ReplaceAllObjectsResponse, error) {
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), toRequestOptions(opts)...)
-	if err != nil {
-		return nil, err
+	conf := config{
+		scopes: []ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS},
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
 	}
 
 	opts = append(opts, WithWaitForTasks(true))
 
-	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, opts...)
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	if err != nil {
+		return nil, err
+	}
+
+	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, replaceAllObjectsToChunkBactchOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
 		return nil, err
 	}
 
-	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope([]ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS}))), toRequestOptions(opts)...)
+	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, toIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9267,7 +9343,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, toIterableOptions(opts)...)
+	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
