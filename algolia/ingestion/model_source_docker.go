@@ -8,93 +8,26 @@ import (
 
 // SourceDocker struct for SourceDocker.
 type SourceDocker struct {
-	ImageType DockerImageType `json:"imageType"`
-	Registry  DockerRegistry  `json:"registry"`
-	// Docker image name.
+	// Shortname of the image, as returned by the referential.
 	Image string `json:"image"`
-	// Docker image version.
-	Version *string `json:"version,omitempty"`
 	// Configuration of the spec.
 	Configuration map[string]any `json:"configuration"`
-}
-
-type SourceDockerOption func(f *SourceDocker)
-
-func WithSourceDockerVersion(val string) SourceDockerOption {
-	return func(f *SourceDocker) {
-		f.Version = &val
-	}
 }
 
 // NewSourceDocker instantiates a new SourceDocker object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceDocker(imageType DockerImageType, registry DockerRegistry, image string, configuration map[string]any, opts ...SourceDockerOption) *SourceDocker {
+func NewSourceDocker(image string, configuration map[string]any) *SourceDocker {
 	this := &SourceDocker{}
-	this.ImageType = imageType
-	this.Registry = registry
 	this.Image = image
 	this.Configuration = configuration
-	for _, opt := range opts {
-		opt(this)
-	}
 	return this
 }
 
 // NewEmptySourceDocker return a pointer to an empty SourceDocker object.
 func NewEmptySourceDocker() *SourceDocker {
 	return &SourceDocker{}
-}
-
-// GetImageType returns the ImageType field value.
-func (o *SourceDocker) GetImageType() DockerImageType {
-	if o == nil {
-		var ret DockerImageType
-		return ret
-	}
-
-	return o.ImageType
-}
-
-// GetImageTypeOk returns a tuple with the ImageType field value
-// and a boolean to check if the value has been set.
-func (o *SourceDocker) GetImageTypeOk() (*DockerImageType, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ImageType, true
-}
-
-// SetImageType sets field value.
-func (o *SourceDocker) SetImageType(v DockerImageType) *SourceDocker {
-	o.ImageType = v
-	return o
-}
-
-// GetRegistry returns the Registry field value.
-func (o *SourceDocker) GetRegistry() DockerRegistry {
-	if o == nil {
-		var ret DockerRegistry
-		return ret
-	}
-
-	return o.Registry
-}
-
-// GetRegistryOk returns a tuple with the Registry field value
-// and a boolean to check if the value has been set.
-func (o *SourceDocker) GetRegistryOk() (*DockerRegistry, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Registry, true
-}
-
-// SetRegistry sets field value.
-func (o *SourceDocker) SetRegistry(v DockerRegistry) *SourceDocker {
-	o.Registry = v
-	return o
 }
 
 // GetImage returns the Image field value.
@@ -119,39 +52,6 @@ func (o *SourceDocker) GetImageOk() (*string, bool) {
 // SetImage sets field value.
 func (o *SourceDocker) SetImage(v string) *SourceDocker {
 	o.Image = v
-	return o
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *SourceDocker) GetVersion() string {
-	if o == nil || o.Version == nil {
-		var ret string
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceDocker) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *SourceDocker) HasVersion() bool {
-	if o != nil && o.Version != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
-func (o *SourceDocker) SetVersion(v string) *SourceDocker {
-	o.Version = &v
 	return o
 }
 
@@ -183,16 +83,7 @@ func (o *SourceDocker) SetConfiguration(v map[string]any) *SourceDocker {
 func (o SourceDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if true {
-		toSerialize["imageType"] = o.ImageType
-	}
-	if true {
-		toSerialize["registry"] = o.Registry
-	}
-	if true {
 		toSerialize["image"] = o.Image
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
 	}
 	if true {
 		toSerialize["configuration"] = o.Configuration
@@ -207,10 +98,7 @@ func (o SourceDocker) MarshalJSON() ([]byte, error) {
 
 func (o SourceDocker) String() string {
 	out := ""
-	out += fmt.Sprintf("  imageType=%v\n", o.ImageType)
-	out += fmt.Sprintf("  registry=%v\n", o.Registry)
 	out += fmt.Sprintf("  image=%v\n", o.Image)
-	out += fmt.Sprintf("  version=%v\n", o.Version)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	return fmt.Sprintf("SourceDocker {\n%s}", out)
 }

@@ -8,150 +8,23 @@ import (
 
 // SourceUpdateDocker struct for SourceUpdateDocker.
 type SourceUpdateDocker struct {
-	Registry *DockerRegistry `json:"registry,omitempty"`
-	// Docker image name.
-	Image *string `json:"image,omitempty"`
-	// Docker image version.
-	Version *string `json:"version,omitempty"`
 	// Configuration of the spec.
 	Configuration map[string]any `json:"configuration"`
-}
-
-type SourceUpdateDockerOption func(f *SourceUpdateDocker)
-
-func WithSourceUpdateDockerRegistry(val DockerRegistry) SourceUpdateDockerOption {
-	return func(f *SourceUpdateDocker) {
-		f.Registry = &val
-	}
-}
-
-func WithSourceUpdateDockerImage(val string) SourceUpdateDockerOption {
-	return func(f *SourceUpdateDocker) {
-		f.Image = &val
-	}
-}
-
-func WithSourceUpdateDockerVersion(val string) SourceUpdateDockerOption {
-	return func(f *SourceUpdateDocker) {
-		f.Version = &val
-	}
 }
 
 // NewSourceUpdateDocker instantiates a new SourceUpdateDocker object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSourceUpdateDocker(configuration map[string]any, opts ...SourceUpdateDockerOption) *SourceUpdateDocker {
+func NewSourceUpdateDocker(configuration map[string]any) *SourceUpdateDocker {
 	this := &SourceUpdateDocker{}
 	this.Configuration = configuration
-	for _, opt := range opts {
-		opt(this)
-	}
 	return this
 }
 
 // NewEmptySourceUpdateDocker return a pointer to an empty SourceUpdateDocker object.
 func NewEmptySourceUpdateDocker() *SourceUpdateDocker {
 	return &SourceUpdateDocker{}
-}
-
-// GetRegistry returns the Registry field value if set, zero value otherwise.
-func (o *SourceUpdateDocker) GetRegistry() DockerRegistry {
-	if o == nil || o.Registry == nil {
-		var ret DockerRegistry
-		return ret
-	}
-	return *o.Registry
-}
-
-// GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceUpdateDocker) GetRegistryOk() (*DockerRegistry, bool) {
-	if o == nil || o.Registry == nil {
-		return nil, false
-	}
-	return o.Registry, true
-}
-
-// HasRegistry returns a boolean if a field has been set.
-func (o *SourceUpdateDocker) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRegistry gets a reference to the given DockerRegistry and assigns it to the Registry field.
-func (o *SourceUpdateDocker) SetRegistry(v DockerRegistry) *SourceUpdateDocker {
-	o.Registry = &v
-	return o
-}
-
-// GetImage returns the Image field value if set, zero value otherwise.
-func (o *SourceUpdateDocker) GetImage() string {
-	if o == nil || o.Image == nil {
-		var ret string
-		return ret
-	}
-	return *o.Image
-}
-
-// GetImageOk returns a tuple with the Image field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceUpdateDocker) GetImageOk() (*string, bool) {
-	if o == nil || o.Image == nil {
-		return nil, false
-	}
-	return o.Image, true
-}
-
-// HasImage returns a boolean if a field has been set.
-func (o *SourceUpdateDocker) HasImage() bool {
-	if o != nil && o.Image != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetImage gets a reference to the given string and assigns it to the Image field.
-func (o *SourceUpdateDocker) SetImage(v string) *SourceUpdateDocker {
-	o.Image = &v
-	return o
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *SourceUpdateDocker) GetVersion() string {
-	if o == nil || o.Version == nil {
-		var ret string
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceUpdateDocker) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *SourceUpdateDocker) HasVersion() bool {
-	if o != nil && o.Version != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
-func (o *SourceUpdateDocker) SetVersion(v string) *SourceUpdateDocker {
-	o.Version = &v
-	return o
 }
 
 // GetConfiguration returns the Configuration field value.
@@ -181,15 +54,6 @@ func (o *SourceUpdateDocker) SetConfiguration(v map[string]any) *SourceUpdateDoc
 
 func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.Image != nil {
-		toSerialize["image"] = o.Image
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
 	if true {
 		toSerialize["configuration"] = o.Configuration
 	}
@@ -203,9 +67,6 @@ func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 
 func (o SourceUpdateDocker) String() string {
 	out := ""
-	out += fmt.Sprintf("  registry=%v\n", o.Registry)
-	out += fmt.Sprintf("  image=%v\n", o.Image)
-	out += fmt.Sprintf("  version=%v\n", o.Version)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	return fmt.Sprintf("SourceUpdateDocker {\n%s}", out)
 }

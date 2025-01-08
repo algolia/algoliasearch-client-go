@@ -20,17 +20,17 @@ type SourceInput struct {
 	SourceShopify           *SourceShopify
 }
 
-// SourceDockerAsSourceInput is a convenience function that returns SourceDocker wrapped in SourceInput.
-func SourceDockerAsSourceInput(v *SourceDocker) *SourceInput {
-	return &SourceInput{
-		SourceDocker: v,
-	}
-}
-
 // SourceGA4BigQueryExportAsSourceInput is a convenience function that returns SourceGA4BigQueryExport wrapped in SourceInput.
 func SourceGA4BigQueryExportAsSourceInput(v *SourceGA4BigQueryExport) *SourceInput {
 	return &SourceInput{
 		SourceGA4BigQueryExport: v,
+	}
+}
+
+// SourceDockerAsSourceInput is a convenience function that returns SourceDocker wrapped in SourceInput.
+func SourceDockerAsSourceInput(v *SourceDocker) *SourceInput {
+	return &SourceInput{
+		SourceDocker: v,
 	}
 }
 
@@ -82,15 +82,6 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
 	_ = newStrictDecoder(data).Decode(&jsonDict)
-	if utils.HasKey(jsonDict, "registry") && utils.HasKey(jsonDict, "image") && utils.HasKey(jsonDict, "imageType") && utils.HasKey(jsonDict, "configuration") {
-		// try to unmarshal data into SourceDocker
-		err = newStrictDecoder(data).Decode(&dst.SourceDocker)
-		if err == nil && validateStruct(dst.SourceDocker) == nil {
-			return nil // found the correct type
-		} else {
-			dst.SourceDocker = nil
-		}
-	}
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
 		err = newStrictDecoder(data).Decode(&dst.SourceGA4BigQueryExport)
@@ -98,6 +89,15 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			return nil // found the correct type
 		} else {
 			dst.SourceGA4BigQueryExport = nil
+		}
+	}
+	if utils.HasKey(jsonDict, "image") && utils.HasKey(jsonDict, "configuration") {
+		// try to unmarshal data into SourceDocker
+		err = newStrictDecoder(data).Decode(&dst.SourceDocker)
+		if err == nil && validateStruct(dst.SourceDocker) == nil {
+			return nil // found the correct type
+		} else {
+			dst.SourceDocker = nil
 		}
 	}
 	if utils.HasKey(jsonDict, "projectKey") {
