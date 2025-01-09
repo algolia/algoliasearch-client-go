@@ -97,6 +97,10 @@ type RecommendSearchParams struct {
 	AttributeForDistinct *string `json:"attributeForDistinct,omitempty"`
 	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
 	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
+	// Characters for which diacritics should be preserved.  By default, Algolia removes diacritics from letters. For example, `é` becomes `e`. If this causes issues in your search, you can specify characters that should keep their diacritics.
+	KeepDiacriticsOnCharacters *string `json:"keepDiacriticsOnCharacters,omitempty"`
+	// Attributes to use as [custom ranking](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/). Attribute names are case-sensitive.  The custom ranking attributes decide which items are shown first if the other ranking criteria are equal.  Records with missing values for your selected custom ranking attributes are always sorted last. Boolean attributes are sorted based on their alphabetical order.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order.  - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  If you use two or more custom ranking attributes, [reduce the precision](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/how-to/controlling-custom-ranking-metrics-precision/) of your first attributes, or the other attributes will never be applied.
+	CustomRanking []string `json:"customRanking,omitempty"`
 	// Attributes to include in the API response.  To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive.  - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute/), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, you should test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/).
@@ -446,6 +450,18 @@ func WithRecommendSearchParamsAttributeForDistinct(val string) RecommendSearchPa
 func WithRecommendSearchParamsMaxFacetHits(val int32) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.MaxFacetHits = &val
+	}
+}
+
+func WithRecommendSearchParamsKeepDiacriticsOnCharacters(val string) RecommendSearchParamsOption {
+	return func(f *RecommendSearchParams) {
+		f.KeepDiacriticsOnCharacters = &val
+	}
+}
+
+func WithRecommendSearchParamsCustomRanking(val []string) RecommendSearchParamsOption {
+	return func(f *RecommendSearchParams) {
+		f.CustomRanking = val
 	}
 }
 
@@ -2256,6 +2272,72 @@ func (o *RecommendSearchParams) SetMaxFacetHits(v int32) *RecommendSearchParams 
 	return o
 }
 
+// GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
+func (o *RecommendSearchParams) GetKeepDiacriticsOnCharacters() string {
+	if o == nil || o.KeepDiacriticsOnCharacters == nil {
+		var ret string
+		return ret
+	}
+	return *o.KeepDiacriticsOnCharacters
+}
+
+// GetKeepDiacriticsOnCharactersOk returns a tuple with the KeepDiacriticsOnCharacters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendSearchParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
+	if o == nil || o.KeepDiacriticsOnCharacters == nil {
+		return nil, false
+	}
+	return o.KeepDiacriticsOnCharacters, true
+}
+
+// HasKeepDiacriticsOnCharacters returns a boolean if a field has been set.
+func (o *RecommendSearchParams) HasKeepDiacriticsOnCharacters() bool {
+	if o != nil && o.KeepDiacriticsOnCharacters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
+func (o *RecommendSearchParams) SetKeepDiacriticsOnCharacters(v string) *RecommendSearchParams {
+	o.KeepDiacriticsOnCharacters = &v
+	return o
+}
+
+// GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
+func (o *RecommendSearchParams) GetCustomRanking() []string {
+	if o == nil || o.CustomRanking == nil {
+		var ret []string
+		return ret
+	}
+	return o.CustomRanking
+}
+
+// GetCustomRankingOk returns a tuple with the CustomRanking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendSearchParams) GetCustomRankingOk() ([]string, bool) {
+	if o == nil || o.CustomRanking == nil {
+		return nil, false
+	}
+	return o.CustomRanking, true
+}
+
+// HasCustomRanking returns a boolean if a field has been set.
+func (o *RecommendSearchParams) HasCustomRanking() bool {
+	if o != nil && o.CustomRanking != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
+func (o *RecommendSearchParams) SetCustomRanking(v []string) *RecommendSearchParams {
+	o.CustomRanking = v
+	return o
+}
+
 // GetAttributesToRetrieve returns the AttributesToRetrieve field value if set, zero value otherwise.
 func (o *RecommendSearchParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
@@ -3664,6 +3746,12 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+	if o.KeepDiacriticsOnCharacters != nil {
+		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
+	}
+	if o.CustomRanking != nil {
+		toSerialize["customRanking"] = o.CustomRanking
+	}
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
@@ -3835,6 +3923,8 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  customNormalization=%v\n", o.CustomNormalization)
 	out += fmt.Sprintf("  attributeForDistinct=%v\n", o.AttributeForDistinct)
 	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
+	out += fmt.Sprintf("  keepDiacriticsOnCharacters=%v\n", o.KeepDiacriticsOnCharacters)
+	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)

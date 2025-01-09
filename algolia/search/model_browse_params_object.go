@@ -71,8 +71,6 @@ type BrowseParamsObject struct {
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute/), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, you should test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing/).
 	Ranking []string `json:"ranking,omitempty"`
-	// Attributes to use as [custom ranking](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/). Attribute names are case-sensitive.  The custom ranking attributes decide which items are shown first if the other ranking criteria are equal.  Records with missing values for your selected custom ranking attributes are always sorted last. Boolean attributes are sorted based on their alphabetical order.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order.  - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  If you use two or more custom ranking attributes, [reduce the precision](https://www.algolia.com/doc/guides/managing-results/must-do/custom-ranking/how-to/controlling-custom-ranking-metrics-precision/) of your first attributes, or the other attributes will never be applied.
-	CustomRanking []string `json:"customRanking,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results.  You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Attributes to highlight.  By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive.  With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI.  For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js/).
@@ -100,8 +98,6 @@ type BrowseParamsObject struct {
 	DisableTypoToleranceOnAttributes []string         `json:"disableTypoToleranceOnAttributes,omitempty"`
 	IgnorePlurals                    *IgnorePlurals   `json:"ignorePlurals,omitempty"`
 	RemoveStopWords                  *RemoveStopWords `json:"removeStopWords,omitempty"`
-	// Characters for which diacritics should be preserved.  By default, Algolia removes diacritics from letters. For example, `é` becomes `e`. If this causes issues in your search, you can specify characters that should keep their diacritics.
-	KeepDiacriticsOnCharacters *string `json:"keepDiacriticsOnCharacters,omitempty"`
 	// Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries.  This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, you must place the CJK language **first**.  **You should always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages/), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/).
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Whether to split compound words in the query into their building blocks.  For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian. Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
@@ -351,12 +347,6 @@ func WithBrowseParamsObjectRanking(val []string) BrowseParamsObjectOption {
 	}
 }
 
-func WithBrowseParamsObjectCustomRanking(val []string) BrowseParamsObjectOption {
-	return func(f *BrowseParamsObject) {
-		f.CustomRanking = val
-	}
-}
-
 func WithBrowseParamsObjectRelevancyStrictness(val int32) BrowseParamsObjectOption {
 	return func(f *BrowseParamsObject) {
 		f.RelevancyStrictness = &val
@@ -444,12 +434,6 @@ func WithBrowseParamsObjectIgnorePlurals(val IgnorePlurals) BrowseParamsObjectOp
 func WithBrowseParamsObjectRemoveStopWords(val RemoveStopWords) BrowseParamsObjectOption {
 	return func(f *BrowseParamsObject) {
 		f.RemoveStopWords = &val
-	}
-}
-
-func WithBrowseParamsObjectKeepDiacriticsOnCharacters(val string) BrowseParamsObjectOption {
-	return func(f *BrowseParamsObject) {
-		f.KeepDiacriticsOnCharacters = &val
 	}
 }
 
@@ -1753,39 +1737,6 @@ func (o *BrowseParamsObject) SetRanking(v []string) *BrowseParamsObject {
 	return o
 }
 
-// GetCustomRanking returns the CustomRanking field value if set, zero value otherwise.
-func (o *BrowseParamsObject) GetCustomRanking() []string {
-	if o == nil || o.CustomRanking == nil {
-		var ret []string
-		return ret
-	}
-	return o.CustomRanking
-}
-
-// GetCustomRankingOk returns a tuple with the CustomRanking field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BrowseParamsObject) GetCustomRankingOk() ([]string, bool) {
-	if o == nil || o.CustomRanking == nil {
-		return nil, false
-	}
-	return o.CustomRanking, true
-}
-
-// HasCustomRanking returns a boolean if a field has been set.
-func (o *BrowseParamsObject) HasCustomRanking() bool {
-	if o != nil && o.CustomRanking != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
-func (o *BrowseParamsObject) SetCustomRanking(v []string) *BrowseParamsObject {
-	o.CustomRanking = v
-	return o
-}
-
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
 func (o *BrowseParamsObject) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
@@ -2278,39 +2229,6 @@ func (o *BrowseParamsObject) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *BrowseParamsObject) SetRemoveStopWords(v *RemoveStopWords) *BrowseParamsObject {
 	o.RemoveStopWords = v
-	return o
-}
-
-// GetKeepDiacriticsOnCharacters returns the KeepDiacriticsOnCharacters field value if set, zero value otherwise.
-func (o *BrowseParamsObject) GetKeepDiacriticsOnCharacters() string {
-	if o == nil || o.KeepDiacriticsOnCharacters == nil {
-		var ret string
-		return ret
-	}
-	return *o.KeepDiacriticsOnCharacters
-}
-
-// GetKeepDiacriticsOnCharactersOk returns a tuple with the KeepDiacriticsOnCharacters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BrowseParamsObject) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
-	if o == nil || o.KeepDiacriticsOnCharacters == nil {
-		return nil, false
-	}
-	return o.KeepDiacriticsOnCharacters, true
-}
-
-// HasKeepDiacriticsOnCharacters returns a boolean if a field has been set.
-func (o *BrowseParamsObject) HasKeepDiacriticsOnCharacters() bool {
-	if o != nil && o.KeepDiacriticsOnCharacters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
-func (o *BrowseParamsObject) SetKeepDiacriticsOnCharacters(v string) *BrowseParamsObject {
-	o.KeepDiacriticsOnCharacters = &v
 	return o
 }
 
@@ -3254,9 +3172,6 @@ func (o BrowseParamsObject) MarshalJSON() ([]byte, error) {
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
-	if o.CustomRanking != nil {
-		toSerialize["customRanking"] = o.CustomRanking
-	}
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
@@ -3301,9 +3216,6 @@ func (o BrowseParamsObject) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
-	}
-	if o.KeepDiacriticsOnCharacters != nil {
-		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
 	}
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
@@ -3424,7 +3336,6 @@ func (o BrowseParamsObject) String() string {
 	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
-	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  attributesToHighlight=%v\n", o.AttributesToHighlight)
 	out += fmt.Sprintf("  attributesToSnippet=%v\n", o.AttributesToSnippet)
@@ -3440,7 +3351,6 @@ func (o BrowseParamsObject) String() string {
 	out += fmt.Sprintf("  disableTypoToleranceOnAttributes=%v\n", o.DisableTypoToleranceOnAttributes)
 	out += fmt.Sprintf("  ignorePlurals=%v\n", o.IgnorePlurals)
 	out += fmt.Sprintf("  removeStopWords=%v\n", o.RemoveStopWords)
-	out += fmt.Sprintf("  keepDiacriticsOnCharacters=%v\n", o.KeepDiacriticsOnCharacters)
 	out += fmt.Sprintf("  queryLanguages=%v\n", o.QueryLanguages)
 	out += fmt.Sprintf("  decompoundQuery=%v\n", o.DecompoundQuery)
 	out += fmt.Sprintf("  enableRules=%v\n", o.EnableRules)
