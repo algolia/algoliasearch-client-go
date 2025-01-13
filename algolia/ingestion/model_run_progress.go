@@ -8,33 +8,18 @@ import (
 
 // RunProgress struct for RunProgress.
 type RunProgress struct {
-	ExpectedNbOfEvents *int32 `json:"expectedNbOfEvents,omitempty"`
-	ReceivedNbOfEvents *int32 `json:"receivedNbOfEvents,omitempty"`
-}
-
-type RunProgressOption func(f *RunProgress)
-
-func WithRunProgressExpectedNbOfEvents(val int32) RunProgressOption {
-	return func(f *RunProgress) {
-		f.ExpectedNbOfEvents = &val
-	}
-}
-
-func WithRunProgressReceivedNbOfEvents(val int32) RunProgressOption {
-	return func(f *RunProgress) {
-		f.ReceivedNbOfEvents = &val
-	}
+	ExpectedNbOfEvents int32 `json:"expectedNbOfEvents"`
+	ReceivedNbOfEvents int32 `json:"receivedNbOfEvents"`
 }
 
 // NewRunProgress instantiates a new RunProgress object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRunProgress(opts ...RunProgressOption) *RunProgress {
+func NewRunProgress(expectedNbOfEvents int32, receivedNbOfEvents int32) *RunProgress {
 	this := &RunProgress{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.ExpectedNbOfEvents = expectedNbOfEvents
+	this.ReceivedNbOfEvents = receivedNbOfEvents
 	return this
 }
 
@@ -43,78 +28,62 @@ func NewEmptyRunProgress() *RunProgress {
 	return &RunProgress{}
 }
 
-// GetExpectedNbOfEvents returns the ExpectedNbOfEvents field value if set, zero value otherwise.
+// GetExpectedNbOfEvents returns the ExpectedNbOfEvents field value.
 func (o *RunProgress) GetExpectedNbOfEvents() int32 {
-	if o == nil || o.ExpectedNbOfEvents == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.ExpectedNbOfEvents
+
+	return o.ExpectedNbOfEvents
 }
 
-// GetExpectedNbOfEventsOk returns a tuple with the ExpectedNbOfEvents field value if set, nil otherwise
+// GetExpectedNbOfEventsOk returns a tuple with the ExpectedNbOfEvents field value
 // and a boolean to check if the value has been set.
 func (o *RunProgress) GetExpectedNbOfEventsOk() (*int32, bool) {
-	if o == nil || o.ExpectedNbOfEvents == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExpectedNbOfEvents, true
+	return &o.ExpectedNbOfEvents, true
 }
 
-// HasExpectedNbOfEvents returns a boolean if a field has been set.
-func (o *RunProgress) HasExpectedNbOfEvents() bool {
-	if o != nil && o.ExpectedNbOfEvents != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExpectedNbOfEvents gets a reference to the given int32 and assigns it to the ExpectedNbOfEvents field.
+// SetExpectedNbOfEvents sets field value.
 func (o *RunProgress) SetExpectedNbOfEvents(v int32) *RunProgress {
-	o.ExpectedNbOfEvents = &v
+	o.ExpectedNbOfEvents = v
 	return o
 }
 
-// GetReceivedNbOfEvents returns the ReceivedNbOfEvents field value if set, zero value otherwise.
+// GetReceivedNbOfEvents returns the ReceivedNbOfEvents field value.
 func (o *RunProgress) GetReceivedNbOfEvents() int32 {
-	if o == nil || o.ReceivedNbOfEvents == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.ReceivedNbOfEvents
+
+	return o.ReceivedNbOfEvents
 }
 
-// GetReceivedNbOfEventsOk returns a tuple with the ReceivedNbOfEvents field value if set, nil otherwise
+// GetReceivedNbOfEventsOk returns a tuple with the ReceivedNbOfEvents field value
 // and a boolean to check if the value has been set.
 func (o *RunProgress) GetReceivedNbOfEventsOk() (*int32, bool) {
-	if o == nil || o.ReceivedNbOfEvents == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ReceivedNbOfEvents, true
+	return &o.ReceivedNbOfEvents, true
 }
 
-// HasReceivedNbOfEvents returns a boolean if a field has been set.
-func (o *RunProgress) HasReceivedNbOfEvents() bool {
-	if o != nil && o.ReceivedNbOfEvents != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetReceivedNbOfEvents gets a reference to the given int32 and assigns it to the ReceivedNbOfEvents field.
+// SetReceivedNbOfEvents sets field value.
 func (o *RunProgress) SetReceivedNbOfEvents(v int32) *RunProgress {
-	o.ReceivedNbOfEvents = &v
+	o.ReceivedNbOfEvents = v
 	return o
 }
 
 func (o RunProgress) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.ExpectedNbOfEvents != nil {
+	if true {
 		toSerialize["expectedNbOfEvents"] = o.ExpectedNbOfEvents
 	}
-	if o.ReceivedNbOfEvents != nil {
+	if true {
 		toSerialize["receivedNbOfEvents"] = o.ReceivedNbOfEvents
 	}
 	serialized, err := json.Marshal(toSerialize)
