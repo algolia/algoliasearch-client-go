@@ -572,6 +572,7 @@ type ApiCreateTaskV1Request struct {
 	taskCreate *TaskCreateV1
 }
 
+// Deprecated
 // NewApiCreateTaskV1Request creates an instance of the ApiCreateTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiCreateTaskV1Request(taskCreate *TaskCreateV1) ApiCreateTaskV1Request {
 	return ApiCreateTaskV1Request{
@@ -591,6 +592,8 @@ CreateTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks"
@@ -631,6 +634,8 @@ Request can be constructed by NewApiCreateTaskV1Request with parameters below.
 
 	@param taskCreate TaskCreateV1 - Request body for creating a task.
 	@return TaskCreateResponse
+
+Deprecated.
 */
 func (c *APIClient) CreateTaskV1(r ApiCreateTaskV1Request, opts ...RequestOption) (*TaskCreateResponse, error) {
 	var returnValue *TaskCreateResponse
@@ -1810,6 +1815,7 @@ type ApiDeleteTaskV1Request struct {
 	taskID string
 }
 
+// Deprecated
 // NewApiDeleteTaskV1Request creates an instance of the ApiDeleteTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiDeleteTaskV1Request(taskID string) ApiDeleteTaskV1Request {
 	return ApiDeleteTaskV1Request{
@@ -1829,6 +1835,8 @@ DeleteTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/{taskID}"
@@ -1868,6 +1876,8 @@ Request can be constructed by NewApiDeleteTaskV1Request with parameters below.
 
 	@param taskID string - Unique identifier of a task.
 	@return DeleteResponse
+
+Deprecated.
 */
 func (c *APIClient) DeleteTaskV1(r ApiDeleteTaskV1Request, opts ...RequestOption) (*DeleteResponse, error) {
 	var returnValue *DeleteResponse
@@ -2372,6 +2382,7 @@ type ApiEnableTaskV1Request struct {
 	taskID string
 }
 
+// Deprecated
 // NewApiEnableTaskV1Request creates an instance of the ApiEnableTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiEnableTaskV1Request(taskID string) ApiEnableTaskV1Request {
 	return ApiEnableTaskV1Request{
@@ -2395,6 +2406,8 @@ EnableTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) EnableTaskV1WithHTTPInfo(r ApiEnableTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/{taskID}/enable"
@@ -2439,6 +2452,8 @@ Request can be constructed by NewApiEnableTaskV1Request with parameters below.
 
 	@param taskID string - Unique identifier of a task.
 	@return TaskUpdateResponse
+
+Deprecated.
 */
 func (c *APIClient) EnableTaskV1(r ApiEnableTaskV1Request, opts ...RequestOption) (*TaskUpdateResponse, error) {
 	var returnValue *TaskUpdateResponse
@@ -3194,6 +3209,7 @@ type ApiGetTaskV1Request struct {
 	taskID string
 }
 
+// Deprecated
 // NewApiGetTaskV1Request creates an instance of the ApiGetTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiGetTaskV1Request(taskID string) ApiGetTaskV1Request {
 	return ApiGetTaskV1Request{
@@ -3217,6 +3233,8 @@ GetTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) GetTaskV1WithHTTPInfo(r ApiGetTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/{taskID}"
@@ -3261,6 +3279,8 @@ Request can be constructed by NewApiGetTaskV1Request with parameters below.
 
 	@param taskID string - Unique identifier of a task.
 	@return TaskV1
+
+Deprecated.
 */
 func (c *APIClient) GetTaskV1(r ApiGetTaskV1Request, opts ...RequestOption) (*TaskV1, error) {
 	var returnValue *TaskV1
@@ -5092,6 +5112,7 @@ type ApiListTasksV1Request struct {
 	order         OrderKeys
 }
 
+// Deprecated
 // NewApiListTasksV1Request creates an instance of the ApiListTasksV1Request to be used for the API call.
 func (c *APIClient) NewApiListTasksV1Request() ApiListTasksV1Request {
 	return ApiListTasksV1Request{}
@@ -5175,6 +5196,8 @@ ListTasksV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) ListTasksV1WithHTTPInfo(r ApiListTasksV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks"
@@ -5250,6 +5273,8 @@ Request can be constructed by NewApiListTasksV1Request with parameters below.
 	@param sort TaskSortKeys - Property by which to sort the list of tasks.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
 	@return ListTasksResponseV1
+
+Deprecated.
 */
 func (c *APIClient) ListTasksV1(r ApiListTasksV1Request, opts ...RequestOption) (*ListTasksResponseV1, error) {
 	var returnValue *ListTasksResponseV1
@@ -5899,6 +5924,7 @@ type ApiRunTaskV1Request struct {
 	taskID string
 }
 
+// Deprecated
 // NewApiRunTaskV1Request creates an instance of the ApiRunTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiRunTaskV1Request(taskID string) ApiRunTaskV1Request {
 	return ApiRunTaskV1Request{
@@ -5922,6 +5948,8 @@ RunTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/{taskID}/run"
@@ -5966,6 +5994,8 @@ Request can be constructed by NewApiRunTaskV1Request with parameters below.
 
 	@param taskID string - Unique identifier of a task.
 	@return RunResponse
+
+Deprecated.
 */
 func (c *APIClient) RunTaskV1(r ApiRunTaskV1Request, opts ...RequestOption) (*RunResponse, error) {
 	var returnValue *RunResponse
@@ -6503,6 +6533,7 @@ type ApiSearchTasksV1Request struct {
 	taskSearch *TaskSearch
 }
 
+// Deprecated
 // NewApiSearchTasksV1Request creates an instance of the ApiSearchTasksV1Request to be used for the API call.
 func (c *APIClient) NewApiSearchTasksV1Request(taskSearch *TaskSearch) ApiSearchTasksV1Request {
 	return ApiSearchTasksV1Request{
@@ -6526,6 +6557,8 @@ SearchTasksV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) SearchTasksV1WithHTTPInfo(r ApiSearchTasksV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/search"
@@ -6571,6 +6604,8 @@ Request can be constructed by NewApiSearchTasksV1Request with parameters below.
 
 	@param taskSearch TaskSearch
 	@return []TaskV1
+
+Deprecated.
 */
 func (c *APIClient) SearchTasksV1(r ApiSearchTasksV1Request, opts ...RequestOption) ([]TaskV1, error) {
 	var returnValue []TaskV1
@@ -7685,6 +7720,7 @@ type ApiUpdateTaskV1Request struct {
 	taskUpdate *TaskUpdateV1
 }
 
+// Deprecated
 // NewApiUpdateTaskV1Request creates an instance of the ApiUpdateTaskV1Request to be used for the API call.
 func (c *APIClient) NewApiUpdateTaskV1Request(taskID string, taskUpdate *TaskUpdateV1) ApiUpdateTaskV1Request {
 	return ApiUpdateTaskV1Request{
@@ -7706,6 +7742,8 @@ UpdateTaskV1 calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/tasks/{taskID}"
@@ -7752,6 +7790,8 @@ Request can be constructed by NewApiUpdateTaskV1Request with parameters below.
 	@param taskID string - Unique identifier of a task.
 	@param taskUpdate TaskUpdateV1
 	@return TaskUpdateResponse
+
+Deprecated.
 */
 func (c *APIClient) UpdateTaskV1(r ApiUpdateTaskV1Request, opts ...RequestOption) (*TaskUpdateResponse, error) {
 	var returnValue *TaskUpdateResponse
