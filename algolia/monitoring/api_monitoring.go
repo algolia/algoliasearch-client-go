@@ -8,7 +8,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
@@ -17,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	timeouts     transport.RequestConfiguration
 }
 
 type RequestOption interface {
@@ -44,6 +47,24 @@ func WithHeaderParam(key string, value any) requestOption {
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
+func WithReadTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ReadTimeout = &timeout
+	})
+}
+
+func WithWriteTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.WriteTimeout = &timeout
+	})
+}
+
+func WithConnectTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ConnectTimeout = &timeout
 	})
 }
 
@@ -140,7 +161,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -270,7 +291,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -423,7 +444,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -577,7 +598,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -685,7 +706,7 @@ func (c *APIClient) GetClusterIncidentsWithHTTPInfo(r ApiGetClusterIncidentsRequ
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -791,7 +812,7 @@ func (c *APIClient) GetClusterStatusWithHTTPInfo(r ApiGetClusterStatusRequest, o
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -860,7 +881,7 @@ func (c *APIClient) GetIncidentsWithHTTPInfo(opts ...RequestOption) (*http.Respo
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -965,7 +986,7 @@ func (c *APIClient) GetIndexingTimeWithHTTPInfo(r ApiGetIndexingTimeRequest, opt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1071,7 +1092,7 @@ func (c *APIClient) GetLatencyWithHTTPInfo(r ApiGetLatencyRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1188,7 +1209,7 @@ func (c *APIClient) GetMetricsWithHTTPInfo(r ApiGetMetricsRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1298,7 +1319,7 @@ func (c *APIClient) GetReachabilityWithHTTPInfo(r ApiGetReachabilityRequest, opt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1374,7 +1395,7 @@ func (c *APIClient) GetServersWithHTTPInfo(opts ...RequestOption) (*http.Respons
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1450,7 +1471,7 @@ func (c *APIClient) GetStatusWithHTTPInfo(opts ...RequestOption) (*http.Response
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*

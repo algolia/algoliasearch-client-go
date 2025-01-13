@@ -8,7 +8,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
@@ -17,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	timeouts     transport.RequestConfiguration
 }
 
 type RequestOption interface {
@@ -44,6 +47,24 @@ func WithHeaderParam(key string, value any) requestOption {
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
+func WithReadTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ReadTimeout = &timeout
+	})
+}
+
+func WithWriteTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.WriteTimeout = &timeout
+	})
+}
+
+func WithConnectTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ConnectTimeout = &timeout
 	})
 }
 
@@ -140,7 +161,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -270,7 +291,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -423,7 +444,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -577,7 +598,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -750,7 +771,7 @@ func (c *APIClient) GetAddToCartRateWithHTTPInfo(r ApiGetAddToCartRateRequest, o
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -931,7 +952,7 @@ func (c *APIClient) GetAverageClickPositionWithHTTPInfo(r ApiGetAverageClickPosi
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1112,7 +1133,7 @@ func (c *APIClient) GetClickPositionsWithHTTPInfo(r ApiGetClickPositionsRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1291,7 +1312,7 @@ func (c *APIClient) GetClickThroughRateWithHTTPInfo(r ApiGetClickThroughRateRequ
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1470,7 +1491,7 @@ func (c *APIClient) GetConversionRateWithHTTPInfo(r ApiGetConversionRateRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1649,7 +1670,7 @@ func (c *APIClient) GetNoClickRateWithHTTPInfo(r ApiGetNoClickRateRequest, opts 
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1828,7 +1849,7 @@ func (c *APIClient) GetNoResultsRateWithHTTPInfo(r ApiGetNoResultsRateRequest, o
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2007,7 +2028,7 @@ func (c *APIClient) GetPurchaseRateWithHTTPInfo(r ApiGetPurchaseRateRequest, opt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2187,7 +2208,7 @@ func (c *APIClient) GetRevenueWithHTTPInfo(r ApiGetRevenueRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2367,7 +2388,7 @@ func (c *APIClient) GetSearchesCountWithHTTPInfo(r ApiGetSearchesCountRequest, o
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2584,7 +2605,7 @@ func (c *APIClient) GetSearchesNoClicksWithHTTPInfo(r ApiGetSearchesNoClicksRequ
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2801,7 +2822,7 @@ func (c *APIClient) GetSearchesNoResultsWithHTTPInfo(r ApiGetSearchesNoResultsRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2920,7 +2941,7 @@ func (c *APIClient) GetStatusWithHTTPInfo(r ApiGetStatusRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3134,7 +3155,7 @@ func (c *APIClient) GetTopCountriesWithHTTPInfo(r ApiGetTopCountriesRequest, opt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3373,7 +3394,7 @@ func (c *APIClient) GetTopFilterAttributesWithHTTPInfo(r ApiGetTopFilterAttribut
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3631,7 +3652,7 @@ func (c *APIClient) GetTopFilterForAttributeWithHTTPInfo(r ApiGetTopFilterForAtt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3874,7 +3895,7 @@ func (c *APIClient) GetTopFiltersNoResultsWithHTTPInfo(r ApiGetTopFiltersNoResul
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4154,7 +4175,7 @@ func (c *APIClient) GetTopHitsWithHTTPInfo(r ApiGetTopHitsRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4454,7 +4475,7 @@ func (c *APIClient) GetTopSearchesWithHTTPInfo(r ApiGetTopSearchesRequest, opts 
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4640,7 +4661,7 @@ func (c *APIClient) GetUsersCountWithHTTPInfo(r ApiGetUsersCountRequest, opts ..
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*

@@ -20,3 +20,9 @@ type Configuration struct {
 	Compression                     compression.Compression
 	ExposeIntermediateNetworkErrors bool
 }
+
+type RequestConfiguration struct {
+	ReadTimeout    *time.Duration
+	WriteTimeout   *time.Duration
+	ConnectTimeout *time.Duration
+}

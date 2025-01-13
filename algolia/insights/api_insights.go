@@ -8,7 +8,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
@@ -17,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	timeouts     transport.RequestConfiguration
 }
 
 type RequestOption interface {
@@ -44,6 +47,24 @@ func WithHeaderParam(key string, value any) requestOption {
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
+func WithReadTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ReadTimeout = &timeout
+	})
+}
+
+func WithWriteTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.WriteTimeout = &timeout
+	})
+}
+
+func WithConnectTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ConnectTimeout = &timeout
 	})
 }
 
@@ -140,7 +161,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -270,7 +291,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -423,7 +444,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -577,7 +598,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -687,7 +708,7 @@ func (c *APIClient) DeleteUserTokenWithHTTPInfo(r ApiDeleteUserTokenRequest, opt
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -795,7 +816,7 @@ func (c *APIClient) PushEventsWithHTTPInfo(r ApiPushEventsRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*

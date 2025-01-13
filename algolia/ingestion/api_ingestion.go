@@ -8,7 +8,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
@@ -17,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	timeouts     transport.RequestConfiguration
 }
 
 type RequestOption interface {
@@ -44,6 +47,24 @@ func WithHeaderParam(key string, value any) requestOption {
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
+	})
+}
+
+func WithReadTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ReadTimeout = &timeout
+	})
+}
+
+func WithWriteTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.WriteTimeout = &timeout
+	})
+}
+
+func WithConnectTimeout(timeout time.Duration) requestOption {
+	return requestOption(func(c *config) {
+		c.timeouts.ConnectTimeout = &timeout
 	})
 }
 
@@ -127,7 +148,7 @@ func (c *APIClient) CreateAuthenticationWithHTTPInfo(r ApiCreateAuthenticationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -248,7 +269,7 @@ func (c *APIClient) CreateDestinationWithHTTPInfo(r ApiCreateDestinationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -369,7 +390,7 @@ func (c *APIClient) CreateSourceWithHTTPInfo(r ApiCreateSourceRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -486,7 +507,7 @@ func (c *APIClient) CreateTaskWithHTTPInfo(r ApiCreateTaskRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -598,7 +619,7 @@ func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -710,7 +731,7 @@ func (c *APIClient) CreateTransformationWithHTTPInfo(r ApiCreateTransformationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -839,7 +860,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -969,7 +990,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1122,7 +1143,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1276,7 +1297,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1388,7 +1409,7 @@ func (c *APIClient) DeleteAuthenticationWithHTTPInfo(r ApiDeleteAuthenticationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1503,7 +1524,7 @@ func (c *APIClient) DeleteDestinationWithHTTPInfo(r ApiDeleteDestinationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1618,7 +1639,7 @@ func (c *APIClient) DeleteSourceWithHTTPInfo(r ApiDeleteSourceRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1729,7 +1750,7 @@ func (c *APIClient) DeleteTaskWithHTTPInfo(r ApiDeleteTaskRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1835,7 +1856,7 @@ func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -1941,7 +1962,7 @@ func (c *APIClient) DeleteTransformationWithHTTPInfo(r ApiDeleteTransformationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2051,7 +2072,7 @@ func (c *APIClient) DisableTaskWithHTTPInfo(r ApiDisableTaskRequest, opts ...Req
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2169,7 +2190,7 @@ func (c *APIClient) DisableTaskV1WithHTTPInfo(r ApiDisableTaskV1Request, opts ..
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2286,7 +2307,7 @@ func (c *APIClient) EnableTaskWithHTTPInfo(r ApiEnableTaskRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2401,7 +2422,7 @@ func (c *APIClient) EnableTaskV1WithHTTPInfo(r ApiEnableTaskV1Request, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2516,7 +2537,7 @@ func (c *APIClient) GetAuthenticationWithHTTPInfo(r ApiGetAuthenticationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2631,7 +2652,7 @@ func (c *APIClient) GetDestinationWithHTTPInfo(r ApiGetDestinationRequest, opts 
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2762,7 +2783,7 @@ func (c *APIClient) GetEventWithHTTPInfo(r ApiGetEventRequest, opts ...RequestOp
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2878,7 +2899,7 @@ func (c *APIClient) GetRunWithHTTPInfo(r ApiGetRunRequest, opts ...RequestOption
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -2993,7 +3014,7 @@ func (c *APIClient) GetSourceWithHTTPInfo(r ApiGetSourceRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3108,7 +3129,7 @@ func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOpti
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3223,7 +3244,7 @@ func (c *APIClient) GetTaskV1WithHTTPInfo(r ApiGetTaskV1Request, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3338,7 +3359,7 @@ func (c *APIClient) GetTransformationWithHTTPInfo(r ApiGetTransformationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3556,7 +3577,7 @@ func (c *APIClient) ListAuthenticationsWithHTTPInfo(r ApiListAuthenticationsRequ
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -3799,7 +3820,7 @@ func (c *APIClient) ListDestinationsWithHTTPInfo(r ApiListDestinationsRequest, o
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4081,7 +4102,7 @@ func (c *APIClient) ListEventsWithHTTPInfo(r ApiListEventsRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4367,7 +4388,7 @@ func (c *APIClient) ListRunsWithHTTPInfo(r ApiListRunsRequest, opts ...RequestOp
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4593,7 +4614,7 @@ func (c *APIClient) ListSourcesWithHTTPInfo(r ApiListSourcesRequest, opts ...Req
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -4916,7 +4937,7 @@ func (c *APIClient) ListTasksWithHTTPInfo(r ApiListTasksRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5204,7 +5225,7 @@ func (c *APIClient) ListTasksV1WithHTTPInfo(r ApiListTasksV1Request, opts ...Req
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5390,7 +5411,7 @@ func (c *APIClient) ListTransformationsWithHTTPInfo(r ApiListTransformationsRequ
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5532,6 +5553,11 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+		timeouts: transport.RequestConfiguration{
+			ReadTimeout:    utils.ToPtr(180000 * time.Millisecond),
+			WriteTimeout:   utils.ToPtr(180000 * time.Millisecond),
+			ConnectTimeout: utils.ToPtr(180000 * time.Millisecond),
+		},
 	}
 
 	if !utils.IsNilOrEmpty(r.watch) {
@@ -5552,7 +5578,7 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5692,7 +5718,7 @@ func (c *APIClient) RunSourceWithHTTPInfo(r ApiRunSourceRequest, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5808,7 +5834,7 @@ func (c *APIClient) RunTaskWithHTTPInfo(r ApiRunTaskRequest, opts ...RequestOpti
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -5923,7 +5949,7 @@ func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...Request
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6044,7 +6070,7 @@ func (c *APIClient) SearchAuthenticationsWithHTTPInfo(r ApiSearchAuthentications
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6165,7 +6191,7 @@ func (c *APIClient) SearchDestinationsWithHTTPInfo(r ApiSearchDestinationsReques
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6286,7 +6312,7 @@ func (c *APIClient) SearchSourcesWithHTTPInfo(r ApiSearchSourcesRequest, opts ..
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6407,7 +6433,7 @@ func (c *APIClient) SearchTasksWithHTTPInfo(r ApiSearchTasksRequest, opts ...Req
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6528,7 +6554,7 @@ func (c *APIClient) SearchTasksV1WithHTTPInfo(r ApiSearchTasksV1Request, opts ..
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6649,7 +6675,7 @@ func (c *APIClient) SearchTransformationsWithHTTPInfo(r ApiSearchTransformations
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6752,6 +6778,11 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithHTTPInfo(r ApiTriggerDockerSo
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+		timeouts: transport.RequestConfiguration{
+			ReadTimeout:    utils.ToPtr(180000 * time.Millisecond),
+			WriteTimeout:   utils.ToPtr(180000 * time.Millisecond),
+			ConnectTimeout: utils.ToPtr(180000 * time.Millisecond),
+		},
 	}
 
 	// optional params if any
@@ -6766,7 +6797,7 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithHTTPInfo(r ApiTriggerDockerSo
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -6888,7 +6919,7 @@ func (c *APIClient) TryTransformationWithHTTPInfo(r ApiTryTransformationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7026,7 +7057,7 @@ func (c *APIClient) TryTransformationBeforeUpdateWithHTTPInfo(r ApiTryTransforma
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7165,7 +7196,7 @@ func (c *APIClient) UpdateAuthenticationWithHTTPInfo(r ApiUpdateAuthenticationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7304,7 +7335,7 @@ func (c *APIClient) UpdateDestinationWithHTTPInfo(r ApiUpdateDestinationRequest,
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7443,7 +7474,7 @@ func (c *APIClient) UpdateSourceWithHTTPInfo(r ApiUpdateSourceRequest, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7578,7 +7609,7 @@ func (c *APIClient) UpdateTaskWithHTTPInfo(r ApiUpdateTaskRequest, opts ...Reque
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7708,7 +7739,7 @@ func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...R
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7838,7 +7869,7 @@ func (c *APIClient) UpdateTransformationWithHTTPInfo(r ApiUpdateTransformationRe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -7935,6 +7966,11 @@ func (c *APIClient) ValidateSourceWithHTTPInfo(r ApiValidateSourceRequest, opts 
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+		timeouts: transport.RequestConfiguration{
+			ReadTimeout:    utils.ToPtr(180000 * time.Millisecond),
+			WriteTimeout:   utils.ToPtr(180000 * time.Millisecond),
+			ConnectTimeout: utils.ToPtr(180000 * time.Millisecond),
+		},
 	}
 
 	// optional params if any
@@ -7955,7 +7991,7 @@ func (c *APIClient) ValidateSourceWithHTTPInfo(r ApiValidateSourceRequest, opts 
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
@@ -8078,6 +8114,11 @@ func (c *APIClient) ValidateSourceBeforeUpdateWithHTTPInfo(r ApiValidateSourceBe
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+		timeouts: transport.RequestConfiguration{
+			ReadTimeout:    utils.ToPtr(180000 * time.Millisecond),
+			WriteTimeout:   utils.ToPtr(180000 * time.Millisecond),
+			ConnectTimeout: utils.ToPtr(180000 * time.Millisecond),
+		},
 	}
 
 	// optional params if any
@@ -8094,7 +8135,7 @@ func (c *APIClient) ValidateSourceBeforeUpdateWithHTTPInfo(r ApiValidateSourceBe
 		return nil, nil, err
 	}
 
-	return c.callAPI(req, false)
+	return c.callAPI(req, false, conf.timeouts)
 }
 
 /*
