@@ -8,7 +8,7 @@ import (
 
 // GetNoClickRateResponse struct for GetNoClickRateResponse.
 type GetNoClickRateResponse struct {
-	// No click rate, calculated as number of tracked searches without any click divided by the number of tracked searches.
+	// No click rate: calculated as the number of tracked searches without clicks divided by the number of tracked searches.
 	Rate float64 `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	Count int32 `json:"count"`

@@ -8,7 +8,7 @@ import (
 
 // TopHit struct for TopHit.
 type TopHit struct {
-	// Object ID of a record that's returned as a search result.
+	// Object ID of a record returned as a search result.
 	Hit string `json:"hit"`
 	// Number of occurrences.
 	Count int32 `json:"count"`

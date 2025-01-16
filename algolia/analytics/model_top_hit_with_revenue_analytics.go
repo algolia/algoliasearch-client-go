@@ -10,13 +10,13 @@ import (
 
 // TopHitWithRevenueAnalytics struct for TopHitWithRevenueAnalytics.
 type TopHitWithRevenueAnalytics struct {
-	// Object ID of a record that's returned as a search result.
+	// Object ID of a record returned as a search result.
 	Hit string `json:"hit"`
 	// Number of occurrences.
 	Count int32 `json:"count"`
-	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
-	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedHitCount int32 `json:"trackedHitCount"`
@@ -24,15 +24,15 @@ type TopHitWithRevenueAnalytics struct {
 	ClickCount int32 `json:"clickCount"`
 	// Number of conversions from this search.
 	ConversionCount int32 `json:"conversionCount"`
-	// Add-to-cart rate, calculated as number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// Number of add-to-cart events from this search.
 	AddToCartCount int32 `json:"addToCartCount"`
-	// Purchase rate, calculated as number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Purchase rate: calculated as the number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
 	// Number of purchase events from this search.
 	PurchaseCount int32 `json:"purchaseCount"`
-	// Revenue associated with this search, broken-down by currencies.
+	// Revenue associated with this search: broken down by currency.
 	Currencies map[string]CurrencyCode `json:"currencies"`
 }
 

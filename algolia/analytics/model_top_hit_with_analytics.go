@@ -10,13 +10,13 @@ import (
 
 // TopHitWithAnalytics struct for TopHitWithAnalytics.
 type TopHitWithAnalytics struct {
-	// Object ID of a record that's returned as a search result.
+	// Object ID of a record returned as a search result.
 	Hit string `json:"hit"`
 	// Number of occurrences.
 	Count int32 `json:"count"`
-	// Click-through rate, calculated as number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
-	// Conversion rate, calculated as number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
 	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	TrackedHitCount int32 `json:"trackedHitCount"`

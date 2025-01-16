@@ -8,7 +8,7 @@ import (
 
 // GetNoResultsRateResponse struct for GetNoResultsRateResponse.
 type GetNoResultsRateResponse struct {
-	// No results rate, calculated as number of searches with zero results divided by the total number of searches.
+	// No results rate: calculated as the number of searches with zero results divided by the total number of searches.
 	Rate float64 `json:"rate"`
 	// Number of searches.
 	Count int32 `json:"count"`

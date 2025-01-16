@@ -8,7 +8,7 @@ import (
 
 // GetTopFiltersNoResultsResponse struct for GetTopFiltersNoResultsResponse.
 type GetTopFiltersNoResultsResponse struct {
-	// Filters for searches without any results. If null, the search term specified with the `search` parameter is not a search without results, or the `search` parameter is absent from the request.
+	// Filters for searches without any results. If null, the search term specified with the `search` parameter isn't a search without results, or the `search` parameter is absent from the request.
 	Values []GetTopFiltersNoResultsValues `json:"values"`
 }
 

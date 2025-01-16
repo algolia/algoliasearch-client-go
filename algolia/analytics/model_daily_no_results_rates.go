@@ -14,7 +14,7 @@ type DailyNoResultsRates struct {
 	NoResultCount int32 `json:"noResultCount"`
 	// Number of searches.
 	Count int32 `json:"count"`
-	// No results rate, calculated as number of searches with zero results divided by the total number of searches.
+	// No results rate: calculated as the number of searches with zero results divided by the total number of searches.
 	Rate float64 `json:"rate"`
 }
 

@@ -8,7 +8,7 @@ import (
 
 // GetRevenue struct for GetRevenue.
 type GetRevenue struct {
-	// Revenue associated with this search, broken-down by currencies.
+	// Revenue associated with this search: broken down by currency.
 	Currencies map[string]CurrencyCode `json:"currencies"`
 	// Daily revenue.
 	Dates []DailyRevenue `json:"dates"`
