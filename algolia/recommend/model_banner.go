@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Banner a search banner with image and url.
+// Banner Banner with image and link to redirect users.
 type Banner struct {
 	Image *BannerImage `json:"image,omitempty"`
 	Link  *BannerLink  `json:"link,omitempty"`

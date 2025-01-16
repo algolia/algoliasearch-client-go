@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// BannerImageUrl url for a search banner image.
+// BannerImageUrl URL for an image to show inside a banner.
 type BannerImageUrl struct {
 	Url *string `json:"url,omitempty"`
 }

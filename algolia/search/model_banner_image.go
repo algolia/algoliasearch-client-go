@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// BannerImage image of a search banner.
+// BannerImage Image to show inside a banner.
 type BannerImage struct {
 	Urls  []BannerImageUrl `json:"urls,omitempty"`
 	Title *string          `json:"title,omitempty"`

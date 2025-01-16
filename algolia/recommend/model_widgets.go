@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// Widgets widgets returned from any rules that are applied to the current search.
+// Widgets Widgets returned from any rules that are applied to the current search.
 type Widgets struct {
-	// banners defined in the merchandising studio for the given search.
+	// Banners defined in the Merchandising Studio for a given search.
 	Banners []Banner `json:"banners,omitempty"`
 }
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// BannerLink link for a banner defined in merchandising studio.
+// BannerLink Link for a banner defined in the Merchandising Studio.
 type BannerLink struct {
 	Url *string `json:"url,omitempty"`
 }
