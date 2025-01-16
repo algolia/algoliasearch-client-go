@@ -11,16 +11,14 @@ type RunOutcome string
 
 // List of RunOutcome.
 const (
-	RUN_OUTCOME_SUCCESS    RunOutcome = "success"
-	RUN_OUTCOME_FAILURE    RunOutcome = "failure"
-	RUN_OUTCOME_PROCESSING RunOutcome = "processing"
+	RUN_OUTCOME_SUCCESS RunOutcome = "success"
+	RUN_OUTCOME_FAILURE RunOutcome = "failure"
 )
 
 // All allowed values of RunOutcome enum.
 var AllowedRunOutcomeEnumValues = []RunOutcome{
 	"success",
 	"failure",
-	"processing",
 }
 
 func (v *RunOutcome) UnmarshalJSON(src []byte) error {
