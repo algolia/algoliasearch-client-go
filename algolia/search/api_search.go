@@ -8664,7 +8664,8 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...RequestOption
 
 func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T, error) (bool, error), opts ...IterableOption) (*T, error) {
 	conf := config{
-		maxRetries: -1,
+		headerParams: map[string]string{},
+		maxRetries:   -1,
 		timeout: func(count int) time.Duration {
 			return 0 * time.Millisecond
 		},
@@ -8868,7 +8869,7 @@ func (c *APIClient) WaitForApiKey(
 	operation ApiKeyOperation,
 	opts ...WaitForApiKeyOption,
 ) (*GetApiKeyResponse, error) {
-	conf := config{}
+	conf := config{headerParams: map[string]string{}}
 
 	for _, opt := range opts {
 		opt.apply(&conf)
@@ -9233,6 +9234,7 @@ Helper: Replaces object content of all the given objects according to their resp
 */
 func (c *APIClient) PartialUpdateObjects(indexName string, objects []map[string]any, opts ...PartialUpdateObjectsOption) ([]BatchResponse, error) {
 	conf := config{
+		headerParams:      map[string]string{},
 		createIfNotExists: true,
 	}
 
@@ -9263,6 +9265,7 @@ ChunkedBatch chunks the given `objects` list in subset of 1000 elements max in o
 */
 func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, action Action, opts ...ChunkedBatchOption) ([]BatchResponse, error) {
 	conf := config{
+		headerParams: map[string]string{},
 		waitForTasks: false,
 		batchSize:    1000,
 	}
@@ -9314,7 +9317,8 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
 	conf := config{
-		scopes: []ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS},
+		headerParams: map[string]string{},
+		scopes:       []ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS},
 	}
 
 	for _, opt := range opts {
