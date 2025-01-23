@@ -16,7 +16,7 @@ type Consequence struct {
 	// Records you want to hide from the search results.
 	Hide []ConsequenceHide `json:"hide,omitempty"`
 	// A JSON object with custom data that will be appended to the `userData` array in the response. This object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.
-	UserData any `json:"userData,omitempty"`
+	UserData map[string]any `json:"userData,omitempty"`
 }
 
 type ConsequenceOption func(f *Consequence)
@@ -45,7 +45,7 @@ func WithConsequenceHide(val []ConsequenceHide) ConsequenceOption {
 	}
 }
 
-func WithConsequenceUserData(val any) ConsequenceOption {
+func WithConsequenceUserData(val map[string]any) ConsequenceOption {
 	return func(f *Consequence) {
 		f.UserData = val
 	}
@@ -200,10 +200,10 @@ func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Consequence) GetUserData() any {
-	if o == nil {
-		var ret any
+// GetUserData returns the UserData field value if set, zero value otherwise.
+func (o *Consequence) GetUserData() map[string]any {
+	if o == nil || o.UserData == nil {
+		var ret map[string]any
 		return ret
 	}
 	return o.UserData
@@ -211,12 +211,11 @@ func (o *Consequence) GetUserData() any {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *Consequence) GetUserDataOk() (*any, bool) {
+func (o *Consequence) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return &o.UserData, true
+	return o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -228,8 +227,8 @@ func (o *Consequence) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given any and assigns it to the UserData field.
-func (o *Consequence) SetUserData(v any) *Consequence {
+// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
+func (o *Consequence) SetUserData(v map[string]any) *Consequence {
 	o.UserData = v
 	return o
 }

@@ -16,7 +16,7 @@ type TrendingFacetsQuery struct {
 	MaxRecommendations *int32                 `json:"maxRecommendations,omitempty"`
 	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	// Facet attribute for which to retrieve trending facet values.
-	FacetName          any                 `json:"facetName"`
+	FacetName          string              `json:"facetName"`
 	Model              TrendingFacetsModel `json:"model"`
 	FallbackParameters *FallbackParams     `json:"fallbackParameters,omitempty"`
 }
@@ -45,7 +45,7 @@ func WithTrendingFacetsQueryFallbackParameters(val FallbackParams) TrendingFacet
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTrendingFacetsQuery(indexName string, threshold float64, facetName any, model TrendingFacetsModel, opts ...TrendingFacetsQueryOption) *TrendingFacetsQuery {
+func NewTrendingFacetsQuery(indexName string, threshold float64, facetName string, model TrendingFacetsModel, opts ...TrendingFacetsQueryOption) *TrendingFacetsQuery {
 	this := &TrendingFacetsQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
@@ -179,10 +179,9 @@ func (o *TrendingFacetsQuery) SetQueryParameters(v *RecommendSearchParams) *Tren
 }
 
 // GetFacetName returns the FacetName field value.
-// If the value is explicit nil, the zero value for any will be returned.
-func (o *TrendingFacetsQuery) GetFacetName() any {
+func (o *TrendingFacetsQuery) GetFacetName() string {
 	if o == nil {
-		var ret any
+		var ret string
 		return ret
 	}
 
@@ -191,16 +190,15 @@ func (o *TrendingFacetsQuery) GetFacetName() any {
 
 // GetFacetNameOk returns a tuple with the FacetName field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *TrendingFacetsQuery) GetFacetNameOk() (*any, bool) {
-	if o == nil || o.FacetName == nil {
+func (o *TrendingFacetsQuery) GetFacetNameOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FacetName, true
 }
 
 // SetFacetName sets field value.
-func (o *TrendingFacetsQuery) SetFacetName(v any) *TrendingFacetsQuery {
+func (o *TrendingFacetsQuery) SetFacetName(v string) *TrendingFacetsQuery {
 	o.FacetName = v
 	return o
 }
@@ -277,7 +275,7 @@ func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
-	if o.FacetName != nil {
+	if true {
 		toSerialize["facetName"] = o.FacetName
 	}
 	if true {
