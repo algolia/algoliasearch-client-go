@@ -8,7 +8,7 @@ import (
 
 // ListABTestsResponse struct for ListABTestsResponse.
 type ListABTestsResponse struct {
-	// A/B tests.
+	// The list of A/B tests, null if no A/B tests are configured for this application.
 	Abtests []ABTest `json:"abtests"`
 	// Number of A/B tests.
 	Count int32 `json:"count"`
