@@ -1,3 +1,7 @@
+## [4.12.2](https://github.com/algolia/algoliasearch-client-go/compare/4.12.1...4.12.2)
+
+- [5e18968d10](https://github.com/algolia/api-clients-automation/commit/5e18968d10) chore(specs): update composition specs for the doc website ([#4450](https://github.com/algolia/api-clients-automation/pull/4450)) by [@e-krebs](https://github.com/e-krebs/)
+
 ## [4.12.1](https://github.com/algolia/algoliasearch-client-go/compare/4.12.0...4.12.1)
 
 - [506b8a5636](https://github.com/algolia/api-clients-automation/commit/506b8a5636) fix(specs): responseFields description ([#4399](https://github.com/algolia/api-clients-automation/pull/4399)) by [@kai687](https://github.com/kai687/)
