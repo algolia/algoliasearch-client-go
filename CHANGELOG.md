@@ -1,3 +1,7 @@
+## [4.12.3](https://github.com/algolia/algoliasearch-client-go/compare/4.12.2...4.12.3)
+
+- [ecd6bc4fed](https://github.com/algolia/api-clients-automation/commit/ecd6bc4fed) chore(deps): dependencies 2025-02-17 ([#4459](https://github.com/algolia/api-clients-automation/pull/4459)) by [@algolia-bot](https://github.com/algolia-bot/)
+
 ## [4.12.2](https://github.com/algolia/algoliasearch-client-go/compare/4.12.1...4.12.2)
 
 - [5e18968d10](https://github.com/algolia/api-clients-automation/commit/5e18968d10) chore(specs): update composition specs for the doc website ([#4450](https://github.com/algolia/api-clients-automation/pull/4450)) by [@e-krebs](https://github.com/e-krebs/)
