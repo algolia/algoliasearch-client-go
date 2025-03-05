@@ -822,7 +822,7 @@ func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCus
 /*
 CustomDelete calls the API and returns the raw response from it.
 
-	  This method allow you to send requests to the Algolia REST API.
+	  This method lets you send requests to the Algolia REST API.
 
 
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
@@ -871,7 +871,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 /*
 CustomDelete casts the HTTP response body to a defined struct.
 
-This method allow you to send requests to the Algolia REST API.
+This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
@@ -952,7 +952,7 @@ func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustom
 /*
 CustomGet calls the API and returns the raw response from it.
 
-	  This method allow you to send requests to the Algolia REST API.
+	  This method lets you send requests to the Algolia REST API.
 
 
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
@@ -1001,7 +1001,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 /*
 CustomGet casts the HTTP response body to a defined struct.
 
-This method allow you to send requests to the Algolia REST API.
+This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomGetRequest with parameters below.
 
@@ -1098,7 +1098,7 @@ func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest
 /*
 CustomPost calls the API and returns the raw response from it.
 
-	  This method allow you to send requests to the Algolia REST API.
+	  This method lets you send requests to the Algolia REST API.
 
 
 	Request can be constructed by NewApiCustomPostRequest with parameters below.
@@ -1154,7 +1154,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 /*
 CustomPost casts the HTTP response body to a defined struct.
 
-This method allow you to send requests to the Algolia REST API.
+This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomPostRequest with parameters below.
 
@@ -1252,7 +1252,7 @@ func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 /*
 CustomPut calls the API and returns the raw response from it.
 
-	  This method allow you to send requests to the Algolia REST API.
+	  This method lets you send requests to the Algolia REST API.
 
 
 	Request can be constructed by NewApiCustomPutRequest with parameters below.
@@ -1308,7 +1308,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 /*
 CustomPut casts the HTTP response body to a defined struct.
 
-This method allow you to send requests to the Algolia REST API.
+This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomPutRequest with parameters below.
 
