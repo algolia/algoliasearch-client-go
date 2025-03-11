@@ -1,3 +1,8 @@
+## [4.13.0](https://github.com/algolia/algoliasearch-client-go/compare/4.12.4...4.13.0)
+
+- [ab623194e](https://github.com/algolia/api-clients-automation/commit/ab623194e) feat(specs): add `subscriptionAction` to ingestion specs ([#4587](https://github.com/algolia/api-clients-automation/pull/4587)) by [@shortcuts](https://github.com/shortcuts/)
+- [7e5e12450](https://github.com/algolia/api-clients-automation/commit/7e5e12450) fix(clients): implement Is on custom errors ([#4588](https://github.com/algolia/api-clients-automation/pull/4588)) by [@millotp](https://github.com/millotp/)
+
 ## [4.12.4](https://github.com/algolia/algoliasearch-client-go/compare/4.12.3...4.12.4)
 
 - [92bd911848](https://github.com/algolia/api-clients-automation/commit/92bd911848) chore(scripts): point jira issues to another epic ([#4505](https://github.com/algolia/api-clients-automation/pull/4505)) by [@millotp](https://github.com/millotp/)
