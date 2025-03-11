@@ -14,7 +14,8 @@ type TaskUpdate struct {
 	Cron  *string    `json:"cron,omitempty"`
 	Input *TaskInput `json:"input,omitempty"`
 	// Whether the task is enabled.
-	Enabled *bool `json:"enabled,omitempty"`
+	Enabled            *bool       `json:"enabled,omitempty"`
+	SubscriptionAction *ActionType `json:"subscriptionAction,omitempty"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32         `json:"failureThreshold,omitempty"`
 	Notifications    *Notifications `json:"notifications,omitempty"`
@@ -44,6 +45,12 @@ func WithTaskUpdateInput(val TaskInput) TaskUpdateOption {
 func WithTaskUpdateEnabled(val bool) TaskUpdateOption {
 	return func(f *TaskUpdate) {
 		f.Enabled = &val
+	}
+}
+
+func WithTaskUpdateSubscriptionAction(val ActionType) TaskUpdateOption {
+	return func(f *TaskUpdate) {
+		f.SubscriptionAction = &val
 	}
 }
 
@@ -214,6 +221,39 @@ func (o *TaskUpdate) SetEnabled(v bool) *TaskUpdate {
 	return o
 }
 
+// GetSubscriptionAction returns the SubscriptionAction field value if set, zero value otherwise.
+func (o *TaskUpdate) GetSubscriptionAction() ActionType {
+	if o == nil || o.SubscriptionAction == nil {
+		var ret ActionType
+		return ret
+	}
+	return *o.SubscriptionAction
+}
+
+// GetSubscriptionActionOk returns a tuple with the SubscriptionAction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskUpdate) GetSubscriptionActionOk() (*ActionType, bool) {
+	if o == nil || o.SubscriptionAction == nil {
+		return nil, false
+	}
+	return o.SubscriptionAction, true
+}
+
+// HasSubscriptionAction returns a boolean if a field has been set.
+func (o *TaskUpdate) HasSubscriptionAction() bool {
+	if o != nil && o.SubscriptionAction != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
+func (o *TaskUpdate) SetSubscriptionAction(v ActionType) *TaskUpdate {
+	o.SubscriptionAction = &v
+	return o
+}
+
 // GetFailureThreshold returns the FailureThreshold field value if set, zero value otherwise.
 func (o *TaskUpdate) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
@@ -327,6 +367,9 @@ func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+	if o.SubscriptionAction != nil {
+		toSerialize["subscriptionAction"] = o.SubscriptionAction
+	}
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
@@ -350,6 +393,7 @@ func (o TaskUpdate) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+	out += fmt.Sprintf("  subscriptionAction=%v\n", o.SubscriptionAction)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)

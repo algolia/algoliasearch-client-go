@@ -24,8 +24,9 @@ type Task struct {
 	// Whether the task is enabled.
 	Enabled bool `json:"enabled"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
-	FailureThreshold *int32      `json:"failureThreshold,omitempty"`
-	Action           *ActionType `json:"action,omitempty"`
+	FailureThreshold   *int32      `json:"failureThreshold,omitempty"`
+	Action             *ActionType `json:"action,omitempty"`
+	SubscriptionAction *ActionType `json:"subscriptionAction,omitempty"`
 	// Date of the last cursor in RFC 3339 format.
 	Cursor        *string        `json:"cursor,omitempty"`
 	Notifications *Notifications `json:"notifications,omitempty"`
@@ -71,6 +72,12 @@ func WithTaskFailureThreshold(val int32) TaskOption {
 func WithTaskAction(val ActionType) TaskOption {
 	return func(f *Task) {
 		f.Action = &val
+	}
+}
+
+func WithTaskSubscriptionAction(val ActionType) TaskOption {
+	return func(f *Task) {
+		f.SubscriptionAction = &val
 	}
 }
 
@@ -418,6 +425,39 @@ func (o *Task) SetAction(v ActionType) *Task {
 	return o
 }
 
+// GetSubscriptionAction returns the SubscriptionAction field value if set, zero value otherwise.
+func (o *Task) GetSubscriptionAction() ActionType {
+	if o == nil || o.SubscriptionAction == nil {
+		var ret ActionType
+		return ret
+	}
+	return *o.SubscriptionAction
+}
+
+// GetSubscriptionActionOk returns a tuple with the SubscriptionAction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetSubscriptionActionOk() (*ActionType, bool) {
+	if o == nil || o.SubscriptionAction == nil {
+		return nil, false
+	}
+	return o.SubscriptionAction, true
+}
+
+// HasSubscriptionAction returns a boolean if a field has been set.
+func (o *Task) HasSubscriptionAction() bool {
+	if o != nil && o.SubscriptionAction != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
+func (o *Task) SetSubscriptionAction(v ActionType) *Task {
+	o.SubscriptionAction = &v
+	return o
+}
+
 // GetCursor returns the Cursor field value if set, zero value otherwise.
 func (o *Task) GetCursor() string {
 	if o == nil || o.Cursor == nil {
@@ -607,6 +647,9 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if o.Action != nil {
 		toSerialize["action"] = o.Action
 	}
+	if o.SubscriptionAction != nil {
+		toSerialize["subscriptionAction"] = o.SubscriptionAction
+	}
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
@@ -642,6 +685,7 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  action=%v\n", o.Action)
+	out += fmt.Sprintf("  subscriptionAction=%v\n", o.SubscriptionAction)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)

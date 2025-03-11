@@ -11,8 +11,9 @@ type TaskCreate struct {
 	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
 	// Universally unique identifier (UUID) of a destination resource.
-	DestinationID string     `json:"destinationID"`
-	Action        ActionType `json:"action"`
+	DestinationID      string      `json:"destinationID"`
+	Action             ActionType  `json:"action"`
+	SubscriptionAction *ActionType `json:"subscriptionAction,omitempty"`
 	// Cron expression for the task's schedule.
 	Cron *string `json:"cron,omitempty"`
 	// Whether the task is enabled.
@@ -27,6 +28,12 @@ type TaskCreate struct {
 }
 
 type TaskCreateOption func(f *TaskCreate)
+
+func WithTaskCreateSubscriptionAction(val ActionType) TaskCreateOption {
+	return func(f *TaskCreate) {
+		f.SubscriptionAction = &val
+	}
+}
 
 func WithTaskCreateCron(val string) TaskCreateOption {
 	return func(f *TaskCreate) {
@@ -162,6 +169,39 @@ func (o *TaskCreate) GetActionOk() (*ActionType, bool) {
 // SetAction sets field value.
 func (o *TaskCreate) SetAction(v ActionType) *TaskCreate {
 	o.Action = v
+	return o
+}
+
+// GetSubscriptionAction returns the SubscriptionAction field value if set, zero value otherwise.
+func (o *TaskCreate) GetSubscriptionAction() ActionType {
+	if o == nil || o.SubscriptionAction == nil {
+		var ret ActionType
+		return ret
+	}
+	return *o.SubscriptionAction
+}
+
+// GetSubscriptionActionOk returns a tuple with the SubscriptionAction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TaskCreate) GetSubscriptionActionOk() (*ActionType, bool) {
+	if o == nil || o.SubscriptionAction == nil {
+		return nil, false
+	}
+	return o.SubscriptionAction, true
+}
+
+// HasSubscriptionAction returns a boolean if a field has been set.
+func (o *TaskCreate) HasSubscriptionAction() bool {
+	if o != nil && o.SubscriptionAction != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
+func (o *TaskCreate) SetSubscriptionAction(v ActionType) *TaskCreate {
+	o.SubscriptionAction = &v
 	return o
 }
 
@@ -407,6 +447,9 @@ func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["action"] = o.Action
 	}
+	if o.SubscriptionAction != nil {
+		toSerialize["subscriptionAction"] = o.SubscriptionAction
+	}
 	if o.Cron != nil {
 		toSerialize["cron"] = o.Cron
 	}
@@ -441,6 +484,7 @@ func (o TaskCreate) String() string {
 	out += fmt.Sprintf("  sourceID=%v\n", o.SourceID)
 	out += fmt.Sprintf("  destinationID=%v\n", o.DestinationID)
 	out += fmt.Sprintf("  action=%v\n", o.Action)
+	out += fmt.Sprintf("  subscriptionAction=%v\n", o.SubscriptionAction)
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
