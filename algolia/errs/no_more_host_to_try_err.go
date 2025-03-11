@@ -27,3 +27,9 @@ func (e *NoMoreHostToTryError) Error() string {
 	}
 	return "all hosts have been contacted unsuccessfully, it can either be a server or a network error or wrong appID/key credentials were used. You can use 'ExposeIntermediateNetworkErrors: true' in the config to investigate."
 }
+
+func (n NoMoreHostToTryError) Is(target error) bool {
+	_, ok := target.(*NoMoreHostToTryError)
+
+	return ok
+}

@@ -360,3 +360,9 @@ func (o *APIError) UnmarshalJSON(bytes []byte) error {
 
 	return nil
 }
+
+func (a APIError) Is(target error) bool {
+	_, ok := target.(*APIError)
+
+	return ok
+}

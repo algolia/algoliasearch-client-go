@@ -21,3 +21,9 @@ func NetError(err net.Error, msg string) net.Error {
 func (e *netError) Error() string   { return e.msg }
 func (e *netError) Timeout() bool   { return e.isTimeout }
 func (e *netError) Temporary() bool { return e.isTemporary }
+
+func (e netError) Is(target error) bool {
+	_, ok := target.(*netError)
+
+	return ok
+}
