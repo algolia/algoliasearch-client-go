@@ -4,15 +4,19 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Source struct for Source.
 type Source struct {
 	// Universally uniqud identifier (UUID) of a source.
-	SourceID string       `json:"sourceID"`
-	Type     SourceType   `json:"type"`
-	Name     string       `json:"name"`
-	Input    *SourceInput `json:"input,omitempty"`
+	SourceID string     `json:"sourceID"`
+	Type     SourceType `json:"type"`
+	Name     string     `json:"name"`
+	// Owner of the resource.
+	Owner utils.Nullable[string] `json:"owner,omitempty"`
+	Input *SourceInput           `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 	// Date of creation in RFC 3339 format.
@@ -22,6 +26,12 @@ type Source struct {
 }
 
 type SourceOption func(f *Source)
+
+func WithSourceOwner(val utils.Nullable[string]) SourceOption {
+	return func(f *Source) {
+		f.Owner = val
+	}
+}
 
 func WithSourceInput(val SourceInput) SourceOption {
 	return func(f *Source) {
@@ -135,6 +145,50 @@ func (o *Source) GetNameOk() (*string, bool) {
 func (o *Source) SetName(v string) *Source {
 	o.Name = v
 	return o
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Source) GetOwner() string {
+	if o == nil || o.Owner.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Owner.Get()
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *Source) GetOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Owner.Get(), o.Owner.IsSet()
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *Source) HasOwner() bool {
+	if o != nil && o.Owner.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
+func (o *Source) SetOwner(v string) *Source {
+	o.Owner.Set(&v)
+	return o
+}
+
+// SetOwnerNil sets the value for Owner to be an explicit nil.
+func (o *Source) SetOwnerNil() {
+	o.Owner.Set(nil)
+}
+
+// UnsetOwner ensures that no value is present for Owner, not even an explicit nil.
+func (o *Source) UnsetOwner() {
+	o.Owner.Unset()
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -272,6 +326,9 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
+	if o.Owner.IsSet() {
+		toSerialize["owner"] = o.Owner.Get()
+	}
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
@@ -297,6 +354,7 @@ func (o Source) String() string {
 	out += fmt.Sprintf("  sourceID=%v\n", o.SourceID)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
+	out += fmt.Sprintf("  owner=%v\n", o.Owner)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)

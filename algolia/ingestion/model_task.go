@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Task struct for Task.
@@ -19,8 +21,10 @@ type Task struct {
 	// The last time the scheduled task ran in RFC 3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
 	// The next scheduled run of the task in RFC 3339 format.
-	NextRun *string    `json:"nextRun,omitempty"`
-	Input   *TaskInput `json:"input,omitempty"`
+	NextRun *string `json:"nextRun,omitempty"`
+	// Owner of the resource.
+	Owner utils.Nullable[string] `json:"owner,omitempty"`
+	Input *TaskInput             `json:"input,omitempty"`
 	// Whether the task is enabled.
 	Enabled bool `json:"enabled"`
 	// Maximum accepted percentage of failures for a task run to finish successfully.
@@ -54,6 +58,12 @@ func WithTaskLastRun(val string) TaskOption {
 func WithTaskNextRun(val string) TaskOption {
 	return func(f *Task) {
 		f.NextRun = &val
+	}
+}
+
+func WithTaskOwner(val utils.Nullable[string]) TaskOption {
+	return func(f *Task) {
+		f.Owner = val
 	}
 }
 
@@ -299,6 +309,50 @@ func (o *Task) HasNextRun() bool {
 func (o *Task) SetNextRun(v string) *Task {
 	o.NextRun = &v
 	return o
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Task) GetOwner() string {
+	if o == nil || o.Owner.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Owner.Get()
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *Task) GetOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Owner.Get(), o.Owner.IsSet()
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *Task) HasOwner() bool {
+	if o != nil && o.Owner.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
+func (o *Task) SetOwner(v string) *Task {
+	o.Owner.Set(&v)
+	return o
+}
+
+// SetOwnerNil sets the value for Owner to be an explicit nil.
+func (o *Task) SetOwnerNil() {
+	o.Owner.Set(nil)
+}
+
+// UnsetOwner ensures that no value is present for Owner, not even an explicit nil.
+func (o *Task) UnsetOwner() {
+	o.Owner.Unset()
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
@@ -635,6 +689,9 @@ func (o Task) MarshalJSON() ([]byte, error) {
 	if o.NextRun != nil {
 		toSerialize["nextRun"] = o.NextRun
 	}
+	if o.Owner.IsSet() {
+		toSerialize["owner"] = o.Owner.Get()
+	}
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
@@ -681,6 +738,7 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	out += fmt.Sprintf("  lastRun=%v\n", o.LastRun)
 	out += fmt.Sprintf("  nextRun=%v\n", o.NextRun)
+	out += fmt.Sprintf("  owner=%v\n", o.Owner)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
