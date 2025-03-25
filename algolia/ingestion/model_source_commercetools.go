@@ -14,8 +14,10 @@ type SourceCommercetools struct {
 	Url        string   `json:"url"`
 	ProjectKey string   `json:"projectKey"`
 	// Whether a fallback value is stored in the Algolia record if there's no inventory information about the product.
-	FallbackIsInStockValue *bool                      `json:"fallbackIsInStockValue,omitempty"`
-	CustomFields           *CommercetoolsCustomFields `json:"customFields,omitempty"`
+	FallbackIsInStockValue *bool `json:"fallbackIsInStockValue,omitempty"`
+	// Predicate to filter out specific products when indexing. For more information, see [Query Predicate](https://docs.commercetools.com/api/predicates/query).
+	ProductQueryPredicate *string                    `json:"productQueryPredicate,omitempty"`
+	CustomFields          *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceCommercetoolsOption func(f *SourceCommercetools)
@@ -35,6 +37,12 @@ func WithSourceCommercetoolsLocales(val []string) SourceCommercetoolsOption {
 func WithSourceCommercetoolsFallbackIsInStockValue(val bool) SourceCommercetoolsOption {
 	return func(f *SourceCommercetools) {
 		f.FallbackIsInStockValue = &val
+	}
+}
+
+func WithSourceCommercetoolsProductQueryPredicate(val string) SourceCommercetoolsOption {
+	return func(f *SourceCommercetools) {
+		f.ProductQueryPredicate = &val
 	}
 }
 
@@ -212,6 +220,39 @@ func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) *SourceCommercet
 	return o
 }
 
+// GetProductQueryPredicate returns the ProductQueryPredicate field value if set, zero value otherwise.
+func (o *SourceCommercetools) GetProductQueryPredicate() string {
+	if o == nil || o.ProductQueryPredicate == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProductQueryPredicate
+}
+
+// GetProductQueryPredicateOk returns a tuple with the ProductQueryPredicate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceCommercetools) GetProductQueryPredicateOk() (*string, bool) {
+	if o == nil || o.ProductQueryPredicate == nil {
+		return nil, false
+	}
+	return o.ProductQueryPredicate, true
+}
+
+// HasProductQueryPredicate returns a boolean if a field has been set.
+func (o *SourceCommercetools) HasProductQueryPredicate() bool {
+	if o != nil && o.ProductQueryPredicate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProductQueryPredicate gets a reference to the given string and assigns it to the ProductQueryPredicate field.
+func (o *SourceCommercetools) SetProductQueryPredicate(v string) *SourceCommercetools {
+	o.ProductQueryPredicate = &v
+	return o
+}
+
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
 func (o *SourceCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
@@ -262,6 +303,9 @@ func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}
+	if o.ProductQueryPredicate != nil {
+		toSerialize["productQueryPredicate"] = o.ProductQueryPredicate
+	}
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
@@ -280,6 +324,7 @@ func (o SourceCommercetools) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  projectKey=%v\n", o.ProjectKey)
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
+	out += fmt.Sprintf("  productQueryPredicate=%v\n", o.ProductQueryPredicate)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	return fmt.Sprintf("SourceCommercetools {\n%s}", out)
 }
