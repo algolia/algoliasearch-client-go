@@ -787,6 +787,7 @@ type ApiAssignUserIdRequest struct {
 	assignUserIdParams *AssignUserIdParams
 }
 
+// Deprecated
 // NewApiAssignUserIdRequest creates an instance of the ApiAssignUserIdRequest to be used for the API call.
 func (c *APIClient) NewApiAssignUserIdRequest(xAlgoliaUserID string, assignUserIdParams *AssignUserIdParams) ApiAssignUserIdRequest {
 	return ApiAssignUserIdRequest{
@@ -812,6 +813,8 @@ The time it takes to move a user is proportional to the amount of data linked to
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) AssignUserIdWithHTTPInfo(r ApiAssignUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping"
@@ -864,6 +867,8 @@ Request can be constructed by NewApiAssignUserIdRequest with parameters below.
 	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param assignUserIdParams AssignUserIdParams
 	@return CreatedAtResponse
+
+Deprecated.
 */
 func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...RequestOption) (*CreatedAtResponse, error) {
 	var returnValue *CreatedAtResponse
@@ -1070,6 +1075,7 @@ type ApiBatchAssignUserIdsRequest struct {
 	batchAssignUserIdsParams *BatchAssignUserIdsParams
 }
 
+// Deprecated
 // NewApiBatchAssignUserIdsRequest creates an instance of the ApiBatchAssignUserIdsRequest to be used for the API call.
 func (c *APIClient) NewApiBatchAssignUserIdsRequest(xAlgoliaUserID string, batchAssignUserIdsParams *BatchAssignUserIdsParams) ApiBatchAssignUserIdsRequest {
 	return ApiBatchAssignUserIdsRequest{
@@ -1095,6 +1101,8 @@ BatchAssignUserIds calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) BatchAssignUserIdsWithHTTPInfo(r ApiBatchAssignUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/batch"
@@ -1147,6 +1155,8 @@ Request can be constructed by NewApiBatchAssignUserIdsRequest with parameters be
 	@param xAlgoliaUserID string - Unique identifier of the user who makes the search request.
 	@param batchAssignUserIdsParams BatchAssignUserIdsParams
 	@return CreatedAtResponse
+
+Deprecated.
 */
 func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...RequestOption) (*CreatedAtResponse, error) {
 	var returnValue *CreatedAtResponse
@@ -4802,6 +4812,8 @@ the response isn't real-time.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) GetTopUserIdsWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/top"
@@ -4841,6 +4853,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetTopUserIdsRequest with parameters below.
 
 	@return GetTopUserIdsResponse
+
+Deprecated.
 */
 func (c *APIClient) GetTopUserIds(opts ...RequestOption) (*GetTopUserIdsResponse, error) {
 	var returnValue *GetTopUserIdsResponse
@@ -4889,6 +4903,7 @@ type ApiGetUserIdRequest struct {
 	userID string
 }
 
+// Deprecated
 // NewApiGetUserIdRequest creates an instance of the ApiGetUserIdRequest to be used for the API call.
 func (c *APIClient) NewApiGetUserIdRequest(userID string) ApiGetUserIdRequest {
 	return ApiGetUserIdRequest{
@@ -4913,6 +4928,8 @@ the response isn't real-time.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) GetUserIdWithHTTPInfo(r ApiGetUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/{userID}"
@@ -4958,6 +4975,8 @@ Request can be constructed by NewApiGetUserIdRequest with parameters below.
 
 	@param userID string - Unique identifier of the user who makes the search request.
 	@return UserId
+
+Deprecated.
 */
 func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...RequestOption) (*UserId, error) {
 	var returnValue *UserId
@@ -5006,6 +5025,7 @@ type ApiHasPendingMappingsRequest struct {
 	getClusters *bool
 }
 
+// Deprecated
 // NewApiHasPendingMappingsRequest creates an instance of the ApiHasPendingMappingsRequest to be used for the API call.
 func (c *APIClient) NewApiHasPendingMappingsRequest() ApiHasPendingMappingsRequest {
 	return ApiHasPendingMappingsRequest{}
@@ -5032,6 +5052,8 @@ HasPendingMappings calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) HasPendingMappingsWithHTTPInfo(r ApiHasPendingMappingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/pending"
@@ -5073,6 +5095,8 @@ Request can be constructed by NewApiHasPendingMappingsRequest with parameters be
 
 	@param getClusters bool - Whether to include the cluster's pending mapping state in the response.
 	@return HasPendingMappingsResponse
+
+Deprecated.
 */
 func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...RequestOption) (*HasPendingMappingsResponse, error) {
 	var returnValue *HasPendingMappingsResponse
@@ -5183,6 +5207,8 @@ ListClusters calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) ListClustersWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters"
@@ -5219,6 +5245,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiListClustersRequest with parameters below.
 
 	@return ListClustersResponse
+
+Deprecated.
 */
 func (c *APIClient) ListClusters(opts ...RequestOption) (*ListClustersResponse, error) {
 	var returnValue *ListClustersResponse
@@ -5416,6 +5444,7 @@ type ApiListUserIdsRequest struct {
 	hitsPerPage *int32
 }
 
+// Deprecated
 // NewApiListUserIdsRequest creates an instance of the ApiListUserIdsRequest to be used for the API call.
 func (c *APIClient) NewApiListUserIdsRequest() ApiListUserIdsRequest {
 	return ApiListUserIdsRequest{}
@@ -5451,6 +5480,8 @@ the response isn't real-time.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) ListUserIdsWithHTTPInfo(r ApiListUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping"
@@ -5499,6 +5530,8 @@ Request can be constructed by NewApiListUserIdsRequest with parameters below.
 	@param page int32 - Requested page of the API response. If `null`, the API response is not paginated.
 	@param hitsPerPage int32 - Number of hits per page.
 	@return ListUserIdsResponse
+
+Deprecated.
 */
 func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...RequestOption) (*ListUserIdsResponse, error) {
 	var returnValue *ListUserIdsResponse
@@ -6071,6 +6104,7 @@ type ApiRemoveUserIdRequest struct {
 	userID string
 }
 
+// Deprecated
 // NewApiRemoveUserIdRequest creates an instance of the ApiRemoveUserIdRequest to be used for the API call.
 func (c *APIClient) NewApiRemoveUserIdRequest(userID string) ApiRemoveUserIdRequest {
 	return ApiRemoveUserIdRequest{
@@ -6092,6 +6126,8 @@ RemoveUserId calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) RemoveUserIdWithHTTPInfo(r ApiRemoveUserIdRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/{userID}"
@@ -6134,6 +6170,8 @@ Request can be constructed by NewApiRemoveUserIdRequest with parameters below.
 
 	@param userID string - Unique identifier of the user who makes the search request.
 	@return RemoveUserIdResponse
+
+Deprecated.
 */
 func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...RequestOption) (*RemoveUserIdResponse, error) {
 	var returnValue *RemoveUserIdResponse
@@ -8144,6 +8182,7 @@ type ApiSearchUserIdsRequest struct {
 	searchUserIdsParams *SearchUserIdsParams
 }
 
+// Deprecated
 // NewApiSearchUserIdsRequest creates an instance of the ApiSearchUserIdsRequest to be used for the API call.
 func (c *APIClient) NewApiSearchUserIdsRequest(searchUserIdsParams *SearchUserIdsParams) ApiSearchUserIdsRequest {
 	return ApiSearchUserIdsRequest{
@@ -8169,6 +8208,8 @@ To ensure rapid updates, the user IDs index isn't built at the same time as the 
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) SearchUserIdsWithHTTPInfo(r ApiSearchUserIdsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/clusters/mapping/search"
@@ -8215,6 +8256,8 @@ Request can be constructed by NewApiSearchUserIdsRequest with parameters below.
 
 	@param searchUserIdsParams SearchUserIdsParams
 	@return SearchUserIdsResponse
+
+Deprecated.
 */
 func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...RequestOption) (*SearchUserIdsResponse, error) {
 	var returnValue *SearchUserIdsResponse
