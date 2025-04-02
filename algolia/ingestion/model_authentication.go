@@ -22,7 +22,7 @@ type Authentication struct {
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdatedAt string `json:"updatedAt"`
 }
 
 type AuthenticationOption func(f *Authentication)
@@ -39,23 +39,18 @@ func WithAuthenticationOwner(val utils.Nullable[string]) AuthenticationOption {
 	}
 }
 
-func WithAuthenticationUpdatedAt(val string) AuthenticationOption {
-	return func(f *Authentication) {
-		f.UpdatedAt = &val
-	}
-}
-
 // NewAuthentication instantiates a new Authentication object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAuthentication(authenticationID string, type_ AuthenticationType, name string, input AuthInputPartial, createdAt string, opts ...AuthenticationOption) *Authentication {
+func NewAuthentication(authenticationID string, type_ AuthenticationType, name string, input AuthInputPartial, createdAt string, updatedAt string, opts ...AuthenticationOption) *Authentication {
 	this := &Authentication{}
 	this.AuthenticationID = authenticationID
 	this.Type = type_
 	this.Name = name
 	this.Input = input
 	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -280,36 +275,28 @@ func (o *Authentication) SetCreatedAt(v string) *Authentication {
 	return o
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value.
 func (o *Authentication) GetUpdatedAt() string {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Authentication) GetUpdatedAtOk() (*string, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *Authentication) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value.
 func (o *Authentication) SetUpdatedAt(v string) *Authentication {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 	return o
 }
 
@@ -336,7 +323,7 @@ func (o Authentication) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.UpdatedAt != nil {
+	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	serialized, err := json.Marshal(toSerialize)

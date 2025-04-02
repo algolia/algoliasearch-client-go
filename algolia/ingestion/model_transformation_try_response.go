@@ -8,8 +8,8 @@ import (
 
 // TransformationTryResponse struct for TransformationTryResponse.
 type TransformationTryResponse struct {
-	// The array of records returned by the transformation service.
-	Payloads []map[string]any     `json:"payloads"`
+	// The array of stringified records returned by the transformation service.
+	Payloads []string             `json:"payloads"`
 	Error    *TransformationError `json:"error,omitempty"`
 }
 
@@ -25,7 +25,7 @@ func WithTransformationTryResponseError(val TransformationError) TransformationT
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationTryResponse(payloads []map[string]any, opts ...TransformationTryResponseOption) *TransformationTryResponse {
+func NewTransformationTryResponse(payloads []string, opts ...TransformationTryResponseOption) *TransformationTryResponse {
 	this := &TransformationTryResponse{}
 	this.Payloads = payloads
 	for _, opt := range opts {
@@ -40,9 +40,9 @@ func NewEmptyTransformationTryResponse() *TransformationTryResponse {
 }
 
 // GetPayloads returns the Payloads field value.
-func (o *TransformationTryResponse) GetPayloads() []map[string]any {
+func (o *TransformationTryResponse) GetPayloads() []string {
 	if o == nil {
-		var ret []map[string]any
+		var ret []string
 		return ret
 	}
 
@@ -51,7 +51,7 @@ func (o *TransformationTryResponse) GetPayloads() []map[string]any {
 
 // GetPayloadsOk returns a tuple with the Payloads field value
 // and a boolean to check if the value has been set.
-func (o *TransformationTryResponse) GetPayloadsOk() ([]map[string]any, bool) {
+func (o *TransformationTryResponse) GetPayloadsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -59,7 +59,7 @@ func (o *TransformationTryResponse) GetPayloadsOk() ([]map[string]any, bool) {
 }
 
 // SetPayloads sets field value.
-func (o *TransformationTryResponse) SetPayloads(v []map[string]any) *TransformationTryResponse {
+func (o *TransformationTryResponse) SetPayloads(v []string) *TransformationTryResponse {
 	o.Payloads = v
 	return o
 }

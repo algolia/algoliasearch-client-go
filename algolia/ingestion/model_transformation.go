@@ -25,7 +25,7 @@ type Transformation struct {
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdatedAt string `json:"updatedAt"`
 }
 
 type TransformationOption func(f *Transformation)
@@ -48,22 +48,17 @@ func WithTransformationOwner(val utils.Nullable[string]) TransformationOption {
 	}
 }
 
-func WithTransformationUpdatedAt(val string) TransformationOption {
-	return func(f *Transformation) {
-		f.UpdatedAt = &val
-	}
-}
-
 // NewTransformation instantiates a new Transformation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformation(transformationID string, code string, name string, createdAt string, opts ...TransformationOption) *Transformation {
+func NewTransformation(transformationID string, code string, name string, createdAt string, updatedAt string, opts ...TransformationOption) *Transformation {
 	this := &Transformation{}
 	this.TransformationID = transformationID
 	this.Code = code
 	this.Name = name
 	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -285,36 +280,28 @@ func (o *Transformation) SetCreatedAt(v string) *Transformation {
 	return o
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value.
 func (o *Transformation) GetUpdatedAt() string {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Transformation) GetUpdatedAtOk() (*string, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *Transformation) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value.
 func (o *Transformation) SetUpdatedAt(v string) *Transformation {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 	return o
 }
 
@@ -341,7 +328,7 @@ func (o Transformation) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.UpdatedAt != nil {
+	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	serialized, err := json.Marshal(toSerialize)

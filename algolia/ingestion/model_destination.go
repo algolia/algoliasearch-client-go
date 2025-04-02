@@ -21,7 +21,7 @@ type Destination struct {
 	// Date of creation in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 	// Date of last update in RFC 3339 format.
-	UpdatedAt *string `json:"updatedAt,omitempty"`
+	UpdatedAt string `json:"updatedAt"`
 	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID  *string  `json:"authenticationID,omitempty"`
 	TransformationIDs []string `json:"transformationIDs,omitempty"`
@@ -32,12 +32,6 @@ type DestinationOption func(f *Destination)
 func WithDestinationOwner(val utils.Nullable[string]) DestinationOption {
 	return func(f *Destination) {
 		f.Owner = val
-	}
-}
-
-func WithDestinationUpdatedAt(val string) DestinationOption {
-	return func(f *Destination) {
-		f.UpdatedAt = &val
 	}
 }
 
@@ -57,13 +51,14 @@ func WithDestinationTransformationIDs(val []string) DestinationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDestination(destinationID string, type_ DestinationType, name string, input DestinationInput, createdAt string, opts ...DestinationOption) *Destination {
+func NewDestination(destinationID string, type_ DestinationType, name string, input DestinationInput, createdAt string, updatedAt string, opts ...DestinationOption) *Destination {
 	this := &Destination{}
 	this.DestinationID = destinationID
 	this.Type = type_
 	this.Name = name
 	this.Input = input
 	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -244,36 +239,28 @@ func (o *Destination) SetCreatedAt(v string) *Destination {
 	return o
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value.
 func (o *Destination) GetUpdatedAt() string {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Destination) GetUpdatedAtOk() (*string, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *Destination) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value.
 func (o *Destination) SetUpdatedAt(v string) *Destination {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 	return o
 }
 
@@ -363,7 +350,7 @@ func (o Destination) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
-	if o.UpdatedAt != nil {
+	if true {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
 	if o.AuthenticationID != nil {
