@@ -55,7 +55,7 @@ type RecommendationsResults struct {
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// An object with custom data.  You can store up to 32kB as custom data.
-	UserData map[string]any `json:"userData,omitempty"`
+	UserData any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
@@ -205,7 +205,7 @@ func WithRecommendationsResultsServerUsed(val string) RecommendationsResultsOpti
 	}
 }
 
-func WithRecommendationsResultsUserData(val map[string]any) RecommendationsResultsOption {
+func WithRecommendationsResultsUserData(val any) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.UserData = val
 	}
@@ -1026,10 +1026,10 @@ func (o *RecommendationsResults) SetServerUsed(v string) *RecommendationsResults
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *RecommendationsResults) GetUserData() map[string]any {
-	if o == nil || o.UserData == nil {
-		var ret map[string]any
+// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RecommendationsResults) GetUserData() any {
+	if o == nil {
+		var ret any
 		return ret
 	}
 	return o.UserData
@@ -1037,11 +1037,12 @@ func (o *RecommendationsResults) GetUserData() map[string]any {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendationsResults) GetUserDataOk() (map[string]any, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *RecommendationsResults) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return o.UserData, true
+	return &o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -1053,8 +1054,8 @@ func (o *RecommendationsResults) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
-func (o *RecommendationsResults) SetUserData(v map[string]any) *RecommendationsResults {
+// SetUserData gets a reference to the given any and assigns it to the UserData field.
+func (o *RecommendationsResults) SetUserData(v any) *RecommendationsResults {
 	o.UserData = v
 	return o
 }

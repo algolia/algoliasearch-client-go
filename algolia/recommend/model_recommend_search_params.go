@@ -90,7 +90,7 @@ type RecommendSearchParams struct {
 	// Attributes used for searching. Attribute names are case-sensitive.  By default, all attributes are searchable and the [Attribute](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#attribute) ranking criterion is turned off. With a non-empty list, Algolia only returns results with matches in the selected attributes. In addition, the Attribute ranking criterion is turned on: matches in attributes that are higher in the list of `searchableAttributes` rank first. To make matches in two attributes rank equally, include them in a comma-separated string, such as `\"title,alternate_title\"`. Attributes with the same priority are always unordered.  For more information, see [Searchable attributes](https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/how-to/setting-searchable-attributes/).  **Modifier**  - `unordered(\"ATTRIBUTE\")`.   Ignore the position of a match within the attribute.  Without a modifier, matches at the beginning of an attribute rank higher than matches at the end.
 	SearchableAttributes []string `json:"searchableAttributes,omitempty"`
 	// An object with custom data.  You can store up to 32kB as custom data.
-	UserData map[string]any `json:"userData,omitempty"`
+	UserData any `json:"userData,omitempty"`
 	// Characters and their normalized replacements. This overrides Algolia's default [normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/).
 	CustomNormalization *map[string]map[string]string `json:"customNormalization,omitempty"`
 	// Attribute that should be used to establish groups of results. Attribute names are case-sensitive.  All records with the same value for this attribute are considered a group. You can combine `attributeForDistinct` with the `distinct` search parameter to control how many items per group are included in the search results.  If you want to use the same attribute also for faceting, use the `afterDistinct` modifier of the `attributesForFaceting` setting. This applies faceting _after_ deduplication, which will result in accurate facet counts.
@@ -429,7 +429,7 @@ func WithRecommendSearchParamsSearchableAttributes(val []string) RecommendSearch
 	}
 }
 
-func WithRecommendSearchParamsUserData(val map[string]any) RecommendSearchParamsOption {
+func WithRecommendSearchParamsUserData(val any) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.UserData = val
 	}
@@ -2140,10 +2140,10 @@ func (o *RecommendSearchParams) SetSearchableAttributes(v []string) *RecommendSe
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *RecommendSearchParams) GetUserData() map[string]any {
-	if o == nil || o.UserData == nil {
-		var ret map[string]any
+// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RecommendSearchParams) GetUserData() any {
+	if o == nil {
+		var ret any
 		return ret
 	}
 	return o.UserData
@@ -2151,11 +2151,12 @@ func (o *RecommendSearchParams) GetUserData() map[string]any {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecommendSearchParams) GetUserDataOk() (map[string]any, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *RecommendSearchParams) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return o.UserData, true
+	return &o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -2167,8 +2168,8 @@ func (o *RecommendSearchParams) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
-func (o *RecommendSearchParams) SetUserData(v map[string]any) *RecommendSearchParams {
+// SetUserData gets a reference to the given any and assigns it to the UserData field.
+func (o *RecommendSearchParams) SetUserData(v any) *RecommendSearchParams {
 	o.UserData = v
 	return o
 }

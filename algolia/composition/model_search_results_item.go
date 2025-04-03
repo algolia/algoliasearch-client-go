@@ -55,7 +55,7 @@ type SearchResultsItem struct {
 	// Host name of the server that processed the request.
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// An object with custom data.  You can store up to 32kB as custom data.
-	UserData map[string]any `json:"userData,omitempty"`
+	UserData any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
@@ -211,7 +211,7 @@ func WithSearchResultsItemServerUsed(val string) SearchResultsItemOption {
 	}
 }
 
-func WithSearchResultsItemUserData(val map[string]any) SearchResultsItemOption {
+func WithSearchResultsItemUserData(val any) SearchResultsItemOption {
 	return func(f *SearchResultsItem) {
 		f.UserData = val
 	}
@@ -1015,10 +1015,10 @@ func (o *SearchResultsItem) SetServerUsed(v string) *SearchResultsItem {
 	return o
 }
 
-// GetUserData returns the UserData field value if set, zero value otherwise.
-func (o *SearchResultsItem) GetUserData() map[string]any {
-	if o == nil || o.UserData == nil {
-		var ret map[string]any
+// GetUserData returns the UserData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchResultsItem) GetUserData() any {
+	if o == nil {
+		var ret any
 		return ret
 	}
 	return o.UserData
@@ -1026,11 +1026,12 @@ func (o *SearchResultsItem) GetUserData() map[string]any {
 
 // GetUserDataOk returns a tuple with the UserData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SearchResultsItem) GetUserDataOk() (map[string]any, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchResultsItem) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
-	return o.UserData, true
+	return &o.UserData, true
 }
 
 // HasUserData returns a boolean if a field has been set.
@@ -1042,8 +1043,8 @@ func (o *SearchResultsItem) HasUserData() bool {
 	return false
 }
 
-// SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
-func (o *SearchResultsItem) SetUserData(v map[string]any) *SearchResultsItem {
+// SetUserData gets a reference to the given any and assigns it to the UserData field.
+func (o *SearchResultsItem) SetUserData(v any) *SearchResultsItem {
 	o.UserData = v
 	return o
 }
