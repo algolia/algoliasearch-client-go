@@ -142,18 +142,10 @@ func (o *DailyClickThroughRates) SetDate(v string) *DailyClickThroughRates {
 
 func (o DailyClickThroughRates) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate.Get()
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["date"] = o.Date
-	}
+	toSerialize["rate"] = o.Rate.Get()
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["date"] = o.Date
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyClickThroughRates: %w", err)

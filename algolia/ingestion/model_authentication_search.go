@@ -53,9 +53,7 @@ func (o *AuthenticationSearch) SetAuthenticationIDs(v []string) *AuthenticationS
 
 func (o AuthenticationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["authenticationIDs"] = o.AuthenticationIDs
-	}
+	toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationSearch: %w", err)

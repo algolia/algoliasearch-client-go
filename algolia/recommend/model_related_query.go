@@ -263,24 +263,16 @@ func (o *RelatedQuery) SetFallbackParameters(v *FallbackParams) *RelatedQuery {
 
 func (o RelatedQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if true {
-		toSerialize["threshold"] = o.Threshold
-	}
+	toSerialize["indexName"] = o.IndexName
+	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
-	if true {
-		toSerialize["model"] = o.Model
-	}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["model"] = o.Model
+	toSerialize["objectID"] = o.ObjectID
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}

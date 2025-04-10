@@ -54,9 +54,7 @@ func (o *TopSearchesResponse) SetSearches(v []TopSearch) *TopSearchesResponse {
 
 func (o TopSearchesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["searches"] = o.Searches
-	}
+	toSerialize["searches"] = o.Searches
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearchesResponse: %w", err)

@@ -138,18 +138,10 @@ func (o *GetNoResultsRateResponse) SetDates(v []DailyNoResultsRates) *GetNoResul
 
 func (o GetNoResultsRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["noResultCount"] = o.NoResultCount
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["rate"] = o.Rate
+	toSerialize["count"] = o.Count
+	toSerialize["noResultCount"] = o.NoResultCount
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetNoResultsRateResponse: %w", err)

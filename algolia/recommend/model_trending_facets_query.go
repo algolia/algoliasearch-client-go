@@ -263,24 +263,16 @@ func (o *TrendingFacetsQuery) SetFallbackParameters(v *FallbackParams) *Trending
 
 func (o TrendingFacetsQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if true {
-		toSerialize["threshold"] = o.Threshold
-	}
+	toSerialize["indexName"] = o.IndexName
+	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
-	if true {
-		toSerialize["facetName"] = o.FacetName
-	}
-	if true {
-		toSerialize["model"] = o.Model
-	}
+	toSerialize["facetName"] = o.FacetName
+	toSerialize["model"] = o.Model
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}

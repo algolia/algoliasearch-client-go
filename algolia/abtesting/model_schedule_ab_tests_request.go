@@ -138,18 +138,10 @@ func (o *ScheduleABTestsRequest) SetEndAt(v string) *ScheduleABTestsRequest {
 
 func (o ScheduleABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["variants"] = o.Variants
-	}
-	if true {
-		toSerialize["scheduledAt"] = o.ScheduledAt
-	}
-	if true {
-		toSerialize["endAt"] = o.EndAt
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["variants"] = o.Variants
+	toSerialize["scheduledAt"] = o.ScheduledAt
+	toSerialize["endAt"] = o.EndAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleABTestsRequest: %w", err)

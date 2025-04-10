@@ -81,12 +81,8 @@ func (o *MinimumDetectableEffect) SetMetric(v EffectMetric) *MinimumDetectableEf
 
 func (o MinimumDetectableEffect) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["size"] = o.Size
-	}
-	if true {
-		toSerialize["metric"] = o.Metric
-	}
+	toSerialize["size"] = o.Size
+	toSerialize["metric"] = o.Metric
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MinimumDetectableEffect: %w", err)

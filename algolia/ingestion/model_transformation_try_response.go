@@ -99,9 +99,7 @@ func (o *TransformationTryResponse) SetError(v *TransformationError) *Transforma
 
 func (o TransformationTryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["payloads"] = o.Payloads
-	}
+	toSerialize["payloads"] = o.Payloads
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
 	}

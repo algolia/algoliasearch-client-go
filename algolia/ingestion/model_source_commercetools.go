@@ -294,12 +294,8 @@ func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	if o.Locales != nil {
 		toSerialize["locales"] = o.Locales
 	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["projectKey"] = o.ProjectKey
-	}
+	toSerialize["url"] = o.Url
+	toSerialize["projectKey"] = o.ProjectKey
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}

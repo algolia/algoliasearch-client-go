@@ -53,9 +53,7 @@ func (o *TransformationSearch) SetTransformationIDs(v []string) *TransformationS
 
 func (o TransformationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["transformationIDs"] = o.TransformationIDs
-	}
+	toSerialize["transformationIDs"] = o.TransformationIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationSearch: %w", err)

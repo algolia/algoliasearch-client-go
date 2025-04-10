@@ -82,12 +82,8 @@ func (o *TopHit) SetCount(v int32) *TopHit {
 
 func (o TopHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hit"] = o.Hit
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
+	toSerialize["hit"] = o.Hit
+	toSerialize["count"] = o.Count
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHit: %w", err)

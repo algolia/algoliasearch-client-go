@@ -1365,9 +1365,7 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	if true {
-		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
-	}
+	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
@@ -1395,30 +1393,14 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 	if o.AutomaticInsights != nil {
 		toSerialize["_automaticInsights"] = o.AutomaticInsights
 	}
-	if true {
-		toSerialize["page"] = o.Page
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["nbPages"] = o.NbPages
-	}
-	if true {
-		toSerialize["hitsPerPage"] = o.HitsPerPage
-	}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["query"] = o.Query
-	}
-	if true {
-		toSerialize["params"] = o.Params
-	}
-	if true {
-		toSerialize["compositions"] = o.Compositions
-	}
+	toSerialize["page"] = o.Page
+	toSerialize["nbHits"] = o.NbHits
+	toSerialize["nbPages"] = o.NbPages
+	toSerialize["hitsPerPage"] = o.HitsPerPage
+	toSerialize["hits"] = o.Hits
+	toSerialize["query"] = o.Query
+	toSerialize["params"] = o.Params
+	toSerialize["compositions"] = o.Compositions
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchResultsItem: %w", err)

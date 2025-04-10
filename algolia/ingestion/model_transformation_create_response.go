@@ -82,12 +82,8 @@ func (o *TransformationCreateResponse) SetCreatedAt(v string) *TransformationCre
 
 func (o TransformationCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["transformationID"] = o.TransformationID
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["transformationID"] = o.TransformationID
+	toSerialize["createdAt"] = o.CreatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationCreateResponse: %w", err)

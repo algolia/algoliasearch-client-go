@@ -110,15 +110,9 @@ func (o *SourceGA4BigQueryExport) SetTablePrefix(v string) *SourceGA4BigQueryExp
 
 func (o SourceGA4BigQueryExport) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["projectID"] = o.ProjectID
-	}
-	if true {
-		toSerialize["datasetID"] = o.DatasetID
-	}
-	if true {
-		toSerialize["tablePrefix"] = o.TablePrefix
-	}
+	toSerialize["projectID"] = o.ProjectID
+	toSerialize["datasetID"] = o.DatasetID
+	toSerialize["tablePrefix"] = o.TablePrefix
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceGA4BigQueryExport: %w", err)

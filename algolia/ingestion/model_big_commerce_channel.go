@@ -100,9 +100,7 @@ func (o *BigCommerceChannel) SetCurrencies(v []string) *BigCommerceChannel {
 
 func (o BigCommerceChannel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
 	}

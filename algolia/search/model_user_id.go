@@ -138,18 +138,10 @@ func (o *UserId) SetDataSize(v int32) *UserId {
 
 func (o UserId) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userID"] = o.UserID
-	}
-	if true {
-		toSerialize["clusterName"] = o.ClusterName
-	}
-	if true {
-		toSerialize["nbRecords"] = o.NbRecords
-	}
-	if true {
-		toSerialize["dataSize"] = o.DataSize
-	}
+	toSerialize["userID"] = o.UserID
+	toSerialize["clusterName"] = o.ClusterName
+	toSerialize["nbRecords"] = o.NbRecords
+	toSerialize["dataSize"] = o.DataSize
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserId: %w", err)

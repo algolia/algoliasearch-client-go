@@ -140,9 +140,7 @@ func (o *SourceJSON) SetMethod(v MethodType) *SourceJSON {
 
 func (o SourceJSON) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["url"] = o.Url
 	if o.UniqueIDColumn != nil {
 		toSerialize["uniqueIDColumn"] = o.UniqueIDColumn
 	}

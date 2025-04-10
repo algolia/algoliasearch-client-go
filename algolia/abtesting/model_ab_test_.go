@@ -513,9 +513,7 @@ func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
 
 func (o ABTest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["abTestID"] = o.AbTestID
-	}
+	toSerialize["abTestID"] = o.AbTestID
 	if o.ClickSignificance.IsSet() {
 		toSerialize["clickSignificance"] = o.ClickSignificance.Get()
 	}
@@ -531,24 +529,12 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	if o.RevenueSignificance != nil {
 		toSerialize["revenueSignificance"] = o.RevenueSignificance
 	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["endAt"] = o.EndAt
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["variants"] = o.Variants
-	}
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["endAt"] = o.EndAt
+	toSerialize["name"] = o.Name
+	toSerialize["status"] = o.Status
+	toSerialize["variants"] = o.Variants
 	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}

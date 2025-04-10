@@ -82,12 +82,8 @@ func (o *BatchResponse) SetObjectIDs(v []string) *BatchResponse {
 
 func (o BatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["objectIDs"] = o.ObjectIDs
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["objectIDs"] = o.ObjectIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchResponse: %w", err)

@@ -58,9 +58,7 @@ func (o *GetStatusResponse) SetUpdatedAt(v string) *GetStatusResponse {
 
 func (o GetStatusResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt.Get()
-	}
+	toSerialize["updatedAt"] = o.UpdatedAt.Get()
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetStatusResponse: %w", err)

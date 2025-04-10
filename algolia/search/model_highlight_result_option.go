@@ -155,15 +155,9 @@ func (o *HighlightResultOption) SetFullyHighlighted(v bool) *HighlightResultOpti
 
 func (o HighlightResultOption) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["matchLevel"] = o.MatchLevel
-	}
-	if true {
-		toSerialize["matchedWords"] = o.MatchedWords
-	}
+	toSerialize["value"] = o.Value
+	toSerialize["matchLevel"] = o.MatchLevel
+	toSerialize["matchedWords"] = o.MatchedWords
 	if o.FullyHighlighted != nil {
 		toSerialize["fullyHighlighted"] = o.FullyHighlighted
 	}

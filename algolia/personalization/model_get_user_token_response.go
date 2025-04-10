@@ -110,15 +110,9 @@ func (o *GetUserTokenResponse) SetScores(v map[string]any) *GetUserTokenResponse
 
 func (o GetUserTokenResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userToken"] = o.UserToken
-	}
-	if true {
-		toSerialize["lastEventAt"] = o.LastEventAt
-	}
-	if true {
-		toSerialize["scores"] = o.Scores
-	}
+	toSerialize["userToken"] = o.UserToken
+	toSerialize["lastEventAt"] = o.LastEventAt
+	toSerialize["scores"] = o.Scores
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetUserTokenResponse: %w", err)

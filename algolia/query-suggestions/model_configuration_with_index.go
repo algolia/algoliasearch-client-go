@@ -250,9 +250,7 @@ func (o *ConfigurationWithIndex) SetIndexName(v string) *ConfigurationWithIndex 
 
 func (o ConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceIndices"] = o.SourceIndices
-	}
+	toSerialize["sourceIndices"] = o.SourceIndices
 	if o.Languages != nil {
 		toSerialize["languages"] = o.Languages
 	}
@@ -265,9 +263,7 @@ func (o ConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["indexName"] = o.IndexName
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConfigurationWithIndex: %w", err)

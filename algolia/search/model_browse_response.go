@@ -1431,9 +1431,7 @@ func (o BrowseResponse) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	if true {
-		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
-	}
+	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
@@ -1473,15 +1471,9 @@ func (o BrowseResponse) MarshalJSON() ([]byte, error) {
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["query"] = o.Query
-	}
-	if true {
-		toSerialize["params"] = o.Params
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["query"] = o.Query
+	toSerialize["params"] = o.Params
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}

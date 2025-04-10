@@ -80,12 +80,8 @@ func (o *ShopifyInput) SetMarket(v *ShopifyMarket) *ShopifyInput {
 
 func (o ShopifyInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["metafields"] = o.Metafields
-	}
-	if true {
-		toSerialize["market"] = o.Market
-	}
+	toSerialize["metafields"] = o.Metafields
+	toSerialize["market"] = o.Market
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ShopifyInput: %w", err)

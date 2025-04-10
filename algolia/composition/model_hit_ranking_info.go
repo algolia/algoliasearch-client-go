@@ -540,12 +540,8 @@ func (o HitRankingInfo) MarshalJSON() ([]byte, error) {
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
-	if true {
-		toSerialize["firstMatchedWord"] = o.FirstMatchedWord
-	}
-	if true {
-		toSerialize["geoDistance"] = o.GeoDistance
-	}
+	toSerialize["firstMatchedWord"] = o.FirstMatchedWord
+	toSerialize["geoDistance"] = o.GeoDistance
 	if o.GeoPrecision != nil {
 		toSerialize["geoPrecision"] = o.GeoPrecision
 	}
@@ -555,21 +551,15 @@ func (o HitRankingInfo) MarshalJSON() ([]byte, error) {
 	if o.Personalization != nil {
 		toSerialize["personalization"] = o.Personalization
 	}
-	if true {
-		toSerialize["nbExactWords"] = o.NbExactWords
-	}
-	if true {
-		toSerialize["nbTypos"] = o.NbTypos
-	}
+	toSerialize["nbExactWords"] = o.NbExactWords
+	toSerialize["nbTypos"] = o.NbTypos
 	if o.Promoted != nil {
 		toSerialize["promoted"] = o.Promoted
 	}
 	if o.ProximityDistance != nil {
 		toSerialize["proximityDistance"] = o.ProximityDistance
 	}
-	if true {
-		toSerialize["userScore"] = o.UserScore
-	}
+	toSerialize["userScore"] = o.UserScore
 	if o.Words != nil {
 		toSerialize["words"] = o.Words
 	}

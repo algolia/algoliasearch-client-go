@@ -82,12 +82,8 @@ func (o *FacetsScoring) SetFacetName(v string) *FacetsScoring {
 
 func (o FacetsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["score"] = o.Score
-	}
-	if true {
-		toSerialize["facetName"] = o.FacetName
-	}
+	toSerialize["score"] = o.Score
+	toSerialize["facetName"] = o.FacetName
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetsScoring: %w", err)

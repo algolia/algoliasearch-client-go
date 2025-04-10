@@ -109,15 +109,9 @@ func (o *EventsScoring) SetEventType(v EventType) *EventsScoring {
 
 func (o EventsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["score"] = o.Score
-	}
-	if true {
-		toSerialize["eventName"] = o.EventName
-	}
-	if true {
-		toSerialize["eventType"] = o.EventType
-	}
+	toSerialize["score"] = o.Score
+	toSerialize["eventName"] = o.EventName
+	toSerialize["eventType"] = o.EventType
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EventsScoring: %w", err)

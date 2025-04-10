@@ -103,9 +103,7 @@ func (o BatchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {
 	if o.ClearExistingDictionaryEntries != nil {
 		toSerialize["clearExistingDictionaryEntries"] = o.ClearExistingDictionaryEntries
 	}
-	if true {
-		toSerialize["requests"] = o.Requests
-	}
+	toSerialize["requests"] = o.Requests
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchDictionaryEntriesParams: %w", err)

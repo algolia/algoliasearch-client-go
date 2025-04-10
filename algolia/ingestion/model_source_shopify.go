@@ -103,9 +103,7 @@ func (o SourceShopify) MarshalJSON() ([]byte, error) {
 	if o.FeatureFlags != nil {
 		toSerialize["featureFlags"] = o.FeatureFlags
 	}
-	if true {
-		toSerialize["shopURL"] = o.ShopURL
-	}
+	toSerialize["shopURL"] = o.ShopURL
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceShopify: %w", err)

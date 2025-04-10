@@ -53,9 +53,7 @@ func (o *SearchResponses) SetResults(v []SearchResult) *SearchResponses {
 
 func (o SearchResponses) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["results"] = o.Results
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchResponses: %w", err)

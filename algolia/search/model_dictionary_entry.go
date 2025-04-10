@@ -315,9 +315,7 @@ func (o *DictionaryEntry) SetAdditionalProperty(key string, value any) *Dictiona
 
 func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
 	}

@@ -53,9 +53,7 @@ func (o *GetRecommendTaskResponse) SetStatus(v TaskStatus) *GetRecommendTaskResp
 
 func (o GetRecommendTaskResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetRecommendTaskResponse: %w", err)

@@ -26,7 +26,7 @@ func (v Nullable[T]) Get() *T {
 
 func (v *Nullable[T]) Set(val *T) {
 	v.value = val
-	v.isSet = true
+	v.isSet = val != nil
 }
 
 func (v Nullable[T]) IsSet() bool {
@@ -39,7 +39,7 @@ func (v *Nullable[T]) Unset() {
 }
 
 func NewNullable[T any](val *T) *Nullable[T] {
-	return &Nullable[T]{value: val, isSet: true}
+	return &Nullable[T]{value: val, isSet: val != nil}
 }
 
 func (v Nullable[T]) MarshalJSON() ([]byte, error) {
@@ -47,8 +47,10 @@ func (v Nullable[T]) MarshalJSON() ([]byte, error) {
 }
 
 func (v *Nullable[T]) UnmarshalJSON(src []byte) error {
-	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	err := json.Unmarshal(src, &v.value)
+	v.isSet = v.value != nil
+
+	return err
 }
 
 // IsNilOrEmpty checks if an input is nil or empty.

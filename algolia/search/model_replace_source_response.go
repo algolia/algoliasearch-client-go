@@ -54,9 +54,7 @@ func (o *ReplaceSourceResponse) SetUpdatedAt(v string) *ReplaceSourceResponse {
 
 func (o ReplaceSourceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ReplaceSourceResponse: %w", err)

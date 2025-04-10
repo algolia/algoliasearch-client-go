@@ -166,21 +166,11 @@ func (o *SearchUserIdsResponse) SetUpdatedAt(v string) *SearchUserIdsResponse {
 
 func (o SearchUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["page"] = o.Page
-	}
-	if true {
-		toSerialize["hitsPerPage"] = o.HitsPerPage
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["nbHits"] = o.NbHits
+	toSerialize["page"] = o.Page
+	toSerialize["hitsPerPage"] = o.HitsPerPage
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchUserIdsResponse: %w", err)

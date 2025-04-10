@@ -228,27 +228,13 @@ func (o *TopHitWithAnalytics) SetConversionCount(v int32) *TopHitWithAnalytics {
 
 func (o TopHitWithAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hit"] = o.Hit
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
-	}
-	if true {
-		toSerialize["conversionRate"] = o.ConversionRate.Get()
-	}
-	if true {
-		toSerialize["trackedHitCount"] = o.TrackedHitCount
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
+	toSerialize["hit"] = o.Hit
+	toSerialize["count"] = o.Count
+	toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
+	toSerialize["conversionRate"] = o.ConversionRate.Get()
+	toSerialize["trackedHitCount"] = o.TrackedHitCount
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["conversionCount"] = o.ConversionCount
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitWithAnalytics: %w", err)

@@ -103,9 +103,7 @@ func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["results"] = o.Results
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetObjectsResponse: %w", err)

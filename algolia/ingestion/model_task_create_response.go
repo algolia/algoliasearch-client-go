@@ -82,12 +82,8 @@ func (o *TaskCreateResponse) SetCreatedAt(v string) *TaskCreateResponse {
 
 func (o TaskCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["createdAt"] = o.CreatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskCreateResponse: %w", err)

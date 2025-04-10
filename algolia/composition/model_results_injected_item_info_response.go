@@ -111,9 +111,7 @@ func (o *ResultsInjectedItemInfoResponse) SetAdditionalProperty(key string, valu
 
 func (o ResultsInjectedItemInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["key"] = o.Key
-	}
+	toSerialize["key"] = o.Key
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
 	}

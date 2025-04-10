@@ -156,15 +156,9 @@ func (o *AuthOAuth) SetScope(v string) *AuthOAuth {
 
 func (o AuthOAuth) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["client_id"] = o.ClientId
-	}
-	if true {
-		toSerialize["client_secret"] = o.ClientSecret
-	}
+	toSerialize["url"] = o.Url
+	toSerialize["client_id"] = o.ClientId
+	toSerialize["client_secret"] = o.ClientSecret
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}

@@ -112,9 +112,7 @@ func (o *CompositionRunSearchResponse) SetAdditionalProperty(key string, value a
 
 func (o CompositionRunSearchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
 	}

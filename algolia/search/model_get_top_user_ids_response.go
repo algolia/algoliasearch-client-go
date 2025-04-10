@@ -54,9 +54,7 @@ func (o *GetTopUserIdsResponse) SetTopUsers(v []map[string][]UserId) *GetTopUser
 
 func (o GetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["topUsers"] = o.TopUsers
-	}
+	toSerialize["topUsers"] = o.TopUsers
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopUserIdsResponse: %w", err)

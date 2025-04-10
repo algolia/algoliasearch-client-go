@@ -82,12 +82,8 @@ func (o *DailyRevenue) SetDate(v string) *DailyRevenue {
 
 func (o DailyRevenue) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["currencies"] = o.Currencies
-	}
-	if true {
-		toSerialize["date"] = o.Date
-	}
+	toSerialize["currencies"] = o.Currencies
+	toSerialize["date"] = o.Date
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyRevenue: %w", err)

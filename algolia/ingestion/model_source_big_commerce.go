@@ -219,9 +219,7 @@ func (o *SourceBigCommerce) SetVariantMetafields(v []BigCommerceMetafield) *Sour
 
 func (o SourceBigCommerce) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["storeHash"] = o.StoreHash
-	}
+	toSerialize["storeHash"] = o.StoreHash
 	if o.Channel != nil {
 		toSerialize["channel"] = o.Channel
 	}

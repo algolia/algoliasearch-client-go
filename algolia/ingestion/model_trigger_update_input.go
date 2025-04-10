@@ -54,9 +54,7 @@ func (o *TriggerUpdateInput) SetCron(v string) *TriggerUpdateInput {
 
 func (o TriggerUpdateInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["cron"] = o.Cron
-	}
+	toSerialize["cron"] = o.Cron
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TriggerUpdateInput: %w", err)

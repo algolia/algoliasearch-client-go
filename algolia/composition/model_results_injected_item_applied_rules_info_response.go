@@ -54,9 +54,7 @@ func (o *ResultsInjectedItemAppliedRulesInfoResponse) SetObjectID(v string) *Res
 
 func (o ResultsInjectedItemAppliedRulesInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ResultsInjectedItemAppliedRulesInfoResponse: %w", err)

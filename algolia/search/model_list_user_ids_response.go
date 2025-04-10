@@ -54,9 +54,7 @@ func (o *ListUserIdsResponse) SetUserIDs(v []UserId) *ListUserIdsResponse {
 
 func (o ListUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userIDs"] = o.UserIDs
-	}
+	toSerialize["userIDs"] = o.UserIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListUserIdsResponse: %w", err)

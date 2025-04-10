@@ -155,15 +155,9 @@ func (o *SearchForFacetValuesResults) SetProcessingTimeMS(v int32) *SearchForFac
 
 func (o SearchForFacetValuesResults) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if true {
-		toSerialize["facetHits"] = o.FacetHits
-	}
-	if true {
-		toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
-	}
+	toSerialize["indexName"] = o.IndexName
+	toSerialize["facetHits"] = o.FacetHits
+	toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
 	if o.ProcessingTimeMS != nil {
 		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	}

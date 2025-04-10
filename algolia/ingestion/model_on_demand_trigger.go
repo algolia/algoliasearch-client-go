@@ -99,9 +99,7 @@ func (o *OnDemandTrigger) SetLastRun(v string) *OnDemandTrigger {
 
 func (o OnDemandTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 	if o.LastRun != nil {
 		toSerialize["lastRun"] = o.LastRun
 	}

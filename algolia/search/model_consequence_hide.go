@@ -54,9 +54,7 @@ func (o *ConsequenceHide) SetObjectID(v string) *ConsequenceHide {
 
 func (o ConsequenceHide) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConsequenceHide: %w", err)

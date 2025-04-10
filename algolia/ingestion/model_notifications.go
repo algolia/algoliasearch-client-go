@@ -53,9 +53,7 @@ func (o *Notifications) SetEmail(v *EmailNotifications) *Notifications {
 
 func (o Notifications) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["email"] = o.Email
-	}
+	toSerialize["email"] = o.Email
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Notifications: %w", err)

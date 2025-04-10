@@ -54,9 +54,7 @@ func (o *GetSearchesNoClicksResponse) SetSearches(v []DailySearchesNoClicks) *Ge
 
 func (o GetSearchesNoClicksResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["searches"] = o.Searches
-	}
+	toSerialize["searches"] = o.Searches
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetSearchesNoClicksResponse: %w", err)

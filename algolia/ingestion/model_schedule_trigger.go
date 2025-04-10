@@ -155,18 +155,12 @@ func (o *ScheduleTrigger) SetNextRun(v string) *ScheduleTrigger {
 
 func (o ScheduleTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["cron"] = o.Cron
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["cron"] = o.Cron
 	if o.LastRun != nil {
 		toSerialize["lastRun"] = o.LastRun
 	}
-	if true {
-		toSerialize["nextRun"] = o.NextRun
-	}
+	toSerialize["nextRun"] = o.NextRun
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleTrigger: %w", err)

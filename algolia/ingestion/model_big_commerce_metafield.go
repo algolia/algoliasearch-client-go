@@ -82,12 +82,8 @@ func (o *BigCommerceMetafield) SetKey(v string) *BigCommerceMetafield {
 
 func (o BigCommerceMetafield) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if true {
-		toSerialize["key"] = o.Key
-	}
+	toSerialize["namespace"] = o.Namespace
+	toSerialize["key"] = o.Key
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BigCommerceMetafield: %w", err)

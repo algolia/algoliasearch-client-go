@@ -140,9 +140,7 @@ func (o *DestinationIndexName) SetAttributesToExclude(v []string) *DestinationIn
 
 func (o DestinationIndexName) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["indexName"] = o.IndexName
 	if o.RecordType != nil {
 		toSerialize["recordType"] = o.RecordType
 	}

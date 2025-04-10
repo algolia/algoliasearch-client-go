@@ -346,9 +346,7 @@ func (o *SourceIndex) SetExternal(v []string) *SourceIndex {
 
 func (o SourceIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["indexName"] = o.IndexName
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}

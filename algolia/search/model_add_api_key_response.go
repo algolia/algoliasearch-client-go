@@ -82,12 +82,8 @@ func (o *AddApiKeyResponse) SetCreatedAt(v string) *AddApiKeyResponse {
 
 func (o AddApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["key"] = o.Key
+	toSerialize["createdAt"] = o.CreatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddApiKeyResponse: %w", err)

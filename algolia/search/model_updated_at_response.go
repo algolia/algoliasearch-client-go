@@ -82,12 +82,8 @@ func (o *UpdatedAtResponse) SetUpdatedAt(v string) *UpdatedAtResponse {
 
 func (o UpdatedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UpdatedAtResponse: %w", err)

@@ -80,12 +80,8 @@ func (o *BuiltInOperation) SetValue(v *BuiltInOperationValue) *BuiltInOperation 
 
 func (o BuiltInOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["_operation"] = o.Operation
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["_operation"] = o.Operation
+	toSerialize["value"] = o.Value
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BuiltInOperation: %w", err)

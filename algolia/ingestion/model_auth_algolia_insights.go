@@ -82,12 +82,8 @@ func (o *AuthAlgoliaInsights) SetApiKey(v string) *AuthAlgoliaInsights {
 
 func (o AuthAlgoliaInsights) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["appID"] = o.AppID
-	}
-	if true {
-		toSerialize["apiKey"] = o.ApiKey
-	}
+	toSerialize["appID"] = o.AppID
+	toSerialize["apiKey"] = o.ApiKey
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAlgoliaInsights: %w", err)

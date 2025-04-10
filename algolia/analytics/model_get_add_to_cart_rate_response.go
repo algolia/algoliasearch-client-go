@@ -142,18 +142,10 @@ func (o *GetAddToCartRateResponse) SetDates(v []DailyAddToCartRates) *GetAddToCa
 
 func (o GetAddToCartRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate.Get()
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["addToCartCount"] = o.AddToCartCount
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["rate"] = o.Rate.Get()
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["addToCartCount"] = o.AddToCartCount
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetAddToCartRateResponse: %w", err)

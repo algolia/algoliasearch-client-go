@@ -346,9 +346,7 @@ func (o *ApiKey) SetValidity(v int32) *ApiKey {
 
 func (o ApiKey) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["acl"] = o.Acl
-	}
+	toSerialize["acl"] = o.Acl
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

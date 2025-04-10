@@ -54,9 +54,7 @@ func (o *DeleteResponse) SetDeletedAt(v string) *DeleteResponse {
 
 func (o DeleteResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
-	}
+	toSerialize["deletedAt"] = o.DeletedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteResponse: %w", err)

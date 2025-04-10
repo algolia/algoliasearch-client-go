@@ -110,15 +110,9 @@ func (o *ABTestResponse) SetTaskID(v int64) *ABTestResponse {
 
 func (o ABTestResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["abTestID"] = o.AbTestID
-	}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["abTestID"] = o.AbTestID
+	toSerialize["taskID"] = o.TaskID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTestResponse: %w", err)

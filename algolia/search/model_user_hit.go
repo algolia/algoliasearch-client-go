@@ -193,24 +193,12 @@ func (o *UserHit) SetHighlightResult(v *UserHighlightResult) *UserHit {
 
 func (o UserHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userID"] = o.UserID
-	}
-	if true {
-		toSerialize["clusterName"] = o.ClusterName
-	}
-	if true {
-		toSerialize["nbRecords"] = o.NbRecords
-	}
-	if true {
-		toSerialize["dataSize"] = o.DataSize
-	}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
-	if true {
-		toSerialize["_highlightResult"] = o.HighlightResult
-	}
+	toSerialize["userID"] = o.UserID
+	toSerialize["clusterName"] = o.ClusterName
+	toSerialize["nbRecords"] = o.NbRecords
+	toSerialize["dataSize"] = o.DataSize
+	toSerialize["objectID"] = o.ObjectID
+	toSerialize["_highlightResult"] = o.HighlightResult
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserHit: %w", err)

@@ -81,12 +81,8 @@ func (o *SnippetResultOption) SetMatchLevel(v MatchLevel) *SnippetResultOption {
 
 func (o SnippetResultOption) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["matchLevel"] = o.MatchLevel
-	}
+	toSerialize["value"] = o.Value
+	toSerialize["matchLevel"] = o.MatchLevel
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SnippetResultOption: %w", err)

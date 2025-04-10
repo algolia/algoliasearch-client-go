@@ -785,24 +785,18 @@ func (o *Variant) SetTrackedUserCount(v int32) *Variant {
 
 func (o Variant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["addToCartCount"] = o.AddToCartCount
-	}
+	toSerialize["addToCartCount"] = o.AddToCartCount
 	if o.AddToCartRate.IsSet() {
 		toSerialize["addToCartRate"] = o.AddToCartRate.Get()
 	}
 	if o.AverageClickPosition.IsSet() {
 		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
 	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
+	toSerialize["clickCount"] = o.ClickCount
 	if o.ClickThroughRate.IsSet() {
 		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
 	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
+	toSerialize["conversionCount"] = o.ConversionCount
 	if o.ConversionRate.IsSet() {
 		toSerialize["conversionRate"] = o.ConversionRate.Get()
 	}
@@ -818,33 +812,19 @@ func (o Variant) MarshalJSON() ([]byte, error) {
 	if o.FilterEffects != nil {
 		toSerialize["filterEffects"] = o.FilterEffects
 	}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["noResultCount"] = o.NoResultCount.Get()
-	}
-	if true {
-		toSerialize["purchaseCount"] = o.PurchaseCount
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["noResultCount"] = o.NoResultCount.Get()
+	toSerialize["purchaseCount"] = o.PurchaseCount
 	if o.PurchaseRate.IsSet() {
 		toSerialize["purchaseRate"] = o.PurchaseRate.Get()
 	}
-	if true {
-		toSerialize["searchCount"] = o.SearchCount.Get()
-	}
+	toSerialize["searchCount"] = o.SearchCount.Get()
 	if o.TrackedSearchCount != nil {
 		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	}
-	if true {
-		toSerialize["trafficPercentage"] = o.TrafficPercentage
-	}
-	if true {
-		toSerialize["userCount"] = o.UserCount.Get()
-	}
-	if true {
-		toSerialize["trackedUserCount"] = o.TrackedUserCount.Get()
-	}
+	toSerialize["trafficPercentage"] = o.TrafficPercentage
+	toSerialize["userCount"] = o.UserCount.Get()
+	toSerialize["trackedUserCount"] = o.TrackedUserCount.Get()
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Variant: %w", err)

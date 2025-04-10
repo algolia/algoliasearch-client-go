@@ -165,21 +165,11 @@ func (o *RedirectRuleIndexMetadata) SetData(v *RedirectRuleIndexData) *RedirectR
 
 func (o RedirectRuleIndexMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["source"] = o.Source
-	}
-	if true {
-		toSerialize["dest"] = o.Dest
-	}
-	if true {
-		toSerialize["reason"] = o.Reason
-	}
-	if true {
-		toSerialize["succeed"] = o.Succeed
-	}
-	if true {
-		toSerialize["data"] = o.Data
-	}
+	toSerialize["source"] = o.Source
+	toSerialize["dest"] = o.Dest
+	toSerialize["reason"] = o.Reason
+	toSerialize["succeed"] = o.Succeed
+	toSerialize["data"] = o.Data
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexMetadata: %w", err)

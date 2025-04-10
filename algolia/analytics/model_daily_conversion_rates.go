@@ -142,18 +142,10 @@ func (o *DailyConversionRates) SetDate(v string) *DailyConversionRates {
 
 func (o DailyConversionRates) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate.Get()
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
-	if true {
-		toSerialize["date"] = o.Date
-	}
+	toSerialize["rate"] = o.Rate.Get()
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["conversionCount"] = o.ConversionCount
+	toSerialize["date"] = o.Date
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyConversionRates: %w", err)

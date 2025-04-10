@@ -110,15 +110,9 @@ func (o *SaveSynonymResponse) SetId(v string) *SaveSynonymResponse {
 
 func (o SaveSynonymResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["id"] = o.Id
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SaveSynonymResponse: %w", err)

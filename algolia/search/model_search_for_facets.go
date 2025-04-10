@@ -3457,21 +3457,15 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
-	if true {
-		toSerialize["facet"] = o.Facet
-	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["facet"] = o.Facet
+	toSerialize["indexName"] = o.IndexName
 	if o.FacetQuery != nil {
 		toSerialize["facetQuery"] = o.FacetQuery
 	}
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForFacets: %w", err)

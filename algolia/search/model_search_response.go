@@ -1403,9 +1403,7 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	if true {
-		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
-	}
+	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
@@ -1445,15 +1443,9 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["query"] = o.Query
-	}
-	if true {
-		toSerialize["params"] = o.Params
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["query"] = o.Query
+	toSerialize["params"] = o.Params
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

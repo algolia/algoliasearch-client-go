@@ -54,9 +54,7 @@ func (o *AssignUserIdParams) SetCluster(v string) *AssignUserIdParams {
 
 func (o AssignUserIdParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["cluster"] = o.Cluster
-	}
+	toSerialize["cluster"] = o.Cluster
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AssignUserIdParams: %w", err)

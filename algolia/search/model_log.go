@@ -516,39 +516,19 @@ func (o *Log) SetInnerQueries(v []LogQuery) *Log {
 
 func (o Log) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["method"] = o.Method
-	}
-	if true {
-		toSerialize["answer_code"] = o.AnswerCode
-	}
-	if true {
-		toSerialize["query_body"] = o.QueryBody
-	}
-	if true {
-		toSerialize["answer"] = o.Answer
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["ip"] = o.Ip
-	}
-	if true {
-		toSerialize["query_headers"] = o.QueryHeaders
-	}
-	if true {
-		toSerialize["sha1"] = o.Sha1
-	}
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["method"] = o.Method
+	toSerialize["answer_code"] = o.AnswerCode
+	toSerialize["query_body"] = o.QueryBody
+	toSerialize["answer"] = o.Answer
+	toSerialize["url"] = o.Url
+	toSerialize["ip"] = o.Ip
+	toSerialize["query_headers"] = o.QueryHeaders
+	toSerialize["sha1"] = o.Sha1
 	if o.NbApiCalls != nil {
 		toSerialize["nb_api_calls"] = o.NbApiCalls
 	}
-	if true {
-		toSerialize["processing_time_ms"] = o.ProcessingTimeMs
-	}
+	toSerialize["processing_time_ms"] = o.ProcessingTimeMs
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}

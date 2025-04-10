@@ -54,9 +54,7 @@ func (o *CreatedAtResponse) SetCreatedAt(v string) *CreatedAtResponse {
 
 func (o CreatedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["createdAt"] = o.CreatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CreatedAtResponse: %w", err)

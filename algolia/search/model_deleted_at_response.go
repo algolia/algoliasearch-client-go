@@ -82,12 +82,8 @@ func (o *DeletedAtResponse) SetDeletedAt(v string) *DeletedAtResponse {
 
 func (o DeletedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["deletedAt"] = o.DeletedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeletedAtResponse: %w", err)

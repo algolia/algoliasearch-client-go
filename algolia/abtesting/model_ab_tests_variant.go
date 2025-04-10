@@ -128,12 +128,8 @@ func (o *AbTestsVariant) SetDescription(v string) *AbTestsVariant {
 
 func (o AbTestsVariant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["trafficPercentage"] = o.TrafficPercentage
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["trafficPercentage"] = o.TrafficPercentage
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

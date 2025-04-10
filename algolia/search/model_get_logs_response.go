@@ -53,9 +53,7 @@ func (o *GetLogsResponse) SetLogs(v []Log) *GetLogsResponse {
 
 func (o GetLogsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["logs"] = o.Logs
-	}
+	toSerialize["logs"] = o.Logs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetLogsResponse: %w", err)

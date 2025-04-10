@@ -167,12 +167,8 @@ func (o *SourceCreate) SetAuthenticationID(v string) *SourceCreate {
 
 func (o SourceCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}

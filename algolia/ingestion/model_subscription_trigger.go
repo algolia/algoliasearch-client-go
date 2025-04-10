@@ -53,9 +53,7 @@ func (o *SubscriptionTrigger) SetType(v SubscriptionTriggerType) *SubscriptionTr
 
 func (o SubscriptionTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SubscriptionTrigger: %w", err)

@@ -194,15 +194,9 @@ func (o *DestinationCreate) SetTransformationIDs(v []string) *DestinationCreate 
 
 func (o DestinationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["input"] = o.Input
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
+	toSerialize["input"] = o.Input
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}

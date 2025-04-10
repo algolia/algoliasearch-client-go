@@ -82,12 +82,8 @@ func (o *DeleteUserProfileResponse) SetDeletedUntil(v string) *DeleteUserProfile
 
 func (o DeleteUserProfileResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userToken"] = o.UserToken
-	}
-	if true {
-		toSerialize["deletedUntil"] = o.DeletedUntil
-	}
+	toSerialize["userToken"] = o.UserToken
+	toSerialize["deletedUntil"] = o.DeletedUntil
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteUserProfileResponse: %w", err)

@@ -304,15 +304,9 @@ func (o *Source) SetUpdatedAt(v string) *Source {
 
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceID"] = o.SourceID
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["sourceID"] = o.SourceID
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
@@ -322,12 +316,8 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Source: %w", err)

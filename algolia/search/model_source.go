@@ -100,9 +100,7 @@ func (o *Source) SetDescription(v string) *Source {
 
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["source"] = o.Source
-	}
+	toSerialize["source"] = o.Source
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

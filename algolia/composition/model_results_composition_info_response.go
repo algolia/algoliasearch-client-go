@@ -53,9 +53,7 @@ func (o *ResultsCompositionInfoResponse) SetInjectedItems(v []ResultsInjectedIte
 
 func (o ResultsCompositionInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["injectedItems"] = o.InjectedItems
-	}
+	toSerialize["injectedItems"] = o.InjectedItems
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ResultsCompositionInfoResponse: %w", err)

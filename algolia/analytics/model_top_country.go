@@ -82,12 +82,8 @@ func (o *TopCountry) SetCount(v int32) *TopCountry {
 
 func (o TopCountry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["country"] = o.Country
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
+	toSerialize["country"] = o.Country
+	toSerialize["count"] = o.Count
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopCountry: %w", err)

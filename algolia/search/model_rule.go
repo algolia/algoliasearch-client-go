@@ -250,15 +250,11 @@ func (o *Rule) SetValidity(v []TimeRange) *Rule {
 
 func (o Rule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	if o.Conditions != nil {
 		toSerialize["conditions"] = o.Conditions
 	}
-	if true {
-		toSerialize["consequence"] = o.Consequence
-	}
+	toSerialize["consequence"] = o.Consequence
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

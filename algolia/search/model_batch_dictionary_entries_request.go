@@ -80,12 +80,8 @@ func (o *BatchDictionaryEntriesRequest) SetBody(v *DictionaryEntry) *BatchDictio
 
 func (o BatchDictionaryEntriesRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["body"] = o.Body
-	}
+	toSerialize["action"] = o.Action
+	toSerialize["body"] = o.Body
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchDictionaryEntriesRequest: %w", err)

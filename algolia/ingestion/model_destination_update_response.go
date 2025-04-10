@@ -110,15 +110,9 @@ func (o *DestinationUpdateResponse) SetUpdatedAt(v string) *DestinationUpdateRes
 
 func (o DestinationUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["destinationID"] = o.DestinationID
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["destinationID"] = o.DestinationID
+	toSerialize["name"] = o.Name
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationUpdateResponse: %w", err)

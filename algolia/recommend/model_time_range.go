@@ -82,12 +82,8 @@ func (o *TimeRange) SetUntil(v int64) *TimeRange {
 
 func (o TimeRange) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["from"] = o.From
-	}
-	if true {
-		toSerialize["until"] = o.Until
-	}
+	toSerialize["from"] = o.From
+	toSerialize["until"] = o.Until
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TimeRange: %w", err)

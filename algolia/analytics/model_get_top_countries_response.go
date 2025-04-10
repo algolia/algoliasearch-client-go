@@ -54,9 +54,7 @@ func (o *GetTopCountriesResponse) SetCountries(v []TopCountry) *GetTopCountriesR
 
 func (o GetTopCountriesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["countries"] = o.Countries
-	}
+	toSerialize["countries"] = o.Countries
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopCountriesResponse: %w", err)

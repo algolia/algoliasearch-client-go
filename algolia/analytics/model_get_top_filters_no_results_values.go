@@ -82,12 +82,8 @@ func (o *GetTopFiltersNoResultsValues) SetValues(v []GetTopFiltersNoResultsValue
 
 func (o GetTopFiltersNoResultsValues) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["values"] = o.Values
-	}
+	toSerialize["count"] = o.Count
+	toSerialize["values"] = o.Values
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFiltersNoResultsValues: %w", err)

@@ -110,15 +110,9 @@ func (o *DailySearchesNoClicks) SetNbHits(v int32) *DailySearchesNoClicks {
 
 func (o DailySearchesNoClicks) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["search"] = o.Search
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
+	toSerialize["search"] = o.Search
+	toSerialize["count"] = o.Count
+	toSerialize["nbHits"] = o.NbHits
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearchesNoClicks: %w", err)

@@ -82,12 +82,8 @@ func (o *Window) SetEndDate(v string) *Window {
 
 func (o Window) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["startDate"] = o.StartDate
-	}
-	if true {
-		toSerialize["endDate"] = o.EndDate
-	}
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["endDate"] = o.EndDate
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Window: %w", err)

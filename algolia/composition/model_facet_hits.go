@@ -110,15 +110,9 @@ func (o *FacetHits) SetCount(v int32) *FacetHits {
 
 func (o FacetHits) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["highlighted"] = o.Highlighted
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
+	toSerialize["value"] = o.Value
+	toSerialize["highlighted"] = o.Highlighted
+	toSerialize["count"] = o.Count
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetHits: %w", err)

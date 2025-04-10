@@ -82,12 +82,8 @@ func (o *PromoteObjectID) SetPosition(v int32) *PromoteObjectID {
 
 func (o PromoteObjectID) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
-	if true {
-		toSerialize["position"] = o.Position
-	}
+	toSerialize["objectID"] = o.ObjectID
+	toSerialize["position"] = o.Position
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PromoteObjectID: %w", err)

@@ -137,18 +137,10 @@ func (o *GetTopFilterForAttribute) SetCount(v int32) *GetTopFilterForAttribute {
 
 func (o GetTopFilterForAttribute) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["attribute"] = o.Attribute
-	}
-	if true {
-		toSerialize["operator"] = o.Operator
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
+	toSerialize["attribute"] = o.Attribute
+	toSerialize["operator"] = o.Operator
+	toSerialize["value"] = o.Value
+	toSerialize["count"] = o.Count
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFilterForAttribute: %w", err)

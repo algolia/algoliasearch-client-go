@@ -275,9 +275,7 @@ func (o *RecommendHit) SetAdditionalProperty(key string, value any) *RecommendHi
 
 func (o RecommendHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	if o.HighlightResult != nil {
 		toSerialize["_highlightResult"] = o.HighlightResult
 	}

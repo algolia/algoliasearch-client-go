@@ -222,9 +222,7 @@ func (o *SourceCSV) SetDelimiter(v string) *SourceCSV {
 
 func (o SourceCSV) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["url"] = o.Url
 	if o.UniqueIDColumn != nil {
 		toSerialize["uniqueIDColumn"] = o.UniqueIDColumn
 	}

@@ -82,12 +82,8 @@ func (o *UpdateApiKeyResponse) SetUpdatedAt(v string) *UpdateApiKeyResponse {
 
 func (o UpdateApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["key"] = o.Key
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UpdateApiKeyResponse: %w", err)

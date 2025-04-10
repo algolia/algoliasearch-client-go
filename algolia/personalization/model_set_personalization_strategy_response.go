@@ -54,9 +54,7 @@ func (o *SetPersonalizationStrategyResponse) SetMessage(v string) *SetPersonaliz
 
 func (o SetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["message"] = o.Message
-	}
+	toSerialize["message"] = o.Message
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SetPersonalizationStrategyResponse: %w", err)

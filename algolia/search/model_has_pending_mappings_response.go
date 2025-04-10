@@ -100,9 +100,7 @@ func (o *HasPendingMappingsResponse) SetClusters(v map[string][]string) *HasPend
 
 func (o HasPendingMappingsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["pending"] = o.Pending
-	}
+	toSerialize["pending"] = o.Pending
 	if o.Clusters != nil {
 		toSerialize["clusters"] = o.Clusters
 	}

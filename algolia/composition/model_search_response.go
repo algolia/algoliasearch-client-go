@@ -115,9 +115,7 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	if o.Compositions != nil {
 		toSerialize["compositions"] = o.Compositions
 	}
-	if true {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["results"] = o.Results
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

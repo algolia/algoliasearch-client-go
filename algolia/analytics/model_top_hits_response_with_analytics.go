@@ -54,9 +54,7 @@ func (o *TopHitsResponseWithAnalytics) SetHits(v []TopHitWithAnalytics) *TopHits
 
 func (o TopHitsResponseWithAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
+	toSerialize["hits"] = o.Hits
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitsResponseWithAnalytics: %w", err)

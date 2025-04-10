@@ -302,30 +302,18 @@ func (o *Authentication) SetUpdatedAt(v string) *Authentication {
 
 func (o Authentication) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["authenticationID"] = o.AuthenticationID
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["authenticationID"] = o.AuthenticationID
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	if o.Platform.IsSet() {
 		toSerialize["platform"] = o.Platform.Get()
 	}
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
-	if true {
-		toSerialize["input"] = o.Input
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["input"] = o.Input
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Authentication: %w", err)

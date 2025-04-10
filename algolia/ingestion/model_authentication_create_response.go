@@ -110,15 +110,9 @@ func (o *AuthenticationCreateResponse) SetCreatedAt(v string) *AuthenticationCre
 
 func (o AuthenticationCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["authenticationID"] = o.AuthenticationID
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["authenticationID"] = o.AuthenticationID
+	toSerialize["name"] = o.Name
+	toSerialize["createdAt"] = o.CreatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationCreateResponse: %w", err)

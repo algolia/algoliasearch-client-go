@@ -53,9 +53,7 @@ func (o *DestinationSearch) SetDestinationIDs(v []string) *DestinationSearch {
 
 func (o DestinationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["destinationIDs"] = o.DestinationIDs
-	}
+	toSerialize["destinationIDs"] = o.DestinationIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationSearch: %w", err)

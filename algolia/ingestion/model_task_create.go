@@ -438,15 +438,9 @@ func (o *TaskCreate) SetPolicies(v *Policies) *TaskCreate {
 
 func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceID"] = o.SourceID
-	}
-	if true {
-		toSerialize["destinationID"] = o.DestinationID
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
+	toSerialize["sourceID"] = o.SourceID
+	toSerialize["destinationID"] = o.DestinationID
+	toSerialize["action"] = o.Action
 	if o.SubscriptionAction != nil {
 		toSerialize["subscriptionAction"] = o.SubscriptionAction
 	}

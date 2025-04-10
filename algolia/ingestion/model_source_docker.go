@@ -8,7 +8,7 @@ import (
 
 // SourceDocker struct for SourceDocker.
 type SourceDocker struct {
-	// Shortname of the image, as returned by the referential.
+	// Name of the connector.
 	Image string `json:"image"`
 	// Configuration of the spec.
 	Configuration map[string]any `json:"configuration"`
@@ -82,12 +82,8 @@ func (o *SourceDocker) SetConfiguration(v map[string]any) *SourceDocker {
 
 func (o SourceDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["image"] = o.Image
-	}
-	if true {
-		toSerialize["configuration"] = o.Configuration
-	}
+	toSerialize["image"] = o.Image
+	toSerialize["configuration"] = o.Configuration
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceDocker: %w", err)

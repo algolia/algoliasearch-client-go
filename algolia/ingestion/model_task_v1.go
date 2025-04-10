@@ -468,24 +468,14 @@ func (o *TaskV1) SetUpdatedAt(v string) *TaskV1 {
 
 func (o TaskV1) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["sourceID"] = o.SourceID
-	}
-	if true {
-		toSerialize["destinationID"] = o.DestinationID
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["sourceID"] = o.SourceID
+	toSerialize["destinationID"] = o.DestinationID
+	toSerialize["trigger"] = o.Trigger
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
-	if true {
-		toSerialize["enabled"] = o.Enabled
-	}
+	toSerialize["enabled"] = o.Enabled
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
@@ -501,12 +491,8 @@ func (o TaskV1) MarshalJSON() ([]byte, error) {
 	if o.Policies != nil {
 		toSerialize["policies"] = o.Policies
 	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskV1: %w", err)

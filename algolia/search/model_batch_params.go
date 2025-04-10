@@ -53,9 +53,7 @@ func (o *BatchParams) SetRequests(v []MultipleBatchRequest) *BatchParams {
 
 func (o BatchParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["requests"] = o.Requests
-	}
+	toSerialize["requests"] = o.Requests
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchParams: %w", err)

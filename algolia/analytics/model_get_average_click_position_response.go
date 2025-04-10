@@ -114,15 +114,9 @@ func (o *GetAverageClickPositionResponse) SetDates(v []DailyAverageClicks) *GetA
 
 func (o GetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["average"] = o.Average.Get()
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["average"] = o.Average.Get()
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetAverageClickPositionResponse: %w", err)

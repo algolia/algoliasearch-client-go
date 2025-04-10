@@ -480,18 +480,10 @@ func (o *Run) SetFinishedAt(v string) *Run {
 
 func (o Run) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["runID"] = o.RunID
-	}
-	if true {
-		toSerialize["appID"] = o.AppID
-	}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["runID"] = o.RunID
+	toSerialize["appID"] = o.AppID
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["status"] = o.Status
 	if o.Progress != nil {
 		toSerialize["progress"] = o.Progress
 	}
@@ -507,12 +499,8 @@ func (o Run) MarshalJSON() ([]byte, error) {
 	if o.ReasonCode != nil {
 		toSerialize["reasonCode"] = o.ReasonCode
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["createdAt"] = o.CreatedAt
 	if o.StartedAt != nil {
 		toSerialize["startedAt"] = o.StartedAt
 	}

@@ -54,9 +54,7 @@ func (o *ScheduleABTestResponse) SetAbTestScheduleID(v int32) *ScheduleABTestRes
 
 func (o ScheduleABTestResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["abTestScheduleID"] = o.AbTestScheduleID
-	}
+	toSerialize["abTestScheduleID"] = o.AbTestScheduleID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleABTestResponse: %w", err)

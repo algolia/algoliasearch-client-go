@@ -127,12 +127,8 @@ func (o *OperationIndexParams) SetScope(v []ScopeType) *OperationIndexParams {
 
 func (o OperationIndexParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["operation"] = o.Operation
-	}
-	if true {
-		toSerialize["destination"] = o.Destination
-	}
+	toSerialize["operation"] = o.Operation
+	toSerialize["destination"] = o.Destination
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}

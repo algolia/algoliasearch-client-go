@@ -142,18 +142,10 @@ func (o *GetClickThroughRateResponse) SetDates(v []DailyClickThroughRates) *GetC
 
 func (o GetClickThroughRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate.Get()
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["rate"] = o.Rate.Get()
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetClickThroughRateResponse: %w", err)

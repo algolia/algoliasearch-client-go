@@ -131,12 +131,8 @@ func (o TrendingFacetHit) MarshalJSON() ([]byte, error) {
 	if o.Score != nil {
 		toSerialize["_score"] = o.Score
 	}
-	if true {
-		toSerialize["facetName"] = o.FacetName
-	}
-	if true {
-		toSerialize["facetValue"] = o.FacetValue
-	}
+	toSerialize["facetName"] = o.FacetName
+	toSerialize["facetValue"] = o.FacetValue
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TrendingFacetHit: %w", err)

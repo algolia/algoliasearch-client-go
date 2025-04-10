@@ -82,12 +82,8 @@ func (o *AuthGoogleServiceAccount) SetPrivateKey(v string) *AuthGoogleServiceAcc
 
 func (o AuthGoogleServiceAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["clientEmail"] = o.ClientEmail
-	}
-	if true {
-		toSerialize["privateKey"] = o.PrivateKey
-	}
+	toSerialize["clientEmail"] = o.ClientEmail
+	toSerialize["privateKey"] = o.PrivateKey
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthGoogleServiceAccount: %w", err)

@@ -54,9 +54,7 @@ func (o *AuthAPIKey) SetKey(v string) *AuthAPIKey {
 
 func (o AuthAPIKey) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["key"] = o.Key
-	}
+	toSerialize["key"] = o.Key
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAPIKey: %w", err)

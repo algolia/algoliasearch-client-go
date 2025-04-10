@@ -234,9 +234,7 @@ func (o *Hit) SetAdditionalProperty(key string, value any) *Hit {
 
 func (o Hit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 	if o.HighlightResult != nil {
 		toSerialize["_highlightResult"] = o.HighlightResult
 	}

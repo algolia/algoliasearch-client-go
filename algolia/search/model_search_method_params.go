@@ -98,9 +98,7 @@ func (o *SearchMethodParams) SetStrategy(v SearchStrategy) *SearchMethodParams {
 
 func (o SearchMethodParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["requests"] = o.Requests
-	}
+	toSerialize["requests"] = o.Requests
 	if o.Strategy != nil {
 		toSerialize["strategy"] = o.Strategy
 	}

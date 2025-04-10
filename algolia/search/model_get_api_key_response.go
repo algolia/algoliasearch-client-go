@@ -402,15 +402,9 @@ func (o *GetApiKeyResponse) SetValidity(v int32) *GetApiKeyResponse {
 
 func (o GetApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["acl"] = o.Acl
-	}
+	toSerialize["value"] = o.Value
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["acl"] = o.Acl
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

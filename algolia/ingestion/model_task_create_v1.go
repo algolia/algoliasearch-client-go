@@ -304,18 +304,10 @@ func (o *TaskCreateV1) SetCursor(v string) *TaskCreateV1 {
 
 func (o TaskCreateV1) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceID"] = o.SourceID
-	}
-	if true {
-		toSerialize["destinationID"] = o.DestinationID
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
+	toSerialize["sourceID"] = o.SourceID
+	toSerialize["destinationID"] = o.DestinationID
+	toSerialize["trigger"] = o.Trigger
+	toSerialize["action"] = o.Action
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}

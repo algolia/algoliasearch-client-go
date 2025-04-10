@@ -81,12 +81,8 @@ func (o *ScheduleTriggerInput) SetCron(v string) *ScheduleTriggerInput {
 
 func (o ScheduleTriggerInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["cron"] = o.Cron
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["cron"] = o.Cron
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleTriggerInput: %w", err)

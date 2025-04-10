@@ -458,51 +458,21 @@ func (o *TopSearchWithRevenueAnalytics) SetPurchaseCount(v int32) *TopSearchWith
 
 func (o TopSearchWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["search"] = o.Search
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
-	}
-	if true {
-		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
-	}
-	if true {
-		toSerialize["clickPositions"] = o.ClickPositions
-	}
-	if true {
-		toSerialize["conversionRate"] = o.ConversionRate.Get()
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["currencies"] = o.Currencies
-	}
-	if true {
-		toSerialize["addToCartRate"] = o.AddToCartRate.Get()
-	}
-	if true {
-		toSerialize["addToCartCount"] = o.AddToCartCount
-	}
-	if true {
-		toSerialize["purchaseRate"] = o.PurchaseRate.Get()
-	}
-	if true {
-		toSerialize["purchaseCount"] = o.PurchaseCount
-	}
+	toSerialize["search"] = o.Search
+	toSerialize["count"] = o.Count
+	toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
+	toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
+	toSerialize["clickPositions"] = o.ClickPositions
+	toSerialize["conversionRate"] = o.ConversionRate.Get()
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["conversionCount"] = o.ConversionCount
+	toSerialize["nbHits"] = o.NbHits
+	toSerialize["currencies"] = o.Currencies
+	toSerialize["addToCartRate"] = o.AddToCartRate.Get()
+	toSerialize["addToCartCount"] = o.AddToCartCount
+	toSerialize["purchaseRate"] = o.PurchaseRate.Get()
+	toSerialize["purchaseCount"] = o.PurchaseCount
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearchWithRevenueAnalytics: %w", err)

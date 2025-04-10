@@ -141,9 +141,7 @@ func (o *AutomaticFacetFilter) SetDisjunctive(v bool) *AutomaticFacetFilter {
 
 func (o AutomaticFacetFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["facet"] = o.Facet
-	}
+	toSerialize["facet"] = o.Facet
 	if o.Score != nil {
 		toSerialize["score"] = o.Score
 	}

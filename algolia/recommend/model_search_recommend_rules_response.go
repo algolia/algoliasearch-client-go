@@ -138,18 +138,10 @@ func (o *SearchRecommendRulesResponse) SetNbPages(v int32) *SearchRecommendRules
 
 func (o SearchRecommendRulesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["page"] = o.Page
-	}
-	if true {
-		toSerialize["nbPages"] = o.NbPages
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["nbHits"] = o.NbHits
+	toSerialize["page"] = o.Page
+	toSerialize["nbPages"] = o.NbPages
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRecommendRulesResponse: %w", err)

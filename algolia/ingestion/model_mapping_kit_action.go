@@ -158,15 +158,9 @@ func (o MappingKitAction) MarshalJSON() ([]byte, error) {
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
-	if true {
-		toSerialize["fieldDirectives"] = o.FieldDirectives
-	}
+	toSerialize["enabled"] = o.Enabled
+	toSerialize["trigger"] = o.Trigger
+	toSerialize["fieldDirectives"] = o.FieldDirectives
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingKitAction: %w", err)

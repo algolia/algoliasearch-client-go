@@ -138,18 +138,10 @@ func (o *GetNoClickRateResponse) SetDates(v []DailyNoClickRates) *GetNoClickRate
 
 func (o GetNoClickRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["rate"] = o.Rate
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["noClickCount"] = o.NoClickCount
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["rate"] = o.Rate
+	toSerialize["count"] = o.Count
+	toSerialize["noClickCount"] = o.NoClickCount
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetNoClickRateResponse: %w", err)

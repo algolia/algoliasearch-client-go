@@ -95,12 +95,8 @@ func (o *SearchSynonymsResponse) SetAdditionalProperty(key string, value any) *S
 
 func (o SearchSynonymsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["nbHits"] = o.NbHits
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

@@ -53,9 +53,7 @@ func (o *RedirectRuleIndexData) SetRuleObjectID(v string) *RedirectRuleIndexData
 
 func (o RedirectRuleIndexData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["ruleObjectID"] = o.RuleObjectID
-	}
+	toSerialize["ruleObjectID"] = o.RuleObjectID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexData: %w", err)

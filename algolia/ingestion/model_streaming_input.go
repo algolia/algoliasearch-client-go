@@ -53,9 +53,7 @@ func (o *StreamingInput) SetMapping(v *MappingInput) *StreamingInput {
 
 func (o StreamingInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["mapping"] = o.Mapping
-	}
+	toSerialize["mapping"] = o.Mapping
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal StreamingInput: %w", err)

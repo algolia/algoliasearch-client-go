@@ -54,9 +54,7 @@ func (o *GetClickPositionsResponse) SetPositions(v []ClickPosition) *GetClickPos
 
 func (o GetClickPositionsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["positions"] = o.Positions
-	}
+	toSerialize["positions"] = o.Positions
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetClickPositionsResponse: %w", err)

@@ -53,9 +53,7 @@ func (o *SourceSearch) SetSourceIDs(v []string) *SourceSearch {
 
 func (o SourceSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceIDs"] = o.SourceIDs
-	}
+	toSerialize["sourceIDs"] = o.SourceIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceSearch: %w", err)

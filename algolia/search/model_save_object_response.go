@@ -128,12 +128,8 @@ func (o *SaveObjectResponse) SetObjectID(v string) *SaveObjectResponse {
 
 func (o SaveObjectResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["taskID"] = o.TaskID
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}

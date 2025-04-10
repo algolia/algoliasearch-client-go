@@ -127,12 +127,8 @@ func (o *TransformationTry) SetAuthentications(v []AuthenticationCreate) *Transf
 
 func (o TransformationTry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["code"] = o.Code
-	}
-	if true {
-		toSerialize["sampleRecord"] = o.SampleRecord
-	}
+	toSerialize["code"] = o.Code
+	toSerialize["sampleRecord"] = o.SampleRecord
 	if o.Authentications != nil {
 		toSerialize["authentications"] = o.Authentications
 	}

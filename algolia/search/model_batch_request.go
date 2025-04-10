@@ -81,12 +81,8 @@ func (o *BatchRequest) SetBody(v map[string]any) *BatchRequest {
 
 func (o BatchRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["body"] = o.Body
-	}
+	toSerialize["action"] = o.Action
+	toSerialize["body"] = o.Body
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchRequest: %w", err)

@@ -82,12 +82,8 @@ func (o *DailySearches) SetCount(v int32) *DailySearches {
 
 func (o DailySearches) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["date"] = o.Date
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
+	toSerialize["date"] = o.Date
+	toSerialize["count"] = o.Count
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearches: %w", err)

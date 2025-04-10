@@ -67,9 +67,7 @@ func (o *PushTaskRecords) SetAdditionalProperty(key string, value any) *PushTask
 
 func (o PushTaskRecords) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["objectID"] = o.ObjectID
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

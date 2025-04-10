@@ -82,12 +82,8 @@ func (o *MultipleBatchResponse) SetObjectIDs(v []string) *MultipleBatchResponse 
 
 func (o MultipleBatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskID"] = o.TaskID
-	}
-	if true {
-		toSerialize["objectIDs"] = o.ObjectIDs
-	}
+	toSerialize["taskID"] = o.TaskID
+	toSerialize["objectIDs"] = o.ObjectIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MultipleBatchResponse: %w", err)

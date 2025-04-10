@@ -80,12 +80,8 @@ func (o *UserHighlightResult) SetClusterName(v *HighlightResult) *UserHighlightR
 
 func (o UserHighlightResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["userID"] = o.UserID
-	}
-	if true {
-		toSerialize["clusterName"] = o.ClusterName
-	}
+	toSerialize["userID"] = o.UserID
+	toSerialize["clusterName"] = o.ClusterName
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserHighlightResult: %w", err)

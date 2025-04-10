@@ -138,18 +138,10 @@ func (o *Pagination) SetItemsPerPage(v int32) *Pagination {
 
 func (o Pagination) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["nbPages"] = o.NbPages
-	}
-	if true {
-		toSerialize["page"] = o.Page
-	}
-	if true {
-		toSerialize["nbItems"] = o.NbItems
-	}
-	if true {
-		toSerialize["itemsPerPage"] = o.ItemsPerPage
-	}
+	toSerialize["nbPages"] = o.NbPages
+	toSerialize["page"] = o.Page
+	toSerialize["nbItems"] = o.NbItems
+	toSerialize["itemsPerPage"] = o.ItemsPerPage
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Pagination: %w", err)

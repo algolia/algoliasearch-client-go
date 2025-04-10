@@ -54,9 +54,7 @@ func (o *ListApiKeysResponse) SetKeys(v []GetApiKeyResponse) *ListApiKeysRespons
 
 func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["keys"] = o.Keys
-	}
+	toSerialize["keys"] = o.Keys
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListApiKeysResponse: %w", err)

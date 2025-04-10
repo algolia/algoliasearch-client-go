@@ -107,15 +107,9 @@ func (o *ListEventsResponse) SetWindow(v *Window) *ListEventsResponse {
 
 func (o ListEventsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["events"] = o.Events
-	}
-	if true {
-		toSerialize["pagination"] = o.Pagination
-	}
-	if true {
-		toSerialize["window"] = o.Window
-	}
+	toSerialize["events"] = o.Events
+	toSerialize["pagination"] = o.Pagination
+	toSerialize["window"] = o.Window
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListEventsResponse: %w", err)

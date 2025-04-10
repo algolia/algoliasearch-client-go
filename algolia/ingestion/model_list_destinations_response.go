@@ -80,12 +80,8 @@ func (o *ListDestinationsResponse) SetPagination(v *Pagination) *ListDestination
 
 func (o ListDestinationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["destinations"] = o.Destinations
-	}
-	if true {
-		toSerialize["pagination"] = o.Pagination
-	}
+	toSerialize["destinations"] = o.Destinations
+	toSerialize["pagination"] = o.Pagination
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListDestinationsResponse: %w", err)

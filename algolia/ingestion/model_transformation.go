@@ -307,30 +307,20 @@ func (o *Transformation) SetUpdatedAt(v string) *Transformation {
 
 func (o Transformation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["transformationID"] = o.TransformationID
-	}
+	toSerialize["transformationID"] = o.TransformationID
 	if o.AuthenticationIDs != nil {
 		toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	}
-	if true {
-		toSerialize["code"] = o.Code
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["code"] = o.Code
+	toSerialize["name"] = o.Name
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Transformation: %w", err)

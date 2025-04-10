@@ -181,9 +181,7 @@ func (o *SearchDictionaryEntriesParams) SetLanguage(v SupportedLanguage) *Search
 
 func (o SearchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["query"] = o.Query
-	}
+	toSerialize["query"] = o.Query
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}

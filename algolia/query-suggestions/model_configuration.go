@@ -222,9 +222,7 @@ func (o *Configuration) SetAllowSpecialCharacters(v bool) *Configuration {
 
 func (o Configuration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["sourceIndices"] = o.SourceIndices
-	}
+	toSerialize["sourceIndices"] = o.SourceIndices
 	if o.Languages != nil {
 		toSerialize["languages"] = o.Languages
 	}

@@ -252,21 +252,11 @@ func (o *ClickedFilters) SetTimestamp(v int64) *ClickedFilters {
 
 func (o ClickedFilters) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["eventName"] = o.EventName
-	}
-	if true {
-		toSerialize["eventType"] = o.EventType
-	}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["filters"] = o.Filters
-	}
-	if true {
-		toSerialize["userToken"] = o.UserToken
-	}
+	toSerialize["eventName"] = o.EventName
+	toSerialize["eventType"] = o.EventType
+	toSerialize["index"] = o.Index
+	toSerialize["filters"] = o.Filters
+	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}

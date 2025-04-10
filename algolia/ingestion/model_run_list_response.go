@@ -107,15 +107,9 @@ func (o *RunListResponse) SetWindow(v *Window) *RunListResponse {
 
 func (o RunListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["runs"] = o.Runs
-	}
-	if true {
-		toSerialize["pagination"] = o.Pagination
-	}
-	if true {
-		toSerialize["window"] = o.Window
-	}
+	toSerialize["runs"] = o.Runs
+	toSerialize["pagination"] = o.Pagination
+	toSerialize["window"] = o.Window
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunListResponse: %w", err)

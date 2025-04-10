@@ -66,9 +66,7 @@ func (o *CompositionsSearchResponse) SetAdditionalProperty(key string, value any
 
 func (o CompositionsSearchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["run"] = o.Run
-	}
+	toSerialize["run"] = o.Run
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

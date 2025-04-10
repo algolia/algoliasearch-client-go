@@ -110,15 +110,9 @@ func (o *DailySearchesNoResults) SetWithFilterCount(v int32) *DailySearchesNoRes
 
 func (o DailySearchesNoResults) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["search"] = o.Search
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["withFilterCount"] = o.WithFilterCount
-	}
+	toSerialize["search"] = o.Search
+	toSerialize["count"] = o.Count
+	toSerialize["withFilterCount"] = o.WithFilterCount
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearchesNoResults: %w", err)

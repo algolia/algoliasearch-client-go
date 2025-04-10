@@ -3360,9 +3360,7 @@ func (o SearchForHits) MarshalJSON() ([]byte, error) {
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["indexName"] = o.IndexName
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}

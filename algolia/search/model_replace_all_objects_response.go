@@ -108,15 +108,9 @@ func (o *ReplaceAllObjectsResponse) SetMoveOperationResponse(v *UpdatedAtRespons
 
 func (o ReplaceAllObjectsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["copyOperationResponse"] = o.CopyOperationResponse
-	}
-	if true {
-		toSerialize["batchResponses"] = o.BatchResponses
-	}
-	if true {
-		toSerialize["moveOperationResponse"] = o.MoveOperationResponse
-	}
+	toSerialize["copyOperationResponse"] = o.CopyOperationResponse
+	toSerialize["batchResponses"] = o.BatchResponses
+	toSerialize["moveOperationResponse"] = o.MoveOperationResponse
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ReplaceAllObjectsResponse: %w", err)

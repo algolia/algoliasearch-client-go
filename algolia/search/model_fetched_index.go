@@ -406,33 +406,15 @@ func (o *FetchedIndex) SetVirtual(v bool) *FetchedIndex {
 
 func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["entries"] = o.Entries
-	}
-	if true {
-		toSerialize["dataSize"] = o.DataSize
-	}
-	if true {
-		toSerialize["fileSize"] = o.FileSize
-	}
-	if true {
-		toSerialize["lastBuildTimeS"] = o.LastBuildTimeS
-	}
-	if true {
-		toSerialize["numberOfPendingTasks"] = o.NumberOfPendingTasks
-	}
-	if true {
-		toSerialize["pendingTask"] = o.PendingTask
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
+	toSerialize["entries"] = o.Entries
+	toSerialize["dataSize"] = o.DataSize
+	toSerialize["fileSize"] = o.FileSize
+	toSerialize["lastBuildTimeS"] = o.LastBuildTimeS
+	toSerialize["numberOfPendingTasks"] = o.NumberOfPendingTasks
+	toSerialize["pendingTask"] = o.PendingTask
 	if o.Primary != nil {
 		toSerialize["primary"] = o.Primary
 	}

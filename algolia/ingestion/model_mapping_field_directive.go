@@ -82,12 +82,8 @@ func (o *MappingFieldDirective) SetValue(v map[string]any) *MappingFieldDirectiv
 
 func (o MappingFieldDirective) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["fieldKey"] = o.FieldKey
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
+	toSerialize["fieldKey"] = o.FieldKey
+	toSerialize["value"] = o.Value
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingFieldDirective: %w", err)

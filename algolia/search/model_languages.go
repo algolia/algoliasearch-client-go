@@ -115,15 +115,9 @@ func (o *Languages) SetCompounds(v *DictionaryLanguage) *Languages {
 
 func (o Languages) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["plurals"] = o.Plurals.Get()
-	}
-	if true {
-		toSerialize["stopwords"] = o.Stopwords.Get()
-	}
-	if true {
-		toSerialize["compounds"] = o.Compounds.Get()
-	}
+	toSerialize["plurals"] = o.Plurals.Get()
+	toSerialize["stopwords"] = o.Stopwords.Get()
+	toSerialize["compounds"] = o.Compounds.Get()
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Languages: %w", err)

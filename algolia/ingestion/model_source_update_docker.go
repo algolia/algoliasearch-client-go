@@ -54,9 +54,7 @@ func (o *SourceUpdateDocker) SetConfiguration(v map[string]any) *SourceUpdateDoc
 
 func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["configuration"] = o.Configuration
-	}
+	toSerialize["configuration"] = o.Configuration
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdateDocker: %w", err)

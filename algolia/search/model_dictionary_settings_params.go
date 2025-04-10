@@ -53,9 +53,7 @@ func (o *DictionarySettingsParams) SetDisableStandardEntries(v *StandardEntries)
 
 func (o DictionarySettingsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["disableStandardEntries"] = o.DisableStandardEntries
-	}
+	toSerialize["disableStandardEntries"] = o.DisableStandardEntries
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DictionarySettingsParams: %w", err)

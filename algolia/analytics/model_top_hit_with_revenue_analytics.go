@@ -372,42 +372,18 @@ func (o *TopHitWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode) *T
 
 func (o TopHitWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hit"] = o.Hit
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
-	}
-	if true {
-		toSerialize["conversionRate"] = o.ConversionRate.Get()
-	}
-	if true {
-		toSerialize["trackedHitCount"] = o.TrackedHitCount
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
-	if true {
-		toSerialize["addToCartRate"] = o.AddToCartRate.Get()
-	}
-	if true {
-		toSerialize["addToCartCount"] = o.AddToCartCount
-	}
-	if true {
-		toSerialize["purchaseRate"] = o.PurchaseRate.Get()
-	}
-	if true {
-		toSerialize["purchaseCount"] = o.PurchaseCount
-	}
-	if true {
-		toSerialize["currencies"] = o.Currencies
-	}
+	toSerialize["hit"] = o.Hit
+	toSerialize["count"] = o.Count
+	toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
+	toSerialize["conversionRate"] = o.ConversionRate.Get()
+	toSerialize["trackedHitCount"] = o.TrackedHitCount
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["conversionCount"] = o.ConversionCount
+	toSerialize["addToCartRate"] = o.AddToCartRate.Get()
+	toSerialize["addToCartCount"] = o.AddToCartCount
+	toSerialize["purchaseRate"] = o.PurchaseRate.Get()
+	toSerialize["purchaseCount"] = o.PurchaseCount
+	toSerialize["currencies"] = o.Currencies
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitWithRevenueAnalytics: %w", err)

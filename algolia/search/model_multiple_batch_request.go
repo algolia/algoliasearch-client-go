@@ -127,15 +127,11 @@ func (o *MultipleBatchRequest) SetIndexName(v string) *MultipleBatchRequest {
 
 func (o MultipleBatchRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["action"] = o.Action
-	}
+	toSerialize["action"] = o.Action
 	if o.Body != nil {
 		toSerialize["body"] = o.Body
 	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["indexName"] = o.IndexName
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MultipleBatchRequest: %w", err)

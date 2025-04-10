@@ -182,9 +182,7 @@ func (o *SearchUserIdsParams) SetHitsPerPage(v int32) *SearchUserIdsParams {
 
 func (o SearchUserIdsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["query"] = o.Query
-	}
+	toSerialize["query"] = o.Query
 	if o.ClusterName != nil {
 		toSerialize["clusterName"] = o.ClusterName
 	}

@@ -82,12 +82,8 @@ func (o *BatchAssignUserIdsParams) SetUsers(v []string) *BatchAssignUserIdsParam
 
 func (o BatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["cluster"] = o.Cluster
-	}
-	if true {
-		toSerialize["users"] = o.Users
-	}
+	toSerialize["cluster"] = o.Cluster
+	toSerialize["users"] = o.Users
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchAssignUserIdsParams: %w", err)

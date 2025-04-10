@@ -54,9 +54,7 @@ func (o *InsightsEvents) SetEvents(v []EventsItems) *InsightsEvents {
 
 func (o InsightsEvents) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["events"] = o.Events
-	}
+	toSerialize["events"] = o.Events
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InsightsEvents: %w", err)

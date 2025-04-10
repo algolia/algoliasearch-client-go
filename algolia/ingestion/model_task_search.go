@@ -53,9 +53,7 @@ func (o *TaskSearch) SetTaskIDs(v []string) *TaskSearch {
 
 func (o TaskSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["taskIDs"] = o.TaskIDs
-	}
+	toSerialize["taskIDs"] = o.TaskIDs
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskSearch: %w", err)

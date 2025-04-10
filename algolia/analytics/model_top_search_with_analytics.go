@@ -314,36 +314,16 @@ func (o *TopSearchWithAnalytics) SetNbHits(v int32) *TopSearchWithAnalytics {
 
 func (o TopSearchWithAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["search"] = o.Search
-	}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
-	}
-	if true {
-		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
-	}
-	if true {
-		toSerialize["clickPositions"] = o.ClickPositions
-	}
-	if true {
-		toSerialize["conversionRate"] = o.ConversionRate.Get()
-	}
-	if true {
-		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
-	}
-	if true {
-		toSerialize["clickCount"] = o.ClickCount
-	}
-	if true {
-		toSerialize["conversionCount"] = o.ConversionCount
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
+	toSerialize["search"] = o.Search
+	toSerialize["count"] = o.Count
+	toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
+	toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
+	toSerialize["clickPositions"] = o.ClickPositions
+	toSerialize["conversionRate"] = o.ConversionRate.Get()
+	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
+	toSerialize["clickCount"] = o.ClickCount
+	toSerialize["conversionCount"] = o.ConversionCount
+	toSerialize["nbHits"] = o.NbHits
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearchWithAnalytics: %w", err)

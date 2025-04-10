@@ -223,24 +223,16 @@ func (o *BoughtTogetherQuery) SetObjectID(v string) *BoughtTogetherQuery {
 
 func (o BoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if true {
-		toSerialize["threshold"] = o.Threshold
-	}
+	toSerialize["indexName"] = o.IndexName
+	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
-	if true {
-		toSerialize["model"] = o.Model
-	}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
+	toSerialize["model"] = o.Model
+	toSerialize["objectID"] = o.ObjectID
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BoughtTogetherQuery: %w", err)

@@ -332,12 +332,8 @@ func (o *SynonymHit) SetReplacements(v []string) *SynonymHit {
 
 func (o SynonymHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["objectID"] = o.ObjectID
+	toSerialize["type"] = o.Type
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}

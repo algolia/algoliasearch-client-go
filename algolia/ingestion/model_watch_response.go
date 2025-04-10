@@ -182,9 +182,7 @@ func (o *WatchResponse) SetMessage(v string) *WatchResponse {
 
 func (o WatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["runID"] = o.RunID
-	}
+	toSerialize["runID"] = o.RunID
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}

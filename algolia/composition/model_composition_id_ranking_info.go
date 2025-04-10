@@ -80,12 +80,8 @@ func (o *CompositionIdRankingInfo) SetInjectedItemKey(v string) *CompositionIdRa
 
 func (o CompositionIdRankingInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["injectedItemKey"] = o.InjectedItemKey
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["injectedItemKey"] = o.InjectedItemKey
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionIdRankingInfo: %w", err)

@@ -80,12 +80,8 @@ func (o *PushTaskPayload) SetRecords(v []PushTaskRecords) *PushTaskPayload {
 
 func (o PushTaskPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["records"] = o.Records
-	}
+	toSerialize["action"] = o.Action
+	toSerialize["records"] = o.Records
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PushTaskPayload: %w", err)

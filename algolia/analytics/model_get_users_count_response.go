@@ -82,12 +82,8 @@ func (o *GetUsersCountResponse) SetDates(v []DailyUsers) *GetUsersCountResponse 
 
 func (o GetUsersCountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["count"] = o.Count
-	}
-	if true {
-		toSerialize["dates"] = o.Dates
-	}
+	toSerialize["count"] = o.Count
+	toSerialize["dates"] = o.Dates
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetUsersCountResponse: %w", err)

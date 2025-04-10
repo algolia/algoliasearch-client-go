@@ -53,9 +53,7 @@ func (o *OnDemandTriggerInput) SetType(v OnDemandTriggerType) *OnDemandTriggerIn
 
 func (o OnDemandTriggerInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal OnDemandTriggerInput: %w", err)

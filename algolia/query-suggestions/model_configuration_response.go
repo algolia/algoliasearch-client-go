@@ -222,27 +222,15 @@ func (o *ConfigurationResponse) SetAllowSpecialCharacters(v bool) *Configuration
 
 func (o ConfigurationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["appID"] = o.AppID
-	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
-	if true {
-		toSerialize["sourceIndices"] = o.SourceIndices
-	}
-	if true {
-		toSerialize["languages"] = o.Languages
-	}
+	toSerialize["appID"] = o.AppID
+	toSerialize["indexName"] = o.IndexName
+	toSerialize["sourceIndices"] = o.SourceIndices
+	toSerialize["languages"] = o.Languages
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
-	if true {
-		toSerialize["enablePersonalization"] = o.EnablePersonalization
-	}
-	if true {
-		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
-	}
+	toSerialize["enablePersonalization"] = o.EnablePersonalization
+	toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConfigurationResponse: %w", err)

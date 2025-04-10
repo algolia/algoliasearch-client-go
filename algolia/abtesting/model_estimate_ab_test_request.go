@@ -81,12 +81,8 @@ func (o *EstimateABTestRequest) SetVariants(v []AddABTestsVariant) *EstimateABTe
 
 func (o EstimateABTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["configuration"] = o.Configuration
-	}
-	if true {
-		toSerialize["variants"] = o.Variants
-	}
+	toSerialize["configuration"] = o.Configuration
+	toSerialize["variants"] = o.Variants
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateABTestRequest: %w", err)

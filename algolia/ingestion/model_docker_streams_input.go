@@ -53,9 +53,7 @@ func (o *DockerStreamsInput) SetStreams(v []DockerStreams) *DockerStreamsInput {
 
 func (o DockerStreamsInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["streams"] = o.Streams
-	}
+	toSerialize["streams"] = o.Streams
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DockerStreamsInput: %w", err)

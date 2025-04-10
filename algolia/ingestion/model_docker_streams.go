@@ -127,15 +127,11 @@ func (o *DockerStreams) SetSyncMode(v DockerStreamsSyncMode) *DockerStreams {
 
 func (o DockerStreams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 	if o.Properties != nil {
 		toSerialize["properties"] = o.Properties
 	}
-	if true {
-		toSerialize["syncMode"] = o.SyncMode
-	}
+	toSerialize["syncMode"] = o.SyncMode
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DockerStreams: %w", err)

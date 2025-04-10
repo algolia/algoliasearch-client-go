@@ -131,12 +131,8 @@ func (o GetObjectsRequest) MarshalJSON() ([]byte, error) {
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
-	if true {
-		toSerialize["objectID"] = o.ObjectID
-	}
-	if true {
-		toSerialize["indexName"] = o.IndexName
-	}
+	toSerialize["objectID"] = o.ObjectID
+	toSerialize["indexName"] = o.IndexName
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetObjectsRequest: %w", err)

@@ -54,9 +54,7 @@ func (o *GetTopFilterAttributesResponse) SetAttributes(v []GetTopFilterAttribute
 
 func (o GetTopFilterAttributesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["attributes"] = o.Attributes
-	}
+	toSerialize["attributes"] = o.Attributes
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFilterAttributesResponse: %w", err)

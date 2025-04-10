@@ -53,9 +53,7 @@ func (o *GetRecommendationsResponse) SetResults(v []RecommendationsResults) *Get
 
 func (o GetRecommendationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["results"] = o.Results
-	}
+	toSerialize["results"] = o.Results
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetRecommendationsResponse: %w", err)

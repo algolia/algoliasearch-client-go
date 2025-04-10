@@ -80,12 +80,8 @@ func (o *MappingInput) SetActions(v []MappingKitAction) *MappingInput {
 
 func (o MappingInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["format"] = o.Format
-	}
-	if true {
-		toSerialize["actions"] = o.Actions
-	}
+	toSerialize["format"] = o.Format
+	toSerialize["actions"] = o.Actions
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingInput: %w", err)

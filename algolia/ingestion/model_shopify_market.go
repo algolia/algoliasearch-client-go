@@ -107,15 +107,9 @@ func (o *ShopifyMarket) SetLocales(v []string) *ShopifyMarket {
 
 func (o ShopifyMarket) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["countries"] = o.Countries
-	}
-	if true {
-		toSerialize["currencies"] = o.Currencies
-	}
-	if true {
-		toSerialize["locales"] = o.Locales
-	}
+	toSerialize["countries"] = o.Countries
+	toSerialize["currencies"] = o.Currencies
+	toSerialize["locales"] = o.Locales
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ShopifyMarket: %w", err)

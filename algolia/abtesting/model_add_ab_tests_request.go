@@ -110,15 +110,9 @@ func (o *AddABTestsRequest) SetEndAt(v string) *AddABTestsRequest {
 
 func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["variants"] = o.Variants
-	}
-	if true {
-		toSerialize["endAt"] = o.EndAt
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["variants"] = o.Variants
+	toSerialize["endAt"] = o.EndAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddABTestsRequest: %w", err)

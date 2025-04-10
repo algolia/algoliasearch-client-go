@@ -144,9 +144,7 @@ func (o EstimateConfiguration) MarshalJSON() ([]byte, error) {
 	if o.EmptySearch != nil {
 		toSerialize["emptySearch"] = o.EmptySearch
 	}
-	if true {
-		toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
-	}
+	toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateConfiguration: %w", err)

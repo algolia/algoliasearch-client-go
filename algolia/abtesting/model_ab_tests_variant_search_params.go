@@ -155,18 +155,12 @@ func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]any)
 
 func (o AbTestsVariantSearchParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["trafficPercentage"] = o.TrafficPercentage
-	}
+	toSerialize["index"] = o.Index
+	toSerialize["trafficPercentage"] = o.TrafficPercentage
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["customSearchParameters"] = o.CustomSearchParameters
-	}
+	toSerialize["customSearchParameters"] = o.CustomSearchParameters
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AbTestsVariantSearchParams: %w", err)

@@ -54,9 +54,7 @@ func (o *DeleteApiKeyResponse) SetDeletedAt(v string) *DeleteApiKeyResponse {
 
 func (o DeleteApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["deletedAt"] = o.DeletedAt
-	}
+	toSerialize["deletedAt"] = o.DeletedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteApiKeyResponse: %w", err)

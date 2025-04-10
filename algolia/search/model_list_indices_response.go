@@ -100,9 +100,7 @@ func (o *ListIndicesResponse) SetNbPages(v int32) *ListIndicesResponse {
 
 func (o ListIndicesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["items"] = o.Items
-	}
+	toSerialize["items"] = o.Items
 	if o.NbPages != nil {
 		toSerialize["nbPages"] = o.NbPages
 	}

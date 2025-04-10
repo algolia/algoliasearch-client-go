@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Event An event describe a step of the task execution flow..
@@ -11,9 +13,9 @@ type Event struct {
 	// Universally unique identifier (UUID) of an event.
 	EventID string `json:"eventID"`
 	// Universally unique identifier (UUID) of a task run.
-	RunID  string      `json:"runID"`
-	Status EventStatus `json:"status"`
-	Type   EventType   `json:"type"`
+	RunID  string                      `json:"runID"`
+	Status utils.Nullable[EventStatus] `json:"status"`
+	Type   EventType                   `json:"type"`
 	// The extracted record batch size.
 	BatchSize int32          `json:"batchSize"`
 	Data      map[string]any `json:"data,omitempty"`
@@ -33,7 +35,7 @@ func WithEventData(val map[string]any) EventOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewEvent(eventID string, runID string, status EventStatus, type_ EventType, batchSize int32, publishedAt string, opts ...EventOption) *Event {
+func NewEvent(eventID string, runID string, status utils.Nullable[EventStatus], type_ EventType, batchSize int32, publishedAt string, opts ...EventOption) *Event {
 	this := &Event{}
 	this.EventID = eventID
 	this.RunID = runID
@@ -103,27 +105,29 @@ func (o *Event) SetRunID(v string) *Event {
 }
 
 // GetStatus returns the Status field value.
+// If the value is explicit nil, the zero value for EventStatus will be returned.
 func (o *Event) GetStatus() EventStatus {
-	if o == nil {
+	if o == nil || o.Status.Get() == nil {
 		var ret EventStatus
 		return ret
 	}
 
-	return o.Status
+	return *o.Status.Get()
 }
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Event) GetStatusOk() (*EventStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Status.Get(), o.Status.IsSet()
 }
 
 // SetStatus sets field value.
 func (o *Event) SetStatus(v EventStatus) *Event {
-	o.Status = v
+	o.Status.Set(&v)
 	return o
 }
 
@@ -177,9 +181,9 @@ func (o *Event) SetBatchSize(v int32) *Event {
 	return o
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
+// GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Event) GetData() map[string]any {
-	if o == nil || o.Data == nil {
+	if o == nil {
 		var ret map[string]any
 		return ret
 	}
@@ -188,6 +192,7 @@ func (o *Event) GetData() map[string]any {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *Event) GetDataOk() (map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
@@ -237,27 +242,15 @@ func (o *Event) SetPublishedAt(v string) *Event {
 
 func (o Event) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["eventID"] = o.EventID
-	}
-	if true {
-		toSerialize["runID"] = o.RunID
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["batchSize"] = o.BatchSize
-	}
+	toSerialize["eventID"] = o.EventID
+	toSerialize["runID"] = o.RunID
+	toSerialize["status"] = o.Status.Get()
+	toSerialize["type"] = o.Type
+	toSerialize["batchSize"] = o.BatchSize
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
-	if true {
-		toSerialize["publishedAt"] = o.PublishedAt
-	}
+	toSerialize["publishedAt"] = o.PublishedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Event: %w", err)

@@ -291,12 +291,8 @@ func (o *SourceBigQuery) SetUniqueIDColumn(v string) *SourceBigQuery {
 
 func (o SourceBigQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["projectID"] = o.ProjectID
-	}
-	if true {
-		toSerialize["datasetID"] = o.DatasetID
-	}
+	toSerialize["projectID"] = o.ProjectID
+	toSerialize["datasetID"] = o.DatasetID
 	if o.DataType != nil {
 		toSerialize["dataType"] = o.DataType
 	}

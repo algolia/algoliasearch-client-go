@@ -138,18 +138,10 @@ func (o *SearchDictionaryEntriesResponse) SetNbPages(v int32) *SearchDictionaryE
 
 func (o SearchDictionaryEntriesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["hits"] = o.Hits
-	}
-	if true {
-		toSerialize["page"] = o.Page
-	}
-	if true {
-		toSerialize["nbHits"] = o.NbHits
-	}
-	if true {
-		toSerialize["nbPages"] = o.NbPages
-	}
+	toSerialize["hits"] = o.Hits
+	toSerialize["page"] = o.Page
+	toSerialize["nbHits"] = o.NbHits
+	toSerialize["nbPages"] = o.NbPages
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchDictionaryEntriesResponse: %w", err)

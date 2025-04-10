@@ -110,15 +110,9 @@ func (o *PersonalizationStrategyParams) SetPersonalizationImpact(v int32) *Perso
 
 func (o PersonalizationStrategyParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["eventsScoring"] = o.EventsScoring
-	}
-	if true {
-		toSerialize["facetsScoring"] = o.FacetsScoring
-	}
-	if true {
-		toSerialize["personalizationImpact"] = o.PersonalizationImpact
-	}
+	toSerialize["eventsScoring"] = o.EventsScoring
+	toSerialize["facetsScoring"] = o.FacetsScoring
+	toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PersonalizationStrategyParams: %w", err)

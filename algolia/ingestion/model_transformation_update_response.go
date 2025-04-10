@@ -82,12 +82,8 @@ func (o *TransformationUpdateResponse) SetUpdatedAt(v string) *TransformationUpd
 
 func (o TransformationUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["transformationID"] = o.TransformationID
-	}
-	if true {
-		toSerialize["updatedAt"] = o.UpdatedAt
-	}
+	toSerialize["transformationID"] = o.TransformationID
+	toSerialize["updatedAt"] = o.UpdatedAt
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationUpdateResponse: %w", err)

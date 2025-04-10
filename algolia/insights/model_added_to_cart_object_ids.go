@@ -401,24 +401,12 @@ func (o *AddedToCartObjectIDs) SetValue(v *Value) *AddedToCartObjectIDs {
 
 func (o AddedToCartObjectIDs) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["eventName"] = o.EventName
-	}
-	if true {
-		toSerialize["eventType"] = o.EventType
-	}
-	if true {
-		toSerialize["eventSubtype"] = o.EventSubtype
-	}
-	if true {
-		toSerialize["index"] = o.Index
-	}
-	if true {
-		toSerialize["objectIDs"] = o.ObjectIDs
-	}
-	if true {
-		toSerialize["userToken"] = o.UserToken
-	}
+	toSerialize["eventName"] = o.EventName
+	toSerialize["eventType"] = o.EventType
+	toSerialize["eventSubtype"] = o.EventSubtype
+	toSerialize["index"] = o.Index
+	toSerialize["objectIDs"] = o.ObjectIDs
+	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}

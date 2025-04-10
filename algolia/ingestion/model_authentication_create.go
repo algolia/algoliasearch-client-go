@@ -166,18 +166,12 @@ func (o *AuthenticationCreate) SetInput(v *AuthInput) *AuthenticationCreate {
 
 func (o AuthenticationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
 	if o.Platform.IsSet() {
 		toSerialize["platform"] = o.Platform.Get()
 	}
-	if true {
-		toSerialize["input"] = o.Input
-	}
+	toSerialize["input"] = o.Input
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationCreate: %w", err)

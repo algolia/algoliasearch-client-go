@@ -169,12 +169,8 @@ func (o *TransformationCreate) SetAuthenticationIDs(v []string) *TransformationC
 
 func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if true {
-		toSerialize["code"] = o.Code
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["code"] = o.Code
+	toSerialize["name"] = o.Name
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
