@@ -11,14 +11,16 @@ type RecordType string
 
 // List of RecordType.
 const (
-	RECORD_TYPE_PRODUCT RecordType = "product"
-	RECORD_TYPE_VARIANT RecordType = "variant"
+	RECORD_TYPE_PRODUCT    RecordType = "product"
+	RECORD_TYPE_VARIANT    RecordType = "variant"
+	RECORD_TYPE_COLLECTION RecordType = "collection"
 )
 
 // All allowed values of RecordType enum.
 var AllowedRecordTypeEnumValues = []RecordType{
 	"product",
 	"variant",
+	"collection",
 }
 
 func (v *RecordType) UnmarshalJSON(src []byte) error {
