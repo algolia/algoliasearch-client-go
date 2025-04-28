@@ -6,52 +6,159 @@ import (
 	"fmt"
 )
 
-// DestinationInput - struct for DestinationInput.
+// DestinationInput struct for DestinationInput.
 type DestinationInput struct {
-	DestinationIndexName *DestinationIndexName
+	// Algolia index name (case-sensitive).
+	IndexName  string      `json:"indexName"`
+	RecordType *RecordType `json:"recordType,omitempty"`
+	// Attributes from your source to exclude from Algolia records.  Not all your data attributes will be useful for searching. Keeping your Algolia records small increases indexing and search performance.  - Exclude nested attributes with `.` notation. For example, `foo.bar` indexes the `foo` attribute and all its children **except** the `bar` attribute. - Exclude attributes from arrays with `[i]`, where `i` is the index of the array element.   For example, `foo.[0].bar` only excludes the `bar` attribute from the first element of the `foo` array, but indexes the complete `foo` attribute for all other elements.   Use `*` as wildcard: `foo.[*].bar` excludes `bar` from all elements of the `foo` array.
+	AttributesToExclude []string `json:"attributesToExclude,omitempty"`
 }
 
-// DestinationIndexNameAsDestinationInput is a convenience function that returns DestinationIndexName wrapped in DestinationInput.
-func DestinationIndexNameAsDestinationInput(v *DestinationIndexName) *DestinationInput {
-	return &DestinationInput{
-		DestinationIndexName: v,
+type DestinationInputOption func(f *DestinationInput)
+
+func WithDestinationInputRecordType(val RecordType) DestinationInputOption {
+	return func(f *DestinationInput) {
+		f.RecordType = &val
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
-func (dst *DestinationInput) UnmarshalJSON(data []byte) error {
-	var err error
-	// try to unmarshal data into DestinationIndexName
-	err = newStrictDecoder(data).Decode(&dst.DestinationIndexName)
-	if err == nil && validateStruct(dst.DestinationIndexName) == nil {
-		return nil // found the correct type
-	} else {
-		dst.DestinationIndexName = nil
+func WithDestinationInputAttributesToExclude(val []string) DestinationInputOption {
+	return func(f *DestinationInput) {
+		f.AttributesToExclude = val
 	}
-
-	return fmt.Errorf("Data failed to match schemas in oneOf(DestinationInput)")
 }
 
-// Marshal data from the first non-nil pointers in the struct to JSON.
-func (src DestinationInput) MarshalJSON() ([]byte, error) {
-	if src.DestinationIndexName != nil {
-		serialized, err := json.Marshal(&src.DestinationIndexName)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of DestinationIndexName of DestinationInput: %w", err)
-		}
-
-		return serialized, nil
+// NewDestinationInput instantiates a new DestinationInput object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed.
+func NewDestinationInput(indexName string, opts ...DestinationInputOption) *DestinationInput {
+	this := &DestinationInput{}
+	this.IndexName = indexName
+	for _, opt := range opts {
+		opt(this)
 	}
-
-	return nil, nil // no data in oneOf schemas
+	return this
 }
 
-// Get the actual instance.
-func (obj DestinationInput) GetActualInstance() any {
-	if obj.DestinationIndexName != nil {
-		return *obj.DestinationIndexName
+// NewEmptyDestinationInput return a pointer to an empty DestinationInput object.
+func NewEmptyDestinationInput() *DestinationInput {
+	return &DestinationInput{}
+}
+
+// GetIndexName returns the IndexName field value.
+func (o *DestinationInput) GetIndexName() string {
+	if o == nil {
+		var ret string
+		return ret
 	}
 
-	// all schemas are nil
-	return nil
+	return o.IndexName
+}
+
+// GetIndexNameOk returns a tuple with the IndexName field value
+// and a boolean to check if the value has been set.
+func (o *DestinationInput) GetIndexNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IndexName, true
+}
+
+// SetIndexName sets field value.
+func (o *DestinationInput) SetIndexName(v string) *DestinationInput {
+	o.IndexName = v
+	return o
+}
+
+// GetRecordType returns the RecordType field value if set, zero value otherwise.
+func (o *DestinationInput) GetRecordType() RecordType {
+	if o == nil || o.RecordType == nil {
+		var ret RecordType
+		return ret
+	}
+	return *o.RecordType
+}
+
+// GetRecordTypeOk returns a tuple with the RecordType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DestinationInput) GetRecordTypeOk() (*RecordType, bool) {
+	if o == nil || o.RecordType == nil {
+		return nil, false
+	}
+	return o.RecordType, true
+}
+
+// HasRecordType returns a boolean if a field has been set.
+func (o *DestinationInput) HasRecordType() bool {
+	if o != nil && o.RecordType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecordType gets a reference to the given RecordType and assigns it to the RecordType field.
+func (o *DestinationInput) SetRecordType(v RecordType) *DestinationInput {
+	o.RecordType = &v
+	return o
+}
+
+// GetAttributesToExclude returns the AttributesToExclude field value if set, zero value otherwise.
+func (o *DestinationInput) GetAttributesToExclude() []string {
+	if o == nil || o.AttributesToExclude == nil {
+		var ret []string
+		return ret
+	}
+	return o.AttributesToExclude
+}
+
+// GetAttributesToExcludeOk returns a tuple with the AttributesToExclude field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DestinationInput) GetAttributesToExcludeOk() ([]string, bool) {
+	if o == nil || o.AttributesToExclude == nil {
+		return nil, false
+	}
+	return o.AttributesToExclude, true
+}
+
+// HasAttributesToExclude returns a boolean if a field has been set.
+func (o *DestinationInput) HasAttributesToExclude() bool {
+	if o != nil && o.AttributesToExclude != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributesToExclude gets a reference to the given []string and assigns it to the AttributesToExclude field.
+func (o *DestinationInput) SetAttributesToExclude(v []string) *DestinationInput {
+	o.AttributesToExclude = v
+	return o
+}
+
+func (o DestinationInput) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]any{}
+	toSerialize["indexName"] = o.IndexName
+	if o.RecordType != nil {
+		toSerialize["recordType"] = o.RecordType
+	}
+	if o.AttributesToExclude != nil {
+		toSerialize["attributesToExclude"] = o.AttributesToExclude
+	}
+	serialized, err := json.Marshal(toSerialize)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal DestinationInput: %w", err)
+	}
+
+	return serialized, nil
+}
+
+func (o DestinationInput) String() string {
+	out := ""
+	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
+	out += fmt.Sprintf("  recordType=%v\n", o.RecordType)
+	out += fmt.Sprintf("  attributesToExclude=%v\n", o.AttributesToExclude)
+	return fmt.Sprintf("DestinationInput {\n%s}", out)
 }
