@@ -40,16 +40,24 @@ func Display(itf interface{}) {
 	}
 	start := time.Now()
 	var msg string
+	argName := "msg"
 	switch v := itf.(type) {
 	case *http.Request:
 		msg = debugRequest(v)
+		argName = "request"
 	case *http.Response:
 		msg = debugResponse(v)
+		argName = "response"
 	default:
 		msg = fmt.Sprintf("do not know how to display %#v", v)
 	}
+
+	if logger != nil {
+		logger.Debug("> ALGOLIA DEBUG", argName, msg, "debug time", time.Since(start))
+		return
+	}
 	Println(msg)
-	Print(fmt.Sprintf("took %s\n", time.Since(start)))
+	fmt.Printf("took %s\n", time.Since(start))
 }
 
 func Println(a ...interface{}) {
@@ -61,16 +69,5 @@ func Printf(format string, a ...interface{}) {
 		return
 	}
 	msg := fmt.Sprintf(format, a...)
-	Print(fmt.Sprintf("> ALGOLIA DEBUG: %s", msg))
-}
-
-func Print(msg string) {
-	if !debug {
-		return
-	}
-	if logger != nil {
-		logger.Debug(msg)
-	} else {
-		fmt.Printf(msg)
-	}
+	fmt.Printf("> ALGOLIA DEBUG: %s", msg)
 }
