@@ -2,17 +2,25 @@ package debug
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"time"
 )
 
 var debug bool
+var logger *slog.Logger
 
 // Enable enables debug logging. After this call, all Algolia HTTP requests and
 // responses will be displayed. A minor overhead is expected when debug logging
 // is enabled.
 func Enable() {
 	debug = true
+}
+
+// EnableWithSlog enables debug logging with a custom slog.Logger.
+func EnableWithSlog(l *slog.Logger) {
+	debug = true
+	logger = l
 }
 
 // Disable disables debug logging. After this call, Algolia requests and
@@ -41,7 +49,7 @@ func Display(itf interface{}) {
 		msg = fmt.Sprintf("do not know how to display %#v", v)
 	}
 	Println(msg)
-	fmt.Printf("took %s\n", time.Since(start))
+	Print(fmt.Sprintf("took %s\n", time.Since(start)))
 }
 
 func Println(a ...interface{}) {
@@ -53,5 +61,16 @@ func Printf(format string, a ...interface{}) {
 		return
 	}
 	msg := fmt.Sprintf(format, a...)
-	fmt.Printf("> ALGOLIA DEBUG: %s", msg)
+	Print(fmt.Sprintf("> ALGOLIA DEBUG: %s", msg))
+}
+
+func Print(msg string) {
+	if !debug {
+		return
+	}
+	if logger != nil {
+		logger.Debug(msg)
+	} else {
+		fmt.Printf(msg)
+	}
 }
