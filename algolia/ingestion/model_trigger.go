@@ -46,29 +46,29 @@ func StreamingTriggerAsTrigger(v *StreamingTrigger) *Trigger {
 func (dst *Trigger) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into OnDemandTrigger
-	err = newStrictDecoder(data).Decode(&dst.OnDemandTrigger)
-	if err == nil && validateStruct(dst.OnDemandTrigger) == nil {
+	err = json.Unmarshal(data, &dst.OnDemandTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.OnDemandTrigger = nil
 	}
 	// try to unmarshal data into ScheduleTrigger
-	err = newStrictDecoder(data).Decode(&dst.ScheduleTrigger)
-	if err == nil && validateStruct(dst.ScheduleTrigger) == nil {
+	err = json.Unmarshal(data, &dst.ScheduleTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ScheduleTrigger = nil
 	}
 	// try to unmarshal data into SubscriptionTrigger
-	err = newStrictDecoder(data).Decode(&dst.SubscriptionTrigger)
-	if err == nil && validateStruct(dst.SubscriptionTrigger) == nil {
+	err = json.Unmarshal(data, &dst.SubscriptionTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SubscriptionTrigger = nil
 	}
 	// try to unmarshal data into StreamingTrigger
-	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
-	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+	err = json.Unmarshal(data, &dst.StreamingTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.StreamingTrigger = nil

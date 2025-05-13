@@ -38,22 +38,22 @@ func TopSearchesResponseWithRevenueAnalyticsAsGetTopSearchesResponse(v *TopSearc
 func (dst *GetTopSearchesResponse) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into TopSearchesResponse
-	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponse)
-	if err == nil && validateStruct(dst.TopSearchesResponse) == nil {
+	err = json.Unmarshal(data, &dst.TopSearchesResponse)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponse = nil
 	}
 	// try to unmarshal data into TopSearchesResponseWithAnalytics
-	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponseWithAnalytics)
-	if err == nil && validateStruct(dst.TopSearchesResponseWithAnalytics) == nil {
+	err = json.Unmarshal(data, &dst.TopSearchesResponseWithAnalytics)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponseWithAnalytics = nil
 	}
 	// try to unmarshal data into TopSearchesResponseWithRevenueAnalytics
-	err = newStrictDecoder(data).Decode(&dst.TopSearchesResponseWithRevenueAnalytics)
-	if err == nil && validateStruct(dst.TopSearchesResponseWithRevenueAnalytics) == nil {
+	err = json.Unmarshal(data, &dst.TopSearchesResponseWithRevenueAnalytics)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TopSearchesResponseWithRevenueAnalytics = nil

@@ -16,8 +16,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-playground/validator/v10"
-
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
@@ -252,24 +250,6 @@ func (c *APIClient) decodeError(res *http.Response, body []byte) error {
 // Prevent trying to import "fmt".
 func reportError(format string, a ...any) error {
 	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding.
-func newStrictDecoder(data []byte) *json.Decoder { 
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
-}
-
-// A wrapper for validating a struct, returns nil if value is not a struct.
-func validateStruct(v any) error { 
-	err := validator.New().Struct(v)
-	validationErrors, ok := err.(validator.ValidationErrors)
-	if ok && len(validationErrors) > 0 {
-		return validationErrors
-	}
-
-	return nil
 }
 
 // Set request body from an any.

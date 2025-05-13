@@ -30,15 +30,15 @@ func BuiltInOperationAsAttributeToUpdate(v *BuiltInOperation) *AttributeToUpdate
 func (dst *AttributeToUpdate) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}
 	// try to unmarshal data into BuiltInOperation
-	err = newStrictDecoder(data).Decode(&dst.BuiltInOperation)
-	if err == nil && validateStruct(dst.BuiltInOperation) == nil {
+	err = json.Unmarshal(data, &dst.BuiltInOperation)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.BuiltInOperation = nil

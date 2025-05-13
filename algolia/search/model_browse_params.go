@@ -33,19 +33,19 @@ func (dst *BrowseParams) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "params") {
 		// try to unmarshal data into SearchParamsString
-		err = newStrictDecoder(data).Decode(&dst.SearchParamsString)
-		if err == nil && validateStruct(dst.SearchParamsString) == nil {
+		err = json.Unmarshal(data, &dst.SearchParamsString)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SearchParamsString = nil
 		}
 	}
 	// try to unmarshal data into BrowseParamsObject
-	err = newStrictDecoder(data).Decode(&dst.BrowseParamsObject)
-	if err == nil && validateStruct(dst.BrowseParamsObject) == nil {
+	err = json.Unmarshal(data, &dst.BrowseParamsObject)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.BrowseParamsObject = nil

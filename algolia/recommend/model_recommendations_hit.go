@@ -33,11 +33,11 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "facetName") && utils.HasKey(jsonDict, "facetValue") {
 		// try to unmarshal data into TrendingFacetHit
-		err = newStrictDecoder(data).Decode(&dst.TrendingFacetHit)
-		if err == nil && validateStruct(dst.TrendingFacetHit) == nil {
+		err = json.Unmarshal(data, &dst.TrendingFacetHit)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.TrendingFacetHit = nil
@@ -45,8 +45,8 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "objectID") {
 		// try to unmarshal data into RecommendHit
-		err = newStrictDecoder(data).Decode(&dst.RecommendHit)
-		if err == nil && validateStruct(dst.RecommendHit) == nil {
+		err = json.Unmarshal(data, &dst.RecommendHit)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.RecommendHit = nil

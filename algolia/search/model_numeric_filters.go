@@ -30,15 +30,15 @@ func StringAsNumericFilters(v string) *NumericFilters {
 func (dst *NumericFilters) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfNumericFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfNumericFilters)
-	if err == nil && validateStruct(dst.ArrayOfNumericFilters) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfNumericFilters)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfNumericFilters = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

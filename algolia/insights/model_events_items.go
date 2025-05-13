@@ -113,11 +113,11 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into AddedToCartObjectIDsAfterSearch
-		err = newStrictDecoder(data).Decode(&dst.AddedToCartObjectIDsAfterSearch)
-		if err == nil && validateStruct(dst.AddedToCartObjectIDsAfterSearch) == nil {
+		err = json.Unmarshal(data, &dst.AddedToCartObjectIDsAfterSearch)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AddedToCartObjectIDsAfterSearch = nil
@@ -125,8 +125,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") && utils.HasKey(jsonDict, "objectData") {
 		// try to unmarshal data into PurchasedObjectIDsAfterSearch
-		err = newStrictDecoder(data).Decode(&dst.PurchasedObjectIDsAfterSearch)
-		if err == nil && validateStruct(dst.PurchasedObjectIDsAfterSearch) == nil {
+		err = json.Unmarshal(data, &dst.PurchasedObjectIDsAfterSearch)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.PurchasedObjectIDsAfterSearch = nil
@@ -134,8 +134,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "positions") && utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ClickedObjectIDsAfterSearch
-		err = newStrictDecoder(data).Decode(&dst.ClickedObjectIDsAfterSearch)
-		if err == nil && validateStruct(dst.ClickedObjectIDsAfterSearch) == nil {
+		err = json.Unmarshal(data, &dst.ClickedObjectIDsAfterSearch)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ClickedObjectIDsAfterSearch = nil
@@ -143,8 +143,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PurchasedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.PurchasedObjectIDs)
-		if err == nil && validateStruct(dst.PurchasedObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.PurchasedObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.PurchasedObjectIDs = nil
@@ -152,8 +152,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into AddedToCartObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.AddedToCartObjectIDs)
-		if err == nil && validateStruct(dst.AddedToCartObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.AddedToCartObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AddedToCartObjectIDs = nil
@@ -161,8 +161,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ConvertedObjectIDsAfterSearch
-		err = newStrictDecoder(data).Decode(&dst.ConvertedObjectIDsAfterSearch)
-		if err == nil && validateStruct(dst.ConvertedObjectIDsAfterSearch) == nil {
+		err = json.Unmarshal(data, &dst.ConvertedObjectIDsAfterSearch)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ConvertedObjectIDsAfterSearch = nil
@@ -170,8 +170,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ClickedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ClickedObjectIDs)
-		if err == nil && validateStruct(dst.ClickedObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.ClickedObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ClickedObjectIDs = nil
@@ -179,8 +179,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ConvertedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ConvertedObjectIDs)
-		if err == nil && validateStruct(dst.ConvertedObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.ConvertedObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ConvertedObjectIDs = nil
@@ -188,8 +188,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ClickedFilters
-		err = newStrictDecoder(data).Decode(&dst.ClickedFilters)
-		if err == nil && validateStruct(dst.ClickedFilters) == nil {
+		err = json.Unmarshal(data, &dst.ClickedFilters)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ClickedFilters = nil
@@ -197,8 +197,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ConvertedFilters
-		err = newStrictDecoder(data).Decode(&dst.ConvertedFilters)
-		if err == nil && validateStruct(dst.ConvertedFilters) == nil {
+		err = json.Unmarshal(data, &dst.ConvertedFilters)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ConvertedFilters = nil
@@ -206,8 +206,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ViewedObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.ViewedObjectIDs)
-		if err == nil && validateStruct(dst.ViewedObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.ViewedObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ViewedObjectIDs = nil
@@ -215,8 +215,8 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ViewedFilters
-		err = newStrictDecoder(data).Decode(&dst.ViewedFilters)
-		if err == nil && validateStruct(dst.ViewedFilters) == nil {
+		err = json.Unmarshal(data, &dst.ViewedFilters)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ViewedFilters = nil

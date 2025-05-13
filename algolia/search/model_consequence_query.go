@@ -30,15 +30,15 @@ func StringAsConsequenceQuery(v string) *ConsequenceQuery {
 func (dst *ConsequenceQuery) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ConsequenceQueryObject
-	err = newStrictDecoder(data).Decode(&dst.ConsequenceQueryObject)
-	if err == nil && validateStruct(dst.ConsequenceQueryObject) == nil {
+	err = json.Unmarshal(data, &dst.ConsequenceQueryObject)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ConsequenceQueryObject = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

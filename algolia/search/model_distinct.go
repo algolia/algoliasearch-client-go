@@ -30,15 +30,15 @@ func Int32AsDistinct(v int32) *Distinct {
 func (dst *Distinct) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Bool
-	err = newStrictDecoder(data).Decode(&dst.Bool)
-	if err == nil && validateStruct(dst.Bool) == nil {
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Bool = nil
 	}
 	// try to unmarshal data into Int32
-	err = newStrictDecoder(data).Decode(&dst.Int32)
-	if err == nil && validateStruct(dst.Int32) == nil {
+	err = json.Unmarshal(data, &dst.Int32)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Int32 = nil

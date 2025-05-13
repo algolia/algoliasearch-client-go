@@ -49,33 +49,33 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "cron") {
 		// try to unmarshal data into ScheduleTriggerInput
-		err = newStrictDecoder(data).Decode(&dst.ScheduleTriggerInput)
-		if err == nil && validateStruct(dst.ScheduleTriggerInput) == nil {
+		err = json.Unmarshal(data, &dst.ScheduleTriggerInput)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.ScheduleTriggerInput = nil
 		}
 	}
 	// try to unmarshal data into OnDemandTriggerInput
-	err = newStrictDecoder(data).Decode(&dst.OnDemandTriggerInput)
-	if err == nil && validateStruct(dst.OnDemandTriggerInput) == nil {
+	err = json.Unmarshal(data, &dst.OnDemandTriggerInput)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.OnDemandTriggerInput = nil
 	}
 	// try to unmarshal data into SubscriptionTrigger
-	err = newStrictDecoder(data).Decode(&dst.SubscriptionTrigger)
-	if err == nil && validateStruct(dst.SubscriptionTrigger) == nil {
+	err = json.Unmarshal(data, &dst.SubscriptionTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SubscriptionTrigger = nil
 	}
 	// try to unmarshal data into StreamingTrigger
-	err = newStrictDecoder(data).Decode(&dst.StreamingTrigger)
-	if err == nil && validateStruct(dst.StreamingTrigger) == nil {
+	err = json.Unmarshal(data, &dst.StreamingTrigger)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.StreamingTrigger = nil

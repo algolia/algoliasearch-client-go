@@ -30,15 +30,15 @@ func PlatformNoneAsPlatformWithNone(v PlatformNone) *PlatformWithNone {
 func (dst *PlatformWithNone) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Platform
-	err = newStrictDecoder(data).Decode(&dst.Platform)
-	if err == nil && validateStruct(dst.Platform) == nil {
+	err = json.Unmarshal(data, &dst.Platform)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Platform = nil
 	}
 	// try to unmarshal data into PlatformNone
-	err = newStrictDecoder(data).Decode(&dst.PlatformNone)
-	if err == nil && validateStruct(dst.PlatformNone) == nil {
+	err = json.Unmarshal(data, &dst.PlatformNone)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.PlatformNone = nil

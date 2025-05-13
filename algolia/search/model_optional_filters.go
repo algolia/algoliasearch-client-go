@@ -30,15 +30,15 @@ func StringAsOptionalFilters(v string) *OptionalFilters {
 func (dst *OptionalFilters) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfOptionalFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfOptionalFilters)
-	if err == nil && validateStruct(dst.ArrayOfOptionalFilters) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfOptionalFilters)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfOptionalFilters = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

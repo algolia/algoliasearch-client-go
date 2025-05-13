@@ -41,11 +41,11 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "mapping") {
 		// try to unmarshal data into StreamingInput
-		err = newStrictDecoder(data).Decode(&dst.StreamingInput)
-		if err == nil && validateStruct(dst.StreamingInput) == nil {
+		err = json.Unmarshal(data, &dst.StreamingInput)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.StreamingInput = nil
@@ -53,16 +53,16 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "streams") {
 		// try to unmarshal data into DockerStreamsInput
-		err = newStrictDecoder(data).Decode(&dst.DockerStreamsInput)
-		if err == nil && validateStruct(dst.DockerStreamsInput) == nil {
+		err = json.Unmarshal(data, &dst.DockerStreamsInput)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.DockerStreamsInput = nil
 		}
 	}
 	// try to unmarshal data into ShopifyInput
-	err = newStrictDecoder(data).Decode(&dst.ShopifyInput)
-	if err == nil && validateStruct(dst.ShopifyInput) == nil {
+	err = json.Unmarshal(data, &dst.ShopifyInput)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ShopifyInput = nil

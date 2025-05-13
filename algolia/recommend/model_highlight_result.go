@@ -41,26 +41,26 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "matchLevel") && utils.HasKey(jsonDict, "matchedWords") {
 		// try to unmarshal data into HighlightResultOption
-		err = newStrictDecoder(data).Decode(&dst.HighlightResultOption)
-		if err == nil && validateStruct(dst.HighlightResultOption) == nil {
+		err = json.Unmarshal(data, &dst.HighlightResultOption)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.HighlightResultOption = nil
 		}
 	}
 	// try to unmarshal data into MapmapOfStringHighlightResult
-	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringHighlightResult)
-	if err == nil && validateStruct(dst.MapmapOfStringHighlightResult) == nil {
+	err = json.Unmarshal(data, &dst.MapmapOfStringHighlightResult)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringHighlightResult = nil
 	}
 	// try to unmarshal data into ArrayOfHighlightResult
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfHighlightResult)
-	if err == nil && validateStruct(dst.ArrayOfHighlightResult) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfHighlightResult)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfHighlightResult = nil

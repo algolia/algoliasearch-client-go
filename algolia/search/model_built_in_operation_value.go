@@ -30,15 +30,15 @@ func Int32AsBuiltInOperationValue(v int32) *BuiltInOperationValue {
 func (dst *BuiltInOperationValue) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}
 	// try to unmarshal data into Int32
-	err = newStrictDecoder(data).Decode(&dst.Int32)
-	if err == nil && validateStruct(dst.Int32) == nil {
+	err = json.Unmarshal(data, &dst.Int32)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Int32 = nil

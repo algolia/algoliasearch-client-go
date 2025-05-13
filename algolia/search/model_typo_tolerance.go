@@ -30,15 +30,15 @@ func TypoToleranceEnumAsTypoTolerance(v TypoToleranceEnum) *TypoTolerance {
 func (dst *TypoTolerance) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Bool
-	err = newStrictDecoder(data).Decode(&dst.Bool)
-	if err == nil && validateStruct(dst.Bool) == nil {
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Bool = nil
 	}
 	// try to unmarshal data into TypoToleranceEnum
-	err = newStrictDecoder(data).Decode(&dst.TypoToleranceEnum)
-	if err == nil && validateStruct(dst.TypoToleranceEnum) == nil {
+	err = json.Unmarshal(data, &dst.TypoToleranceEnum)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TypoToleranceEnum = nil

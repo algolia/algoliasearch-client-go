@@ -30,15 +30,15 @@ func BoolAsLanguages(v bool) *Languages {
 func (dst *Languages) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfString
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfString)
-	if err == nil && validateStruct(dst.ArrayOfString) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfString)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfString = nil
 	}
 	// try to unmarshal data into Bool
-	err = newStrictDecoder(data).Decode(&dst.Bool)
-	if err == nil && validateStruct(dst.Bool) == nil {
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Bool = nil

@@ -30,15 +30,15 @@ func StringAsReRankingApplyFilter(v string) *ReRankingApplyFilter {
 func (dst *ReRankingApplyFilter) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfReRankingApplyFilter
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfReRankingApplyFilter)
-	if err == nil && validateStruct(dst.ArrayOfReRankingApplyFilter) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfReRankingApplyFilter)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfReRankingApplyFilter = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

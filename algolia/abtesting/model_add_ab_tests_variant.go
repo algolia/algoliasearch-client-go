@@ -33,19 +33,19 @@ func (dst *AddABTestsVariant) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "customSearchParameters") {
 		// try to unmarshal data into AbTestsVariantSearchParams
-		err = newStrictDecoder(data).Decode(&dst.AbTestsVariantSearchParams)
-		if err == nil && validateStruct(dst.AbTestsVariantSearchParams) == nil {
+		err = json.Unmarshal(data, &dst.AbTestsVariantSearchParams)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AbTestsVariantSearchParams = nil
 		}
 	}
 	// try to unmarshal data into AbTestsVariant
-	err = newStrictDecoder(data).Decode(&dst.AbTestsVariant)
-	if err == nil && validateStruct(dst.AbTestsVariant) == nil {
+	err = json.Unmarshal(data, &dst.AbTestsVariant)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.AbTestsVariant = nil

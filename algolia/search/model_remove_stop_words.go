@@ -30,15 +30,15 @@ func BoolAsRemoveStopWords(v bool) *RemoveStopWords {
 func (dst *RemoveStopWords) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfSupportedLanguage
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfSupportedLanguage)
-	if err == nil && validateStruct(dst.ArrayOfSupportedLanguage) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfSupportedLanguage)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfSupportedLanguage = nil
 	}
 	// try to unmarshal data into Bool
-	err = newStrictDecoder(data).Decode(&dst.Bool)
-	if err == nil && validateStruct(dst.Bool) == nil {
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Bool = nil

@@ -30,15 +30,15 @@ func StringAsFacetFilters(v string) *FacetFilters {
 func (dst *FacetFilters) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfFacetFilters
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfFacetFilters)
-	if err == nil && validateStruct(dst.ArrayOfFacetFilters) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfFacetFilters)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfFacetFilters = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

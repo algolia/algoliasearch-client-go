@@ -30,15 +30,15 @@ func StringAsDiscount(v string) *Discount {
 func (dst *Discount) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Float64
-	err = newStrictDecoder(data).Decode(&dst.Float64)
-	if err == nil && validateStruct(dst.Float64) == nil {
+	err = json.Unmarshal(data, &dst.Float64)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Float64 = nil
 	}
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil

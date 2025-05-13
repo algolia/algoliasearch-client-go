@@ -33,11 +33,11 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PromoteObjectIDs
-		err = newStrictDecoder(data).Decode(&dst.PromoteObjectIDs)
-		if err == nil && validateStruct(dst.PromoteObjectIDs) == nil {
+		err = json.Unmarshal(data, &dst.PromoteObjectIDs)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.PromoteObjectIDs = nil
@@ -45,8 +45,8 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "objectID") {
 		// try to unmarshal data into PromoteObjectID
-		err = newStrictDecoder(data).Decode(&dst.PromoteObjectID)
-		if err == nil && validateStruct(dst.PromoteObjectID) == nil {
+		err = json.Unmarshal(data, &dst.PromoteObjectID)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.PromoteObjectID = nil

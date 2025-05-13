@@ -41,26 +41,26 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "matchLevel") {
 		// try to unmarshal data into SnippetResultOption
-		err = newStrictDecoder(data).Decode(&dst.SnippetResultOption)
-		if err == nil && validateStruct(dst.SnippetResultOption) == nil {
+		err = json.Unmarshal(data, &dst.SnippetResultOption)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SnippetResultOption = nil
 		}
 	}
 	// try to unmarshal data into MapmapOfStringSnippetResult
-	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringSnippetResult)
-	if err == nil && validateStruct(dst.MapmapOfStringSnippetResult) == nil {
+	err = json.Unmarshal(data, &dst.MapmapOfStringSnippetResult)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringSnippetResult = nil
 	}
 	// try to unmarshal data into ArrayOfSnippetResult
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfSnippetResult)
-	if err == nil && validateStruct(dst.ArrayOfSnippetResult) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfSnippetResult)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfSnippetResult = nil

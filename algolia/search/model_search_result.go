@@ -33,19 +33,19 @@ func (dst *SearchResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "facetHits") {
 		// try to unmarshal data into SearchForFacetValuesResponse
-		err = newStrictDecoder(data).Decode(&dst.SearchForFacetValuesResponse)
-		if err == nil && validateStruct(dst.SearchForFacetValuesResponse) == nil {
+		err = json.Unmarshal(data, &dst.SearchForFacetValuesResponse)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SearchForFacetValuesResponse = nil
 		}
 	}
 	// try to unmarshal data into SearchResponse
-	err = newStrictDecoder(data).Decode(&dst.SearchResponse)
-	if err == nil && validateStruct(dst.SearchResponse) == nil {
+	err = json.Unmarshal(data, &dst.SearchResponse)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SearchResponse = nil

@@ -35,15 +35,15 @@ func (dst *InsideBoundingBox) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}
 	// try to unmarshal data into ArrayOfArrayOfFloat64
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfArrayOfFloat64)
-	if err == nil && validateStruct(dst.ArrayOfArrayOfFloat64) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfArrayOfFloat64)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfArrayOfFloat64 = nil

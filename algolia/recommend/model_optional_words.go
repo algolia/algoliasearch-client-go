@@ -35,15 +35,15 @@ func (dst *OptionalWords) UnmarshalJSON(data []byte) error {
 	}
 
 	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.String)
-	if err == nil && validateStruct(dst.String) == nil {
+	err = json.Unmarshal(data, &dst.String)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.String = nil
 	}
 	// try to unmarshal data into ArrayOfString
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfString)
-	if err == nil && validateStruct(dst.ArrayOfString) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfString)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfString = nil

@@ -30,15 +30,15 @@ func ArrayOfModelRangeAsAroundPrecision(v []ModelRange) *AroundPrecision {
 func (dst *AroundPrecision) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Int32
-	err = newStrictDecoder(data).Decode(&dst.Int32)
-	if err == nil && validateStruct(dst.Int32) == nil {
+	err = json.Unmarshal(data, &dst.Int32)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Int32 = nil
 	}
 	// try to unmarshal data into ArrayOfModelRange
-	err = newStrictDecoder(data).Decode(&dst.ArrayOfModelRange)
-	if err == nil && validateStruct(dst.ArrayOfModelRange) == nil {
+	err = json.Unmarshal(data, &dst.ArrayOfModelRange)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.ArrayOfModelRange = nil

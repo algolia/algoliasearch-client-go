@@ -73,11 +73,11 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") {
 		// try to unmarshal data into AuthOAuth
-		err = newStrictDecoder(data).Decode(&dst.AuthOAuth)
-		if err == nil && validateStruct(dst.AuthOAuth) == nil {
+		err = json.Unmarshal(data, &dst.AuthOAuth)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AuthOAuth = nil
@@ -85,8 +85,8 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "clientEmail") && utils.HasKey(jsonDict, "privateKey") {
 		// try to unmarshal data into AuthGoogleServiceAccount
-		err = newStrictDecoder(data).Decode(&dst.AuthGoogleServiceAccount)
-		if err == nil && validateStruct(dst.AuthGoogleServiceAccount) == nil {
+		err = json.Unmarshal(data, &dst.AuthGoogleServiceAccount)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AuthGoogleServiceAccount = nil
@@ -94,8 +94,8 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "username") && utils.HasKey(jsonDict, "password") {
 		// try to unmarshal data into AuthBasic
-		err = newStrictDecoder(data).Decode(&dst.AuthBasic)
-		if err == nil && validateStruct(dst.AuthBasic) == nil {
+		err = json.Unmarshal(data, &dst.AuthBasic)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AuthBasic = nil
@@ -103,30 +103,30 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "key") {
 		// try to unmarshal data into AuthAPIKey
-		err = newStrictDecoder(data).Decode(&dst.AuthAPIKey)
-		if err == nil && validateStruct(dst.AuthAPIKey) == nil {
+		err = json.Unmarshal(data, &dst.AuthAPIKey)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.AuthAPIKey = nil
 		}
 	}
 	// try to unmarshal data into AuthAlgolia
-	err = newStrictDecoder(data).Decode(&dst.AuthAlgolia)
-	if err == nil && validateStruct(dst.AuthAlgolia) == nil {
+	err = json.Unmarshal(data, &dst.AuthAlgolia)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.AuthAlgolia = nil
 	}
 	// try to unmarshal data into AuthAlgoliaInsights
-	err = newStrictDecoder(data).Decode(&dst.AuthAlgoliaInsights)
-	if err == nil && validateStruct(dst.AuthAlgoliaInsights) == nil {
+	err = json.Unmarshal(data, &dst.AuthAlgoliaInsights)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.AuthAlgoliaInsights = nil
 	}
 	// try to unmarshal data into MapmapOfStringstring
-	err = newStrictDecoder(data).Decode(&dst.MapmapOfStringstring)
-	if err == nil && validateStruct(dst.MapmapOfStringstring) == nil {
+	err = json.Unmarshal(data, &dst.MapmapOfStringstring)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.MapmapOfStringstring = nil

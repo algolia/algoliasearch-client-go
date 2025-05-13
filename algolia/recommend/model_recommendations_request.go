@@ -54,36 +54,36 @@ func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *Recomm
 func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into BoughtTogetherQuery
-	err = newStrictDecoder(data).Decode(&dst.BoughtTogetherQuery)
-	if err == nil && validateStruct(dst.BoughtTogetherQuery) == nil {
+	err = json.Unmarshal(data, &dst.BoughtTogetherQuery)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.BoughtTogetherQuery = nil
 	}
 	// try to unmarshal data into RelatedQuery
-	err = newStrictDecoder(data).Decode(&dst.RelatedQuery)
-	if err == nil && validateStruct(dst.RelatedQuery) == nil {
+	err = json.Unmarshal(data, &dst.RelatedQuery)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.RelatedQuery = nil
 	}
 	// try to unmarshal data into TrendingItemsQuery
-	err = newStrictDecoder(data).Decode(&dst.TrendingItemsQuery)
-	if err == nil && validateStruct(dst.TrendingItemsQuery) == nil {
+	err = json.Unmarshal(data, &dst.TrendingItemsQuery)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TrendingItemsQuery = nil
 	}
 	// try to unmarshal data into TrendingFacetsQuery
-	err = newStrictDecoder(data).Decode(&dst.TrendingFacetsQuery)
-	if err == nil && validateStruct(dst.TrendingFacetsQuery) == nil {
+	err = json.Unmarshal(data, &dst.TrendingFacetsQuery)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TrendingFacetsQuery = nil
 	}
 	// try to unmarshal data into LookingSimilarQuery
-	err = newStrictDecoder(data).Decode(&dst.LookingSimilarQuery)
-	if err == nil && validateStruct(dst.LookingSimilarQuery) == nil {
+	err = json.Unmarshal(data, &dst.LookingSimilarQuery)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.LookingSimilarQuery = nil

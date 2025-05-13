@@ -73,11 +73,11 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
-	_ = newStrictDecoder(data).Decode(&jsonDict)
+	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
-		err = newStrictDecoder(data).Decode(&dst.SourceGA4BigQueryExport)
-		if err == nil && validateStruct(dst.SourceGA4BigQueryExport) == nil {
+		err = json.Unmarshal(data, &dst.SourceGA4BigQueryExport)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SourceGA4BigQueryExport = nil
@@ -85,8 +85,8 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
-		err = newStrictDecoder(data).Decode(&dst.SourceBigQuery)
-		if err == nil && validateStruct(dst.SourceBigQuery) == nil {
+		err = json.Unmarshal(data, &dst.SourceBigQuery)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SourceBigQuery = nil
@@ -94,37 +94,37 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	}
 	if utils.HasKey(jsonDict, "configuration") {
 		// try to unmarshal data into SourceUpdateDocker
-		err = newStrictDecoder(data).Decode(&dst.SourceUpdateDocker)
-		if err == nil && validateStruct(dst.SourceUpdateDocker) == nil {
+		err = json.Unmarshal(data, &dst.SourceUpdateDocker)
+		if err == nil {
 			return nil // found the correct type
 		} else {
 			dst.SourceUpdateDocker = nil
 		}
 	}
 	// try to unmarshal data into SourceUpdateCommercetools
-	err = newStrictDecoder(data).Decode(&dst.SourceUpdateCommercetools)
-	if err == nil && validateStruct(dst.SourceUpdateCommercetools) == nil {
+	err = json.Unmarshal(data, &dst.SourceUpdateCommercetools)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SourceUpdateCommercetools = nil
 	}
 	// try to unmarshal data into SourceJSON
-	err = newStrictDecoder(data).Decode(&dst.SourceJSON)
-	if err == nil && validateStruct(dst.SourceJSON) == nil {
+	err = json.Unmarshal(data, &dst.SourceJSON)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SourceJSON = nil
 	}
 	// try to unmarshal data into SourceCSV
-	err = newStrictDecoder(data).Decode(&dst.SourceCSV)
-	if err == nil && validateStruct(dst.SourceCSV) == nil {
+	err = json.Unmarshal(data, &dst.SourceCSV)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SourceCSV = nil
 	}
 	// try to unmarshal data into SourceUpdateShopify
-	err = newStrictDecoder(data).Decode(&dst.SourceUpdateShopify)
-	if err == nil && validateStruct(dst.SourceUpdateShopify) == nil {
+	err = json.Unmarshal(data, &dst.SourceUpdateShopify)
+	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.SourceUpdateShopify = nil
