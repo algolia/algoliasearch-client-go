@@ -5480,6 +5480,177 @@ func (c *APIClient) ListTransformations(r ApiListTransformationsRequest, opts ..
 	return returnValue, nil
 }
 
+func (r *ApiPushRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["indexName"]; ok {
+		err = json.Unmarshal(v, &r.indexName)
+		if err != nil {
+			err = json.Unmarshal(b, &r.indexName)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal indexName: %w", err)
+			}
+		}
+	}
+	if v, ok := req["pushTaskPayload"]; ok {
+		err = json.Unmarshal(v, &r.pushTaskPayload)
+		if err != nil {
+			err = json.Unmarshal(b, &r.pushTaskPayload)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal pushTaskPayload: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.pushTaskPayload)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter pushTaskPayload: %w", err)
+		}
+	}
+	if v, ok := req["watch"]; ok {
+		err = json.Unmarshal(v, &r.watch)
+		if err != nil {
+			err = json.Unmarshal(b, &r.watch)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal watch: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiPushRequest represents the request with all the parameters for the API call.
+type ApiPushRequest struct {
+	indexName       string
+	pushTaskPayload *PushTaskPayload
+	watch           *bool
+}
+
+// NewApiPushRequest creates an instance of the ApiPushRequest to be used for the API call.
+func (c *APIClient) NewApiPushRequest(indexName string, pushTaskPayload *PushTaskPayload) ApiPushRequest {
+	return ApiPushRequest{
+		indexName:       indexName,
+		pushTaskPayload: pushTaskPayload,
+	}
+}
+
+// WithWatch adds the watch to the ApiPushRequest and returns the request for chaining.
+func (r ApiPushRequest) WithWatch(watch bool) ApiPushRequest {
+	r.watch = &watch
+	return r
+}
+
+/*
+Push calls the API and returns the raw response from it.
+
+	Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
+
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+This method is similar to `pushTask`, but requires an `indexName` instead of a `taskID`. If zero or many tasks are found, an error will be returned.
+
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
+
+	Request can be constructed by NewApiPushRequest with parameters below.
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param pushTaskPayload PushTaskPayload
+	  @param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) PushWithHTTPInfo(r ApiPushRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/push/{indexName}"
+	requestPath = strings.ReplaceAll(requestPath, "{indexName}", url.PathEscape(utils.ParameterToString(r.indexName)))
+
+	if r.indexName == "" {
+		return nil, nil, reportError("Parameter `indexName` is required when calling `Push`.")
+	}
+
+	if r.pushTaskPayload == nil {
+		return nil, nil, reportError("Parameter `pushTaskPayload` is required when calling `Push`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+		timeouts: transport.RequestConfiguration{
+			ReadTimeout:    utils.ToPtr(180000 * time.Millisecond),
+			WriteTimeout:   utils.ToPtr(180000 * time.Millisecond),
+			ConnectTimeout: utils.ToPtr(180000 * time.Millisecond),
+		},
+	}
+
+	if !utils.IsNilOrEmpty(r.watch) {
+		conf.queryParams.Set("watch", utils.QueryParameterToString(*r.watch))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.pushTaskPayload
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+Push casts the HTTP response body to a defined struct.
+
+Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+This method is similar to `pushTask`, but requires an `indexName` instead of a `taskID`. If zero or many tasks are found, an error will be returned.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
+
+Request can be constructed by NewApiPushRequest with parameters below.
+
+	@param indexName string - Name of the index on which to perform the operation.
+	@param pushTaskPayload PushTaskPayload
+	@param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
+	@return WatchResponse
+*/
+func (c *APIClient) Push(r ApiPushRequest, opts ...RequestOption) (*WatchResponse, error) {
+	var returnValue *WatchResponse
+
+	res, resBody, err := c.PushWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiPushTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -5546,7 +5717,10 @@ func (r ApiPushTaskRequest) WithWatch(watch bool) ApiPushTaskRequest {
 /*
 PushTask calls the API and returns the raw response from it.
 
-	  Push a `batch` request payload through the Pipeline. You can check the status of task pushes with the observability endpoints.
+	Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
+
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+This method is similar to `push`, but requires a `taskID` instead of a `indexName`, which is useful when many `destinations` target the same `indexName`.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -5555,7 +5729,7 @@ PushTask calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiPushTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
-	  @param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	  @param pushTaskPayload PushTaskPayload
 	  @param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -5609,7 +5783,9 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 /*
 PushTask casts the HTTP response body to a defined struct.
 
-Push a `batch` request payload through the Pipeline. You can check the status of task pushes with the observability endpoints.
+Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+This method is similar to `push`, but requires a `taskID` instead of a `indexName`, which is useful when many `destinations` target the same `indexName`.
 
 Required API Key ACLs:
   - addObject
@@ -5619,7 +5795,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiPushTaskRequest with parameters below.
 
 	@param taskID string - Unique identifier of a task.
-	@param pushTaskPayload PushTaskPayload - Request body of a Search API `batch` request that will be pushed in the Connectors pipeline.
+	@param pushTaskPayload PushTaskPayload
 	@param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
 	@return WatchResponse
 */

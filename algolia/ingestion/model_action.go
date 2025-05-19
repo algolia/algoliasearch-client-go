@@ -15,9 +15,6 @@ const (
 	ACTION_UPDATE_OBJECT                   Action = "updateObject"
 	ACTION_PARTIAL_UPDATE_OBJECT           Action = "partialUpdateObject"
 	ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE Action = "partialUpdateObjectNoCreate"
-	ACTION_DELETE_OBJECT                   Action = "deleteObject"
-	ACTION_DELETE                          Action = "delete"
-	ACTION_CLEAR                           Action = "clear"
 )
 
 // All allowed values of Action enum.
@@ -26,9 +23,6 @@ var AllowedActionEnumValues = []Action{
 	"updateObject",
 	"partialUpdateObject",
 	"partialUpdateObjectNoCreate",
-	"deleteObject",
-	"delete",
-	"clear",
 }
 
 func (v *Action) UnmarshalJSON(src []byte) error {
