@@ -17,9 +17,9 @@ type FetchedIndex struct {
 	// Number of records contained in the index.
 	Entries int32 `json:"entries"`
 	// Number of bytes of the index in minified format.
-	DataSize int32 `json:"dataSize"`
+	DataSize int64 `json:"dataSize"`
 	// Number of bytes of the index binary file.
-	FileSize int32 `json:"fileSize"`
+	FileSize int64 `json:"fileSize"`
 	// Last build time.
 	LastBuildTimeS int32 `json:"lastBuildTimeS"`
 	// Number of pending indexing operations. This value is deprecated and should not be used.
@@ -58,7 +58,7 @@ func WithFetchedIndexVirtual(val bool) FetchedIndexOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewFetchedIndex(name string, createdAt string, updatedAt string, entries int32, dataSize int32, fileSize int32, lastBuildTimeS int32, numberOfPendingTasks int32, pendingTask bool, opts ...FetchedIndexOption) *FetchedIndex {
+func NewFetchedIndex(name string, createdAt string, updatedAt string, entries int32, dataSize int64, fileSize int64, lastBuildTimeS int32, numberOfPendingTasks int32, pendingTask bool, opts ...FetchedIndexOption) *FetchedIndex {
 	this := &FetchedIndex{}
 	this.Name = name
 	this.CreatedAt = createdAt
@@ -181,9 +181,9 @@ func (o *FetchedIndex) SetEntries(v int32) *FetchedIndex {
 }
 
 // GetDataSize returns the DataSize field value.
-func (o *FetchedIndex) GetDataSize() int32 {
+func (o *FetchedIndex) GetDataSize() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -192,7 +192,7 @@ func (o *FetchedIndex) GetDataSize() int32 {
 
 // GetDataSizeOk returns a tuple with the DataSize field value
 // and a boolean to check if the value has been set.
-func (o *FetchedIndex) GetDataSizeOk() (*int32, bool) {
+func (o *FetchedIndex) GetDataSizeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -200,15 +200,15 @@ func (o *FetchedIndex) GetDataSizeOk() (*int32, bool) {
 }
 
 // SetDataSize sets field value.
-func (o *FetchedIndex) SetDataSize(v int32) *FetchedIndex {
+func (o *FetchedIndex) SetDataSize(v int64) *FetchedIndex {
 	o.DataSize = v
 	return o
 }
 
 // GetFileSize returns the FileSize field value.
-func (o *FetchedIndex) GetFileSize() int32 {
+func (o *FetchedIndex) GetFileSize() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -217,7 +217,7 @@ func (o *FetchedIndex) GetFileSize() int32 {
 
 // GetFileSizeOk returns a tuple with the FileSize field value
 // and a boolean to check if the value has been set.
-func (o *FetchedIndex) GetFileSizeOk() (*int32, bool) {
+func (o *FetchedIndex) GetFileSizeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -225,7 +225,7 @@ func (o *FetchedIndex) GetFileSizeOk() (*int32, bool) {
 }
 
 // SetFileSize sets field value.
-func (o *FetchedIndex) SetFileSize(v int32) *FetchedIndex {
+func (o *FetchedIndex) SetFileSize(v int64) *FetchedIndex {
 	o.FileSize = v
 	return o
 }
