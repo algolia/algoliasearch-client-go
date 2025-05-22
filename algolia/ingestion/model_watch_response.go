@@ -10,15 +10,25 @@ import (
 type WatchResponse struct {
 	// Universally unique identifier (UUID) of a task run.
 	RunID string `json:"runID"`
+	// Universally unique identifier (UUID) of an event.
+	EventID *string `json:"eventID,omitempty"`
 	// when used with discovering or validating sources, the sampled data of your source is returned.
 	Data []map[string]any `json:"data,omitempty"`
 	// in case of error, observability events will be added to the response, if any.
 	Events []Event `json:"events,omitempty"`
 	// a message describing the outcome of a validate run.
 	Message *string `json:"message,omitempty"`
+	// Date of creation in RFC 3339 format.
+	CreatedAt *string `json:"createdAt,omitempty"`
 }
 
 type WatchResponseOption func(f *WatchResponse)
+
+func WithWatchResponseEventID(val string) WatchResponseOption {
+	return func(f *WatchResponse) {
+		f.EventID = &val
+	}
+}
 
 func WithWatchResponseData(val []map[string]any) WatchResponseOption {
 	return func(f *WatchResponse) {
@@ -35,6 +45,12 @@ func WithWatchResponseEvents(val []Event) WatchResponseOption {
 func WithWatchResponseMessage(val string) WatchResponseOption {
 	return func(f *WatchResponse) {
 		f.Message = &val
+	}
+}
+
+func WithWatchResponseCreatedAt(val string) WatchResponseOption {
+	return func(f *WatchResponse) {
+		f.CreatedAt = &val
 	}
 }
 
@@ -78,6 +94,39 @@ func (o *WatchResponse) GetRunIDOk() (*string, bool) {
 // SetRunID sets field value.
 func (o *WatchResponse) SetRunID(v string) *WatchResponse {
 	o.RunID = v
+	return o
+}
+
+// GetEventID returns the EventID field value if set, zero value otherwise.
+func (o *WatchResponse) GetEventID() string {
+	if o == nil || o.EventID == nil {
+		var ret string
+		return ret
+	}
+	return *o.EventID
+}
+
+// GetEventIDOk returns a tuple with the EventID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WatchResponse) GetEventIDOk() (*string, bool) {
+	if o == nil || o.EventID == nil {
+		return nil, false
+	}
+	return o.EventID, true
+}
+
+// HasEventID returns a boolean if a field has been set.
+func (o *WatchResponse) HasEventID() bool {
+	if o != nil && o.EventID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventID gets a reference to the given string and assigns it to the EventID field.
+func (o *WatchResponse) SetEventID(v string) *WatchResponse {
+	o.EventID = &v
 	return o
 }
 
@@ -180,9 +229,45 @@ func (o *WatchResponse) SetMessage(v string) *WatchResponse {
 	return o
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *WatchResponse) GetCreatedAt() string {
+	if o == nil || o.CreatedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WatchResponse) GetCreatedAtOk() (*string, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *WatchResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
+func (o *WatchResponse) SetCreatedAt(v string) *WatchResponse {
+	o.CreatedAt = &v
+	return o
+}
+
 func (o WatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["runID"] = o.RunID
+	if o.EventID != nil {
+		toSerialize["eventID"] = o.EventID
+	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
@@ -191,6 +276,9 @@ func (o WatchResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
+	}
+	if o.CreatedAt != nil {
+		toSerialize["createdAt"] = o.CreatedAt
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -203,8 +291,10 @@ func (o WatchResponse) MarshalJSON() ([]byte, error) {
 func (o WatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  runID=%v\n", o.RunID)
+	out += fmt.Sprintf("  eventID=%v\n", o.EventID)
 	out += fmt.Sprintf("  data=%v\n", o.Data)
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
+	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	return fmt.Sprintf("WatchResponse {\n%s}", out)
 }
