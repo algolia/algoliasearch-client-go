@@ -12,13 +12,6 @@ type Distinct struct {
 	Int32 *int32
 }
 
-// boolAsDistinct is a convenience function that returns bool wrapped in Distinct.
-func BoolAsDistinct(v bool) *Distinct {
-	return &Distinct{
-		Bool: &v,
-	}
-}
-
 // int32AsDistinct is a convenience function that returns int32 wrapped in Distinct.
 func Int32AsDistinct(v int32) *Distinct {
 	return &Distinct{
@@ -26,22 +19,29 @@ func Int32AsDistinct(v int32) *Distinct {
 	}
 }
 
+// boolAsDistinct is a convenience function that returns bool wrapped in Distinct.
+func BoolAsDistinct(v bool) *Distinct {
+	return &Distinct{
+		Bool: &v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *Distinct) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into Bool
-	err = json.Unmarshal(data, &dst.Bool)
-	if err == nil {
-		return nil // found the correct type
-	} else {
-		dst.Bool = nil
-	}
 	// try to unmarshal data into Int32
 	err = json.Unmarshal(data, &dst.Int32)
 	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.Int32 = nil
+	}
+	// try to unmarshal data into Bool
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
+		return nil // found the correct type
+	} else {
+		dst.Bool = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(Distinct)")

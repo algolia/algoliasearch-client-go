@@ -12,13 +12,6 @@ type TypoTolerance struct {
 	Bool              *bool
 }
 
-// boolAsTypoTolerance is a convenience function that returns bool wrapped in TypoTolerance.
-func BoolAsTypoTolerance(v bool) *TypoTolerance {
-	return &TypoTolerance{
-		Bool: &v,
-	}
-}
-
 // TypoToleranceEnumAsTypoTolerance is a convenience function that returns TypoToleranceEnum wrapped in TypoTolerance.
 func TypoToleranceEnumAsTypoTolerance(v TypoToleranceEnum) *TypoTolerance {
 	return &TypoTolerance{
@@ -26,22 +19,29 @@ func TypoToleranceEnumAsTypoTolerance(v TypoToleranceEnum) *TypoTolerance {
 	}
 }
 
+// boolAsTypoTolerance is a convenience function that returns bool wrapped in TypoTolerance.
+func BoolAsTypoTolerance(v bool) *TypoTolerance {
+	return &TypoTolerance{
+		Bool: &v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct.
 func (dst *TypoTolerance) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into Bool
-	err = json.Unmarshal(data, &dst.Bool)
-	if err == nil {
-		return nil // found the correct type
-	} else {
-		dst.Bool = nil
-	}
 	// try to unmarshal data into TypoToleranceEnum
 	err = json.Unmarshal(data, &dst.TypoToleranceEnum)
 	if err == nil {
 		return nil // found the correct type
 	} else {
 		dst.TypoToleranceEnum = nil
+	}
+	// try to unmarshal data into Bool
+	err = json.Unmarshal(data, &dst.Bool)
+	if err == nil {
+		return nil // found the correct type
+	} else {
+		dst.Bool = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in oneOf(TypoTolerance)")

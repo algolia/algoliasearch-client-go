@@ -13,12 +13,16 @@ type TypoToleranceEnum string
 const (
 	TYPO_TOLERANCE_ENUM_MIN    TypoToleranceEnum = "min"
 	TYPO_TOLERANCE_ENUM_STRICT TypoToleranceEnum = "strict"
+	TYPO_TOLERANCE_ENUM_TRUE   TypoToleranceEnum = "true"
+	TYPO_TOLERANCE_ENUM_FALSE  TypoToleranceEnum = "false"
 )
 
 // All allowed values of TypoToleranceEnum enum.
 var AllowedTypoToleranceEnumEnumValues = []TypoToleranceEnum{
 	"min",
 	"strict",
+	"true",
+	"false",
 }
 
 func (v *TypoToleranceEnum) UnmarshalJSON(src []byte) error {
