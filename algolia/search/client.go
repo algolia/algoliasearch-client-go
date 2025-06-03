@@ -17,15 +17,17 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/ingestion"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
 // APIClient manages communication with the Search API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	appID     string
-	cfg       *SearchConfiguration
-	transport *transport.Transport
+	appID                string
+	cfg                  *SearchConfiguration
+	transport            *transport.Transport
+	ingestionTransporter *ingestion.APIClient
 }
 
 // NewClient creates a new API client with appID and apiKey.
@@ -65,13 +67,24 @@ func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
 		cfg.WriteTimeout = 30000 * time.Millisecond
 	}
 
-	return &APIClient{
+	apiClient := APIClient{
 		appID: cfg.AppID,
 		cfg:   &cfg,
 		transport: transport.New(
 			cfg.Configuration,
 		),
-	}, nil
+	}
+
+	if cfg.Transformation != nil && cfg.Transformation.Region != "" {
+		ingestionClient, err := ingestion.NewClient(apiClient.appID, cfg.ApiKey, cfg.Transformation.Region)
+		if err != nil {
+			return nil, err //nolint:wrapcheck
+		}
+
+		apiClient.ingestionTransporter = ingestionClient
+	}
+
+	return &apiClient, nil
 }
 
 func getDefaultHosts(appID string) []transport.StatefulHost {

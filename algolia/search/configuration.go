@@ -2,10 +2,24 @@
 package search
 
 import (
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/ingestion"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 )
 
 // SearchConfiguration stores the configuration of the API client.
 type SearchConfiguration struct {
 	transport.Configuration
+
+	Transformation *TransformationConfiguration
+}
+
+type TransformationConfiguration struct {
+	Region ingestion.Region
+}
+
+// WithTransformation sets the region of the current algolia application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
+func (s *SearchConfiguration) WithTransformation(region ingestion.Region) {
+	s.Transformation = &TransformationConfiguration{
+		Region: region,
+	}
 }

@@ -65,13 +65,15 @@ func NewClientWithConfig(cfg CompositionConfiguration) (*APIClient, error) {
 		cfg.WriteTimeout = 30000 * time.Millisecond
 	}
 
-	return &APIClient{
+	apiClient := APIClient{
 		appID: cfg.AppID,
 		cfg:   &cfg,
 		transport: transport.New(
 			cfg.Configuration,
 		),
-	}, nil
+	}
+
+	return &apiClient, nil
 }
 
 func getDefaultHosts(appID string) []transport.StatefulHost {
