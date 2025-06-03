@@ -8,7 +8,8 @@ import (
 
 // TransformationTry struct for TransformationTry.
 type TransformationTry struct {
-	// The source code of the transformation.
+	// It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.
+	// Deprecated
 	Code string `json:"code"`
 	// The record to apply the given code to.
 	SampleRecord    map[string]any         `json:"sampleRecord"`
@@ -43,6 +44,7 @@ func NewEmptyTransformationTry() *TransformationTry {
 }
 
 // GetCode returns the Code field value.
+// Deprecated.
 func (o *TransformationTry) GetCode() string {
 	if o == nil {
 		var ret string
@@ -54,6 +56,7 @@ func (o *TransformationTry) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
+// Deprecated.
 func (o *TransformationTry) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -62,6 +65,7 @@ func (o *TransformationTry) GetCodeOk() (*string, bool) {
 }
 
 // SetCode sets field value.
+// Deprecated.
 func (o *TransformationTry) SetCode(v string) *TransformationTry {
 	o.Code = v
 	return o

@@ -14,8 +14,11 @@ type Transformation struct {
 	TransformationID string `json:"transformationID"`
 	// The authentications associated with the current transformation.
 	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
-	// The source code of the transformation.
-	Code string `json:"code"`
+	// It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.
+	// Deprecated
+	Code  string               `json:"code"`
+	Type  *TransformationType  `json:"type,omitempty"`
+	Input *TransformationInput `json:"input,omitempty"`
 	// The uniquely identified name of your transformation.
 	Name string `json:"name"`
 	// A descriptive name for your transformation of what it does.
@@ -33,6 +36,18 @@ type TransformationOption func(f *Transformation)
 func WithTransformationAuthenticationIDs(val []string) TransformationOption {
 	return func(f *Transformation) {
 		f.AuthenticationIDs = val
+	}
+}
+
+func WithTransformationType(val TransformationType) TransformationOption {
+	return func(f *Transformation) {
+		f.Type = &val
+	}
+}
+
+func WithTransformationInput(val TransformationInput) TransformationOption {
+	return func(f *Transformation) {
+		f.Input = &val
 	}
 }
 
@@ -129,6 +144,7 @@ func (o *Transformation) SetAuthenticationIDs(v []string) *Transformation {
 }
 
 // GetCode returns the Code field value.
+// Deprecated.
 func (o *Transformation) GetCode() string {
 	if o == nil {
 		var ret string
@@ -140,6 +156,7 @@ func (o *Transformation) GetCode() string {
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
+// Deprecated.
 func (o *Transformation) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -148,8 +165,75 @@ func (o *Transformation) GetCodeOk() (*string, bool) {
 }
 
 // SetCode sets field value.
+// Deprecated.
 func (o *Transformation) SetCode(v string) *Transformation {
 	o.Code = v
+	return o
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *Transformation) GetType() TransformationType {
+	if o == nil || o.Type == nil {
+		var ret TransformationType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transformation) GetTypeOk() (*TransformationType, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *Transformation) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given TransformationType and assigns it to the Type field.
+func (o *Transformation) SetType(v TransformationType) *Transformation {
+	o.Type = &v
+	return o
+}
+
+// GetInput returns the Input field value if set, zero value otherwise.
+func (o *Transformation) GetInput() TransformationInput {
+	if o == nil || o.Input == nil {
+		var ret TransformationInput
+		return ret
+	}
+	return *o.Input
+}
+
+// GetInputOk returns a tuple with the Input field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transformation) GetInputOk() (*TransformationInput, bool) {
+	if o == nil || o.Input == nil {
+		return nil, false
+	}
+	return o.Input, true
+}
+
+// HasInput returns a boolean if a field has been set.
+func (o *Transformation) HasInput() bool {
+	if o != nil && o.Input != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
+func (o *Transformation) SetInput(v *TransformationInput) *Transformation {
+	o.Input = v
 	return o
 }
 
@@ -312,6 +396,12 @@ func (o Transformation) MarshalJSON() ([]byte, error) {
 		toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	}
 	toSerialize["code"] = o.Code
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Input != nil {
+		toSerialize["input"] = o.Input
+	}
 	toSerialize["name"] = o.Name
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
@@ -334,6 +424,8 @@ func (o Transformation) String() string {
 	out += fmt.Sprintf("  transformationID=%v\n", o.TransformationID)
 	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
 	out += fmt.Sprintf("  code=%v\n", o.Code)
+	out += fmt.Sprintf("  type=%v\n", o.Type)
+	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  owner=%v\n", o.Owner)

@@ -8,10 +8,13 @@ import (
 
 // TransformationCreate API request body for creating a transformation.
 type TransformationCreate struct {
-	// The source code of the transformation.
-	Code string `json:"code"`
+	// It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.
+	// Deprecated
+	Code *string `json:"code,omitempty"`
 	// The uniquely identified name of your transformation.
-	Name string `json:"name"`
+	Name  string              `json:"name"`
+	Type  TransformationType  `json:"type"`
+	Input TransformationInput `json:"input"`
 	// A descriptive name for your transformation of what it does.
 	Description *string `json:"description,omitempty"`
 	// The authentications associated with the current transformation.
@@ -19,6 +22,12 @@ type TransformationCreate struct {
 }
 
 type TransformationCreateOption func(f *TransformationCreate)
+
+func WithTransformationCreateCode(val string) TransformationCreateOption {
+	return func(f *TransformationCreate) {
+		f.Code = &val
+	}
+}
 
 func WithTransformationCreateDescription(val string) TransformationCreateOption {
 	return func(f *TransformationCreate) {
@@ -36,10 +45,11 @@ func WithTransformationCreateAuthenticationIDs(val []string) TransformationCreat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationCreate(code string, name string, opts ...TransformationCreateOption) *TransformationCreate {
+func NewTransformationCreate(name string, type_ TransformationType, input TransformationInput, opts ...TransformationCreateOption) *TransformationCreate {
 	this := &TransformationCreate{}
-	this.Code = code
 	this.Name = name
+	this.Type = type_
+	this.Input = input
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -51,28 +61,39 @@ func NewEmptyTransformationCreate() *TransformationCreate {
 	return &TransformationCreate{}
 }
 
-// GetCode returns the Code field value.
+// GetCode returns the Code field value if set, zero value otherwise.
+// Deprecated.
 func (o *TransformationCreate) GetCode() string {
-	if o == nil {
+	if o == nil || o.Code == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Code
+	return *o.Code
 }
 
-// GetCodeOk returns a tuple with the Code field value
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated.
 func (o *TransformationCreate) GetCodeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Code == nil {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code, true
 }
 
-// SetCode sets field value.
+// HasCode returns a boolean if a field has been set.
+func (o *TransformationCreate) HasCode() bool {
+	if o != nil && o.Code != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
+// Deprecated.
 func (o *TransformationCreate) SetCode(v string) *TransformationCreate {
-	o.Code = v
+	o.Code = &v
 	return o
 }
 
@@ -98,6 +119,56 @@ func (o *TransformationCreate) GetNameOk() (*string, bool) {
 // SetName sets field value.
 func (o *TransformationCreate) SetName(v string) *TransformationCreate {
 	o.Name = v
+	return o
+}
+
+// GetType returns the Type field value.
+func (o *TransformationCreate) GetType() TransformationType {
+	if o == nil {
+		var ret TransformationType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *TransformationCreate) GetTypeOk() (*TransformationType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value.
+func (o *TransformationCreate) SetType(v TransformationType) *TransformationCreate {
+	o.Type = v
+	return o
+}
+
+// GetInput returns the Input field value.
+func (o *TransformationCreate) GetInput() TransformationInput {
+	if o == nil {
+		var ret TransformationInput
+		return ret
+	}
+
+	return o.Input
+}
+
+// GetInputOk returns a tuple with the Input field value
+// and a boolean to check if the value has been set.
+func (o *TransformationCreate) GetInputOk() (*TransformationInput, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Input, true
+}
+
+// SetInput sets field value.
+func (o *TransformationCreate) SetInput(v *TransformationInput) *TransformationCreate {
+	o.Input = *v
 	return o
 }
 
@@ -169,8 +240,12 @@ func (o *TransformationCreate) SetAuthenticationIDs(v []string) *TransformationC
 
 func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	toSerialize["code"] = o.Code
+	if o.Code != nil {
+		toSerialize["code"] = o.Code
+	}
 	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	toSerialize["input"] = o.Input
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
@@ -189,6 +264,8 @@ func (o TransformationCreate) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
+	out += fmt.Sprintf("  type=%v\n", o.Type)
+	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
 	return fmt.Sprintf("TransformationCreate {\n%s}", out)
