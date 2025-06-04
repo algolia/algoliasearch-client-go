@@ -4380,7 +4380,7 @@ GetSettings calls the API and returns the raw response from it.
 	  Retrieves an object with non-null index settings.
 
 	    Required API Key ACLs:
-	    - search
+	    - settings
 
 	Request can be constructed by NewApiGetSettingsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
@@ -4424,7 +4424,7 @@ GetSettings casts the HTTP response body to a defined struct.
 Retrieves an object with non-null index settings.
 
 Required API Key ACLs:
-  - search
+  - settings
 
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
