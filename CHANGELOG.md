@@ -1,3 +1,9 @@
+## [4.18.0](https://github.com/algolia/algoliasearch-client-go/compare/4.17.0...4.18.0)
+
+- [835daccb48](https://github.com/algolia/api-clients-automation/commit/835daccb48) feat(specs): add with transformation helpers ([#4931](https://github.com/algolia/api-clients-automation/pull/4931)) by [@shortcuts](https://github.com/shortcuts/)
+- [883b38a773](https://github.com/algolia/api-clients-automation/commit/883b38a773) chore: add tests for WithTransformation methods ([#4936](https://github.com/algolia/api-clients-automation/pull/4936)) by [@shortcuts](https://github.com/shortcuts/)
+- [d10edda9d3](https://github.com/algolia/api-clients-automation/commit/d10edda9d3) fix(clients): consistent naming in transformation region helper ([#4937](https://github.com/algolia/api-clients-automation/pull/4937)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.17.0](https://github.com/algolia/algoliasearch-client-go/compare/4.16.0...4.17.0)
 
 - [1e2d00ef33](https://github.com/algolia/api-clients-automation/commit/1e2d00ef33) chore(test): check that the response can contain unknown field ([#4805](https://github.com/algolia/api-clients-automation/pull/4805)) by [@millotp](https://github.com/millotp/)
