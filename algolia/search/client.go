@@ -76,7 +76,19 @@ func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
 	}
 
 	if cfg.Transformation != nil && cfg.Transformation.Region != "" {
-		ingestionClient, err := ingestion.NewClient(apiClient.appID, cfg.ApiKey, cfg.Transformation.Region)
+		ingestionConfig := ingestion.IngestionConfiguration{
+			Configuration: transport.Configuration{
+				AppID:  cfg.AppID,
+				ApiKey: cfg.ApiKey,
+			},
+			Region: cfg.Transformation.Region,
+		}
+
+		if len(cfg.Hosts) > 0 {
+			ingestionConfig.Hosts = cfg.Hosts
+		}
+
+		ingestionClient, err := ingestion.NewClientWithConfig(ingestionConfig)
 		if err != nil {
 			return nil, err //nolint:wrapcheck
 		}
