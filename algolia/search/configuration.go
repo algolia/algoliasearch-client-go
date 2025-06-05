@@ -17,8 +17,8 @@ type TransformationConfiguration struct {
 	Region ingestion.Region
 }
 
-// WithTransformation sets the region of the current algolia application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
-func (s *SearchConfiguration) WithTransformation(region ingestion.Region) {
+// SetTransformationRegion sets the region of the current algolia application to the configuration, this is required to be called if you wish to leverage the transformation pipeline (via the *WithTransformation methods).
+func (s *SearchConfiguration) SetTransformationRegion(region ingestion.Region) {
 	s.Transformation = &TransformationConfiguration{
 		Region: region,
 	}
