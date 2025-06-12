@@ -12,9 +12,9 @@ type TransformationCreate struct {
 	// Deprecated
 	Code *string `json:"code,omitempty"`
 	// The uniquely identified name of your transformation.
-	Name  string              `json:"name"`
-	Type  TransformationType  `json:"type"`
-	Input TransformationInput `json:"input"`
+	Name  string               `json:"name"`
+	Type  *TransformationType  `json:"type,omitempty"`
+	Input *TransformationInput `json:"input,omitempty"`
 	// A descriptive name for your transformation of what it does.
 	Description *string `json:"description,omitempty"`
 	// The authentications associated with the current transformation.
@@ -26,6 +26,18 @@ type TransformationCreateOption func(f *TransformationCreate)
 func WithTransformationCreateCode(val string) TransformationCreateOption {
 	return func(f *TransformationCreate) {
 		f.Code = &val
+	}
+}
+
+func WithTransformationCreateType(val TransformationType) TransformationCreateOption {
+	return func(f *TransformationCreate) {
+		f.Type = &val
+	}
+}
+
+func WithTransformationCreateInput(val TransformationInput) TransformationCreateOption {
+	return func(f *TransformationCreate) {
+		f.Input = &val
 	}
 }
 
@@ -45,11 +57,9 @@ func WithTransformationCreateAuthenticationIDs(val []string) TransformationCreat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationCreate(name string, type_ TransformationType, input TransformationInput, opts ...TransformationCreateOption) *TransformationCreate {
+func NewTransformationCreate(name string, opts ...TransformationCreateOption) *TransformationCreate {
 	this := &TransformationCreate{}
 	this.Name = name
-	this.Type = type_
-	this.Input = input
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -122,53 +132,69 @@ func (o *TransformationCreate) SetName(v string) *TransformationCreate {
 	return o
 }
 
-// GetType returns the Type field value.
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *TransformationCreate) GetType() TransformationType {
-	if o == nil {
+	if o == nil || o.Type == nil {
 		var ret TransformationType
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransformationCreate) GetTypeOk() (*TransformationType, bool) {
-	if o == nil {
+	if o == nil || o.Type == nil {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value.
+// HasType returns a boolean if a field has been set.
+func (o *TransformationCreate) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given TransformationType and assigns it to the Type field.
 func (o *TransformationCreate) SetType(v TransformationType) *TransformationCreate {
-	o.Type = v
+	o.Type = &v
 	return o
 }
 
-// GetInput returns the Input field value.
+// GetInput returns the Input field value if set, zero value otherwise.
 func (o *TransformationCreate) GetInput() TransformationInput {
-	if o == nil {
+	if o == nil || o.Input == nil {
 		var ret TransformationInput
 		return ret
 	}
-
-	return o.Input
+	return *o.Input
 }
 
-// GetInputOk returns a tuple with the Input field value
+// GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransformationCreate) GetInputOk() (*TransformationInput, bool) {
-	if o == nil {
+	if o == nil || o.Input == nil {
 		return nil, false
 	}
-	return &o.Input, true
+	return o.Input, true
 }
 
-// SetInput sets field value.
+// HasInput returns a boolean if a field has been set.
+func (o *TransformationCreate) HasInput() bool {
+	if o != nil && o.Input != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
 func (o *TransformationCreate) SetInput(v *TransformationInput) *TransformationCreate {
-	o.Input = *v
+	o.Input = v
 	return o
 }
 
@@ -244,8 +270,12 @@ func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 		toSerialize["code"] = o.Code
 	}
 	toSerialize["name"] = o.Name
-	toSerialize["type"] = o.Type
-	toSerialize["input"] = o.Input
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Input != nil {
+		toSerialize["input"] = o.Input
+	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}

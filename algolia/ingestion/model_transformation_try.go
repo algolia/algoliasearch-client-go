@@ -10,13 +10,33 @@ import (
 type TransformationTry struct {
 	// It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.
 	// Deprecated
-	Code string `json:"code"`
+	Code  *string              `json:"code,omitempty"`
+	Type  *TransformationType  `json:"type,omitempty"`
+	Input *TransformationInput `json:"input,omitempty"`
 	// The record to apply the given code to.
 	SampleRecord    map[string]any         `json:"sampleRecord"`
 	Authentications []AuthenticationCreate `json:"authentications,omitempty"`
 }
 
 type TransformationTryOption func(f *TransformationTry)
+
+func WithTransformationTryCode(val string) TransformationTryOption {
+	return func(f *TransformationTry) {
+		f.Code = &val
+	}
+}
+
+func WithTransformationTryType(val TransformationType) TransformationTryOption {
+	return func(f *TransformationTry) {
+		f.Type = &val
+	}
+}
+
+func WithTransformationTryInput(val TransformationInput) TransformationTryOption {
+	return func(f *TransformationTry) {
+		f.Input = &val
+	}
+}
 
 func WithTransformationTryAuthentications(val []AuthenticationCreate) TransformationTryOption {
 	return func(f *TransformationTry) {
@@ -28,9 +48,8 @@ func WithTransformationTryAuthentications(val []AuthenticationCreate) Transforma
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformationTry(code string, sampleRecord map[string]any, opts ...TransformationTryOption) *TransformationTry {
+func NewTransformationTry(sampleRecord map[string]any, opts ...TransformationTryOption) *TransformationTry {
 	this := &TransformationTry{}
-	this.Code = code
 	this.SampleRecord = sampleRecord
 	for _, opt := range opts {
 		opt(this)
@@ -43,31 +62,105 @@ func NewEmptyTransformationTry() *TransformationTry {
 	return &TransformationTry{}
 }
 
-// GetCode returns the Code field value.
+// GetCode returns the Code field value if set, zero value otherwise.
 // Deprecated.
 func (o *TransformationTry) GetCode() string {
-	if o == nil {
+	if o == nil || o.Code == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Code
+	return *o.Code
 }
 
-// GetCodeOk returns a tuple with the Code field value
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // Deprecated.
 func (o *TransformationTry) GetCodeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Code == nil {
 		return nil, false
 	}
-	return &o.Code, true
+	return o.Code, true
 }
 
-// SetCode sets field value.
+// HasCode returns a boolean if a field has been set.
+func (o *TransformationTry) HasCode() bool {
+	if o != nil && o.Code != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
 // Deprecated.
 func (o *TransformationTry) SetCode(v string) *TransformationTry {
-	o.Code = v
+	o.Code = &v
+	return o
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *TransformationTry) GetType() TransformationType {
+	if o == nil || o.Type == nil {
+		var ret TransformationType
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransformationTry) GetTypeOk() (*TransformationType, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *TransformationTry) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given TransformationType and assigns it to the Type field.
+func (o *TransformationTry) SetType(v TransformationType) *TransformationTry {
+	o.Type = &v
+	return o
+}
+
+// GetInput returns the Input field value if set, zero value otherwise.
+func (o *TransformationTry) GetInput() TransformationInput {
+	if o == nil || o.Input == nil {
+		var ret TransformationInput
+		return ret
+	}
+	return *o.Input
+}
+
+// GetInputOk returns a tuple with the Input field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransformationTry) GetInputOk() (*TransformationInput, bool) {
+	if o == nil || o.Input == nil {
+		return nil, false
+	}
+	return o.Input, true
+}
+
+// HasInput returns a boolean if a field has been set.
+func (o *TransformationTry) HasInput() bool {
+	if o != nil && o.Input != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
+func (o *TransformationTry) SetInput(v *TransformationInput) *TransformationTry {
+	o.Input = v
 	return o
 }
 
@@ -131,7 +224,15 @@ func (o *TransformationTry) SetAuthentications(v []AuthenticationCreate) *Transf
 
 func (o TransformationTry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	toSerialize["code"] = o.Code
+	if o.Code != nil {
+		toSerialize["code"] = o.Code
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
+	}
+	if o.Input != nil {
+		toSerialize["input"] = o.Input
+	}
 	toSerialize["sampleRecord"] = o.SampleRecord
 	if o.Authentications != nil {
 		toSerialize["authentications"] = o.Authentications
@@ -147,6 +248,8 @@ func (o TransformationTry) MarshalJSON() ([]byte, error) {
 func (o TransformationTry) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
+	out += fmt.Sprintf("  type=%v\n", o.Type)
+	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  sampleRecord=%v\n", o.SampleRecord)
 	out += fmt.Sprintf("  authentications=%v\n", o.Authentications)
 	return fmt.Sprintf("TransformationTry {\n%s}", out)
