@@ -43,7 +43,7 @@ type BrowseResponse struct {
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
 	// Time the server took to process the request, in milliseconds.
-	ProcessingTimeMS int32 `json:"processingTimeMS"`
+	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
 	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
@@ -176,6 +176,12 @@ func WithBrowseResponseParsedQuery(val string) BrowseResponseOption {
 	}
 }
 
+func WithBrowseResponseProcessingTimeMS(val int32) BrowseResponseOption {
+	return func(f *BrowseResponse) {
+		f.ProcessingTimeMS = &val
+	}
+}
+
 func WithBrowseResponseProcessingTimingsMS(val map[string]any) BrowseResponseOption {
 	return func(f *BrowseResponse) {
 		f.ProcessingTimingsMS = val
@@ -264,9 +270,8 @@ func WithBrowseResponseCursor(val string) BrowseResponseOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBrowseResponse(processingTimeMS int32, hits []Hit, query string, params string, opts ...BrowseResponseOption) *BrowseResponse {
+func NewBrowseResponse(hits []Hit, query string, params string, opts ...BrowseResponseOption) *BrowseResponse {
 	this := &BrowseResponse{}
-	this.ProcessingTimeMS = processingTimeMS
 	this.Hits = hits
 	this.Query = query
 	this.Params = params
@@ -818,28 +823,36 @@ func (o *BrowseResponse) SetParsedQuery(v string) *BrowseResponse {
 	return o
 }
 
-// GetProcessingTimeMS returns the ProcessingTimeMS field value.
+// GetProcessingTimeMS returns the ProcessingTimeMS field value if set, zero value otherwise.
 func (o *BrowseResponse) GetProcessingTimeMS() int32 {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.ProcessingTimeMS
+	return *o.ProcessingTimeMS
 }
 
-// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value
+// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BrowseResponse) GetProcessingTimeMSOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		return nil, false
 	}
-	return &o.ProcessingTimeMS, true
+	return o.ProcessingTimeMS, true
 }
 
-// SetProcessingTimeMS sets field value.
+// HasProcessingTimeMS returns a boolean if a field has been set.
+func (o *BrowseResponse) HasProcessingTimeMS() bool {
+	if o != nil && o.ProcessingTimeMS != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
 func (o *BrowseResponse) SetProcessingTimeMS(v int32) *BrowseResponse {
-	o.ProcessingTimeMS = v
+	o.ProcessingTimeMS = &v
 	return o
 }
 
@@ -1431,7 +1444,9 @@ func (o BrowseResponse) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	if o.ProcessingTimeMS != nil {
+		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	}
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}

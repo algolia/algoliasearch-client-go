@@ -43,7 +43,7 @@ type RecommendationsResults struct {
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
 	// Time the server took to process the request, in milliseconds.
-	ProcessingTimeMS int32 `json:"processingTimeMS"`
+	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
 	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
@@ -169,6 +169,12 @@ func WithRecommendationsResultsParsedQuery(val string) RecommendationsResultsOpt
 	}
 }
 
+func WithRecommendationsResultsProcessingTimeMS(val int32) RecommendationsResultsOption {
+	return func(f *RecommendationsResults) {
+		f.ProcessingTimeMS = &val
+	}
+}
+
 func WithRecommendationsResultsProcessingTimingsMS(val map[string]any) RecommendationsResultsOption {
 	return func(f *RecommendationsResults) {
 		f.ProcessingTimingsMS = val
@@ -251,9 +257,8 @@ func WithRecommendationsResultsHitsPerPage(val int32) RecommendationsResultsOpti
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRecommendationsResults(processingTimeMS int32, hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
+func NewRecommendationsResults(hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
 	this := &RecommendationsResults{}
-	this.ProcessingTimeMS = processingTimeMS
 	this.Hits = hits
 	for _, opt := range opts {
 		opt(this)
@@ -803,28 +808,36 @@ func (o *RecommendationsResults) SetParsedQuery(v string) *RecommendationsResult
 	return o
 }
 
-// GetProcessingTimeMS returns the ProcessingTimeMS field value.
+// GetProcessingTimeMS returns the ProcessingTimeMS field value if set, zero value otherwise.
 func (o *RecommendationsResults) GetProcessingTimeMS() int32 {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.ProcessingTimeMS
+	return *o.ProcessingTimeMS
 }
 
-// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value
+// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecommendationsResults) GetProcessingTimeMSOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		return nil, false
 	}
-	return &o.ProcessingTimeMS, true
+	return o.ProcessingTimeMS, true
 }
 
-// SetProcessingTimeMS sets field value.
+// HasProcessingTimeMS returns a boolean if a field has been set.
+func (o *RecommendationsResults) HasProcessingTimeMS() bool {
+	if o != nil && o.ProcessingTimeMS != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
 func (o *RecommendationsResults) SetProcessingTimeMS(v int32) *RecommendationsResults {
-	o.ProcessingTimeMS = v
+	o.ProcessingTimeMS = &v
 	return o
 }
 
@@ -1333,7 +1346,9 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	if o.ProcessingTimeMS != nil {
+		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	}
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}

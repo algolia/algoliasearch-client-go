@@ -43,7 +43,7 @@ type SearchResultsItem struct {
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
 	// Time the server took to process the request, in milliseconds.
-	ProcessingTimeMS int32 `json:"processingTimeMS"`
+	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
 	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
 	// Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.
@@ -175,6 +175,12 @@ func WithSearchResultsItemParsedQuery(val string) SearchResultsItemOption {
 	}
 }
 
+func WithSearchResultsItemProcessingTimeMS(val int32) SearchResultsItemOption {
+	return func(f *SearchResultsItem) {
+		f.ProcessingTimeMS = &val
+	}
+}
+
 func WithSearchResultsItemProcessingTimingsMS(val map[string]any) SearchResultsItemOption {
 	return func(f *SearchResultsItem) {
 		f.ProcessingTimingsMS = val
@@ -233,9 +239,8 @@ func WithSearchResultsItemAutomaticInsights(val bool) SearchResultsItemOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchResultsItem(processingTimeMS int32, page int32, nbHits int32, nbPages int32, hitsPerPage int32, hits []Hit, query string, params string, compositions map[string]ResultsCompositionInfoResponse, opts ...SearchResultsItemOption) *SearchResultsItem {
+func NewSearchResultsItem(page int32, nbHits int32, nbPages int32, hitsPerPage int32, hits []Hit, query string, params string, compositions map[string]ResultsCompositionInfoResponse, opts ...SearchResultsItemOption) *SearchResultsItem {
 	this := &SearchResultsItem{}
-	this.ProcessingTimeMS = processingTimeMS
 	this.Page = page
 	this.NbHits = nbHits
 	this.NbPages = nbPages
@@ -792,28 +797,36 @@ func (o *SearchResultsItem) SetParsedQuery(v string) *SearchResultsItem {
 	return o
 }
 
-// GetProcessingTimeMS returns the ProcessingTimeMS field value.
+// GetProcessingTimeMS returns the ProcessingTimeMS field value if set, zero value otherwise.
 func (o *SearchResultsItem) GetProcessingTimeMS() int32 {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.ProcessingTimeMS
+	return *o.ProcessingTimeMS
 }
 
-// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value
+// GetProcessingTimeMSOk returns a tuple with the ProcessingTimeMS field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SearchResultsItem) GetProcessingTimeMSOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.ProcessingTimeMS == nil {
 		return nil, false
 	}
-	return &o.ProcessingTimeMS, true
+	return o.ProcessingTimeMS, true
 }
 
-// SetProcessingTimeMS sets field value.
+// HasProcessingTimeMS returns a boolean if a field has been set.
+func (o *SearchResultsItem) HasProcessingTimeMS() bool {
+	if o != nil && o.ProcessingTimeMS != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
 func (o *SearchResultsItem) SetProcessingTimeMS(v int32) *SearchResultsItem {
-	o.ProcessingTimeMS = v
+	o.ProcessingTimeMS = &v
 	return o
 }
 
@@ -1365,7 +1378,9 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
-	toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	if o.ProcessingTimeMS != nil {
+		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
+	}
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
