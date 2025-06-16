@@ -5518,15 +5518,25 @@ func (r *ApiPushRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["referenceIndexName"]; ok {
+		err = json.Unmarshal(v, &r.referenceIndexName)
+		if err != nil {
+			err = json.Unmarshal(b, &r.referenceIndexName)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal referenceIndexName: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
 
 // ApiPushRequest represents the request with all the parameters for the API call.
 type ApiPushRequest struct {
-	indexName       string
-	pushTaskPayload *PushTaskPayload
-	watch           *bool
+	indexName          string
+	pushTaskPayload    *PushTaskPayload
+	watch              *bool
+	referenceIndexName *string
 }
 
 // NewApiPushRequest creates an instance of the ApiPushRequest to be used for the API call.
@@ -5540,6 +5550,12 @@ func (c *APIClient) NewApiPushRequest(indexName string, pushTaskPayload *PushTas
 // WithWatch adds the watch to the ApiPushRequest and returns the request for chaining.
 func (r ApiPushRequest) WithWatch(watch bool) ApiPushRequest {
 	r.watch = &watch
+	return r
+}
+
+// WithReferenceIndexName adds the referenceIndexName to the ApiPushRequest and returns the request for chaining.
+func (r ApiPushRequest) WithReferenceIndexName(referenceIndexName string) ApiPushRequest {
+	r.referenceIndexName = &referenceIndexName
 	return r
 }
 
@@ -5560,6 +5576,7 @@ This method is similar to `pushTask`, but requires an `indexName` instead of a `
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param pushTaskPayload PushTaskPayload
 	  @param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
+	  @param referenceIndexName string - This is required when targeting an index that does not have a push connector setup (e.g. a tmp index), but you wish to attach another index's transformation to it (e.g. the source index name).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -5590,6 +5607,9 @@ func (c *APIClient) PushWithHTTPInfo(r ApiPushRequest, opts ...RequestOption) (*
 
 	if !utils.IsNilOrEmpty(r.watch) {
 		conf.queryParams.Set("watch", utils.QueryParameterToString(*r.watch))
+	}
+	if !utils.IsNilOrEmpty(r.referenceIndexName) {
+		conf.queryParams.Set("referenceIndexName", utils.QueryParameterToString(*r.referenceIndexName))
 	}
 
 	// optional params if any
@@ -5626,6 +5646,7 @@ Request can be constructed by NewApiPushRequest with parameters below.
 	@param indexName string - Name of the index on which to perform the operation.
 	@param pushTaskPayload PushTaskPayload
 	@param watch bool - When provided, the push operation will be synchronous and the API will wait for the ingestion to be finished before responding.
+	@param referenceIndexName string - This is required when targeting an index that does not have a push connector setup (e.g. a tmp index), but you wish to attach another index's transformation to it (e.g. the source index name).
 	@return WatchResponse
 */
 func (c *APIClient) Push(r ApiPushRequest, opts ...RequestOption) (*WatchResponse, error) {
