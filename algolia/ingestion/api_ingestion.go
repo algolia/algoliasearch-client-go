@@ -4,12 +4,14 @@ package ingestion
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
@@ -20,6 +22,15 @@ type config struct {
 	queryParams  url.Values
 	headerParams map[string]string
 	timeouts     transport.RequestConfiguration
+
+	// -- ChunkedPush options
+	waitForTasks bool
+	batchSize    int
+
+	// -- Iterable options
+	maxRetries int
+	timeout    func(int) time.Duration
+	aggregator func(any, error)
 }
 
 type RequestOption interface {
@@ -8412,4 +8423,217 @@ func (c *APIClient) ValidateSourceBeforeUpdate(r ApiValidateSourceBeforeUpdateRe
 	}
 
 	return returnValue, nil
+}
+
+// --------- ChunkedBatch options ---------
+
+type ChunkedBatchOption interface {
+	RequestOption
+	chunkedBatch()
+}
+
+type chunkedBatchOption func(*config)
+
+var (
+	_ ChunkedBatchOption = (*chunkedBatchOption)(nil)
+	_ ChunkedBatchOption = (*requestOption)(nil)
+)
+
+func (c chunkedBatchOption) apply(conf *config) {
+	c(conf)
+}
+
+func (c chunkedBatchOption) chunkedBatch() {}
+
+func (r requestOption) chunkedBatch() {}
+
+// WithWaitForTasks whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
+func WithWaitForTasks(waitForTasks bool) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.waitForTasks = waitForTasks
+	})
+}
+
+// WithBatchSize the size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
+func WithBatchSize(batchSize int) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.batchSize = batchSize
+	})
+}
+
+// --------- Iterable options ---------.
+
+type IterableOption interface {
+	RequestOption
+	iterable()
+}
+
+type iterableOption func(*config)
+
+var (
+	_ IterableOption = (*iterableOption)(nil)
+	_ IterableOption = (*requestOption)(nil)
+)
+
+func (i iterableOption) apply(c *config) {
+	i(c)
+}
+
+func (r requestOption) iterable() {}
+
+func (i iterableOption) iterable() {}
+
+// WithMaxRetries the maximum number of retry. Default to 50.
+func WithMaxRetries(maxRetries int) iterableOption {
+	return iterableOption(func(c *config) {
+		c.maxRetries = maxRetries
+	})
+}
+
+// WithTimeout he function to decide how long to wait between retries. Default to min(retryCount * 200, 5000).
+func WithTimeout(timeout func(int) time.Duration) iterableOption {
+	return iterableOption(func(c *config) {
+		c.timeout = timeout
+	})
+}
+
+// WithAggregator the function to aggregate the results of the iterable.
+func WithAggregator(aggregator func(any, error)) iterableOption {
+	return iterableOption(func(c *config) {
+		c.aggregator = aggregator
+	})
+}
+
+func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T, error) (bool, error), opts ...IterableOption) (*T, error) {
+	conf := config{
+		headerParams: map[string]string{},
+		maxRetries:   -1,
+		timeout: func(count int) time.Duration {
+			return 0 * time.Millisecond
+		},
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var executor func(*T, error) (*T, error)
+
+	retryCount := 0
+
+	executor = func(previousResponse *T, previousError error) (*T, error) {
+		response, responseErr := execute(previousResponse, previousError)
+
+		retryCount++
+
+		if conf.aggregator != nil {
+			conf.aggregator(response, responseErr)
+		}
+
+		canStop, err := validate(response, responseErr)
+		if canStop || err != nil {
+			return response, err
+		}
+
+		if conf.maxRetries >= 0 && retryCount >= conf.maxRetries {
+			return nil, errs.NewWaitError(fmt.Sprintf("The maximum number of retries exceeded. (%d/%d)", retryCount, conf.maxRetries))
+		}
+
+		time.Sleep(conf.timeout(retryCount))
+
+		return executor(response, responseErr)
+	}
+
+	return executor(nil, nil)
+}
+
+/*
+ChunkedPush Chunks the given `objects` list in subset of 1000 elements max in order to make it fit in `push` requests by leveraging the Transformation pipeline setup in the Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/).
+
+	@param indexName string - the index name to save objects into.
+	@param objects []map[string]any - List of objects to save.
+	@param action Action - The action to perform on the objects.
+	@param referenceIndexName *string - This is required when targeting an index that does not have a push connector setup (e.g. a tmp index), but you wish to attach another index's transformation to it (e.g. the source index name).
+	@param opts ...ChunkedBatchOption - Optional parameters for the request.
+	@return []WatchResponse - List of push responses.
+	@return error - Error if any.
+*/
+func (c *APIClient) ChunkedPush(indexName string, objects []map[string]any, action Action, referenceIndexName *string, opts ...RequestOption) ([]WatchResponse, error) {
+	conf := config{
+		headerParams: map[string]string{},
+		waitForTasks: false,
+		batchSize:    1000,
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	records := make([]map[string]any, 0, len(objects)%conf.batchSize)
+	responses := make([]WatchResponse, 0, len(objects)%conf.batchSize)
+
+	for i, obj := range objects {
+		records = append(records, obj)
+
+		if len(records) == conf.batchSize || i == len(objects)-1 {
+			pushRecords := make([]PushTaskRecords, 0, len(records))
+
+			rawRecords, err := json.Marshal(records)
+			if err != nil {
+				return nil, reportError("unable to marshal the given `objects`: %w", err)
+			}
+
+			err = json.Unmarshal(rawRecords, &pushRecords)
+			if err != nil {
+				return nil, reportError("unable to unmarshal the given `objects` to an `[]PushTaskRecords` payload: %w", err)
+			}
+
+			request := c.NewApiPushRequest(
+				indexName,
+				NewEmptyPushTaskPayload().
+					SetAction(action).
+					SetRecords(pushRecords),
+			)
+
+			if referenceIndexName != nil {
+				request = request.WithReferenceIndexName(*referenceIndexName)
+			}
+
+			resp, err := c.Push(request)
+			if err != nil {
+				return nil, err 
+			}
+
+			responses = append(responses, *resp)
+			records = make([]map[string]any, 0, len(objects)%conf.batchSize)
+		}
+	}
+
+	if conf.waitForTasks {
+		for _, resp := range responses {
+			_, err := CreateIterable( 
+				func(*Event, error) (*Event, error) {
+					if resp.EventID == nil {
+						return nil, reportError("received unexpected response from the push endpoint, eventID must not be undefined")
+					}
+
+					return c.GetEvent(c.NewApiGetEventRequest(resp.RunID, *resp.EventID))
+				},
+				func(response *Event, err error) (bool, error) {
+					var apiErr *APIError
+					if errors.As(err, &apiErr) {
+						return apiErr.Status != 404, nil
+					}
+
+					return true, err
+				},
+				WithTimeout(func(count int) time.Duration { return time.Duration(min(500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
+			)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	return responses, nil
 }

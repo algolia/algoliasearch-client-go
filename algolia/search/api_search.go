@@ -99,42 +99,6 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 	})
 }
 
-// --------- ChunkedBatch options ---------
-
-type ChunkedBatchOption interface {
-	RequestOption
-	chunkedBatch()
-}
-
-type chunkedBatchOption func(*config)
-
-var (
-	_ ChunkedBatchOption = (*chunkedBatchOption)(nil)
-	_ ChunkedBatchOption = (*requestOption)(nil)
-)
-
-func (c chunkedBatchOption) apply(conf *config) {
-	c(conf)
-}
-
-func (c chunkedBatchOption) chunkedBatch() {}
-
-func (r requestOption) chunkedBatch() {}
-
-// WithWaitForTasks whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
-func WithWaitForTasks(waitForTasks bool) chunkedBatchOption {
-	return chunkedBatchOption(func(c *config) {
-		c.waitForTasks = waitForTasks
-	})
-}
-
-// WithBatchSize the size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
-func WithBatchSize(batchSize int) chunkedBatchOption {
-	return chunkedBatchOption(func(c *config) {
-		c.batchSize = batchSize
-	})
-}
-
 // --------- PartialUpdateObjects options ---------
 
 type PartialUpdateObjectsOption interface {
@@ -203,49 +167,6 @@ func WithScopes(scopes []ScopeType) replaceAllObjectsOption {
 	})
 }
 
-// --------- Iterable options ---------.
-
-type IterableOption interface {
-	RequestOption
-	iterable()
-}
-
-type iterableOption func(*config)
-
-var (
-	_ IterableOption = (*iterableOption)(nil)
-	_ IterableOption = (*requestOption)(nil)
-)
-
-func (i iterableOption) apply(c *config) {
-	i(c)
-}
-
-func (r requestOption) iterable() {}
-
-func (i iterableOption) iterable() {}
-
-// WithMaxRetries the maximum number of retry. Default to 50.
-func WithMaxRetries(maxRetries int) iterableOption {
-	return iterableOption(func(c *config) {
-		c.maxRetries = maxRetries
-	})
-}
-
-// WithTimeout he function to decide how long to wait between retries. Default to min(retryCount * 200, 5000).
-func WithTimeout(timeout func(int) time.Duration) iterableOption {
-	return iterableOption(func(c *config) {
-		c.timeout = timeout
-	})
-}
-
-// WithAggregator the function to aggregate the results of the iterable.
-func WithAggregator(aggregator func(any, error)) iterableOption {
-	return iterableOption(func(c *config) {
-		c.aggregator = aggregator
-	})
-}
-
 // --------- WaitForKey options ---------.
 
 type WaitForApiKeyOption interface {
@@ -287,6 +208,18 @@ func toRequestOptions[T RequestOption](opts []T) []RequestOption {
 
 	for _, opt := range opts {
 		requestOpts = append(requestOpts, opt)
+	}
+
+	return requestOpts
+}
+
+func toIngestionRequestOptions(opts []RequestOption) []ingestion.RequestOption {
+	requestOpts := make([]ingestion.RequestOption, 0, len(opts))
+
+	for _, opt := range opts {
+		if opt, ok := opt.(ingestion.RequestOption); ok {
+			requestOpts = append(requestOpts, opt)
+		}
 	}
 
 	return requestOpts
@@ -8714,6 +8647,85 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...RequestOption
 	return returnValue, nil
 }
 
+// --------- ChunkedBatch options ---------
+
+type ChunkedBatchOption interface {
+	RequestOption
+	chunkedBatch()
+}
+
+type chunkedBatchOption func(*config)
+
+var (
+	_ ChunkedBatchOption = (*chunkedBatchOption)(nil)
+	_ ChunkedBatchOption = (*requestOption)(nil)
+)
+
+func (c chunkedBatchOption) apply(conf *config) {
+	c(conf)
+}
+
+func (c chunkedBatchOption) chunkedBatch() {}
+
+func (r requestOption) chunkedBatch() {}
+
+// WithWaitForTasks whether or not we should wait until every `batch` tasks has been processed, this operation may slow the total execution time of this method but is more reliable.
+func WithWaitForTasks(waitForTasks bool) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.waitForTasks = waitForTasks
+	})
+}
+
+// WithBatchSize the size of the chunk of `objects`. The number of `batch` calls will be equal to `length(objects) / batchSize`. Defaults to 1000.
+func WithBatchSize(batchSize int) chunkedBatchOption {
+	return chunkedBatchOption(func(c *config) {
+		c.batchSize = batchSize
+	})
+}
+
+// --------- Iterable options ---------.
+
+type IterableOption interface {
+	RequestOption
+	iterable()
+}
+
+type iterableOption func(*config)
+
+var (
+	_ IterableOption = (*iterableOption)(nil)
+	_ IterableOption = (*requestOption)(nil)
+)
+
+func (i iterableOption) apply(c *config) {
+	i(c)
+}
+
+func (r requestOption) iterable() {}
+
+func (i iterableOption) iterable() {}
+
+// WithMaxRetries the maximum number of retry. Default to 50.
+func WithMaxRetries(maxRetries int) iterableOption {
+	return iterableOption(func(c *config) {
+		c.maxRetries = maxRetries
+	})
+}
+
+// WithTimeout he function to decide how long to wait between retries. Default to min(retryCount * 200, 5000).
+func WithTimeout(timeout func(int) time.Duration) iterableOption {
+	return iterableOption(func(c *config) {
+		c.timeout = timeout
+	})
+}
+
+// WithAggregator the function to aggregate the results of the iterable.
+func WithAggregator(aggregator func(any, error)) iterableOption {
+	return iterableOption(func(c *config) {
+		c.aggregator = aggregator
+	})
+}
+
 func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T, error) (bool, error), opts ...IterableOption) (*T, error) {
 	conf := config{
 		headerParams: map[string]string{},
@@ -9459,31 +9471,12 @@ Helper: Similar to the `SaveObjects` method but requires a Push connector (https
 	@return []BatchResponse - List of batch responses.
 	@return error - Error if any.
 */
-func (c *APIClient) SaveObjectsWithTransformation(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) (*ingestion.WatchResponse, error) {
+func (c *APIClient) SaveObjectsWithTransformation(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
 
-	var records []ingestion.PushTaskRecords
-
-	rawObjects, err := json.Marshal(objects)
-	if err != nil {
-		return nil, reportError("unable to marshal the given `objects`: %w", err)
-	}
-
-	err = json.Unmarshal(rawObjects, &records)
-	if err != nil {
-		return nil, reportError("unable to unmarshal the given `objects` to an `[]ingestion.PushTaskRecords` payload: %w", err)
-	}
-
-	return c.ingestionTransporter.Push( //nolint:wrapcheck
-		c.ingestionTransporter.NewApiPushRequest(
-			indexName,
-			ingestion.NewEmptyPushTaskPayload().
-				SetAction(ingestion.ACTION_ADD_OBJECT).
-				SetRecords(records),
-		),
-	)
+	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(ACTION_ADD_OBJECT), nil, toIngestionRequestOptions(toRequestOptions(opts))...) //nolint:wrapcheck
 }
 
 /*
@@ -9495,7 +9488,7 @@ Helper: Similar to the `PartialUpdateObjects` method but requires a Push connect
 	@return []BatchResponse - List of batch responses.
 	@return error - Error if any.
 */
-func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, objects []map[string]any, opts ...PartialUpdateObjectsOption) (*ingestion.WatchResponse, error) {
+func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, objects []map[string]any, opts ...PartialUpdateObjectsOption) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
@@ -9509,32 +9502,13 @@ func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, obj
 		opt.apply(&conf)
 	}
 
-	var action ingestion.Action
+	var action Action
 
 	if conf.createIfNotExists {
-		action = ingestion.ACTION_PARTIAL_UPDATE_OBJECT
+		action = ACTION_PARTIAL_UPDATE_OBJECT
 	} else {
-		action = ingestion.ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
+		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
 	}
 
-	var records []ingestion.PushTaskRecords
-
-	rawObjects, err := json.Marshal(objects)
-	if err != nil {
-		return nil, reportError("unable to marshal the given `objects`: %w", err)
-	}
-
-	err = json.Unmarshal(rawObjects, &records)
-	if err != nil {
-		return nil, reportError("unable to unmarshal the given `objects` to an `[]ingestion.PushTaskRecords` payload: %w", err)
-	}
-
-	return c.ingestionTransporter.Push( //nolint:wrapcheck
-		c.ingestionTransporter.NewApiPushRequest(
-			indexName,
-			ingestion.NewEmptyPushTaskPayload().
-				SetAction(action).
-				SetRecords(records),
-		),
-	)
+	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(action), nil, toIngestionRequestOptions(toRequestOptions(opts))...) //nolint:wrapcheck
 }
