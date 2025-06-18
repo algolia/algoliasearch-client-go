@@ -243,7 +243,7 @@ CustomDelete calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
-	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -292,7 +292,7 @@ This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomDeleteRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param path string - Path of the endpoint, for example `1/newFeature`.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
@@ -373,7 +373,7 @@ CustomGet calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomGetRequest with parameters below.
-	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -422,7 +422,7 @@ This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomGetRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param path string - Path of the endpoint, for example `1/newFeature`.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@return map[string]any
 */
@@ -519,7 +519,7 @@ CustomPost calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomPostRequest with parameters below.
-	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -575,7 +575,7 @@ This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomPostRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param path string - Path of the endpoint, for example `1/newFeature`.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
@@ -673,7 +673,7 @@ CustomPut calls the API and returns the raw response from it.
 
 
 	Request can be constructed by NewApiCustomPutRequest with parameters below.
-	  @param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
 	  @param parameters map[string]any - Query parameters to apply to the current query.
 	  @param body map[string]any - Parameters to send with the custom request.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -729,7 +729,7 @@ This method lets you send requests to the Algolia REST API.
 
 Request can be constructed by NewApiCustomPutRequest with parameters below.
 
-	@param path string - Path of the endpoint, anything after \"/1\" must be specified.
+	@param path string - Path of the endpoint, for example `1/newFeature`.
 	@param parameters map[string]any - Query parameters to apply to the current query.
 	@param body map[string]any - Parameters to send with the custom request.
 	@return map[string]any
