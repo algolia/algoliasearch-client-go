@@ -213,16 +213,23 @@ func toRequestOptions[T RequestOption](opts []T) []RequestOption {
 	return requestOpts
 }
 
-func toIngestionRequestOptions(opts []RequestOption) []ingestion.RequestOption {
-	requestOpts := make([]ingestion.RequestOption, 0, len(opts))
+// toIngestionChunkedBatchOptions converts the current chunked batch opts to ingestion ones.
+func toIngestionChunkedBatchOptions(opts []ChunkedBatchOption) []ingestion.ChunkedBatchOption {
+	conf := config{}
 
 	for _, opt := range opts {
-		if opt, ok := opt.(ingestion.RequestOption); ok {
-			requestOpts = append(requestOpts, opt)
-		}
+		opt.apply(&conf)
 	}
 
-	return requestOpts
+	ingestionOpts := make([]ingestion.ChunkedBatchOption, 0, len(opts))
+
+	if conf.batchSize > 0 {
+		ingestionOpts = append(ingestionOpts, ingestion.WithBatchSize(conf.batchSize))
+	}
+
+	ingestionOpts = append(ingestionOpts, ingestion.WithWaitForTasks(conf.waitForTasks))
+
+	return ingestionOpts
 }
 
 func toIterableOptions(opts []ChunkedBatchOption) []IterableOption {
@@ -9368,6 +9375,100 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 }
 
 /*
+ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers for implementation details.
+
+	@param indexName string - the index name to replace objects into.
+	@param objects []map[string]any - List of objects to replace.
+	@param opts ...ReplaceAllObjectsOption - Optional parameters for the request.
+	@return *ReplaceAllObjectsResponse - The response of the replace all objects operation.
+	@return error - Error if any.
+*/
+func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, objects []map[string]any, opts ...ReplaceAllObjectsOption) (*ReplaceAllObjectsWithTransformationResponse, error) {
+	if c.ingestionTransporter == nil {
+		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
+	}
+
+	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
+
+	conf := config{
+		headerParams: map[string]string{},
+		scopes:       []ScopeType{SCOPE_TYPE_SETTINGS, SCOPE_TYPE_RULES, SCOPE_TYPE_SYNONYMS},
+	}
+
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	opts = append(opts, WithWaitForTasks(true))
+
+	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	if err != nil {
+		return nil, err
+	}
+
+	watchResp, err := c.ingestionTransporter.ChunkedPush(tmpIndexName, objects, ingestion.Action(ACTION_ADD_OBJECT), &indexName, toIngestionChunkedBatchOptions(replaceAllObjectsToChunkBactchOptions(opts))...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err //nolint:wrapcheck
+	}
+
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err
+	}
+
+	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(tmpIndexName, copyResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err
+	}
+
+	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), toRequestOptions(opts)...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err
+	}
+
+	_, err = c.WaitForTask(tmpIndexName, moveResp.TaskID, replaceAllObjectsToIterableOptions(opts)...)
+	if err != nil {
+		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
+
+		return nil, err
+	}
+
+	var searchWatchResp []WatchResponse
+
+	rawResp, err := json.Marshal(watchResp)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert the ingestion WatchResponse to search WatchResponse: %w", err)
+	}
+
+	err = json.Unmarshal(rawResp, &searchWatchResp)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert the ingestion WatchResponse to search WatchResponse: %w", err)
+	}
+
+	return &ReplaceAllObjectsWithTransformationResponse{
+		CopyOperationResponse: *copyResp,
+		WatchResponses:        searchWatchResp,
+		MoveOperationResponse: *moveResp,
+	}, nil
+}
+
+/*
 ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
 See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers for implementation details.
 
@@ -9476,7 +9577,7 @@ func (c *APIClient) SaveObjectsWithTransformation(indexName string, objects []ma
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
 
-	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(ACTION_ADD_OBJECT), nil, toIngestionRequestOptions(toRequestOptions(opts))...) //nolint:wrapcheck
+	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(ACTION_ADD_OBJECT), nil, toIngestionChunkedBatchOptions(opts)...) //nolint:wrapcheck
 }
 
 /*
@@ -9510,5 +9611,5 @@ func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, obj
 		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
 	}
 
-	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(action), nil, toIngestionRequestOptions(toRequestOptions(opts))...) //nolint:wrapcheck
+	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(action), nil, toIngestionChunkedBatchOptions(partialUpdateObjectsToChunkedBatchOptions(opts))...) //nolint:wrapcheck
 }

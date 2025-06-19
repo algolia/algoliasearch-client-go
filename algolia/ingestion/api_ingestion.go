@@ -8558,7 +8558,7 @@ ChunkedPush Chunks the given `objects` list in subset of 1000 elements max in or
 	@return []WatchResponse - List of push responses.
 	@return error - Error if any.
 */
-func (c *APIClient) ChunkedPush(indexName string, objects []map[string]any, action Action, referenceIndexName *string, opts ...RequestOption) ([]WatchResponse, error) {
+func (c *APIClient) ChunkedPush(indexName string, objects []map[string]any, action Action, referenceIndexName *string, opts ...ChunkedBatchOption) ([]WatchResponse, error) {
 	conf := config{
 		headerParams: map[string]string{},
 		waitForTasks: false,
