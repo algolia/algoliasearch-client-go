@@ -280,7 +280,7 @@ func partialUpdateObjectsToChunkedBatchOptions(opts []PartialUpdateObjectsOption
 	return chunkedBatchOpts
 }
 
-func replaceAllObjectsToChunkBactchOptions(opts []ReplaceAllObjectsOption) []ChunkedBatchOption {
+func replaceAllObjectsToChunkBatchOptions(opts []ReplaceAllObjectsOption) []ChunkedBatchOption {
 	chunkedBatchOpts := make([]ChunkedBatchOption, 0, len(opts))
 
 	for _, opt := range opts {
@@ -9407,7 +9407,7 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, object
 		return nil, err
 	}
 
-	watchResp, err := c.ingestionTransporter.ChunkedPush(tmpIndexName, objects, ingestion.Action(ACTION_ADD_OBJECT), &indexName, toIngestionChunkedBatchOptions(replaceAllObjectsToChunkBactchOptions(opts))...)
+	watchResp, err := c.ingestionTransporter.ChunkedPush(tmpIndexName, objects, ingestion.Action(ACTION_ADD_OBJECT), &indexName, toIngestionChunkedBatchOptions(replaceAllObjectsToChunkBatchOptions(opts))...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9497,7 +9497,7 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, replaceAllObjectsToChunkBactchOptions(opts)...)
+	batchResp, err := c.ChunkedBatch(tmpIndexName, objects, ACTION_ADD_OBJECT, replaceAllObjectsToChunkBatchOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
