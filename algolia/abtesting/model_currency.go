@@ -16,6 +16,8 @@ type Currency struct {
 	Mean *float64 `json:"mean,omitempty"`
 	// Standard deviation for this currency.
 	StandardDeviation *float64 `json:"standardDeviation,omitempty"`
+	// The amount of revenue for this currency that was removed after capping purchase amounts to the 95th percentile.
+	WinsorizedAmount *float64 `json:"winsorizedAmount,omitempty"`
 }
 
 type CurrencyOption func(f *Currency)
@@ -41,6 +43,12 @@ func WithCurrencyMean(val float64) CurrencyOption {
 func WithCurrencyStandardDeviation(val float64) CurrencyOption {
 	return func(f *Currency) {
 		f.StandardDeviation = &val
+	}
+}
+
+func WithCurrencyWinsorizedAmount(val float64) CurrencyOption {
+	return func(f *Currency) {
+		f.WinsorizedAmount = &val
 	}
 }
 
@@ -193,6 +201,39 @@ func (o *Currency) SetStandardDeviation(v float64) *Currency {
 	return o
 }
 
+// GetWinsorizedAmount returns the WinsorizedAmount field value if set, zero value otherwise.
+func (o *Currency) GetWinsorizedAmount() float64 {
+	if o == nil || o.WinsorizedAmount == nil {
+		var ret float64
+		return ret
+	}
+	return *o.WinsorizedAmount
+}
+
+// GetWinsorizedAmountOk returns a tuple with the WinsorizedAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Currency) GetWinsorizedAmountOk() (*float64, bool) {
+	if o == nil || o.WinsorizedAmount == nil {
+		return nil, false
+	}
+	return o.WinsorizedAmount, true
+}
+
+// HasWinsorizedAmount returns a boolean if a field has been set.
+func (o *Currency) HasWinsorizedAmount() bool {
+	if o != nil && o.WinsorizedAmount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWinsorizedAmount gets a reference to the given float64 and assigns it to the WinsorizedAmount field.
+func (o *Currency) SetWinsorizedAmount(v float64) *Currency {
+	o.WinsorizedAmount = &v
+	return o
+}
+
 func (o Currency) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Currency != nil {
@@ -206,6 +247,9 @@ func (o Currency) MarshalJSON() ([]byte, error) {
 	}
 	if o.StandardDeviation != nil {
 		toSerialize["standardDeviation"] = o.StandardDeviation
+	}
+	if o.WinsorizedAmount != nil {
+		toSerialize["winsorizedAmount"] = o.WinsorizedAmount
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -221,5 +265,6 @@ func (o Currency) String() string {
 	out += fmt.Sprintf("  revenue=%v\n", o.Revenue)
 	out += fmt.Sprintf("  mean=%v\n", o.Mean)
 	out += fmt.Sprintf("  standardDeviation=%v\n", o.StandardDeviation)
+	out += fmt.Sprintf("  winsorizedAmount=%v\n", o.WinsorizedAmount)
 	return fmt.Sprintf("Currency {\n%s}", out)
 }
