@@ -8,11 +8,11 @@ import (
 
 // RunSourcePayload struct for RunSourcePayload.
 type RunSourcePayload struct {
-	// List of index names to include in reidexing/update.
+	// List of index names to include in reindex/update.
 	IndexToInclude []string `json:"indexToInclude,omitempty"`
-	// List of index names to exclude in reidexing/update.
+	// List of index names to exclude in reindex/update.
 	IndexToExclude []string `json:"indexToExclude,omitempty"`
-	// List of entityID to update.
+	// List of entityIDs to update.
 	EntityIDs  []string    `json:"entityIDs,omitempty"`
 	EntityType *EntityType `json:"entityType,omitempty"`
 }
