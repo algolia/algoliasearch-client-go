@@ -9,19 +9,34 @@ import (
 // TimeRange struct for TimeRange.
 type TimeRange struct {
 	// When the rule should start to be active, in Unix epoch time.
-	From int64 `json:"from"`
+	From *int64 `json:"from,omitempty"`
 	// When the rule should stop to be active, in Unix epoch time.
-	Until int64 `json:"until"`
+	Until *int64 `json:"until,omitempty"`
+}
+
+type TimeRangeOption func(f *TimeRange)
+
+func WithTimeRangeFrom(val int64) TimeRangeOption {
+	return func(f *TimeRange) {
+		f.From = &val
+	}
+}
+
+func WithTimeRangeUntil(val int64) TimeRangeOption {
+	return func(f *TimeRange) {
+		f.Until = &val
+	}
 }
 
 // NewTimeRange instantiates a new TimeRange object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTimeRange(from int64, until int64) *TimeRange {
+func NewTimeRange(opts ...TimeRangeOption) *TimeRange {
 	this := &TimeRange{}
-	this.From = from
-	this.Until = until
+	for _, opt := range opts {
+		opt(this)
+	}
 	return this
 }
 
@@ -30,60 +45,80 @@ func NewEmptyTimeRange() *TimeRange {
 	return &TimeRange{}
 }
 
-// GetFrom returns the From field value.
+// GetFrom returns the From field value if set, zero value otherwise.
 func (o *TimeRange) GetFrom() int64 {
-	if o == nil {
+	if o == nil || o.From == nil {
 		var ret int64
 		return ret
 	}
-
-	return o.From
+	return *o.From
 }
 
-// GetFromOk returns a tuple with the From field value
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimeRange) GetFromOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || o.From == nil {
 		return nil, false
 	}
-	return &o.From, true
+	return o.From, true
 }
 
-// SetFrom sets field value.
+// HasFrom returns a boolean if a field has been set.
+func (o *TimeRange) HasFrom() bool {
+	if o != nil && o.From != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given int64 and assigns it to the From field.
 func (o *TimeRange) SetFrom(v int64) *TimeRange {
-	o.From = v
+	o.From = &v
 	return o
 }
 
-// GetUntil returns the Until field value.
+// GetUntil returns the Until field value if set, zero value otherwise.
 func (o *TimeRange) GetUntil() int64 {
-	if o == nil {
+	if o == nil || o.Until == nil {
 		var ret int64
 		return ret
 	}
-
-	return o.Until
+	return *o.Until
 }
 
-// GetUntilOk returns a tuple with the Until field value
+// GetUntilOk returns a tuple with the Until field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TimeRange) GetUntilOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || o.Until == nil {
 		return nil, false
 	}
-	return &o.Until, true
+	return o.Until, true
 }
 
-// SetUntil sets field value.
+// HasUntil returns a boolean if a field has been set.
+func (o *TimeRange) HasUntil() bool {
+	if o != nil && o.Until != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUntil gets a reference to the given int64 and assigns it to the Until field.
 func (o *TimeRange) SetUntil(v int64) *TimeRange {
-	o.Until = v
+	o.Until = &v
 	return o
 }
 
 func (o TimeRange) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	toSerialize["from"] = o.From
-	toSerialize["until"] = o.Until
+	if o.From != nil {
+		toSerialize["from"] = o.From
+	}
+	if o.Until != nil {
+		toSerialize["until"] = o.Until
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TimeRange: %w", err)
