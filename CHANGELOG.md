@@ -1,3 +1,8 @@
+## [4.21.1](https://github.com/algolia/algoliasearch-client-go/compare/4.21.0...4.21.1)
+
+- [4c9416a9fe](https://github.com/algolia/api-clients-automation/commit/4c9416a9fe) fix(specs): update sourceRun docs ([#5057](https://github.com/algolia/api-clients-automation/pull/5057)) by [@DevinCodes](https://github.com/DevinCodes/)
+- [754efceb80](https://github.com/algolia/api-clients-automation/commit/754efceb80) fix(specs): allow one sided rule validity ([#5060](https://github.com/algolia/api-clients-automation/pull/5060)) by [@millotp](https://github.com/millotp/)
+
 ## [4.21.0](https://github.com/algolia/algoliasearch-client-go/compare/4.20.0...4.21.0)
 
 - [e881e3a531](https://github.com/algolia/api-clients-automation/commit/e881e3a531) fix(go): typo on internal helper
