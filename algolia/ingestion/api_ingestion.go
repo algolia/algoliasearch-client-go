@@ -6008,13 +6008,23 @@ func (r *ApiRunTaskRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["runTaskPayload"]; ok {
+		err = json.Unmarshal(v, &r.runTaskPayload)
+		if err != nil {
+			err = json.Unmarshal(b, &r.runTaskPayload)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal runTaskPayload: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
 
 // ApiRunTaskRequest represents the request with all the parameters for the API call.
 type ApiRunTaskRequest struct {
-	taskID string
+	taskID         string
+	runTaskPayload *RunTaskPayload
 }
 
 // NewApiRunTaskRequest creates an instance of the ApiRunTaskRequest to be used for the API call.
@@ -6022,6 +6032,12 @@ func (c *APIClient) NewApiRunTaskRequest(taskID string) ApiRunTaskRequest {
 	return ApiRunTaskRequest{
 		taskID: taskID,
 	}
+}
+
+// WithRunTaskPayload adds the runTaskPayload to the ApiRunTaskRequest and returns the request for chaining.
+func (r ApiRunTaskRequest) WithRunTaskPayload(runTaskPayload *RunTaskPayload) ApiRunTaskRequest {
+	r.runTaskPayload = runTaskPayload
+	return r
 }
 
 /*
@@ -6036,6 +6052,7 @@ RunTask calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiRunTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
+	  @param runTaskPayload RunTaskPayload -
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -6062,6 +6079,12 @@ func (c *APIClient) RunTaskWithHTTPInfo(r ApiRunTaskRequest, opts ...RequestOpti
 
 	var postBody any
 
+	// body params
+	if utils.IsNilOrEmpty(r.runTaskPayload) {
+		postBody = "{}"
+	} else {
+		postBody = r.runTaskPayload
+	}
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6083,6 +6106,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiRunTaskRequest with parameters below.
 
 	@param taskID string - Unique identifier of a task.
+	@param runTaskPayload RunTaskPayload -
 	@return RunResponse
 */
 func (c *APIClient) RunTask(r ApiRunTaskRequest, opts ...RequestOption) (*RunResponse, error) {
@@ -6123,13 +6147,23 @@ func (r *ApiRunTaskV1Request) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["runTaskPayload"]; ok {
+		err = json.Unmarshal(v, &r.runTaskPayload)
+		if err != nil {
+			err = json.Unmarshal(b, &r.runTaskPayload)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal runTaskPayload: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
 
 // ApiRunTaskV1Request represents the request with all the parameters for the API call.
 type ApiRunTaskV1Request struct {
-	taskID string
+	taskID         string
+	runTaskPayload *RunTaskPayload
 }
 
 // Deprecated
@@ -6138,6 +6172,12 @@ func (c *APIClient) NewApiRunTaskV1Request(taskID string) ApiRunTaskV1Request {
 	return ApiRunTaskV1Request{
 		taskID: taskID,
 	}
+}
+
+// WithRunTaskPayload adds the runTaskPayload to the ApiRunTaskV1Request and returns the request for chaining.
+func (r ApiRunTaskV1Request) WithRunTaskPayload(runTaskPayload *RunTaskPayload) ApiRunTaskV1Request {
+	r.runTaskPayload = runTaskPayload
+	return r
 }
 
 /*
@@ -6152,6 +6192,7 @@ RunTaskV1 calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiRunTaskV1Request with parameters below.
 	  @param taskID string - Unique identifier of a task.
+	  @param runTaskPayload RunTaskPayload -
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -6180,6 +6221,12 @@ func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...Request
 
 	var postBody any
 
+	// body params
+	if utils.IsNilOrEmpty(r.runTaskPayload) {
+		postBody = "{}"
+	} else {
+		postBody = r.runTaskPayload
+	}
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6201,6 +6248,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiRunTaskV1Request with parameters below.
 
 	@param taskID string - Unique identifier of a task.
+	@param runTaskPayload RunTaskPayload -
 	@return RunResponse
 
 Deprecated.

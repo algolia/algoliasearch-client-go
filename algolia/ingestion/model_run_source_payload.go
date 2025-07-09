@@ -15,6 +15,8 @@ type RunSourcePayload struct {
 	// List of entityIDs to update.
 	EntityIDs  []string    `json:"entityIDs,omitempty"`
 	EntityType *EntityType `json:"entityType,omitempty"`
+	// Additional information that will be passed to the created runs.
+	RunMetadata map[string]any `json:"runMetadata,omitempty"`
 }
 
 type RunSourcePayloadOption func(f *RunSourcePayload)
@@ -40,6 +42,12 @@ func WithRunSourcePayloadEntityIDs(val []string) RunSourcePayloadOption {
 func WithRunSourcePayloadEntityType(val EntityType) RunSourcePayloadOption {
 	return func(f *RunSourcePayload) {
 		f.EntityType = &val
+	}
+}
+
+func WithRunSourcePayloadRunMetadata(val map[string]any) RunSourcePayloadOption {
+	return func(f *RunSourcePayload) {
+		f.RunMetadata = val
 	}
 }
 
@@ -192,6 +200,39 @@ func (o *RunSourcePayload) SetEntityType(v EntityType) *RunSourcePayload {
 	return o
 }
 
+// GetRunMetadata returns the RunMetadata field value if set, zero value otherwise.
+func (o *RunSourcePayload) GetRunMetadata() map[string]any {
+	if o == nil || o.RunMetadata == nil {
+		var ret map[string]any
+		return ret
+	}
+	return o.RunMetadata
+}
+
+// GetRunMetadataOk returns a tuple with the RunMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RunSourcePayload) GetRunMetadataOk() (map[string]any, bool) {
+	if o == nil || o.RunMetadata == nil {
+		return nil, false
+	}
+	return o.RunMetadata, true
+}
+
+// HasRunMetadata returns a boolean if a field has been set.
+func (o *RunSourcePayload) HasRunMetadata() bool {
+	if o != nil && o.RunMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRunMetadata gets a reference to the given map[string]any and assigns it to the RunMetadata field.
+func (o *RunSourcePayload) SetRunMetadata(v map[string]any) *RunSourcePayload {
+	o.RunMetadata = v
+	return o
+}
+
 func (o RunSourcePayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.IndexToInclude != nil {
@@ -205,6 +246,9 @@ func (o RunSourcePayload) MarshalJSON() ([]byte, error) {
 	}
 	if o.EntityType != nil {
 		toSerialize["entityType"] = o.EntityType
+	}
+	if o.RunMetadata != nil {
+		toSerialize["runMetadata"] = o.RunMetadata
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -220,5 +264,6 @@ func (o RunSourcePayload) String() string {
 	out += fmt.Sprintf("  indexToExclude=%v\n", o.IndexToExclude)
 	out += fmt.Sprintf("  entityIDs=%v\n", o.EntityIDs)
 	out += fmt.Sprintf("  entityType=%v\n", o.EntityType)
+	out += fmt.Sprintf("  runMetadata=%v\n", o.RunMetadata)
 	return fmt.Sprintf("RunSourcePayload {\n%s}", out)
 }
