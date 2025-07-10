@@ -15,7 +15,7 @@ type Variant struct {
 	// [Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.
 	AddToCartRate utils.Nullable[float64] `json:"addToCartRate,omitempty"`
 	// [Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.
-	AverageClickPosition utils.Nullable[int32] `json:"averageClickPosition,omitempty"`
+	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition,omitempty"`
 	// Number of click events for this variant.
 	ClickCount int32 `json:"clickCount"`
 	// [Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.
@@ -59,7 +59,7 @@ func WithVariantAddToCartRate(val utils.Nullable[float64]) VariantOption {
 	}
 }
 
-func WithVariantAverageClickPosition(val utils.Nullable[int32]) VariantOption {
+func WithVariantAverageClickPosition(val utils.Nullable[float64]) VariantOption {
 	return func(f *Variant) {
 		f.AverageClickPosition = val
 	}
@@ -210,9 +210,9 @@ func (o *Variant) UnsetAddToCartRate() {
 }
 
 // GetAverageClickPosition returns the AverageClickPosition field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Variant) GetAverageClickPosition() int32 {
+func (o *Variant) GetAverageClickPosition() float64 {
 	if o == nil || o.AverageClickPosition.Get() == nil {
-		var ret int32
+		var ret float64
 		return ret
 	}
 	return *o.AverageClickPosition.Get()
@@ -221,7 +221,7 @@ func (o *Variant) GetAverageClickPosition() int32 {
 // GetAverageClickPositionOk returns a tuple with the AverageClickPosition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *Variant) GetAverageClickPositionOk() (*int32, bool) {
+func (o *Variant) GetAverageClickPositionOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -237,8 +237,8 @@ func (o *Variant) HasAverageClickPosition() bool {
 	return false
 }
 
-// SetAverageClickPosition gets a reference to the given utils.Nullable[int32] and assigns it to the AverageClickPosition field.
-func (o *Variant) SetAverageClickPosition(v int32) *Variant {
+// SetAverageClickPosition gets a reference to the given utils.Nullable[float64] and assigns it to the AverageClickPosition field.
+func (o *Variant) SetAverageClickPosition(v float64) *Variant {
 	o.AverageClickPosition.Set(&v)
 	return o
 }
