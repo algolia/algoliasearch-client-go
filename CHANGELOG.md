@@ -1,3 +1,8 @@
+## [4.22.0](https://github.com/algolia/algoliasearch-client-go/compare/4.21.1...4.22.0)
+
+- [a7a3c5fc95](https://github.com/algolia/api-clients-automation/commit/a7a3c5fc95) feat(specs): document runMetadata parameter ([#5087](https://github.com/algolia/api-clients-automation/pull/5087)) by [@DevinCodes](https://github.com/DevinCodes/)
+- [f3717177c5](https://github.com/algolia/api-clients-automation/commit/f3717177c5) fix(specs): `averageClickPosition` return type ([#5089](https://github.com/algolia/api-clients-automation/pull/5089)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.21.1](https://github.com/algolia/algoliasearch-client-go/compare/4.21.0...4.21.1)
 
 - [4c9416a9fe](https://github.com/algolia/api-clients-automation/commit/4c9416a9fe) fix(specs): update sourceRun docs ([#5057](https://github.com/algolia/api-clients-automation/pull/5057)) by [@DevinCodes](https://github.com/DevinCodes/)
