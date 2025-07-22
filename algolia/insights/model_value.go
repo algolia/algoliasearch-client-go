@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// Value - Total monetary value of this event in units of `currency`.
+// Value - Total monetary value of this event in units of `currency`. This should be equal to the sum of `price` times `quantity`.
 type Value struct {
 	Float64 *float64
 	String  *string
