@@ -8613,6 +8613,12 @@ func (c *APIClient) ChunkedPush(indexName string, objects []map[string]any, acti
 		batchSize:    1000,
 	}
 
+	offset := 0
+	waitBatchSize := conf.batchSize / 10
+	if waitBatchSize < 1 {
+		waitBatchSize = conf.batchSize
+	}
+
 	for _, opt := range opts {
 		opt.apply(&conf)
 	}
@@ -8655,31 +8661,41 @@ func (c *APIClient) ChunkedPush(indexName string, objects []map[string]any, acti
 			responses = append(responses, *resp)
 			records = make([]map[string]any, 0, len(objects)%conf.batchSize)
 		}
-	}
 
-	if conf.waitForTasks {
-		for _, resp := range responses {
-			_, err := CreateIterable( 
-				func(*Event, error) (*Event, error) {
-					if resp.EventID == nil {
-						return nil, reportError("received unexpected response from the push endpoint, eventID must not be undefined")
-					}
+		if conf.waitForTasks && len(responses) > 0 && (len(responses)%waitBatchSize == 0 || i == len(objects)-1) {
+			var waitableResponses []WatchResponse
 
-					return c.GetEvent(c.NewApiGetEventRequest(resp.RunID, *resp.EventID))
-				},
-				func(response *Event, err error) (bool, error) {
-					var apiErr *APIError
-					if errors.As(err, &apiErr) {
-						return apiErr.Status != 404, nil
-					}
-
-					return true, err
-				},
-				WithTimeout(func(count int) time.Duration { return time.Duration(min(500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
-			)
-			if err != nil {
-				return nil, err
+			if len(responses) > offset+waitBatchSize {
+				waitableResponses = responses[offset:waitBatchSize]
+			} else {
+				waitableResponses = responses[offset:]
 			}
+
+			for _, resp := range waitableResponses {
+				_, err := CreateIterable(
+					func(*Event, error) (*Event, error) {
+						if resp.EventID == nil {
+							return nil, reportError("received unexpected response from the push endpoint, eventID must not be undefined")
+						}
+
+						return c.GetEvent(c.NewApiGetEventRequest(resp.RunID, *resp.EventID))
+					},
+					func(response *Event, err error) (bool, error) {
+						var apiErr *APIError
+						if errors.As(err, &apiErr) {
+							return apiErr.Status != 404, nil
+						}
+
+						return true, err
+					},
+					WithTimeout(func(count int) time.Duration { return time.Duration(min(500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
+				)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			offset += waitBatchSize
 		}
 	}
 
