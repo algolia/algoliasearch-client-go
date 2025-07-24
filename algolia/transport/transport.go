@@ -44,6 +44,27 @@ func New(cfg Configuration) *Transport {
 	return transport
 }
 
+func prepareRetryableRequest(req *http.Request) (*http.Request, error) {
+	// Read the original body
+	if req.Body == nil {
+		return req, nil // Nothing to do if there's no body
+	}
+
+	bodyBytes, err := io.ReadAll(req.Body)
+	if err != nil {
+		return nil, err
+	}
+	_ = req.Body.Close() // close the original body
+
+	// Set up GetBody to recreate the body for retries
+	req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
+	req.GetBody = func() (io.ReadCloser, error) {
+		return io.NopCloser(bytes.NewReader(bodyBytes)), nil
+	}
+
+	return req, nil
+}
+
 func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind, c RequestConfiguration) (*http.Response, []byte, error) {
 	var intermediateNetworkErrors []error
 
@@ -52,7 +73,10 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 		req.Header.Add("Content-Encoding", "gzip")
 	}
 
-	for _, h := range t.retryStrategy.GetTryableHosts(k) {
+	// Prepare the request to be retryable.
+	req, _ = prepareRetryableRequest(req)
+
+	for i, h := range t.retryStrategy.GetTryableHosts(k) {
 		// Handle per-request timeout by using a context with timeout.
 		// Note that because we are in a loop, the cancel() callback cannot be
 		// deferred. Instead, we call it precisely after the end of each loop or
@@ -62,7 +86,16 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 		var (
 			ctxTimeout     time.Duration
 			connectTimeout time.Duration
+			err            error
 		)
+
+		// Reassign a fresh body for the retry
+		if i > 0 && req.GetBody != nil {
+			req.Body, err = req.GetBody()
+			if err != nil {
+				break
+			}
+		}
 
 		switch {
 		case k == call.Read && c.ReadTimeout != nil:
@@ -113,6 +146,9 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 		default:
 			if err != nil {
 				intermediateNetworkErrors = append(intermediateNetworkErrors, err)
+			} else if res != nil {
+				msg := fmt.Sprintf("cannot perform request:\n\tStatusCode=%d\n\tmethod=%s\n\turl=%s\n\t", res.StatusCode, req.Method, req.URL)
+				intermediateNetworkErrors = append(intermediateNetworkErrors, errors.New(msg))
 			}
 			if res != nil && res.Body != nil {
 				if err = res.Body.Close(); err != nil {
