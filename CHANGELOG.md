@@ -1,3 +1,7 @@
+## [4.22.2](https://github.com/algolia/algoliasearch-client-go/compare/4.22.1...4.22.2)
+
+- [cda123be70](https://github.com/algolia/api-clients-automation/commit/cda123be70) fix(go): retry strategy ([#5159](https://github.com/algolia/api-clients-automation/pull/5159)) by [@shortcuts](https://github.com/shortcuts/)
+
 ## [4.22.1](https://github.com/algolia/algoliasearch-client-go/compare/4.22.0...4.22.1)
 
 - [84a1f4e422](https://github.com/algolia/api-clients-automation/commit/84a1f4e422) refactor(specs): add interface to manipulate query parameter between composition API & Search API ([#5123](https://github.com/algolia/api-clients-automation/pull/5123)) by [@ClaraMuller](https://github.com/ClaraMuller/)
