@@ -1,3 +1,7 @@
+## [4.23.0](https://github.com/algolia/algoliasearch-client-go/compare/4.22.2...4.23.0)
+
+- [66bc4eee9e](https://github.com/algolia/api-clients-automation/commit/66bc4eee9e) feat(clients): add new abtesting-v3 package to clients + stabilize alpha js package ([#5157](https://github.com/algolia/api-clients-automation/pull/5157)) by [@leonardogavaudan](https://github.com/leonardogavaudan/)
+
 ## [4.22.2](https://github.com/algolia/algoliasearch-client-go/compare/4.22.1...4.22.2)
 
 - [cda123be70](https://github.com/algolia/api-clients-automation/commit/cda123be70) fix(go): retry strategy ([#5159](https://github.com/algolia/api-clients-automation/pull/5159)) by [@shortcuts](https://github.com/shortcuts/)
