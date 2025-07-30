@@ -9376,7 +9376,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 
 /*
 ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
-See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers for implementation details.
+See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
 
 	@param indexName string - the index name to replace objects into.
 	@param objects []map[string]any - List of objects to replace.
@@ -9470,7 +9470,7 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, object
 
 /*
 ReplaceAllObjects replaces all objects (records) in the given `indexName` with the given `objects`. A temporary index is created during this process in order to backup your data.
-See https://api-clients-automation.netlify.app/docs/add-new-api-client#5-helpers for implementation details.
+See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
 
 	@param indexName string - the index name to replace objects into.
 	@param objects []map[string]any - List of objects to replace.
