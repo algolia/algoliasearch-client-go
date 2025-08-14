@@ -16,6 +16,7 @@ type Hit struct {
 	SnippetResult        *map[string]SnippetResult `json:"_snippetResult,omitempty"`
 	RankingInfo          *HitRankingInfo           `json:"_rankingInfo,omitempty"`
 	DistinctSeqID        *int32                    `json:"_distinctSeqID,omitempty"`
+	Extra                *HitMetadata              `json:"_extra,omitempty"`
 	AdditionalProperties map[string]any
 }
 
@@ -44,6 +45,12 @@ func WithHitRankingInfo(val HitRankingInfo) HitOption {
 func WithHitDistinctSeqID(val int32) HitOption {
 	return func(f *Hit) {
 		f.DistinctSeqID = &val
+	}
+}
+
+func WithHitExtra(val HitMetadata) HitOption {
+	return func(f *Hit) {
+		f.Extra = &val
 	}
 }
 
@@ -222,6 +229,39 @@ func (o *Hit) SetDistinctSeqID(v int32) *Hit {
 	return o
 }
 
+// GetExtra returns the Extra field value if set, zero value otherwise.
+func (o *Hit) GetExtra() HitMetadata {
+	if o == nil || o.Extra == nil {
+		var ret HitMetadata
+		return ret
+	}
+	return *o.Extra
+}
+
+// GetExtraOk returns a tuple with the Extra field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Hit) GetExtraOk() (*HitMetadata, bool) {
+	if o == nil || o.Extra == nil {
+		return nil, false
+	}
+	return o.Extra, true
+}
+
+// HasExtra returns a boolean if a field has been set.
+func (o *Hit) HasExtra() bool {
+	if o != nil && o.Extra != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExtra gets a reference to the given HitMetadata and assigns it to the Extra field.
+func (o *Hit) SetExtra(v *HitMetadata) *Hit {
+	o.Extra = v
+	return o
+}
+
 func (o *Hit) SetAdditionalProperty(key string, value any) *Hit {
 	if o.AdditionalProperties == nil {
 		o.AdditionalProperties = make(map[string]any)
@@ -246,6 +286,9 @@ func (o Hit) MarshalJSON() ([]byte, error) {
 	}
 	if o.DistinctSeqID != nil {
 		toSerialize["_distinctSeqID"] = o.DistinctSeqID
+	}
+	if o.Extra != nil {
+		toSerialize["_extra"] = o.Extra
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -282,6 +325,7 @@ func (o *Hit) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "_snippetResult")
 	delete(additionalProperties, "_rankingInfo")
 	delete(additionalProperties, "_distinctSeqID")
+	delete(additionalProperties, "_extra")
 	o.AdditionalProperties = additionalProperties
 
 	return nil
@@ -294,6 +338,7 @@ func (o Hit) String() string {
 	out += fmt.Sprintf("  _snippetResult=%v\n", o.SnippetResult)
 	out += fmt.Sprintf("  _rankingInfo=%v\n", o.RankingInfo)
 	out += fmt.Sprintf("  _distinctSeqID=%v\n", o.DistinctSeqID)
+	out += fmt.Sprintf("  _extra=%v\n", o.Extra)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
