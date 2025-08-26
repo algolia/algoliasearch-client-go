@@ -23,6 +23,8 @@ type ABTest struct {
 	CreatedAt string `json:"createdAt"`
 	// End date and time of the A/B test, in RFC 3339 format.
 	EndAt string `json:"endAt"`
+	// Date and time when the A/B test was stopped, in RFC 3339 format.
+	StoppedAt utils.Nullable[string] `json:"stoppedAt,omitempty"`
 	// A/B test name.
 	Name   string `json:"name"`
 	Status Status `json:"status"`
@@ -60,6 +62,12 @@ func WithABTestPurchaseSignificance(val utils.Nullable[float64]) ABTestOption {
 func WithABTestRevenueSignificance(val map[string]float64) ABTestOption {
 	return func(f *ABTest) {
 		f.RevenueSignificance = val
+	}
+}
+
+func WithABTestStoppedAt(val utils.Nullable[string]) ABTestOption {
+	return func(f *ABTest) {
+		f.StoppedAt = val
 	}
 }
 
@@ -403,6 +411,50 @@ func (o *ABTest) SetEndAt(v string) *ABTest {
 	return o
 }
 
+// GetStoppedAt returns the StoppedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ABTest) GetStoppedAt() string {
+	if o == nil || o.StoppedAt.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.StoppedAt.Get()
+}
+
+// GetStoppedAtOk returns a tuple with the StoppedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ABTest) GetStoppedAtOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.StoppedAt.Get(), o.StoppedAt.IsSet()
+}
+
+// HasStoppedAt returns a boolean if a field has been set.
+func (o *ABTest) HasStoppedAt() bool {
+	if o != nil && o.StoppedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStoppedAt gets a reference to the given utils.Nullable[string] and assigns it to the StoppedAt field.
+func (o *ABTest) SetStoppedAt(v string) *ABTest {
+	o.StoppedAt.Set(&v)
+	return o
+}
+
+// SetStoppedAtNil sets the value for StoppedAt to be an explicit nil.
+func (o *ABTest) SetStoppedAtNil() {
+	o.StoppedAt.Set(nil)
+}
+
+// UnsetStoppedAt ensures that no value is present for StoppedAt, not even an explicit nil.
+func (o *ABTest) UnsetStoppedAt() {
+	o.StoppedAt.Unset()
+}
+
 // GetName returns the Name field value.
 func (o *ABTest) GetName() string {
 	if o == nil {
@@ -532,6 +584,9 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["endAt"] = o.EndAt
+	if o.StoppedAt.IsSet() {
+		toSerialize["stoppedAt"] = o.StoppedAt.Get()
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
 	toSerialize["variants"] = o.Variants
@@ -557,6 +612,7 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
+	out += fmt.Sprintf("  stoppedAt=%v\n", o.StoppedAt)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
