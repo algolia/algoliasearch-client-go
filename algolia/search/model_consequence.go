@@ -11,7 +11,7 @@ type Consequence struct {
 	Params *ConsequenceParams `json:"params,omitempty"`
 	// Records you want to pin to a specific position in the search results.  You can promote up to 300 records, either individually, or as groups of up to 100 records each.
 	Promote []Promote `json:"promote,omitempty"`
-	// Whether promoted records must match an active filter for the consequence to be applied.  This ensures that user actions (filtering the search) are given a higher precedence. For example, if you promote a record with the `color: red` attribute, and the user filters the search for `color: blue`, the \"red\" record won't be shown.
+	// Determines whether promoted records must also match active filters for the consequence to apply.  This ensures user-applied filters take priority and irrelevant matches aren't shown. For example, if you promote a record with `color: red` but the user filters for `color: blue`, the \"red\" record won't be shown.  > In the Algolia dashboard, when you use the **Pin an item** consequence, `filterPromotes` appears as the checkbox: **Pinned items must match active filters to be displayed.** For examples, see [Promote results with rules](https://www.algolia.com/doc/guides/managing-results/rules/merchandising-and-promoting/how-to/promote-hits/#promote-results-matching-active-filters).
 	FilterPromotes *bool `json:"filterPromotes,omitempty"`
 	// Records you want to hide from the search results.
 	Hide []ConsequenceHide `json:"hide,omitempty"`
