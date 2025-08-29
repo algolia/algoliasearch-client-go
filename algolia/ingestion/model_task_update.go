@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskUpdate API request body for updating a task.
+// TaskUpdate API request body for partially updating a task.
 type TaskUpdate struct {
 	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID *string `json:"destinationID,omitempty"`

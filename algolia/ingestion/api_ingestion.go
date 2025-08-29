@@ -5854,6 +5854,136 @@ func (c *APIClient) PushTask(r ApiPushTaskRequest, opts ...RequestOption) (*Watc
 	return returnValue, nil
 }
 
+func (r *ApiReplaceTaskRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["taskReplace"]; ok {
+		err = json.Unmarshal(v, &r.taskReplace)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskReplace)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskReplace: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.taskReplace)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter taskReplace: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiReplaceTaskRequest represents the request with all the parameters for the API call.
+type ApiReplaceTaskRequest struct {
+	taskID      string
+	taskReplace *TaskReplace
+}
+
+// NewApiReplaceTaskRequest creates an instance of the ApiReplaceTaskRequest to be used for the API call.
+func (c *APIClient) NewApiReplaceTaskRequest(taskID string, taskReplace *TaskReplace) ApiReplaceTaskRequest {
+	return ApiReplaceTaskRequest{
+		taskID:      taskID,
+		taskReplace: taskReplace,
+	}
+}
+
+/*
+ReplaceTask calls the API and returns the raw response from it.
+
+	  Fully updates a task by its ID, use partialUpdateTask if you only want to update a subset of fields.
+
+
+	Request can be constructed by NewApiReplaceTaskRequest with parameters below.
+	  @param taskID string - Unique identifier of a task.
+	  @param taskReplace TaskReplace
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ReplaceTaskWithHTTPInfo(r ApiReplaceTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/2/tasks/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.taskID == "" {
+		return nil, nil, reportError("Parameter `taskID` is required when calling `ReplaceTask`.")
+	}
+
+	if r.taskReplace == nil {
+		return nil, nil, reportError("Parameter `taskReplace` is required when calling `ReplaceTask`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskReplace
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+ReplaceTask casts the HTTP response body to a defined struct.
+
+Fully updates a task by its ID, use partialUpdateTask if you only want to update a subset of fields.
+
+Request can be constructed by NewApiReplaceTaskRequest with parameters below.
+
+	@param taskID string - Unique identifier of a task.
+	@param taskReplace TaskReplace
+	@return TaskUpdateResponse
+*/
+func (c *APIClient) ReplaceTask(r ApiReplaceTaskRequest, opts ...RequestOption) (*TaskUpdateResponse, error) {
+	var returnValue *TaskUpdateResponse
+
+	res, resBody, err := c.ReplaceTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiRunSourceRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -7857,7 +7987,7 @@ func (c *APIClient) NewApiUpdateTaskRequest(taskID string, taskUpdate *TaskUpdat
 /*
 UpdateTask calls the API and returns the raw response from it.
 
-	  Updates a task by its ID.
+	  Partially updates a task by its ID.
 
 
 	Request can be constructed by NewApiUpdateTaskRequest with parameters below.
@@ -7906,7 +8036,7 @@ func (c *APIClient) UpdateTaskWithHTTPInfo(r ApiUpdateTaskRequest, opts ...Reque
 /*
 UpdateTask casts the HTTP response body to a defined struct.
 
-Updates a task by its ID.
+Partially updates a task by its ID.
 
 Request can be constructed by NewApiUpdateTaskRequest with parameters below.
 
