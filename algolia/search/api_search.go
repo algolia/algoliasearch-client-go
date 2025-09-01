@@ -4298,13 +4298,23 @@ func (r *ApiGetSettingsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["getVersion"]; ok {
+		err = json.Unmarshal(v, &r.getVersion)
+		if err != nil {
+			err = json.Unmarshal(b, &r.getVersion)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal getVersion: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
 
 // ApiGetSettingsRequest represents the request with all the parameters for the API call.
 type ApiGetSettingsRequest struct {
-	indexName string
+	indexName  string
+	getVersion *int32
 }
 
 // NewApiGetSettingsRequest creates an instance of the ApiGetSettingsRequest to be used for the API call.
@@ -4312,6 +4322,12 @@ func (c *APIClient) NewApiGetSettingsRequest(indexName string) ApiGetSettingsReq
 	return ApiGetSettingsRequest{
 		indexName: indexName,
 	}
+}
+
+// WithGetVersion adds the getVersion to the ApiGetSettingsRequest and returns the request for chaining.
+func (r ApiGetSettingsRequest) WithGetVersion(getVersion int32) ApiGetSettingsRequest {
+	r.getVersion = &getVersion
+	return r
 }
 
 /*
@@ -4324,6 +4340,7 @@ GetSettings calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetSettingsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
+	  @param getVersion int32 - When set to 2, the endpoint will not include `synonyms` in the response. This parameter is here for backward compatibility.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -4341,6 +4358,10 @@ func (c *APIClient) GetSettingsWithHTTPInfo(r ApiGetSettingsRequest, opts ...Req
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.getVersion) {
+		conf.queryParams.Set("getVersion", utils.QueryParameterToString(*r.getVersion))
 	}
 
 	// optional params if any
@@ -4369,6 +4390,7 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
+	@param getVersion int32 - When set to 2, the endpoint will not include `synonyms` in the response. This parameter is here for backward compatibility.
 	@return SettingsResponse
 */
 func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) (*SettingsResponse, error) {
