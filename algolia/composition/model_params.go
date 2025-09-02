@@ -56,6 +56,8 @@ type Params struct {
 	EnableABTest *bool `json:"enableABTest,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/) This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
 	EnableReRanking *bool `json:"enableReRanking,omitempty"`
+	// A list of extenrally injected objectID groups into from an external source.
+	InjectedItems *map[string]ExternalInjectedItem `json:"injectedItems,omitempty"`
 }
 
 type ParamsOption func(f *Params)
@@ -213,6 +215,12 @@ func WithParamsEnableABTest(val bool) ParamsOption {
 func WithParamsEnableReRanking(val bool) ParamsOption {
 	return func(f *Params) {
 		f.EnableReRanking = &val
+	}
+}
+
+func WithParamsInjectedItems(val map[string]ExternalInjectedItem) ParamsOption {
+	return func(f *Params) {
+		f.InjectedItems = &val
 	}
 }
 
@@ -1102,6 +1110,39 @@ func (o *Params) SetEnableReRanking(v bool) *Params {
 	return o
 }
 
+// GetInjectedItems returns the InjectedItems field value if set, zero value otherwise.
+func (o *Params) GetInjectedItems() map[string]ExternalInjectedItem {
+	if o == nil || o.InjectedItems == nil {
+		var ret map[string]ExternalInjectedItem
+		return ret
+	}
+	return *o.InjectedItems
+}
+
+// GetInjectedItemsOk returns a tuple with the InjectedItems field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Params) GetInjectedItemsOk() (*map[string]ExternalInjectedItem, bool) {
+	if o == nil || o.InjectedItems == nil {
+		return nil, false
+	}
+	return o.InjectedItems, true
+}
+
+// HasInjectedItems returns a boolean if a field has been set.
+func (o *Params) HasInjectedItems() bool {
+	if o != nil && o.InjectedItems != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInjectedItems gets a reference to the given map[string]ExternalInjectedItem and assigns it to the InjectedItems field.
+func (o *Params) SetInjectedItems(v map[string]ExternalInjectedItem) *Params {
+	o.InjectedItems = &v
+	return o
+}
+
 func (o Params) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
@@ -1182,6 +1223,9 @@ func (o Params) MarshalJSON() ([]byte, error) {
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+	if o.InjectedItems != nil {
+		toSerialize["injectedItems"] = o.InjectedItems
+	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Params: %w", err)
@@ -1218,5 +1262,6 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  analyticsTags=%v\n", o.AnalyticsTags)
 	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
+	out += fmt.Sprintf("  injectedItems=%v\n", o.InjectedItems)
 	return fmt.Sprintf("Params {\n%s}", out)
 }
