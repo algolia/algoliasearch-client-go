@@ -5352,6 +5352,15 @@ func (r *ApiListTransformationsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+	if v, ok := req["type"]; ok {
+		err = json.Unmarshal(v, &r.type_)
+		if err != nil {
+			err = json.Unmarshal(b, &r.type_)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal type_: %w", err)
+			}
+		}
+	}
 
 	return nil
 }
@@ -5362,6 +5371,7 @@ type ApiListTransformationsRequest struct {
 	page         *int32
 	sort         TransformationSortKeys
 	order        OrderKeys
+	type_        TransformationType
 }
 
 // NewApiListTransformationsRequest creates an instance of the ApiListTransformationsRequest to be used for the API call.
@@ -5393,6 +5403,12 @@ func (r ApiListTransformationsRequest) WithOrder(order OrderKeys) ApiListTransfo
 	return r
 }
 
+// WithType adds the type_ to the ApiListTransformationsRequest and returns the request for chaining.
+func (r ApiListTransformationsRequest) WithType(type_ TransformationType) ApiListTransformationsRequest {
+	r.type_ = type_
+	return r
+}
+
 /*
 ListTransformations calls the API and returns the raw response from it.
 
@@ -5408,6 +5424,7 @@ ListTransformations calls the API and returns the raw response from it.
 	  @param page int32 - Page number of the paginated API response.
 	  @param sort TransformationSortKeys - Property by which to sort the list of transformations.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
+	  @param type_ TransformationType - Whether to filter the list of transformations by the type of transformation.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -5433,6 +5450,9 @@ func (c *APIClient) ListTransformationsWithHTTPInfo(r ApiListTransformationsRequ
 	}
 	if !utils.IsNilOrEmpty(r.order) {
 		conf.queryParams.Set("order", utils.QueryParameterToString(r.order))
+	}
+	if !utils.IsNilOrEmpty(r.type_) {
+		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
 	}
 
 	// optional params if any
@@ -5466,6 +5486,7 @@ Request can be constructed by NewApiListTransformationsRequest with parameters b
 	@param page int32 - Page number of the paginated API response.
 	@param sort TransformationSortKeys - Property by which to sort the list of transformations.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
+	@param type_ TransformationType - Whether to filter the list of transformations by the type of transformation.
 	@return ListTransformationsResponse
 */
 func (c *APIClient) ListTransformations(r ApiListTransformationsRequest, opts ...RequestOption) (*ListTransformationsResponse, error) {
