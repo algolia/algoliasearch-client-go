@@ -68,6 +68,1877 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 	})
 }
 
+func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["path"]; ok {
+		err = json.Unmarshal(v, &r.path)
+		if err != nil {
+			err = json.Unmarshal(b, &r.path)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal path: %w", err)
+			}
+		}
+	}
+	if v, ok := req["parameters"]; ok {
+		err = json.Unmarshal(v, &r.parameters)
+		if err != nil {
+			err = json.Unmarshal(b, &r.parameters)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCustomDeleteRequest represents the request with all the parameters for the API call.
+type ApiCustomDeleteRequest struct {
+	path       string
+	parameters map[string]any
+}
+
+// NewApiCustomDeleteRequest creates an instance of the ApiCustomDeleteRequest to be used for the API call.
+func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteRequest {
+	return ApiCustomDeleteRequest{
+		path: path,
+	}
+}
+
+// WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
+func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
+	r.parameters = parameters
+	return r
+}
+
+/*
+CustomDelete calls the API and returns the raw response from it.
+
+	  This method lets you send requests to the Algolia REST API.
+
+
+	Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/{path}"
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
+
+	if r.path == "" {
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomDelete`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.parameters) {
+		for k, v := range r.parameters {
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
+		}
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CustomDelete casts the HTTP response body to a defined struct.
+
+This method lets you send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomDeleteRequest with parameters below.
+
+	@param path string - Path of the endpoint, for example `1/newFeature`.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomDeleteWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["path"]; ok {
+		err = json.Unmarshal(v, &r.path)
+		if err != nil {
+			err = json.Unmarshal(b, &r.path)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal path: %w", err)
+			}
+		}
+	}
+	if v, ok := req["parameters"]; ok {
+		err = json.Unmarshal(v, &r.parameters)
+		if err != nil {
+			err = json.Unmarshal(b, &r.parameters)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCustomGetRequest represents the request with all the parameters for the API call.
+type ApiCustomGetRequest struct {
+	path       string
+	parameters map[string]any
+}
+
+// NewApiCustomGetRequest creates an instance of the ApiCustomGetRequest to be used for the API call.
+func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
+	return ApiCustomGetRequest{
+		path: path,
+	}
+}
+
+// WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
+func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
+	r.parameters = parameters
+	return r
+}
+
+/*
+CustomGet calls the API and returns the raw response from it.
+
+	  This method lets you send requests to the Algolia REST API.
+
+
+	Request can be constructed by NewApiCustomGetRequest with parameters below.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/{path}"
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
+
+	if r.path == "" {
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomGet`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.parameters) {
+		for k, v := range r.parameters {
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
+		}
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CustomGet casts the HTTP response body to a defined struct.
+
+This method lets you send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomGetRequest with parameters below.
+
+	@param path string - Path of the endpoint, for example `1/newFeature`.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@return map[string]any
+*/
+func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomGetWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["path"]; ok {
+		err = json.Unmarshal(v, &r.path)
+		if err != nil {
+			err = json.Unmarshal(b, &r.path)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal path: %w", err)
+			}
+		}
+	}
+	if v, ok := req["parameters"]; ok {
+		err = json.Unmarshal(v, &r.parameters)
+		if err != nil {
+			err = json.Unmarshal(b, &r.parameters)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
+			}
+		}
+	}
+	if v, ok := req["body"]; ok {
+		err = json.Unmarshal(v, &r.body)
+		if err != nil {
+			err = json.Unmarshal(b, &r.body)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal body: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCustomPostRequest represents the request with all the parameters for the API call.
+type ApiCustomPostRequest struct {
+	path       string
+	parameters map[string]any
+	body       map[string]any
+}
+
+// NewApiCustomPostRequest creates an instance of the ApiCustomPostRequest to be used for the API call.
+func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
+	return ApiCustomPostRequest{
+		path: path,
+	}
+}
+
+// WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
+func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
+	r.parameters = parameters
+	return r
+}
+
+// WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
+func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
+	r.body = body
+	return r
+}
+
+/*
+CustomPost calls the API and returns the raw response from it.
+
+	  This method lets you send requests to the Algolia REST API.
+
+
+	Request can be constructed by NewApiCustomPostRequest with parameters below.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/{path}"
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
+
+	if r.path == "" {
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPost`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.parameters) {
+		for k, v := range r.parameters {
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
+		}
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	if utils.IsNilOrEmpty(r.body) {
+		postBody = "{}"
+	} else {
+		postBody = r.body
+	}
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CustomPost casts the HTTP response body to a defined struct.
+
+This method lets you send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPostRequest with parameters below.
+
+	@param path string - Path of the endpoint, for example `1/newFeature`.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPostWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["path"]; ok {
+		err = json.Unmarshal(v, &r.path)
+		if err != nil {
+			err = json.Unmarshal(b, &r.path)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal path: %w", err)
+			}
+		}
+	}
+	if v, ok := req["parameters"]; ok {
+		err = json.Unmarshal(v, &r.parameters)
+		if err != nil {
+			err = json.Unmarshal(b, &r.parameters)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal parameters: %w", err)
+			}
+		}
+	}
+	if v, ok := req["body"]; ok {
+		err = json.Unmarshal(v, &r.body)
+		if err != nil {
+			err = json.Unmarshal(b, &r.body)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal body: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCustomPutRequest represents the request with all the parameters for the API call.
+type ApiCustomPutRequest struct {
+	path       string
+	parameters map[string]any
+	body       map[string]any
+}
+
+// NewApiCustomPutRequest creates an instance of the ApiCustomPutRequest to be used for the API call.
+func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
+	return ApiCustomPutRequest{
+		path: path,
+	}
+}
+
+// WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
+func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
+	r.parameters = parameters
+	return r
+}
+
+// WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
+func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
+	r.body = body
+	return r
+}
+
+/*
+CustomPut calls the API and returns the raw response from it.
+
+	  This method lets you send requests to the Algolia REST API.
+
+
+	Request can be constructed by NewApiCustomPutRequest with parameters below.
+	  @param path string - Path of the endpoint, for example `1/newFeature`.
+	  @param parameters map[string]any - Query parameters to apply to the current query.
+	  @param body map[string]any - Parameters to send with the custom request.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/{path}"
+	requestPath = strings.ReplaceAll(requestPath, "{path}", utils.ParameterToString(r.path))
+
+	if r.path == "" {
+		return nil, nil, reportError("Parameter `path` is required when calling `CustomPut`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.parameters) {
+		for k, v := range r.parameters {
+			conf.queryParams.Set(k, utils.QueryParameterToString(v))
+		}
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	if utils.IsNilOrEmpty(r.body) {
+		postBody = "{}"
+	} else {
+		postBody = r.body
+	}
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CustomPut casts the HTTP response body to a defined struct.
+
+This method lets you send requests to the Algolia REST API.
+
+Request can be constructed by NewApiCustomPutRequest with parameters below.
+
+	@param path string - Path of the endpoint, for example `1/newFeature`.
+	@param parameters map[string]any - Query parameters to apply to the current query.
+	@param body map[string]any - Parameters to send with the custom request.
+	@return map[string]any
+*/
+func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*map[string]any, error) {
+	var returnValue *map[string]any
+
+	res, resBody, err := c.CustomPutWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiDeleteCompositionRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDeleteCompositionRequest represents the request with all the parameters for the API call.
+type ApiDeleteCompositionRequest struct {
+	compositionID string
+}
+
+// NewApiDeleteCompositionRequest creates an instance of the ApiDeleteCompositionRequest to be used for the API call.
+func (c *APIClient) NewApiDeleteCompositionRequest(compositionID string) ApiDeleteCompositionRequest {
+	return ApiDeleteCompositionRequest{
+		compositionID: compositionID,
+	}
+}
+
+/*
+DeleteComposition calls the API and returns the raw response from it.
+
+	  Delete a composition from the current Algolia application.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiDeleteCompositionRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) DeleteCompositionWithHTTPInfo(r ApiDeleteCompositionRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `DeleteComposition`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+DeleteComposition casts the HTTP response body to a defined struct.
+
+Delete a composition from the current Algolia application.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiDeleteCompositionRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@return TaskIDResponse
+*/
+func (c *APIClient) DeleteComposition(r ApiDeleteCompositionRequest, opts ...RequestOption) (*TaskIDResponse, error) {
+	var returnValue *TaskIDResponse
+
+	res, resBody, err := c.DeleteCompositionWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiDeleteCompositionRuleRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["objectID"]; ok {
+		err = json.Unmarshal(v, &r.objectID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.objectID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiDeleteCompositionRuleRequest represents the request with all the parameters for the API call.
+type ApiDeleteCompositionRuleRequest struct {
+	compositionID string
+	objectID      string
+}
+
+// NewApiDeleteCompositionRuleRequest creates an instance of the ApiDeleteCompositionRuleRequest to be used for the API call.
+func (c *APIClient) NewApiDeleteCompositionRuleRequest(compositionID string, objectID string) ApiDeleteCompositionRuleRequest {
+	return ApiDeleteCompositionRuleRequest{
+		compositionID: compositionID,
+		objectID:      objectID,
+	}
+}
+
+/*
+DeleteCompositionRule calls the API and returns the raw response from it.
+
+	  Delete a Composition Rule from the specified Composition ID.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiDeleteCompositionRuleRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param objectID string - Unique identifier of a rule object.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) DeleteCompositionRuleWithHTTPInfo(r ApiDeleteCompositionRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/rules/{objectID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `DeleteCompositionRule`.")
+	}
+	if r.objectID == "" {
+		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteCompositionRule`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+DeleteCompositionRule casts the HTTP response body to a defined struct.
+
+Delete a Composition Rule from the specified Composition ID.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiDeleteCompositionRuleRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param objectID string - Unique identifier of a rule object.
+	@return TaskIDResponse
+*/
+func (c *APIClient) DeleteCompositionRule(r ApiDeleteCompositionRuleRequest, opts ...RequestOption) (*TaskIDResponse, error) {
+	var returnValue *TaskIDResponse
+
+	res, resBody, err := c.DeleteCompositionRuleWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiGetCompositionRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetCompositionRequest represents the request with all the parameters for the API call.
+type ApiGetCompositionRequest struct {
+	compositionID string
+}
+
+// NewApiGetCompositionRequest creates an instance of the ApiGetCompositionRequest to be used for the API call.
+func (c *APIClient) NewApiGetCompositionRequest(compositionID string) ApiGetCompositionRequest {
+	return ApiGetCompositionRequest{
+		compositionID: compositionID,
+	}
+}
+
+/*
+GetComposition calls the API and returns the raw response from it.
+
+	  Retrieve a single composition in the current Algolia application.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+	    - settings
+
+	Request can be constructed by NewApiGetCompositionRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) GetCompositionWithHTTPInfo(r ApiGetCompositionRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `GetComposition`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+GetComposition casts the HTTP response body to a defined struct.
+
+Retrieve a single composition in the current Algolia application.
+
+Required API Key ACLs:
+  - editSettings
+  - settings
+
+Request can be constructed by NewApiGetCompositionRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@return Composition
+*/
+func (c *APIClient) GetComposition(r ApiGetCompositionRequest, opts ...RequestOption) (*Composition, error) {
+	var returnValue *Composition
+
+	res, resBody, err := c.GetCompositionWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["objectID"]; ok {
+		err = json.Unmarshal(v, &r.objectID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.objectID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetRuleRequest represents the request with all the parameters for the API call.
+type ApiGetRuleRequest struct {
+	compositionID string
+	objectID      string
+}
+
+// NewApiGetRuleRequest creates an instance of the ApiGetRuleRequest to be used for the API call.
+func (c *APIClient) NewApiGetRuleRequest(compositionID string, objectID string) ApiGetRuleRequest {
+	return ApiGetRuleRequest{
+		compositionID: compositionID,
+		objectID:      objectID,
+	}
+}
+
+/*
+GetRule calls the API and returns the raw response from it.
+
+	Retrieves a rule by its ID.
+
+To find the object ID of rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+
+	    Required API Key ACLs:
+	    - editSettings
+	    - settings
+
+	Request can be constructed by NewApiGetRuleRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param objectID string - Unique identifier of a rule object.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/rules/{objectID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `GetRule`.")
+	}
+	if r.objectID == "" {
+		return nil, nil, reportError("Parameter `objectID` is required when calling `GetRule`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+GetRule casts the HTTP response body to a defined struct.
+
+Retrieves a rule by its ID.
+To find the object ID of rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+
+Required API Key ACLs:
+  - editSettings
+  - settings
+
+Request can be constructed by NewApiGetRuleRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param objectID string - Unique identifier of a rule object.
+	@return CompositionRule
+*/
+func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*CompositionRule, error) {
+	var returnValue *CompositionRule
+
+	res, resBody, err := c.GetRuleWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["taskID"]; ok {
+		err = json.Unmarshal(v, &r.taskID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskID: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetTaskRequest represents the request with all the parameters for the API call.
+type ApiGetTaskRequest struct {
+	compositionID string
+	taskID        int64
+}
+
+// NewApiGetTaskRequest creates an instance of the ApiGetTaskRequest to be used for the API call.
+func (c *APIClient) NewApiGetTaskRequest(compositionID string, taskID int64) ApiGetTaskRequest {
+	return ApiGetTaskRequest{
+		compositionID: compositionID,
+		taskID:        taskID,
+	}
+}
+
+/*
+GetTask calls the API and returns the raw response from it.
+
+	  Checks the status of a given task.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+	    - settings
+	    - addObject
+	    - deleteObject
+	    - deleteIndex
+
+	Request can be constructed by NewApiGetTaskRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param taskID int64 - Unique task identifier.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/task/{taskID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+	requestPath = strings.ReplaceAll(requestPath, "{taskID}", url.PathEscape(utils.ParameterToString(r.taskID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `GetTask`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+GetTask casts the HTTP response body to a defined struct.
+
+Checks the status of a given task.
+
+Required API Key ACLs:
+  - editSettings
+  - settings
+  - addObject
+  - deleteObject
+  - deleteIndex
+
+Request can be constructed by NewApiGetTaskRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param taskID int64 - Unique task identifier.
+	@return GetTaskResponse
+*/
+func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTaskResponse, error) {
+	var returnValue *GetTaskResponse
+
+	res, resBody, err := c.GetTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiListCompositionsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["page"]; ok {
+		err = json.Unmarshal(v, &r.page)
+		if err != nil {
+			err = json.Unmarshal(b, &r.page)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal page: %w", err)
+			}
+		}
+	}
+	if v, ok := req["hitsPerPage"]; ok {
+		err = json.Unmarshal(v, &r.hitsPerPage)
+		if err != nil {
+			err = json.Unmarshal(b, &r.hitsPerPage)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal hitsPerPage: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiListCompositionsRequest represents the request with all the parameters for the API call.
+type ApiListCompositionsRequest struct {
+	page        *int32
+	hitsPerPage *int32
+}
+
+// NewApiListCompositionsRequest creates an instance of the ApiListCompositionsRequest to be used for the API call.
+func (c *APIClient) NewApiListCompositionsRequest() ApiListCompositionsRequest {
+	return ApiListCompositionsRequest{}
+}
+
+// WithPage adds the page to the ApiListCompositionsRequest and returns the request for chaining.
+func (r ApiListCompositionsRequest) WithPage(page int32) ApiListCompositionsRequest {
+	r.page = &page
+	return r
+}
+
+// WithHitsPerPage adds the hitsPerPage to the ApiListCompositionsRequest and returns the request for chaining.
+func (r ApiListCompositionsRequest) WithHitsPerPage(hitsPerPage int32) ApiListCompositionsRequest {
+	r.hitsPerPage = &hitsPerPage
+	return r
+}
+
+/*
+ListCompositions calls the API and returns the raw response from it.
+
+	  Lists all compositions in the current Algolia application.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+	    - settings
+
+	Request can be constructed by NewApiListCompositionsRequest with parameters below.
+	  @param page int32 - Requested page of the API response. If `null`, the API response is not paginated.
+	  @param hitsPerPage int32 - Number of hits per page.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListCompositionsWithHTTPInfo(r ApiListCompositionsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.page) {
+		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
+	}
+	if !utils.IsNilOrEmpty(r.hitsPerPage) {
+		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+ListCompositions casts the HTTP response body to a defined struct.
+
+Lists all compositions in the current Algolia application.
+
+Required API Key ACLs:
+  - editSettings
+  - settings
+
+Request can be constructed by NewApiListCompositionsRequest with parameters below.
+
+	@param page int32 - Requested page of the API response. If `null`, the API response is not paginated.
+	@param hitsPerPage int32 - Number of hits per page.
+	@return ListCompositionsResponse
+*/
+func (c *APIClient) ListCompositions(r ApiListCompositionsRequest, opts ...RequestOption) (*ListCompositionsResponse, error) {
+	var returnValue *ListCompositionsResponse
+
+	res, resBody, err := c.ListCompositionsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiMultipleBatchRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["batchParams"]; ok {
+		err = json.Unmarshal(v, &r.batchParams)
+		if err != nil {
+			err = json.Unmarshal(b, &r.batchParams)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal batchParams: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.batchParams)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter batchParams: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiMultipleBatchRequest represents the request with all the parameters for the API call.
+type ApiMultipleBatchRequest struct {
+	batchParams *BatchParams
+}
+
+// NewApiMultipleBatchRequest creates an instance of the ApiMultipleBatchRequest to be used for the API call.
+func (c *APIClient) NewApiMultipleBatchRequest(batchParams *BatchParams) ApiMultipleBatchRequest {
+	return ApiMultipleBatchRequest{
+		batchParams: batchParams,
+	}
+}
+
+/*
+MultipleBatch calls the API and returns the raw response from it.
+
+	  Adds, updates, or deletes compositions with a single API request.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiMultipleBatchRequest with parameters below.
+	  @param batchParams BatchParams
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/*/batch"
+
+	if r.batchParams == nil {
+		return nil, nil, reportError("Parameter `batchParams` is required when calling `MultipleBatch`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.batchParams
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+MultipleBatch casts the HTTP response body to a defined struct.
+
+Adds, updates, or deletes compositions with a single API request.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiMultipleBatchRequest with parameters below.
+
+	@param batchParams BatchParams
+	@return MultipleBatchResponse
+*/
+func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOption) (*MultipleBatchResponse, error) {
+	var returnValue *MultipleBatchResponse
+
+	res, resBody, err := c.MultipleBatchWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiPutCompositionRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["composition"]; ok {
+		err = json.Unmarshal(v, &r.composition)
+		if err != nil {
+			err = json.Unmarshal(b, &r.composition)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal composition: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.composition)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter composition: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiPutCompositionRequest represents the request with all the parameters for the API call.
+type ApiPutCompositionRequest struct {
+	compositionID string
+	composition   *Composition
+}
+
+// NewApiPutCompositionRequest creates an instance of the ApiPutCompositionRequest to be used for the API call.
+func (c *APIClient) NewApiPutCompositionRequest(compositionID string, composition *Composition) ApiPutCompositionRequest {
+	return ApiPutCompositionRequest{
+		compositionID: compositionID,
+		composition:   composition,
+	}
+}
+
+/*
+PutComposition calls the API and returns the raw response from it.
+
+	  Upsert a composition in the current Algolia application.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiPutCompositionRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param composition Composition
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) PutCompositionWithHTTPInfo(r ApiPutCompositionRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `PutComposition`.")
+	}
+
+	if r.composition == nil {
+		return nil, nil, reportError("Parameter `composition` is required when calling `PutComposition`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.composition
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+PutComposition casts the HTTP response body to a defined struct.
+
+Upsert a composition in the current Algolia application.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiPutCompositionRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param composition Composition
+	@return TaskIDResponse
+*/
+func (c *APIClient) PutComposition(r ApiPutCompositionRequest, opts ...RequestOption) (*TaskIDResponse, error) {
+	var returnValue *TaskIDResponse
+
+	res, resBody, err := c.PutCompositionWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiPutCompositionRuleRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["objectID"]; ok {
+		err = json.Unmarshal(v, &r.objectID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.objectID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal objectID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["compositionRule"]; ok {
+		err = json.Unmarshal(v, &r.compositionRule)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionRule)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionRule: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.compositionRule)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter compositionRule: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiPutCompositionRuleRequest represents the request with all the parameters for the API call.
+type ApiPutCompositionRuleRequest struct {
+	compositionID   string
+	objectID        string
+	compositionRule *CompositionRule
+}
+
+// NewApiPutCompositionRuleRequest creates an instance of the ApiPutCompositionRuleRequest to be used for the API call.
+func (c *APIClient) NewApiPutCompositionRuleRequest(compositionID string, objectID string, compositionRule *CompositionRule) ApiPutCompositionRuleRequest {
+	return ApiPutCompositionRuleRequest{
+		compositionID:   compositionID,
+		objectID:        objectID,
+		compositionRule: compositionRule,
+	}
+}
+
+/*
+PutCompositionRule calls the API and returns the raw response from it.
+
+	  Upsert a Composition Rule for the specified composition ID.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiPutCompositionRuleRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param objectID string - Unique identifier of a rule object.
+	  @param compositionRule CompositionRule
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) PutCompositionRuleWithHTTPInfo(r ApiPutCompositionRuleRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/rules/{objectID}"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+	requestPath = strings.ReplaceAll(requestPath, "{objectID}", url.PathEscape(utils.ParameterToString(r.objectID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `PutCompositionRule`.")
+	}
+	if r.objectID == "" {
+		return nil, nil, reportError("Parameter `objectID` is required when calling `PutCompositionRule`.")
+	}
+
+	if r.compositionRule == nil {
+		return nil, nil, reportError("Parameter `compositionRule` is required when calling `PutCompositionRule`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.compositionRule
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+PutCompositionRule casts the HTTP response body to a defined struct.
+
+Upsert a Composition Rule for the specified composition ID.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiPutCompositionRuleRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param objectID string - Unique identifier of a rule object.
+	@param compositionRule CompositionRule
+	@return TaskIDResponse
+*/
+func (c *APIClient) PutCompositionRule(r ApiPutCompositionRuleRequest, opts ...RequestOption) (*TaskIDResponse, error) {
+	var returnValue *TaskIDResponse
+
+	res, resBody, err := c.PutCompositionRuleWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["rules"]; ok {
+		err = json.Unmarshal(v, &r.rules)
+		if err != nil {
+			err = json.Unmarshal(b, &r.rules)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal rules: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.rules)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter rules: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiSaveRulesRequest represents the request with all the parameters for the API call.
+type ApiSaveRulesRequest struct {
+	compositionID string
+	rules         *CompositionRulesBatchParams
+}
+
+// NewApiSaveRulesRequest creates an instance of the ApiSaveRulesRequest to be used for the API call.
+func (c *APIClient) NewApiSaveRulesRequest(compositionID string, rules *CompositionRulesBatchParams) ApiSaveRulesRequest {
+	return ApiSaveRulesRequest{
+		compositionID: compositionID,
+		rules:         rules,
+	}
+}
+
+/*
+SaveRules calls the API and returns the raw response from it.
+
+	  Create or update or delete multiple composition rules.
+
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiSaveRulesRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param rules CompositionRulesBatchParams
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/rules/batch"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `SaveRules`.")
+	}
+
+	if r.rules == nil {
+		return nil, nil, reportError("Parameter `rules` is required when calling `SaveRules`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.rules
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+SaveRules casts the HTTP response body to a defined struct.
+
+Create or update or delete multiple composition rules.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiSaveRulesRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param rules CompositionRulesBatchParams
+	@return RulesMultipleBatchResponse
+*/
+func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*RulesMultipleBatchResponse, error) {
+	var returnValue *RulesMultipleBatchResponse
+
+	res, resBody, err := c.SaveRulesWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiSearchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 	err := json.Unmarshal(b, &req)
@@ -184,6 +2055,141 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 	var returnValue *SearchResponse
 
 	res, resBody, err := c.SearchWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiSearchCompositionRulesRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+	if v, ok := req["searchCompositionRulesParams"]; ok {
+		err = json.Unmarshal(v, &r.searchCompositionRulesParams)
+		if err != nil {
+			err = json.Unmarshal(b, &r.searchCompositionRulesParams)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal searchCompositionRulesParams: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiSearchCompositionRulesRequest represents the request with all the parameters for the API call.
+type ApiSearchCompositionRulesRequest struct {
+	compositionID                string
+	searchCompositionRulesParams *SearchCompositionRulesParams
+}
+
+// NewApiSearchCompositionRulesRequest creates an instance of the ApiSearchCompositionRulesRequest to be used for the API call.
+func (c *APIClient) NewApiSearchCompositionRulesRequest(compositionID string) ApiSearchCompositionRulesRequest {
+	return ApiSearchCompositionRulesRequest{
+		compositionID: compositionID,
+	}
+}
+
+// WithSearchCompositionRulesParams adds the searchCompositionRulesParams to the ApiSearchCompositionRulesRequest and returns the request for chaining.
+func (r ApiSearchCompositionRulesRequest) WithSearchCompositionRulesParams(searchCompositionRulesParams *SearchCompositionRulesParams) ApiSearchCompositionRulesRequest {
+	r.searchCompositionRulesParams = searchCompositionRulesParams
+	return r
+}
+
+/*
+SearchCompositionRules calls the API and returns the raw response from it.
+
+	  Searches for composition rules in your index.
+
+	    Required API Key ACLs:
+	    - settings
+
+	Request can be constructed by NewApiSearchCompositionRulesRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param searchCompositionRulesParams SearchCompositionRulesParams
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) SearchCompositionRulesWithHTTPInfo(r ApiSearchCompositionRulesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/rules/search"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `SearchCompositionRules`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	if utils.IsNilOrEmpty(r.searchCompositionRulesParams) {
+		postBody = "{}"
+	} else {
+		postBody = r.searchCompositionRulesParams
+	}
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+SearchCompositionRules casts the HTTP response body to a defined struct.
+
+Searches for composition rules in your index.
+
+Required API Key ACLs:
+  - settings
+
+Request can be constructed by NewApiSearchCompositionRulesRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param searchCompositionRulesParams SearchCompositionRulesParams
+	@return SearchCompositionRulesResponse
+*/
+func (c *APIClient) SearchCompositionRules(r ApiSearchCompositionRulesRequest, opts ...RequestOption) (*SearchCompositionRulesResponse, error) {
+	var returnValue *SearchCompositionRulesResponse
+
+	res, resBody, err := c.SearchCompositionRulesWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}
