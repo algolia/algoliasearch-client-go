@@ -11,6 +11,7 @@ type Injection struct {
 	Main Main `json:"main"`
 	// list of injected items of the current Composition.
 	InjectedItems []InjectedItem `json:"injectedItems,omitempty"`
+	Deduplication *Deduplication `json:"deduplication,omitempty"`
 }
 
 type InjectionOption func(f *Injection)
@@ -18,6 +19,12 @@ type InjectionOption func(f *Injection)
 func WithInjectionInjectedItems(val []InjectedItem) InjectionOption {
 	return func(f *Injection) {
 		f.InjectedItems = val
+	}
+}
+
+func WithInjectionDeduplication(val Deduplication) InjectionOption {
+	return func(f *Injection) {
+		f.Deduplication = &val
 	}
 }
 
@@ -97,11 +104,47 @@ func (o *Injection) SetInjectedItems(v []InjectedItem) *Injection {
 	return o
 }
 
+// GetDeduplication returns the Deduplication field value if set, zero value otherwise.
+func (o *Injection) GetDeduplication() Deduplication {
+	if o == nil || o.Deduplication == nil {
+		var ret Deduplication
+		return ret
+	}
+	return *o.Deduplication
+}
+
+// GetDeduplicationOk returns a tuple with the Deduplication field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Injection) GetDeduplicationOk() (*Deduplication, bool) {
+	if o == nil || o.Deduplication == nil {
+		return nil, false
+	}
+	return o.Deduplication, true
+}
+
+// HasDeduplication returns a boolean if a field has been set.
+func (o *Injection) HasDeduplication() bool {
+	if o != nil && o.Deduplication != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeduplication gets a reference to the given Deduplication and assigns it to the Deduplication field.
+func (o *Injection) SetDeduplication(v *Deduplication) *Injection {
+	o.Deduplication = v
+	return o
+}
+
 func (o Injection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["main"] = o.Main
 	if o.InjectedItems != nil {
 		toSerialize["injectedItems"] = o.InjectedItems
+	}
+	if o.Deduplication != nil {
+		toSerialize["deduplication"] = o.Deduplication
 	}
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -115,5 +158,6 @@ func (o Injection) String() string {
 	out := ""
 	out += fmt.Sprintf("  main=%v\n", o.Main)
 	out += fmt.Sprintf("  injectedItems=%v\n", o.InjectedItems)
+	out += fmt.Sprintf("  deduplication=%v\n", o.Deduplication)
 	return fmt.Sprintf("Injection {\n%s}", out)
 }
