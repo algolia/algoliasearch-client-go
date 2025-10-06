@@ -1038,7 +1038,7 @@ GetRule calls the API and returns the raw response from it.
 
 	Retrieves a rule by its ID.
 
-To find the object ID of rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+To find the object ID of a rule, use the [`search` operation](https://www.algolia.com/doc/rest-api/composition/search-composition-rules).
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -1089,7 +1089,8 @@ func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOpti
 GetRule casts the HTTP response body to a defined struct.
 
 Retrieves a rule by its ID.
-To find the object ID of rules, use the [`search` operation](#tag/Rules/operation/searchRules).
+
+To find the object ID of a rule, use the [`search` operation](https://www.algolia.com/doc/rest-api/composition/search-composition-rules).
 
 Required API Key ACLs:
   - editSettings
@@ -1711,8 +1712,9 @@ func (c *APIClient) NewApiPutCompositionRuleRequest(compositionID string, object
 /*
 PutCompositionRule calls the API and returns the raw response from it.
 
-	  Upsert a Composition Rule for the specified composition ID.
+	If a composition rule with the provided ID already exists,
 
+it's replaced. Otherwise, a new one is added.
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -1768,7 +1770,8 @@ func (c *APIClient) PutCompositionRuleWithHTTPInfo(r ApiPutCompositionRuleReques
 /*
 PutCompositionRule casts the HTTP response body to a defined struct.
 
-Upsert a Composition Rule for the specified composition ID.
+If a composition rule with the provided ID already exists,
+it's replaced. Otherwise, a new one is added.
 
 Required API Key ACLs:
   - editSettings

@@ -5596,7 +5596,7 @@ Push calls the API and returns the raw response from it.
 
 	Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
 
-If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data), this is the recommended way of ingesting your records.
 This method is similar to `pushTask`, but requires an `indexName` instead of a `taskID`. If zero or many tasks are found, an error will be returned.
 
 	    Required API Key ACLs:
@@ -5665,7 +5665,7 @@ func (c *APIClient) PushWithHTTPInfo(r ApiPushRequest, opts ...RequestOption) (*
 Push casts the HTTP response body to a defined struct.
 
 Pushes records through the Pipeline, directly to an index. You can make the call synchronous by providing the `watch` parameter, for asynchronous calls, you can use the observability endpoints and/or debugger dashboard to see the status of your task.
-If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data/), this is the recommended way of ingesting your records.
+If you want to leverage the [pre-indexing data transformation](https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/how-to/transform-your-data), this is the recommended way of ingesting your records.
 This method is similar to `pushTask`, but requires an `indexName` instead of a `taskID`. If zero or many tasks are found, an error will be returned.
 
 Required API Key ACLs:

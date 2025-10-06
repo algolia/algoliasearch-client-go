@@ -10,6 +10,7 @@ const (
 	DefaultConnectTimeout      = 2 * time.Second
 	DefaultKeepAliveDuration   = 5 * time.Minute
 	DefaultMaxIdleConnsPerHost = 64
+	DefaultMaxIdleTimeout      = 45 * time.Second
 	DefaultTLSHandshakeTimeout = 2 * time.Second
 )
 
@@ -36,6 +37,7 @@ func DefaultHTTPClient(connectTimeout *time.Duration) *http.Client {
 			}).DialContext,
 			DisableKeepAlives:   false,
 			MaxIdleConnsPerHost: DefaultMaxIdleConnsPerHost,
+			IdleConnTimeout:     DefaultConnectTimeout,
 			Proxy:               http.ProxyFromEnvironment,
 			TLSHandshakeTimeout: DefaultTLSHandshakeTimeout,
 		},

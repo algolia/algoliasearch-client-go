@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ReRankingApplyFilter - Restrict [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking/) to records that match these filters.
+// ReRankingApplyFilter - Restrict [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) to records that match these filters.
 type ReRankingApplyFilter struct {
 	ArrayOfReRankingApplyFilter *[]ReRankingApplyFilter
 	String                      *string

@@ -729,7 +729,7 @@ This differs from the response's `count`, which shows the overall number of sear
 **There's a difference between a 0 and null add-to-cart rate when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the add-to-cart rate is null.
-- **0** mean there _were_ queries but no [add-to-cart events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [add-to-cart events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -738,7 +738,7 @@ This differs from the response's `count`, which shows the overall number of sear
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -797,7 +797,7 @@ This differs from the response's `count`, which shows the overall number of sear
 **There's a difference between a 0 and null add-to-cart rate when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the add-to-cart rate is null.
-- **0** mean there _were_ queries but no [add-to-cart events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [add-to-cart events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -807,7 +807,7 @@ Request can be constructed by NewApiGetAddToCartRateRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetAddToCartRateResponse
 */
 func (c *APIClient) GetAddToCartRate(r ApiGetAddToCartRateRequest, opts ...RequestOption) (*GetAddToCartRateResponse, error) {
@@ -921,7 +921,7 @@ The average click position is the average of all clicked search result positions
 For example, if users only ever click on the first result for any search, the average click position is 1.
 By default, the analyzed period includes the last eight days including the current day.
 
-An average of `null` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) for the queries.
+An average of `null` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) for the queries.
 The average is `null` until Algolia receives at least one click event.
 
 	    Required API Key ACLs:
@@ -931,7 +931,7 @@ The average is `null` until Algolia receives at least one click event.
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -985,7 +985,7 @@ The average click position is the average of all clicked search result positions
 For example, if users only ever click on the first result for any search, the average click position is 1.
 By default, the analyzed period includes the last eight days including the current day.
 
-An average of `null` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) for the queries.
+An average of `null` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) for the queries.
 The average is `null` until Algolia receives at least one click event.
 
 Required API Key ACLs:
@@ -996,7 +996,7 @@ Request can be constructed by NewApiGetAverageClickPositionRequest with paramete
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetAverageClickPositionResponse
 */
 func (c *APIClient) GetAverageClickPosition(r ApiGetAverageClickPositionRequest, opts ...RequestOption) (*GetAverageClickPositionResponse, error) {
@@ -1108,7 +1108,7 @@ GetClickPositions calls the API and returns the raw response from it.
 
 This lets you check how many clicks the first, second, or tenth search results receive.
 
-An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) for the queries.
+An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) for the queries.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -1117,7 +1117,7 @@ An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive 
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1169,7 +1169,7 @@ Retrieves the positions in the search results and their associated number of cli
 
 This lets you check how many clicks the first, second, or tenth search results receive.
 
-An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) for the queries.
+An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive any [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) for the queries.
 
 Required API Key ACLs:
   - analytics
@@ -1179,7 +1179,7 @@ Request can be constructed by NewApiGetClickPositionsRequest with parameters bel
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetClickPositionsResponse
 */
 func (c *APIClient) GetClickPositions(r ApiGetClickPositionsRequest, opts ...RequestOption) (*GetClickPositionsResponse, error) {
@@ -1294,7 +1294,7 @@ By default, the analyzed period includes the last eight days including the curre
 **There's a difference between a 0 and null CTR when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, CTR is null.
-- **0** mean there _were_ queries but no [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -1303,7 +1303,7 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1358,7 +1358,7 @@ By default, the analyzed period includes the last eight days including the curre
 **There's a difference between a 0 and null CTR when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, CTR is null.
-- **0** mean there _were_ queries but no [click events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [click events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -1368,7 +1368,7 @@ Request can be constructed by NewApiGetClickThroughRateRequest with parameters b
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetClickThroughRateResponse
 */
 func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ...RequestOption) (*GetClickThroughRateResponse, error) {
@@ -1483,7 +1483,7 @@ By default, the analyzed period includes the last eight days including the curre
 **There's a difference between a 0 and null CR when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, CR is null.
-- **0** mean there _were_ queries but no [conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -1492,7 +1492,7 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1547,7 +1547,7 @@ By default, the analyzed period includes the last eight days including the curre
 **There's a difference between a 0 and null CR when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, CR is null.
-- **0** mean there _were_ queries but no [conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -1557,7 +1557,7 @@ Request can be constructed by NewApiGetConversionRateRequest with parameters bel
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetConversionRateResponse
 */
 func (c *APIClient) GetConversionRate(r ApiGetConversionRateRequest, opts ...RequestOption) (*GetConversionRateResponse, error) {
@@ -1678,7 +1678,7 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1739,7 +1739,7 @@ Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetNoClickRateResponse
 */
 func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...RequestOption) (*GetNoClickRateResponse, error) {
@@ -1860,7 +1860,7 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1921,7 +1921,7 @@ Request can be constructed by NewApiGetNoResultsRateRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetNoResultsRateResponse
 */
 func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...RequestOption) (*GetNoResultsRateResponse, error) {
@@ -2040,7 +2040,7 @@ This differs from the response's `count`, which shows the overall number of sear
 **There's a difference between a 0 and null purchase rate when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the purchase rate is null.
-- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -2049,7 +2049,7 @@ This differs from the response's `count`, which shows the overall number of sear
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2108,7 +2108,7 @@ This differs from the response's `count`, which shows the overall number of sear
 **There's a difference between a 0 and null purchase rate when `clickAnalytics` is enabled:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the purchase rate is null.
-- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -2118,7 +2118,7 @@ Request can be constructed by NewApiGetPurchaseRateRequest with parameters below
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetPurchaseRateResponse
 */
 func (c *APIClient) GetPurchaseRate(r ApiGetPurchaseRateRequest, opts ...RequestOption) (*GetPurchaseRateResponse, error) {
@@ -2241,7 +2241,7 @@ The revenue is the `price` attribute multiplied by the `quantity` attribute for 
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2305,7 +2305,7 @@ Request can be constructed by NewApiGetRevenueRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetRevenue
 */
 func (c *APIClient) GetRevenue(r ApiGetRevenueRequest, opts ...RequestOption) (*GetRevenue, error) {
@@ -2424,7 +2424,7 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2484,7 +2484,7 @@ Request can be constructed by NewApiGetSearchesCountRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesCountResponse
 */
 func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...RequestOption) (*GetSearchesCountResponse, error) {
@@ -2637,7 +2637,7 @@ For each search, it also returns the number of displayed search results that rem
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2705,7 +2705,7 @@ Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters b
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesNoClicksResponse
 */
 func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ...RequestOption) (*GetSearchesNoClicksResponse, error) {
@@ -2856,7 +2856,7 @@ GetSearchesNoResults calls the API and returns the raw response from it.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2922,7 +2922,7 @@ Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters 
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesNoResultsResponse
 */
 func (c *APIClient) GetSearchesNoResults(r ApiGetSearchesNoResultsRequest, opts ...RequestOption) (*GetSearchesNoResultsResponse, error) {
@@ -3193,7 +3193,7 @@ GetTopCountries calls the API and returns the raw response from it.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -3259,7 +3259,7 @@ Request can be constructed by NewApiGetTopCountriesRequest with parameters below
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopCountriesResponse
 */
 func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...RequestOption) (*GetTopCountriesResponse, error) {
@@ -3429,7 +3429,7 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -3501,7 +3501,7 @@ Request can be constructed by NewApiGetTopFilterAttributesRequest with parameter
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFilterAttributesResponse
 */
 func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, opts ...RequestOption) (*GetTopFilterAttributesResponse, error) {
@@ -3683,7 +3683,7 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -3760,7 +3760,7 @@ Request can be constructed by NewApiGetTopFilterForAttributeRequest with paramet
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFilterForAttributeResponse
 */
 func (c *APIClient) GetTopFilterForAttribute(r ApiGetTopFilterForAttributeRequest, opts ...RequestOption) (*GetTopFilterForAttributeResponse, error) {
@@ -3918,7 +3918,7 @@ GetTopFiltersNoResults calls the API and returns the raw response from it.
 
 	Retrieves the 1,000 most frequently used filters for a search that didn't return any results.
 
-To get the most frequent searches without results, use the [Retrieve searches without results](#tag/search/operation/getSearchesNoResults) operation.
+To get the most frequent searches without results, use the [Retrieve searches without results](https://www.algolia.com/doc/rest-api/analytics/get-searches-no-results) operation.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -3930,7 +3930,7 @@ To get the most frequent searches without results, use the [Retrieve searches wi
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -3989,7 +3989,7 @@ GetTopFiltersNoResults casts the HTTP response body to a defined struct.
 
 Retrieves the 1,000 most frequently used filters for a search that didn't return any results.
 
-To get the most frequent searches without results, use the [Retrieve searches without results](#tag/search/operation/getSearchesNoResults) operation.
+To get the most frequent searches without results, use the [Retrieve searches without results](https://www.algolia.com/doc/rest-api/analytics/get-searches-no-results) operation.
 
 Required API Key ACLs:
   - analytics
@@ -4002,7 +4002,7 @@ Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameter
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFiltersNoResultsResponse
 */
 func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, opts ...RequestOption) (*GetTopFiltersNoResultsResponse, error) {
@@ -4212,7 +4212,7 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 **There's a difference between 0% rates and null rates:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -4226,7 +4226,7 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -4311,7 +4311,7 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 **There's a difference between 0% rates and null rates:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -4326,7 +4326,7 @@ Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopHitsResponse
 */
 func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...RequestOption) (*GetTopHitsResponse, error) {
@@ -4552,7 +4552,7 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 **There's a difference between 0% rates and null rates:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -4567,7 +4567,7 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 	  @param direction Direction - Sorting direction of the results: ascending or descending.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -4655,7 +4655,7 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 **There's a difference between 0% rates and null rates:**
 
 - **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started/) were received.
+- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -4671,7 +4671,7 @@ Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopSearchesResponse
 */
 func (c *APIClient) GetTopSearches(r ApiGetTopSearchesRequest, opts ...RequestOption) (*GetTopSearchesResponse, error) {
@@ -4795,7 +4795,7 @@ By default:
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -4860,7 +4860,7 @@ Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments/).
+	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetUsersCountResponse
 */
 func (c *APIClient) GetUsersCount(r ApiGetUsersCountRequest, opts ...RequestOption) (*GetUsersCountResponse, error) {

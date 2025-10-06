@@ -56,7 +56,7 @@ type BrowseResponse struct {
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// An object with custom data.  You can store up to 32kB as custom data.
 	UserData any `json:"userData,omitempty"`
-	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics/).
+	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics).
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
 	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`

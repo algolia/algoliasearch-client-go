@@ -8,7 +8,7 @@ import (
 
 // GetUserTokenResponse struct for GetUserTokenResponse.
 type GetUserTokenResponse struct {
-	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken/).
+	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
 	UserToken string `json:"userToken"`
 	// Date and time of the last event from this user, in RFC 3339 format.
 	LastEventAt string `json:"lastEventAt"`
