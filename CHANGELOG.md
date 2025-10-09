@@ -1,3 +1,7 @@
+## [4.28.1](https://github.com/algolia/algoliasearch-client-go/compare/4.28.0...4.28.1)
+
+- [4d9286b50](https://github.com/algolia/api-clients-automation/commit/4d9286b50) fix(clients): use DefaultMaxIdleTimeout ([#5447](https://github.com/algolia/api-clients-automation/pull/5447)) by [@naonao2323](https://github.com/naonao2323/)
+
 ## [4.28.0](https://github.com/algolia/algoliasearch-client-go/compare/4.27.0...4.28.0)
 
 - [7de94353f](https://github.com/algolia/api-clients-automation/commit/7de94353f) feat(specs): add compositions deduplication setting ([#5418](https://github.com/algolia/api-clients-automation/pull/5418)) by [@ben-kalmus](https://github.com/ben-kalmus/)
