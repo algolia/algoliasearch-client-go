@@ -918,7 +918,7 @@ Batching index updates reduces latency and increases data integrity.
 - Actions are applied in the order they're specified.
 - Actions are equivalent to the individual API requests of the same name.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	Request can be constructed by NewApiBatchRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
@@ -974,7 +974,7 @@ Batching index updates reduces latency and increases data integrity.
 - Actions are applied in the order they're specified.
 - Actions are equivalent to the individual API requests of the same name.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Request can be constructed by NewApiBatchRequest with parameters below.
 
@@ -1529,7 +1529,7 @@ ClearObjects calls the API and returns the raw response from it.
 
 	Deletes only the records from an index while keeping settings, synonyms, and rules.
 
-This operation is resource-intensive and subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is resource-intensive and subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - deleteIndex
@@ -1574,7 +1574,7 @@ func (c *APIClient) ClearObjectsWithHTTPInfo(r ApiClearObjectsRequest, opts ...R
 ClearObjects casts the HTTP response body to a defined struct.
 
 Deletes only the records from an index while keeping settings, synonyms, and rules.
-This operation is resource-intensive and subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is resource-intensive and subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - deleteIndex
@@ -2660,7 +2660,7 @@ You should only use it if you can't get the object IDs of the records you want t
 It's more efficient to get a list of object IDs with the [`browse` operation](https://www.algolia.com/doc/rest-api/search/browse),
 and then delete the records using the [`batch` operation](https://www.algolia.com/doc/rest-api/search/batch).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - deleteIndex
@@ -2719,7 +2719,7 @@ You should only use it if you can't get the object IDs of the records you want t
 It's more efficient to get a list of object IDs with the [`browse` operation](https://www.algolia.com/doc/rest-api/search/browse),
 and then delete the records using the [`batch` operation](https://www.algolia.com/doc/rest-api/search/batch).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - deleteIndex
@@ -3950,7 +3950,7 @@ GetLogs calls the API and returns the raw response from it.
 
 - Logs are held for the last seven days.
 - Up to 1,000 API requests per server are logged.
-- This request counts towards your [operations quota](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-) but doesn't appear in the logs itself.
+- This request counts towards your [operations quota](https://support.algolia.com/hc/articles/17245378392977-How-does-Algolia-count-records-and-operations) but doesn't appear in the logs itself.
 
 	    Required API Key ACLs:
 	    - logs
@@ -4012,7 +4012,7 @@ The request must be authenticated by an API key with the [`logs` ACL](https://ww
 
 - Logs are held for the last seven days.
 - Up to 1,000 API requests per server are logged.
-- This request counts towards your [operations quota](https://support.algolia.com/hc/en-us/articles/4406981829777-How-does-Algolia-count-records-and-operations-) but doesn't appear in the logs itself.
+- This request counts towards your [operations quota](https://support.algolia.com/hc/articles/17245378392977-How-does-Algolia-count-records-and-operations) but doesn't appear in the logs itself.
 
 Required API Key ACLs:
   - logs
@@ -5815,7 +5815,7 @@ MultipleBatch calls the API and returns the raw response from it.
 - Actions are applied in the order they are specified.
 - Actions are equivalent to the individual API requests of the same name.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 	  @param batchParams BatchParams
@@ -5863,7 +5863,7 @@ Adds, updates, or deletes records in multiple indices with a single API request.
 - Actions are applied in the order they are specified.
 - Actions are equivalent to the individual API requests of the same name.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 
@@ -5974,7 +5974,7 @@ OperationIndex calls the API and returns the raw response from it.
 
   - Related guide: [Move indices](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/how-to/move-indices).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6052,7 +6052,7 @@ Copies or moves (renames) an index within the same Algolia application.
 
   - Related guide: [Move indices](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/how-to/move-indices).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - addObject
@@ -6201,7 +6201,7 @@ You can specify an operation by providing an object with the attribute to update
 
 When updating multiple attributes or using multiple operations targeting the same record, you should use a single partial update for faster processing.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6290,7 +6290,7 @@ You can specify an operation by providing an object with the attribute to update
 
 When updating multiple attributes or using multiple operations targeting the same record, you should use a single partial update for faster processing.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - addObject
@@ -6758,7 +6758,7 @@ SaveObject calls the API and returns the raw response from it.
 To update _some_ attributes of a record, use the [`partial` operation](https://www.algolia.com/doc/rest-api/search/partial-update-object).
 To add, update, or replace multiple records, use the [`batch` operation](https://www.algolia.com/doc/rest-api/search/batch).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6820,7 +6820,7 @@ Adds a record to an index or replaces it.
 To update _some_ attributes of a record, use the [`partial` operation](https://www.algolia.com/doc/rest-api/search/partial-update-object).
 To add, update, or replace multiple records, use the [`batch` operation](https://www.algolia.com/doc/rest-api/search/batch).
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - addObject
@@ -7141,7 +7141,7 @@ SaveRules calls the API and returns the raw response from it.
 If a rule with the specified object ID doesn't exist, Algolia creates a new one.
 Otherwise, existing rules are replaced.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -7208,7 +7208,7 @@ Create or update multiple rules.
 If a rule with the specified object ID doesn't exist, Algolia creates a new one.
 Otherwise, existing rules are replaced.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - editSettings
@@ -7528,7 +7528,7 @@ SaveSynonyms calls the API and returns the raw response from it.
 
 Otherwise, existing synonyms are replaced.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -7593,7 +7593,7 @@ SaveSynonyms casts the HTTP response body to a defined struct.
 If a synonym with the `objectID` doesn't exist, Algolia adds a new one.
 Otherwise, existing synonyms are replaced.
 
-This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
 Required API Key ACLs:
   - editSettings

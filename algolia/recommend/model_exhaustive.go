@@ -8,7 +8,7 @@ import (
 
 // Exhaustive Whether certain properties of the search response are calculated exhaustive (exact) or approximated.
 type Exhaustive struct {
-	// Whether the facet count is exhaustive (`true`) or approximate (`false`). See the [related discussion](https://support.algolia.com/hc/en-us/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate-).
+	// Whether the facet count is exhaustive (`true`) or approximate (`false`). See the [related discussion](https://support.algolia.com/hc/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate).
 	FacetsCount *bool `json:"facetsCount,omitempty"`
 	// The value is `false` if not all facet values are retrieved.
 	FacetValues *bool `json:"facetValues,omitempty"`

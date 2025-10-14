@@ -46,7 +46,7 @@ type Params struct {
 	RuleContexts []string `json:"ruleContexts,omitempty"`
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
 	UserToken *string `json:"userToken,omitempty"`
-	// Whether to include a `queryID` attribute in the response The query ID is a unique identifier for a search query and is required for tracking [click and conversion events](https://www.algolia.com/guides/sending-events/getting-started).
+	// Whether to include a `queryID` attribute in the response The query ID is a unique identifier for a search query and is required for tracking [click and conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started).
 	ClickAnalytics *bool `json:"clickAnalytics,omitempty"`
 	// Whether this search will be included in Analytics.
 	Analytics *bool `json:"analytics,omitempty"`
