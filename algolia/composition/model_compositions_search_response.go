@@ -9,7 +9,7 @@ import (
 // CompositionsSearchResponse struct for CompositionsSearchResponse.
 type CompositionsSearchResponse struct {
 	Run                  []CompositionRunSearchResponse `json:"run"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any                 `json:"-"`
 }
 
 type _CompositionsSearchResponse CompositionsSearchResponse
@@ -21,6 +21,7 @@ type _CompositionsSearchResponse CompositionsSearchResponse
 func NewCompositionsSearchResponse(run []CompositionRunSearchResponse) *CompositionsSearchResponse {
 	this := &CompositionsSearchResponse{}
 	this.Run = run
+
 	return this
 }
 
@@ -33,6 +34,7 @@ func NewEmptyCompositionsSearchResponse() *CompositionsSearchResponse {
 func (o *CompositionsSearchResponse) GetRun() []CompositionRunSearchResponse {
 	if o == nil {
 		var ret []CompositionRunSearchResponse
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *CompositionsSearchResponse) GetRunOk() ([]CompositionRunSearchResponse,
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Run, true
 }
 
 // SetRun sets field value.
 func (o *CompositionsSearchResponse) SetRun(v []CompositionRunSearchResponse) *CompositionsSearchResponse {
 	o.Run = v
+
 	return o
 }
 
@@ -105,9 +109,11 @@ func (o *CompositionsSearchResponse) UnmarshalJSON(bytes []byte) error {
 
 func (o CompositionsSearchResponse) String() string {
 	out := ""
+
 	out += fmt.Sprintf("  run=%v\n", o.Run)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("CompositionsSearchResponse {\n%s}", out)
 }

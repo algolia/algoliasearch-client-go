@@ -30,10 +30,12 @@ func WithDockerStreamsProperties(val []string) DockerStreamsOption {
 func NewDockerStreams(name string, syncMode DockerStreamsSyncMode, opts ...DockerStreamsOption) *DockerStreams {
 	this := &DockerStreams{}
 	this.Name = name
+
 	this.SyncMode = syncMode
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -46,6 +48,7 @@ func NewEmptyDockerStreams() *DockerStreams {
 func (o *DockerStreams) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -58,12 +61,14 @@ func (o *DockerStreams) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *DockerStreams) SetName(v string) *DockerStreams {
 	o.Name = v
+
 	return o
 }
 
@@ -71,8 +76,10 @@ func (o *DockerStreams) SetName(v string) *DockerStreams {
 func (o *DockerStreams) GetProperties() []string {
 	if o == nil || o.Properties == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Properties
 }
 
@@ -82,6 +89,7 @@ func (o *DockerStreams) GetPropertiesOk() ([]string, bool) {
 	if o == nil || o.Properties == nil {
 		return nil, false
 	}
+
 	return o.Properties, true
 }
 
@@ -97,6 +105,7 @@ func (o *DockerStreams) HasProperties() bool {
 // SetProperties gets a reference to the given []string and assigns it to the Properties field.
 func (o *DockerStreams) SetProperties(v []string) *DockerStreams {
 	o.Properties = v
+
 	return o
 }
 
@@ -104,6 +113,7 @@ func (o *DockerStreams) SetProperties(v []string) *DockerStreams {
 func (o *DockerStreams) GetSyncMode() DockerStreamsSyncMode {
 	if o == nil {
 		var ret DockerStreamsSyncMode
+
 		return ret
 	}
 
@@ -116,22 +126,27 @@ func (o *DockerStreams) GetSyncModeOk() (*DockerStreamsSyncMode, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SyncMode, true
 }
 
 // SetSyncMode sets field value.
 func (o *DockerStreams) SetSyncMode(v DockerStreamsSyncMode) *DockerStreams {
 	o.SyncMode = v
+
 	return o
 }
 
 func (o DockerStreams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["name"] = o.Name
 	if o.Properties != nil {
 		toSerialize["properties"] = o.Properties
 	}
+
 	toSerialize["syncMode"] = o.SyncMode
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DockerStreams: %w", err)
@@ -145,5 +160,6 @@ func (o DockerStreams) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  properties=%v\n", o.Properties)
 	out += fmt.Sprintf("  syncMode=%v\n", o.SyncMode)
+
 	return fmt.Sprintf("DockerStreams {\n%s}", out)
 }

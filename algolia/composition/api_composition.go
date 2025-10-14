@@ -70,10 +70,12 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -83,6 +85,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -112,6 +115,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
 func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -182,9 +186,11 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -200,10 +206,12 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -213,6 +221,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -242,6 +251,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
 func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -312,9 +322,11 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -330,10 +342,12 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -343,6 +357,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -352,6 +367,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -382,12 +398,14 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
+
 	return r
 }
 
@@ -439,6 +457,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -466,9 +485,11 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -484,10 +505,12 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -497,6 +520,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -506,6 +530,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -536,12 +561,14 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
+
 	return r
 }
 
@@ -593,6 +620,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -620,9 +648,11 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -638,10 +668,12 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 func (r *ApiDeleteCompositionRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -732,9 +764,11 @@ func (c *APIClient) DeleteComposition(r ApiDeleteCompositionRequest, opts ...Req
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -750,10 +784,12 @@ func (c *APIClient) DeleteComposition(r ApiDeleteCompositionRequest, opts ...Req
 
 func (r *ApiDeleteCompositionRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -763,6 +799,7 @@ func (r *ApiDeleteCompositionRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -815,6 +852,7 @@ func (c *APIClient) DeleteCompositionRuleWithHTTPInfo(r ApiDeleteCompositionRule
 	if r.compositionID == "" {
 		return nil, nil, reportError("Parameter `compositionID` is required when calling `DeleteCompositionRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteCompositionRule`.")
 	}
@@ -861,9 +899,11 @@ func (c *APIClient) DeleteCompositionRule(r ApiDeleteCompositionRuleRequest, opt
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -879,10 +919,12 @@ func (c *APIClient) DeleteCompositionRule(r ApiDeleteCompositionRuleRequest, opt
 
 func (r *ApiGetCompositionRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -975,9 +1017,11 @@ func (c *APIClient) GetComposition(r ApiGetCompositionRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -993,10 +1037,12 @@ func (c *APIClient) GetComposition(r ApiGetCompositionRequest, opts ...RequestOp
 
 func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1006,6 +1052,7 @@ func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -1060,6 +1107,7 @@ func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOpti
 	if r.compositionID == "" {
 		return nil, nil, reportError("Parameter `compositionID` is required when calling `GetRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetRule`.")
 	}
@@ -1109,9 +1157,11 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Compos
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1127,10 +1177,12 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Compos
 
 func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1140,6 +1192,7 @@ func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["taskID"]; ok {
 		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
@@ -1243,9 +1296,11 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTas
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1261,10 +1316,12 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTas
 
 func (r *ApiListCompositionsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["page"]; ok {
 		err = json.Unmarshal(v, &r.page)
 		if err != nil {
@@ -1274,6 +1331,7 @@ func (r *ApiListCompositionsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["hitsPerPage"]; ok {
 		err = json.Unmarshal(v, &r.hitsPerPage)
 		if err != nil {
@@ -1301,12 +1359,14 @@ func (c *APIClient) NewApiListCompositionsRequest() ApiListCompositionsRequest {
 // WithPage adds the page to the ApiListCompositionsRequest and returns the request for chaining.
 func (r ApiListCompositionsRequest) WithPage(page int32) ApiListCompositionsRequest {
 	r.page = &page
+
 	return r
 }
 
 // WithHitsPerPage adds the hitsPerPage to the ApiListCompositionsRequest and returns the request for chaining.
 func (r ApiListCompositionsRequest) WithHitsPerPage(hitsPerPage int32) ApiListCompositionsRequest {
 	r.hitsPerPage = &hitsPerPage
+
 	return r
 }
 
@@ -1340,6 +1400,7 @@ func (c *APIClient) ListCompositionsWithHTTPInfo(r ApiListCompositionsRequest, o
 	if !utils.IsNilOrEmpty(r.page) {
 		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
 	}
+
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
 	}
@@ -1381,9 +1442,11 @@ func (c *APIClient) ListCompositions(r ApiListCompositionsRequest, opts ...Reque
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1399,10 +1462,12 @@ func (c *APIClient) ListCompositions(r ApiListCompositionsRequest, opts ...Reque
 
 func (r *ApiMultipleBatchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["batchParams"]; ok {
 		err = json.Unmarshal(v, &r.batchParams)
 		if err != nil {
@@ -1471,6 +1536,7 @@ func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ..
 
 	// body params
 	postBody = r.batchParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1499,9 +1565,11 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1517,10 +1585,12 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 
 func (r *ApiPutCompositionRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1530,6 +1600,7 @@ func (r *ApiPutCompositionRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["composition"]; ok {
 		err = json.Unmarshal(v, &r.composition)
 		if err != nil {
@@ -1606,6 +1677,7 @@ func (c *APIClient) PutCompositionWithHTTPInfo(r ApiPutCompositionRequest, opts 
 
 	// body params
 	postBody = r.composition
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1635,9 +1707,11 @@ func (c *APIClient) PutComposition(r ApiPutCompositionRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1653,10 +1727,12 @@ func (c *APIClient) PutComposition(r ApiPutCompositionRequest, opts ...RequestOp
 
 func (r *ApiPutCompositionRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1666,6 +1742,7 @@ func (r *ApiPutCompositionRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -1675,6 +1752,7 @@ func (r *ApiPutCompositionRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["compositionRule"]; ok {
 		err = json.Unmarshal(v, &r.compositionRule)
 		if err != nil {
@@ -1701,7 +1779,11 @@ type ApiPutCompositionRuleRequest struct {
 }
 
 // NewApiPutCompositionRuleRequest creates an instance of the ApiPutCompositionRuleRequest to be used for the API call.
-func (c *APIClient) NewApiPutCompositionRuleRequest(compositionID string, objectID string, compositionRule *CompositionRule) ApiPutCompositionRuleRequest {
+func (c *APIClient) NewApiPutCompositionRuleRequest(
+	compositionID string,
+	objectID string,
+	compositionRule *CompositionRule,
+) ApiPutCompositionRuleRequest {
 	return ApiPutCompositionRuleRequest{
 		compositionID:   compositionID,
 		objectID:        objectID,
@@ -1736,6 +1818,7 @@ func (c *APIClient) PutCompositionRuleWithHTTPInfo(r ApiPutCompositionRuleReques
 	if r.compositionID == "" {
 		return nil, nil, reportError("Parameter `compositionID` is required when calling `PutCompositionRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `PutCompositionRule`.")
 	}
@@ -1759,6 +1842,7 @@ func (c *APIClient) PutCompositionRuleWithHTTPInfo(r ApiPutCompositionRuleReques
 
 	// body params
 	postBody = r.compositionRule
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1790,9 +1874,11 @@ func (c *APIClient) PutCompositionRule(r ApiPutCompositionRuleRequest, opts ...R
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1808,10 +1894,12 @@ func (c *APIClient) PutCompositionRule(r ApiPutCompositionRuleRequest, opts ...R
 
 func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1821,6 +1909,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["rules"]; ok {
 		err = json.Unmarshal(v, &r.rules)
 		if err != nil {
@@ -1897,6 +1986,7 @@ func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...Request
 
 	// body params
 	postBody = r.rules
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1926,9 +2016,11 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Ru
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1944,10 +2036,12 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Ru
 
 func (r *ApiSearchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -1957,6 +2051,7 @@ func (r *ApiSearchRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["requestBody"]; ok {
 		err = json.Unmarshal(v, &r.requestBody)
 		if err != nil {
@@ -2032,6 +2127,7 @@ func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption
 
 	// body params
 	postBody = r.requestBody
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2061,9 +2157,11 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2079,10 +2177,12 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 
 func (r *ApiSearchCompositionRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -2092,6 +2192,7 @@ func (r *ApiSearchCompositionRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchCompositionRulesParams"]; ok {
 		err = json.Unmarshal(v, &r.searchCompositionRulesParams)
 		if err != nil {
@@ -2119,8 +2220,11 @@ func (c *APIClient) NewApiSearchCompositionRulesRequest(compositionID string) Ap
 }
 
 // WithSearchCompositionRulesParams adds the searchCompositionRulesParams to the ApiSearchCompositionRulesRequest and returns the request for chaining.
-func (r ApiSearchCompositionRulesRequest) WithSearchCompositionRulesParams(searchCompositionRulesParams *SearchCompositionRulesParams) ApiSearchCompositionRulesRequest {
+func (r ApiSearchCompositionRulesRequest) WithSearchCompositionRulesParams(
+	searchCompositionRulesParams *SearchCompositionRulesParams,
+) ApiSearchCompositionRulesRequest {
 	r.searchCompositionRulesParams = searchCompositionRulesParams
+
 	return r
 }
 
@@ -2167,6 +2271,7 @@ func (c *APIClient) SearchCompositionRulesWithHTTPInfo(r ApiSearchCompositionRul
 	} else {
 		postBody = r.searchCompositionRulesParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2196,9 +2301,11 @@ func (c *APIClient) SearchCompositionRules(r ApiSearchCompositionRulesRequest, o
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2214,10 +2321,12 @@ func (c *APIClient) SearchCompositionRules(r ApiSearchCompositionRulesRequest, o
 
 func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["compositionID"]; ok {
 		err = json.Unmarshal(v, &r.compositionID)
 		if err != nil {
@@ -2227,6 +2336,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["facetName"]; ok {
 		err = json.Unmarshal(v, &r.facetName)
 		if err != nil {
@@ -2236,6 +2346,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchForFacetValuesRequest"]; ok {
 		err = json.Unmarshal(v, &r.searchForFacetValuesRequest)
 		if err != nil {
@@ -2265,8 +2376,11 @@ func (c *APIClient) NewApiSearchForFacetValuesRequest(compositionID string, face
 }
 
 // WithSearchForFacetValuesRequest adds the searchForFacetValuesRequest to the ApiSearchForFacetValuesRequest and returns the request for chaining.
-func (r ApiSearchForFacetValuesRequest) WithSearchForFacetValuesRequest(searchForFacetValuesRequest *SearchForFacetValuesRequest) ApiSearchForFacetValuesRequest {
+func (r ApiSearchForFacetValuesRequest) WithSearchForFacetValuesRequest(
+	searchForFacetValuesRequest *SearchForFacetValuesRequest,
+) ApiSearchForFacetValuesRequest {
 	r.searchForFacetValuesRequest = searchForFacetValuesRequest
+
 	return r
 }
 
@@ -2286,12 +2400,14 @@ SearchForFacetValues calls the API and returns the raw response from it.
 
 	    Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 	    @param compositionID string - Unique Composition ObjectID.
-	    @param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
-	    @param searchForFacetValuesRequest SearchForFacetValuesRequest
-	    @param opts ...RequestOption - Optional parameters for the API call
-	    @return *http.Response - The raw response from the API
-	    @return []byte - The raw response body from the API
-	    @return error - An error if the API call fails
+
+
+	@param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
+	@param searchForFacetValuesRequest SearchForFacetValuesRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/compositions/{compositionID}/facets/{facetName}/query"
@@ -2301,6 +2417,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 	if r.compositionID == "" {
 		return nil, nil, reportError("Parameter `compositionID` is required when calling `SearchForFacetValues`.")
 	}
+
 	if r.facetName == "" {
 		return nil, nil, reportError("Parameter `facetName` is required when calling `SearchForFacetValues`.")
 	}
@@ -2324,6 +2441,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 	} else {
 		postBody = r.searchForFacetValuesRequest
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2347,6 +2465,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 
 	@param compositionID string - Unique Composition ObjectID.
+
+
 	@param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
 	@param searchForFacetValuesRequest SearchForFacetValuesRequest
 	@return SearchForFacetValuesResponse
@@ -2358,9 +2478,11 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)

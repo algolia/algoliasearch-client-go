@@ -33,10 +33,12 @@ func NewMappingKitAction(enabled bool, trigger string, fieldDirectives []Mapping
 	this := &MappingKitAction{}
 	this.Enabled = enabled
 	this.Trigger = trigger
+
 	this.FieldDirectives = fieldDirectives
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +51,10 @@ func NewEmptyMappingKitAction() *MappingKitAction {
 func (o *MappingKitAction) GetId() string {
 	if o == nil || o.Id == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Id
 }
 
@@ -60,6 +64,7 @@ func (o *MappingKitAction) GetIdOk() (*string, bool) {
 	if o == nil || o.Id == nil {
 		return nil, false
 	}
+
 	return o.Id, true
 }
 
@@ -75,6 +80,7 @@ func (o *MappingKitAction) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *MappingKitAction) SetId(v string) *MappingKitAction {
 	o.Id = &v
+
 	return o
 }
 
@@ -82,6 +88,7 @@ func (o *MappingKitAction) SetId(v string) *MappingKitAction {
 func (o *MappingKitAction) GetEnabled() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -94,12 +101,14 @@ func (o *MappingKitAction) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Enabled, true
 }
 
 // SetEnabled sets field value.
 func (o *MappingKitAction) SetEnabled(v bool) *MappingKitAction {
 	o.Enabled = v
+
 	return o
 }
 
@@ -107,6 +116,7 @@ func (o *MappingKitAction) SetEnabled(v bool) *MappingKitAction {
 func (o *MappingKitAction) GetTrigger() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -119,12 +129,14 @@ func (o *MappingKitAction) GetTriggerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Trigger, true
 }
 
 // SetTrigger sets field value.
 func (o *MappingKitAction) SetTrigger(v string) *MappingKitAction {
 	o.Trigger = v
+
 	return o
 }
 
@@ -132,6 +144,7 @@ func (o *MappingKitAction) SetTrigger(v string) *MappingKitAction {
 func (o *MappingKitAction) GetFieldDirectives() []MappingFieldDirective {
 	if o == nil {
 		var ret []MappingFieldDirective
+
 		return ret
 	}
 
@@ -144,12 +157,14 @@ func (o *MappingKitAction) GetFieldDirectivesOk() ([]MappingFieldDirective, bool
 	if o == nil {
 		return nil, false
 	}
+
 	return o.FieldDirectives, true
 }
 
 // SetFieldDirectives sets field value.
 func (o *MappingKitAction) SetFieldDirectives(v []MappingFieldDirective) *MappingKitAction {
 	o.FieldDirectives = v
+
 	return o
 }
 
@@ -158,9 +173,11 @@ func (o MappingKitAction) MarshalJSON() ([]byte, error) {
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
+
 	toSerialize["enabled"] = o.Enabled
 	toSerialize["trigger"] = o.Trigger
 	toSerialize["fieldDirectives"] = o.FieldDirectives
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingKitAction: %w", err)
@@ -175,5 +192,6 @@ func (o MappingKitAction) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  trigger=%v\n", o.Trigger)
 	out += fmt.Sprintf("  fieldDirectives=%v\n", o.FieldDirectives)
+
 	return fmt.Sprintf("MappingKitAction {\n%s}", out)
 }

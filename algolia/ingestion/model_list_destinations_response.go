@@ -20,6 +20,7 @@ func NewListDestinationsResponse(destinations []Destination, pagination Paginati
 	this := &ListDestinationsResponse{}
 	this.Destinations = destinations
 	this.Pagination = pagination
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyListDestinationsResponse() *ListDestinationsResponse {
 func (o *ListDestinationsResponse) GetDestinations() []Destination {
 	if o == nil {
 		var ret []Destination
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *ListDestinationsResponse) GetDestinationsOk() ([]Destination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Destinations, true
 }
 
 // SetDestinations sets field value.
 func (o *ListDestinationsResponse) SetDestinations(v []Destination) *ListDestinationsResponse {
 	o.Destinations = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *ListDestinationsResponse) SetDestinations(v []Destination) *ListDestina
 func (o *ListDestinationsResponse) GetPagination() Pagination {
 	if o == nil {
 		var ret Pagination
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *ListDestinationsResponse) GetPaginationOk() (*Pagination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pagination, true
 }
 
 // SetPagination sets field value.
 func (o *ListDestinationsResponse) SetPagination(v *Pagination) *ListDestinationsResponse {
 	o.Pagination = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o ListDestinationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["destinations"] = o.Destinations
 	toSerialize["pagination"] = o.Pagination
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListDestinationsResponse: %w", err)
@@ -94,5 +102,6 @@ func (o ListDestinationsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  destinations=%v\n", o.Destinations)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
+
 	return fmt.Sprintf("ListDestinationsResponse {\n%s}", out)
 }

@@ -45,6 +45,7 @@ func NewUpdatedAtWithObjectIdResponse(opts ...UpdatedAtWithObjectIdResponseOptio
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyUpdatedAtWithObjectIdResponse() *UpdatedAtWithObjectIdResponse {
 func (o *UpdatedAtWithObjectIdResponse) GetTaskID() int64 {
 	if o == nil || o.TaskID == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.TaskID
 }
 
@@ -68,6 +71,7 @@ func (o *UpdatedAtWithObjectIdResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil || o.TaskID == nil {
 		return nil, false
 	}
+
 	return o.TaskID, true
 }
 
@@ -83,6 +87,7 @@ func (o *UpdatedAtWithObjectIdResponse) HasTaskID() bool {
 // SetTaskID gets a reference to the given int64 and assigns it to the TaskID field.
 func (o *UpdatedAtWithObjectIdResponse) SetTaskID(v int64) *UpdatedAtWithObjectIdResponse {
 	o.TaskID = &v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *UpdatedAtWithObjectIdResponse) SetTaskID(v int64) *UpdatedAtWithObjectI
 func (o *UpdatedAtWithObjectIdResponse) GetUpdatedAt() string {
 	if o == nil || o.UpdatedAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UpdatedAt
 }
 
@@ -101,6 +108,7 @@ func (o *UpdatedAtWithObjectIdResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
+
 	return o.UpdatedAt, true
 }
 
@@ -116,6 +124,7 @@ func (o *UpdatedAtWithObjectIdResponse) HasUpdatedAt() bool {
 // SetUpdatedAt gets a reference to the given string and assigns it to the UpdatedAt field.
 func (o *UpdatedAtWithObjectIdResponse) SetUpdatedAt(v string) *UpdatedAtWithObjectIdResponse {
 	o.UpdatedAt = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *UpdatedAtWithObjectIdResponse) SetUpdatedAt(v string) *UpdatedAtWithObj
 func (o *UpdatedAtWithObjectIdResponse) GetObjectID() string {
 	if o == nil || o.ObjectID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ObjectID
 }
 
@@ -134,6 +145,7 @@ func (o *UpdatedAtWithObjectIdResponse) GetObjectIDOk() (*string, bool) {
 	if o == nil || o.ObjectID == nil {
 		return nil, false
 	}
+
 	return o.ObjectID, true
 }
 
@@ -149,6 +161,7 @@ func (o *UpdatedAtWithObjectIdResponse) HasObjectID() bool {
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
 func (o *UpdatedAtWithObjectIdResponse) SetObjectID(v string) *UpdatedAtWithObjectIdResponse {
 	o.ObjectID = &v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o UpdatedAtWithObjectIdResponse) MarshalJSON() ([]byte, error) {
 	if o.TaskID != nil {
 		toSerialize["taskID"] = o.TaskID
 	}
+
 	if o.UpdatedAt != nil {
 		toSerialize["updatedAt"] = o.UpdatedAt
 	}
+
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UpdatedAtWithObjectIdResponse: %w", err)
@@ -176,5 +192,6 @@ func (o UpdatedAtWithObjectIdResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("UpdatedAtWithObjectIdResponse {\n%s}", out)
 }

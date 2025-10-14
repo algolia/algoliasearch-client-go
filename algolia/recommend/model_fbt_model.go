@@ -19,24 +19,7 @@ var AllowedFbtModelEnumValues = []FbtModel{
 	"bought-together",
 }
 
-func (v *FbtModel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'FbtModel': %w", string(src), err)
-	}
-	enumTypeValue := FbtModel(value)
-	for _, existing := range AllowedFbtModelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid FbtModel", value)
-}
-
-// NewFbtModelFromValue returns a pointer to a valid FbtModel
+// NewFbtModelFromValue returns a pointer to a valid FbtModel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewFbtModelFromValue(v string) (*FbtModel, error) {
 	ev := FbtModel(v)
@@ -47,6 +30,26 @@ func NewFbtModelFromValue(v string) (*FbtModel, error) {
 	}
 }
 
+func (v *FbtModel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'FbtModel': %w", string(src), err)
+	}
+
+	enumTypeValue := FbtModel(value)
+	for _, existing := range AllowedFbtModelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid FbtModel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v FbtModel) IsValid() bool {
 	for _, existing := range AllowedFbtModelEnumValues {
@@ -54,6 +57,7 @@ func (v FbtModel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

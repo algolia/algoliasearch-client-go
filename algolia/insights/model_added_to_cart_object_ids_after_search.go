@@ -67,7 +67,16 @@ func WithAddedToCartObjectIDsAfterSearchValue(val Value) AddedToCartObjectIDsAft
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAddedToCartObjectIDsAfterSearch(eventName string, eventType ConversionEvent, eventSubtype AddToCartEvent, index string, queryID string, objectIDs []string, userToken string, opts ...AddedToCartObjectIDsAfterSearchOption) *AddedToCartObjectIDsAfterSearch {
+func NewAddedToCartObjectIDsAfterSearch(
+	eventName string,
+	eventType ConversionEvent,
+	eventSubtype AddToCartEvent,
+	index string,
+	queryID string,
+	objectIDs []string,
+	userToken string,
+	opts ...AddedToCartObjectIDsAfterSearchOption,
+) *AddedToCartObjectIDsAfterSearch {
 	this := &AddedToCartObjectIDsAfterSearch{}
 	this.EventName = eventName
 	this.EventType = eventType
@@ -75,10 +84,12 @@ func NewAddedToCartObjectIDsAfterSearch(eventName string, eventType ConversionEv
 	this.Index = index
 	this.QueryID = queryID
 	this.ObjectIDs = objectIDs
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -91,6 +102,7 @@ func NewEmptyAddedToCartObjectIDsAfterSearch() *AddedToCartObjectIDsAfterSearch 
 func (o *AddedToCartObjectIDsAfterSearch) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -103,12 +115,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetEventName(v string) *AddedToCartObjectIDsAfterSearch {
 	o.EventName = v
+
 	return o
 }
 
@@ -116,6 +130,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetEventName(v string) *AddedToCartObj
 func (o *AddedToCartObjectIDsAfterSearch) GetEventType() ConversionEvent {
 	if o == nil {
 		var ret ConversionEvent
+
 		return ret
 	}
 
@@ -128,12 +143,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetEventTypeOk() (*ConversionEvent, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetEventType(v ConversionEvent) *AddedToCartObjectIDsAfterSearch {
 	o.EventType = v
+
 	return o
 }
 
@@ -141,6 +158,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetEventType(v ConversionEvent) *Added
 func (o *AddedToCartObjectIDsAfterSearch) GetEventSubtype() AddToCartEvent {
 	if o == nil {
 		var ret AddToCartEvent
+
 		return ret
 	}
 
@@ -153,12 +171,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetEventSubtypeOk() (*AddToCartEvent, 
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventSubtype, true
 }
 
 // SetEventSubtype sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetEventSubtype(v AddToCartEvent) *AddedToCartObjectIDsAfterSearch {
 	o.EventSubtype = v
+
 	return o
 }
 
@@ -166,6 +186,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetEventSubtype(v AddToCartEvent) *Add
 func (o *AddedToCartObjectIDsAfterSearch) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -178,12 +199,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetIndex(v string) *AddedToCartObjectIDsAfterSearch {
 	o.Index = v
+
 	return o
 }
 
@@ -191,6 +214,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetIndex(v string) *AddedToCartObjectI
 func (o *AddedToCartObjectIDsAfterSearch) GetQueryID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -203,12 +227,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetQueryIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.QueryID, true
 }
 
 // SetQueryID sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetQueryID(v string) *AddedToCartObjectIDsAfterSearch {
 	o.QueryID = v
+
 	return o
 }
 
@@ -216,6 +242,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetQueryID(v string) *AddedToCartObjec
 func (o *AddedToCartObjectIDsAfterSearch) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -228,12 +255,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetObjectIDs(v []string) *AddedToCartObjectIDsAfterSearch {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -241,6 +270,7 @@ func (o *AddedToCartObjectIDsAfterSearch) SetObjectIDs(v []string) *AddedToCartO
 func (o *AddedToCartObjectIDsAfterSearch) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -253,12 +283,14 @@ func (o *AddedToCartObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *AddedToCartObjectIDsAfterSearch) SetUserToken(v string) *AddedToCartObjectIDsAfterSearch {
 	o.UserToken = v
+
 	return o
 }
 
@@ -266,8 +298,10 @@ func (o *AddedToCartObjectIDsAfterSearch) SetUserToken(v string) *AddedToCartObj
 func (o *AddedToCartObjectIDsAfterSearch) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -277,6 +311,7 @@ func (o *AddedToCartObjectIDsAfterSearch) GetAuthenticatedUserTokenOk() (*string
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -292,6 +327,7 @@ func (o *AddedToCartObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *AddedToCartObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *AddedToCartObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -299,8 +335,10 @@ func (o *AddedToCartObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *A
 func (o *AddedToCartObjectIDsAfterSearch) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Currency
 }
 
@@ -310,6 +348,7 @@ func (o *AddedToCartObjectIDsAfterSearch) GetCurrencyOk() (*string, bool) {
 	if o == nil || o.Currency == nil {
 		return nil, false
 	}
+
 	return o.Currency, true
 }
 
@@ -325,6 +364,7 @@ func (o *AddedToCartObjectIDsAfterSearch) HasCurrency() bool {
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
 func (o *AddedToCartObjectIDsAfterSearch) SetCurrency(v string) *AddedToCartObjectIDsAfterSearch {
 	o.Currency = &v
+
 	return o
 }
 
@@ -332,8 +372,10 @@ func (o *AddedToCartObjectIDsAfterSearch) SetCurrency(v string) *AddedToCartObje
 func (o *AddedToCartObjectIDsAfterSearch) GetObjectData() []ObjectDataAfterSearch {
 	if o == nil || o.ObjectData == nil {
 		var ret []ObjectDataAfterSearch
+
 		return ret
 	}
+
 	return o.ObjectData
 }
 
@@ -343,6 +385,7 @@ func (o *AddedToCartObjectIDsAfterSearch) GetObjectDataOk() ([]ObjectDataAfterSe
 	if o == nil || o.ObjectData == nil {
 		return nil, false
 	}
+
 	return o.ObjectData, true
 }
 
@@ -358,6 +401,7 @@ func (o *AddedToCartObjectIDsAfterSearch) HasObjectData() bool {
 // SetObjectData gets a reference to the given []ObjectDataAfterSearch and assigns it to the ObjectData field.
 func (o *AddedToCartObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearch) *AddedToCartObjectIDsAfterSearch {
 	o.ObjectData = v
+
 	return o
 }
 
@@ -365,8 +409,10 @@ func (o *AddedToCartObjectIDsAfterSearch) SetObjectData(v []ObjectDataAfterSearc
 func (o *AddedToCartObjectIDsAfterSearch) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -376,6 +422,7 @@ func (o *AddedToCartObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -391,6 +438,7 @@ func (o *AddedToCartObjectIDsAfterSearch) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *AddedToCartObjectIDsAfterSearch) SetTimestamp(v int64) *AddedToCartObjectIDsAfterSearch {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -398,8 +446,10 @@ func (o *AddedToCartObjectIDsAfterSearch) SetTimestamp(v int64) *AddedToCartObje
 func (o *AddedToCartObjectIDsAfterSearch) GetValue() Value {
 	if o == nil || o.Value == nil {
 		var ret Value
+
 		return ret
 	}
+
 	return *o.Value
 }
 
@@ -409,6 +459,7 @@ func (o *AddedToCartObjectIDsAfterSearch) GetValueOk() (*Value, bool) {
 	if o == nil || o.Value == nil {
 		return nil, false
 	}
+
 	return o.Value, true
 }
 
@@ -424,6 +475,7 @@ func (o *AddedToCartObjectIDsAfterSearch) HasValue() bool {
 // SetValue gets a reference to the given Value and assigns it to the Value field.
 func (o *AddedToCartObjectIDsAfterSearch) SetValue(v *Value) *AddedToCartObjectIDsAfterSearch {
 	o.Value = v
+
 	return o
 }
 
@@ -435,22 +487,28 @@ func (o AddedToCartObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	toSerialize["index"] = o.Index
 	toSerialize["queryID"] = o.QueryID
 	toSerialize["objectIDs"] = o.ObjectIDs
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
+
 	if o.ObjectData != nil {
 		toSerialize["objectData"] = o.ObjectData
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddedToCartObjectIDsAfterSearch: %w", err)
@@ -473,5 +531,6 @@ func (o AddedToCartObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  objectData=%v\n", o.ObjectData)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("AddedToCartObjectIDsAfterSearch {\n%s}", out)
 }

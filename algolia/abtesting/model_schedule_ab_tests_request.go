@@ -28,6 +28,7 @@ func NewScheduleABTestsRequest(name string, variants []AddABTestsVariant, schedu
 	this.Variants = variants
 	this.ScheduledAt = scheduledAt
 	this.EndAt = endAt
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptyScheduleABTestsRequest() *ScheduleABTestsRequest {
 func (o *ScheduleABTestsRequest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *ScheduleABTestsRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *ScheduleABTestsRequest) SetName(v string) *ScheduleABTestsRequest {
 	o.Name = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *ScheduleABTestsRequest) SetName(v string) *ScheduleABTestsRequest {
 func (o *ScheduleABTestsRequest) GetVariants() []AddABTestsVariant {
 	if o == nil {
 		var ret []AddABTestsVariant
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *ScheduleABTestsRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *ScheduleABTestsRequest) SetVariants(v []AddABTestsVariant) *ScheduleABTestsRequest {
 	o.Variants = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *ScheduleABTestsRequest) SetVariants(v []AddABTestsVariant) *ScheduleABT
 func (o *ScheduleABTestsRequest) GetScheduledAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *ScheduleABTestsRequest) GetScheduledAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ScheduledAt, true
 }
 
 // SetScheduledAt sets field value.
 func (o *ScheduleABTestsRequest) SetScheduledAt(v string) *ScheduleABTestsRequest {
 	o.ScheduledAt = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *ScheduleABTestsRequest) SetScheduledAt(v string) *ScheduleABTestsReques
 func (o *ScheduleABTestsRequest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *ScheduleABTestsRequest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *ScheduleABTestsRequest) SetEndAt(v string) *ScheduleABTestsRequest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o ScheduleABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize["variants"] = o.Variants
 	toSerialize["scheduledAt"] = o.ScheduledAt
 	toSerialize["endAt"] = o.EndAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleABTestsRequest: %w", err)
@@ -156,5 +170,6 @@ func (o ScheduleABTestsRequest) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  scheduledAt=%v\n", o.ScheduledAt)
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
+
 	return fmt.Sprintf("ScheduleABTestsRequest {\n%s}", out)
 }

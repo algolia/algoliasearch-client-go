@@ -616,10 +616,12 @@ func NewSearchForFacets(facet string, indexName string, type_ SearchTypeFacet, o
 	this := &SearchForFacets{}
 	this.Facet = facet
 	this.IndexName = indexName
+
 	this.Type = type_
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -632,8 +634,10 @@ func NewEmptySearchForFacets() *SearchForFacets {
 func (o *SearchForFacets) GetParams() string {
 	if o == nil || o.Params == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -643,6 +647,7 @@ func (o *SearchForFacets) GetParamsOk() (*string, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -658,6 +663,7 @@ func (o *SearchForFacets) HasParams() bool {
 // SetParams gets a reference to the given string and assigns it to the Params field.
 func (o *SearchForFacets) SetParams(v string) *SearchForFacets {
 	o.Params = &v
+
 	return o
 }
 
@@ -665,8 +671,10 @@ func (o *SearchForFacets) SetParams(v string) *SearchForFacets {
 func (o *SearchForFacets) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -676,6 +684,7 @@ func (o *SearchForFacets) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -691,6 +700,7 @@ func (o *SearchForFacets) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchForFacets) SetQuery(v string) *SearchForFacets {
 	o.Query = &v
+
 	return o
 }
 
@@ -698,8 +708,10 @@ func (o *SearchForFacets) SetQuery(v string) *SearchForFacets {
 func (o *SearchForFacets) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SimilarQuery
 }
 
@@ -709,6 +721,7 @@ func (o *SearchForFacets) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
+
 	return o.SimilarQuery, true
 }
 
@@ -724,6 +737,7 @@ func (o *SearchForFacets) HasSimilarQuery() bool {
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
 func (o *SearchForFacets) SetSimilarQuery(v string) *SearchForFacets {
 	o.SimilarQuery = &v
+
 	return o
 }
 
@@ -731,8 +745,10 @@ func (o *SearchForFacets) SetSimilarQuery(v string) *SearchForFacets {
 func (o *SearchForFacets) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -742,6 +758,7 @@ func (o *SearchForFacets) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -757,6 +774,7 @@ func (o *SearchForFacets) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *SearchForFacets) SetFilters(v string) *SearchForFacets {
 	o.Filters = &v
+
 	return o
 }
 
@@ -764,8 +782,10 @@ func (o *SearchForFacets) SetFilters(v string) *SearchForFacets {
 func (o *SearchForFacets) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -775,6 +795,7 @@ func (o *SearchForFacets) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -790,6 +811,7 @@ func (o *SearchForFacets) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *SearchForFacets) SetFacetFilters(v *FacetFilters) *SearchForFacets {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -797,8 +819,10 @@ func (o *SearchForFacets) SetFacetFilters(v *FacetFilters) *SearchForFacets {
 func (o *SearchForFacets) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -808,6 +832,7 @@ func (o *SearchForFacets) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -823,6 +848,7 @@ func (o *SearchForFacets) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *SearchForFacets) SetOptionalFilters(v *OptionalFilters) *SearchForFacets {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -830,8 +856,10 @@ func (o *SearchForFacets) SetOptionalFilters(v *OptionalFilters) *SearchForFacet
 func (o *SearchForFacets) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -841,6 +869,7 @@ func (o *SearchForFacets) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -856,6 +885,7 @@ func (o *SearchForFacets) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *SearchForFacets) SetNumericFilters(v *NumericFilters) *SearchForFacets {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -863,8 +893,10 @@ func (o *SearchForFacets) SetNumericFilters(v *NumericFilters) *SearchForFacets 
 func (o *SearchForFacets) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
+
 		return ret
 	}
+
 	return *o.TagFilters
 }
 
@@ -874,6 +906,7 @@ func (o *SearchForFacets) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
+
 	return o.TagFilters, true
 }
 
@@ -889,6 +922,7 @@ func (o *SearchForFacets) HasTagFilters() bool {
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
 func (o *SearchForFacets) SetTagFilters(v *TagFilters) *SearchForFacets {
 	o.TagFilters = v
+
 	return o
 }
 
@@ -896,8 +930,10 @@ func (o *SearchForFacets) SetTagFilters(v *TagFilters) *SearchForFacets {
 func (o *SearchForFacets) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.SumOrFiltersScores
 }
 
@@ -907,6 +943,7 @@ func (o *SearchForFacets) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
+
 	return o.SumOrFiltersScores, true
 }
 
@@ -922,6 +959,7 @@ func (o *SearchForFacets) HasSumOrFiltersScores() bool {
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
 func (o *SearchForFacets) SetSumOrFiltersScores(v bool) *SearchForFacets {
 	o.SumOrFiltersScores = &v
+
 	return o
 }
 
@@ -929,8 +967,10 @@ func (o *SearchForFacets) SetSumOrFiltersScores(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictSearchableAttributes
 }
 
@@ -940,6 +980,7 @@ func (o *SearchForFacets) GetRestrictSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.RestrictSearchableAttributes, true
 }
 
@@ -955,6 +996,7 @@ func (o *SearchForFacets) HasRestrictSearchableAttributes() bool {
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
 func (o *SearchForFacets) SetRestrictSearchableAttributes(v []string) *SearchForFacets {
 	o.RestrictSearchableAttributes = v
+
 	return o
 }
 
@@ -962,8 +1004,10 @@ func (o *SearchForFacets) SetRestrictSearchableAttributes(v []string) *SearchFor
 func (o *SearchForFacets) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Facets
 }
 
@@ -973,6 +1017,7 @@ func (o *SearchForFacets) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -988,6 +1033,7 @@ func (o *SearchForFacets) HasFacets() bool {
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
 func (o *SearchForFacets) SetFacets(v []string) *SearchForFacets {
 	o.Facets = v
+
 	return o
 }
 
@@ -995,8 +1041,10 @@ func (o *SearchForFacets) SetFacets(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetingAfterDistinct
 }
 
@@ -1006,6 +1054,7 @@ func (o *SearchForFacets) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
+
 	return o.FacetingAfterDistinct, true
 }
 
@@ -1021,6 +1070,7 @@ func (o *SearchForFacets) HasFacetingAfterDistinct() bool {
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
 func (o *SearchForFacets) SetFacetingAfterDistinct(v bool) *SearchForFacets {
 	o.FacetingAfterDistinct = &v
+
 	return o
 }
 
@@ -1028,8 +1078,10 @@ func (o *SearchForFacets) SetFacetingAfterDistinct(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -1039,6 +1091,7 @@ func (o *SearchForFacets) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -1054,6 +1107,7 @@ func (o *SearchForFacets) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchForFacets) SetPage(v int32) *SearchForFacets {
 	o.Page = &v
+
 	return o
 }
 
@@ -1061,8 +1115,10 @@ func (o *SearchForFacets) SetPage(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetOffset() int32 {
 	if o == nil || o.Offset == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Offset
 }
 
@@ -1072,6 +1128,7 @@ func (o *SearchForFacets) GetOffsetOk() (*int32, bool) {
 	if o == nil || o.Offset == nil {
 		return nil, false
 	}
+
 	return o.Offset, true
 }
 
@@ -1087,6 +1144,7 @@ func (o *SearchForFacets) HasOffset() bool {
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
 func (o *SearchForFacets) SetOffset(v int32) *SearchForFacets {
 	o.Offset = &v
+
 	return o
 }
 
@@ -1094,8 +1152,10 @@ func (o *SearchForFacets) SetOffset(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetLength() int32 {
 	if o == nil || o.Length == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Length
 }
 
@@ -1105,6 +1165,7 @@ func (o *SearchForFacets) GetLengthOk() (*int32, bool) {
 	if o == nil || o.Length == nil {
 		return nil, false
 	}
+
 	return o.Length, true
 }
 
@@ -1120,6 +1181,7 @@ func (o *SearchForFacets) HasLength() bool {
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
 func (o *SearchForFacets) SetLength(v int32) *SearchForFacets {
 	o.Length = &v
+
 	return o
 }
 
@@ -1127,8 +1189,10 @@ func (o *SearchForFacets) SetLength(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -1138,6 +1202,7 @@ func (o *SearchForFacets) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -1153,6 +1218,7 @@ func (o *SearchForFacets) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *SearchForFacets) SetAroundLatLng(v string) *SearchForFacets {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -1160,8 +1226,10 @@ func (o *SearchForFacets) SetAroundLatLng(v string) *SearchForFacets {
 func (o *SearchForFacets) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AroundLatLngViaIP
 }
 
@@ -1171,6 +1239,7 @@ func (o *SearchForFacets) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLngViaIP, true
 }
 
@@ -1186,6 +1255,7 @@ func (o *SearchForFacets) HasAroundLatLngViaIP() bool {
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
 func (o *SearchForFacets) SetAroundLatLngViaIP(v bool) *SearchForFacets {
 	o.AroundLatLngViaIP = &v
+
 	return o
 }
 
@@ -1193,8 +1263,10 @@ func (o *SearchForFacets) SetAroundLatLngViaIP(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -1204,6 +1276,7 @@ func (o *SearchForFacets) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -1219,6 +1292,7 @@ func (o *SearchForFacets) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *SearchForFacets) SetAroundRadius(v *AroundRadius) *SearchForFacets {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -1226,8 +1300,10 @@ func (o *SearchForFacets) SetAroundRadius(v *AroundRadius) *SearchForFacets {
 func (o *SearchForFacets) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
+
 		return ret
 	}
+
 	return *o.AroundPrecision
 }
 
@@ -1237,6 +1313,7 @@ func (o *SearchForFacets) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
+
 	return o.AroundPrecision, true
 }
 
@@ -1252,6 +1329,7 @@ func (o *SearchForFacets) HasAroundPrecision() bool {
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
 func (o *SearchForFacets) SetAroundPrecision(v *AroundPrecision) *SearchForFacets {
 	o.AroundPrecision = v
+
 	return o
 }
 
@@ -1259,8 +1337,10 @@ func (o *SearchForFacets) SetAroundPrecision(v *AroundPrecision) *SearchForFacet
 func (o *SearchForFacets) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinimumAroundRadius
 }
 
@@ -1270,6 +1350,7 @@ func (o *SearchForFacets) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
+
 	return o.MinimumAroundRadius, true
 }
 
@@ -1285,6 +1366,7 @@ func (o *SearchForFacets) HasMinimumAroundRadius() bool {
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
 func (o *SearchForFacets) SetMinimumAroundRadius(v int32) *SearchForFacets {
 	o.MinimumAroundRadius = &v
+
 	return o
 }
 
@@ -1292,8 +1374,10 @@ func (o *SearchForFacets) SetMinimumAroundRadius(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -1304,6 +1388,7 @@ func (o *SearchForFacets) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -1319,6 +1404,7 @@ func (o *SearchForFacets) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *SearchForFacets) SetInsideBoundingBox(v *InsideBoundingBox) *SearchForFacets {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -1336,8 +1422,10 @@ func (o *SearchForFacets) UnsetInsideBoundingBox() {
 func (o *SearchForFacets) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -1347,6 +1435,7 @@ func (o *SearchForFacets) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -1362,6 +1451,7 @@ func (o *SearchForFacets) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *SearchForFacets) SetInsidePolygon(v [][]float64) *SearchForFacets {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -1369,8 +1459,10 @@ func (o *SearchForFacets) SetInsidePolygon(v [][]float64) *SearchForFacets {
 func (o *SearchForFacets) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -1380,6 +1472,7 @@ func (o *SearchForFacets) GetNaturalLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -1395,6 +1488,7 @@ func (o *SearchForFacets) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *SearchForFacets) SetNaturalLanguages(v []SupportedLanguage) *SearchForFacets {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -1402,8 +1496,10 @@ func (o *SearchForFacets) SetNaturalLanguages(v []SupportedLanguage) *SearchForF
 func (o *SearchForFacets) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -1413,6 +1509,7 @@ func (o *SearchForFacets) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -1428,6 +1525,7 @@ func (o *SearchForFacets) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *SearchForFacets) SetRuleContexts(v []string) *SearchForFacets {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -1435,8 +1533,10 @@ func (o *SearchForFacets) SetRuleContexts(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PersonalizationImpact
 }
 
@@ -1446,6 +1546,7 @@ func (o *SearchForFacets) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
+
 	return o.PersonalizationImpact, true
 }
 
@@ -1461,6 +1562,7 @@ func (o *SearchForFacets) HasPersonalizationImpact() bool {
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
 func (o *SearchForFacets) SetPersonalizationImpact(v int32) *SearchForFacets {
 	o.PersonalizationImpact = &v
+
 	return o
 }
 
@@ -1468,8 +1570,10 @@ func (o *SearchForFacets) SetPersonalizationImpact(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -1479,6 +1583,7 @@ func (o *SearchForFacets) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -1494,6 +1599,7 @@ func (o *SearchForFacets) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *SearchForFacets) SetUserToken(v string) *SearchForFacets {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -1501,8 +1607,10 @@ func (o *SearchForFacets) SetUserToken(v string) *SearchForFacets {
 func (o *SearchForFacets) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -1512,6 +1620,7 @@ func (o *SearchForFacets) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -1527,6 +1636,7 @@ func (o *SearchForFacets) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *SearchForFacets) SetGetRankingInfo(v bool) *SearchForFacets {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -1534,8 +1644,10 @@ func (o *SearchForFacets) SetGetRankingInfo(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Synonyms
 }
 
@@ -1545,6 +1657,7 @@ func (o *SearchForFacets) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -1560,6 +1673,7 @@ func (o *SearchForFacets) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
 func (o *SearchForFacets) SetSynonyms(v bool) *SearchForFacets {
 	o.Synonyms = &v
+
 	return o
 }
 
@@ -1567,8 +1681,10 @@ func (o *SearchForFacets) SetSynonyms(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -1578,6 +1694,7 @@ func (o *SearchForFacets) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -1593,6 +1710,7 @@ func (o *SearchForFacets) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *SearchForFacets) SetClickAnalytics(v bool) *SearchForFacets {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -1600,8 +1718,10 @@ func (o *SearchForFacets) SetClickAnalytics(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -1611,6 +1731,7 @@ func (o *SearchForFacets) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -1626,6 +1747,7 @@ func (o *SearchForFacets) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *SearchForFacets) SetAnalytics(v bool) *SearchForFacets {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -1633,8 +1755,10 @@ func (o *SearchForFacets) SetAnalytics(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AnalyticsTags
 }
 
@@ -1644,6 +1768,7 @@ func (o *SearchForFacets) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
+
 	return o.AnalyticsTags, true
 }
 
@@ -1659,6 +1784,7 @@ func (o *SearchForFacets) HasAnalyticsTags() bool {
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
 func (o *SearchForFacets) SetAnalyticsTags(v []string) *SearchForFacets {
 	o.AnalyticsTags = v
+
 	return o
 }
 
@@ -1666,8 +1792,10 @@ func (o *SearchForFacets) SetAnalyticsTags(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PercentileComputation
 }
 
@@ -1677,6 +1805,7 @@ func (o *SearchForFacets) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
+
 	return o.PercentileComputation, true
 }
 
@@ -1692,6 +1821,7 @@ func (o *SearchForFacets) HasPercentileComputation() bool {
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
 func (o *SearchForFacets) SetPercentileComputation(v bool) *SearchForFacets {
 	o.PercentileComputation = &v
+
 	return o
 }
 
@@ -1699,8 +1829,10 @@ func (o *SearchForFacets) SetPercentileComputation(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -1710,6 +1842,7 @@ func (o *SearchForFacets) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -1725,6 +1858,7 @@ func (o *SearchForFacets) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *SearchForFacets) SetEnableABTest(v bool) *SearchForFacets {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -1732,8 +1866,10 @@ func (o *SearchForFacets) SetEnableABTest(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -1743,6 +1879,7 @@ func (o *SearchForFacets) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -1758,6 +1895,7 @@ func (o *SearchForFacets) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *SearchForFacets) SetAttributesToRetrieve(v []string) *SearchForFacets {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -1765,8 +1903,10 @@ func (o *SearchForFacets) SetAttributesToRetrieve(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -1776,6 +1916,7 @@ func (o *SearchForFacets) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -1791,6 +1932,7 @@ func (o *SearchForFacets) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *SearchForFacets) SetRanking(v []string) *SearchForFacets {
 	o.Ranking = v
+
 	return o
 }
 
@@ -1798,8 +1940,10 @@ func (o *SearchForFacets) SetRanking(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -1809,6 +1953,7 @@ func (o *SearchForFacets) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -1824,6 +1969,7 @@ func (o *SearchForFacets) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *SearchForFacets) SetRelevancyStrictness(v int32) *SearchForFacets {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -1831,8 +1977,10 @@ func (o *SearchForFacets) SetRelevancyStrictness(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -1842,6 +1990,7 @@ func (o *SearchForFacets) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -1857,6 +2006,7 @@ func (o *SearchForFacets) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *SearchForFacets) SetAttributesToHighlight(v []string) *SearchForFacets {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -1864,8 +2014,10 @@ func (o *SearchForFacets) SetAttributesToHighlight(v []string) *SearchForFacets 
 func (o *SearchForFacets) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -1875,6 +2027,7 @@ func (o *SearchForFacets) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -1890,6 +2043,7 @@ func (o *SearchForFacets) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *SearchForFacets) SetAttributesToSnippet(v []string) *SearchForFacets {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -1897,8 +2051,10 @@ func (o *SearchForFacets) SetAttributesToSnippet(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -1908,6 +2064,7 @@ func (o *SearchForFacets) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -1923,6 +2080,7 @@ func (o *SearchForFacets) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *SearchForFacets) SetHighlightPreTag(v string) *SearchForFacets {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -1930,8 +2088,10 @@ func (o *SearchForFacets) SetHighlightPreTag(v string) *SearchForFacets {
 func (o *SearchForFacets) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -1941,6 +2101,7 @@ func (o *SearchForFacets) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -1956,6 +2117,7 @@ func (o *SearchForFacets) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *SearchForFacets) SetHighlightPostTag(v string) *SearchForFacets {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -1963,8 +2125,10 @@ func (o *SearchForFacets) SetHighlightPostTag(v string) *SearchForFacets {
 func (o *SearchForFacets) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -1974,6 +2138,7 @@ func (o *SearchForFacets) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -1989,6 +2154,7 @@ func (o *SearchForFacets) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *SearchForFacets) SetSnippetEllipsisText(v string) *SearchForFacets {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -1996,8 +2162,10 @@ func (o *SearchForFacets) SetSnippetEllipsisText(v string) *SearchForFacets {
 func (o *SearchForFacets) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -2007,6 +2175,7 @@ func (o *SearchForFacets) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool)
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -2022,6 +2191,7 @@ func (o *SearchForFacets) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *SearchForFacets) SetRestrictHighlightAndSnippetArrays(v bool) *SearchForFacets {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -2029,8 +2199,10 @@ func (o *SearchForFacets) SetRestrictHighlightAndSnippetArrays(v bool) *SearchFo
 func (o *SearchForFacets) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -2040,6 +2212,7 @@ func (o *SearchForFacets) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -2055,6 +2228,7 @@ func (o *SearchForFacets) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchForFacets) SetHitsPerPage(v int32) *SearchForFacets {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -2062,8 +2236,10 @@ func (o *SearchForFacets) SetHitsPerPage(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -2073,6 +2249,7 @@ func (o *SearchForFacets) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -2088,6 +2265,7 @@ func (o *SearchForFacets) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *SearchForFacets) SetMinWordSizefor1Typo(v int32) *SearchForFacets {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -2095,8 +2273,10 @@ func (o *SearchForFacets) SetMinWordSizefor1Typo(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -2106,6 +2286,7 @@ func (o *SearchForFacets) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -2121,6 +2302,7 @@ func (o *SearchForFacets) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *SearchForFacets) SetMinWordSizefor2Typos(v int32) *SearchForFacets {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -2128,8 +2310,10 @@ func (o *SearchForFacets) SetMinWordSizefor2Typos(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -2139,6 +2323,7 @@ func (o *SearchForFacets) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -2154,6 +2339,7 @@ func (o *SearchForFacets) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *SearchForFacets) SetTypoTolerance(v *TypoTolerance) *SearchForFacets {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -2161,8 +2347,10 @@ func (o *SearchForFacets) SetTypoTolerance(v *TypoTolerance) *SearchForFacets {
 func (o *SearchForFacets) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -2172,6 +2360,7 @@ func (o *SearchForFacets) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -2187,6 +2376,7 @@ func (o *SearchForFacets) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *SearchForFacets) SetAllowTyposOnNumericTokens(v bool) *SearchForFacets {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -2194,8 +2384,10 @@ func (o *SearchForFacets) SetAllowTyposOnNumericTokens(v bool) *SearchForFacets 
 func (o *SearchForFacets) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -2205,6 +2397,7 @@ func (o *SearchForFacets) GetDisableTypoToleranceOnAttributesOk() ([]string, boo
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -2220,6 +2413,7 @@ func (o *SearchForFacets) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *SearchForFacets) SetDisableTypoToleranceOnAttributes(v []string) *SearchForFacets {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -2227,8 +2421,10 @@ func (o *SearchForFacets) SetDisableTypoToleranceOnAttributes(v []string) *Searc
 func (o *SearchForFacets) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -2238,6 +2434,7 @@ func (o *SearchForFacets) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -2253,6 +2450,7 @@ func (o *SearchForFacets) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *SearchForFacets) SetIgnorePlurals(v *IgnorePlurals) *SearchForFacets {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -2260,8 +2458,10 @@ func (o *SearchForFacets) SetIgnorePlurals(v *IgnorePlurals) *SearchForFacets {
 func (o *SearchForFacets) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -2271,6 +2471,7 @@ func (o *SearchForFacets) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -2286,6 +2487,7 @@ func (o *SearchForFacets) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *SearchForFacets) SetRemoveStopWords(v *RemoveStopWords) *SearchForFacets {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -2293,8 +2495,10 @@ func (o *SearchForFacets) SetRemoveStopWords(v *RemoveStopWords) *SearchForFacet
 func (o *SearchForFacets) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -2304,6 +2508,7 @@ func (o *SearchForFacets) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -2319,6 +2524,7 @@ func (o *SearchForFacets) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *SearchForFacets) SetQueryLanguages(v []SupportedLanguage) *SearchForFacets {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -2326,8 +2532,10 @@ func (o *SearchForFacets) SetQueryLanguages(v []SupportedLanguage) *SearchForFac
 func (o *SearchForFacets) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -2337,6 +2545,7 @@ func (o *SearchForFacets) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -2352,6 +2561,7 @@ func (o *SearchForFacets) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *SearchForFacets) SetDecompoundQuery(v bool) *SearchForFacets {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -2359,8 +2569,10 @@ func (o *SearchForFacets) SetDecompoundQuery(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -2370,6 +2582,7 @@ func (o *SearchForFacets) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -2385,6 +2598,7 @@ func (o *SearchForFacets) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *SearchForFacets) SetEnableRules(v bool) *SearchForFacets {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -2392,8 +2606,10 @@ func (o *SearchForFacets) SetEnableRules(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -2403,6 +2619,7 @@ func (o *SearchForFacets) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -2418,6 +2635,7 @@ func (o *SearchForFacets) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *SearchForFacets) SetEnablePersonalization(v bool) *SearchForFacets {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -2425,8 +2643,10 @@ func (o *SearchForFacets) SetEnablePersonalization(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -2436,6 +2656,7 @@ func (o *SearchForFacets) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -2451,6 +2672,7 @@ func (o *SearchForFacets) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *SearchForFacets) SetQueryType(v QueryType) *SearchForFacets {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -2458,8 +2680,10 @@ func (o *SearchForFacets) SetQueryType(v QueryType) *SearchForFacets {
 func (o *SearchForFacets) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -2469,6 +2693,7 @@ func (o *SearchForFacets) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -2484,6 +2709,7 @@ func (o *SearchForFacets) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *SearchForFacets) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *SearchForFacets {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -2491,8 +2717,10 @@ func (o *SearchForFacets) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *S
 func (o *SearchForFacets) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
+
 		return ret
 	}
+
 	return *o.Mode
 }
 
@@ -2502,6 +2730,7 @@ func (o *SearchForFacets) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
+
 	return o.Mode, true
 }
 
@@ -2517,6 +2746,7 @@ func (o *SearchForFacets) HasMode() bool {
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
 func (o *SearchForFacets) SetMode(v Mode) *SearchForFacets {
 	o.Mode = &v
+
 	return o
 }
 
@@ -2524,8 +2754,10 @@ func (o *SearchForFacets) SetMode(v Mode) *SearchForFacets {
 func (o *SearchForFacets) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
+
 		return ret
 	}
+
 	return *o.SemanticSearch
 }
 
@@ -2535,6 +2767,7 @@ func (o *SearchForFacets) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
+
 	return o.SemanticSearch, true
 }
 
@@ -2550,6 +2783,7 @@ func (o *SearchForFacets) HasSemanticSearch() bool {
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
 func (o *SearchForFacets) SetSemanticSearch(v *SemanticSearch) *SearchForFacets {
 	o.SemanticSearch = v
+
 	return o
 }
 
@@ -2557,8 +2791,10 @@ func (o *SearchForFacets) SetSemanticSearch(v *SemanticSearch) *SearchForFacets 
 func (o *SearchForFacets) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -2568,6 +2804,7 @@ func (o *SearchForFacets) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -2583,6 +2820,7 @@ func (o *SearchForFacets) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *SearchForFacets) SetAdvancedSyntax(v bool) *SearchForFacets {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -2590,8 +2828,10 @@ func (o *SearchForFacets) SetAdvancedSyntax(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -2602,6 +2842,7 @@ func (o *SearchForFacets) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -2617,6 +2858,7 @@ func (o *SearchForFacets) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *SearchForFacets) SetOptionalWords(v *OptionalWords) *SearchForFacets {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -2634,8 +2876,10 @@ func (o *SearchForFacets) UnsetOptionalWords() {
 func (o *SearchForFacets) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -2645,6 +2889,7 @@ func (o *SearchForFacets) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -2660,6 +2905,7 @@ func (o *SearchForFacets) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *SearchForFacets) SetDisableExactOnAttributes(v []string) *SearchForFacets {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -2667,8 +2913,10 @@ func (o *SearchForFacets) SetDisableExactOnAttributes(v []string) *SearchForFace
 func (o *SearchForFacets) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -2678,6 +2926,7 @@ func (o *SearchForFacets) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -2693,6 +2942,7 @@ func (o *SearchForFacets) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *SearchForFacets) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *SearchForFacets {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -2700,8 +2950,10 @@ func (o *SearchForFacets) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *S
 func (o *SearchForFacets) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -2711,6 +2963,7 @@ func (o *SearchForFacets) GetAlternativesAsExactOk() ([]AlternativesAsExact, boo
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -2726,6 +2979,7 @@ func (o *SearchForFacets) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *SearchForFacets) SetAlternativesAsExact(v []AlternativesAsExact) *SearchForFacets {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -2733,8 +2987,10 @@ func (o *SearchForFacets) SetAlternativesAsExact(v []AlternativesAsExact) *Searc
 func (o *SearchForFacets) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -2744,6 +3000,7 @@ func (o *SearchForFacets) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeature
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -2759,6 +3016,7 @@ func (o *SearchForFacets) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *SearchForFacets) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *SearchForFacets {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -2766,8 +3024,10 @@ func (o *SearchForFacets) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) 
 func (o *SearchForFacets) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -2777,6 +3037,7 @@ func (o *SearchForFacets) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -2792,6 +3053,7 @@ func (o *SearchForFacets) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *SearchForFacets) SetDistinct(v *Distinct) *SearchForFacets {
 	o.Distinct = v
+
 	return o
 }
 
@@ -2799,8 +3061,10 @@ func (o *SearchForFacets) SetDistinct(v *Distinct) *SearchForFacets {
 func (o *SearchForFacets) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -2810,6 +3074,7 @@ func (o *SearchForFacets) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -2825,6 +3090,7 @@ func (o *SearchForFacets) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *SearchForFacets) SetReplaceSynonymsInHighlight(v bool) *SearchForFacets {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -2832,8 +3098,10 @@ func (o *SearchForFacets) SetReplaceSynonymsInHighlight(v bool) *SearchForFacets
 func (o *SearchForFacets) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -2843,6 +3111,7 @@ func (o *SearchForFacets) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -2858,6 +3127,7 @@ func (o *SearchForFacets) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *SearchForFacets) SetMinProximity(v int32) *SearchForFacets {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -2865,8 +3135,10 @@ func (o *SearchForFacets) SetMinProximity(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -2876,6 +3148,7 @@ func (o *SearchForFacets) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -2891,6 +3164,7 @@ func (o *SearchForFacets) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *SearchForFacets) SetResponseFields(v []string) *SearchForFacets {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -2898,8 +3172,10 @@ func (o *SearchForFacets) SetResponseFields(v []string) *SearchForFacets {
 func (o *SearchForFacets) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -2909,6 +3185,7 @@ func (o *SearchForFacets) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -2924,6 +3201,7 @@ func (o *SearchForFacets) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *SearchForFacets) SetMaxValuesPerFacet(v int32) *SearchForFacets {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -2931,8 +3209,10 @@ func (o *SearchForFacets) SetMaxValuesPerFacet(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -2942,6 +3222,7 @@ func (o *SearchForFacets) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -2957,6 +3238,7 @@ func (o *SearchForFacets) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *SearchForFacets) SetSortFacetValuesBy(v string) *SearchForFacets {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -2964,8 +3246,10 @@ func (o *SearchForFacets) SetSortFacetValuesBy(v string) *SearchForFacets {
 func (o *SearchForFacets) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -2975,6 +3259,7 @@ func (o *SearchForFacets) GetAttributeCriteriaComputedByMinProximityOk() (*bool,
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -2990,6 +3275,7 @@ func (o *SearchForFacets) HasAttributeCriteriaComputedByMinProximity() bool {
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *SearchForFacets) SetAttributeCriteriaComputedByMinProximity(v bool) *SearchForFacets {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -2997,8 +3283,10 @@ func (o *SearchForFacets) SetAttributeCriteriaComputedByMinProximity(v bool) *Se
 func (o *SearchForFacets) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -3008,6 +3296,7 @@ func (o *SearchForFacets) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -3023,6 +3312,7 @@ func (o *SearchForFacets) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *SearchForFacets) SetRenderingContent(v *RenderingContent) *SearchForFacets {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -3030,8 +3320,10 @@ func (o *SearchForFacets) SetRenderingContent(v *RenderingContent) *SearchForFac
 func (o *SearchForFacets) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -3041,6 +3333,7 @@ func (o *SearchForFacets) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -3056,6 +3349,7 @@ func (o *SearchForFacets) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *SearchForFacets) SetEnableReRanking(v bool) *SearchForFacets {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -3063,8 +3357,10 @@ func (o *SearchForFacets) SetEnableReRanking(v bool) *SearchForFacets {
 func (o *SearchForFacets) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -3074,6 +3370,7 @@ func (o *SearchForFacets) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bo
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -3089,6 +3386,7 @@ func (o *SearchForFacets) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *SearchForFacets) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SearchForFacets {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -3096,6 +3394,7 @@ func (o *SearchForFacets) SetReRankingApplyFilter(v *ReRankingApplyFilter) *Sear
 func (o *SearchForFacets) GetFacet() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -3108,12 +3407,14 @@ func (o *SearchForFacets) GetFacetOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Facet, true
 }
 
 // SetFacet sets field value.
 func (o *SearchForFacets) SetFacet(v string) *SearchForFacets {
 	o.Facet = v
+
 	return o
 }
 
@@ -3121,6 +3422,7 @@ func (o *SearchForFacets) SetFacet(v string) *SearchForFacets {
 func (o *SearchForFacets) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -3133,12 +3435,14 @@ func (o *SearchForFacets) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *SearchForFacets) SetIndexName(v string) *SearchForFacets {
 	o.IndexName = v
+
 	return o
 }
 
@@ -3146,8 +3450,10 @@ func (o *SearchForFacets) SetIndexName(v string) *SearchForFacets {
 func (o *SearchForFacets) GetFacetQuery() string {
 	if o == nil || o.FacetQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.FacetQuery
 }
 
@@ -3157,6 +3463,7 @@ func (o *SearchForFacets) GetFacetQueryOk() (*string, bool) {
 	if o == nil || o.FacetQuery == nil {
 		return nil, false
 	}
+
 	return o.FacetQuery, true
 }
 
@@ -3172,6 +3479,7 @@ func (o *SearchForFacets) HasFacetQuery() bool {
 // SetFacetQuery gets a reference to the given string and assigns it to the FacetQuery field.
 func (o *SearchForFacets) SetFacetQuery(v string) *SearchForFacets {
 	o.FacetQuery = &v
+
 	return o
 }
 
@@ -3179,8 +3487,10 @@ func (o *SearchForFacets) SetFacetQuery(v string) *SearchForFacets {
 func (o *SearchForFacets) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -3190,6 +3500,7 @@ func (o *SearchForFacets) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -3205,6 +3516,7 @@ func (o *SearchForFacets) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *SearchForFacets) SetMaxFacetHits(v int32) *SearchForFacets {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -3212,6 +3524,7 @@ func (o *SearchForFacets) SetMaxFacetHits(v int32) *SearchForFacets {
 func (o *SearchForFacets) GetType() SearchTypeFacet {
 	if o == nil {
 		var ret SearchTypeFacet
+
 		return ret
 	}
 
@@ -3224,12 +3537,14 @@ func (o *SearchForFacets) GetTypeOk() (*SearchTypeFacet, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *SearchForFacets) SetType(v SearchTypeFacet) *SearchForFacets {
 	o.Type = v
+
 	return o
 }
 
@@ -3238,234 +3553,312 @@ func (o SearchForFacets) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.TagFilters != nil {
 		toSerialize["tagFilters"] = o.TagFilters
 	}
+
 	if o.SumOrFiltersScores != nil {
 		toSerialize["sumOrFiltersScores"] = o.SumOrFiltersScores
 	}
+
 	if o.RestrictSearchableAttributes != nil {
 		toSerialize["restrictSearchableAttributes"] = o.RestrictSearchableAttributes
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetingAfterDistinct != nil {
 		toSerialize["facetingAfterDistinct"] = o.FacetingAfterDistinct
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.Offset != nil {
 		toSerialize["offset"] = o.Offset
 	}
+
 	if o.Length != nil {
 		toSerialize["length"] = o.Length
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundLatLngViaIP != nil {
 		toSerialize["aroundLatLngViaIP"] = o.AroundLatLngViaIP
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.AroundPrecision != nil {
 		toSerialize["aroundPrecision"] = o.AroundPrecision
 	}
+
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AnalyticsTags != nil {
 		toSerialize["analyticsTags"] = o.AnalyticsTags
 	}
+
 	if o.PercentileComputation != nil {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.Mode != nil {
 		toSerialize["mode"] = o.Mode
 	}
+
 	if o.SemanticSearch != nil {
 		toSerialize["semanticSearch"] = o.SemanticSearch
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	toSerialize["facet"] = o.Facet
+
 	toSerialize["indexName"] = o.IndexName
 	if o.FacetQuery != nil {
 		toSerialize["facetQuery"] = o.FacetQuery
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	toSerialize["type"] = o.Type
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForFacets: %w", err)
@@ -3555,5 +3948,6 @@ func (o SearchForFacets) String() string {
 	out += fmt.Sprintf("  facetQuery=%v\n", o.FacetQuery)
 	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+
 	return fmt.Sprintf("SearchForFacets {\n%s}", out)
 }

@@ -19,6 +19,7 @@ type DeleteCompositionAction struct {
 func NewDeleteCompositionAction(objectID string) *DeleteCompositionAction {
 	this := &DeleteCompositionAction{}
 	this.ObjectID = objectID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyDeleteCompositionAction() *DeleteCompositionAction {
 func (o *DeleteCompositionAction) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *DeleteCompositionAction) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *DeleteCompositionAction) SetObjectID(v string) *DeleteCompositionAction {
 	o.ObjectID = v
+
 	return o
 }
 
 func (o DeleteCompositionAction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteCompositionAction: %w", err)
@@ -66,5 +71,6 @@ func (o DeleteCompositionAction) MarshalJSON() ([]byte, error) {
 func (o DeleteCompositionAction) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("DeleteCompositionAction {\n%s}", out)
 }

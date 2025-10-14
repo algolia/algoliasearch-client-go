@@ -11,8 +11,8 @@ type SearchSynonymsResponse struct {
 	// Matching synonyms.
 	Hits []SynonymHit `json:"hits"`
 	// Number of results (hits).
-	NbHits               int32 `json:"nbHits"`
-	AdditionalProperties map[string]any
+	NbHits               int32          `json:"nbHits"`
+	AdditionalProperties map[string]any `json:"-"`
 }
 
 type _SearchSynonymsResponse SearchSynonymsResponse
@@ -25,6 +25,7 @@ func NewSearchSynonymsResponse(hits []SynonymHit, nbHits int32) *SearchSynonymsR
 	this := &SearchSynonymsResponse{}
 	this.Hits = hits
 	this.NbHits = nbHits
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptySearchSynonymsResponse() *SearchSynonymsResponse {
 func (o *SearchSynonymsResponse) GetHits() []SynonymHit {
 	if o == nil {
 		var ret []SynonymHit
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *SearchSynonymsResponse) GetHitsOk() ([]SynonymHit, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchSynonymsResponse) SetHits(v []SynonymHit) *SearchSynonymsResponse {
 	o.Hits = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *SearchSynonymsResponse) SetHits(v []SynonymHit) *SearchSynonymsResponse
 func (o *SearchSynonymsResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *SearchSynonymsResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchSynonymsResponse) SetNbHits(v int32) *SearchSynonymsResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -137,9 +144,11 @@ func (o *SearchSynonymsResponse) UnmarshalJSON(bytes []byte) error {
 func (o SearchSynonymsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("SearchSynonymsResponse {\n%s}", out)
 }

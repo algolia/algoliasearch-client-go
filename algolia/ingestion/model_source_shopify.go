@@ -28,10 +28,12 @@ func WithSourceShopifyFeatureFlags(val map[string]any) SourceShopifyOption {
 // will change when the set of required properties is changed.
 func NewSourceShopify(shopURL string, opts ...SourceShopifyOption) *SourceShopify {
 	this := &SourceShopify{}
+
 	this.ShopURL = shopURL
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,8 +46,10 @@ func NewEmptySourceShopify() *SourceShopify {
 func (o *SourceShopify) GetFeatureFlags() map[string]any {
 	if o == nil || o.FeatureFlags == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.FeatureFlags
 }
 
@@ -55,6 +59,7 @@ func (o *SourceShopify) GetFeatureFlagsOk() (map[string]any, bool) {
 	if o == nil || o.FeatureFlags == nil {
 		return nil, false
 	}
+
 	return o.FeatureFlags, true
 }
 
@@ -70,6 +75,7 @@ func (o *SourceShopify) HasFeatureFlags() bool {
 // SetFeatureFlags gets a reference to the given map[string]any and assigns it to the FeatureFlags field.
 func (o *SourceShopify) SetFeatureFlags(v map[string]any) *SourceShopify {
 	o.FeatureFlags = v
+
 	return o
 }
 
@@ -77,6 +83,7 @@ func (o *SourceShopify) SetFeatureFlags(v map[string]any) *SourceShopify {
 func (o *SourceShopify) GetShopURL() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -89,12 +96,14 @@ func (o *SourceShopify) GetShopURLOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ShopURL, true
 }
 
 // SetShopURL sets field value.
 func (o *SourceShopify) SetShopURL(v string) *SourceShopify {
 	o.ShopURL = v
+
 	return o
 }
 
@@ -103,7 +112,9 @@ func (o SourceShopify) MarshalJSON() ([]byte, error) {
 	if o.FeatureFlags != nil {
 		toSerialize["featureFlags"] = o.FeatureFlags
 	}
+
 	toSerialize["shopURL"] = o.ShopURL
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceShopify: %w", err)
@@ -116,5 +127,6 @@ func (o SourceShopify) String() string {
 	out := ""
 	out += fmt.Sprintf("  featureFlags=%v\n", o.FeatureFlags)
 	out += fmt.Sprintf("  shopURL=%v\n", o.ShopURL)
+
 	return fmt.Sprintf("SourceShopify {\n%s}", out)
 }

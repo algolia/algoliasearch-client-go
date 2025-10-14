@@ -44,7 +44,7 @@ func (dst *AroundRadius) UnmarshalJSON(data []byte) error {
 		dst.AroundRadiusAll = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(AroundRadius)")
+	return fmt.Errorf("data failed to match schemas in oneOf(AroundRadius)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

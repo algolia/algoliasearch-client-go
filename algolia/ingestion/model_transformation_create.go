@@ -59,10 +59,12 @@ func WithTransformationCreateAuthenticationIDs(val []string) TransformationCreat
 // will change when the set of required properties is changed.
 func NewTransformationCreate(name string, opts ...TransformationCreateOption) *TransformationCreate {
 	this := &TransformationCreate{}
+
 	this.Name = name
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -76,8 +78,10 @@ func NewEmptyTransformationCreate() *TransformationCreate {
 func (o *TransformationCreate) GetCode() string {
 	if o == nil || o.Code == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Code
 }
 
@@ -88,6 +92,7 @@ func (o *TransformationCreate) GetCodeOk() (*string, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
+
 	return o.Code, true
 }
 
@@ -104,6 +109,7 @@ func (o *TransformationCreate) HasCode() bool {
 // Deprecated.
 func (o *TransformationCreate) SetCode(v string) *TransformationCreate {
 	o.Code = &v
+
 	return o
 }
 
@@ -111,6 +117,7 @@ func (o *TransformationCreate) SetCode(v string) *TransformationCreate {
 func (o *TransformationCreate) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -123,12 +130,14 @@ func (o *TransformationCreate) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *TransformationCreate) SetName(v string) *TransformationCreate {
 	o.Name = v
+
 	return o
 }
 
@@ -136,8 +145,10 @@ func (o *TransformationCreate) SetName(v string) *TransformationCreate {
 func (o *TransformationCreate) GetType() TransformationType {
 	if o == nil || o.Type == nil {
 		var ret TransformationType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -147,6 +158,7 @@ func (o *TransformationCreate) GetTypeOk() (*TransformationType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -162,6 +174,7 @@ func (o *TransformationCreate) HasType() bool {
 // SetType gets a reference to the given TransformationType and assigns it to the Type field.
 func (o *TransformationCreate) SetType(v TransformationType) *TransformationCreate {
 	o.Type = &v
+
 	return o
 }
 
@@ -169,8 +182,10 @@ func (o *TransformationCreate) SetType(v TransformationType) *TransformationCrea
 func (o *TransformationCreate) GetInput() TransformationInput {
 	if o == nil || o.Input == nil {
 		var ret TransformationInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -180,6 +195,7 @@ func (o *TransformationCreate) GetInputOk() (*TransformationInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -195,6 +211,7 @@ func (o *TransformationCreate) HasInput() bool {
 // SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
 func (o *TransformationCreate) SetInput(v *TransformationInput) *TransformationCreate {
 	o.Input = v
+
 	return o
 }
 
@@ -202,8 +219,10 @@ func (o *TransformationCreate) SetInput(v *TransformationInput) *TransformationC
 func (o *TransformationCreate) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -213,6 +232,7 @@ func (o *TransformationCreate) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -228,6 +248,7 @@ func (o *TransformationCreate) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *TransformationCreate) SetDescription(v string) *TransformationCreate {
 	o.Description = &v
+
 	return o
 }
 
@@ -235,8 +256,10 @@ func (o *TransformationCreate) SetDescription(v string) *TransformationCreate {
 func (o *TransformationCreate) GetAuthenticationIDs() []string {
 	if o == nil || o.AuthenticationIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AuthenticationIDs
 }
 
@@ -246,6 +269,7 @@ func (o *TransformationCreate) GetAuthenticationIDsOk() ([]string, bool) {
 	if o == nil || o.AuthenticationIDs == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationIDs, true
 }
 
@@ -261,6 +285,7 @@ func (o *TransformationCreate) HasAuthenticationIDs() bool {
 // SetAuthenticationIDs gets a reference to the given []string and assigns it to the AuthenticationIDs field.
 func (o *TransformationCreate) SetAuthenticationIDs(v []string) *TransformationCreate {
 	o.AuthenticationIDs = v
+
 	return o
 }
 
@@ -269,19 +294,24 @@ func (o TransformationCreate) MarshalJSON() ([]byte, error) {
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
 	}
+
 	toSerialize["name"] = o.Name
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.AuthenticationIDs != nil {
 		toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationCreate: %w", err)
@@ -298,5 +328,6 @@ func (o TransformationCreate) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
+
 	return fmt.Sprintf("TransformationCreate {\n%s}", out)
 }

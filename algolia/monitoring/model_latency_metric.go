@@ -28,6 +28,7 @@ func NewLatencyMetric(opts ...LatencyMetricOption) *LatencyMetric {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyLatencyMetric() *LatencyMetric {
 func (o *LatencyMetric) GetLatency() map[string][]TimeEntry {
 	if o == nil || o.Latency == nil {
 		var ret map[string][]TimeEntry
+
 		return ret
 	}
+
 	return *o.Latency
 }
 
@@ -51,6 +54,7 @@ func (o *LatencyMetric) GetLatencyOk() (*map[string][]TimeEntry, bool) {
 	if o == nil || o.Latency == nil {
 		return nil, false
 	}
+
 	return o.Latency, true
 }
 
@@ -66,6 +70,7 @@ func (o *LatencyMetric) HasLatency() bool {
 // SetLatency gets a reference to the given map[string][]TimeEntry and assigns it to the Latency field.
 func (o *LatencyMetric) SetLatency(v map[string][]TimeEntry) *LatencyMetric {
 	o.Latency = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o LatencyMetric) MarshalJSON() ([]byte, error) {
 	if o.Latency != nil {
 		toSerialize["latency"] = o.Latency
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal LatencyMetric: %w", err)
@@ -85,5 +91,6 @@ func (o LatencyMetric) MarshalJSON() ([]byte, error) {
 func (o LatencyMetric) String() string {
 	out := ""
 	out += fmt.Sprintf("  latency=%v\n", o.Latency)
+
 	return fmt.Sprintf("LatencyMetric {\n%s}", out)
 }

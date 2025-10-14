@@ -25,6 +25,7 @@ func NewTopSearch(search string, count int32, nbHits int32) *TopSearch {
 	this.Search = search
 	this.Count = count
 	this.NbHits = nbHits
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyTopSearch() *TopSearch {
 func (o *TopSearch) GetSearch() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *TopSearch) GetSearchOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *TopSearch) SetSearch(v string) *TopSearch {
 	o.Search = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *TopSearch) SetSearch(v string) *TopSearch {
 func (o *TopSearch) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *TopSearch) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopSearch) SetCount(v int32) *TopSearch {
 	o.Count = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *TopSearch) SetCount(v int32) *TopSearch {
 func (o *TopSearch) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *TopSearch) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *TopSearch) SetNbHits(v int32) *TopSearch {
 	o.NbHits = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o TopSearch) MarshalJSON() ([]byte, error) {
 	toSerialize["search"] = o.Search
 	toSerialize["count"] = o.Count
 	toSerialize["nbHits"] = o.NbHits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearch: %w", err)
@@ -126,5 +137,6 @@ func (o TopSearch) String() string {
 	out += fmt.Sprintf("  search=%v\n", o.Search)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
+
 	return fmt.Sprintf("TopSearch {\n%s}", out)
 }

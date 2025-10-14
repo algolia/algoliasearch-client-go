@@ -34,10 +34,12 @@ func NewAuthOAuth(url string, clientId string, clientSecret string, opts ...Auth
 	this := &AuthOAuth{}
 	this.Url = url
 	this.ClientId = clientId
+
 	this.ClientSecret = clientSecret
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -50,6 +52,7 @@ func NewEmptyAuthOAuth() *AuthOAuth {
 func (o *AuthOAuth) GetUrl() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -62,12 +65,14 @@ func (o *AuthOAuth) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Url, true
 }
 
 // SetUrl sets field value.
 func (o *AuthOAuth) SetUrl(v string) *AuthOAuth {
 	o.Url = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o *AuthOAuth) SetUrl(v string) *AuthOAuth {
 func (o *AuthOAuth) GetClientId() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -87,12 +93,14 @@ func (o *AuthOAuth) GetClientIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClientId, true
 }
 
 // SetClientId sets field value.
 func (o *AuthOAuth) SetClientId(v string) *AuthOAuth {
 	o.ClientId = v
+
 	return o
 }
 
@@ -100,6 +108,7 @@ func (o *AuthOAuth) SetClientId(v string) *AuthOAuth {
 func (o *AuthOAuth) GetClientSecret() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -112,12 +121,14 @@ func (o *AuthOAuth) GetClientSecretOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClientSecret, true
 }
 
 // SetClientSecret sets field value.
 func (o *AuthOAuth) SetClientSecret(v string) *AuthOAuth {
 	o.ClientSecret = v
+
 	return o
 }
 
@@ -125,8 +136,10 @@ func (o *AuthOAuth) SetClientSecret(v string) *AuthOAuth {
 func (o *AuthOAuth) GetScope() string {
 	if o == nil || o.Scope == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Scope
 }
 
@@ -136,6 +149,7 @@ func (o *AuthOAuth) GetScopeOk() (*string, bool) {
 	if o == nil || o.Scope == nil {
 		return nil, false
 	}
+
 	return o.Scope, true
 }
 
@@ -151,6 +165,7 @@ func (o *AuthOAuth) HasScope() bool {
 // SetScope gets a reference to the given string and assigns it to the Scope field.
 func (o *AuthOAuth) SetScope(v string) *AuthOAuth {
 	o.Scope = &v
+
 	return o
 }
 
@@ -158,10 +173,12 @@ func (o AuthOAuth) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["url"] = o.Url
 	toSerialize["client_id"] = o.ClientId
+
 	toSerialize["client_secret"] = o.ClientSecret
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthOAuth: %w", err)
@@ -176,5 +193,6 @@ func (o AuthOAuth) String() string {
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
+
 	return fmt.Sprintf("AuthOAuth {\n%s}", out)
 }

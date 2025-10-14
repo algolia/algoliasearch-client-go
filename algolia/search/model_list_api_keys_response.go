@@ -19,6 +19,7 @@ type ListApiKeysResponse struct {
 func NewListApiKeysResponse(keys []GetApiKeyResponse) *ListApiKeysResponse {
 	this := &ListApiKeysResponse{}
 	this.Keys = keys
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyListApiKeysResponse() *ListApiKeysResponse {
 func (o *ListApiKeysResponse) GetKeys() []GetApiKeyResponse {
 	if o == nil {
 		var ret []GetApiKeyResponse
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ListApiKeysResponse) GetKeysOk() ([]GetApiKeyResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Keys, true
 }
 
 // SetKeys sets field value.
 func (o *ListApiKeysResponse) SetKeys(v []GetApiKeyResponse) *ListApiKeysResponse {
 	o.Keys = v
+
 	return o
 }
 
 func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["keys"] = o.Keys
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListApiKeysResponse: %w", err)
@@ -66,5 +71,6 @@ func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {
 func (o ListApiKeysResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  keys=%v\n", o.Keys)
+
 	return fmt.Sprintf("ListApiKeysResponse {\n%s}", out)
 }

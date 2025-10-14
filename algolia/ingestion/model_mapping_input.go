@@ -20,6 +20,7 @@ func NewMappingInput(format MappingFormatSchema, actions []MappingKitAction) *Ma
 	this := &MappingInput{}
 	this.Format = format
 	this.Actions = actions
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyMappingInput() *MappingInput {
 func (o *MappingInput) GetFormat() MappingFormatSchema {
 	if o == nil {
 		var ret MappingFormatSchema
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *MappingInput) GetFormatOk() (*MappingFormatSchema, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Format, true
 }
 
 // SetFormat sets field value.
 func (o *MappingInput) SetFormat(v MappingFormatSchema) *MappingInput {
 	o.Format = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *MappingInput) SetFormat(v MappingFormatSchema) *MappingInput {
 func (o *MappingInput) GetActions() []MappingKitAction {
 	if o == nil {
 		var ret []MappingKitAction
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *MappingInput) GetActionsOk() ([]MappingKitAction, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Actions, true
 }
 
 // SetActions sets field value.
 func (o *MappingInput) SetActions(v []MappingKitAction) *MappingInput {
 	o.Actions = v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o MappingInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["format"] = o.Format
 	toSerialize["actions"] = o.Actions
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingInput: %w", err)
@@ -94,5 +102,6 @@ func (o MappingInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  format=%v\n", o.Format)
 	out += fmt.Sprintf("  actions=%v\n", o.Actions)
+
 	return fmt.Sprintf("MappingInput {\n%s}", out)
 }

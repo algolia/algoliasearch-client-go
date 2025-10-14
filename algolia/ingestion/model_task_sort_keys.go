@@ -27,24 +27,7 @@ var AllowedTaskSortKeysEnumValues = []TaskSortKeys{
 	"createdAt",
 }
 
-func (v *TaskSortKeys) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TaskSortKeys': %w", string(src), err)
-	}
-	enumTypeValue := TaskSortKeys(value)
-	for _, existing := range AllowedTaskSortKeysEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TaskSortKeys", value)
-}
-
-// NewTaskSortKeysFromValue returns a pointer to a valid TaskSortKeys
+// NewTaskSortKeysFromValue returns a pointer to a valid TaskSortKeys.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTaskSortKeysFromValue(v string) (*TaskSortKeys, error) {
 	ev := TaskSortKeys(v)
@@ -55,6 +38,26 @@ func NewTaskSortKeysFromValue(v string) (*TaskSortKeys, error) {
 	}
 }
 
+func (v *TaskSortKeys) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TaskSortKeys': %w", string(src), err)
+	}
+
+	enumTypeValue := TaskSortKeys(value)
+	for _, existing := range AllowedTaskSortKeysEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TaskSortKeys", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TaskSortKeys) IsValid() bool {
 	for _, existing := range AllowedTaskSortKeysEnumValues {
@@ -62,6 +65,7 @@ func (v TaskSortKeys) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

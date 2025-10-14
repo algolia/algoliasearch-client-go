@@ -37,10 +37,12 @@ func WithSourceCreateAuthenticationID(val string) SourceCreateOption {
 func NewSourceCreate(type_ SourceType, name string, opts ...SourceCreateOption) *SourceCreate {
 	this := &SourceCreate{}
 	this.Type = type_
+
 	this.Name = name
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -53,6 +55,7 @@ func NewEmptySourceCreate() *SourceCreate {
 func (o *SourceCreate) GetType() SourceType {
 	if o == nil {
 		var ret SourceType
+
 		return ret
 	}
 
@@ -65,12 +68,14 @@ func (o *SourceCreate) GetTypeOk() (*SourceType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *SourceCreate) SetType(v SourceType) *SourceCreate {
 	o.Type = v
+
 	return o
 }
 
@@ -78,6 +83,7 @@ func (o *SourceCreate) SetType(v SourceType) *SourceCreate {
 func (o *SourceCreate) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -90,12 +96,14 @@ func (o *SourceCreate) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *SourceCreate) SetName(v string) *SourceCreate {
 	o.Name = v
+
 	return o
 }
 
@@ -103,8 +111,10 @@ func (o *SourceCreate) SetName(v string) *SourceCreate {
 func (o *SourceCreate) GetInput() SourceInput {
 	if o == nil || o.Input == nil {
 		var ret SourceInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -114,6 +124,7 @@ func (o *SourceCreate) GetInputOk() (*SourceInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -129,6 +140,7 @@ func (o *SourceCreate) HasInput() bool {
 // SetInput gets a reference to the given SourceInput and assigns it to the Input field.
 func (o *SourceCreate) SetInput(v *SourceInput) *SourceCreate {
 	o.Input = v
+
 	return o
 }
 
@@ -136,8 +148,10 @@ func (o *SourceCreate) SetInput(v *SourceInput) *SourceCreate {
 func (o *SourceCreate) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -147,6 +161,7 @@ func (o *SourceCreate) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -162,19 +177,23 @@ func (o *SourceCreate) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *SourceCreate) SetAuthenticationID(v string) *SourceCreate {
 	o.AuthenticationID = &v
+
 	return o
 }
 
 func (o SourceCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	toSerialize["name"] = o.Name
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceCreate: %w", err)
@@ -189,5 +208,6 @@ func (o SourceCreate) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
+
 	return fmt.Sprintf("SourceCreate {\n%s}", out)
 }

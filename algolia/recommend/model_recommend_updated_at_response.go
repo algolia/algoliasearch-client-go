@@ -22,6 +22,7 @@ func NewRecommendUpdatedAtResponse(taskID int64, updatedAt string) *RecommendUpd
 	this := &RecommendUpdatedAtResponse{}
 	this.TaskID = taskID
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyRecommendUpdatedAtResponse() *RecommendUpdatedAtResponse {
 func (o *RecommendUpdatedAtResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *RecommendUpdatedAtResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *RecommendUpdatedAtResponse) SetTaskID(v int64) *RecommendUpdatedAtResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *RecommendUpdatedAtResponse) SetTaskID(v int64) *RecommendUpdatedAtRespo
 func (o *RecommendUpdatedAtResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *RecommendUpdatedAtResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *RecommendUpdatedAtResponse) SetUpdatedAt(v string) *RecommendUpdatedAtResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o RecommendUpdatedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendUpdatedAtResponse: %w", err)
@@ -96,5 +104,6 @@ func (o RecommendUpdatedAtResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("RecommendUpdatedAtResponse {\n%s}", out)
 }

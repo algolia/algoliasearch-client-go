@@ -42,6 +42,7 @@ func NewRenderingContent(opts ...RenderingContentOption) *RenderingContent {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -54,8 +55,10 @@ func NewEmptyRenderingContent() *RenderingContent {
 func (o *RenderingContent) GetFacetOrdering() FacetOrdering {
 	if o == nil || o.FacetOrdering == nil {
 		var ret FacetOrdering
+
 		return ret
 	}
+
 	return *o.FacetOrdering
 }
 
@@ -65,6 +68,7 @@ func (o *RenderingContent) GetFacetOrderingOk() (*FacetOrdering, bool) {
 	if o == nil || o.FacetOrdering == nil {
 		return nil, false
 	}
+
 	return o.FacetOrdering, true
 }
 
@@ -80,6 +84,7 @@ func (o *RenderingContent) HasFacetOrdering() bool {
 // SetFacetOrdering gets a reference to the given FacetOrdering and assigns it to the FacetOrdering field.
 func (o *RenderingContent) SetFacetOrdering(v *FacetOrdering) *RenderingContent {
 	o.FacetOrdering = v
+
 	return o
 }
 
@@ -87,8 +92,10 @@ func (o *RenderingContent) SetFacetOrdering(v *FacetOrdering) *RenderingContent 
 func (o *RenderingContent) GetRedirect() RedirectURL {
 	if o == nil || o.Redirect == nil {
 		var ret RedirectURL
+
 		return ret
 	}
+
 	return *o.Redirect
 }
 
@@ -98,6 +105,7 @@ func (o *RenderingContent) GetRedirectOk() (*RedirectURL, bool) {
 	if o == nil || o.Redirect == nil {
 		return nil, false
 	}
+
 	return o.Redirect, true
 }
 
@@ -113,6 +121,7 @@ func (o *RenderingContent) HasRedirect() bool {
 // SetRedirect gets a reference to the given RedirectURL and assigns it to the Redirect field.
 func (o *RenderingContent) SetRedirect(v *RedirectURL) *RenderingContent {
 	o.Redirect = v
+
 	return o
 }
 
@@ -120,8 +129,10 @@ func (o *RenderingContent) SetRedirect(v *RedirectURL) *RenderingContent {
 func (o *RenderingContent) GetWidgets() Widgets {
 	if o == nil || o.Widgets == nil {
 		var ret Widgets
+
 		return ret
 	}
+
 	return *o.Widgets
 }
 
@@ -131,6 +142,7 @@ func (o *RenderingContent) GetWidgetsOk() (*Widgets, bool) {
 	if o == nil || o.Widgets == nil {
 		return nil, false
 	}
+
 	return o.Widgets, true
 }
 
@@ -146,6 +158,7 @@ func (o *RenderingContent) HasWidgets() bool {
 // SetWidgets gets a reference to the given Widgets and assigns it to the Widgets field.
 func (o *RenderingContent) SetWidgets(v *Widgets) *RenderingContent {
 	o.Widgets = v
+
 	return o
 }
 
@@ -154,12 +167,15 @@ func (o RenderingContent) MarshalJSON() ([]byte, error) {
 	if o.FacetOrdering != nil {
 		toSerialize["facetOrdering"] = o.FacetOrdering
 	}
+
 	if o.Redirect != nil {
 		toSerialize["redirect"] = o.Redirect
 	}
+
 	if o.Widgets != nil {
 		toSerialize["widgets"] = o.Widgets
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RenderingContent: %w", err)
@@ -173,5 +189,6 @@ func (o RenderingContent) String() string {
 	out += fmt.Sprintf("  facetOrdering=%v\n", o.FacetOrdering)
 	out += fmt.Sprintf("  redirect=%v\n", o.Redirect)
 	out += fmt.Sprintf("  widgets=%v\n", o.Widgets)
+
 	return fmt.Sprintf("RenderingContent {\n%s}", out)
 }

@@ -21,24 +21,7 @@ var AllowedEditTypeEnumValues = []EditType{
 	"replace",
 }
 
-func (v *EditType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EditType': %w", string(src), err)
-	}
-	enumTypeValue := EditType(value)
-	for _, existing := range AllowedEditTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid EditType", value)
-}
-
-// NewEditTypeFromValue returns a pointer to a valid EditType
+// NewEditTypeFromValue returns a pointer to a valid EditType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewEditTypeFromValue(v string) (*EditType, error) {
 	ev := EditType(v)
@@ -49,6 +32,26 @@ func NewEditTypeFromValue(v string) (*EditType, error) {
 	}
 }
 
+func (v *EditType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EditType': %w", string(src), err)
+	}
+
+	enumTypeValue := EditType(value)
+	for _, existing := range AllowedEditTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid EditType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v EditType) IsValid() bool {
 	for _, existing := range AllowedEditTypeEnumValues {
@@ -56,6 +59,7 @@ func (v EditType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

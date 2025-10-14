@@ -58,10 +58,12 @@ func NewTaskCreateV1(sourceID string, destinationID string, trigger TaskCreateTr
 	this.SourceID = sourceID
 	this.DestinationID = destinationID
 	this.Trigger = trigger
+
 	this.Action = action
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -74,6 +76,7 @@ func NewEmptyTaskCreateV1() *TaskCreateV1 {
 func (o *TaskCreateV1) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -86,12 +89,14 @@ func (o *TaskCreateV1) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *TaskCreateV1) SetSourceID(v string) *TaskCreateV1 {
 	o.SourceID = v
+
 	return o
 }
 
@@ -99,6 +104,7 @@ func (o *TaskCreateV1) SetSourceID(v string) *TaskCreateV1 {
 func (o *TaskCreateV1) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -111,12 +117,14 @@ func (o *TaskCreateV1) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *TaskCreateV1) SetDestinationID(v string) *TaskCreateV1 {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -124,6 +132,7 @@ func (o *TaskCreateV1) SetDestinationID(v string) *TaskCreateV1 {
 func (o *TaskCreateV1) GetTrigger() TaskCreateTrigger {
 	if o == nil {
 		var ret TaskCreateTrigger
+
 		return ret
 	}
 
@@ -136,12 +145,14 @@ func (o *TaskCreateV1) GetTriggerOk() (*TaskCreateTrigger, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Trigger, true
 }
 
 // SetTrigger sets field value.
 func (o *TaskCreateV1) SetTrigger(v *TaskCreateTrigger) *TaskCreateV1 {
 	o.Trigger = *v
+
 	return o
 }
 
@@ -149,6 +160,7 @@ func (o *TaskCreateV1) SetTrigger(v *TaskCreateTrigger) *TaskCreateV1 {
 func (o *TaskCreateV1) GetAction() ActionType {
 	if o == nil {
 		var ret ActionType
+
 		return ret
 	}
 
@@ -161,12 +173,14 @@ func (o *TaskCreateV1) GetActionOk() (*ActionType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *TaskCreateV1) SetAction(v ActionType) *TaskCreateV1 {
 	o.Action = v
+
 	return o
 }
 
@@ -174,8 +188,10 @@ func (o *TaskCreateV1) SetAction(v ActionType) *TaskCreateV1 {
 func (o *TaskCreateV1) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -185,6 +201,7 @@ func (o *TaskCreateV1) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -200,6 +217,7 @@ func (o *TaskCreateV1) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *TaskCreateV1) SetEnabled(v bool) *TaskCreateV1 {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -207,8 +225,10 @@ func (o *TaskCreateV1) SetEnabled(v bool) *TaskCreateV1 {
 func (o *TaskCreateV1) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -218,6 +238,7 @@ func (o *TaskCreateV1) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -233,6 +254,7 @@ func (o *TaskCreateV1) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskCreateV1) SetFailureThreshold(v int32) *TaskCreateV1 {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -240,8 +262,10 @@ func (o *TaskCreateV1) SetFailureThreshold(v int32) *TaskCreateV1 {
 func (o *TaskCreateV1) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -251,6 +275,7 @@ func (o *TaskCreateV1) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -266,6 +291,7 @@ func (o *TaskCreateV1) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskCreateV1) SetInput(v *TaskInput) *TaskCreateV1 {
 	o.Input = v
+
 	return o
 }
 
@@ -273,8 +299,10 @@ func (o *TaskCreateV1) SetInput(v *TaskInput) *TaskCreateV1 {
 func (o *TaskCreateV1) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cursor
 }
 
@@ -284,6 +312,7 @@ func (o *TaskCreateV1) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
+
 	return o.Cursor, true
 }
 
@@ -299,6 +328,7 @@ func (o *TaskCreateV1) HasCursor() bool {
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
 func (o *TaskCreateV1) SetCursor(v string) *TaskCreateV1 {
 	o.Cursor = &v
+
 	return o
 }
 
@@ -307,19 +337,24 @@ func (o TaskCreateV1) MarshalJSON() ([]byte, error) {
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["destinationID"] = o.DestinationID
 	toSerialize["trigger"] = o.Trigger
+
 	toSerialize["action"] = o.Action
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskCreateV1: %w", err)
@@ -338,5 +373,6 @@ func (o TaskCreateV1) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
+
 	return fmt.Sprintf("TaskCreateV1 {\n%s}", out)
 }

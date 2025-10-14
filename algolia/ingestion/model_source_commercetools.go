@@ -59,10 +59,12 @@ func WithSourceCommercetoolsCustomFields(val CommercetoolsCustomFields) SourceCo
 func NewSourceCommercetools(url string, projectKey string, opts ...SourceCommercetoolsOption) *SourceCommercetools {
 	this := &SourceCommercetools{}
 	this.Url = url
+
 	this.ProjectKey = projectKey
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -75,8 +77,10 @@ func NewEmptySourceCommercetools() *SourceCommercetools {
 func (o *SourceCommercetools) GetStoreKeys() []string {
 	if o == nil || o.StoreKeys == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.StoreKeys
 }
 
@@ -86,6 +90,7 @@ func (o *SourceCommercetools) GetStoreKeysOk() ([]string, bool) {
 	if o == nil || o.StoreKeys == nil {
 		return nil, false
 	}
+
 	return o.StoreKeys, true
 }
 
@@ -101,6 +106,7 @@ func (o *SourceCommercetools) HasStoreKeys() bool {
 // SetStoreKeys gets a reference to the given []string and assigns it to the StoreKeys field.
 func (o *SourceCommercetools) SetStoreKeys(v []string) *SourceCommercetools {
 	o.StoreKeys = v
+
 	return o
 }
 
@@ -108,8 +114,10 @@ func (o *SourceCommercetools) SetStoreKeys(v []string) *SourceCommercetools {
 func (o *SourceCommercetools) GetLocales() []string {
 	if o == nil || o.Locales == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Locales
 }
 
@@ -119,6 +127,7 @@ func (o *SourceCommercetools) GetLocalesOk() ([]string, bool) {
 	if o == nil || o.Locales == nil {
 		return nil, false
 	}
+
 	return o.Locales, true
 }
 
@@ -134,6 +143,7 @@ func (o *SourceCommercetools) HasLocales() bool {
 // SetLocales gets a reference to the given []string and assigns it to the Locales field.
 func (o *SourceCommercetools) SetLocales(v []string) *SourceCommercetools {
 	o.Locales = v
+
 	return o
 }
 
@@ -141,6 +151,7 @@ func (o *SourceCommercetools) SetLocales(v []string) *SourceCommercetools {
 func (o *SourceCommercetools) GetUrl() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -153,12 +164,14 @@ func (o *SourceCommercetools) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Url, true
 }
 
 // SetUrl sets field value.
 func (o *SourceCommercetools) SetUrl(v string) *SourceCommercetools {
 	o.Url = v
+
 	return o
 }
 
@@ -166,6 +179,7 @@ func (o *SourceCommercetools) SetUrl(v string) *SourceCommercetools {
 func (o *SourceCommercetools) GetProjectKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -178,12 +192,14 @@ func (o *SourceCommercetools) GetProjectKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ProjectKey, true
 }
 
 // SetProjectKey sets field value.
 func (o *SourceCommercetools) SetProjectKey(v string) *SourceCommercetools {
 	o.ProjectKey = v
+
 	return o
 }
 
@@ -191,8 +207,10 @@ func (o *SourceCommercetools) SetProjectKey(v string) *SourceCommercetools {
 func (o *SourceCommercetools) GetFallbackIsInStockValue() bool {
 	if o == nil || o.FallbackIsInStockValue == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FallbackIsInStockValue
 }
 
@@ -202,6 +220,7 @@ func (o *SourceCommercetools) GetFallbackIsInStockValueOk() (*bool, bool) {
 	if o == nil || o.FallbackIsInStockValue == nil {
 		return nil, false
 	}
+
 	return o.FallbackIsInStockValue, true
 }
 
@@ -217,6 +236,7 @@ func (o *SourceCommercetools) HasFallbackIsInStockValue() bool {
 // SetFallbackIsInStockValue gets a reference to the given bool and assigns it to the FallbackIsInStockValue field.
 func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) *SourceCommercetools {
 	o.FallbackIsInStockValue = &v
+
 	return o
 }
 
@@ -224,8 +244,10 @@ func (o *SourceCommercetools) SetFallbackIsInStockValue(v bool) *SourceCommercet
 func (o *SourceCommercetools) GetProductQueryPredicate() string {
 	if o == nil || o.ProductQueryPredicate == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ProductQueryPredicate
 }
 
@@ -235,6 +257,7 @@ func (o *SourceCommercetools) GetProductQueryPredicateOk() (*string, bool) {
 	if o == nil || o.ProductQueryPredicate == nil {
 		return nil, false
 	}
+
 	return o.ProductQueryPredicate, true
 }
 
@@ -250,6 +273,7 @@ func (o *SourceCommercetools) HasProductQueryPredicate() bool {
 // SetProductQueryPredicate gets a reference to the given string and assigns it to the ProductQueryPredicate field.
 func (o *SourceCommercetools) SetProductQueryPredicate(v string) *SourceCommercetools {
 	o.ProductQueryPredicate = &v
+
 	return o
 }
 
@@ -257,8 +281,10 @@ func (o *SourceCommercetools) SetProductQueryPredicate(v string) *SourceCommerce
 func (o *SourceCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
 		var ret CommercetoolsCustomFields
+
 		return ret
 	}
+
 	return *o.CustomFields
 }
 
@@ -268,6 +294,7 @@ func (o *SourceCommercetools) GetCustomFieldsOk() (*CommercetoolsCustomFields, b
 	if o == nil || o.CustomFields == nil {
 		return nil, false
 	}
+
 	return o.CustomFields, true
 }
 
@@ -283,6 +310,7 @@ func (o *SourceCommercetools) HasCustomFields() bool {
 // SetCustomFields gets a reference to the given CommercetoolsCustomFields and assigns it to the CustomFields field.
 func (o *SourceCommercetools) SetCustomFields(v *CommercetoolsCustomFields) *SourceCommercetools {
 	o.CustomFields = v
+
 	return o
 }
 
@@ -291,20 +319,26 @@ func (o SourceCommercetools) MarshalJSON() ([]byte, error) {
 	if o.StoreKeys != nil {
 		toSerialize["storeKeys"] = o.StoreKeys
 	}
+
 	if o.Locales != nil {
 		toSerialize["locales"] = o.Locales
 	}
+
 	toSerialize["url"] = o.Url
+
 	toSerialize["projectKey"] = o.ProjectKey
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}
+
 	if o.ProductQueryPredicate != nil {
 		toSerialize["productQueryPredicate"] = o.ProductQueryPredicate
 	}
+
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceCommercetools: %w", err)
@@ -322,5 +356,6 @@ func (o SourceCommercetools) String() string {
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
 	out += fmt.Sprintf("  productQueryPredicate=%v\n", o.ProductQueryPredicate)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
+
 	return fmt.Sprintf("SourceCommercetools {\n%s}", out)
 }

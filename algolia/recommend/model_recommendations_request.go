@@ -89,7 +89,7 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 		dst.LookingSimilarQuery = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(RecommendationsRequest)")
+	return fmt.Errorf("data failed to match schemas in oneOf(RecommendationsRequest)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

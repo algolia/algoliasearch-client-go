@@ -702,6 +702,7 @@ func NewFallbackParams(opts ...FallbackParamsOption) *FallbackParams {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -714,8 +715,10 @@ func NewEmptyFallbackParams() *FallbackParams {
 func (o *FallbackParams) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SimilarQuery
 }
 
@@ -725,6 +728,7 @@ func (o *FallbackParams) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
+
 	return o.SimilarQuery, true
 }
 
@@ -740,6 +744,7 @@ func (o *FallbackParams) HasSimilarQuery() bool {
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
 func (o *FallbackParams) SetSimilarQuery(v string) *FallbackParams {
 	o.SimilarQuery = &v
+
 	return o
 }
 
@@ -747,8 +752,10 @@ func (o *FallbackParams) SetSimilarQuery(v string) *FallbackParams {
 func (o *FallbackParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -758,6 +765,7 @@ func (o *FallbackParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -773,6 +781,7 @@ func (o *FallbackParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *FallbackParams) SetFilters(v string) *FallbackParams {
 	o.Filters = &v
+
 	return o
 }
 
@@ -780,8 +789,10 @@ func (o *FallbackParams) SetFilters(v string) *FallbackParams {
 func (o *FallbackParams) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -791,6 +802,7 @@ func (o *FallbackParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -806,6 +818,7 @@ func (o *FallbackParams) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *FallbackParams) SetFacetFilters(v *FacetFilters) *FallbackParams {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -813,8 +826,10 @@ func (o *FallbackParams) SetFacetFilters(v *FacetFilters) *FallbackParams {
 func (o *FallbackParams) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -824,6 +839,7 @@ func (o *FallbackParams) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -839,6 +855,7 @@ func (o *FallbackParams) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *FallbackParams) SetOptionalFilters(v *OptionalFilters) *FallbackParams {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -846,8 +863,10 @@ func (o *FallbackParams) SetOptionalFilters(v *OptionalFilters) *FallbackParams 
 func (o *FallbackParams) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -857,6 +876,7 @@ func (o *FallbackParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -872,6 +892,7 @@ func (o *FallbackParams) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *FallbackParams) SetNumericFilters(v *NumericFilters) *FallbackParams {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -879,8 +900,10 @@ func (o *FallbackParams) SetNumericFilters(v *NumericFilters) *FallbackParams {
 func (o *FallbackParams) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
+
 		return ret
 	}
+
 	return *o.TagFilters
 }
 
@@ -890,6 +913,7 @@ func (o *FallbackParams) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
+
 	return o.TagFilters, true
 }
 
@@ -905,6 +929,7 @@ func (o *FallbackParams) HasTagFilters() bool {
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
 func (o *FallbackParams) SetTagFilters(v *TagFilters) *FallbackParams {
 	o.TagFilters = v
+
 	return o
 }
 
@@ -912,8 +937,10 @@ func (o *FallbackParams) SetTagFilters(v *TagFilters) *FallbackParams {
 func (o *FallbackParams) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.SumOrFiltersScores
 }
 
@@ -923,6 +950,7 @@ func (o *FallbackParams) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
+
 	return o.SumOrFiltersScores, true
 }
 
@@ -938,6 +966,7 @@ func (o *FallbackParams) HasSumOrFiltersScores() bool {
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
 func (o *FallbackParams) SetSumOrFiltersScores(v bool) *FallbackParams {
 	o.SumOrFiltersScores = &v
+
 	return o
 }
 
@@ -945,8 +974,10 @@ func (o *FallbackParams) SetSumOrFiltersScores(v bool) *FallbackParams {
 func (o *FallbackParams) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictSearchableAttributes
 }
 
@@ -956,6 +987,7 @@ func (o *FallbackParams) GetRestrictSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.RestrictSearchableAttributes, true
 }
 
@@ -971,6 +1003,7 @@ func (o *FallbackParams) HasRestrictSearchableAttributes() bool {
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
 func (o *FallbackParams) SetRestrictSearchableAttributes(v []string) *FallbackParams {
 	o.RestrictSearchableAttributes = v
+
 	return o
 }
 
@@ -978,8 +1011,10 @@ func (o *FallbackParams) SetRestrictSearchableAttributes(v []string) *FallbackPa
 func (o *FallbackParams) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Facets
 }
 
@@ -989,6 +1024,7 @@ func (o *FallbackParams) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -1004,6 +1040,7 @@ func (o *FallbackParams) HasFacets() bool {
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
 func (o *FallbackParams) SetFacets(v []string) *FallbackParams {
 	o.Facets = v
+
 	return o
 }
 
@@ -1011,8 +1048,10 @@ func (o *FallbackParams) SetFacets(v []string) *FallbackParams {
 func (o *FallbackParams) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetingAfterDistinct
 }
 
@@ -1022,6 +1061,7 @@ func (o *FallbackParams) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
+
 	return o.FacetingAfterDistinct, true
 }
 
@@ -1037,6 +1077,7 @@ func (o *FallbackParams) HasFacetingAfterDistinct() bool {
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
 func (o *FallbackParams) SetFacetingAfterDistinct(v bool) *FallbackParams {
 	o.FacetingAfterDistinct = &v
+
 	return o
 }
 
@@ -1044,8 +1085,10 @@ func (o *FallbackParams) SetFacetingAfterDistinct(v bool) *FallbackParams {
 func (o *FallbackParams) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -1055,6 +1098,7 @@ func (o *FallbackParams) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -1070,6 +1114,7 @@ func (o *FallbackParams) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *FallbackParams) SetAroundLatLng(v string) *FallbackParams {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -1077,8 +1122,10 @@ func (o *FallbackParams) SetAroundLatLng(v string) *FallbackParams {
 func (o *FallbackParams) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AroundLatLngViaIP
 }
 
@@ -1088,6 +1135,7 @@ func (o *FallbackParams) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLngViaIP, true
 }
 
@@ -1103,6 +1151,7 @@ func (o *FallbackParams) HasAroundLatLngViaIP() bool {
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
 func (o *FallbackParams) SetAroundLatLngViaIP(v bool) *FallbackParams {
 	o.AroundLatLngViaIP = &v
+
 	return o
 }
 
@@ -1110,8 +1159,10 @@ func (o *FallbackParams) SetAroundLatLngViaIP(v bool) *FallbackParams {
 func (o *FallbackParams) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -1121,6 +1172,7 @@ func (o *FallbackParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -1136,6 +1188,7 @@ func (o *FallbackParams) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *FallbackParams) SetAroundRadius(v *AroundRadius) *FallbackParams {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -1143,8 +1196,10 @@ func (o *FallbackParams) SetAroundRadius(v *AroundRadius) *FallbackParams {
 func (o *FallbackParams) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
+
 		return ret
 	}
+
 	return *o.AroundPrecision
 }
 
@@ -1154,6 +1209,7 @@ func (o *FallbackParams) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
+
 	return o.AroundPrecision, true
 }
 
@@ -1169,6 +1225,7 @@ func (o *FallbackParams) HasAroundPrecision() bool {
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
 func (o *FallbackParams) SetAroundPrecision(v *AroundPrecision) *FallbackParams {
 	o.AroundPrecision = v
+
 	return o
 }
 
@@ -1176,8 +1233,10 @@ func (o *FallbackParams) SetAroundPrecision(v *AroundPrecision) *FallbackParams 
 func (o *FallbackParams) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinimumAroundRadius
 }
 
@@ -1187,6 +1246,7 @@ func (o *FallbackParams) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
+
 	return o.MinimumAroundRadius, true
 }
 
@@ -1202,6 +1262,7 @@ func (o *FallbackParams) HasMinimumAroundRadius() bool {
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
 func (o *FallbackParams) SetMinimumAroundRadius(v int32) *FallbackParams {
 	o.MinimumAroundRadius = &v
+
 	return o
 }
 
@@ -1209,8 +1270,10 @@ func (o *FallbackParams) SetMinimumAroundRadius(v int32) *FallbackParams {
 func (o *FallbackParams) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -1221,6 +1284,7 @@ func (o *FallbackParams) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -1236,6 +1300,7 @@ func (o *FallbackParams) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *FallbackParams) SetInsideBoundingBox(v *InsideBoundingBox) *FallbackParams {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -1253,8 +1318,10 @@ func (o *FallbackParams) UnsetInsideBoundingBox() {
 func (o *FallbackParams) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -1264,6 +1331,7 @@ func (o *FallbackParams) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -1279,6 +1347,7 @@ func (o *FallbackParams) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *FallbackParams) SetInsidePolygon(v [][]float64) *FallbackParams {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -1286,8 +1355,10 @@ func (o *FallbackParams) SetInsidePolygon(v [][]float64) *FallbackParams {
 func (o *FallbackParams) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -1297,6 +1368,7 @@ func (o *FallbackParams) GetNaturalLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -1312,6 +1384,7 @@ func (o *FallbackParams) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *FallbackParams) SetNaturalLanguages(v []SupportedLanguage) *FallbackParams {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -1319,8 +1392,10 @@ func (o *FallbackParams) SetNaturalLanguages(v []SupportedLanguage) *FallbackPar
 func (o *FallbackParams) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -1330,6 +1405,7 @@ func (o *FallbackParams) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -1345,6 +1421,7 @@ func (o *FallbackParams) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *FallbackParams) SetRuleContexts(v []string) *FallbackParams {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -1352,8 +1429,10 @@ func (o *FallbackParams) SetRuleContexts(v []string) *FallbackParams {
 func (o *FallbackParams) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PersonalizationImpact
 }
 
@@ -1363,6 +1442,7 @@ func (o *FallbackParams) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
+
 	return o.PersonalizationImpact, true
 }
 
@@ -1378,6 +1458,7 @@ func (o *FallbackParams) HasPersonalizationImpact() bool {
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
 func (o *FallbackParams) SetPersonalizationImpact(v int32) *FallbackParams {
 	o.PersonalizationImpact = &v
+
 	return o
 }
 
@@ -1385,8 +1466,10 @@ func (o *FallbackParams) SetPersonalizationImpact(v int32) *FallbackParams {
 func (o *FallbackParams) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -1396,6 +1479,7 @@ func (o *FallbackParams) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -1411,6 +1495,7 @@ func (o *FallbackParams) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *FallbackParams) SetUserToken(v string) *FallbackParams {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -1418,8 +1503,10 @@ func (o *FallbackParams) SetUserToken(v string) *FallbackParams {
 func (o *FallbackParams) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -1429,6 +1516,7 @@ func (o *FallbackParams) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -1444,6 +1532,7 @@ func (o *FallbackParams) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *FallbackParams) SetGetRankingInfo(v bool) *FallbackParams {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -1451,8 +1540,10 @@ func (o *FallbackParams) SetGetRankingInfo(v bool) *FallbackParams {
 func (o *FallbackParams) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Synonyms
 }
 
@@ -1462,6 +1553,7 @@ func (o *FallbackParams) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -1477,6 +1569,7 @@ func (o *FallbackParams) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
 func (o *FallbackParams) SetSynonyms(v bool) *FallbackParams {
 	o.Synonyms = &v
+
 	return o
 }
 
@@ -1484,8 +1577,10 @@ func (o *FallbackParams) SetSynonyms(v bool) *FallbackParams {
 func (o *FallbackParams) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -1495,6 +1590,7 @@ func (o *FallbackParams) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -1510,6 +1606,7 @@ func (o *FallbackParams) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *FallbackParams) SetClickAnalytics(v bool) *FallbackParams {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -1517,8 +1614,10 @@ func (o *FallbackParams) SetClickAnalytics(v bool) *FallbackParams {
 func (o *FallbackParams) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -1528,6 +1627,7 @@ func (o *FallbackParams) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -1543,6 +1643,7 @@ func (o *FallbackParams) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *FallbackParams) SetAnalytics(v bool) *FallbackParams {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -1550,8 +1651,10 @@ func (o *FallbackParams) SetAnalytics(v bool) *FallbackParams {
 func (o *FallbackParams) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AnalyticsTags
 }
 
@@ -1561,6 +1664,7 @@ func (o *FallbackParams) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
+
 	return o.AnalyticsTags, true
 }
 
@@ -1576,6 +1680,7 @@ func (o *FallbackParams) HasAnalyticsTags() bool {
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
 func (o *FallbackParams) SetAnalyticsTags(v []string) *FallbackParams {
 	o.AnalyticsTags = v
+
 	return o
 }
 
@@ -1583,8 +1688,10 @@ func (o *FallbackParams) SetAnalyticsTags(v []string) *FallbackParams {
 func (o *FallbackParams) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PercentileComputation
 }
 
@@ -1594,6 +1701,7 @@ func (o *FallbackParams) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
+
 	return o.PercentileComputation, true
 }
 
@@ -1609,6 +1717,7 @@ func (o *FallbackParams) HasPercentileComputation() bool {
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
 func (o *FallbackParams) SetPercentileComputation(v bool) *FallbackParams {
 	o.PercentileComputation = &v
+
 	return o
 }
 
@@ -1616,8 +1725,10 @@ func (o *FallbackParams) SetPercentileComputation(v bool) *FallbackParams {
 func (o *FallbackParams) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -1627,6 +1738,7 @@ func (o *FallbackParams) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -1642,6 +1754,7 @@ func (o *FallbackParams) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *FallbackParams) SetEnableABTest(v bool) *FallbackParams {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -1649,8 +1762,10 @@ func (o *FallbackParams) SetEnableABTest(v bool) *FallbackParams {
 func (o *FallbackParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -1660,6 +1775,7 @@ func (o *FallbackParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -1675,6 +1791,7 @@ func (o *FallbackParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *FallbackParams) SetQuery(v string) *FallbackParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -1682,8 +1799,10 @@ func (o *FallbackParams) SetQuery(v string) *FallbackParams {
 func (o *FallbackParams) GetAttributesForFaceting() []string {
 	if o == nil || o.AttributesForFaceting == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesForFaceting
 }
 
@@ -1693,6 +1812,7 @@ func (o *FallbackParams) GetAttributesForFacetingOk() ([]string, bool) {
 	if o == nil || o.AttributesForFaceting == nil {
 		return nil, false
 	}
+
 	return o.AttributesForFaceting, true
 }
 
@@ -1708,6 +1828,7 @@ func (o *FallbackParams) HasAttributesForFaceting() bool {
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
 func (o *FallbackParams) SetAttributesForFaceting(v []string) *FallbackParams {
 	o.AttributesForFaceting = v
+
 	return o
 }
 
@@ -1715,8 +1836,10 @@ func (o *FallbackParams) SetAttributesForFaceting(v []string) *FallbackParams {
 func (o *FallbackParams) GetReplicas() []string {
 	if o == nil || o.Replicas == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replicas
 }
 
@@ -1726,6 +1849,7 @@ func (o *FallbackParams) GetReplicasOk() ([]string, bool) {
 	if o == nil || o.Replicas == nil {
 		return nil, false
 	}
+
 	return o.Replicas, true
 }
 
@@ -1741,6 +1865,7 @@ func (o *FallbackParams) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *FallbackParams) SetReplicas(v []string) *FallbackParams {
 	o.Replicas = v
+
 	return o
 }
 
@@ -1748,8 +1873,10 @@ func (o *FallbackParams) SetReplicas(v []string) *FallbackParams {
 func (o *FallbackParams) GetPaginationLimitedTo() int32 {
 	if o == nil || o.PaginationLimitedTo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PaginationLimitedTo
 }
 
@@ -1759,6 +1886,7 @@ func (o *FallbackParams) GetPaginationLimitedToOk() (*int32, bool) {
 	if o == nil || o.PaginationLimitedTo == nil {
 		return nil, false
 	}
+
 	return o.PaginationLimitedTo, true
 }
 
@@ -1774,6 +1902,7 @@ func (o *FallbackParams) HasPaginationLimitedTo() bool {
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
 func (o *FallbackParams) SetPaginationLimitedTo(v int32) *FallbackParams {
 	o.PaginationLimitedTo = &v
+
 	return o
 }
 
@@ -1781,8 +1910,10 @@ func (o *FallbackParams) SetPaginationLimitedTo(v int32) *FallbackParams {
 func (o *FallbackParams) GetUnretrievableAttributes() []string {
 	if o == nil || o.UnretrievableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.UnretrievableAttributes
 }
 
@@ -1792,6 +1923,7 @@ func (o *FallbackParams) GetUnretrievableAttributesOk() ([]string, bool) {
 	if o == nil || o.UnretrievableAttributes == nil {
 		return nil, false
 	}
+
 	return o.UnretrievableAttributes, true
 }
 
@@ -1807,6 +1939,7 @@ func (o *FallbackParams) HasUnretrievableAttributes() bool {
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
 func (o *FallbackParams) SetUnretrievableAttributes(v []string) *FallbackParams {
 	o.UnretrievableAttributes = v
+
 	return o
 }
 
@@ -1814,8 +1947,10 @@ func (o *FallbackParams) SetUnretrievableAttributes(v []string) *FallbackParams 
 func (o *FallbackParams) GetDisableTypoToleranceOnWords() []string {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnWords
 }
 
@@ -1825,6 +1960,7 @@ func (o *FallbackParams) GetDisableTypoToleranceOnWordsOk() ([]string, bool) {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnWords, true
 }
 
@@ -1840,6 +1976,7 @@ func (o *FallbackParams) HasDisableTypoToleranceOnWords() bool {
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
 func (o *FallbackParams) SetDisableTypoToleranceOnWords(v []string) *FallbackParams {
 	o.DisableTypoToleranceOnWords = v
+
 	return o
 }
 
@@ -1847,8 +1984,10 @@ func (o *FallbackParams) SetDisableTypoToleranceOnWords(v []string) *FallbackPar
 func (o *FallbackParams) GetAttributesToTransliterate() []string {
 	if o == nil || o.AttributesToTransliterate == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToTransliterate
 }
 
@@ -1858,6 +1997,7 @@ func (o *FallbackParams) GetAttributesToTransliterateOk() ([]string, bool) {
 	if o == nil || o.AttributesToTransliterate == nil {
 		return nil, false
 	}
+
 	return o.AttributesToTransliterate, true
 }
 
@@ -1873,6 +2013,7 @@ func (o *FallbackParams) HasAttributesToTransliterate() bool {
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
 func (o *FallbackParams) SetAttributesToTransliterate(v []string) *FallbackParams {
 	o.AttributesToTransliterate = v
+
 	return o
 }
 
@@ -1880,8 +2021,10 @@ func (o *FallbackParams) SetAttributesToTransliterate(v []string) *FallbackParam
 func (o *FallbackParams) GetCamelCaseAttributes() []string {
 	if o == nil || o.CamelCaseAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CamelCaseAttributes
 }
 
@@ -1891,6 +2034,7 @@ func (o *FallbackParams) GetCamelCaseAttributesOk() ([]string, bool) {
 	if o == nil || o.CamelCaseAttributes == nil {
 		return nil, false
 	}
+
 	return o.CamelCaseAttributes, true
 }
 
@@ -1906,6 +2050,7 @@ func (o *FallbackParams) HasCamelCaseAttributes() bool {
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
 func (o *FallbackParams) SetCamelCaseAttributes(v []string) *FallbackParams {
 	o.CamelCaseAttributes = v
+
 	return o
 }
 
@@ -1913,8 +2058,10 @@ func (o *FallbackParams) SetCamelCaseAttributes(v []string) *FallbackParams {
 func (o *FallbackParams) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.DecompoundedAttributes
 }
 
@@ -1924,6 +2071,7 @@ func (o *FallbackParams) GetDecompoundedAttributesOk() (map[string]any, bool) {
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
+
 	return o.DecompoundedAttributes, true
 }
 
@@ -1939,6 +2087,7 @@ func (o *FallbackParams) HasDecompoundedAttributes() bool {
 // SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
 func (o *FallbackParams) SetDecompoundedAttributes(v map[string]any) *FallbackParams {
 	o.DecompoundedAttributes = v
+
 	return o
 }
 
@@ -1946,8 +2095,10 @@ func (o *FallbackParams) SetDecompoundedAttributes(v map[string]any) *FallbackPa
 func (o *FallbackParams) GetIndexLanguages() []SupportedLanguage {
 	if o == nil || o.IndexLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.IndexLanguages
 }
 
@@ -1957,6 +2108,7 @@ func (o *FallbackParams) GetIndexLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.IndexLanguages == nil {
 		return nil, false
 	}
+
 	return o.IndexLanguages, true
 }
 
@@ -1972,6 +2124,7 @@ func (o *FallbackParams) HasIndexLanguages() bool {
 // SetIndexLanguages gets a reference to the given []SupportedLanguage and assigns it to the IndexLanguages field.
 func (o *FallbackParams) SetIndexLanguages(v []SupportedLanguage) *FallbackParams {
 	o.IndexLanguages = v
+
 	return o
 }
 
@@ -1979,8 +2132,10 @@ func (o *FallbackParams) SetIndexLanguages(v []SupportedLanguage) *FallbackParam
 func (o *FallbackParams) GetDisablePrefixOnAttributes() []string {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisablePrefixOnAttributes
 }
 
@@ -1990,6 +2145,7 @@ func (o *FallbackParams) GetDisablePrefixOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisablePrefixOnAttributes, true
 }
 
@@ -2005,6 +2161,7 @@ func (o *FallbackParams) HasDisablePrefixOnAttributes() bool {
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
 func (o *FallbackParams) SetDisablePrefixOnAttributes(v []string) *FallbackParams {
 	o.DisablePrefixOnAttributes = v
+
 	return o
 }
 
@@ -2012,8 +2169,10 @@ func (o *FallbackParams) SetDisablePrefixOnAttributes(v []string) *FallbackParam
 func (o *FallbackParams) GetAllowCompressionOfIntegerArray() bool {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowCompressionOfIntegerArray
 }
 
@@ -2023,6 +2182,7 @@ func (o *FallbackParams) GetAllowCompressionOfIntegerArrayOk() (*bool, bool) {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		return nil, false
 	}
+
 	return o.AllowCompressionOfIntegerArray, true
 }
 
@@ -2038,6 +2198,7 @@ func (o *FallbackParams) HasAllowCompressionOfIntegerArray() bool {
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
 func (o *FallbackParams) SetAllowCompressionOfIntegerArray(v bool) *FallbackParams {
 	o.AllowCompressionOfIntegerArray = &v
+
 	return o
 }
 
@@ -2045,8 +2206,10 @@ func (o *FallbackParams) SetAllowCompressionOfIntegerArray(v bool) *FallbackPara
 func (o *FallbackParams) GetNumericAttributesForFiltering() []string {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.NumericAttributesForFiltering
 }
 
@@ -2056,6 +2219,7 @@ func (o *FallbackParams) GetNumericAttributesForFilteringOk() ([]string, bool) {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		return nil, false
 	}
+
 	return o.NumericAttributesForFiltering, true
 }
 
@@ -2071,6 +2235,7 @@ func (o *FallbackParams) HasNumericAttributesForFiltering() bool {
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
 func (o *FallbackParams) SetNumericAttributesForFiltering(v []string) *FallbackParams {
 	o.NumericAttributesForFiltering = v
+
 	return o
 }
 
@@ -2078,8 +2243,10 @@ func (o *FallbackParams) SetNumericAttributesForFiltering(v []string) *FallbackP
 func (o *FallbackParams) GetSeparatorsToIndex() string {
 	if o == nil || o.SeparatorsToIndex == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SeparatorsToIndex
 }
 
@@ -2089,6 +2256,7 @@ func (o *FallbackParams) GetSeparatorsToIndexOk() (*string, bool) {
 	if o == nil || o.SeparatorsToIndex == nil {
 		return nil, false
 	}
+
 	return o.SeparatorsToIndex, true
 }
 
@@ -2104,6 +2272,7 @@ func (o *FallbackParams) HasSeparatorsToIndex() bool {
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
 func (o *FallbackParams) SetSeparatorsToIndex(v string) *FallbackParams {
 	o.SeparatorsToIndex = &v
+
 	return o
 }
 
@@ -2111,8 +2280,10 @@ func (o *FallbackParams) SetSeparatorsToIndex(v string) *FallbackParams {
 func (o *FallbackParams) GetSearchableAttributes() []string {
 	if o == nil || o.SearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.SearchableAttributes
 }
 
@@ -2122,6 +2293,7 @@ func (o *FallbackParams) GetSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.SearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.SearchableAttributes, true
 }
 
@@ -2137,6 +2309,7 @@ func (o *FallbackParams) HasSearchableAttributes() bool {
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
 func (o *FallbackParams) SetSearchableAttributes(v []string) *FallbackParams {
 	o.SearchableAttributes = v
+
 	return o
 }
 
@@ -2144,8 +2317,10 @@ func (o *FallbackParams) SetSearchableAttributes(v []string) *FallbackParams {
 func (o *FallbackParams) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -2156,6 +2331,7 @@ func (o *FallbackParams) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -2171,6 +2347,7 @@ func (o *FallbackParams) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *FallbackParams) SetUserData(v any) *FallbackParams {
 	o.UserData = v
+
 	return o
 }
 
@@ -2178,8 +2355,10 @@ func (o *FallbackParams) SetUserData(v any) *FallbackParams {
 func (o *FallbackParams) GetCustomNormalization() map[string]map[string]string {
 	if o == nil || o.CustomNormalization == nil {
 		var ret map[string]map[string]string
+
 		return ret
 	}
+
 	return *o.CustomNormalization
 }
 
@@ -2189,6 +2368,7 @@ func (o *FallbackParams) GetCustomNormalizationOk() (*map[string]map[string]stri
 	if o == nil || o.CustomNormalization == nil {
 		return nil, false
 	}
+
 	return o.CustomNormalization, true
 }
 
@@ -2204,6 +2384,7 @@ func (o *FallbackParams) HasCustomNormalization() bool {
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
 func (o *FallbackParams) SetCustomNormalization(v map[string]map[string]string) *FallbackParams {
 	o.CustomNormalization = &v
+
 	return o
 }
 
@@ -2211,8 +2392,10 @@ func (o *FallbackParams) SetCustomNormalization(v map[string]map[string]string) 
 func (o *FallbackParams) GetAttributeForDistinct() string {
 	if o == nil || o.AttributeForDistinct == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AttributeForDistinct
 }
 
@@ -2222,6 +2405,7 @@ func (o *FallbackParams) GetAttributeForDistinctOk() (*string, bool) {
 	if o == nil || o.AttributeForDistinct == nil {
 		return nil, false
 	}
+
 	return o.AttributeForDistinct, true
 }
 
@@ -2237,6 +2421,7 @@ func (o *FallbackParams) HasAttributeForDistinct() bool {
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
 func (o *FallbackParams) SetAttributeForDistinct(v string) *FallbackParams {
 	o.AttributeForDistinct = &v
+
 	return o
 }
 
@@ -2244,8 +2429,10 @@ func (o *FallbackParams) SetAttributeForDistinct(v string) *FallbackParams {
 func (o *FallbackParams) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -2255,6 +2442,7 @@ func (o *FallbackParams) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -2270,6 +2458,7 @@ func (o *FallbackParams) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *FallbackParams) SetMaxFacetHits(v int32) *FallbackParams {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -2277,8 +2466,10 @@ func (o *FallbackParams) SetMaxFacetHits(v int32) *FallbackParams {
 func (o *FallbackParams) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.KeepDiacriticsOnCharacters
 }
 
@@ -2288,6 +2479,7 @@ func (o *FallbackParams) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
+
 	return o.KeepDiacriticsOnCharacters, true
 }
 
@@ -2303,6 +2495,7 @@ func (o *FallbackParams) HasKeepDiacriticsOnCharacters() bool {
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
 func (o *FallbackParams) SetKeepDiacriticsOnCharacters(v string) *FallbackParams {
 	o.KeepDiacriticsOnCharacters = &v
+
 	return o
 }
 
@@ -2310,8 +2503,10 @@ func (o *FallbackParams) SetKeepDiacriticsOnCharacters(v string) *FallbackParams
 func (o *FallbackParams) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CustomRanking
 }
 
@@ -2321,6 +2516,7 @@ func (o *FallbackParams) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
+
 	return o.CustomRanking, true
 }
 
@@ -2336,6 +2532,7 @@ func (o *FallbackParams) HasCustomRanking() bool {
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
 func (o *FallbackParams) SetCustomRanking(v []string) *FallbackParams {
 	o.CustomRanking = v
+
 	return o
 }
 
@@ -2343,8 +2540,10 @@ func (o *FallbackParams) SetCustomRanking(v []string) *FallbackParams {
 func (o *FallbackParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -2354,6 +2553,7 @@ func (o *FallbackParams) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -2369,6 +2569,7 @@ func (o *FallbackParams) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *FallbackParams) SetAttributesToRetrieve(v []string) *FallbackParams {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -2376,8 +2577,10 @@ func (o *FallbackParams) SetAttributesToRetrieve(v []string) *FallbackParams {
 func (o *FallbackParams) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -2387,6 +2590,7 @@ func (o *FallbackParams) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -2402,6 +2606,7 @@ func (o *FallbackParams) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *FallbackParams) SetRanking(v []string) *FallbackParams {
 	o.Ranking = v
+
 	return o
 }
 
@@ -2409,8 +2614,10 @@ func (o *FallbackParams) SetRanking(v []string) *FallbackParams {
 func (o *FallbackParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -2420,6 +2627,7 @@ func (o *FallbackParams) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -2435,6 +2643,7 @@ func (o *FallbackParams) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *FallbackParams) SetRelevancyStrictness(v int32) *FallbackParams {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -2442,8 +2651,10 @@ func (o *FallbackParams) SetRelevancyStrictness(v int32) *FallbackParams {
 func (o *FallbackParams) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -2453,6 +2664,7 @@ func (o *FallbackParams) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -2468,6 +2680,7 @@ func (o *FallbackParams) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *FallbackParams) SetAttributesToHighlight(v []string) *FallbackParams {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -2475,8 +2688,10 @@ func (o *FallbackParams) SetAttributesToHighlight(v []string) *FallbackParams {
 func (o *FallbackParams) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -2486,6 +2701,7 @@ func (o *FallbackParams) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -2501,6 +2717,7 @@ func (o *FallbackParams) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *FallbackParams) SetAttributesToSnippet(v []string) *FallbackParams {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -2508,8 +2725,10 @@ func (o *FallbackParams) SetAttributesToSnippet(v []string) *FallbackParams {
 func (o *FallbackParams) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -2519,6 +2738,7 @@ func (o *FallbackParams) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -2534,6 +2754,7 @@ func (o *FallbackParams) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *FallbackParams) SetHighlightPreTag(v string) *FallbackParams {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -2541,8 +2762,10 @@ func (o *FallbackParams) SetHighlightPreTag(v string) *FallbackParams {
 func (o *FallbackParams) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -2552,6 +2775,7 @@ func (o *FallbackParams) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -2567,6 +2791,7 @@ func (o *FallbackParams) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *FallbackParams) SetHighlightPostTag(v string) *FallbackParams {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -2574,8 +2799,10 @@ func (o *FallbackParams) SetHighlightPostTag(v string) *FallbackParams {
 func (o *FallbackParams) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -2585,6 +2812,7 @@ func (o *FallbackParams) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -2600,6 +2828,7 @@ func (o *FallbackParams) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *FallbackParams) SetSnippetEllipsisText(v string) *FallbackParams {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -2607,8 +2836,10 @@ func (o *FallbackParams) SetSnippetEllipsisText(v string) *FallbackParams {
 func (o *FallbackParams) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -2618,6 +2849,7 @@ func (o *FallbackParams) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) 
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -2633,6 +2865,7 @@ func (o *FallbackParams) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *FallbackParams) SetRestrictHighlightAndSnippetArrays(v bool) *FallbackParams {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -2640,8 +2873,10 @@ func (o *FallbackParams) SetRestrictHighlightAndSnippetArrays(v bool) *FallbackP
 func (o *FallbackParams) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -2651,6 +2886,7 @@ func (o *FallbackParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -2666,6 +2902,7 @@ func (o *FallbackParams) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *FallbackParams) SetMinWordSizefor1Typo(v int32) *FallbackParams {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -2673,8 +2910,10 @@ func (o *FallbackParams) SetMinWordSizefor1Typo(v int32) *FallbackParams {
 func (o *FallbackParams) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -2684,6 +2923,7 @@ func (o *FallbackParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -2699,6 +2939,7 @@ func (o *FallbackParams) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *FallbackParams) SetMinWordSizefor2Typos(v int32) *FallbackParams {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -2706,8 +2947,10 @@ func (o *FallbackParams) SetMinWordSizefor2Typos(v int32) *FallbackParams {
 func (o *FallbackParams) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -2717,6 +2960,7 @@ func (o *FallbackParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -2732,6 +2976,7 @@ func (o *FallbackParams) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *FallbackParams) SetTypoTolerance(v *TypoTolerance) *FallbackParams {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -2739,8 +2984,10 @@ func (o *FallbackParams) SetTypoTolerance(v *TypoTolerance) *FallbackParams {
 func (o *FallbackParams) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -2750,6 +2997,7 @@ func (o *FallbackParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -2765,6 +3013,7 @@ func (o *FallbackParams) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *FallbackParams) SetAllowTyposOnNumericTokens(v bool) *FallbackParams {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -2772,8 +3021,10 @@ func (o *FallbackParams) SetAllowTyposOnNumericTokens(v bool) *FallbackParams {
 func (o *FallbackParams) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -2783,6 +3034,7 @@ func (o *FallbackParams) GetDisableTypoToleranceOnAttributesOk() ([]string, bool
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -2798,6 +3050,7 @@ func (o *FallbackParams) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *FallbackParams) SetDisableTypoToleranceOnAttributes(v []string) *FallbackParams {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -2805,8 +3058,10 @@ func (o *FallbackParams) SetDisableTypoToleranceOnAttributes(v []string) *Fallba
 func (o *FallbackParams) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -2816,6 +3071,7 @@ func (o *FallbackParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -2831,6 +3087,7 @@ func (o *FallbackParams) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *FallbackParams) SetIgnorePlurals(v *IgnorePlurals) *FallbackParams {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -2838,8 +3095,10 @@ func (o *FallbackParams) SetIgnorePlurals(v *IgnorePlurals) *FallbackParams {
 func (o *FallbackParams) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -2849,6 +3108,7 @@ func (o *FallbackParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -2864,6 +3124,7 @@ func (o *FallbackParams) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *FallbackParams) SetRemoveStopWords(v *RemoveStopWords) *FallbackParams {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -2871,8 +3132,10 @@ func (o *FallbackParams) SetRemoveStopWords(v *RemoveStopWords) *FallbackParams 
 func (o *FallbackParams) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -2882,6 +3145,7 @@ func (o *FallbackParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -2897,6 +3161,7 @@ func (o *FallbackParams) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *FallbackParams) SetQueryLanguages(v []SupportedLanguage) *FallbackParams {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -2904,8 +3169,10 @@ func (o *FallbackParams) SetQueryLanguages(v []SupportedLanguage) *FallbackParam
 func (o *FallbackParams) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -2915,6 +3182,7 @@ func (o *FallbackParams) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -2930,6 +3198,7 @@ func (o *FallbackParams) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *FallbackParams) SetDecompoundQuery(v bool) *FallbackParams {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -2937,8 +3206,10 @@ func (o *FallbackParams) SetDecompoundQuery(v bool) *FallbackParams {
 func (o *FallbackParams) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -2948,6 +3219,7 @@ func (o *FallbackParams) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -2963,6 +3235,7 @@ func (o *FallbackParams) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *FallbackParams) SetEnableRules(v bool) *FallbackParams {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -2970,8 +3243,10 @@ func (o *FallbackParams) SetEnableRules(v bool) *FallbackParams {
 func (o *FallbackParams) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -2981,6 +3256,7 @@ func (o *FallbackParams) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -2996,6 +3272,7 @@ func (o *FallbackParams) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *FallbackParams) SetEnablePersonalization(v bool) *FallbackParams {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -3003,8 +3280,10 @@ func (o *FallbackParams) SetEnablePersonalization(v bool) *FallbackParams {
 func (o *FallbackParams) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -3014,6 +3293,7 @@ func (o *FallbackParams) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -3029,6 +3309,7 @@ func (o *FallbackParams) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *FallbackParams) SetQueryType(v QueryType) *FallbackParams {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -3036,8 +3317,10 @@ func (o *FallbackParams) SetQueryType(v QueryType) *FallbackParams {
 func (o *FallbackParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -3047,6 +3330,7 @@ func (o *FallbackParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults,
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -3062,6 +3346,7 @@ func (o *FallbackParams) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *FallbackParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *FallbackParams {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -3069,8 +3354,10 @@ func (o *FallbackParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *Fa
 func (o *FallbackParams) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -3080,6 +3367,7 @@ func (o *FallbackParams) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -3095,6 +3383,7 @@ func (o *FallbackParams) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *FallbackParams) SetAdvancedSyntax(v bool) *FallbackParams {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -3102,8 +3391,10 @@ func (o *FallbackParams) SetAdvancedSyntax(v bool) *FallbackParams {
 func (o *FallbackParams) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -3114,6 +3405,7 @@ func (o *FallbackParams) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -3129,6 +3421,7 @@ func (o *FallbackParams) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *FallbackParams) SetOptionalWords(v *OptionalWords) *FallbackParams {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -3146,8 +3439,10 @@ func (o *FallbackParams) UnsetOptionalWords() {
 func (o *FallbackParams) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -3157,6 +3452,7 @@ func (o *FallbackParams) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -3172,6 +3468,7 @@ func (o *FallbackParams) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *FallbackParams) SetDisableExactOnAttributes(v []string) *FallbackParams {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -3179,8 +3476,10 @@ func (o *FallbackParams) SetDisableExactOnAttributes(v []string) *FallbackParams
 func (o *FallbackParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -3190,6 +3489,7 @@ func (o *FallbackParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery,
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -3205,6 +3505,7 @@ func (o *FallbackParams) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *FallbackParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *FallbackParams {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -3212,8 +3513,10 @@ func (o *FallbackParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *Fa
 func (o *FallbackParams) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -3223,6 +3526,7 @@ func (o *FallbackParams) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -3238,6 +3542,7 @@ func (o *FallbackParams) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *FallbackParams) SetAlternativesAsExact(v []AlternativesAsExact) *FallbackParams {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -3245,8 +3550,10 @@ func (o *FallbackParams) SetAlternativesAsExact(v []AlternativesAsExact) *Fallba
 func (o *FallbackParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -3256,6 +3563,7 @@ func (o *FallbackParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -3271,6 +3579,7 @@ func (o *FallbackParams) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *FallbackParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *FallbackParams {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -3278,8 +3587,10 @@ func (o *FallbackParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *
 func (o *FallbackParams) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -3289,6 +3600,7 @@ func (o *FallbackParams) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -3304,6 +3616,7 @@ func (o *FallbackParams) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *FallbackParams) SetDistinct(v *Distinct) *FallbackParams {
 	o.Distinct = v
+
 	return o
 }
 
@@ -3311,8 +3624,10 @@ func (o *FallbackParams) SetDistinct(v *Distinct) *FallbackParams {
 func (o *FallbackParams) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -3322,6 +3637,7 @@ func (o *FallbackParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -3337,6 +3653,7 @@ func (o *FallbackParams) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *FallbackParams) SetReplaceSynonymsInHighlight(v bool) *FallbackParams {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -3344,8 +3661,10 @@ func (o *FallbackParams) SetReplaceSynonymsInHighlight(v bool) *FallbackParams {
 func (o *FallbackParams) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -3355,6 +3674,7 @@ func (o *FallbackParams) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -3370,6 +3690,7 @@ func (o *FallbackParams) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *FallbackParams) SetMinProximity(v int32) *FallbackParams {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -3377,8 +3698,10 @@ func (o *FallbackParams) SetMinProximity(v int32) *FallbackParams {
 func (o *FallbackParams) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -3388,6 +3711,7 @@ func (o *FallbackParams) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -3403,6 +3727,7 @@ func (o *FallbackParams) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *FallbackParams) SetResponseFields(v []string) *FallbackParams {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -3410,8 +3735,10 @@ func (o *FallbackParams) SetResponseFields(v []string) *FallbackParams {
 func (o *FallbackParams) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -3421,6 +3748,7 @@ func (o *FallbackParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -3436,6 +3764,7 @@ func (o *FallbackParams) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *FallbackParams) SetMaxValuesPerFacet(v int32) *FallbackParams {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -3443,8 +3772,10 @@ func (o *FallbackParams) SetMaxValuesPerFacet(v int32) *FallbackParams {
 func (o *FallbackParams) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -3454,6 +3785,7 @@ func (o *FallbackParams) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -3469,6 +3801,7 @@ func (o *FallbackParams) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *FallbackParams) SetSortFacetValuesBy(v string) *FallbackParams {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -3476,8 +3809,10 @@ func (o *FallbackParams) SetSortFacetValuesBy(v string) *FallbackParams {
 func (o *FallbackParams) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -3487,6 +3822,7 @@ func (o *FallbackParams) GetAttributeCriteriaComputedByMinProximityOk() (*bool, 
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -3502,6 +3838,7 @@ func (o *FallbackParams) HasAttributeCriteriaComputedByMinProximity() bool {
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *FallbackParams) SetAttributeCriteriaComputedByMinProximity(v bool) *FallbackParams {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -3509,8 +3846,10 @@ func (o *FallbackParams) SetAttributeCriteriaComputedByMinProximity(v bool) *Fal
 func (o *FallbackParams) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -3520,6 +3859,7 @@ func (o *FallbackParams) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -3535,6 +3875,7 @@ func (o *FallbackParams) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *FallbackParams) SetRenderingContent(v *RenderingContent) *FallbackParams {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -3542,8 +3883,10 @@ func (o *FallbackParams) SetRenderingContent(v *RenderingContent) *FallbackParam
 func (o *FallbackParams) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -3553,6 +3896,7 @@ func (o *FallbackParams) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -3568,6 +3912,7 @@ func (o *FallbackParams) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *FallbackParams) SetEnableReRanking(v bool) *FallbackParams {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -3575,8 +3920,10 @@ func (o *FallbackParams) SetEnableReRanking(v bool) *FallbackParams {
 func (o *FallbackParams) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -3586,6 +3933,7 @@ func (o *FallbackParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, boo
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -3601,6 +3949,7 @@ func (o *FallbackParams) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *FallbackParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *FallbackParams {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -3609,264 +3958,351 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.TagFilters != nil {
 		toSerialize["tagFilters"] = o.TagFilters
 	}
+
 	if o.SumOrFiltersScores != nil {
 		toSerialize["sumOrFiltersScores"] = o.SumOrFiltersScores
 	}
+
 	if o.RestrictSearchableAttributes != nil {
 		toSerialize["restrictSearchableAttributes"] = o.RestrictSearchableAttributes
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetingAfterDistinct != nil {
 		toSerialize["facetingAfterDistinct"] = o.FacetingAfterDistinct
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundLatLngViaIP != nil {
 		toSerialize["aroundLatLngViaIP"] = o.AroundLatLngViaIP
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.AroundPrecision != nil {
 		toSerialize["aroundPrecision"] = o.AroundPrecision
 	}
+
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AnalyticsTags != nil {
 		toSerialize["analyticsTags"] = o.AnalyticsTags
 	}
+
 	if o.PercentileComputation != nil {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.AttributesForFaceting != nil {
 		toSerialize["attributesForFaceting"] = o.AttributesForFaceting
 	}
+
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+
 	if o.PaginationLimitedTo != nil {
 		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
 	}
+
 	if o.UnretrievableAttributes != nil {
 		toSerialize["unretrievableAttributes"] = o.UnretrievableAttributes
 	}
+
 	if o.DisableTypoToleranceOnWords != nil {
 		toSerialize["disableTypoToleranceOnWords"] = o.DisableTypoToleranceOnWords
 	}
+
 	if o.AttributesToTransliterate != nil {
 		toSerialize["attributesToTransliterate"] = o.AttributesToTransliterate
 	}
+
 	if o.CamelCaseAttributes != nil {
 		toSerialize["camelCaseAttributes"] = o.CamelCaseAttributes
 	}
+
 	if o.DecompoundedAttributes != nil {
 		toSerialize["decompoundedAttributes"] = o.DecompoundedAttributes
 	}
+
 	if o.IndexLanguages != nil {
 		toSerialize["indexLanguages"] = o.IndexLanguages
 	}
+
 	if o.DisablePrefixOnAttributes != nil {
 		toSerialize["disablePrefixOnAttributes"] = o.DisablePrefixOnAttributes
 	}
+
 	if o.AllowCompressionOfIntegerArray != nil {
 		toSerialize["allowCompressionOfIntegerArray"] = o.AllowCompressionOfIntegerArray
 	}
+
 	if o.NumericAttributesForFiltering != nil {
 		toSerialize["numericAttributesForFiltering"] = o.NumericAttributesForFiltering
 	}
+
 	if o.SeparatorsToIndex != nil {
 		toSerialize["separatorsToIndex"] = o.SeparatorsToIndex
 	}
+
 	if o.SearchableAttributes != nil {
 		toSerialize["searchableAttributes"] = o.SearchableAttributes
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.CustomNormalization != nil {
 		toSerialize["customNormalization"] = o.CustomNormalization
 	}
+
 	if o.AttributeForDistinct != nil {
 		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	if o.KeepDiacriticsOnCharacters != nil {
 		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
 	}
+
 	if o.CustomRanking != nil {
 		toSerialize["customRanking"] = o.CustomRanking
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FallbackParams: %w", err)
@@ -3964,5 +4400,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+
 	return fmt.Sprintf("FallbackParams {\n%s}", out)
 }

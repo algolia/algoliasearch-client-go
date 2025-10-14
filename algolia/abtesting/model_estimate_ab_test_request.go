@@ -21,6 +21,7 @@ func NewEstimateABTestRequest(configuration EstimateConfiguration, variants []Ad
 	this := &EstimateABTestRequest{}
 	this.Configuration = configuration
 	this.Variants = variants
+
 	return this
 }
 
@@ -33,6 +34,7 @@ func NewEmptyEstimateABTestRequest() *EstimateABTestRequest {
 func (o *EstimateABTestRequest) GetConfiguration() EstimateConfiguration {
 	if o == nil {
 		var ret EstimateConfiguration
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *EstimateABTestRequest) GetConfigurationOk() (*EstimateConfiguration, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Configuration, true
 }
 
 // SetConfiguration sets field value.
 func (o *EstimateABTestRequest) SetConfiguration(v *EstimateConfiguration) *EstimateABTestRequest {
 	o.Configuration = *v
+
 	return o
 }
 
@@ -58,6 +62,7 @@ func (o *EstimateABTestRequest) SetConfiguration(v *EstimateConfiguration) *Esti
 func (o *EstimateABTestRequest) GetVariants() []AddABTestsVariant {
 	if o == nil {
 		var ret []AddABTestsVariant
+
 		return ret
 	}
 
@@ -70,12 +75,14 @@ func (o *EstimateABTestRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *EstimateABTestRequest) SetVariants(v []AddABTestsVariant) *EstimateABTestRequest {
 	o.Variants = v
+
 	return o
 }
 
@@ -83,6 +90,7 @@ func (o EstimateABTestRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["configuration"] = o.Configuration
 	toSerialize["variants"] = o.Variants
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateABTestRequest: %w", err)
@@ -95,5 +103,6 @@ func (o EstimateABTestRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
+
 	return fmt.Sprintf("EstimateABTestRequest {\n%s}", out)
 }

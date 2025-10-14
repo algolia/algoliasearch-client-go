@@ -70,6 +70,7 @@ func NewSearchCompositionRulesParams(opts ...SearchCompositionRulesParamsOption)
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -82,8 +83,10 @@ func NewEmptySearchCompositionRulesParams() *SearchCompositionRulesParams {
 func (o *SearchCompositionRulesParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -93,6 +96,7 @@ func (o *SearchCompositionRulesParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -108,6 +112,7 @@ func (o *SearchCompositionRulesParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchCompositionRulesParams) SetQuery(v string) *SearchCompositionRulesParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -115,8 +120,10 @@ func (o *SearchCompositionRulesParams) SetQuery(v string) *SearchCompositionRule
 func (o *SearchCompositionRulesParams) GetAnchoring() Anchoring {
 	if o == nil || o.Anchoring == nil {
 		var ret Anchoring
+
 		return ret
 	}
+
 	return *o.Anchoring
 }
 
@@ -126,6 +133,7 @@ func (o *SearchCompositionRulesParams) GetAnchoringOk() (*Anchoring, bool) {
 	if o == nil || o.Anchoring == nil {
 		return nil, false
 	}
+
 	return o.Anchoring, true
 }
 
@@ -141,6 +149,7 @@ func (o *SearchCompositionRulesParams) HasAnchoring() bool {
 // SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
 func (o *SearchCompositionRulesParams) SetAnchoring(v Anchoring) *SearchCompositionRulesParams {
 	o.Anchoring = &v
+
 	return o
 }
 
@@ -148,8 +157,10 @@ func (o *SearchCompositionRulesParams) SetAnchoring(v Anchoring) *SearchComposit
 func (o *SearchCompositionRulesParams) GetContext() string {
 	if o == nil || o.Context == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Context
 }
 
@@ -159,6 +170,7 @@ func (o *SearchCompositionRulesParams) GetContextOk() (*string, bool) {
 	if o == nil || o.Context == nil {
 		return nil, false
 	}
+
 	return o.Context, true
 }
 
@@ -174,6 +186,7 @@ func (o *SearchCompositionRulesParams) HasContext() bool {
 // SetContext gets a reference to the given string and assigns it to the Context field.
 func (o *SearchCompositionRulesParams) SetContext(v string) *SearchCompositionRulesParams {
 	o.Context = &v
+
 	return o
 }
 
@@ -181,8 +194,10 @@ func (o *SearchCompositionRulesParams) SetContext(v string) *SearchCompositionRu
 func (o *SearchCompositionRulesParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -192,6 +207,7 @@ func (o *SearchCompositionRulesParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -207,6 +223,7 @@ func (o *SearchCompositionRulesParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchCompositionRulesParams) SetPage(v int32) *SearchCompositionRulesParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -214,8 +231,10 @@ func (o *SearchCompositionRulesParams) SetPage(v int32) *SearchCompositionRulesP
 func (o *SearchCompositionRulesParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -225,6 +244,7 @@ func (o *SearchCompositionRulesParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -240,6 +260,7 @@ func (o *SearchCompositionRulesParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchCompositionRulesParams) SetHitsPerPage(v int32) *SearchCompositionRulesParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -247,8 +268,10 @@ func (o *SearchCompositionRulesParams) SetHitsPerPage(v int32) *SearchCompositio
 func (o *SearchCompositionRulesParams) GetEnabled() bool {
 	if o == nil || o.Enabled.Get() == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled.Get()
 }
 
@@ -259,6 +282,7 @@ func (o *SearchCompositionRulesParams) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Enabled.Get(), o.Enabled.IsSet()
 }
 
@@ -274,6 +298,7 @@ func (o *SearchCompositionRulesParams) HasEnabled() bool {
 // SetEnabled gets a reference to the given utils.Nullable[bool] and assigns it to the Enabled field.
 func (o *SearchCompositionRulesParams) SetEnabled(v bool) *SearchCompositionRulesParams {
 	o.Enabled.Set(&v)
+
 	return o
 }
 
@@ -292,21 +317,27 @@ func (o SearchCompositionRulesParams) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.Anchoring != nil {
 		toSerialize["anchoring"] = o.Anchoring
 	}
+
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.Enabled.IsSet() {
 		toSerialize["enabled"] = o.Enabled.Get()
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchCompositionRulesParams: %w", err)
@@ -323,5 +354,6 @@ func (o SearchCompositionRulesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+
 	return fmt.Sprintf("SearchCompositionRulesParams {\n%s}", out)
 }

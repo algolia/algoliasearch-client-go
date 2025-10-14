@@ -19,24 +19,7 @@ var AllowedStreamingTriggerTypeEnumValues = []StreamingTriggerType{
 	"streaming",
 }
 
-func (v *StreamingTriggerType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'StreamingTriggerType': %w", string(src), err)
-	}
-	enumTypeValue := StreamingTriggerType(value)
-	for _, existing := range AllowedStreamingTriggerTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid StreamingTriggerType", value)
-}
-
-// NewStreamingTriggerTypeFromValue returns a pointer to a valid StreamingTriggerType
+// NewStreamingTriggerTypeFromValue returns a pointer to a valid StreamingTriggerType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewStreamingTriggerTypeFromValue(v string) (*StreamingTriggerType, error) {
 	ev := StreamingTriggerType(v)
@@ -47,6 +30,26 @@ func NewStreamingTriggerTypeFromValue(v string) (*StreamingTriggerType, error) {
 	}
 }
 
+func (v *StreamingTriggerType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'StreamingTriggerType': %w", string(src), err)
+	}
+
+	enumTypeValue := StreamingTriggerType(value)
+	for _, existing := range AllowedStreamingTriggerTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid StreamingTriggerType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v StreamingTriggerType) IsValid() bool {
 	for _, existing := range AllowedStreamingTriggerTypeEnumValues {
@@ -54,6 +57,7 @@ func (v StreamingTriggerType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

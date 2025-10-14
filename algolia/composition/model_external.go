@@ -34,10 +34,12 @@ func WithExternalOrdering(val ExternalOrdering) ExternalOption {
 // will change when the set of required properties is changed.
 func NewExternal(index string, opts ...ExternalOption) *External {
 	this := &External{}
+
 	this.Index = index
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -50,6 +52,7 @@ func NewEmptyExternal() *External {
 func (o *External) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -62,12 +65,14 @@ func (o *External) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *External) SetIndex(v string) *External {
 	o.Index = v
+
 	return o
 }
 
@@ -75,8 +80,10 @@ func (o *External) SetIndex(v string) *External {
 func (o *External) GetParams() BaseInjectionQueryParameters {
 	if o == nil || o.Params == nil {
 		var ret BaseInjectionQueryParameters
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -86,6 +93,7 @@ func (o *External) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -101,6 +109,7 @@ func (o *External) HasParams() bool {
 // SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
 func (o *External) SetParams(v *BaseInjectionQueryParameters) *External {
 	o.Params = v
+
 	return o
 }
 
@@ -108,8 +117,10 @@ func (o *External) SetParams(v *BaseInjectionQueryParameters) *External {
 func (o *External) GetOrdering() ExternalOrdering {
 	if o == nil || o.Ordering == nil {
 		var ret ExternalOrdering
+
 		return ret
 	}
+
 	return *o.Ordering
 }
 
@@ -119,6 +130,7 @@ func (o *External) GetOrderingOk() (*ExternalOrdering, bool) {
 	if o == nil || o.Ordering == nil {
 		return nil, false
 	}
+
 	return o.Ordering, true
 }
 
@@ -134,18 +146,22 @@ func (o *External) HasOrdering() bool {
 // SetOrdering gets a reference to the given ExternalOrdering and assigns it to the Ordering field.
 func (o *External) SetOrdering(v ExternalOrdering) *External {
 	o.Ordering = &v
+
 	return o
 }
 
 func (o External) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["index"] = o.Index
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	if o.Ordering != nil {
 		toSerialize["ordering"] = o.Ordering
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal External: %w", err)
@@ -159,5 +175,6 @@ func (o External) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  ordering=%v\n", o.Ordering)
+
 	return fmt.Sprintf("External {\n%s}", out)
 }

@@ -22,6 +22,7 @@ func NewTopHit(hit string, count int32) *TopHit {
 	this := &TopHit{}
 	this.Hit = hit
 	this.Count = count
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTopHit() *TopHit {
 func (o *TopHit) GetHit() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *TopHit) GetHitOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Hit, true
 }
 
 // SetHit sets field value.
 func (o *TopHit) SetHit(v string) *TopHit {
 	o.Hit = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *TopHit) SetHit(v string) *TopHit {
 func (o *TopHit) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *TopHit) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopHit) SetCount(v int32) *TopHit {
 	o.Count = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o TopHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["hit"] = o.Hit
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHit: %w", err)
@@ -96,5 +104,6 @@ func (o TopHit) String() string {
 	out := ""
 	out += fmt.Sprintf("  hit=%v\n", o.Hit)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("TopHit {\n%s}", out)
 }

@@ -53,6 +53,7 @@ func NewFacetStats(opts ...FacetStatsOption) *FacetStats {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -65,8 +66,10 @@ func NewEmptyFacetStats() *FacetStats {
 func (o *FacetStats) GetMin() float64 {
 	if o == nil || o.Min == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Min
 }
 
@@ -76,6 +79,7 @@ func (o *FacetStats) GetMinOk() (*float64, bool) {
 	if o == nil || o.Min == nil {
 		return nil, false
 	}
+
 	return o.Min, true
 }
 
@@ -91,6 +95,7 @@ func (o *FacetStats) HasMin() bool {
 // SetMin gets a reference to the given float64 and assigns it to the Min field.
 func (o *FacetStats) SetMin(v float64) *FacetStats {
 	o.Min = &v
+
 	return o
 }
 
@@ -98,8 +103,10 @@ func (o *FacetStats) SetMin(v float64) *FacetStats {
 func (o *FacetStats) GetMax() float64 {
 	if o == nil || o.Max == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Max
 }
 
@@ -109,6 +116,7 @@ func (o *FacetStats) GetMaxOk() (*float64, bool) {
 	if o == nil || o.Max == nil {
 		return nil, false
 	}
+
 	return o.Max, true
 }
 
@@ -124,6 +132,7 @@ func (o *FacetStats) HasMax() bool {
 // SetMax gets a reference to the given float64 and assigns it to the Max field.
 func (o *FacetStats) SetMax(v float64) *FacetStats {
 	o.Max = &v
+
 	return o
 }
 
@@ -131,8 +140,10 @@ func (o *FacetStats) SetMax(v float64) *FacetStats {
 func (o *FacetStats) GetAvg() float64 {
 	if o == nil || o.Avg == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Avg
 }
 
@@ -142,6 +153,7 @@ func (o *FacetStats) GetAvgOk() (*float64, bool) {
 	if o == nil || o.Avg == nil {
 		return nil, false
 	}
+
 	return o.Avg, true
 }
 
@@ -157,6 +169,7 @@ func (o *FacetStats) HasAvg() bool {
 // SetAvg gets a reference to the given float64 and assigns it to the Avg field.
 func (o *FacetStats) SetAvg(v float64) *FacetStats {
 	o.Avg = &v
+
 	return o
 }
 
@@ -164,8 +177,10 @@ func (o *FacetStats) SetAvg(v float64) *FacetStats {
 func (o *FacetStats) GetSum() float64 {
 	if o == nil || o.Sum == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Sum
 }
 
@@ -175,6 +190,7 @@ func (o *FacetStats) GetSumOk() (*float64, bool) {
 	if o == nil || o.Sum == nil {
 		return nil, false
 	}
+
 	return o.Sum, true
 }
 
@@ -190,6 +206,7 @@ func (o *FacetStats) HasSum() bool {
 // SetSum gets a reference to the given float64 and assigns it to the Sum field.
 func (o *FacetStats) SetSum(v float64) *FacetStats {
 	o.Sum = &v
+
 	return o
 }
 
@@ -198,15 +215,19 @@ func (o FacetStats) MarshalJSON() ([]byte, error) {
 	if o.Min != nil {
 		toSerialize["min"] = o.Min
 	}
+
 	if o.Max != nil {
 		toSerialize["max"] = o.Max
 	}
+
 	if o.Avg != nil {
 		toSerialize["avg"] = o.Avg
 	}
+
 	if o.Sum != nil {
 		toSerialize["sum"] = o.Sum
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetStats: %w", err)
@@ -221,5 +242,6 @@ func (o FacetStats) String() string {
 	out += fmt.Sprintf("  max=%v\n", o.Max)
 	out += fmt.Sprintf("  avg=%v\n", o.Avg)
 	out += fmt.Sprintf("  sum=%v\n", o.Sum)
+
 	return fmt.Sprintf("FacetStats {\n%s}", out)
 }

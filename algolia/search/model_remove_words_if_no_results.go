@@ -25,24 +25,7 @@ var AllowedRemoveWordsIfNoResultsEnumValues = []RemoveWordsIfNoResults{
 	"allOptional",
 }
 
-func (v *RemoveWordsIfNoResults) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RemoveWordsIfNoResults': %w", string(src), err)
-	}
-	enumTypeValue := RemoveWordsIfNoResults(value)
-	for _, existing := range AllowedRemoveWordsIfNoResultsEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RemoveWordsIfNoResults", value)
-}
-
-// NewRemoveWordsIfNoResultsFromValue returns a pointer to a valid RemoveWordsIfNoResults
+// NewRemoveWordsIfNoResultsFromValue returns a pointer to a valid RemoveWordsIfNoResults.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRemoveWordsIfNoResultsFromValue(v string) (*RemoveWordsIfNoResults, error) {
 	ev := RemoveWordsIfNoResults(v)
@@ -53,6 +36,26 @@ func NewRemoveWordsIfNoResultsFromValue(v string) (*RemoveWordsIfNoResults, erro
 	}
 }
 
+func (v *RemoveWordsIfNoResults) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RemoveWordsIfNoResults': %w", string(src), err)
+	}
+
+	enumTypeValue := RemoveWordsIfNoResults(value)
+	for _, existing := range AllowedRemoveWordsIfNoResultsEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RemoveWordsIfNoResults", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RemoveWordsIfNoResults) IsValid() bool {
 	for _, existing := range AllowedRemoveWordsIfNoResultsEnumValues {
@@ -60,6 +63,7 @@ func (v RemoveWordsIfNoResults) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

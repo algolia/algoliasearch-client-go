@@ -25,24 +25,7 @@ var AllowedStatusEnumValues = []Status{
 	"major_outage",
 }
 
-func (v *Status) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Status': %w", string(src), err)
-	}
-	enumTypeValue := Status(value)
-	for _, existing := range AllowedStatusEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Status", value)
-}
-
-// NewStatusFromValue returns a pointer to a valid Status
+// NewStatusFromValue returns a pointer to a valid Status.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewStatusFromValue(v string) (*Status, error) {
 	ev := Status(v)
@@ -53,6 +36,26 @@ func NewStatusFromValue(v string) (*Status, error) {
 	}
 }
 
+func (v *Status) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Status': %w", string(src), err)
+	}
+
+	enumTypeValue := Status(value)
+	for _, existing := range AllowedStatusEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Status", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Status) IsValid() bool {
 	for _, existing := range AllowedStatusEnumValues {
@@ -60,6 +63,7 @@ func (v Status) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

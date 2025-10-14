@@ -41,16 +41,25 @@ func WithConvertedFiltersTimestamp(val int64) ConvertedFiltersOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewConvertedFilters(eventName string, eventType ConversionEvent, index string, filters []string, userToken string, opts ...ConvertedFiltersOption) *ConvertedFilters {
+func NewConvertedFilters(
+	eventName string,
+	eventType ConversionEvent,
+	index string,
+	filters []string,
+	userToken string,
+	opts ...ConvertedFiltersOption,
+) *ConvertedFilters {
 	this := &ConvertedFilters{}
 	this.EventName = eventName
 	this.EventType = eventType
 	this.Index = index
 	this.Filters = filters
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -63,6 +72,7 @@ func NewEmptyConvertedFilters() *ConvertedFilters {
 func (o *ConvertedFilters) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -75,12 +85,14 @@ func (o *ConvertedFilters) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *ConvertedFilters) SetEventName(v string) *ConvertedFilters {
 	o.EventName = v
+
 	return o
 }
 
@@ -88,6 +100,7 @@ func (o *ConvertedFilters) SetEventName(v string) *ConvertedFilters {
 func (o *ConvertedFilters) GetEventType() ConversionEvent {
 	if o == nil {
 		var ret ConversionEvent
+
 		return ret
 	}
 
@@ -100,12 +113,14 @@ func (o *ConvertedFilters) GetEventTypeOk() (*ConversionEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *ConvertedFilters) SetEventType(v ConversionEvent) *ConvertedFilters {
 	o.EventType = v
+
 	return o
 }
 
@@ -113,6 +128,7 @@ func (o *ConvertedFilters) SetEventType(v ConversionEvent) *ConvertedFilters {
 func (o *ConvertedFilters) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -125,12 +141,14 @@ func (o *ConvertedFilters) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ConvertedFilters) SetIndex(v string) *ConvertedFilters {
 	o.Index = v
+
 	return o
 }
 
@@ -138,6 +156,7 @@ func (o *ConvertedFilters) SetIndex(v string) *ConvertedFilters {
 func (o *ConvertedFilters) GetFilters() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -150,12 +169,14 @@ func (o *ConvertedFilters) GetFiltersOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
 // SetFilters sets field value.
 func (o *ConvertedFilters) SetFilters(v []string) *ConvertedFilters {
 	o.Filters = v
+
 	return o
 }
 
@@ -163,6 +184,7 @@ func (o *ConvertedFilters) SetFilters(v []string) *ConvertedFilters {
 func (o *ConvertedFilters) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -175,12 +197,14 @@ func (o *ConvertedFilters) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *ConvertedFilters) SetUserToken(v string) *ConvertedFilters {
 	o.UserToken = v
+
 	return o
 }
 
@@ -188,8 +212,10 @@ func (o *ConvertedFilters) SetUserToken(v string) *ConvertedFilters {
 func (o *ConvertedFilters) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -199,6 +225,7 @@ func (o *ConvertedFilters) GetAuthenticatedUserTokenOk() (*string, bool) {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -214,6 +241,7 @@ func (o *ConvertedFilters) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *ConvertedFilters) SetAuthenticatedUserToken(v string) *ConvertedFilters {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -221,8 +249,10 @@ func (o *ConvertedFilters) SetAuthenticatedUserToken(v string) *ConvertedFilters
 func (o *ConvertedFilters) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -232,6 +262,7 @@ func (o *ConvertedFilters) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -247,6 +278,7 @@ func (o *ConvertedFilters) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *ConvertedFilters) SetTimestamp(v int64) *ConvertedFilters {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -256,13 +288,16 @@ func (o ConvertedFilters) MarshalJSON() ([]byte, error) {
 	toSerialize["eventType"] = o.EventType
 	toSerialize["index"] = o.Index
 	toSerialize["filters"] = o.Filters
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConvertedFilters: %w", err)
@@ -280,5 +315,6 @@ func (o ConvertedFilters) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+
 	return fmt.Sprintf("ConvertedFilters {\n%s}", out)
 }

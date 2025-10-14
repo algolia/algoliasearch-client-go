@@ -27,6 +27,7 @@ func NewDailyAverageClicks(average utils.Nullable[float64], clickCount int32, da
 	this.Average = average
 	this.ClickCount = clickCount
 	this.Date = date
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptyDailyAverageClicks() *DailyAverageClicks {
 func (o *DailyAverageClicks) GetAverage() float64 {
 	if o == nil || o.Average.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -53,12 +55,14 @@ func (o *DailyAverageClicks) GetAverageOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Average.Get(), o.Average.IsSet()
 }
 
 // SetAverage sets field value.
 func (o *DailyAverageClicks) SetAverage(v float64) *DailyAverageClicks {
 	o.Average.Set(&v)
+
 	return o
 }
 
@@ -66,6 +70,7 @@ func (o *DailyAverageClicks) SetAverage(v float64) *DailyAverageClicks {
 func (o *DailyAverageClicks) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -78,12 +83,14 @@ func (o *DailyAverageClicks) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *DailyAverageClicks) SetClickCount(v int32) *DailyAverageClicks {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -91,6 +98,7 @@ func (o *DailyAverageClicks) SetClickCount(v int32) *DailyAverageClicks {
 func (o *DailyAverageClicks) GetDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -103,12 +111,14 @@ func (o *DailyAverageClicks) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Date, true
 }
 
 // SetDate sets field value.
 func (o *DailyAverageClicks) SetDate(v string) *DailyAverageClicks {
 	o.Date = v
+
 	return o
 }
 
@@ -117,6 +127,7 @@ func (o DailyAverageClicks) MarshalJSON() ([]byte, error) {
 	toSerialize["average"] = o.Average.Get()
 	toSerialize["clickCount"] = o.ClickCount
 	toSerialize["date"] = o.Date
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyAverageClicks: %w", err)
@@ -130,5 +141,6 @@ func (o DailyAverageClicks) String() string {
 	out += fmt.Sprintf("  average=%v\n", o.Average)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
+
 	return fmt.Sprintf("DailyAverageClicks {\n%s}", out)
 }

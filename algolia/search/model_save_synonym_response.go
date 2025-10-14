@@ -25,6 +25,7 @@ func NewSaveSynonymResponse(taskID int64, updatedAt string, id string) *SaveSyno
 	this.TaskID = taskID
 	this.UpdatedAt = updatedAt
 	this.Id = id
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptySaveSynonymResponse() *SaveSynonymResponse {
 func (o *SaveSynonymResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *SaveSynonymResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *SaveSynonymResponse) SetTaskID(v int64) *SaveSynonymResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *SaveSynonymResponse) SetTaskID(v int64) *SaveSynonymResponse {
 func (o *SaveSynonymResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *SaveSynonymResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *SaveSynonymResponse) SetUpdatedAt(v string) *SaveSynonymResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *SaveSynonymResponse) SetUpdatedAt(v string) *SaveSynonymResponse {
 func (o *SaveSynonymResponse) GetId() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *SaveSynonymResponse) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Id, true
 }
 
 // SetId sets field value.
 func (o *SaveSynonymResponse) SetId(v string) *SaveSynonymResponse {
 	o.Id = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o SaveSynonymResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["id"] = o.Id
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SaveSynonymResponse: %w", err)
@@ -126,5 +137,6 @@ func (o SaveSynonymResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  id=%v\n", o.Id)
+
 	return fmt.Sprintf("SaveSynonymResponse {\n%s}", out)
 }

@@ -23,24 +23,7 @@ var AllowedDictionaryTypeEnumValues = []DictionaryType{
 	"compounds",
 }
 
-func (v *DictionaryType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryType': %w", string(src), err)
-	}
-	enumTypeValue := DictionaryType(value)
-	for _, existing := range AllowedDictionaryTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid DictionaryType", value)
-}
-
-// NewDictionaryTypeFromValue returns a pointer to a valid DictionaryType
+// NewDictionaryTypeFromValue returns a pointer to a valid DictionaryType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewDictionaryTypeFromValue(v string) (*DictionaryType, error) {
 	ev := DictionaryType(v)
@@ -51,6 +34,26 @@ func NewDictionaryTypeFromValue(v string) (*DictionaryType, error) {
 	}
 }
 
+func (v *DictionaryType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryType': %w", string(src), err)
+	}
+
+	enumTypeValue := DictionaryType(value)
+	for _, existing := range AllowedDictionaryTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid DictionaryType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v DictionaryType) IsValid() bool {
 	for _, existing := range AllowedDictionaryTypeEnumValues {
@@ -58,6 +61,7 @@ func (v DictionaryType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

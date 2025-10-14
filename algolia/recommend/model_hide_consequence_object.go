@@ -29,6 +29,7 @@ func NewHideConsequenceObject(opts ...HideConsequenceObjectOption) *HideConseque
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyHideConsequenceObject() *HideConsequenceObject {
 func (o *HideConsequenceObject) GetObjectID() string {
 	if o == nil || o.ObjectID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ObjectID
 }
 
@@ -52,6 +55,7 @@ func (o *HideConsequenceObject) GetObjectIDOk() (*string, bool) {
 	if o == nil || o.ObjectID == nil {
 		return nil, false
 	}
+
 	return o.ObjectID, true
 }
 
@@ -67,6 +71,7 @@ func (o *HideConsequenceObject) HasObjectID() bool {
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
 func (o *HideConsequenceObject) SetObjectID(v string) *HideConsequenceObject {
 	o.ObjectID = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o HideConsequenceObject) MarshalJSON() ([]byte, error) {
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal HideConsequenceObject: %w", err)
@@ -86,5 +92,6 @@ func (o HideConsequenceObject) MarshalJSON() ([]byte, error) {
 func (o HideConsequenceObject) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("HideConsequenceObject {\n%s}", out)
 }

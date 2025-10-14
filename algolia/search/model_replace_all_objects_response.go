@@ -18,11 +18,16 @@ type ReplaceAllObjectsResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewReplaceAllObjectsResponse(copyOperationResponse UpdatedAtResponse, batchResponses []BatchResponse, moveOperationResponse UpdatedAtResponse) *ReplaceAllObjectsResponse {
+func NewReplaceAllObjectsResponse(
+	copyOperationResponse UpdatedAtResponse,
+	batchResponses []BatchResponse,
+	moveOperationResponse UpdatedAtResponse,
+) *ReplaceAllObjectsResponse {
 	this := &ReplaceAllObjectsResponse{}
 	this.CopyOperationResponse = copyOperationResponse
 	this.BatchResponses = batchResponses
 	this.MoveOperationResponse = moveOperationResponse
+
 	return this
 }
 
@@ -35,6 +40,7 @@ func NewEmptyReplaceAllObjectsResponse() *ReplaceAllObjectsResponse {
 func (o *ReplaceAllObjectsResponse) GetCopyOperationResponse() UpdatedAtResponse {
 	if o == nil {
 		var ret UpdatedAtResponse
+
 		return ret
 	}
 
@@ -47,12 +53,14 @@ func (o *ReplaceAllObjectsResponse) GetCopyOperationResponseOk() (*UpdatedAtResp
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CopyOperationResponse, true
 }
 
 // SetCopyOperationResponse sets field value.
 func (o *ReplaceAllObjectsResponse) SetCopyOperationResponse(v *UpdatedAtResponse) *ReplaceAllObjectsResponse {
 	o.CopyOperationResponse = *v
+
 	return o
 }
 
@@ -60,6 +68,7 @@ func (o *ReplaceAllObjectsResponse) SetCopyOperationResponse(v *UpdatedAtRespons
 func (o *ReplaceAllObjectsResponse) GetBatchResponses() []BatchResponse {
 	if o == nil {
 		var ret []BatchResponse
+
 		return ret
 	}
 
@@ -72,12 +81,14 @@ func (o *ReplaceAllObjectsResponse) GetBatchResponsesOk() ([]BatchResponse, bool
 	if o == nil {
 		return nil, false
 	}
+
 	return o.BatchResponses, true
 }
 
 // SetBatchResponses sets field value.
 func (o *ReplaceAllObjectsResponse) SetBatchResponses(v []BatchResponse) *ReplaceAllObjectsResponse {
 	o.BatchResponses = v
+
 	return o
 }
 
@@ -85,6 +96,7 @@ func (o *ReplaceAllObjectsResponse) SetBatchResponses(v []BatchResponse) *Replac
 func (o *ReplaceAllObjectsResponse) GetMoveOperationResponse() UpdatedAtResponse {
 	if o == nil {
 		var ret UpdatedAtResponse
+
 		return ret
 	}
 
@@ -97,12 +109,14 @@ func (o *ReplaceAllObjectsResponse) GetMoveOperationResponseOk() (*UpdatedAtResp
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MoveOperationResponse, true
 }
 
 // SetMoveOperationResponse sets field value.
 func (o *ReplaceAllObjectsResponse) SetMoveOperationResponse(v *UpdatedAtResponse) *ReplaceAllObjectsResponse {
 	o.MoveOperationResponse = *v
+
 	return o
 }
 
@@ -111,6 +125,7 @@ func (o ReplaceAllObjectsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["copyOperationResponse"] = o.CopyOperationResponse
 	toSerialize["batchResponses"] = o.BatchResponses
 	toSerialize["moveOperationResponse"] = o.MoveOperationResponse
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ReplaceAllObjectsResponse: %w", err)
@@ -124,5 +139,6 @@ func (o ReplaceAllObjectsResponse) String() string {
 	out += fmt.Sprintf("  copyOperationResponse=%v\n", o.CopyOperationResponse)
 	out += fmt.Sprintf("  batchResponses=%v\n", o.BatchResponses)
 	out += fmt.Sprintf("  moveOperationResponse=%v\n", o.MoveOperationResponse)
+
 	return fmt.Sprintf("ReplaceAllObjectsResponse {\n%s}", out)
 }

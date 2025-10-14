@@ -85,6 +85,7 @@ func NewSearchRecommendRulesParams(opts ...SearchRecommendRulesParamsOption) *Se
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -97,8 +98,10 @@ func NewEmptySearchRecommendRulesParams() *SearchRecommendRulesParams {
 func (o *SearchRecommendRulesParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -108,6 +111,7 @@ func (o *SearchRecommendRulesParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -123,6 +127,7 @@ func (o *SearchRecommendRulesParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchRecommendRulesParams) SetQuery(v string) *SearchRecommendRulesParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -130,8 +135,10 @@ func (o *SearchRecommendRulesParams) SetQuery(v string) *SearchRecommendRulesPar
 func (o *SearchRecommendRulesParams) GetContext() string {
 	if o == nil || o.Context == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Context
 }
 
@@ -141,6 +148,7 @@ func (o *SearchRecommendRulesParams) GetContextOk() (*string, bool) {
 	if o == nil || o.Context == nil {
 		return nil, false
 	}
+
 	return o.Context, true
 }
 
@@ -156,6 +164,7 @@ func (o *SearchRecommendRulesParams) HasContext() bool {
 // SetContext gets a reference to the given string and assigns it to the Context field.
 func (o *SearchRecommendRulesParams) SetContext(v string) *SearchRecommendRulesParams {
 	o.Context = &v
+
 	return o
 }
 
@@ -163,8 +172,10 @@ func (o *SearchRecommendRulesParams) SetContext(v string) *SearchRecommendRulesP
 func (o *SearchRecommendRulesParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -174,6 +185,7 @@ func (o *SearchRecommendRulesParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -189,6 +201,7 @@ func (o *SearchRecommendRulesParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchRecommendRulesParams) SetPage(v int32) *SearchRecommendRulesParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -196,8 +209,10 @@ func (o *SearchRecommendRulesParams) SetPage(v int32) *SearchRecommendRulesParam
 func (o *SearchRecommendRulesParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -207,6 +222,7 @@ func (o *SearchRecommendRulesParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -222,6 +238,7 @@ func (o *SearchRecommendRulesParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchRecommendRulesParams) SetHitsPerPage(v int32) *SearchRecommendRulesParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -229,8 +246,10 @@ func (o *SearchRecommendRulesParams) SetHitsPerPage(v int32) *SearchRecommendRul
 func (o *SearchRecommendRulesParams) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -240,6 +259,7 @@ func (o *SearchRecommendRulesParams) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -255,6 +275,7 @@ func (o *SearchRecommendRulesParams) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *SearchRecommendRulesParams) SetEnabled(v bool) *SearchRecommendRulesParams {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -262,8 +283,10 @@ func (o *SearchRecommendRulesParams) SetEnabled(v bool) *SearchRecommendRulesPar
 func (o *SearchRecommendRulesParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -273,6 +296,7 @@ func (o *SearchRecommendRulesParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -288,6 +312,7 @@ func (o *SearchRecommendRulesParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *SearchRecommendRulesParams) SetFilters(v string) *SearchRecommendRulesParams {
 	o.Filters = &v
+
 	return o
 }
 
@@ -295,8 +320,10 @@ func (o *SearchRecommendRulesParams) SetFilters(v string) *SearchRecommendRulesP
 func (o *SearchRecommendRulesParams) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Facets
 }
 
@@ -306,6 +333,7 @@ func (o *SearchRecommendRulesParams) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -321,6 +349,7 @@ func (o *SearchRecommendRulesParams) HasFacets() bool {
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
 func (o *SearchRecommendRulesParams) SetFacets(v []string) *SearchRecommendRulesParams {
 	o.Facets = v
+
 	return o
 }
 
@@ -328,8 +357,10 @@ func (o *SearchRecommendRulesParams) SetFacets(v []string) *SearchRecommendRules
 func (o *SearchRecommendRulesParams) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -339,6 +370,7 @@ func (o *SearchRecommendRulesParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -354,6 +386,7 @@ func (o *SearchRecommendRulesParams) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *SearchRecommendRulesParams) SetMaxValuesPerFacet(v int32) *SearchRecommendRulesParams {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -362,27 +395,35 @@ func (o SearchRecommendRulesParams) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRecommendRulesParams: %w", err)
@@ -401,5 +442,6 @@ func (o SearchRecommendRulesParams) String() string {
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
+
 	return fmt.Sprintf("SearchRecommendRulesParams {\n%s}", out)
 }

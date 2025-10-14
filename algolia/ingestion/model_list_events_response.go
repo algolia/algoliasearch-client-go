@@ -22,6 +22,7 @@ func NewListEventsResponse(events []Event, pagination Pagination, window Window)
 	this.Events = events
 	this.Pagination = pagination
 	this.Window = window
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyListEventsResponse() *ListEventsResponse {
 func (o *ListEventsResponse) GetEvents() []Event {
 	if o == nil {
 		var ret []Event
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *ListEventsResponse) GetEventsOk() ([]Event, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Events, true
 }
 
 // SetEvents sets field value.
 func (o *ListEventsResponse) SetEvents(v []Event) *ListEventsResponse {
 	o.Events = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *ListEventsResponse) SetEvents(v []Event) *ListEventsResponse {
 func (o *ListEventsResponse) GetPagination() Pagination {
 	if o == nil {
 		var ret Pagination
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *ListEventsResponse) GetPaginationOk() (*Pagination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pagination, true
 }
 
 // SetPagination sets field value.
 func (o *ListEventsResponse) SetPagination(v *Pagination) *ListEventsResponse {
 	o.Pagination = *v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o *ListEventsResponse) SetPagination(v *Pagination) *ListEventsResponse {
 func (o *ListEventsResponse) GetWindow() Window {
 	if o == nil {
 		var ret Window
+
 		return ret
 	}
 
@@ -96,12 +104,14 @@ func (o *ListEventsResponse) GetWindowOk() (*Window, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Window, true
 }
 
 // SetWindow sets field value.
 func (o *ListEventsResponse) SetWindow(v *Window) *ListEventsResponse {
 	o.Window = *v
+
 	return o
 }
 
@@ -110,6 +120,7 @@ func (o ListEventsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["events"] = o.Events
 	toSerialize["pagination"] = o.Pagination
 	toSerialize["window"] = o.Window
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListEventsResponse: %w", err)
@@ -123,5 +134,6 @@ func (o ListEventsResponse) String() string {
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
 	out += fmt.Sprintf("  window=%v\n", o.Window)
+
 	return fmt.Sprintf("ListEventsResponse {\n%s}", out)
 }

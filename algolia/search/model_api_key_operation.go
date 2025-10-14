@@ -23,24 +23,7 @@ var AllowedApiKeyOperationEnumValues = []ApiKeyOperation{
 	"update",
 }
 
-func (v *ApiKeyOperation) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ApiKeyOperation': %w", string(src), err)
-	}
-	enumTypeValue := ApiKeyOperation(value)
-	for _, existing := range AllowedApiKeyOperationEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ApiKeyOperation", value)
-}
-
-// NewApiKeyOperationFromValue returns a pointer to a valid ApiKeyOperation
+// NewApiKeyOperationFromValue returns a pointer to a valid ApiKeyOperation.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewApiKeyOperationFromValue(v string) (*ApiKeyOperation, error) {
 	ev := ApiKeyOperation(v)
@@ -51,6 +34,26 @@ func NewApiKeyOperationFromValue(v string) (*ApiKeyOperation, error) {
 	}
 }
 
+func (v *ApiKeyOperation) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ApiKeyOperation': %w", string(src), err)
+	}
+
+	enumTypeValue := ApiKeyOperation(value)
+	for _, existing := range AllowedApiKeyOperationEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ApiKeyOperation", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ApiKeyOperation) IsValid() bool {
 	for _, existing := range AllowedApiKeyOperationEnumValues {
@@ -58,6 +61,7 @@ func (v ApiKeyOperation) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

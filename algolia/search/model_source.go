@@ -28,10 +28,12 @@ func WithSourceDescription(val string) SourceOption {
 // will change when the set of required properties is changed.
 func NewSource(source string, opts ...SourceOption) *Source {
 	this := &Source{}
+
 	this.Source = source
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptySource() *Source {
 func (o *Source) GetSource() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *Source) GetSourceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Source, true
 }
 
 // SetSource sets field value.
 func (o *Source) SetSource(v string) *Source {
 	o.Source = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *Source) SetSource(v string) *Source {
 func (o *Source) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -80,6 +87,7 @@ func (o *Source) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -95,15 +103,18 @@ func (o *Source) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Source) SetDescription(v string) *Source {
 	o.Description = &v
+
 	return o
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["source"] = o.Source
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Source: %w", err)
@@ -116,5 +127,6 @@ func (o Source) String() string {
 	out := ""
 	out += fmt.Sprintf("  source=%v\n", o.Source)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
+
 	return fmt.Sprintf("Source {\n%s}", out)
 }

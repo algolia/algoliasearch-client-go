@@ -19,6 +19,7 @@ type GetClickPositionsResponse struct {
 func NewGetClickPositionsResponse(positions []ClickPosition) *GetClickPositionsResponse {
 	this := &GetClickPositionsResponse{}
 	this.Positions = positions
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetClickPositionsResponse() *GetClickPositionsResponse {
 func (o *GetClickPositionsResponse) GetPositions() []ClickPosition {
 	if o == nil {
 		var ret []ClickPosition
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetClickPositionsResponse) GetPositionsOk() ([]ClickPosition, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Positions, true
 }
 
 // SetPositions sets field value.
 func (o *GetClickPositionsResponse) SetPositions(v []ClickPosition) *GetClickPositionsResponse {
 	o.Positions = v
+
 	return o
 }
 
 func (o GetClickPositionsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["positions"] = o.Positions
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetClickPositionsResponse: %w", err)
@@ -66,5 +71,6 @@ func (o GetClickPositionsResponse) MarshalJSON() ([]byte, error) {
 func (o GetClickPositionsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  positions=%v\n", o.Positions)
+
 	return fmt.Sprintf("GetClickPositionsResponse {\n%s}", out)
 }

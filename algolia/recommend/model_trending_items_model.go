@@ -19,24 +19,7 @@ var AllowedTrendingItemsModelEnumValues = []TrendingItemsModel{
 	"trending-items",
 }
 
-func (v *TrendingItemsModel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TrendingItemsModel': %w", string(src), err)
-	}
-	enumTypeValue := TrendingItemsModel(value)
-	for _, existing := range AllowedTrendingItemsModelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TrendingItemsModel", value)
-}
-
-// NewTrendingItemsModelFromValue returns a pointer to a valid TrendingItemsModel
+// NewTrendingItemsModelFromValue returns a pointer to a valid TrendingItemsModel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTrendingItemsModelFromValue(v string) (*TrendingItemsModel, error) {
 	ev := TrendingItemsModel(v)
@@ -47,6 +30,26 @@ func NewTrendingItemsModelFromValue(v string) (*TrendingItemsModel, error) {
 	}
 }
 
+func (v *TrendingItemsModel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TrendingItemsModel': %w", string(src), err)
+	}
+
+	enumTypeValue := TrendingItemsModel(value)
+	for _, existing := range AllowedTrendingItemsModelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TrendingItemsModel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TrendingItemsModel) IsValid() bool {
 	for _, existing := range AllowedTrendingItemsModelEnumValues {
@@ -54,6 +57,7 @@ func (v TrendingItemsModel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

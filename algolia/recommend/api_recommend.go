@@ -70,10 +70,12 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 
 func (r *ApiBatchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -83,6 +85,7 @@ func (r *ApiBatchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["model"]; ok {
 		err = json.Unmarshal(v, &r.model)
 		if err != nil {
@@ -92,6 +95,7 @@ func (r *ApiBatchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["recommendRule"]; ok {
 		err = json.Unmarshal(v, &r.recommendRule)
 		if err != nil {
@@ -123,6 +127,7 @@ func (c *APIClient) NewApiBatchRecommendRulesRequest(indexName string, model Rec
 // WithRecommendRule adds the recommendRule to the ApiBatchRecommendRulesRequest and returns the request for chaining.
 func (r ApiBatchRecommendRulesRequest) WithRecommendRule(recommendRule []RecommendRule) ApiBatchRecommendRulesRequest {
 	r.recommendRule = recommendRule
+
 	return r
 }
 
@@ -181,6 +186,7 @@ func (c *APIClient) BatchRecommendRulesWithHTTPInfo(r ApiBatchRecommendRulesRequ
 	} else {
 		postBody = r.recommendRule
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -221,9 +227,11 @@ func (c *APIClient) BatchRecommendRules(r ApiBatchRecommendRulesRequest, opts ..
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -239,10 +247,12 @@ func (c *APIClient) BatchRecommendRules(r ApiBatchRecommendRulesRequest, opts ..
 
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -252,6 +262,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -281,6 +292,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
 func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -351,9 +363,11 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -369,10 +383,12 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -382,6 +398,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -411,6 +428,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
 func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -481,9 +499,11 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -499,10 +519,12 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -512,6 +534,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -521,6 +544,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -551,12 +575,14 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
+
 	return r
 }
 
@@ -608,6 +634,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -635,9 +662,11 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -653,10 +682,12 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -666,6 +697,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -675,6 +707,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -705,12 +738,14 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
+
 	return r
 }
 
@@ -762,6 +797,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -789,9 +825,11 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -807,10 +845,12 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 func (r *ApiDeleteRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -820,6 +860,7 @@ func (r *ApiDeleteRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["model"]; ok {
 		err = json.Unmarshal(v, &r.model)
 		if err != nil {
@@ -829,6 +870,7 @@ func (r *ApiDeleteRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -932,9 +974,11 @@ func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ..
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -950,10 +994,12 @@ func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ..
 
 func (r *ApiGetRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -963,6 +1009,7 @@ func (r *ApiGetRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["model"]; ok {
 		err = json.Unmarshal(v, &r.model)
 		if err != nil {
@@ -972,6 +1019,7 @@ func (r *ApiGetRecommendRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -1075,9 +1123,11 @@ func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Reque
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1093,10 +1143,12 @@ func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Reque
 
 func (r *ApiGetRecommendStatusRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1106,6 +1158,7 @@ func (r *ApiGetRecommendStatusRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["model"]; ok {
 		err = json.Unmarshal(v, &r.model)
 		if err != nil {
@@ -1115,6 +1168,7 @@ func (r *ApiGetRecommendStatusRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["taskID"]; ok {
 		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
@@ -1222,9 +1276,11 @@ func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...R
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1240,10 +1296,12 @@ func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...R
 
 func (r *ApiGetRecommendationsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["getRecommendationsParams"]; ok {
 		err = json.Unmarshal(v, &r.getRecommendationsParams)
 		if err != nil {
@@ -1312,6 +1370,7 @@ func (c *APIClient) GetRecommendationsWithHTTPInfo(r ApiGetRecommendationsReques
 
 	// body params
 	postBody = r.getRecommendationsParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1340,9 +1399,11 @@ func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...R
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1358,10 +1419,12 @@ func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...R
 
 func (r *ApiSearchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1371,6 +1434,7 @@ func (r *ApiSearchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["model"]; ok {
 		err = json.Unmarshal(v, &r.model)
 		if err != nil {
@@ -1380,6 +1444,7 @@ func (r *ApiSearchRecommendRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchRecommendRulesParams"]; ok {
 		err = json.Unmarshal(v, &r.searchRecommendRulesParams)
 		if err != nil {
@@ -1409,8 +1474,11 @@ func (c *APIClient) NewApiSearchRecommendRulesRequest(indexName string, model Re
 }
 
 // WithSearchRecommendRulesParams adds the searchRecommendRulesParams to the ApiSearchRecommendRulesRequest and returns the request for chaining.
-func (r ApiSearchRecommendRulesRequest) WithSearchRecommendRulesParams(searchRecommendRulesParams *SearchRecommendRulesParams) ApiSearchRecommendRulesRequest {
+func (r ApiSearchRecommendRulesRequest) WithSearchRecommendRulesParams(
+	searchRecommendRulesParams *SearchRecommendRulesParams,
+) ApiSearchRecommendRulesRequest {
 	r.searchRecommendRulesParams = searchRecommendRulesParams
+
 	return r
 }
 
@@ -1461,6 +1529,7 @@ func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRe
 	} else {
 		postBody = r.searchRecommendRulesParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1493,9 +1562,11 @@ func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)

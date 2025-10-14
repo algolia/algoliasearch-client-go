@@ -19,24 +19,7 @@ var AllowedAddToCartEventEnumValues = []AddToCartEvent{
 	"addToCart",
 }
 
-func (v *AddToCartEvent) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AddToCartEvent': %w", string(src), err)
-	}
-	enumTypeValue := AddToCartEvent(value)
-	for _, existing := range AllowedAddToCartEventEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AddToCartEvent", value)
-}
-
-// NewAddToCartEventFromValue returns a pointer to a valid AddToCartEvent
+// NewAddToCartEventFromValue returns a pointer to a valid AddToCartEvent.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAddToCartEventFromValue(v string) (*AddToCartEvent, error) {
 	ev := AddToCartEvent(v)
@@ -47,6 +30,26 @@ func NewAddToCartEventFromValue(v string) (*AddToCartEvent, error) {
 	}
 }
 
+func (v *AddToCartEvent) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AddToCartEvent': %w", string(src), err)
+	}
+
+	enumTypeValue := AddToCartEvent(value)
+	for _, existing := range AllowedAddToCartEventEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid AddToCartEvent", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v AddToCartEvent) IsValid() bool {
 	for _, existing := range AllowedAddToCartEventEnumValues {
@@ -54,6 +57,7 @@ func (v AddToCartEvent) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

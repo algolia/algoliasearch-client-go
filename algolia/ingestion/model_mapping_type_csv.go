@@ -27,24 +27,7 @@ var AllowedMappingTypeCSVEnumValues = []MappingTypeCSV{
 	"json",
 }
 
-func (v *MappingTypeCSV) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MappingTypeCSV': %w", string(src), err)
-	}
-	enumTypeValue := MappingTypeCSV(value)
-	for _, existing := range AllowedMappingTypeCSVEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid MappingTypeCSV", value)
-}
-
-// NewMappingTypeCSVFromValue returns a pointer to a valid MappingTypeCSV
+// NewMappingTypeCSVFromValue returns a pointer to a valid MappingTypeCSV.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewMappingTypeCSVFromValue(v string) (*MappingTypeCSV, error) {
 	ev := MappingTypeCSV(v)
@@ -55,6 +38,26 @@ func NewMappingTypeCSVFromValue(v string) (*MappingTypeCSV, error) {
 	}
 }
 
+func (v *MappingTypeCSV) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MappingTypeCSV': %w", string(src), err)
+	}
+
+	enumTypeValue := MappingTypeCSV(value)
+	for _, existing := range AllowedMappingTypeCSVEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid MappingTypeCSV", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v MappingTypeCSV) IsValid() bool {
 	for _, existing := range AllowedMappingTypeCSVEnumValues {
@@ -62,6 +65,7 @@ func (v MappingTypeCSV) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

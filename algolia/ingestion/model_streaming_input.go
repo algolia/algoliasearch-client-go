@@ -18,6 +18,7 @@ type StreamingInput struct {
 func NewStreamingInput(mapping MappingInput) *StreamingInput {
 	this := &StreamingInput{}
 	this.Mapping = mapping
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyStreamingInput() *StreamingInput {
 func (o *StreamingInput) GetMapping() MappingInput {
 	if o == nil {
 		var ret MappingInput
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *StreamingInput) GetMappingOk() (*MappingInput, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Mapping, true
 }
 
 // SetMapping sets field value.
 func (o *StreamingInput) SetMapping(v *MappingInput) *StreamingInput {
 	o.Mapping = *v
+
 	return o
 }
 
 func (o StreamingInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["mapping"] = o.Mapping
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal StreamingInput: %w", err)
@@ -65,5 +70,6 @@ func (o StreamingInput) MarshalJSON() ([]byte, error) {
 func (o StreamingInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
+
 	return fmt.Sprintf("StreamingInput {\n%s}", out)
 }

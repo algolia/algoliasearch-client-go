@@ -31,10 +31,12 @@ func WithGetObjectsRequestAttributesToRetrieve(val []string) GetObjectsRequestOp
 func NewGetObjectsRequest(objectID string, indexName string, opts ...GetObjectsRequestOption) *GetObjectsRequest {
 	this := &GetObjectsRequest{}
 	this.ObjectID = objectID
+
 	this.IndexName = indexName
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,8 +49,10 @@ func NewEmptyGetObjectsRequest() *GetObjectsRequest {
 func (o *GetObjectsRequest) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -58,6 +62,7 @@ func (o *GetObjectsRequest) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -73,6 +78,7 @@ func (o *GetObjectsRequest) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *GetObjectsRequest) SetAttributesToRetrieve(v []string) *GetObjectsRequest {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -80,6 +86,7 @@ func (o *GetObjectsRequest) SetAttributesToRetrieve(v []string) *GetObjectsReque
 func (o *GetObjectsRequest) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -92,12 +99,14 @@ func (o *GetObjectsRequest) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *GetObjectsRequest) SetObjectID(v string) *GetObjectsRequest {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -105,6 +114,7 @@ func (o *GetObjectsRequest) SetObjectID(v string) *GetObjectsRequest {
 func (o *GetObjectsRequest) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -117,12 +127,14 @@ func (o *GetObjectsRequest) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *GetObjectsRequest) SetIndexName(v string) *GetObjectsRequest {
 	o.IndexName = v
+
 	return o
 }
 
@@ -131,8 +143,10 @@ func (o GetObjectsRequest) MarshalJSON() ([]byte, error) {
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	toSerialize["objectID"] = o.ObjectID
 	toSerialize["indexName"] = o.IndexName
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetObjectsRequest: %w", err)
@@ -146,5 +160,6 @@ func (o GetObjectsRequest) String() string {
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
+
 	return fmt.Sprintf("GetObjectsRequest {\n%s}", out)
 }

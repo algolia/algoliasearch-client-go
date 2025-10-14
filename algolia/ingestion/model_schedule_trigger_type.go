@@ -19,24 +19,7 @@ var AllowedScheduleTriggerTypeEnumValues = []ScheduleTriggerType{
 	"schedule",
 }
 
-func (v *ScheduleTriggerType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ScheduleTriggerType': %w", string(src), err)
-	}
-	enumTypeValue := ScheduleTriggerType(value)
-	for _, existing := range AllowedScheduleTriggerTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ScheduleTriggerType", value)
-}
-
-// NewScheduleTriggerTypeFromValue returns a pointer to a valid ScheduleTriggerType
+// NewScheduleTriggerTypeFromValue returns a pointer to a valid ScheduleTriggerType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewScheduleTriggerTypeFromValue(v string) (*ScheduleTriggerType, error) {
 	ev := ScheduleTriggerType(v)
@@ -47,6 +30,26 @@ func NewScheduleTriggerTypeFromValue(v string) (*ScheduleTriggerType, error) {
 	}
 }
 
+func (v *ScheduleTriggerType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ScheduleTriggerType': %w", string(src), err)
+	}
+
+	enumTypeValue := ScheduleTriggerType(value)
+	for _, existing := range AllowedScheduleTriggerTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ScheduleTriggerType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ScheduleTriggerType) IsValid() bool {
 	for _, existing := range AllowedScheduleTriggerTypeEnumValues {
@@ -54,6 +57,7 @@ func (v ScheduleTriggerType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

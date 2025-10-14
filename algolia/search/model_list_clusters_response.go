@@ -19,6 +19,7 @@ type ListClustersResponse struct {
 func NewListClustersResponse(topUsers []string) *ListClustersResponse {
 	this := &ListClustersResponse{}
 	this.TopUsers = topUsers
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyListClustersResponse() *ListClustersResponse {
 func (o *ListClustersResponse) GetTopUsers() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ListClustersResponse) GetTopUsersOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.TopUsers, true
 }
 
 // SetTopUsers sets field value.
 func (o *ListClustersResponse) SetTopUsers(v []string) *ListClustersResponse {
 	o.TopUsers = v
+
 	return o
 }
 
 func (o ListClustersResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["topUsers"] = o.TopUsers
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListClustersResponse: %w", err)
@@ -66,5 +71,6 @@ func (o ListClustersResponse) MarshalJSON() ([]byte, error) {
 func (o ListClustersResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  topUsers=%v\n", o.TopUsers)
+
 	return fmt.Sprintf("ListClustersResponse {\n%s}", out)
 }

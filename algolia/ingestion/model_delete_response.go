@@ -19,6 +19,7 @@ type DeleteResponse struct {
 func NewDeleteResponse(deletedAt string) *DeleteResponse {
 	this := &DeleteResponse{}
 	this.DeletedAt = deletedAt
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyDeleteResponse() *DeleteResponse {
 func (o *DeleteResponse) GetDeletedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *DeleteResponse) GetDeletedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DeletedAt, true
 }
 
 // SetDeletedAt sets field value.
 func (o *DeleteResponse) SetDeletedAt(v string) *DeleteResponse {
 	o.DeletedAt = v
+
 	return o
 }
 
 func (o DeleteResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["deletedAt"] = o.DeletedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteResponse: %w", err)
@@ -66,5 +71,6 @@ func (o DeleteResponse) MarshalJSON() ([]byte, error) {
 func (o DeleteResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
+
 	return fmt.Sprintf("DeleteResponse {\n%s}", out)
 }

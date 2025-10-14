@@ -29,6 +29,7 @@ func NewAuthAPIKeyPartial(opts ...AuthAPIKeyPartialOption) *AuthAPIKeyPartial {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyAuthAPIKeyPartial() *AuthAPIKeyPartial {
 func (o *AuthAPIKeyPartial) GetKey() string {
 	if o == nil || o.Key == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Key
 }
 
@@ -52,6 +55,7 @@ func (o *AuthAPIKeyPartial) GetKeyOk() (*string, bool) {
 	if o == nil || o.Key == nil {
 		return nil, false
 	}
+
 	return o.Key, true
 }
 
@@ -67,6 +71,7 @@ func (o *AuthAPIKeyPartial) HasKey() bool {
 // SetKey gets a reference to the given string and assigns it to the Key field.
 func (o *AuthAPIKeyPartial) SetKey(v string) *AuthAPIKeyPartial {
 	o.Key = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o AuthAPIKeyPartial) MarshalJSON() ([]byte, error) {
 	if o.Key != nil {
 		toSerialize["key"] = o.Key
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAPIKeyPartial: %w", err)
@@ -86,5 +92,6 @@ func (o AuthAPIKeyPartial) MarshalJSON() ([]byte, error) {
 func (o AuthAPIKeyPartial) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
+
 	return fmt.Sprintf("AuthAPIKeyPartial {\n%s}", out)
 }

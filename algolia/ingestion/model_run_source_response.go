@@ -22,6 +22,7 @@ func NewRunSourceResponse(taskWithRunID map[string]string, createdAt string) *Ru
 	this := &RunSourceResponse{}
 	this.TaskWithRunID = taskWithRunID
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyRunSourceResponse() *RunSourceResponse {
 func (o *RunSourceResponse) GetTaskWithRunID() map[string]string {
 	if o == nil {
 		var ret map[string]string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *RunSourceResponse) GetTaskWithRunIDOk() (*map[string]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskWithRunID, true
 }
 
 // SetTaskWithRunID sets field value.
 func (o *RunSourceResponse) SetTaskWithRunID(v map[string]string) *RunSourceResponse {
 	o.TaskWithRunID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *RunSourceResponse) SetTaskWithRunID(v map[string]string) *RunSourceResp
 func (o *RunSourceResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *RunSourceResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *RunSourceResponse) SetCreatedAt(v string) *RunSourceResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o RunSourceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskWithRunID"] = o.TaskWithRunID
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunSourceResponse: %w", err)
@@ -96,5 +104,6 @@ func (o RunSourceResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskWithRunID=%v\n", o.TaskWithRunID)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("RunSourceResponse {\n%s}", out)
 }

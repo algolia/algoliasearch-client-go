@@ -18,6 +18,7 @@ type SearchResponses struct {
 func NewSearchResponses(results []SearchResult) *SearchResponses {
 	this := &SearchResponses{}
 	this.Results = results
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptySearchResponses() *SearchResponses {
 func (o *SearchResponses) GetResults() []SearchResult {
 	if o == nil {
 		var ret []SearchResult
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *SearchResponses) GetResultsOk() ([]SearchResult, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Results, true
 }
 
 // SetResults sets field value.
 func (o *SearchResponses) SetResults(v []SearchResult) *SearchResponses {
 	o.Results = v
+
 	return o
 }
 
 func (o SearchResponses) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["results"] = o.Results
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchResponses: %w", err)
@@ -65,5 +70,6 @@ func (o SearchResponses) MarshalJSON() ([]byte, error) {
 func (o SearchResponses) String() string {
 	out := ""
 	out += fmt.Sprintf("  results=%v\n", o.Results)
+
 	return fmt.Sprintf("SearchResponses {\n%s}", out)
 }

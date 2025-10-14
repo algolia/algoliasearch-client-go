@@ -58,7 +58,18 @@ func WithFetchedIndexVirtual(val bool) FetchedIndexOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewFetchedIndex(name string, createdAt string, updatedAt string, entries int32, dataSize int64, fileSize int64, lastBuildTimeS int32, numberOfPendingTasks int32, pendingTask bool, opts ...FetchedIndexOption) *FetchedIndex {
+func NewFetchedIndex(
+	name string,
+	createdAt string,
+	updatedAt string,
+	entries int32,
+	dataSize int64,
+	fileSize int64,
+	lastBuildTimeS int32,
+	numberOfPendingTasks int32,
+	pendingTask bool,
+	opts ...FetchedIndexOption,
+) *FetchedIndex {
 	this := &FetchedIndex{}
 	this.Name = name
 	this.CreatedAt = createdAt
@@ -68,10 +79,12 @@ func NewFetchedIndex(name string, createdAt string, updatedAt string, entries in
 	this.FileSize = fileSize
 	this.LastBuildTimeS = lastBuildTimeS
 	this.NumberOfPendingTasks = numberOfPendingTasks
+
 	this.PendingTask = pendingTask
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -84,6 +97,7 @@ func NewEmptyFetchedIndex() *FetchedIndex {
 func (o *FetchedIndex) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -96,12 +110,14 @@ func (o *FetchedIndex) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *FetchedIndex) SetName(v string) *FetchedIndex {
 	o.Name = v
+
 	return o
 }
 
@@ -109,6 +125,7 @@ func (o *FetchedIndex) SetName(v string) *FetchedIndex {
 func (o *FetchedIndex) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -121,12 +138,14 @@ func (o *FetchedIndex) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *FetchedIndex) SetCreatedAt(v string) *FetchedIndex {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -134,6 +153,7 @@ func (o *FetchedIndex) SetCreatedAt(v string) *FetchedIndex {
 func (o *FetchedIndex) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -146,12 +166,14 @@ func (o *FetchedIndex) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *FetchedIndex) SetUpdatedAt(v string) *FetchedIndex {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -159,6 +181,7 @@ func (o *FetchedIndex) SetUpdatedAt(v string) *FetchedIndex {
 func (o *FetchedIndex) GetEntries() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -171,12 +194,14 @@ func (o *FetchedIndex) GetEntriesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Entries, true
 }
 
 // SetEntries sets field value.
 func (o *FetchedIndex) SetEntries(v int32) *FetchedIndex {
 	o.Entries = v
+
 	return o
 }
 
@@ -184,6 +209,7 @@ func (o *FetchedIndex) SetEntries(v int32) *FetchedIndex {
 func (o *FetchedIndex) GetDataSize() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -196,12 +222,14 @@ func (o *FetchedIndex) GetDataSizeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DataSize, true
 }
 
 // SetDataSize sets field value.
 func (o *FetchedIndex) SetDataSize(v int64) *FetchedIndex {
 	o.DataSize = v
+
 	return o
 }
 
@@ -209,6 +237,7 @@ func (o *FetchedIndex) SetDataSize(v int64) *FetchedIndex {
 func (o *FetchedIndex) GetFileSize() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -221,12 +250,14 @@ func (o *FetchedIndex) GetFileSizeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FileSize, true
 }
 
 // SetFileSize sets field value.
 func (o *FetchedIndex) SetFileSize(v int64) *FetchedIndex {
 	o.FileSize = v
+
 	return o
 }
 
@@ -234,6 +265,7 @@ func (o *FetchedIndex) SetFileSize(v int64) *FetchedIndex {
 func (o *FetchedIndex) GetLastBuildTimeS() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -246,12 +278,14 @@ func (o *FetchedIndex) GetLastBuildTimeSOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.LastBuildTimeS, true
 }
 
 // SetLastBuildTimeS sets field value.
 func (o *FetchedIndex) SetLastBuildTimeS(v int32) *FetchedIndex {
 	o.LastBuildTimeS = v
+
 	return o
 }
 
@@ -259,6 +293,7 @@ func (o *FetchedIndex) SetLastBuildTimeS(v int32) *FetchedIndex {
 func (o *FetchedIndex) GetNumberOfPendingTasks() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -271,12 +306,14 @@ func (o *FetchedIndex) GetNumberOfPendingTasksOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NumberOfPendingTasks, true
 }
 
 // SetNumberOfPendingTasks sets field value.
 func (o *FetchedIndex) SetNumberOfPendingTasks(v int32) *FetchedIndex {
 	o.NumberOfPendingTasks = v
+
 	return o
 }
 
@@ -284,6 +321,7 @@ func (o *FetchedIndex) SetNumberOfPendingTasks(v int32) *FetchedIndex {
 func (o *FetchedIndex) GetPendingTask() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -296,12 +334,14 @@ func (o *FetchedIndex) GetPendingTaskOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PendingTask, true
 }
 
 // SetPendingTask sets field value.
 func (o *FetchedIndex) SetPendingTask(v bool) *FetchedIndex {
 	o.PendingTask = v
+
 	return o
 }
 
@@ -309,8 +349,10 @@ func (o *FetchedIndex) SetPendingTask(v bool) *FetchedIndex {
 func (o *FetchedIndex) GetPrimary() string {
 	if o == nil || o.Primary == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Primary
 }
 
@@ -320,6 +362,7 @@ func (o *FetchedIndex) GetPrimaryOk() (*string, bool) {
 	if o == nil || o.Primary == nil {
 		return nil, false
 	}
+
 	return o.Primary, true
 }
 
@@ -335,6 +378,7 @@ func (o *FetchedIndex) HasPrimary() bool {
 // SetPrimary gets a reference to the given string and assigns it to the Primary field.
 func (o *FetchedIndex) SetPrimary(v string) *FetchedIndex {
 	o.Primary = &v
+
 	return o
 }
 
@@ -342,8 +386,10 @@ func (o *FetchedIndex) SetPrimary(v string) *FetchedIndex {
 func (o *FetchedIndex) GetReplicas() []string {
 	if o == nil || o.Replicas == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replicas
 }
 
@@ -353,6 +399,7 @@ func (o *FetchedIndex) GetReplicasOk() ([]string, bool) {
 	if o == nil || o.Replicas == nil {
 		return nil, false
 	}
+
 	return o.Replicas, true
 }
 
@@ -368,6 +415,7 @@ func (o *FetchedIndex) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *FetchedIndex) SetReplicas(v []string) *FetchedIndex {
 	o.Replicas = v
+
 	return o
 }
 
@@ -375,8 +423,10 @@ func (o *FetchedIndex) SetReplicas(v []string) *FetchedIndex {
 func (o *FetchedIndex) GetVirtual() bool {
 	if o == nil || o.Virtual == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Virtual
 }
 
@@ -386,6 +436,7 @@ func (o *FetchedIndex) GetVirtualOk() (*bool, bool) {
 	if o == nil || o.Virtual == nil {
 		return nil, false
 	}
+
 	return o.Virtual, true
 }
 
@@ -401,6 +452,7 @@ func (o *FetchedIndex) HasVirtual() bool {
 // SetVirtual gets a reference to the given bool and assigns it to the Virtual field.
 func (o *FetchedIndex) SetVirtual(v bool) *FetchedIndex {
 	o.Virtual = &v
+
 	return o
 }
 
@@ -414,16 +466,20 @@ func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	toSerialize["fileSize"] = o.FileSize
 	toSerialize["lastBuildTimeS"] = o.LastBuildTimeS
 	toSerialize["numberOfPendingTasks"] = o.NumberOfPendingTasks
+
 	toSerialize["pendingTask"] = o.PendingTask
 	if o.Primary != nil {
 		toSerialize["primary"] = o.Primary
 	}
+
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+
 	if o.Virtual != nil {
 		toSerialize["virtual"] = o.Virtual
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FetchedIndex: %w", err)
@@ -446,5 +502,6 @@ func (o FetchedIndex) String() string {
 	out += fmt.Sprintf("  primary=%v\n", o.Primary)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
 	out += fmt.Sprintf("  virtual=%v\n", o.Virtual)
+
 	return fmt.Sprintf("FetchedIndex {\n%s}", out)
 }

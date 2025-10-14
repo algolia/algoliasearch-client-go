@@ -18,6 +18,7 @@ type DockerStreamsInput struct {
 func NewDockerStreamsInput(streams []DockerStreams) *DockerStreamsInput {
 	this := &DockerStreamsInput{}
 	this.Streams = streams
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyDockerStreamsInput() *DockerStreamsInput {
 func (o *DockerStreamsInput) GetStreams() []DockerStreams {
 	if o == nil {
 		var ret []DockerStreams
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *DockerStreamsInput) GetStreamsOk() ([]DockerStreams, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Streams, true
 }
 
 // SetStreams sets field value.
 func (o *DockerStreamsInput) SetStreams(v []DockerStreams) *DockerStreamsInput {
 	o.Streams = v
+
 	return o
 }
 
 func (o DockerStreamsInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["streams"] = o.Streams
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DockerStreamsInput: %w", err)
@@ -65,5 +70,6 @@ func (o DockerStreamsInput) MarshalJSON() ([]byte, error) {
 func (o DockerStreamsInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  streams=%v\n", o.Streams)
+
 	return fmt.Sprintf("DockerStreamsInput {\n%s}", out)
 }

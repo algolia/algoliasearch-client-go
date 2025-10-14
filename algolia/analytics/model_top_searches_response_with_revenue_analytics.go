@@ -19,6 +19,7 @@ type TopSearchesResponseWithRevenueAnalytics struct {
 func NewTopSearchesResponseWithRevenueAnalytics(searches []TopSearchWithRevenueAnalytics) *TopSearchesResponseWithRevenueAnalytics {
 	this := &TopSearchesResponseWithRevenueAnalytics{}
 	this.Searches = searches
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTopSearchesResponseWithRevenueAnalytics() *TopSearchesResponseWithR
 func (o *TopSearchesResponseWithRevenueAnalytics) GetSearches() []TopSearchWithRevenueAnalytics {
 	if o == nil {
 		var ret []TopSearchWithRevenueAnalytics
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TopSearchesResponseWithRevenueAnalytics) GetSearchesOk() ([]TopSearchWi
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Searches, true
 }
 
 // SetSearches sets field value.
 func (o *TopSearchesResponseWithRevenueAnalytics) SetSearches(v []TopSearchWithRevenueAnalytics) *TopSearchesResponseWithRevenueAnalytics {
 	o.Searches = v
+
 	return o
 }
 
 func (o TopSearchesResponseWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["searches"] = o.Searches
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearchesResponseWithRevenueAnalytics: %w", err)
@@ -66,5 +71,6 @@ func (o TopSearchesResponseWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 func (o TopSearchesResponseWithRevenueAnalytics) String() string {
 	out := ""
 	out += fmt.Sprintf("  searches=%v\n", o.Searches)
+
 	return fmt.Sprintf("TopSearchesResponseWithRevenueAnalytics {\n%s}", out)
 }

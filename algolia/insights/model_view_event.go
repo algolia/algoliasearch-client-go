@@ -19,24 +19,7 @@ var AllowedViewEventEnumValues = []ViewEvent{
 	"view",
 }
 
-func (v *ViewEvent) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ViewEvent': %w", string(src), err)
-	}
-	enumTypeValue := ViewEvent(value)
-	for _, existing := range AllowedViewEventEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ViewEvent", value)
-}
-
-// NewViewEventFromValue returns a pointer to a valid ViewEvent
+// NewViewEventFromValue returns a pointer to a valid ViewEvent.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewViewEventFromValue(v string) (*ViewEvent, error) {
 	ev := ViewEvent(v)
@@ -47,6 +30,26 @@ func NewViewEventFromValue(v string) (*ViewEvent, error) {
 	}
 }
 
+func (v *ViewEvent) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ViewEvent': %w", string(src), err)
+	}
+
+	enumTypeValue := ViewEvent(value)
+	for _, existing := range AllowedViewEventEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ViewEvent", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ViewEvent) IsValid() bool {
 	for _, existing := range AllowedViewEventEnumValues {
@@ -54,6 +57,7 @@ func (v ViewEvent) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

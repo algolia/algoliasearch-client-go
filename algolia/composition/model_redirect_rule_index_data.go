@@ -18,6 +18,7 @@ type RedirectRuleIndexData struct {
 func NewRedirectRuleIndexData(ruleObjectID string) *RedirectRuleIndexData {
 	this := &RedirectRuleIndexData{}
 	this.RuleObjectID = ruleObjectID
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyRedirectRuleIndexData() *RedirectRuleIndexData {
 func (o *RedirectRuleIndexData) GetRuleObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *RedirectRuleIndexData) GetRuleObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.RuleObjectID, true
 }
 
 // SetRuleObjectID sets field value.
 func (o *RedirectRuleIndexData) SetRuleObjectID(v string) *RedirectRuleIndexData {
 	o.RuleObjectID = v
+
 	return o
 }
 
 func (o RedirectRuleIndexData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["ruleObjectID"] = o.RuleObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexData: %w", err)
@@ -65,5 +70,6 @@ func (o RedirectRuleIndexData) MarshalJSON() ([]byte, error) {
 func (o RedirectRuleIndexData) String() string {
 	out := ""
 	out += fmt.Sprintf("  ruleObjectID=%v\n", o.RuleObjectID)
+
 	return fmt.Sprintf("RedirectRuleIndexData {\n%s}", out)
 }

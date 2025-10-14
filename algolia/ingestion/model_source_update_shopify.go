@@ -29,6 +29,7 @@ func NewSourceUpdateShopify(opts ...SourceUpdateShopifyOption) *SourceUpdateShop
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptySourceUpdateShopify() *SourceUpdateShopify {
 func (o *SourceUpdateShopify) GetFeatureFlags() map[string]any {
 	if o == nil || o.FeatureFlags == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.FeatureFlags
 }
 
@@ -52,6 +55,7 @@ func (o *SourceUpdateShopify) GetFeatureFlagsOk() (map[string]any, bool) {
 	if o == nil || o.FeatureFlags == nil {
 		return nil, false
 	}
+
 	return o.FeatureFlags, true
 }
 
@@ -67,6 +71,7 @@ func (o *SourceUpdateShopify) HasFeatureFlags() bool {
 // SetFeatureFlags gets a reference to the given map[string]any and assigns it to the FeatureFlags field.
 func (o *SourceUpdateShopify) SetFeatureFlags(v map[string]any) *SourceUpdateShopify {
 	o.FeatureFlags = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o SourceUpdateShopify) MarshalJSON() ([]byte, error) {
 	if o.FeatureFlags != nil {
 		toSerialize["featureFlags"] = o.FeatureFlags
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdateShopify: %w", err)
@@ -86,5 +92,6 @@ func (o SourceUpdateShopify) MarshalJSON() ([]byte, error) {
 func (o SourceUpdateShopify) String() string {
 	out := ""
 	out += fmt.Sprintf("  featureFlags=%v\n", o.FeatureFlags)
+
 	return fmt.Sprintf("SourceUpdateShopify {\n%s}", out)
 }

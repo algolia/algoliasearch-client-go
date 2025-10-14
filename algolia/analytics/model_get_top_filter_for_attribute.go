@@ -27,6 +27,7 @@ func NewGetTopFilterForAttribute(attribute string, operator Operator, value stri
 	this.Operator = operator
 	this.Value = value
 	this.Count = count
+
 	return this
 }
 
@@ -39,6 +40,7 @@ func NewEmptyGetTopFilterForAttribute() *GetTopFilterForAttribute {
 func (o *GetTopFilterForAttribute) GetAttribute() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -51,12 +53,14 @@ func (o *GetTopFilterForAttribute) GetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Attribute, true
 }
 
 // SetAttribute sets field value.
 func (o *GetTopFilterForAttribute) SetAttribute(v string) *GetTopFilterForAttribute {
 	o.Attribute = v
+
 	return o
 }
 
@@ -64,6 +68,7 @@ func (o *GetTopFilterForAttribute) SetAttribute(v string) *GetTopFilterForAttrib
 func (o *GetTopFilterForAttribute) GetOperator() Operator {
 	if o == nil {
 		var ret Operator
+
 		return ret
 	}
 
@@ -76,12 +81,14 @@ func (o *GetTopFilterForAttribute) GetOperatorOk() (*Operator, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Operator, true
 }
 
 // SetOperator sets field value.
 func (o *GetTopFilterForAttribute) SetOperator(v Operator) *GetTopFilterForAttribute {
 	o.Operator = v
+
 	return o
 }
 
@@ -89,6 +96,7 @@ func (o *GetTopFilterForAttribute) SetOperator(v Operator) *GetTopFilterForAttri
 func (o *GetTopFilterForAttribute) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -101,12 +109,14 @@ func (o *GetTopFilterForAttribute) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *GetTopFilterForAttribute) SetValue(v string) *GetTopFilterForAttribute {
 	o.Value = v
+
 	return o
 }
 
@@ -114,6 +124,7 @@ func (o *GetTopFilterForAttribute) SetValue(v string) *GetTopFilterForAttribute 
 func (o *GetTopFilterForAttribute) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -126,12 +137,14 @@ func (o *GetTopFilterForAttribute) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *GetTopFilterForAttribute) SetCount(v int32) *GetTopFilterForAttribute {
 	o.Count = v
+
 	return o
 }
 
@@ -141,6 +154,7 @@ func (o GetTopFilterForAttribute) MarshalJSON() ([]byte, error) {
 	toSerialize["operator"] = o.Operator
 	toSerialize["value"] = o.Value
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFilterForAttribute: %w", err)
@@ -155,5 +169,6 @@ func (o GetTopFilterForAttribute) String() string {
 	out += fmt.Sprintf("  operator=%v\n", o.Operator)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("GetTopFilterForAttribute {\n%s}", out)
 }

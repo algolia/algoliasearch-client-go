@@ -37,6 +37,7 @@ func NewAutoFacetFilter(opts ...AutoFacetFilterOption) *AutoFacetFilter {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyAutoFacetFilter() *AutoFacetFilter {
 func (o *AutoFacetFilter) GetFacet() string {
 	if o == nil || o.Facet == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Facet
 }
 
@@ -60,6 +63,7 @@ func (o *AutoFacetFilter) GetFacetOk() (*string, bool) {
 	if o == nil || o.Facet == nil {
 		return nil, false
 	}
+
 	return o.Facet, true
 }
 
@@ -75,6 +79,7 @@ func (o *AutoFacetFilter) HasFacet() bool {
 // SetFacet gets a reference to the given string and assigns it to the Facet field.
 func (o *AutoFacetFilter) SetFacet(v string) *AutoFacetFilter {
 	o.Facet = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *AutoFacetFilter) SetFacet(v string) *AutoFacetFilter {
 func (o *AutoFacetFilter) GetNegative() bool {
 	if o == nil || o.Negative == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Negative
 }
 
@@ -93,6 +100,7 @@ func (o *AutoFacetFilter) GetNegativeOk() (*bool, bool) {
 	if o == nil || o.Negative == nil {
 		return nil, false
 	}
+
 	return o.Negative, true
 }
 
@@ -108,6 +116,7 @@ func (o *AutoFacetFilter) HasNegative() bool {
 // SetNegative gets a reference to the given bool and assigns it to the Negative field.
 func (o *AutoFacetFilter) SetNegative(v bool) *AutoFacetFilter {
 	o.Negative = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o AutoFacetFilter) MarshalJSON() ([]byte, error) {
 	if o.Facet != nil {
 		toSerialize["facet"] = o.Facet
 	}
+
 	if o.Negative != nil {
 		toSerialize["negative"] = o.Negative
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AutoFacetFilter: %w", err)
@@ -131,5 +142,6 @@ func (o AutoFacetFilter) String() string {
 	out := ""
 	out += fmt.Sprintf("  facet=%v\n", o.Facet)
 	out += fmt.Sprintf("  negative=%v\n", o.Negative)
+
 	return fmt.Sprintf("AutoFacetFilter {\n%s}", out)
 }

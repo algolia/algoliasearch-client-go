@@ -88,16 +88,25 @@ func WithRankingInfoPromotedByReRanking(val bool) RankingInfoOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewRankingInfo(firstMatchedWord int32, geoDistance int32, nbExactWords int32, nbTypos int32, userScore int32, opts ...RankingInfoOption) *RankingInfo {
+func NewRankingInfo(
+	firstMatchedWord int32,
+	geoDistance int32,
+	nbExactWords int32,
+	nbTypos int32,
+	userScore int32,
+	opts ...RankingInfoOption,
+) *RankingInfo {
 	this := &RankingInfo{}
 	this.FirstMatchedWord = firstMatchedWord
 	this.GeoDistance = geoDistance
 	this.NbExactWords = nbExactWords
 	this.NbTypos = nbTypos
+
 	this.UserScore = userScore
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -110,8 +119,10 @@ func NewEmptyRankingInfo() *RankingInfo {
 func (o *RankingInfo) GetFilters() int32 {
 	if o == nil || o.Filters == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -121,6 +132,7 @@ func (o *RankingInfo) GetFiltersOk() (*int32, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -136,6 +148,7 @@ func (o *RankingInfo) HasFilters() bool {
 // SetFilters gets a reference to the given int32 and assigns it to the Filters field.
 func (o *RankingInfo) SetFilters(v int32) *RankingInfo {
 	o.Filters = &v
+
 	return o
 }
 
@@ -143,6 +156,7 @@ func (o *RankingInfo) SetFilters(v int32) *RankingInfo {
 func (o *RankingInfo) GetFirstMatchedWord() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -155,12 +169,14 @@ func (o *RankingInfo) GetFirstMatchedWordOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FirstMatchedWord, true
 }
 
 // SetFirstMatchedWord sets field value.
 func (o *RankingInfo) SetFirstMatchedWord(v int32) *RankingInfo {
 	o.FirstMatchedWord = v
+
 	return o
 }
 
@@ -168,6 +184,7 @@ func (o *RankingInfo) SetFirstMatchedWord(v int32) *RankingInfo {
 func (o *RankingInfo) GetGeoDistance() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -180,12 +197,14 @@ func (o *RankingInfo) GetGeoDistanceOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.GeoDistance, true
 }
 
 // SetGeoDistance sets field value.
 func (o *RankingInfo) SetGeoDistance(v int32) *RankingInfo {
 	o.GeoDistance = v
+
 	return o
 }
 
@@ -193,8 +212,10 @@ func (o *RankingInfo) SetGeoDistance(v int32) *RankingInfo {
 func (o *RankingInfo) GetGeoPrecision() int32 {
 	if o == nil || o.GeoPrecision == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.GeoPrecision
 }
 
@@ -204,6 +225,7 @@ func (o *RankingInfo) GetGeoPrecisionOk() (*int32, bool) {
 	if o == nil || o.GeoPrecision == nil {
 		return nil, false
 	}
+
 	return o.GeoPrecision, true
 }
 
@@ -219,6 +241,7 @@ func (o *RankingInfo) HasGeoPrecision() bool {
 // SetGeoPrecision gets a reference to the given int32 and assigns it to the GeoPrecision field.
 func (o *RankingInfo) SetGeoPrecision(v int32) *RankingInfo {
 	o.GeoPrecision = &v
+
 	return o
 }
 
@@ -226,8 +249,10 @@ func (o *RankingInfo) SetGeoPrecision(v int32) *RankingInfo {
 func (o *RankingInfo) GetMatchedGeoLocation() MatchedGeoLocation {
 	if o == nil || o.MatchedGeoLocation == nil {
 		var ret MatchedGeoLocation
+
 		return ret
 	}
+
 	return *o.MatchedGeoLocation
 }
 
@@ -237,6 +262,7 @@ func (o *RankingInfo) GetMatchedGeoLocationOk() (*MatchedGeoLocation, bool) {
 	if o == nil || o.MatchedGeoLocation == nil {
 		return nil, false
 	}
+
 	return o.MatchedGeoLocation, true
 }
 
@@ -252,6 +278,7 @@ func (o *RankingInfo) HasMatchedGeoLocation() bool {
 // SetMatchedGeoLocation gets a reference to the given MatchedGeoLocation and assigns it to the MatchedGeoLocation field.
 func (o *RankingInfo) SetMatchedGeoLocation(v *MatchedGeoLocation) *RankingInfo {
 	o.MatchedGeoLocation = v
+
 	return o
 }
 
@@ -259,8 +286,10 @@ func (o *RankingInfo) SetMatchedGeoLocation(v *MatchedGeoLocation) *RankingInfo 
 func (o *RankingInfo) GetPersonalization() Personalization {
 	if o == nil || o.Personalization == nil {
 		var ret Personalization
+
 		return ret
 	}
+
 	return *o.Personalization
 }
 
@@ -270,6 +299,7 @@ func (o *RankingInfo) GetPersonalizationOk() (*Personalization, bool) {
 	if o == nil || o.Personalization == nil {
 		return nil, false
 	}
+
 	return o.Personalization, true
 }
 
@@ -285,6 +315,7 @@ func (o *RankingInfo) HasPersonalization() bool {
 // SetPersonalization gets a reference to the given Personalization and assigns it to the Personalization field.
 func (o *RankingInfo) SetPersonalization(v *Personalization) *RankingInfo {
 	o.Personalization = v
+
 	return o
 }
 
@@ -292,6 +323,7 @@ func (o *RankingInfo) SetPersonalization(v *Personalization) *RankingInfo {
 func (o *RankingInfo) GetNbExactWords() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -304,12 +336,14 @@ func (o *RankingInfo) GetNbExactWordsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbExactWords, true
 }
 
 // SetNbExactWords sets field value.
 func (o *RankingInfo) SetNbExactWords(v int32) *RankingInfo {
 	o.NbExactWords = v
+
 	return o
 }
 
@@ -317,6 +351,7 @@ func (o *RankingInfo) SetNbExactWords(v int32) *RankingInfo {
 func (o *RankingInfo) GetNbTypos() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -329,12 +364,14 @@ func (o *RankingInfo) GetNbTyposOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbTypos, true
 }
 
 // SetNbTypos sets field value.
 func (o *RankingInfo) SetNbTypos(v int32) *RankingInfo {
 	o.NbTypos = v
+
 	return o
 }
 
@@ -342,8 +379,10 @@ func (o *RankingInfo) SetNbTypos(v int32) *RankingInfo {
 func (o *RankingInfo) GetPromoted() bool {
 	if o == nil || o.Promoted == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Promoted
 }
 
@@ -353,6 +392,7 @@ func (o *RankingInfo) GetPromotedOk() (*bool, bool) {
 	if o == nil || o.Promoted == nil {
 		return nil, false
 	}
+
 	return o.Promoted, true
 }
 
@@ -368,6 +408,7 @@ func (o *RankingInfo) HasPromoted() bool {
 // SetPromoted gets a reference to the given bool and assigns it to the Promoted field.
 func (o *RankingInfo) SetPromoted(v bool) *RankingInfo {
 	o.Promoted = &v
+
 	return o
 }
 
@@ -375,8 +416,10 @@ func (o *RankingInfo) SetPromoted(v bool) *RankingInfo {
 func (o *RankingInfo) GetProximityDistance() int32 {
 	if o == nil || o.ProximityDistance == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ProximityDistance
 }
 
@@ -386,6 +429,7 @@ func (o *RankingInfo) GetProximityDistanceOk() (*int32, bool) {
 	if o == nil || o.ProximityDistance == nil {
 		return nil, false
 	}
+
 	return o.ProximityDistance, true
 }
 
@@ -401,6 +445,7 @@ func (o *RankingInfo) HasProximityDistance() bool {
 // SetProximityDistance gets a reference to the given int32 and assigns it to the ProximityDistance field.
 func (o *RankingInfo) SetProximityDistance(v int32) *RankingInfo {
 	o.ProximityDistance = &v
+
 	return o
 }
 
@@ -408,6 +453,7 @@ func (o *RankingInfo) SetProximityDistance(v int32) *RankingInfo {
 func (o *RankingInfo) GetUserScore() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -420,12 +466,14 @@ func (o *RankingInfo) GetUserScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserScore, true
 }
 
 // SetUserScore sets field value.
 func (o *RankingInfo) SetUserScore(v int32) *RankingInfo {
 	o.UserScore = v
+
 	return o
 }
 
@@ -433,8 +481,10 @@ func (o *RankingInfo) SetUserScore(v int32) *RankingInfo {
 func (o *RankingInfo) GetWords() int32 {
 	if o == nil || o.Words == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Words
 }
 
@@ -444,6 +494,7 @@ func (o *RankingInfo) GetWordsOk() (*int32, bool) {
 	if o == nil || o.Words == nil {
 		return nil, false
 	}
+
 	return o.Words, true
 }
 
@@ -459,6 +510,7 @@ func (o *RankingInfo) HasWords() bool {
 // SetWords gets a reference to the given int32 and assigns it to the Words field.
 func (o *RankingInfo) SetWords(v int32) *RankingInfo {
 	o.Words = &v
+
 	return o
 }
 
@@ -466,8 +518,10 @@ func (o *RankingInfo) SetWords(v int32) *RankingInfo {
 func (o *RankingInfo) GetPromotedByReRanking() bool {
 	if o == nil || o.PromotedByReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PromotedByReRanking
 }
 
@@ -477,6 +531,7 @@ func (o *RankingInfo) GetPromotedByReRankingOk() (*bool, bool) {
 	if o == nil || o.PromotedByReRanking == nil {
 		return nil, false
 	}
+
 	return o.PromotedByReRanking, true
 }
 
@@ -492,6 +547,7 @@ func (o *RankingInfo) HasPromotedByReRanking() bool {
 // SetPromotedByReRanking gets a reference to the given bool and assigns it to the PromotedByReRanking field.
 func (o *RankingInfo) SetPromotedByReRanking(v bool) *RankingInfo {
 	o.PromotedByReRanking = &v
+
 	return o
 }
 
@@ -500,32 +556,42 @@ func (o RankingInfo) MarshalJSON() ([]byte, error) {
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	toSerialize["firstMatchedWord"] = o.FirstMatchedWord
+
 	toSerialize["geoDistance"] = o.GeoDistance
 	if o.GeoPrecision != nil {
 		toSerialize["geoPrecision"] = o.GeoPrecision
 	}
+
 	if o.MatchedGeoLocation != nil {
 		toSerialize["matchedGeoLocation"] = o.MatchedGeoLocation
 	}
+
 	if o.Personalization != nil {
 		toSerialize["personalization"] = o.Personalization
 	}
+
 	toSerialize["nbExactWords"] = o.NbExactWords
+
 	toSerialize["nbTypos"] = o.NbTypos
 	if o.Promoted != nil {
 		toSerialize["promoted"] = o.Promoted
 	}
+
 	if o.ProximityDistance != nil {
 		toSerialize["proximityDistance"] = o.ProximityDistance
 	}
+
 	toSerialize["userScore"] = o.UserScore
 	if o.Words != nil {
 		toSerialize["words"] = o.Words
 	}
+
 	if o.PromotedByReRanking != nil {
 		toSerialize["promotedByReRanking"] = o.PromotedByReRanking
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RankingInfo: %w", err)
@@ -549,5 +615,6 @@ func (o RankingInfo) String() string {
 	out += fmt.Sprintf("  userScore=%v\n", o.UserScore)
 	out += fmt.Sprintf("  words=%v\n", o.Words)
 	out += fmt.Sprintf("  promotedByReRanking=%v\n", o.PromotedByReRanking)
+
 	return fmt.Sprintf("RankingInfo {\n%s}", out)
 }

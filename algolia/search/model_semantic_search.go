@@ -29,6 +29,7 @@ func NewSemanticSearch(opts ...SemanticSearchOption) *SemanticSearch {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptySemanticSearch() *SemanticSearch {
 func (o *SemanticSearch) GetEventSources() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.EventSources
 }
 
@@ -53,6 +56,7 @@ func (o *SemanticSearch) GetEventSourcesOk() ([]string, bool) {
 	if o == nil || o.EventSources == nil {
 		return nil, false
 	}
+
 	return o.EventSources, true
 }
 
@@ -68,6 +72,7 @@ func (o *SemanticSearch) HasEventSources() bool {
 // SetEventSources gets a reference to the given []string and assigns it to the EventSources field.
 func (o *SemanticSearch) SetEventSources(v []string) *SemanticSearch {
 	o.EventSources = v
+
 	return o
 }
 
@@ -76,6 +81,7 @@ func (o SemanticSearch) MarshalJSON() ([]byte, error) {
 	if o.EventSources != nil {
 		toSerialize["eventSources"] = o.EventSources
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SemanticSearch: %w", err)
@@ -87,5 +93,6 @@ func (o SemanticSearch) MarshalJSON() ([]byte, error) {
 func (o SemanticSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  eventSources=%v\n", o.EventSources)
+
 	return fmt.Sprintf("SemanticSearch {\n%s}", out)
 }

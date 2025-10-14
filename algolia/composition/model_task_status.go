@@ -21,24 +21,7 @@ var AllowedTaskStatusEnumValues = []TaskStatus{
 	"notPublished",
 }
 
-func (v *TaskStatus) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TaskStatus': %w", string(src), err)
-	}
-	enumTypeValue := TaskStatus(value)
-	for _, existing := range AllowedTaskStatusEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TaskStatus", value)
-}
-
-// NewTaskStatusFromValue returns a pointer to a valid TaskStatus
+// NewTaskStatusFromValue returns a pointer to a valid TaskStatus.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTaskStatusFromValue(v string) (*TaskStatus, error) {
 	ev := TaskStatus(v)
@@ -49,6 +32,26 @@ func NewTaskStatusFromValue(v string) (*TaskStatus, error) {
 	}
 }
 
+func (v *TaskStatus) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TaskStatus': %w", string(src), err)
+	}
+
+	enumTypeValue := TaskStatus(value)
+	for _, existing := range AllowedTaskStatusEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TaskStatus", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TaskStatus) IsValid() bool {
 	for _, existing := range AllowedTaskStatusEnumValues {
@@ -56,6 +59,7 @@ func (v TaskStatus) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

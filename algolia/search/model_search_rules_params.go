@@ -70,6 +70,7 @@ func NewSearchRulesParams(opts ...SearchRulesParamsOption) *SearchRulesParams {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -82,8 +83,10 @@ func NewEmptySearchRulesParams() *SearchRulesParams {
 func (o *SearchRulesParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -93,6 +96,7 @@ func (o *SearchRulesParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -108,6 +112,7 @@ func (o *SearchRulesParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchRulesParams) SetQuery(v string) *SearchRulesParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -115,8 +120,10 @@ func (o *SearchRulesParams) SetQuery(v string) *SearchRulesParams {
 func (o *SearchRulesParams) GetAnchoring() Anchoring {
 	if o == nil || o.Anchoring == nil {
 		var ret Anchoring
+
 		return ret
 	}
+
 	return *o.Anchoring
 }
 
@@ -126,6 +133,7 @@ func (o *SearchRulesParams) GetAnchoringOk() (*Anchoring, bool) {
 	if o == nil || o.Anchoring == nil {
 		return nil, false
 	}
+
 	return o.Anchoring, true
 }
 
@@ -141,6 +149,7 @@ func (o *SearchRulesParams) HasAnchoring() bool {
 // SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
 func (o *SearchRulesParams) SetAnchoring(v Anchoring) *SearchRulesParams {
 	o.Anchoring = &v
+
 	return o
 }
 
@@ -148,8 +157,10 @@ func (o *SearchRulesParams) SetAnchoring(v Anchoring) *SearchRulesParams {
 func (o *SearchRulesParams) GetContext() string {
 	if o == nil || o.Context == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Context
 }
 
@@ -159,6 +170,7 @@ func (o *SearchRulesParams) GetContextOk() (*string, bool) {
 	if o == nil || o.Context == nil {
 		return nil, false
 	}
+
 	return o.Context, true
 }
 
@@ -174,6 +186,7 @@ func (o *SearchRulesParams) HasContext() bool {
 // SetContext gets a reference to the given string and assigns it to the Context field.
 func (o *SearchRulesParams) SetContext(v string) *SearchRulesParams {
 	o.Context = &v
+
 	return o
 }
 
@@ -181,8 +194,10 @@ func (o *SearchRulesParams) SetContext(v string) *SearchRulesParams {
 func (o *SearchRulesParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -192,6 +207,7 @@ func (o *SearchRulesParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -207,6 +223,7 @@ func (o *SearchRulesParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchRulesParams) SetPage(v int32) *SearchRulesParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -214,8 +231,10 @@ func (o *SearchRulesParams) SetPage(v int32) *SearchRulesParams {
 func (o *SearchRulesParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -225,6 +244,7 @@ func (o *SearchRulesParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -240,6 +260,7 @@ func (o *SearchRulesParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchRulesParams) SetHitsPerPage(v int32) *SearchRulesParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -247,8 +268,10 @@ func (o *SearchRulesParams) SetHitsPerPage(v int32) *SearchRulesParams {
 func (o *SearchRulesParams) GetEnabled() bool {
 	if o == nil || o.Enabled.Get() == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled.Get()
 }
 
@@ -259,6 +282,7 @@ func (o *SearchRulesParams) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Enabled.Get(), o.Enabled.IsSet()
 }
 
@@ -274,6 +298,7 @@ func (o *SearchRulesParams) HasEnabled() bool {
 // SetEnabled gets a reference to the given utils.Nullable[bool] and assigns it to the Enabled field.
 func (o *SearchRulesParams) SetEnabled(v bool) *SearchRulesParams {
 	o.Enabled.Set(&v)
+
 	return o
 }
 
@@ -292,21 +317,27 @@ func (o SearchRulesParams) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.Anchoring != nil {
 		toSerialize["anchoring"] = o.Anchoring
 	}
+
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.Enabled.IsSet() {
 		toSerialize["enabled"] = o.Enabled.Get()
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRulesParams: %w", err)
@@ -323,5 +354,6 @@ func (o SearchRulesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+
 	return fmt.Sprintf("SearchRulesParams {\n%s}", out)
 }

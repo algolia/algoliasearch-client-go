@@ -41,16 +41,25 @@ func WithClickedFiltersTimestamp(val int64) ClickedFiltersOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewClickedFilters(eventName string, eventType ClickEvent, index string, filters []string, userToken string, opts ...ClickedFiltersOption) *ClickedFilters {
+func NewClickedFilters(
+	eventName string,
+	eventType ClickEvent,
+	index string,
+	filters []string,
+	userToken string,
+	opts ...ClickedFiltersOption,
+) *ClickedFilters {
 	this := &ClickedFilters{}
 	this.EventName = eventName
 	this.EventType = eventType
 	this.Index = index
 	this.Filters = filters
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -63,6 +72,7 @@ func NewEmptyClickedFilters() *ClickedFilters {
 func (o *ClickedFilters) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -75,12 +85,14 @@ func (o *ClickedFilters) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *ClickedFilters) SetEventName(v string) *ClickedFilters {
 	o.EventName = v
+
 	return o
 }
 
@@ -88,6 +100,7 @@ func (o *ClickedFilters) SetEventName(v string) *ClickedFilters {
 func (o *ClickedFilters) GetEventType() ClickEvent {
 	if o == nil {
 		var ret ClickEvent
+
 		return ret
 	}
 
@@ -100,12 +113,14 @@ func (o *ClickedFilters) GetEventTypeOk() (*ClickEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *ClickedFilters) SetEventType(v ClickEvent) *ClickedFilters {
 	o.EventType = v
+
 	return o
 }
 
@@ -113,6 +128,7 @@ func (o *ClickedFilters) SetEventType(v ClickEvent) *ClickedFilters {
 func (o *ClickedFilters) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -125,12 +141,14 @@ func (o *ClickedFilters) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ClickedFilters) SetIndex(v string) *ClickedFilters {
 	o.Index = v
+
 	return o
 }
 
@@ -138,6 +156,7 @@ func (o *ClickedFilters) SetIndex(v string) *ClickedFilters {
 func (o *ClickedFilters) GetFilters() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -150,12 +169,14 @@ func (o *ClickedFilters) GetFiltersOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
 // SetFilters sets field value.
 func (o *ClickedFilters) SetFilters(v []string) *ClickedFilters {
 	o.Filters = v
+
 	return o
 }
 
@@ -163,6 +184,7 @@ func (o *ClickedFilters) SetFilters(v []string) *ClickedFilters {
 func (o *ClickedFilters) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -175,12 +197,14 @@ func (o *ClickedFilters) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *ClickedFilters) SetUserToken(v string) *ClickedFilters {
 	o.UserToken = v
+
 	return o
 }
 
@@ -188,8 +212,10 @@ func (o *ClickedFilters) SetUserToken(v string) *ClickedFilters {
 func (o *ClickedFilters) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -199,6 +225,7 @@ func (o *ClickedFilters) GetAuthenticatedUserTokenOk() (*string, bool) {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -214,6 +241,7 @@ func (o *ClickedFilters) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *ClickedFilters) SetAuthenticatedUserToken(v string) *ClickedFilters {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -221,8 +249,10 @@ func (o *ClickedFilters) SetAuthenticatedUserToken(v string) *ClickedFilters {
 func (o *ClickedFilters) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -232,6 +262,7 @@ func (o *ClickedFilters) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -247,6 +278,7 @@ func (o *ClickedFilters) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *ClickedFilters) SetTimestamp(v int64) *ClickedFilters {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -256,13 +288,16 @@ func (o ClickedFilters) MarshalJSON() ([]byte, error) {
 	toSerialize["eventType"] = o.EventType
 	toSerialize["index"] = o.Index
 	toSerialize["filters"] = o.Filters
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ClickedFilters: %w", err)
@@ -280,5 +315,6 @@ func (o ClickedFilters) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+
 	return fmt.Sprintf("ClickedFilters {\n%s}", out)
 }

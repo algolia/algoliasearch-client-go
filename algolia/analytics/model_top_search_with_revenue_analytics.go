@@ -46,7 +46,23 @@ type TopSearchWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRate utils.Nullable[float64], averageClickPosition utils.Nullable[float64], clickPositions []ClickPosition, conversionRate utils.Nullable[float64], trackedSearchCount int32, clickCount int32, conversionCount int32, nbHits int32, currencies map[string]CurrencyCode, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32) *TopSearchWithRevenueAnalytics {
+func NewTopSearchWithRevenueAnalytics(
+	search string,
+	count int32,
+	clickThroughRate utils.Nullable[float64],
+	averageClickPosition utils.Nullable[float64],
+	clickPositions []ClickPosition,
+	conversionRate utils.Nullable[float64],
+	trackedSearchCount int32,
+	clickCount int32,
+	conversionCount int32,
+	nbHits int32,
+	currencies map[string]CurrencyCode,
+	addToCartRate utils.Nullable[float64],
+	addToCartCount int32,
+	purchaseRate utils.Nullable[float64],
+	purchaseCount int32,
+) *TopSearchWithRevenueAnalytics {
 	this := &TopSearchWithRevenueAnalytics{}
 	this.Search = search
 	this.Count = count
@@ -63,6 +79,7 @@ func NewTopSearchWithRevenueAnalytics(search string, count int32, clickThroughRa
 	this.AddToCartCount = addToCartCount
 	this.PurchaseRate = purchaseRate
 	this.PurchaseCount = purchaseCount
+
 	return this
 }
 
@@ -75,6 +92,7 @@ func NewEmptyTopSearchWithRevenueAnalytics() *TopSearchWithRevenueAnalytics {
 func (o *TopSearchWithRevenueAnalytics) GetSearch() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -87,12 +105,14 @@ func (o *TopSearchWithRevenueAnalytics) GetSearchOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetSearch(v string) *TopSearchWithRevenueAnalytics {
 	o.Search = v
+
 	return o
 }
 
@@ -100,6 +120,7 @@ func (o *TopSearchWithRevenueAnalytics) SetSearch(v string) *TopSearchWithRevenu
 func (o *TopSearchWithRevenueAnalytics) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -112,12 +133,14 @@ func (o *TopSearchWithRevenueAnalytics) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.Count = v
+
 	return o
 }
 
@@ -126,6 +149,7 @@ func (o *TopSearchWithRevenueAnalytics) SetCount(v int32) *TopSearchWithRevenueA
 func (o *TopSearchWithRevenueAnalytics) GetClickThroughRate() float64 {
 	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -139,12 +163,14 @@ func (o *TopSearchWithRevenueAnalytics) GetClickThroughRateOk() (*float64, bool)
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
 // SetClickThroughRate sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetClickThroughRate(v float64) *TopSearchWithRevenueAnalytics {
 	o.ClickThroughRate.Set(&v)
+
 	return o
 }
 
@@ -153,6 +179,7 @@ func (o *TopSearchWithRevenueAnalytics) SetClickThroughRate(v float64) *TopSearc
 func (o *TopSearchWithRevenueAnalytics) GetAverageClickPosition() float64 {
 	if o == nil || o.AverageClickPosition.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -166,12 +193,14 @@ func (o *TopSearchWithRevenueAnalytics) GetAverageClickPositionOk() (*float64, b
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AverageClickPosition.Get(), o.AverageClickPosition.IsSet()
 }
 
 // SetAverageClickPosition sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetAverageClickPosition(v float64) *TopSearchWithRevenueAnalytics {
 	o.AverageClickPosition.Set(&v)
+
 	return o
 }
 
@@ -179,6 +208,7 @@ func (o *TopSearchWithRevenueAnalytics) SetAverageClickPosition(v float64) *TopS
 func (o *TopSearchWithRevenueAnalytics) GetClickPositions() []ClickPosition {
 	if o == nil {
 		var ret []ClickPosition
+
 		return ret
 	}
 
@@ -191,12 +221,14 @@ func (o *TopSearchWithRevenueAnalytics) GetClickPositionsOk() ([]ClickPosition, 
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickPositions, true
 }
 
 // SetClickPositions sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetClickPositions(v []ClickPosition) *TopSearchWithRevenueAnalytics {
 	o.ClickPositions = v
+
 	return o
 }
 
@@ -205,6 +237,7 @@ func (o *TopSearchWithRevenueAnalytics) SetClickPositions(v []ClickPosition) *To
 func (o *TopSearchWithRevenueAnalytics) GetConversionRate() float64 {
 	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -218,12 +251,14 @@ func (o *TopSearchWithRevenueAnalytics) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
 // SetConversionRate sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetConversionRate(v float64) *TopSearchWithRevenueAnalytics {
 	o.ConversionRate.Set(&v)
+
 	return o
 }
 
@@ -231,6 +266,7 @@ func (o *TopSearchWithRevenueAnalytics) SetConversionRate(v float64) *TopSearchW
 func (o *TopSearchWithRevenueAnalytics) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -243,12 +279,14 @@ func (o *TopSearchWithRevenueAnalytics) GetTrackedSearchCountOk() (*int32, bool)
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetTrackedSearchCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -256,6 +294,7 @@ func (o *TopSearchWithRevenueAnalytics) SetTrackedSearchCount(v int32) *TopSearc
 func (o *TopSearchWithRevenueAnalytics) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -268,12 +307,14 @@ func (o *TopSearchWithRevenueAnalytics) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetClickCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -281,6 +322,7 @@ func (o *TopSearchWithRevenueAnalytics) SetClickCount(v int32) *TopSearchWithRev
 func (o *TopSearchWithRevenueAnalytics) GetConversionCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -293,12 +335,14 @@ func (o *TopSearchWithRevenueAnalytics) GetConversionCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ConversionCount, true
 }
 
 // SetConversionCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetConversionCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.ConversionCount = v
+
 	return o
 }
 
@@ -306,6 +350,7 @@ func (o *TopSearchWithRevenueAnalytics) SetConversionCount(v int32) *TopSearchWi
 func (o *TopSearchWithRevenueAnalytics) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -318,12 +363,14 @@ func (o *TopSearchWithRevenueAnalytics) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetNbHits(v int32) *TopSearchWithRevenueAnalytics {
 	o.NbHits = v
+
 	return o
 }
 
@@ -331,6 +378,7 @@ func (o *TopSearchWithRevenueAnalytics) SetNbHits(v int32) *TopSearchWithRevenue
 func (o *TopSearchWithRevenueAnalytics) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
 		var ret map[string]CurrencyCode
+
 		return ret
 	}
 
@@ -343,12 +391,14 @@ func (o *TopSearchWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrencyC
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Currencies, true
 }
 
 // SetCurrencies sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode) *TopSearchWithRevenueAnalytics {
 	o.Currencies = v
+
 	return o
 }
 
@@ -357,6 +407,7 @@ func (o *TopSearchWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode)
 func (o *TopSearchWithRevenueAnalytics) GetAddToCartRate() float64 {
 	if o == nil || o.AddToCartRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -370,12 +421,14 @@ func (o *TopSearchWithRevenueAnalytics) GetAddToCartRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AddToCartRate.Get(), o.AddToCartRate.IsSet()
 }
 
 // SetAddToCartRate sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetAddToCartRate(v float64) *TopSearchWithRevenueAnalytics {
 	o.AddToCartRate.Set(&v)
+
 	return o
 }
 
@@ -383,6 +436,7 @@ func (o *TopSearchWithRevenueAnalytics) SetAddToCartRate(v float64) *TopSearchWi
 func (o *TopSearchWithRevenueAnalytics) GetAddToCartCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -395,12 +449,14 @@ func (o *TopSearchWithRevenueAnalytics) GetAddToCartCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AddToCartCount, true
 }
 
 // SetAddToCartCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetAddToCartCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.AddToCartCount = v
+
 	return o
 }
 
@@ -409,6 +465,7 @@ func (o *TopSearchWithRevenueAnalytics) SetAddToCartCount(v int32) *TopSearchWit
 func (o *TopSearchWithRevenueAnalytics) GetPurchaseRate() float64 {
 	if o == nil || o.PurchaseRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -422,12 +479,14 @@ func (o *TopSearchWithRevenueAnalytics) GetPurchaseRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.PurchaseRate.Get(), o.PurchaseRate.IsSet()
 }
 
 // SetPurchaseRate sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetPurchaseRate(v float64) *TopSearchWithRevenueAnalytics {
 	o.PurchaseRate.Set(&v)
+
 	return o
 }
 
@@ -435,6 +494,7 @@ func (o *TopSearchWithRevenueAnalytics) SetPurchaseRate(v float64) *TopSearchWit
 func (o *TopSearchWithRevenueAnalytics) GetPurchaseCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -447,12 +507,14 @@ func (o *TopSearchWithRevenueAnalytics) GetPurchaseCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PurchaseCount, true
 }
 
 // SetPurchaseCount sets field value.
 func (o *TopSearchWithRevenueAnalytics) SetPurchaseCount(v int32) *TopSearchWithRevenueAnalytics {
 	o.PurchaseCount = v
+
 	return o
 }
 
@@ -473,6 +535,7 @@ func (o TopSearchWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize["addToCartCount"] = o.AddToCartCount
 	toSerialize["purchaseRate"] = o.PurchaseRate.Get()
 	toSerialize["purchaseCount"] = o.PurchaseCount
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopSearchWithRevenueAnalytics: %w", err)
@@ -498,5 +561,6 @@ func (o TopSearchWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  addToCartCount=%v\n", o.AddToCartCount)
 	out += fmt.Sprintf("  purchaseRate=%v\n", o.PurchaseRate)
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
+
 	return fmt.Sprintf("TopSearchWithRevenueAnalytics {\n%s}", out)
 }

@@ -19,6 +19,7 @@ type ScheduleABTestResponse struct {
 func NewScheduleABTestResponse(abTestScheduleID int32) *ScheduleABTestResponse {
 	this := &ScheduleABTestResponse{}
 	this.AbTestScheduleID = abTestScheduleID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyScheduleABTestResponse() *ScheduleABTestResponse {
 func (o *ScheduleABTestResponse) GetAbTestScheduleID() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ScheduleABTestResponse) GetAbTestScheduleIDOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AbTestScheduleID, true
 }
 
 // SetAbTestScheduleID sets field value.
 func (o *ScheduleABTestResponse) SetAbTestScheduleID(v int32) *ScheduleABTestResponse {
 	o.AbTestScheduleID = v
+
 	return o
 }
 
 func (o ScheduleABTestResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["abTestScheduleID"] = o.AbTestScheduleID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleABTestResponse: %w", err)
@@ -66,5 +71,6 @@ func (o ScheduleABTestResponse) MarshalJSON() ([]byte, error) {
 func (o ScheduleABTestResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  abTestScheduleID=%v\n", o.AbTestScheduleID)
+
 	return fmt.Sprintf("ScheduleABTestResponse {\n%s}", out)
 }

@@ -31,6 +31,7 @@ func NewListCompositionsResponse(items []Composition, nbPages int32, page int32,
 	this.Page = page
 	this.HitsPerPage = hitsPerPage
 	this.NbHits = nbHits
+
 	return this
 }
 
@@ -43,6 +44,7 @@ func NewEmptyListCompositionsResponse() *ListCompositionsResponse {
 func (o *ListCompositionsResponse) GetItems() []Composition {
 	if o == nil {
 		var ret []Composition
+
 		return ret
 	}
 
@@ -55,12 +57,14 @@ func (o *ListCompositionsResponse) GetItemsOk() ([]Composition, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Items, true
 }
 
 // SetItems sets field value.
 func (o *ListCompositionsResponse) SetItems(v []Composition) *ListCompositionsResponse {
 	o.Items = v
+
 	return o
 }
 
@@ -68,6 +72,7 @@ func (o *ListCompositionsResponse) SetItems(v []Composition) *ListCompositionsRe
 func (o *ListCompositionsResponse) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -80,12 +85,14 @@ func (o *ListCompositionsResponse) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *ListCompositionsResponse) SetNbPages(v int32) *ListCompositionsResponse {
 	o.NbPages = v
+
 	return o
 }
 
@@ -93,6 +100,7 @@ func (o *ListCompositionsResponse) SetNbPages(v int32) *ListCompositionsResponse
 func (o *ListCompositionsResponse) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -105,12 +113,14 @@ func (o *ListCompositionsResponse) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *ListCompositionsResponse) SetPage(v int32) *ListCompositionsResponse {
 	o.Page = v
+
 	return o
 }
 
@@ -118,6 +128,7 @@ func (o *ListCompositionsResponse) SetPage(v int32) *ListCompositionsResponse {
 func (o *ListCompositionsResponse) GetHitsPerPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -130,12 +141,14 @@ func (o *ListCompositionsResponse) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.HitsPerPage, true
 }
 
 // SetHitsPerPage sets field value.
 func (o *ListCompositionsResponse) SetHitsPerPage(v int32) *ListCompositionsResponse {
 	o.HitsPerPage = v
+
 	return o
 }
 
@@ -143,6 +156,7 @@ func (o *ListCompositionsResponse) SetHitsPerPage(v int32) *ListCompositionsResp
 func (o *ListCompositionsResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -155,12 +169,14 @@ func (o *ListCompositionsResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *ListCompositionsResponse) SetNbHits(v int32) *ListCompositionsResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -171,6 +187,7 @@ func (o ListCompositionsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["page"] = o.Page
 	toSerialize["hitsPerPage"] = o.HitsPerPage
 	toSerialize["nbHits"] = o.NbHits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListCompositionsResponse: %w", err)
@@ -186,5 +203,6 @@ func (o ListCompositionsResponse) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
+
 	return fmt.Sprintf("ListCompositionsResponse {\n%s}", out)
 }

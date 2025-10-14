@@ -66,6 +66,7 @@ func NewSourceUpdateCommercetools(opts ...SourceUpdateCommercetoolsOption) *Sour
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -78,8 +79,10 @@ func NewEmptySourceUpdateCommercetools() *SourceUpdateCommercetools {
 func (o *SourceUpdateCommercetools) GetStoreKeys() []string {
 	if o == nil || o.StoreKeys == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.StoreKeys
 }
 
@@ -89,6 +92,7 @@ func (o *SourceUpdateCommercetools) GetStoreKeysOk() ([]string, bool) {
 	if o == nil || o.StoreKeys == nil {
 		return nil, false
 	}
+
 	return o.StoreKeys, true
 }
 
@@ -104,6 +108,7 @@ func (o *SourceUpdateCommercetools) HasStoreKeys() bool {
 // SetStoreKeys gets a reference to the given []string and assigns it to the StoreKeys field.
 func (o *SourceUpdateCommercetools) SetStoreKeys(v []string) *SourceUpdateCommercetools {
 	o.StoreKeys = v
+
 	return o
 }
 
@@ -111,8 +116,10 @@ func (o *SourceUpdateCommercetools) SetStoreKeys(v []string) *SourceUpdateCommer
 func (o *SourceUpdateCommercetools) GetLocales() []string {
 	if o == nil || o.Locales == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Locales
 }
 
@@ -122,6 +129,7 @@ func (o *SourceUpdateCommercetools) GetLocalesOk() ([]string, bool) {
 	if o == nil || o.Locales == nil {
 		return nil, false
 	}
+
 	return o.Locales, true
 }
 
@@ -137,6 +145,7 @@ func (o *SourceUpdateCommercetools) HasLocales() bool {
 // SetLocales gets a reference to the given []string and assigns it to the Locales field.
 func (o *SourceUpdateCommercetools) SetLocales(v []string) *SourceUpdateCommercetools {
 	o.Locales = v
+
 	return o
 }
 
@@ -144,8 +153,10 @@ func (o *SourceUpdateCommercetools) SetLocales(v []string) *SourceUpdateCommerce
 func (o *SourceUpdateCommercetools) GetUrl() string {
 	if o == nil || o.Url == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Url
 }
 
@@ -155,6 +166,7 @@ func (o *SourceUpdateCommercetools) GetUrlOk() (*string, bool) {
 	if o == nil || o.Url == nil {
 		return nil, false
 	}
+
 	return o.Url, true
 }
 
@@ -170,6 +182,7 @@ func (o *SourceUpdateCommercetools) HasUrl() bool {
 // SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *SourceUpdateCommercetools) SetUrl(v string) *SourceUpdateCommercetools {
 	o.Url = &v
+
 	return o
 }
 
@@ -177,8 +190,10 @@ func (o *SourceUpdateCommercetools) SetUrl(v string) *SourceUpdateCommercetools 
 func (o *SourceUpdateCommercetools) GetFallbackIsInStockValue() bool {
 	if o == nil || o.FallbackIsInStockValue == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FallbackIsInStockValue
 }
 
@@ -188,6 +203,7 @@ func (o *SourceUpdateCommercetools) GetFallbackIsInStockValueOk() (*bool, bool) 
 	if o == nil || o.FallbackIsInStockValue == nil {
 		return nil, false
 	}
+
 	return o.FallbackIsInStockValue, true
 }
 
@@ -203,6 +219,7 @@ func (o *SourceUpdateCommercetools) HasFallbackIsInStockValue() bool {
 // SetFallbackIsInStockValue gets a reference to the given bool and assigns it to the FallbackIsInStockValue field.
 func (o *SourceUpdateCommercetools) SetFallbackIsInStockValue(v bool) *SourceUpdateCommercetools {
 	o.FallbackIsInStockValue = &v
+
 	return o
 }
 
@@ -210,8 +227,10 @@ func (o *SourceUpdateCommercetools) SetFallbackIsInStockValue(v bool) *SourceUpd
 func (o *SourceUpdateCommercetools) GetProductQueryPredicate() string {
 	if o == nil || o.ProductQueryPredicate == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ProductQueryPredicate
 }
 
@@ -221,6 +240,7 @@ func (o *SourceUpdateCommercetools) GetProductQueryPredicateOk() (*string, bool)
 	if o == nil || o.ProductQueryPredicate == nil {
 		return nil, false
 	}
+
 	return o.ProductQueryPredicate, true
 }
 
@@ -236,6 +256,7 @@ func (o *SourceUpdateCommercetools) HasProductQueryPredicate() bool {
 // SetProductQueryPredicate gets a reference to the given string and assigns it to the ProductQueryPredicate field.
 func (o *SourceUpdateCommercetools) SetProductQueryPredicate(v string) *SourceUpdateCommercetools {
 	o.ProductQueryPredicate = &v
+
 	return o
 }
 
@@ -243,8 +264,10 @@ func (o *SourceUpdateCommercetools) SetProductQueryPredicate(v string) *SourceUp
 func (o *SourceUpdateCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
 		var ret CommercetoolsCustomFields
+
 		return ret
 	}
+
 	return *o.CustomFields
 }
 
@@ -254,6 +277,7 @@ func (o *SourceUpdateCommercetools) GetCustomFieldsOk() (*CommercetoolsCustomFie
 	if o == nil || o.CustomFields == nil {
 		return nil, false
 	}
+
 	return o.CustomFields, true
 }
 
@@ -269,6 +293,7 @@ func (o *SourceUpdateCommercetools) HasCustomFields() bool {
 // SetCustomFields gets a reference to the given CommercetoolsCustomFields and assigns it to the CustomFields field.
 func (o *SourceUpdateCommercetools) SetCustomFields(v *CommercetoolsCustomFields) *SourceUpdateCommercetools {
 	o.CustomFields = v
+
 	return o
 }
 
@@ -277,21 +302,27 @@ func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 	if o.StoreKeys != nil {
 		toSerialize["storeKeys"] = o.StoreKeys
 	}
+
 	if o.Locales != nil {
 		toSerialize["locales"] = o.Locales
 	}
+
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
+
 	if o.FallbackIsInStockValue != nil {
 		toSerialize["fallbackIsInStockValue"] = o.FallbackIsInStockValue
 	}
+
 	if o.ProductQueryPredicate != nil {
 		toSerialize["productQueryPredicate"] = o.ProductQueryPredicate
 	}
+
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdateCommercetools: %w", err)
@@ -308,5 +339,6 @@ func (o SourceUpdateCommercetools) String() string {
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
 	out += fmt.Sprintf("  productQueryPredicate=%v\n", o.ProductQueryPredicate)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
+
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
 }

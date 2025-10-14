@@ -27,10 +27,12 @@ func WithCompositionSourceSearchParams(val MainInjectionQueryParameters) Composi
 // will change when the set of required properties is changed.
 func NewCompositionSourceSearch(index string, opts ...CompositionSourceSearchOption) *CompositionSourceSearch {
 	this := &CompositionSourceSearch{}
+
 	this.Index = index
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -43,6 +45,7 @@ func NewEmptyCompositionSourceSearch() *CompositionSourceSearch {
 func (o *CompositionSourceSearch) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -55,12 +58,14 @@ func (o *CompositionSourceSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *CompositionSourceSearch) SetIndex(v string) *CompositionSourceSearch {
 	o.Index = v
+
 	return o
 }
 
@@ -68,8 +73,10 @@ func (o *CompositionSourceSearch) SetIndex(v string) *CompositionSourceSearch {
 func (o *CompositionSourceSearch) GetParams() MainInjectionQueryParameters {
 	if o == nil || o.Params == nil {
 		var ret MainInjectionQueryParameters
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -79,6 +86,7 @@ func (o *CompositionSourceSearch) GetParamsOk() (*MainInjectionQueryParameters, 
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -94,15 +102,18 @@ func (o *CompositionSourceSearch) HasParams() bool {
 // SetParams gets a reference to the given MainInjectionQueryParameters and assigns it to the Params field.
 func (o *CompositionSourceSearch) SetParams(v *MainInjectionQueryParameters) *CompositionSourceSearch {
 	o.Params = v
+
 	return o
 }
 
 func (o CompositionSourceSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["index"] = o.Index
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionSourceSearch: %w", err)
@@ -115,5 +126,6 @@ func (o CompositionSourceSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("CompositionSourceSearch {\n%s}", out)
 }

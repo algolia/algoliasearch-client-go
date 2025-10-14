@@ -19,24 +19,7 @@ var AllowedSearchTypeFacetEnumValues = []SearchTypeFacet{
 	"facet",
 }
 
-func (v *SearchTypeFacet) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchTypeFacet': %w", string(src), err)
-	}
-	enumTypeValue := SearchTypeFacet(value)
-	for _, existing := range AllowedSearchTypeFacetEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SearchTypeFacet", value)
-}
-
-// NewSearchTypeFacetFromValue returns a pointer to a valid SearchTypeFacet
+// NewSearchTypeFacetFromValue returns a pointer to a valid SearchTypeFacet.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSearchTypeFacetFromValue(v string) (*SearchTypeFacet, error) {
 	ev := SearchTypeFacet(v)
@@ -47,6 +30,26 @@ func NewSearchTypeFacetFromValue(v string) (*SearchTypeFacet, error) {
 	}
 }
 
+func (v *SearchTypeFacet) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchTypeFacet': %w", string(src), err)
+	}
+
+	enumTypeValue := SearchTypeFacet(value)
+	for _, existing := range AllowedSearchTypeFacetEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SearchTypeFacet", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SearchTypeFacet) IsValid() bool {
 	for _, existing := range AllowedSearchTypeFacetEnumValues {
@@ -54,6 +57,7 @@ func (v SearchTypeFacet) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

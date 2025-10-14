@@ -22,6 +22,7 @@ func NewSourceDocker(image string, configuration map[string]any) *SourceDocker {
 	this := &SourceDocker{}
 	this.Image = image
 	this.Configuration = configuration
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptySourceDocker() *SourceDocker {
 func (o *SourceDocker) GetImage() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *SourceDocker) GetImageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Image, true
 }
 
 // SetImage sets field value.
 func (o *SourceDocker) SetImage(v string) *SourceDocker {
 	o.Image = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *SourceDocker) SetImage(v string) *SourceDocker {
 func (o *SourceDocker) GetConfiguration() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *SourceDocker) GetConfigurationOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
 // SetConfiguration sets field value.
 func (o *SourceDocker) SetConfiguration(v map[string]any) *SourceDocker {
 	o.Configuration = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o SourceDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["image"] = o.Image
 	toSerialize["configuration"] = o.Configuration
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceDocker: %w", err)
@@ -96,5 +104,6 @@ func (o SourceDocker) String() string {
 	out := ""
 	out += fmt.Sprintf("  image=%v\n", o.Image)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
+
 	return fmt.Sprintf("SourceDocker {\n%s}", out)
 }

@@ -19,24 +19,7 @@ var AllowedMappingFormatSchemaEnumValues = []MappingFormatSchema{
 	"mappingkit/v1",
 }
 
-func (v *MappingFormatSchema) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MappingFormatSchema': %w", string(src), err)
-	}
-	enumTypeValue := MappingFormatSchema(value)
-	for _, existing := range AllowedMappingFormatSchemaEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid MappingFormatSchema", value)
-}
-
-// NewMappingFormatSchemaFromValue returns a pointer to a valid MappingFormatSchema
+// NewMappingFormatSchemaFromValue returns a pointer to a valid MappingFormatSchema.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewMappingFormatSchemaFromValue(v string) (*MappingFormatSchema, error) {
 	ev := MappingFormatSchema(v)
@@ -47,6 +30,26 @@ func NewMappingFormatSchemaFromValue(v string) (*MappingFormatSchema, error) {
 	}
 }
 
+func (v *MappingFormatSchema) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MappingFormatSchema': %w", string(src), err)
+	}
+
+	enumTypeValue := MappingFormatSchema(value)
+	for _, existing := range AllowedMappingFormatSchemaEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid MappingFormatSchema", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v MappingFormatSchema) IsValid() bool {
 	for _, existing := range AllowedMappingFormatSchemaEnumValues {
@@ -54,6 +57,7 @@ func (v MappingFormatSchema) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

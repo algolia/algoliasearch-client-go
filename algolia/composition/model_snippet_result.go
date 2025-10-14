@@ -41,6 +41,7 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "matchLevel") {
 		// try to unmarshal data into SnippetResultOption
@@ -66,7 +67,7 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfSnippetResult = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(SnippetResult)")
+	return fmt.Errorf("data failed to match schemas in oneOf(SnippetResult)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

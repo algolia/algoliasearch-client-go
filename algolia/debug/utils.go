@@ -16,11 +16,14 @@ func copyReadCloser(r io.ReadCloser) (io.ReadCloser, string) {
 	if r == nil {
 		return nil, ""
 	}
+
 	data, err := io.ReadAll(r)
 	_ = r.Close()
+
 	if err != nil {
 		return nil, ""
 	}
+
 	return io.NopCloser(bytes.NewReader(data)), string(data)
 }
 
@@ -29,10 +32,12 @@ func decodeGzipContent(in string) (string, error) {
 	if err != nil {
 		return in, fmt.Errorf("cannot open content with gzip.Reader: %w", err)
 	}
+
 	out, err := io.ReadAll(gr)
 	if err != nil {
 		return in, fmt.Errorf("cannot read content from gzip.Reader: %w", err)
 	}
+
 	return string(out), nil
 }
 
@@ -58,10 +63,12 @@ func extractBody(body io.ReadCloser, c compression.Compression) (io.ReadCloser, 
 
 func prettyPrintJSON(input string) string {
 	var b bytes.Buffer
+
 	err := json.Indent(&b, []byte(input), "\t", "  ")
 	if err != nil {
 		return input
 	}
+
 	return strings.TrimSuffix(b.String(), "\n")
 }
 
@@ -88,8 +95,10 @@ func debugRequest(req *http.Request) string {
 		if strings.Contains(strings.ToLower(k), "algolia") {
 			str = strings.Repeat("*", len(str))
 		}
+
 		msg += fmt.Sprintf("\theader=%s:%q\n", k, str)
 	}
+
 	msg += fmt.Sprintf("\tbody=\n\t%s\n", prettyPrintJSON(body))
 
 	return msg
@@ -101,6 +110,7 @@ func debugResponse(res *http.Response) string {
 	}
 
 	var body string
+
 	res.Body, body = extractBody(res.Body, compression.NONE)
 
 	msg := "> ALGOLIA DEBUG response:\n"

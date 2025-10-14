@@ -73,6 +73,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
@@ -83,6 +84,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 			dst.SourceGA4BigQueryExport = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
 		err = json.Unmarshal(data, &dst.SourceBigQuery)
@@ -92,6 +94,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 			dst.SourceBigQuery = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "configuration") {
 		// try to unmarshal data into SourceUpdateDocker
 		err = json.Unmarshal(data, &dst.SourceUpdateDocker)
@@ -130,7 +133,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 		dst.SourceUpdateShopify = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(SourceUpdateInput)")
+	return fmt.Errorf("data failed to match schemas in oneOf(SourceUpdateInput)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

@@ -30,7 +30,15 @@ type TopHitWithAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32) *TopHitWithAnalytics {
+func NewTopHitWithAnalytics(
+	hit string,
+	count int32,
+	clickThroughRate utils.Nullable[float64],
+	conversionRate utils.Nullable[float64],
+	trackedHitCount int32,
+	clickCount int32,
+	conversionCount int32,
+) *TopHitWithAnalytics {
 	this := &TopHitWithAnalytics{}
 	this.Hit = hit
 	this.Count = count
@@ -39,6 +47,7 @@ func NewTopHitWithAnalytics(hit string, count int32, clickThroughRate utils.Null
 	this.TrackedHitCount = trackedHitCount
 	this.ClickCount = clickCount
 	this.ConversionCount = conversionCount
+
 	return this
 }
 
@@ -51,6 +60,7 @@ func NewEmptyTopHitWithAnalytics() *TopHitWithAnalytics {
 func (o *TopHitWithAnalytics) GetHit() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -63,12 +73,14 @@ func (o *TopHitWithAnalytics) GetHitOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Hit, true
 }
 
 // SetHit sets field value.
 func (o *TopHitWithAnalytics) SetHit(v string) *TopHitWithAnalytics {
 	o.Hit = v
+
 	return o
 }
 
@@ -76,6 +88,7 @@ func (o *TopHitWithAnalytics) SetHit(v string) *TopHitWithAnalytics {
 func (o *TopHitWithAnalytics) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -88,12 +101,14 @@ func (o *TopHitWithAnalytics) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopHitWithAnalytics) SetCount(v int32) *TopHitWithAnalytics {
 	o.Count = v
+
 	return o
 }
 
@@ -102,6 +117,7 @@ func (o *TopHitWithAnalytics) SetCount(v int32) *TopHitWithAnalytics {
 func (o *TopHitWithAnalytics) GetClickThroughRate() float64 {
 	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -115,12 +131,14 @@ func (o *TopHitWithAnalytics) GetClickThroughRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
 // SetClickThroughRate sets field value.
 func (o *TopHitWithAnalytics) SetClickThroughRate(v float64) *TopHitWithAnalytics {
 	o.ClickThroughRate.Set(&v)
+
 	return o
 }
 
@@ -129,6 +147,7 @@ func (o *TopHitWithAnalytics) SetClickThroughRate(v float64) *TopHitWithAnalytic
 func (o *TopHitWithAnalytics) GetConversionRate() float64 {
 	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -142,12 +161,14 @@ func (o *TopHitWithAnalytics) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
 // SetConversionRate sets field value.
 func (o *TopHitWithAnalytics) SetConversionRate(v float64) *TopHitWithAnalytics {
 	o.ConversionRate.Set(&v)
+
 	return o
 }
 
@@ -155,6 +176,7 @@ func (o *TopHitWithAnalytics) SetConversionRate(v float64) *TopHitWithAnalytics 
 func (o *TopHitWithAnalytics) GetTrackedHitCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -167,12 +189,14 @@ func (o *TopHitWithAnalytics) GetTrackedHitCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedHitCount, true
 }
 
 // SetTrackedHitCount sets field value.
 func (o *TopHitWithAnalytics) SetTrackedHitCount(v int32) *TopHitWithAnalytics {
 	o.TrackedHitCount = v
+
 	return o
 }
 
@@ -180,6 +204,7 @@ func (o *TopHitWithAnalytics) SetTrackedHitCount(v int32) *TopHitWithAnalytics {
 func (o *TopHitWithAnalytics) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -192,12 +217,14 @@ func (o *TopHitWithAnalytics) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *TopHitWithAnalytics) SetClickCount(v int32) *TopHitWithAnalytics {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -205,6 +232,7 @@ func (o *TopHitWithAnalytics) SetClickCount(v int32) *TopHitWithAnalytics {
 func (o *TopHitWithAnalytics) GetConversionCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -217,12 +245,14 @@ func (o *TopHitWithAnalytics) GetConversionCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ConversionCount, true
 }
 
 // SetConversionCount sets field value.
 func (o *TopHitWithAnalytics) SetConversionCount(v int32) *TopHitWithAnalytics {
 	o.ConversionCount = v
+
 	return o
 }
 
@@ -235,6 +265,7 @@ func (o TopHitWithAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedHitCount"] = o.TrackedHitCount
 	toSerialize["clickCount"] = o.ClickCount
 	toSerialize["conversionCount"] = o.ConversionCount
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitWithAnalytics: %w", err)
@@ -252,5 +283,6 @@ func (o TopHitWithAnalytics) String() string {
 	out += fmt.Sprintf("  trackedHitCount=%v\n", o.TrackedHitCount)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
+
 	return fmt.Sprintf("TopHitWithAnalytics {\n%s}", out)
 }

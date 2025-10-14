@@ -20,6 +20,7 @@ func NewCompositionIdRankingInfo(index string, injectedItemKey string) *Composit
 	this := &CompositionIdRankingInfo{}
 	this.Index = index
 	this.InjectedItemKey = injectedItemKey
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyCompositionIdRankingInfo() *CompositionIdRankingInfo {
 func (o *CompositionIdRankingInfo) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *CompositionIdRankingInfo) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *CompositionIdRankingInfo) SetIndex(v string) *CompositionIdRankingInfo {
 	o.Index = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *CompositionIdRankingInfo) SetIndex(v string) *CompositionIdRankingInfo 
 func (o *CompositionIdRankingInfo) GetInjectedItemKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *CompositionIdRankingInfo) GetInjectedItemKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.InjectedItemKey, true
 }
 
 // SetInjectedItemKey sets field value.
 func (o *CompositionIdRankingInfo) SetInjectedItemKey(v string) *CompositionIdRankingInfo {
 	o.InjectedItemKey = v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o CompositionIdRankingInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["index"] = o.Index
 	toSerialize["injectedItemKey"] = o.InjectedItemKey
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionIdRankingInfo: %w", err)
@@ -94,5 +102,6 @@ func (o CompositionIdRankingInfo) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  injectedItemKey=%v\n", o.InjectedItemKey)
+
 	return fmt.Sprintf("CompositionIdRankingInfo {\n%s}", out)
 }

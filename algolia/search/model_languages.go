@@ -19,11 +19,16 @@ type Languages struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewLanguages(plurals utils.Nullable[DictionaryLanguage], stopwords utils.Nullable[DictionaryLanguage], compounds utils.Nullable[DictionaryLanguage]) *Languages {
+func NewLanguages(
+	plurals utils.Nullable[DictionaryLanguage],
+	stopwords utils.Nullable[DictionaryLanguage],
+	compounds utils.Nullable[DictionaryLanguage],
+) *Languages {
 	this := &Languages{}
 	this.Plurals = plurals
 	this.Stopwords = stopwords
 	this.Compounds = compounds
+
 	return this
 }
 
@@ -37,6 +42,7 @@ func NewEmptyLanguages() *Languages {
 func (o *Languages) GetPlurals() DictionaryLanguage {
 	if o == nil || o.Plurals.Get() == nil {
 		var ret DictionaryLanguage
+
 		return ret
 	}
 
@@ -50,12 +56,14 @@ func (o *Languages) GetPluralsOk() (*DictionaryLanguage, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Plurals.Get(), o.Plurals.IsSet()
 }
 
 // SetPlurals sets field value.
 func (o *Languages) SetPlurals(v *DictionaryLanguage) *Languages {
 	o.Plurals.Set(v)
+
 	return o
 }
 
@@ -64,6 +72,7 @@ func (o *Languages) SetPlurals(v *DictionaryLanguage) *Languages {
 func (o *Languages) GetStopwords() DictionaryLanguage {
 	if o == nil || o.Stopwords.Get() == nil {
 		var ret DictionaryLanguage
+
 		return ret
 	}
 
@@ -77,12 +86,14 @@ func (o *Languages) GetStopwordsOk() (*DictionaryLanguage, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Stopwords.Get(), o.Stopwords.IsSet()
 }
 
 // SetStopwords sets field value.
 func (o *Languages) SetStopwords(v *DictionaryLanguage) *Languages {
 	o.Stopwords.Set(v)
+
 	return o
 }
 
@@ -91,6 +102,7 @@ func (o *Languages) SetStopwords(v *DictionaryLanguage) *Languages {
 func (o *Languages) GetCompounds() DictionaryLanguage {
 	if o == nil || o.Compounds.Get() == nil {
 		var ret DictionaryLanguage
+
 		return ret
 	}
 
@@ -104,12 +116,14 @@ func (o *Languages) GetCompoundsOk() (*DictionaryLanguage, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Compounds.Get(), o.Compounds.IsSet()
 }
 
 // SetCompounds sets field value.
 func (o *Languages) SetCompounds(v *DictionaryLanguage) *Languages {
 	o.Compounds.Set(v)
+
 	return o
 }
 
@@ -118,6 +132,7 @@ func (o Languages) MarshalJSON() ([]byte, error) {
 	toSerialize["plurals"] = o.Plurals.Get()
 	toSerialize["stopwords"] = o.Stopwords.Get()
 	toSerialize["compounds"] = o.Compounds.Get()
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Languages: %w", err)
@@ -131,5 +146,6 @@ func (o Languages) String() string {
 	out += fmt.Sprintf("  plurals=%v\n", o.Plurals)
 	out += fmt.Sprintf("  stopwords=%v\n", o.Stopwords)
 	out += fmt.Sprintf("  compounds=%v\n", o.Compounds)
+
 	return fmt.Sprintf("Languages {\n%s}", out)
 }

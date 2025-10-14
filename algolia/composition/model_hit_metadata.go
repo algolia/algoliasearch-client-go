@@ -9,8 +9,8 @@ import (
 // HitMetadata An object that contains the extra key-value pairs provided in the injectedItem definition.
 type HitMetadata struct {
 	// The key of the injectedItem that inserted this metadata.
-	InjectedItemKey      *string `json:"_injectedItemKey,omitempty"`
-	AdditionalProperties map[string]any
+	InjectedItemKey      *string        `json:"_injectedItemKey,omitempty"`
+	AdditionalProperties map[string]any `json:"-"`
 }
 
 type _HitMetadata HitMetadata
@@ -32,6 +32,7 @@ func NewHitMetadata(opts ...HitMetadataOption) *HitMetadata {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,8 +45,10 @@ func NewEmptyHitMetadata() *HitMetadata {
 func (o *HitMetadata) GetInjectedItemKey() string {
 	if o == nil || o.InjectedItemKey == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.InjectedItemKey
 }
 
@@ -55,6 +58,7 @@ func (o *HitMetadata) GetInjectedItemKeyOk() (*string, bool) {
 	if o == nil || o.InjectedItemKey == nil {
 		return nil, false
 	}
+
 	return o.InjectedItemKey, true
 }
 
@@ -70,6 +74,7 @@ func (o *HitMetadata) HasInjectedItemKey() bool {
 // SetInjectedItemKey gets a reference to the given string and assigns it to the InjectedItemKey field.
 func (o *HitMetadata) SetInjectedItemKey(v string) *HitMetadata {
 	o.InjectedItemKey = &v
+
 	return o
 }
 
@@ -126,9 +131,11 @@ func (o *HitMetadata) UnmarshalJSON(bytes []byte) error {
 
 func (o HitMetadata) String() string {
 	out := ""
+
 	out += fmt.Sprintf("  _injectedItemKey=%v\n", o.InjectedItemKey)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("HitMetadata {\n%s}", out)
 }

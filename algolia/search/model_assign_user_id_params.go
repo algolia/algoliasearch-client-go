@@ -19,6 +19,7 @@ type AssignUserIdParams struct {
 func NewAssignUserIdParams(cluster string) *AssignUserIdParams {
 	this := &AssignUserIdParams{}
 	this.Cluster = cluster
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyAssignUserIdParams() *AssignUserIdParams {
 func (o *AssignUserIdParams) GetCluster() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *AssignUserIdParams) GetClusterOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Cluster, true
 }
 
 // SetCluster sets field value.
 func (o *AssignUserIdParams) SetCluster(v string) *AssignUserIdParams {
 	o.Cluster = v
+
 	return o
 }
 
 func (o AssignUserIdParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["cluster"] = o.Cluster
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AssignUserIdParams: %w", err)
@@ -66,5 +71,6 @@ func (o AssignUserIdParams) MarshalJSON() ([]byte, error) {
 func (o AssignUserIdParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  cluster=%v\n", o.Cluster)
+
 	return fmt.Sprintf("AssignUserIdParams {\n%s}", out)
 }

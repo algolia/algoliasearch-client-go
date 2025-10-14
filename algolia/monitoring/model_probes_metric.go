@@ -37,6 +37,7 @@ func NewProbesMetric(opts ...ProbesMetricOption) *ProbesMetric {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyProbesMetric() *ProbesMetric {
 func (o *ProbesMetric) GetT() int64 {
 	if o == nil || o.T == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.T
 }
 
@@ -60,6 +63,7 @@ func (o *ProbesMetric) GetTOk() (*int64, bool) {
 	if o == nil || o.T == nil {
 		return nil, false
 	}
+
 	return o.T, true
 }
 
@@ -75,6 +79,7 @@ func (o *ProbesMetric) HasT() bool {
 // SetT gets a reference to the given int64 and assigns it to the T field.
 func (o *ProbesMetric) SetT(v int64) *ProbesMetric {
 	o.T = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *ProbesMetric) SetT(v int64) *ProbesMetric {
 func (o *ProbesMetric) GetV() int32 {
 	if o == nil || o.V == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.V
 }
 
@@ -93,6 +100,7 @@ func (o *ProbesMetric) GetVOk() (*int32, bool) {
 	if o == nil || o.V == nil {
 		return nil, false
 	}
+
 	return o.V, true
 }
 
@@ -108,6 +116,7 @@ func (o *ProbesMetric) HasV() bool {
 // SetV gets a reference to the given int32 and assigns it to the V field.
 func (o *ProbesMetric) SetV(v int32) *ProbesMetric {
 	o.V = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o ProbesMetric) MarshalJSON() ([]byte, error) {
 	if o.T != nil {
 		toSerialize["t"] = o.T
 	}
+
 	if o.V != nil {
 		toSerialize["v"] = o.V
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ProbesMetric: %w", err)
@@ -131,5 +142,6 @@ func (o ProbesMetric) String() string {
 	out := ""
 	out += fmt.Sprintf("  t=%v\n", o.T)
 	out += fmt.Sprintf("  v=%v\n", o.V)
+
 	return fmt.Sprintf("ProbesMetric {\n%s}", out)
 }

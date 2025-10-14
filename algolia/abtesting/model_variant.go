@@ -117,7 +117,19 @@ func WithVariantTrackedSearchCount(val int32) VariantOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewVariant(addToCartCount int32, clickCount int32, conversionCount int32, index string, noResultCount utils.Nullable[int32], purchaseCount int32, searchCount utils.Nullable[int32], trafficPercentage int32, userCount utils.Nullable[int32], trackedUserCount utils.Nullable[int32], opts ...VariantOption) *Variant {
+func NewVariant(
+	addToCartCount int32,
+	clickCount int32,
+	conversionCount int32,
+	index string,
+	noResultCount utils.Nullable[int32],
+	purchaseCount int32,
+	searchCount utils.Nullable[int32],
+	trafficPercentage int32,
+	userCount utils.Nullable[int32],
+	trackedUserCount utils.Nullable[int32],
+	opts ...VariantOption,
+) *Variant {
 	this := &Variant{}
 	this.AddToCartCount = addToCartCount
 	this.ClickCount = clickCount
@@ -128,10 +140,12 @@ func NewVariant(addToCartCount int32, clickCount int32, conversionCount int32, i
 	this.SearchCount = searchCount
 	this.TrafficPercentage = trafficPercentage
 	this.UserCount = userCount
+
 	this.TrackedUserCount = trackedUserCount
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -144,6 +158,7 @@ func NewEmptyVariant() *Variant {
 func (o *Variant) GetAddToCartCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -156,12 +171,14 @@ func (o *Variant) GetAddToCartCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AddToCartCount, true
 }
 
 // SetAddToCartCount sets field value.
 func (o *Variant) SetAddToCartCount(v int32) *Variant {
 	o.AddToCartCount = v
+
 	return o
 }
 
@@ -169,8 +186,10 @@ func (o *Variant) SetAddToCartCount(v int32) *Variant {
 func (o *Variant) GetAddToCartRate() float64 {
 	if o == nil || o.AddToCartRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.AddToCartRate.Get()
 }
 
@@ -181,6 +200,7 @@ func (o *Variant) GetAddToCartRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AddToCartRate.Get(), o.AddToCartRate.IsSet()
 }
 
@@ -196,6 +216,7 @@ func (o *Variant) HasAddToCartRate() bool {
 // SetAddToCartRate gets a reference to the given utils.Nullable[float64] and assigns it to the AddToCartRate field.
 func (o *Variant) SetAddToCartRate(v float64) *Variant {
 	o.AddToCartRate.Set(&v)
+
 	return o
 }
 
@@ -213,8 +234,10 @@ func (o *Variant) UnsetAddToCartRate() {
 func (o *Variant) GetAverageClickPosition() float64 {
 	if o == nil || o.AverageClickPosition.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.AverageClickPosition.Get()
 }
 
@@ -225,6 +248,7 @@ func (o *Variant) GetAverageClickPositionOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AverageClickPosition.Get(), o.AverageClickPosition.IsSet()
 }
 
@@ -240,6 +264,7 @@ func (o *Variant) HasAverageClickPosition() bool {
 // SetAverageClickPosition gets a reference to the given utils.Nullable[float64] and assigns it to the AverageClickPosition field.
 func (o *Variant) SetAverageClickPosition(v float64) *Variant {
 	o.AverageClickPosition.Set(&v)
+
 	return o
 }
 
@@ -257,6 +282,7 @@ func (o *Variant) UnsetAverageClickPosition() {
 func (o *Variant) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -269,12 +295,14 @@ func (o *Variant) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *Variant) SetClickCount(v int32) *Variant {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -282,8 +310,10 @@ func (o *Variant) SetClickCount(v int32) *Variant {
 func (o *Variant) GetClickThroughRate() float64 {
 	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ClickThroughRate.Get()
 }
 
@@ -294,6 +324,7 @@ func (o *Variant) GetClickThroughRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
@@ -309,6 +340,7 @@ func (o *Variant) HasClickThroughRate() bool {
 // SetClickThroughRate gets a reference to the given utils.Nullable[float64] and assigns it to the ClickThroughRate field.
 func (o *Variant) SetClickThroughRate(v float64) *Variant {
 	o.ClickThroughRate.Set(&v)
+
 	return o
 }
 
@@ -326,6 +358,7 @@ func (o *Variant) UnsetClickThroughRate() {
 func (o *Variant) GetConversionCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -338,12 +371,14 @@ func (o *Variant) GetConversionCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ConversionCount, true
 }
 
 // SetConversionCount sets field value.
 func (o *Variant) SetConversionCount(v int32) *Variant {
 	o.ConversionCount = v
+
 	return o
 }
 
@@ -351,8 +386,10 @@ func (o *Variant) SetConversionCount(v int32) *Variant {
 func (o *Variant) GetConversionRate() float64 {
 	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ConversionRate.Get()
 }
 
@@ -363,6 +400,7 @@ func (o *Variant) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
@@ -378,6 +416,7 @@ func (o *Variant) HasConversionRate() bool {
 // SetConversionRate gets a reference to the given utils.Nullable[float64] and assigns it to the ConversionRate field.
 func (o *Variant) SetConversionRate(v float64) *Variant {
 	o.ConversionRate.Set(&v)
+
 	return o
 }
 
@@ -395,8 +434,10 @@ func (o *Variant) UnsetConversionRate() {
 func (o *Variant) GetCurrencies() map[string]Currency {
 	if o == nil || o.Currencies == nil {
 		var ret map[string]Currency
+
 		return ret
 	}
+
 	return *o.Currencies
 }
 
@@ -406,6 +447,7 @@ func (o *Variant) GetCurrenciesOk() (*map[string]Currency, bool) {
 	if o == nil || o.Currencies == nil {
 		return nil, false
 	}
+
 	return o.Currencies, true
 }
 
@@ -421,6 +463,7 @@ func (o *Variant) HasCurrencies() bool {
 // SetCurrencies gets a reference to the given map[string]Currency and assigns it to the Currencies field.
 func (o *Variant) SetCurrencies(v map[string]Currency) *Variant {
 	o.Currencies = &v
+
 	return o
 }
 
@@ -428,8 +471,10 @@ func (o *Variant) SetCurrencies(v map[string]Currency) *Variant {
 func (o *Variant) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -439,6 +484,7 @@ func (o *Variant) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -454,6 +500,7 @@ func (o *Variant) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Variant) SetDescription(v string) *Variant {
 	o.Description = &v
+
 	return o
 }
 
@@ -461,8 +508,10 @@ func (o *Variant) SetDescription(v string) *Variant {
 func (o *Variant) GetEstimatedSampleSize() int32 {
 	if o == nil || o.EstimatedSampleSize == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.EstimatedSampleSize
 }
 
@@ -472,6 +521,7 @@ func (o *Variant) GetEstimatedSampleSizeOk() (*int32, bool) {
 	if o == nil || o.EstimatedSampleSize == nil {
 		return nil, false
 	}
+
 	return o.EstimatedSampleSize, true
 }
 
@@ -487,6 +537,7 @@ func (o *Variant) HasEstimatedSampleSize() bool {
 // SetEstimatedSampleSize gets a reference to the given int32 and assigns it to the EstimatedSampleSize field.
 func (o *Variant) SetEstimatedSampleSize(v int32) *Variant {
 	o.EstimatedSampleSize = &v
+
 	return o
 }
 
@@ -494,8 +545,10 @@ func (o *Variant) SetEstimatedSampleSize(v int32) *Variant {
 func (o *Variant) GetFilterEffects() FilterEffects {
 	if o == nil || o.FilterEffects == nil {
 		var ret FilterEffects
+
 		return ret
 	}
+
 	return *o.FilterEffects
 }
 
@@ -505,6 +558,7 @@ func (o *Variant) GetFilterEffectsOk() (*FilterEffects, bool) {
 	if o == nil || o.FilterEffects == nil {
 		return nil, false
 	}
+
 	return o.FilterEffects, true
 }
 
@@ -520,6 +574,7 @@ func (o *Variant) HasFilterEffects() bool {
 // SetFilterEffects gets a reference to the given FilterEffects and assigns it to the FilterEffects field.
 func (o *Variant) SetFilterEffects(v *FilterEffects) *Variant {
 	o.FilterEffects = v
+
 	return o
 }
 
@@ -527,6 +582,7 @@ func (o *Variant) SetFilterEffects(v *FilterEffects) *Variant {
 func (o *Variant) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -539,12 +595,14 @@ func (o *Variant) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *Variant) SetIndex(v string) *Variant {
 	o.Index = v
+
 	return o
 }
 
@@ -553,6 +611,7 @@ func (o *Variant) SetIndex(v string) *Variant {
 func (o *Variant) GetNoResultCount() int32 {
 	if o == nil || o.NoResultCount.Get() == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -566,12 +625,14 @@ func (o *Variant) GetNoResultCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.NoResultCount.Get(), o.NoResultCount.IsSet()
 }
 
 // SetNoResultCount sets field value.
 func (o *Variant) SetNoResultCount(v int32) *Variant {
 	o.NoResultCount.Set(&v)
+
 	return o
 }
 
@@ -579,6 +640,7 @@ func (o *Variant) SetNoResultCount(v int32) *Variant {
 func (o *Variant) GetPurchaseCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -591,12 +653,14 @@ func (o *Variant) GetPurchaseCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PurchaseCount, true
 }
 
 // SetPurchaseCount sets field value.
 func (o *Variant) SetPurchaseCount(v int32) *Variant {
 	o.PurchaseCount = v
+
 	return o
 }
 
@@ -604,8 +668,10 @@ func (o *Variant) SetPurchaseCount(v int32) *Variant {
 func (o *Variant) GetPurchaseRate() float64 {
 	if o == nil || o.PurchaseRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.PurchaseRate.Get()
 }
 
@@ -616,6 +682,7 @@ func (o *Variant) GetPurchaseRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.PurchaseRate.Get(), o.PurchaseRate.IsSet()
 }
 
@@ -631,6 +698,7 @@ func (o *Variant) HasPurchaseRate() bool {
 // SetPurchaseRate gets a reference to the given utils.Nullable[float64] and assigns it to the PurchaseRate field.
 func (o *Variant) SetPurchaseRate(v float64) *Variant {
 	o.PurchaseRate.Set(&v)
+
 	return o
 }
 
@@ -649,6 +717,7 @@ func (o *Variant) UnsetPurchaseRate() {
 func (o *Variant) GetSearchCount() int32 {
 	if o == nil || o.SearchCount.Get() == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -662,12 +731,14 @@ func (o *Variant) GetSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.SearchCount.Get(), o.SearchCount.IsSet()
 }
 
 // SetSearchCount sets field value.
 func (o *Variant) SetSearchCount(v int32) *Variant {
 	o.SearchCount.Set(&v)
+
 	return o
 }
 
@@ -675,8 +746,10 @@ func (o *Variant) SetSearchCount(v int32) *Variant {
 func (o *Variant) GetTrackedSearchCount() int32 {
 	if o == nil || o.TrackedSearchCount == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.TrackedSearchCount
 }
 
@@ -686,6 +759,7 @@ func (o *Variant) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil || o.TrackedSearchCount == nil {
 		return nil, false
 	}
+
 	return o.TrackedSearchCount, true
 }
 
@@ -701,6 +775,7 @@ func (o *Variant) HasTrackedSearchCount() bool {
 // SetTrackedSearchCount gets a reference to the given int32 and assigns it to the TrackedSearchCount field.
 func (o *Variant) SetTrackedSearchCount(v int32) *Variant {
 	o.TrackedSearchCount = &v
+
 	return o
 }
 
@@ -708,6 +783,7 @@ func (o *Variant) SetTrackedSearchCount(v int32) *Variant {
 func (o *Variant) GetTrafficPercentage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -720,12 +796,14 @@ func (o *Variant) GetTrafficPercentageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrafficPercentage, true
 }
 
 // SetTrafficPercentage sets field value.
 func (o *Variant) SetTrafficPercentage(v int32) *Variant {
 	o.TrafficPercentage = v
+
 	return o
 }
 
@@ -734,6 +812,7 @@ func (o *Variant) SetTrafficPercentage(v int32) *Variant {
 func (o *Variant) GetUserCount() int32 {
 	if o == nil || o.UserCount.Get() == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -747,12 +826,14 @@ func (o *Variant) GetUserCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.UserCount.Get(), o.UserCount.IsSet()
 }
 
 // SetUserCount sets field value.
 func (o *Variant) SetUserCount(v int32) *Variant {
 	o.UserCount.Set(&v)
+
 	return o
 }
 
@@ -761,6 +842,7 @@ func (o *Variant) SetUserCount(v int32) *Variant {
 func (o *Variant) GetTrackedUserCount() int32 {
 	if o == nil || o.TrackedUserCount.Get() == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -774,57 +856,72 @@ func (o *Variant) GetTrackedUserCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.TrackedUserCount.Get(), o.TrackedUserCount.IsSet()
 }
 
 // SetTrackedUserCount sets field value.
 func (o *Variant) SetTrackedUserCount(v int32) *Variant {
 	o.TrackedUserCount.Set(&v)
+
 	return o
 }
 
 func (o Variant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["addToCartCount"] = o.AddToCartCount
 	if o.AddToCartRate.IsSet() {
 		toSerialize["addToCartRate"] = o.AddToCartRate.Get()
 	}
+
 	if o.AverageClickPosition.IsSet() {
 		toSerialize["averageClickPosition"] = o.AverageClickPosition.Get()
 	}
+
 	toSerialize["clickCount"] = o.ClickCount
 	if o.ClickThroughRate.IsSet() {
 		toSerialize["clickThroughRate"] = o.ClickThroughRate.Get()
 	}
+
 	toSerialize["conversionCount"] = o.ConversionCount
 	if o.ConversionRate.IsSet() {
 		toSerialize["conversionRate"] = o.ConversionRate.Get()
 	}
+
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
 	}
+
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.EstimatedSampleSize != nil {
 		toSerialize["estimatedSampleSize"] = o.EstimatedSampleSize
 	}
+
 	if o.FilterEffects != nil {
 		toSerialize["filterEffects"] = o.FilterEffects
 	}
+
 	toSerialize["index"] = o.Index
 	toSerialize["noResultCount"] = o.NoResultCount.Get()
+
 	toSerialize["purchaseCount"] = o.PurchaseCount
 	if o.PurchaseRate.IsSet() {
 		toSerialize["purchaseRate"] = o.PurchaseRate.Get()
 	}
+
 	toSerialize["searchCount"] = o.SearchCount.Get()
 	if o.TrackedSearchCount != nil {
 		toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	}
+
 	toSerialize["trafficPercentage"] = o.TrafficPercentage
 	toSerialize["userCount"] = o.UserCount.Get()
 	toSerialize["trackedUserCount"] = o.TrackedUserCount.Get()
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Variant: %w", err)
@@ -855,5 +952,6 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  trafficPercentage=%v\n", o.TrafficPercentage)
 	out += fmt.Sprintf("  userCount=%v\n", o.UserCount)
 	out += fmt.Sprintf("  trackedUserCount=%v\n", o.TrackedUserCount)
+
 	return fmt.Sprintf("Variant {\n%s}", out)
 }

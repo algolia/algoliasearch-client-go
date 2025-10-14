@@ -21,24 +21,7 @@ var AllowedSearchStrategyEnumValues = []SearchStrategy{
 	"stopIfEnoughMatches",
 }
 
-func (v *SearchStrategy) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchStrategy': %w", string(src), err)
-	}
-	enumTypeValue := SearchStrategy(value)
-	for _, existing := range AllowedSearchStrategyEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SearchStrategy", value)
-}
-
-// NewSearchStrategyFromValue returns a pointer to a valid SearchStrategy
+// NewSearchStrategyFromValue returns a pointer to a valid SearchStrategy.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSearchStrategyFromValue(v string) (*SearchStrategy, error) {
 	ev := SearchStrategy(v)
@@ -49,6 +32,26 @@ func NewSearchStrategyFromValue(v string) (*SearchStrategy, error) {
 	}
 }
 
+func (v *SearchStrategy) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchStrategy': %w", string(src), err)
+	}
+
+	enumTypeValue := SearchStrategy(value)
+	for _, existing := range AllowedSearchStrategyEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SearchStrategy", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SearchStrategy) IsValid() bool {
 	for _, existing := range AllowedSearchStrategyEnumValues {
@@ -56,6 +59,7 @@ func (v SearchStrategy) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

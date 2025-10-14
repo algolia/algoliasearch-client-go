@@ -18,6 +18,7 @@ type ResultsCompositionInfoResponse struct {
 func NewResultsCompositionInfoResponse(injectedItems []ResultsInjectedItemInfoResponse) *ResultsCompositionInfoResponse {
 	this := &ResultsCompositionInfoResponse{}
 	this.InjectedItems = injectedItems
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyResultsCompositionInfoResponse() *ResultsCompositionInfoResponse {
 func (o *ResultsCompositionInfoResponse) GetInjectedItems() []ResultsInjectedItemInfoResponse {
 	if o == nil {
 		var ret []ResultsInjectedItemInfoResponse
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *ResultsCompositionInfoResponse) GetInjectedItemsOk() ([]ResultsInjected
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InjectedItems, true
 }
 
 // SetInjectedItems sets field value.
 func (o *ResultsCompositionInfoResponse) SetInjectedItems(v []ResultsInjectedItemInfoResponse) *ResultsCompositionInfoResponse {
 	o.InjectedItems = v
+
 	return o
 }
 
 func (o ResultsCompositionInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["injectedItems"] = o.InjectedItems
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ResultsCompositionInfoResponse: %w", err)
@@ -65,5 +70,6 @@ func (o ResultsCompositionInfoResponse) MarshalJSON() ([]byte, error) {
 func (o ResultsCompositionInfoResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  injectedItems=%v\n", o.InjectedItems)
+
 	return fmt.Sprintf("ResultsCompositionInfoResponse {\n%s}", out)
 }

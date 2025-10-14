@@ -18,6 +18,7 @@ type CompositionBehavior struct {
 func NewCompositionBehavior(injection Injection) *CompositionBehavior {
 	this := &CompositionBehavior{}
 	this.Injection = injection
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyCompositionBehavior() *CompositionBehavior {
 func (o *CompositionBehavior) GetInjection() Injection {
 	if o == nil {
 		var ret Injection
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *CompositionBehavior) GetInjectionOk() (*Injection, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Injection, true
 }
 
 // SetInjection sets field value.
 func (o *CompositionBehavior) SetInjection(v *Injection) *CompositionBehavior {
 	o.Injection = *v
+
 	return o
 }
 
 func (o CompositionBehavior) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["injection"] = o.Injection
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionBehavior: %w", err)
@@ -65,5 +70,6 @@ func (o CompositionBehavior) MarshalJSON() ([]byte, error) {
 func (o CompositionBehavior) String() string {
 	out := ""
 	out += fmt.Sprintf("  injection=%v\n", o.Injection)
+
 	return fmt.Sprintf("CompositionBehavior {\n%s}", out)
 }

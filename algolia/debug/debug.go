@@ -30,8 +30,11 @@ func Display(input any) {
 	if !debug {
 		return
 	}
+
 	start := time.Now()
+
 	var msg string
+
 	switch v := input.(type) {
 	case *http.Request:
 		msg = debugRequest(v)
@@ -40,6 +43,7 @@ func Display(input any) {
 	default:
 		msg = fmt.Sprintf("do not know how to display %#v", v)
 	}
+
 	Println(msg)
 	fmt.Printf("took %s\n", time.Since(start))
 }
@@ -52,6 +56,7 @@ func Printf(format string, a ...any) {
 	if !debug {
 		return
 	}
+
 	msg := fmt.Sprintf(format, a...)
 	fmt.Printf("> ALGOLIA DEBUG: %s", msg)
 }

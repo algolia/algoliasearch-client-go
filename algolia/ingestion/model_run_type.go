@@ -27,24 +27,7 @@ var AllowedRunTypeEnumValues = []RunType{
 	"push",
 }
 
-func (v *RunType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunType': %w", string(src), err)
-	}
-	enumTypeValue := RunType(value)
-	for _, existing := range AllowedRunTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RunType", value)
-}
-
-// NewRunTypeFromValue returns a pointer to a valid RunType
+// NewRunTypeFromValue returns a pointer to a valid RunType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRunTypeFromValue(v string) (*RunType, error) {
 	ev := RunType(v)
@@ -55,6 +38,26 @@ func NewRunTypeFromValue(v string) (*RunType, error) {
 	}
 }
 
+func (v *RunType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunType': %w", string(src), err)
+	}
+
+	enumTypeValue := RunType(value)
+	for _, existing := range AllowedRunTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RunType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RunType) IsValid() bool {
 	for _, existing := range AllowedRunTypeEnumValues {
@@ -62,6 +65,7 @@ func (v RunType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

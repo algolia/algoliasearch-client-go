@@ -28,6 +28,7 @@ func NewCompositionRulesBatchParams(opts ...CompositionRulesBatchParamsOption) *
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyCompositionRulesBatchParams() *CompositionRulesBatchParams {
 func (o *CompositionRulesBatchParams) GetRequests() []RulesMultipleBatchRequest {
 	if o == nil || o.Requests == nil {
 		var ret []RulesMultipleBatchRequest
+
 		return ret
 	}
+
 	return o.Requests
 }
 
@@ -51,6 +54,7 @@ func (o *CompositionRulesBatchParams) GetRequestsOk() ([]RulesMultipleBatchReque
 	if o == nil || o.Requests == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
@@ -66,6 +70,7 @@ func (o *CompositionRulesBatchParams) HasRequests() bool {
 // SetRequests gets a reference to the given []RulesMultipleBatchRequest and assigns it to the Requests field.
 func (o *CompositionRulesBatchParams) SetRequests(v []RulesMultipleBatchRequest) *CompositionRulesBatchParams {
 	o.Requests = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o CompositionRulesBatchParams) MarshalJSON() ([]byte, error) {
 	if o.Requests != nil {
 		toSerialize["requests"] = o.Requests
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionRulesBatchParams: %w", err)
@@ -85,5 +91,6 @@ func (o CompositionRulesBatchParams) MarshalJSON() ([]byte, error) {
 func (o CompositionRulesBatchParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
+
 	return fmt.Sprintf("CompositionRulesBatchParams {\n%s}", out)
 }

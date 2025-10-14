@@ -74,7 +74,7 @@ func (dst *Trigger) UnmarshalJSON(data []byte) error {
 		dst.StreamingTrigger = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(Trigger)")
+	return fmt.Errorf("data failed to match schemas in oneOf(Trigger)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

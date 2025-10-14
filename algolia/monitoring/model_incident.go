@@ -36,6 +36,7 @@ func NewIncident(opts ...IncidentOption) *Incident {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -48,8 +49,10 @@ func NewEmptyIncident() *Incident {
 func (o *Incident) GetTitle() string {
 	if o == nil || o.Title == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Title
 }
 
@@ -59,6 +62,7 @@ func (o *Incident) GetTitleOk() (*string, bool) {
 	if o == nil || o.Title == nil {
 		return nil, false
 	}
+
 	return o.Title, true
 }
 
@@ -74,6 +78,7 @@ func (o *Incident) HasTitle() bool {
 // SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *Incident) SetTitle(v string) *Incident {
 	o.Title = &v
+
 	return o
 }
 
@@ -81,8 +86,10 @@ func (o *Incident) SetTitle(v string) *Incident {
 func (o *Incident) GetStatus() Status {
 	if o == nil || o.Status == nil {
 		var ret Status
+
 		return ret
 	}
+
 	return *o.Status
 }
 
@@ -92,6 +99,7 @@ func (o *Incident) GetStatusOk() (*Status, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
+
 	return o.Status, true
 }
 
@@ -107,6 +115,7 @@ func (o *Incident) HasStatus() bool {
 // SetStatus gets a reference to the given Status and assigns it to the Status field.
 func (o *Incident) SetStatus(v Status) *Incident {
 	o.Status = &v
+
 	return o
 }
 
@@ -115,9 +124,11 @@ func (o Incident) MarshalJSON() ([]byte, error) {
 	if o.Title != nil {
 		toSerialize["title"] = o.Title
 	}
+
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Incident: %w", err)
@@ -130,5 +141,6 @@ func (o Incident) String() string {
 	out := ""
 	out += fmt.Sprintf("  title=%v\n", o.Title)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+
 	return fmt.Sprintf("Incident {\n%s}", out)
 }

@@ -60,6 +60,7 @@ func NewCondition(opts ...ConditionOption) *Condition {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -72,8 +73,10 @@ func NewEmptyCondition() *Condition {
 func (o *Condition) GetPattern() string {
 	if o == nil || o.Pattern == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Pattern
 }
 
@@ -83,6 +86,7 @@ func (o *Condition) GetPatternOk() (*string, bool) {
 	if o == nil || o.Pattern == nil {
 		return nil, false
 	}
+
 	return o.Pattern, true
 }
 
@@ -98,6 +102,7 @@ func (o *Condition) HasPattern() bool {
 // SetPattern gets a reference to the given string and assigns it to the Pattern field.
 func (o *Condition) SetPattern(v string) *Condition {
 	o.Pattern = &v
+
 	return o
 }
 
@@ -105,8 +110,10 @@ func (o *Condition) SetPattern(v string) *Condition {
 func (o *Condition) GetAnchoring() Anchoring {
 	if o == nil || o.Anchoring == nil {
 		var ret Anchoring
+
 		return ret
 	}
+
 	return *o.Anchoring
 }
 
@@ -116,6 +123,7 @@ func (o *Condition) GetAnchoringOk() (*Anchoring, bool) {
 	if o == nil || o.Anchoring == nil {
 		return nil, false
 	}
+
 	return o.Anchoring, true
 }
 
@@ -131,6 +139,7 @@ func (o *Condition) HasAnchoring() bool {
 // SetAnchoring gets a reference to the given Anchoring and assigns it to the Anchoring field.
 func (o *Condition) SetAnchoring(v Anchoring) *Condition {
 	o.Anchoring = &v
+
 	return o
 }
 
@@ -138,8 +147,10 @@ func (o *Condition) SetAnchoring(v Anchoring) *Condition {
 func (o *Condition) GetAlternatives() bool {
 	if o == nil || o.Alternatives == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Alternatives
 }
 
@@ -149,6 +160,7 @@ func (o *Condition) GetAlternativesOk() (*bool, bool) {
 	if o == nil || o.Alternatives == nil {
 		return nil, false
 	}
+
 	return o.Alternatives, true
 }
 
@@ -164,6 +176,7 @@ func (o *Condition) HasAlternatives() bool {
 // SetAlternatives gets a reference to the given bool and assigns it to the Alternatives field.
 func (o *Condition) SetAlternatives(v bool) *Condition {
 	o.Alternatives = &v
+
 	return o
 }
 
@@ -171,8 +184,10 @@ func (o *Condition) SetAlternatives(v bool) *Condition {
 func (o *Condition) GetContext() string {
 	if o == nil || o.Context == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Context
 }
 
@@ -182,6 +197,7 @@ func (o *Condition) GetContextOk() (*string, bool) {
 	if o == nil || o.Context == nil {
 		return nil, false
 	}
+
 	return o.Context, true
 }
 
@@ -197,6 +213,7 @@ func (o *Condition) HasContext() bool {
 // SetContext gets a reference to the given string and assigns it to the Context field.
 func (o *Condition) SetContext(v string) *Condition {
 	o.Context = &v
+
 	return o
 }
 
@@ -204,8 +221,10 @@ func (o *Condition) SetContext(v string) *Condition {
 func (o *Condition) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -215,6 +234,7 @@ func (o *Condition) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -230,6 +250,7 @@ func (o *Condition) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *Condition) SetFilters(v string) *Condition {
 	o.Filters = &v
+
 	return o
 }
 
@@ -238,18 +259,23 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 	if o.Pattern != nil {
 		toSerialize["pattern"] = o.Pattern
 	}
+
 	if o.Anchoring != nil {
 		toSerialize["anchoring"] = o.Anchoring
 	}
+
 	if o.Alternatives != nil {
 		toSerialize["alternatives"] = o.Alternatives
 	}
+
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Condition: %w", err)
@@ -265,5 +291,6 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  alternatives=%v\n", o.Alternatives)
 	out += fmt.Sprintf("  context=%v\n", o.Context)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
+
 	return fmt.Sprintf("Condition {\n%s}", out)
 }

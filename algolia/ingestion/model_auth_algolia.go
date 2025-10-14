@@ -22,6 +22,7 @@ func NewAuthAlgolia(appID string, apiKey string) *AuthAlgolia {
 	this := &AuthAlgolia{}
 	this.AppID = appID
 	this.ApiKey = apiKey
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyAuthAlgolia() *AuthAlgolia {
 func (o *AuthAlgolia) GetAppID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *AuthAlgolia) GetAppIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AppID, true
 }
 
 // SetAppID sets field value.
 func (o *AuthAlgolia) SetAppID(v string) *AuthAlgolia {
 	o.AppID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *AuthAlgolia) SetAppID(v string) *AuthAlgolia {
 func (o *AuthAlgolia) GetApiKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *AuthAlgolia) GetApiKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ApiKey, true
 }
 
 // SetApiKey sets field value.
 func (o *AuthAlgolia) SetApiKey(v string) *AuthAlgolia {
 	o.ApiKey = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o AuthAlgolia) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["appID"] = o.AppID
 	toSerialize["apiKey"] = o.ApiKey
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAlgolia: %w", err)
@@ -96,5 +104,6 @@ func (o AuthAlgolia) String() string {
 	out := ""
 	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
+
 	return fmt.Sprintf("AuthAlgolia {\n%s}", out)
 }

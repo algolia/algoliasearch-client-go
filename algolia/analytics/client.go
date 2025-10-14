@@ -48,24 +48,31 @@ func NewClientWithConfig(cfg AnalyticsConfiguration) (*APIClient, error) {
 	if cfg.AppID == "" {
 		return nil, errors.New("`appId` is missing.")
 	}
+
 	if cfg.ApiKey == "" {
 		return nil, errors.New("`apiKey` is missing.")
 	}
+
 	if len(cfg.Hosts) == 0 {
 		if cfg.Region != "" && !slices.Contains(allowedRegions[:], string(cfg.Region)) {
 			return nil, fmt.Errorf("`region` must be one of the following: %s", strings.Join(allowedRegions[:], ", "))
 		}
+
 		cfg.Hosts = getDefaultHosts(cfg.Region)
 	}
+
 	if cfg.UserAgent == "" {
 		cfg.UserAgent = getUserAgent()
 	}
+
 	if cfg.ReadTimeout == 0 {
 		cfg.ReadTimeout = 5000 * time.Millisecond
 	}
+
 	if cfg.ConnectTimeout == 0 {
 		cfg.ConnectTimeout = 2000 * time.Millisecond
 	}
+
 	if cfg.WriteTimeout == 0 {
 		cfg.WriteTimeout = 30000 * time.Millisecond
 	}
@@ -86,7 +93,9 @@ func getDefaultHosts(r Region) []transport.StatefulHost {
 		return []transport.StatefulHost{transport.NewStatefulHost("https", "analytics.algolia.com", call.IsReadWrite)}
 	}
 
-	return []transport.StatefulHost{transport.NewStatefulHost("https", strings.ReplaceAll("analytics.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite)}
+	return []transport.StatefulHost{
+		transport.NewStatefulHost("https", strings.ReplaceAll("analytics.{region}.algolia.com", "{region}", string(r)), call.IsReadWrite),
+	}
 }
 
 func getUserAgent() string {
@@ -98,22 +107,7 @@ func (c *APIClient) AddDefaultHeader(key string, value string) {
 	c.cfg.DefaultHeader[key] = value
 }
 
-// callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request, useReadTransporter bool, requestConfiguration transport.RequestConfiguration) (*http.Response, []byte, error) {
-	callKind := call.Write
-	if useReadTransporter || request.Method == http.MethodGet {
-		callKind = call.Read
-	}
-
-	resp, body, err := c.transport.Request(request.Context(), request, callKind, requestConfiguration)
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to do request: %w", err)
-	}
-
-	return resp, body, nil
-}
-
-// Allow modification of underlying config for alternate implementations and testing
+// Allow modification of underlying config for alternate implementations and testing.
 // Caution: modifying the configuration while live can cause data races and potentially unwanted behavior.
 func (c *APIClient) GetConfiguration() *AnalyticsConfiguration {
 	return c.cfg
@@ -128,6 +122,25 @@ func (c *APIClient) SetClientApiKey(apiKey string) error {
 	c.cfg.ApiKey = apiKey
 
 	return nil
+}
+
+// callAPI do the request.
+func (c *APIClient) callAPI(
+	request *http.Request,
+	useReadTransporter bool,
+	requestConfiguration transport.RequestConfiguration,
+) (*http.Response, []byte, error) {
+	callKind := call.Write
+	if useReadTransporter || request.Method == http.MethodGet {
+		callKind = call.Read
+	}
+
+	resp, body, err := c.transport.Request(request.Context(), request, callKind, requestConfiguration)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to do request: %w", err)
+	}
+
+	return resp, body, nil
 }
 
 // prepareRequest build the request.
@@ -150,6 +163,7 @@ func (c *APIClient) prepareRequest(
 	}
 
 	var queryString []string
+
 	for k, v := range queryParams {
 		for _, value := range v {
 			queryString = append(queryString, k+"="+value)
@@ -165,7 +179,8 @@ func (c *APIClient) prepareRequest(
 	if body != nil {
 		bodyReader = body
 	}
-	req, err = http.NewRequest(method, url.String(), bodyReader)
+
+	req, err = http.NewRequestWithContext(ctx, method, url.String(), bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create http request: %w", err)
 	}
@@ -202,21 +217,27 @@ func (c *APIClient) decode(v any, b []byte) error {
 	if len(b) == 0 {
 		return nil
 	}
+
 	if s, ok := v.(*string); ok {
 		*s = string(b)
+
 		return nil
 	}
 
 	if actualObj, ok := v.(interface{ GetActualInstance() any }); ok { // oneOf schemas
 		if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
-			if err := unmarshalObj.UnmarshalJSON(b); err != nil {
+			err := unmarshalObj.UnmarshalJSON(b)
+			if err != nil {
 				return fmt.Errorf("failed to unmarshal one of in response body: %w", err)
 			}
 		} else {
 			return errors.New("unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
 		}
-	} else if err := json.Unmarshal(b, v); err != nil { // simple model
-		return fmt.Errorf("failed to unmarshal response body: %w", err)
+	} else { // simple model
+		err := json.Unmarshal(b, v)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal response body: %w", err)
+		}
 	}
 
 	return nil
@@ -237,6 +258,7 @@ func (c *APIClient) decodeError(res *http.Response, body []byte) error {
 
 			return apiErr
 		}
+
 		if errBase.Message != nil {
 			apiErr.Message = *errBase.Message
 		}
@@ -261,12 +283,14 @@ func setBody(body any, c compression.Compression) (*bytes.Buffer, error) {
 	}
 
 	bodyBuf := &bytes.Buffer{}
+
 	var err error
 
 	switch c {
 	case compression.GZIP:
 		gzipWriter := gzip.NewWriter(bodyBuf)
 		defer gzipWriter.Close()
+
 		err = json.NewEncoder(gzipWriter).Encode(body)
 	default:
 		if reader, ok := body.(io.Reader); ok {
@@ -289,13 +313,14 @@ func setBody(body any, c compression.Compression) (*bytes.Buffer, error) {
 	if bodyBuf.Len() == 0 {
 		return nil, errors.New("invalid body type, or empty body")
 	}
+
 	return bodyBuf, nil
 }
 
 type APIError struct {
-	Message              string
-	Status               int
-	AdditionalProperties map[string]any
+	Message              string         `json:"message"`
+	Status               int            `json:"status"`
+	AdditionalProperties map[string]any `json:"-"`
 }
 
 func (e APIError) Error() string {
@@ -321,6 +346,7 @@ func (o APIError) MarshalJSON() ([]byte, error) {
 
 func (o *APIError) UnmarshalJSON(bytes []byte) error {
 	type _APIError APIError
+
 	apiErr := _APIError{}
 
 	err := json.Unmarshal(bytes, &apiErr)

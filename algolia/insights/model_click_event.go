@@ -19,24 +19,7 @@ var AllowedClickEventEnumValues = []ClickEvent{
 	"click",
 }
 
-func (v *ClickEvent) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ClickEvent': %w", string(src), err)
-	}
-	enumTypeValue := ClickEvent(value)
-	for _, existing := range AllowedClickEventEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ClickEvent", value)
-}
-
-// NewClickEventFromValue returns a pointer to a valid ClickEvent
+// NewClickEventFromValue returns a pointer to a valid ClickEvent.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewClickEventFromValue(v string) (*ClickEvent, error) {
 	ev := ClickEvent(v)
@@ -47,6 +30,26 @@ func NewClickEventFromValue(v string) (*ClickEvent, error) {
 	}
 }
 
+func (v *ClickEvent) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ClickEvent': %w", string(src), err)
+	}
+
+	enumTypeValue := ClickEvent(value)
+	for _, existing := range AllowedClickEventEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ClickEvent", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ClickEvent) IsValid() bool {
 	for _, existing := range AllowedClickEventEnumValues {
@@ -54,6 +57,7 @@ func (v ClickEvent) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

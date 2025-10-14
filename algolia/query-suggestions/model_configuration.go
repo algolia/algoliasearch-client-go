@@ -50,10 +50,12 @@ func WithConfigurationAllowSpecialCharacters(val bool) ConfigurationOption {
 // will change when the set of required properties is changed.
 func NewConfiguration(sourceIndices []SourceIndex, opts ...ConfigurationOption) *Configuration {
 	this := &Configuration{}
+
 	this.SourceIndices = sourceIndices
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -66,6 +68,7 @@ func NewEmptyConfiguration() *Configuration {
 func (o *Configuration) GetSourceIndices() []SourceIndex {
 	if o == nil {
 		var ret []SourceIndex
+
 		return ret
 	}
 
@@ -78,12 +81,14 @@ func (o *Configuration) GetSourceIndicesOk() ([]SourceIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.SourceIndices, true
 }
 
 // SetSourceIndices sets field value.
 func (o *Configuration) SetSourceIndices(v []SourceIndex) *Configuration {
 	o.SourceIndices = v
+
 	return o
 }
 
@@ -91,8 +96,10 @@ func (o *Configuration) SetSourceIndices(v []SourceIndex) *Configuration {
 func (o *Configuration) GetLanguages() Languages {
 	if o == nil || o.Languages == nil {
 		var ret Languages
+
 		return ret
 	}
+
 	return *o.Languages
 }
 
@@ -102,6 +109,7 @@ func (o *Configuration) GetLanguagesOk() (*Languages, bool) {
 	if o == nil || o.Languages == nil {
 		return nil, false
 	}
+
 	return o.Languages, true
 }
 
@@ -117,6 +125,7 @@ func (o *Configuration) HasLanguages() bool {
 // SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
 func (o *Configuration) SetLanguages(v *Languages) *Configuration {
 	o.Languages = v
+
 	return o
 }
 
@@ -124,8 +133,10 @@ func (o *Configuration) SetLanguages(v *Languages) *Configuration {
 func (o *Configuration) GetExclude() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Exclude
 }
 
@@ -136,6 +147,7 @@ func (o *Configuration) GetExcludeOk() ([]string, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
+
 	return o.Exclude, true
 }
 
@@ -151,6 +163,7 @@ func (o *Configuration) HasExclude() bool {
 // SetExclude gets a reference to the given []string and assigns it to the Exclude field.
 func (o *Configuration) SetExclude(v []string) *Configuration {
 	o.Exclude = v
+
 	return o
 }
 
@@ -158,8 +171,10 @@ func (o *Configuration) SetExclude(v []string) *Configuration {
 func (o *Configuration) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -169,6 +184,7 @@ func (o *Configuration) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -184,6 +200,7 @@ func (o *Configuration) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *Configuration) SetEnablePersonalization(v bool) *Configuration {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -191,8 +208,10 @@ func (o *Configuration) SetEnablePersonalization(v bool) *Configuration {
 func (o *Configuration) GetAllowSpecialCharacters() bool {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowSpecialCharacters
 }
 
@@ -202,6 +221,7 @@ func (o *Configuration) GetAllowSpecialCharactersOk() (*bool, bool) {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		return nil, false
 	}
+
 	return o.AllowSpecialCharacters, true
 }
 
@@ -217,24 +237,30 @@ func (o *Configuration) HasAllowSpecialCharacters() bool {
 // SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
 func (o *Configuration) SetAllowSpecialCharacters(v bool) *Configuration {
 	o.AllowSpecialCharacters = &v
+
 	return o
 }
 
 func (o Configuration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["sourceIndices"] = o.SourceIndices
 	if o.Languages != nil {
 		toSerialize["languages"] = o.Languages
 	}
+
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Configuration: %w", err)
@@ -250,5 +276,6 @@ func (o Configuration) String() string {
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
+
 	return fmt.Sprintf("Configuration {\n%s}", out)
 }

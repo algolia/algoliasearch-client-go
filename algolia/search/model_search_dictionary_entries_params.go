@@ -43,10 +43,12 @@ func WithSearchDictionaryEntriesParamsLanguage(val SupportedLanguage) SearchDict
 // will change when the set of required properties is changed.
 func NewSearchDictionaryEntriesParams(query string, opts ...SearchDictionaryEntriesParamsOption) *SearchDictionaryEntriesParams {
 	this := &SearchDictionaryEntriesParams{}
+
 	this.Query = query
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -59,6 +61,7 @@ func NewEmptySearchDictionaryEntriesParams() *SearchDictionaryEntriesParams {
 func (o *SearchDictionaryEntriesParams) GetQuery() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +74,14 @@ func (o *SearchDictionaryEntriesParams) GetQueryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Query, true
 }
 
 // SetQuery sets field value.
 func (o *SearchDictionaryEntriesParams) SetQuery(v string) *SearchDictionaryEntriesParams {
 	o.Query = v
+
 	return o
 }
 
@@ -84,8 +89,10 @@ func (o *SearchDictionaryEntriesParams) SetQuery(v string) *SearchDictionaryEntr
 func (o *SearchDictionaryEntriesParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -95,6 +102,7 @@ func (o *SearchDictionaryEntriesParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -110,6 +118,7 @@ func (o *SearchDictionaryEntriesParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchDictionaryEntriesParams) SetPage(v int32) *SearchDictionaryEntriesParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -117,8 +126,10 @@ func (o *SearchDictionaryEntriesParams) SetPage(v int32) *SearchDictionaryEntrie
 func (o *SearchDictionaryEntriesParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -128,6 +139,7 @@ func (o *SearchDictionaryEntriesParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -143,6 +155,7 @@ func (o *SearchDictionaryEntriesParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchDictionaryEntriesParams) SetHitsPerPage(v int32) *SearchDictionaryEntriesParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -150,8 +163,10 @@ func (o *SearchDictionaryEntriesParams) SetHitsPerPage(v int32) *SearchDictionar
 func (o *SearchDictionaryEntriesParams) GetLanguage() SupportedLanguage {
 	if o == nil || o.Language == nil {
 		var ret SupportedLanguage
+
 		return ret
 	}
+
 	return *o.Language
 }
 
@@ -161,6 +176,7 @@ func (o *SearchDictionaryEntriesParams) GetLanguageOk() (*SupportedLanguage, boo
 	if o == nil || o.Language == nil {
 		return nil, false
 	}
+
 	return o.Language, true
 }
 
@@ -176,21 +192,26 @@ func (o *SearchDictionaryEntriesParams) HasLanguage() bool {
 // SetLanguage gets a reference to the given SupportedLanguage and assigns it to the Language field.
 func (o *SearchDictionaryEntriesParams) SetLanguage(v SupportedLanguage) *SearchDictionaryEntriesParams {
 	o.Language = &v
+
 	return o
 }
 
 func (o SearchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["query"] = o.Query
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchDictionaryEntriesParams: %w", err)
@@ -205,5 +226,6 @@ func (o SearchDictionaryEntriesParams) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  language=%v\n", o.Language)
+
 	return fmt.Sprintf("SearchDictionaryEntriesParams {\n%s}", out)
 }

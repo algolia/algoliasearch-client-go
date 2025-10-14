@@ -8,8 +8,8 @@ import (
 
 // ErrorBase Error.
 type ErrorBase struct {
-	Message              *string `json:"message,omitempty"`
-	AdditionalProperties map[string]any
+	Message              *string        `json:"message,omitempty"`
+	AdditionalProperties map[string]any `json:"-"`
 }
 
 type _ErrorBase ErrorBase
@@ -31,6 +31,7 @@ func NewErrorBase(opts ...ErrorBaseOption) *ErrorBase {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -43,8 +44,10 @@ func NewEmptyErrorBase() *ErrorBase {
 func (o *ErrorBase) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -54,6 +57,7 @@ func (o *ErrorBase) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -69,6 +73,7 @@ func (o *ErrorBase) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *ErrorBase) SetMessage(v string) *ErrorBase {
 	o.Message = &v
+
 	return o
 }
 
@@ -125,9 +130,11 @@ func (o *ErrorBase) UnmarshalJSON(bytes []byte) error {
 
 func (o ErrorBase) String() string {
 	out := ""
+
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("ErrorBase {\n%s}", out)
 }

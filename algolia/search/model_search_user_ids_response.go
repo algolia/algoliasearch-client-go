@@ -31,6 +31,7 @@ func NewSearchUserIdsResponse(hits []UserHit, nbHits int32, page int32, hitsPerP
 	this.Page = page
 	this.HitsPerPage = hitsPerPage
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -43,6 +44,7 @@ func NewEmptySearchUserIdsResponse() *SearchUserIdsResponse {
 func (o *SearchUserIdsResponse) GetHits() []UserHit {
 	if o == nil {
 		var ret []UserHit
+
 		return ret
 	}
 
@@ -55,12 +57,14 @@ func (o *SearchUserIdsResponse) GetHitsOk() ([]UserHit, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchUserIdsResponse) SetHits(v []UserHit) *SearchUserIdsResponse {
 	o.Hits = v
+
 	return o
 }
 
@@ -68,6 +72,7 @@ func (o *SearchUserIdsResponse) SetHits(v []UserHit) *SearchUserIdsResponse {
 func (o *SearchUserIdsResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -80,12 +85,14 @@ func (o *SearchUserIdsResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchUserIdsResponse) SetNbHits(v int32) *SearchUserIdsResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -93,6 +100,7 @@ func (o *SearchUserIdsResponse) SetNbHits(v int32) *SearchUserIdsResponse {
 func (o *SearchUserIdsResponse) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -105,12 +113,14 @@ func (o *SearchUserIdsResponse) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *SearchUserIdsResponse) SetPage(v int32) *SearchUserIdsResponse {
 	o.Page = v
+
 	return o
 }
 
@@ -118,6 +128,7 @@ func (o *SearchUserIdsResponse) SetPage(v int32) *SearchUserIdsResponse {
 func (o *SearchUserIdsResponse) GetHitsPerPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -130,12 +141,14 @@ func (o *SearchUserIdsResponse) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.HitsPerPage, true
 }
 
 // SetHitsPerPage sets field value.
 func (o *SearchUserIdsResponse) SetHitsPerPage(v int32) *SearchUserIdsResponse {
 	o.HitsPerPage = v
+
 	return o
 }
 
@@ -143,6 +156,7 @@ func (o *SearchUserIdsResponse) SetHitsPerPage(v int32) *SearchUserIdsResponse {
 func (o *SearchUserIdsResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -155,12 +169,14 @@ func (o *SearchUserIdsResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *SearchUserIdsResponse) SetUpdatedAt(v string) *SearchUserIdsResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -171,6 +187,7 @@ func (o SearchUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["page"] = o.Page
 	toSerialize["hitsPerPage"] = o.HitsPerPage
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchUserIdsResponse: %w", err)
@@ -186,5 +203,6 @@ func (o SearchUserIdsResponse) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("SearchUserIdsResponse {\n%s}", out)
 }

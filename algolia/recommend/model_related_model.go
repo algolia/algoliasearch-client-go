@@ -19,24 +19,7 @@ var AllowedRelatedModelEnumValues = []RelatedModel{
 	"related-products",
 }
 
-func (v *RelatedModel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RelatedModel': %w", string(src), err)
-	}
-	enumTypeValue := RelatedModel(value)
-	for _, existing := range AllowedRelatedModelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RelatedModel", value)
-}
-
-// NewRelatedModelFromValue returns a pointer to a valid RelatedModel
+// NewRelatedModelFromValue returns a pointer to a valid RelatedModel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRelatedModelFromValue(v string) (*RelatedModel, error) {
 	ev := RelatedModel(v)
@@ -47,6 +30,26 @@ func NewRelatedModelFromValue(v string) (*RelatedModel, error) {
 	}
 }
 
+func (v *RelatedModel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RelatedModel': %w", string(src), err)
+	}
+
+	enumTypeValue := RelatedModel(value)
+	for _, existing := range AllowedRelatedModelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RelatedModel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RelatedModel) IsValid() bool {
 	for _, existing := range AllowedRelatedModelEnumValues {
@@ -54,6 +57,7 @@ func (v RelatedModel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

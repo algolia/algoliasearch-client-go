@@ -19,24 +19,7 @@ var AllowedLookingSimilarModelEnumValues = []LookingSimilarModel{
 	"looking-similar",
 }
 
-func (v *LookingSimilarModel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'LookingSimilarModel': %w", string(src), err)
-	}
-	enumTypeValue := LookingSimilarModel(value)
-	for _, existing := range AllowedLookingSimilarModelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid LookingSimilarModel", value)
-}
-
-// NewLookingSimilarModelFromValue returns a pointer to a valid LookingSimilarModel
+// NewLookingSimilarModelFromValue returns a pointer to a valid LookingSimilarModel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewLookingSimilarModelFromValue(v string) (*LookingSimilarModel, error) {
 	ev := LookingSimilarModel(v)
@@ -47,6 +30,26 @@ func NewLookingSimilarModelFromValue(v string) (*LookingSimilarModel, error) {
 	}
 }
 
+func (v *LookingSimilarModel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'LookingSimilarModel': %w", string(src), err)
+	}
+
+	enumTypeValue := LookingSimilarModel(value)
+	for _, existing := range AllowedLookingSimilarModelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid LookingSimilarModel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v LookingSimilarModel) IsValid() bool {
 	for _, existing := range AllowedLookingSimilarModelEnumValues {
@@ -54,6 +57,7 @@ func (v LookingSimilarModel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

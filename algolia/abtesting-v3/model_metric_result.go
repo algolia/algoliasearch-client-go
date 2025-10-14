@@ -74,10 +74,12 @@ func NewMetricResult(name string, updatedAt string, value float64, pValue float6
 	this.Name = name
 	this.UpdatedAt = updatedAt
 	this.Value = value
+
 	this.PValue = pValue
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -90,6 +92,7 @@ func NewEmptyMetricResult() *MetricResult {
 func (o *MetricResult) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -102,12 +105,14 @@ func (o *MetricResult) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *MetricResult) SetName(v string) *MetricResult {
 	o.Name = v
+
 	return o
 }
 
@@ -115,6 +120,7 @@ func (o *MetricResult) SetName(v string) *MetricResult {
 func (o *MetricResult) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -127,12 +133,14 @@ func (o *MetricResult) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *MetricResult) SetUpdatedAt(v string) *MetricResult {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -140,6 +148,7 @@ func (o *MetricResult) SetUpdatedAt(v string) *MetricResult {
 func (o *MetricResult) GetValue() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -152,12 +161,14 @@ func (o *MetricResult) GetValueOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *MetricResult) SetValue(v float64) *MetricResult {
 	o.Value = v
+
 	return o
 }
 
@@ -165,8 +176,10 @@ func (o *MetricResult) SetValue(v float64) *MetricResult {
 func (o *MetricResult) GetValueCIHigh() float64 {
 	if o == nil || o.ValueCIHigh == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ValueCIHigh
 }
 
@@ -176,6 +189,7 @@ func (o *MetricResult) GetValueCIHighOk() (*float64, bool) {
 	if o == nil || o.ValueCIHigh == nil {
 		return nil, false
 	}
+
 	return o.ValueCIHigh, true
 }
 
@@ -191,6 +205,7 @@ func (o *MetricResult) HasValueCIHigh() bool {
 // SetValueCIHigh gets a reference to the given float64 and assigns it to the ValueCIHigh field.
 func (o *MetricResult) SetValueCIHigh(v float64) *MetricResult {
 	o.ValueCIHigh = &v
+
 	return o
 }
 
@@ -198,8 +213,10 @@ func (o *MetricResult) SetValueCIHigh(v float64) *MetricResult {
 func (o *MetricResult) GetValueCILow() float64 {
 	if o == nil || o.ValueCILow == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ValueCILow
 }
 
@@ -209,6 +226,7 @@ func (o *MetricResult) GetValueCILowOk() (*float64, bool) {
 	if o == nil || o.ValueCILow == nil {
 		return nil, false
 	}
+
 	return o.ValueCILow, true
 }
 
@@ -224,6 +242,7 @@ func (o *MetricResult) HasValueCILow() bool {
 // SetValueCILow gets a reference to the given float64 and assigns it to the ValueCILow field.
 func (o *MetricResult) SetValueCILow(v float64) *MetricResult {
 	o.ValueCILow = &v
+
 	return o
 }
 
@@ -231,6 +250,7 @@ func (o *MetricResult) SetValueCILow(v float64) *MetricResult {
 func (o *MetricResult) GetPValue() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -243,12 +263,14 @@ func (o *MetricResult) GetPValueOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PValue, true
 }
 
 // SetPValue sets field value.
 func (o *MetricResult) SetPValue(v float64) *MetricResult {
 	o.PValue = v
+
 	return o
 }
 
@@ -256,8 +278,10 @@ func (o *MetricResult) SetPValue(v float64) *MetricResult {
 func (o *MetricResult) GetDimension() string {
 	if o == nil || o.Dimension == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Dimension
 }
 
@@ -267,6 +291,7 @@ func (o *MetricResult) GetDimensionOk() (*string, bool) {
 	if o == nil || o.Dimension == nil {
 		return nil, false
 	}
+
 	return o.Dimension, true
 }
 
@@ -282,6 +307,7 @@ func (o *MetricResult) HasDimension() bool {
 // SetDimension gets a reference to the given string and assigns it to the Dimension field.
 func (o *MetricResult) SetDimension(v string) *MetricResult {
 	o.Dimension = &v
+
 	return o
 }
 
@@ -289,8 +315,10 @@ func (o *MetricResult) SetDimension(v string) *MetricResult {
 func (o *MetricResult) GetMetadata() MetricMetadata {
 	if o == nil || o.Metadata == nil {
 		var ret MetricMetadata
+
 		return ret
 	}
+
 	return *o.Metadata
 }
 
@@ -300,6 +328,7 @@ func (o *MetricResult) GetMetadataOk() (*MetricMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
+
 	return o.Metadata, true
 }
 
@@ -315,6 +344,7 @@ func (o *MetricResult) HasMetadata() bool {
 // SetMetadata gets a reference to the given MetricMetadata and assigns it to the Metadata field.
 func (o *MetricResult) SetMetadata(v *MetricMetadata) *MetricResult {
 	o.Metadata = v
+
 	return o
 }
 
@@ -322,8 +352,10 @@ func (o *MetricResult) SetMetadata(v *MetricMetadata) *MetricResult {
 func (o *MetricResult) GetCriticalValue() float64 {
 	if o == nil || o.CriticalValue == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.CriticalValue
 }
 
@@ -333,6 +365,7 @@ func (o *MetricResult) GetCriticalValueOk() (*float64, bool) {
 	if o == nil || o.CriticalValue == nil {
 		return nil, false
 	}
+
 	return o.CriticalValue, true
 }
 
@@ -348,6 +381,7 @@ func (o *MetricResult) HasCriticalValue() bool {
 // SetCriticalValue gets a reference to the given float64 and assigns it to the CriticalValue field.
 func (o *MetricResult) SetCriticalValue(v float64) *MetricResult {
 	o.CriticalValue = &v
+
 	return o
 }
 
@@ -355,8 +389,10 @@ func (o *MetricResult) SetCriticalValue(v float64) *MetricResult {
 func (o *MetricResult) GetSignificant() bool {
 	if o == nil || o.Significant == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Significant
 }
 
@@ -366,6 +402,7 @@ func (o *MetricResult) GetSignificantOk() (*bool, bool) {
 	if o == nil || o.Significant == nil {
 		return nil, false
 	}
+
 	return o.Significant, true
 }
 
@@ -381,6 +418,7 @@ func (o *MetricResult) HasSignificant() bool {
 // SetSignificant gets a reference to the given bool and assigns it to the Significant field.
 func (o *MetricResult) SetSignificant(v bool) *MetricResult {
 	o.Significant = &v
+
 	return o
 }
 
@@ -388,26 +426,33 @@ func (o MetricResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	toSerialize["value"] = o.Value
 	if o.ValueCIHigh != nil {
 		toSerialize["valueCIHigh"] = o.ValueCIHigh
 	}
+
 	if o.ValueCILow != nil {
 		toSerialize["valueCILow"] = o.ValueCILow
 	}
+
 	toSerialize["pValue"] = o.PValue
 	if o.Dimension != nil {
 		toSerialize["dimension"] = o.Dimension
 	}
+
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
 	if o.CriticalValue != nil {
 		toSerialize["criticalValue"] = o.CriticalValue
 	}
+
 	if o.Significant != nil {
 		toSerialize["significant"] = o.Significant
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MetricResult: %w", err)
@@ -428,5 +473,6 @@ func (o MetricResult) String() string {
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 	out += fmt.Sprintf("  criticalValue=%v\n", o.CriticalValue)
 	out += fmt.Sprintf("  significant=%v\n", o.Significant)
+
 	return fmt.Sprintf("MetricResult {\n%s}", out)
 }

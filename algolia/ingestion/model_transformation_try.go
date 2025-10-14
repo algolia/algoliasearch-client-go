@@ -50,10 +50,12 @@ func WithTransformationTryAuthentications(val []AuthenticationCreate) Transforma
 // will change when the set of required properties is changed.
 func NewTransformationTry(sampleRecord map[string]any, opts ...TransformationTryOption) *TransformationTry {
 	this := &TransformationTry{}
+
 	this.SampleRecord = sampleRecord
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -67,8 +69,10 @@ func NewEmptyTransformationTry() *TransformationTry {
 func (o *TransformationTry) GetCode() string {
 	if o == nil || o.Code == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Code
 }
 
@@ -79,6 +83,7 @@ func (o *TransformationTry) GetCodeOk() (*string, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
+
 	return o.Code, true
 }
 
@@ -95,6 +100,7 @@ func (o *TransformationTry) HasCode() bool {
 // Deprecated.
 func (o *TransformationTry) SetCode(v string) *TransformationTry {
 	o.Code = &v
+
 	return o
 }
 
@@ -102,8 +108,10 @@ func (o *TransformationTry) SetCode(v string) *TransformationTry {
 func (o *TransformationTry) GetType() TransformationType {
 	if o == nil || o.Type == nil {
 		var ret TransformationType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -113,6 +121,7 @@ func (o *TransformationTry) GetTypeOk() (*TransformationType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -128,6 +137,7 @@ func (o *TransformationTry) HasType() bool {
 // SetType gets a reference to the given TransformationType and assigns it to the Type field.
 func (o *TransformationTry) SetType(v TransformationType) *TransformationTry {
 	o.Type = &v
+
 	return o
 }
 
@@ -135,8 +145,10 @@ func (o *TransformationTry) SetType(v TransformationType) *TransformationTry {
 func (o *TransformationTry) GetInput() TransformationInput {
 	if o == nil || o.Input == nil {
 		var ret TransformationInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -146,6 +158,7 @@ func (o *TransformationTry) GetInputOk() (*TransformationInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -161,6 +174,7 @@ func (o *TransformationTry) HasInput() bool {
 // SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
 func (o *TransformationTry) SetInput(v *TransformationInput) *TransformationTry {
 	o.Input = v
+
 	return o
 }
 
@@ -168,6 +182,7 @@ func (o *TransformationTry) SetInput(v *TransformationInput) *TransformationTry 
 func (o *TransformationTry) GetSampleRecord() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -180,12 +195,14 @@ func (o *TransformationTry) GetSampleRecordOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.SampleRecord, true
 }
 
 // SetSampleRecord sets field value.
 func (o *TransformationTry) SetSampleRecord(v map[string]any) *TransformationTry {
 	o.SampleRecord = v
+
 	return o
 }
 
@@ -193,8 +210,10 @@ func (o *TransformationTry) SetSampleRecord(v map[string]any) *TransformationTry
 func (o *TransformationTry) GetAuthentications() []AuthenticationCreate {
 	if o == nil || o.Authentications == nil {
 		var ret []AuthenticationCreate
+
 		return ret
 	}
+
 	return o.Authentications
 }
 
@@ -204,6 +223,7 @@ func (o *TransformationTry) GetAuthenticationsOk() ([]AuthenticationCreate, bool
 	if o == nil || o.Authentications == nil {
 		return nil, false
 	}
+
 	return o.Authentications, true
 }
 
@@ -219,6 +239,7 @@ func (o *TransformationTry) HasAuthentications() bool {
 // SetAuthentications gets a reference to the given []AuthenticationCreate and assigns it to the Authentications field.
 func (o *TransformationTry) SetAuthentications(v []AuthenticationCreate) *TransformationTry {
 	o.Authentications = v
+
 	return o
 }
 
@@ -227,16 +248,20 @@ func (o TransformationTry) MarshalJSON() ([]byte, error) {
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
 	}
+
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	toSerialize["sampleRecord"] = o.SampleRecord
 	if o.Authentications != nil {
 		toSerialize["authentications"] = o.Authentications
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationTry: %w", err)
@@ -252,5 +277,6 @@ func (o TransformationTry) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  sampleRecord=%v\n", o.SampleRecord)
 	out += fmt.Sprintf("  authentications=%v\n", o.Authentications)
+
 	return fmt.Sprintf("TransformationTry {\n%s}", out)
 }

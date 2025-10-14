@@ -37,6 +37,7 @@ func NewTransformationError(opts ...TransformationErrorOption) *TransformationEr
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyTransformationError() *TransformationError {
 func (o *TransformationError) GetCode() int32 {
 	if o == nil || o.Code == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Code
 }
 
@@ -60,6 +63,7 @@ func (o *TransformationError) GetCodeOk() (*int32, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
+
 	return o.Code, true
 }
 
@@ -75,6 +79,7 @@ func (o *TransformationError) HasCode() bool {
 // SetCode gets a reference to the given int32 and assigns it to the Code field.
 func (o *TransformationError) SetCode(v int32) *TransformationError {
 	o.Code = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *TransformationError) SetCode(v int32) *TransformationError {
 func (o *TransformationError) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -93,6 +100,7 @@ func (o *TransformationError) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -108,6 +116,7 @@ func (o *TransformationError) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *TransformationError) SetMessage(v string) *TransformationError {
 	o.Message = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o TransformationError) MarshalJSON() ([]byte, error) {
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationError: %w", err)
@@ -131,5 +142,6 @@ func (o TransformationError) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
+
 	return fmt.Sprintf("TransformationError {\n%s}", out)
 }

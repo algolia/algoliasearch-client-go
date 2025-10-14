@@ -18,6 +18,7 @@ type StreamingTrigger struct {
 func NewStreamingTrigger(type_ StreamingTriggerType) *StreamingTrigger {
 	this := &StreamingTrigger{}
 	this.Type = type_
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyStreamingTrigger() *StreamingTrigger {
 func (o *StreamingTrigger) GetType() StreamingTriggerType {
 	if o == nil {
 		var ret StreamingTriggerType
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *StreamingTrigger) GetTypeOk() (*StreamingTriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *StreamingTrigger) SetType(v StreamingTriggerType) *StreamingTrigger {
 	o.Type = v
+
 	return o
 }
 
 func (o StreamingTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal StreamingTrigger: %w", err)
@@ -65,5 +70,6 @@ func (o StreamingTrigger) MarshalJSON() ([]byte, error) {
 func (o StreamingTrigger) String() string {
 	out := ""
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+
 	return fmt.Sprintf("StreamingTrigger {\n%s}", out)
 }

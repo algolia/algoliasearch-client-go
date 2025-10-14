@@ -8,7 +8,7 @@ import (
 
 type Configuration struct {
 	AppID  string
-	ApiKey string
+	ApiKey string //nolint:staticcheck
 
 	Hosts                           []StatefulHost
 	DefaultHeader                   map[string]string

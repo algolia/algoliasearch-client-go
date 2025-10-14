@@ -21,24 +21,7 @@ var AllowedDictionaryActionEnumValues = []DictionaryAction{
 	"deleteEntry",
 }
 
-func (v *DictionaryAction) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryAction': %w", string(src), err)
-	}
-	enumTypeValue := DictionaryAction(value)
-	for _, existing := range AllowedDictionaryActionEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid DictionaryAction", value)
-}
-
-// NewDictionaryActionFromValue returns a pointer to a valid DictionaryAction
+// NewDictionaryActionFromValue returns a pointer to a valid DictionaryAction.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewDictionaryActionFromValue(v string) (*DictionaryAction, error) {
 	ev := DictionaryAction(v)
@@ -49,6 +32,26 @@ func NewDictionaryActionFromValue(v string) (*DictionaryAction, error) {
 	}
 }
 
+func (v *DictionaryAction) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DictionaryAction': %w", string(src), err)
+	}
+
+	enumTypeValue := DictionaryAction(value)
+	for _, existing := range AllowedDictionaryActionEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid DictionaryAction", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v DictionaryAction) IsValid() bool {
 	for _, existing := range AllowedDictionaryActionEnumValues {
@@ -56,6 +59,7 @@ func (v DictionaryAction) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

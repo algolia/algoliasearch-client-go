@@ -22,6 +22,7 @@ func NewTopCountry(country string, count int32) *TopCountry {
 	this := &TopCountry{}
 	this.Country = country
 	this.Count = count
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTopCountry() *TopCountry {
 func (o *TopCountry) GetCountry() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *TopCountry) GetCountryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Country, true
 }
 
 // SetCountry sets field value.
 func (o *TopCountry) SetCountry(v string) *TopCountry {
 	o.Country = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *TopCountry) SetCountry(v string) *TopCountry {
 func (o *TopCountry) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *TopCountry) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopCountry) SetCount(v int32) *TopCountry {
 	o.Count = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o TopCountry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["country"] = o.Country
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopCountry: %w", err)
@@ -96,5 +104,6 @@ func (o TopCountry) String() string {
 	out := ""
 	out += fmt.Sprintf("  country=%v\n", o.Country)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("TopCountry {\n%s}", out)
 }

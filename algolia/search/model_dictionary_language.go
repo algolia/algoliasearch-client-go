@@ -29,6 +29,7 @@ func NewDictionaryLanguage(opts ...DictionaryLanguageOption) *DictionaryLanguage
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyDictionaryLanguage() *DictionaryLanguage {
 func (o *DictionaryLanguage) GetNbCustomEntries() int32 {
 	if o == nil || o.NbCustomEntries == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbCustomEntries
 }
 
@@ -52,6 +55,7 @@ func (o *DictionaryLanguage) GetNbCustomEntriesOk() (*int32, bool) {
 	if o == nil || o.NbCustomEntries == nil {
 		return nil, false
 	}
+
 	return o.NbCustomEntries, true
 }
 
@@ -67,6 +71,7 @@ func (o *DictionaryLanguage) HasNbCustomEntries() bool {
 // SetNbCustomEntries gets a reference to the given int32 and assigns it to the NbCustomEntries field.
 func (o *DictionaryLanguage) SetNbCustomEntries(v int32) *DictionaryLanguage {
 	o.NbCustomEntries = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o DictionaryLanguage) MarshalJSON() ([]byte, error) {
 	if o.NbCustomEntries != nil {
 		toSerialize["nbCustomEntries"] = o.NbCustomEntries
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DictionaryLanguage: %w", err)
@@ -86,5 +92,6 @@ func (o DictionaryLanguage) MarshalJSON() ([]byte, error) {
 func (o DictionaryLanguage) String() string {
 	out := ""
 	out += fmt.Sprintf("  nbCustomEntries=%v\n", o.NbCustomEntries)
+
 	return fmt.Sprintf("DictionaryLanguage {\n%s}", out)
 }

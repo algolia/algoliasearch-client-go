@@ -28,6 +28,7 @@ func NewIndexingTimeResponse(opts ...IndexingTimeResponseOption) *IndexingTimeRe
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyIndexingTimeResponse() *IndexingTimeResponse {
 func (o *IndexingTimeResponse) GetMetrics() IndexingMetric {
 	if o == nil || o.Metrics == nil {
 		var ret IndexingMetric
+
 		return ret
 	}
+
 	return *o.Metrics
 }
 
@@ -51,6 +54,7 @@ func (o *IndexingTimeResponse) GetMetricsOk() (*IndexingMetric, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
@@ -66,6 +70,7 @@ func (o *IndexingTimeResponse) HasMetrics() bool {
 // SetMetrics gets a reference to the given IndexingMetric and assigns it to the Metrics field.
 func (o *IndexingTimeResponse) SetMetrics(v *IndexingMetric) *IndexingTimeResponse {
 	o.Metrics = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o IndexingTimeResponse) MarshalJSON() ([]byte, error) {
 	if o.Metrics != nil {
 		toSerialize["metrics"] = o.Metrics
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IndexingTimeResponse: %w", err)
@@ -85,5 +91,6 @@ func (o IndexingTimeResponse) MarshalJSON() ([]byte, error) {
 func (o IndexingTimeResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
+
 	return fmt.Sprintf("IndexingTimeResponse {\n%s}", out)
 }

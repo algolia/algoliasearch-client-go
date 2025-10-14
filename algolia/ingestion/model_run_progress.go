@@ -20,6 +20,7 @@ func NewRunProgress(expectedNbOfEvents int32, receivedNbOfEvents int32) *RunProg
 	this := &RunProgress{}
 	this.ExpectedNbOfEvents = expectedNbOfEvents
 	this.ReceivedNbOfEvents = receivedNbOfEvents
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyRunProgress() *RunProgress {
 func (o *RunProgress) GetExpectedNbOfEvents() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *RunProgress) GetExpectedNbOfEventsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ExpectedNbOfEvents, true
 }
 
 // SetExpectedNbOfEvents sets field value.
 func (o *RunProgress) SetExpectedNbOfEvents(v int32) *RunProgress {
 	o.ExpectedNbOfEvents = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *RunProgress) SetExpectedNbOfEvents(v int32) *RunProgress {
 func (o *RunProgress) GetReceivedNbOfEvents() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *RunProgress) GetReceivedNbOfEventsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ReceivedNbOfEvents, true
 }
 
 // SetReceivedNbOfEvents sets field value.
 func (o *RunProgress) SetReceivedNbOfEvents(v int32) *RunProgress {
 	o.ReceivedNbOfEvents = v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o RunProgress) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["expectedNbOfEvents"] = o.ExpectedNbOfEvents
 	toSerialize["receivedNbOfEvents"] = o.ReceivedNbOfEvents
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunProgress: %w", err)
@@ -94,5 +102,6 @@ func (o RunProgress) String() string {
 	out := ""
 	out += fmt.Sprintf("  expectedNbOfEvents=%v\n", o.ExpectedNbOfEvents)
 	out += fmt.Sprintf("  receivedNbOfEvents=%v\n", o.ReceivedNbOfEvents)
+
 	return fmt.Sprintf("RunProgress {\n%s}", out)
 }

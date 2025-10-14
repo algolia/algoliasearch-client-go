@@ -28,6 +28,7 @@ func NewInjectedItemMetadata(opts ...InjectedItemMetadataOption) *InjectedItemMe
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyInjectedItemMetadata() *InjectedItemMetadata {
 func (o *InjectedItemMetadata) GetHits() InjectedItemHitsMetadata {
 	if o == nil || o.Hits == nil {
 		var ret InjectedItemHitsMetadata
+
 		return ret
 	}
+
 	return *o.Hits
 }
 
@@ -51,6 +54,7 @@ func (o *InjectedItemMetadata) GetHitsOk() (*InjectedItemHitsMetadata, bool) {
 	if o == nil || o.Hits == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
@@ -66,6 +70,7 @@ func (o *InjectedItemMetadata) HasHits() bool {
 // SetHits gets a reference to the given InjectedItemHitsMetadata and assigns it to the Hits field.
 func (o *InjectedItemMetadata) SetHits(v *InjectedItemHitsMetadata) *InjectedItemMetadata {
 	o.Hits = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o InjectedItemMetadata) MarshalJSON() ([]byte, error) {
 	if o.Hits != nil {
 		toSerialize["hits"] = o.Hits
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InjectedItemMetadata: %w", err)
@@ -85,5 +91,6 @@ func (o InjectedItemMetadata) MarshalJSON() ([]byte, error) {
 func (o InjectedItemMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+
 	return fmt.Sprintf("InjectedItemMetadata {\n%s}", out)
 }

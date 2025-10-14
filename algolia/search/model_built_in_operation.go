@@ -20,6 +20,7 @@ func NewBuiltInOperation(operation BuiltInOperationType, value BuiltInOperationV
 	this := &BuiltInOperation{}
 	this.Operation = operation
 	this.Value = value
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyBuiltInOperation() *BuiltInOperation {
 func (o *BuiltInOperation) GetOperation() BuiltInOperationType {
 	if o == nil {
 		var ret BuiltInOperationType
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *BuiltInOperation) GetOperationOk() (*BuiltInOperationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Operation, true
 }
 
 // SetOperation sets field value.
 func (o *BuiltInOperation) SetOperation(v BuiltInOperationType) *BuiltInOperation {
 	o.Operation = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *BuiltInOperation) SetOperation(v BuiltInOperationType) *BuiltInOperatio
 func (o *BuiltInOperation) GetValue() BuiltInOperationValue {
 	if o == nil {
 		var ret BuiltInOperationValue
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *BuiltInOperation) GetValueOk() (*BuiltInOperationValue, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *BuiltInOperation) SetValue(v *BuiltInOperationValue) *BuiltInOperation {
 	o.Value = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o BuiltInOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["_operation"] = o.Operation
 	toSerialize["value"] = o.Value
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BuiltInOperation: %w", err)
@@ -94,5 +102,6 @@ func (o BuiltInOperation) String() string {
 	out := ""
 	out += fmt.Sprintf("  _operation=%v\n", o.Operation)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("BuiltInOperation {\n%s}", out)
 }

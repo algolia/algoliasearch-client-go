@@ -35,24 +35,7 @@ var AllowedSourceTypeEnumValues = []SourceType{
 	"push",
 }
 
-func (v *SourceType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SourceType': %w", string(src), err)
-	}
-	enumTypeValue := SourceType(value)
-	for _, existing := range AllowedSourceTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SourceType", value)
-}
-
-// NewSourceTypeFromValue returns a pointer to a valid SourceType
+// NewSourceTypeFromValue returns a pointer to a valid SourceType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSourceTypeFromValue(v string) (*SourceType, error) {
 	ev := SourceType(v)
@@ -63,6 +46,26 @@ func NewSourceTypeFromValue(v string) (*SourceType, error) {
 	}
 }
 
+func (v *SourceType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SourceType': %w", string(src), err)
+	}
+
+	enumTypeValue := SourceType(value)
+	for _, existing := range AllowedSourceTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SourceType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SourceType) IsValid() bool {
 	for _, existing := range AllowedSourceTypeEnumValues {
@@ -70,6 +73,7 @@ func (v SourceType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

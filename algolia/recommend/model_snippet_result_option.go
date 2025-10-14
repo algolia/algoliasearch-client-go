@@ -21,6 +21,7 @@ func NewSnippetResultOption(value string, matchLevel MatchLevel) *SnippetResultO
 	this := &SnippetResultOption{}
 	this.Value = value
 	this.MatchLevel = matchLevel
+
 	return this
 }
 
@@ -33,6 +34,7 @@ func NewEmptySnippetResultOption() *SnippetResultOption {
 func (o *SnippetResultOption) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *SnippetResultOption) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *SnippetResultOption) SetValue(v string) *SnippetResultOption {
 	o.Value = v
+
 	return o
 }
 
@@ -58,6 +62,7 @@ func (o *SnippetResultOption) SetValue(v string) *SnippetResultOption {
 func (o *SnippetResultOption) GetMatchLevel() MatchLevel {
 	if o == nil {
 		var ret MatchLevel
+
 		return ret
 	}
 
@@ -70,12 +75,14 @@ func (o *SnippetResultOption) GetMatchLevelOk() (*MatchLevel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MatchLevel, true
 }
 
 // SetMatchLevel sets field value.
 func (o *SnippetResultOption) SetMatchLevel(v MatchLevel) *SnippetResultOption {
 	o.MatchLevel = v
+
 	return o
 }
 
@@ -83,6 +90,7 @@ func (o SnippetResultOption) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["value"] = o.Value
 	toSerialize["matchLevel"] = o.MatchLevel
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SnippetResultOption: %w", err)
@@ -95,5 +103,6 @@ func (o SnippetResultOption) String() string {
 	out := ""
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	out += fmt.Sprintf("  matchLevel=%v\n", o.MatchLevel)
+
 	return fmt.Sprintf("SnippetResultOption {\n%s}", out)
 }

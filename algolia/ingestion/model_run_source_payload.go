@@ -60,6 +60,7 @@ func NewRunSourcePayload(opts ...RunSourcePayloadOption) *RunSourcePayload {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -72,8 +73,10 @@ func NewEmptyRunSourcePayload() *RunSourcePayload {
 func (o *RunSourcePayload) GetIndexToInclude() []string {
 	if o == nil || o.IndexToInclude == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.IndexToInclude
 }
 
@@ -83,6 +86,7 @@ func (o *RunSourcePayload) GetIndexToIncludeOk() ([]string, bool) {
 	if o == nil || o.IndexToInclude == nil {
 		return nil, false
 	}
+
 	return o.IndexToInclude, true
 }
 
@@ -98,6 +102,7 @@ func (o *RunSourcePayload) HasIndexToInclude() bool {
 // SetIndexToInclude gets a reference to the given []string and assigns it to the IndexToInclude field.
 func (o *RunSourcePayload) SetIndexToInclude(v []string) *RunSourcePayload {
 	o.IndexToInclude = v
+
 	return o
 }
 
@@ -105,8 +110,10 @@ func (o *RunSourcePayload) SetIndexToInclude(v []string) *RunSourcePayload {
 func (o *RunSourcePayload) GetIndexToExclude() []string {
 	if o == nil || o.IndexToExclude == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.IndexToExclude
 }
 
@@ -116,6 +123,7 @@ func (o *RunSourcePayload) GetIndexToExcludeOk() ([]string, bool) {
 	if o == nil || o.IndexToExclude == nil {
 		return nil, false
 	}
+
 	return o.IndexToExclude, true
 }
 
@@ -131,6 +139,7 @@ func (o *RunSourcePayload) HasIndexToExclude() bool {
 // SetIndexToExclude gets a reference to the given []string and assigns it to the IndexToExclude field.
 func (o *RunSourcePayload) SetIndexToExclude(v []string) *RunSourcePayload {
 	o.IndexToExclude = v
+
 	return o
 }
 
@@ -138,8 +147,10 @@ func (o *RunSourcePayload) SetIndexToExclude(v []string) *RunSourcePayload {
 func (o *RunSourcePayload) GetEntityIDs() []string {
 	if o == nil || o.EntityIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.EntityIDs
 }
 
@@ -149,6 +160,7 @@ func (o *RunSourcePayload) GetEntityIDsOk() ([]string, bool) {
 	if o == nil || o.EntityIDs == nil {
 		return nil, false
 	}
+
 	return o.EntityIDs, true
 }
 
@@ -164,6 +176,7 @@ func (o *RunSourcePayload) HasEntityIDs() bool {
 // SetEntityIDs gets a reference to the given []string and assigns it to the EntityIDs field.
 func (o *RunSourcePayload) SetEntityIDs(v []string) *RunSourcePayload {
 	o.EntityIDs = v
+
 	return o
 }
 
@@ -171,8 +184,10 @@ func (o *RunSourcePayload) SetEntityIDs(v []string) *RunSourcePayload {
 func (o *RunSourcePayload) GetEntityType() EntityType {
 	if o == nil || o.EntityType == nil {
 		var ret EntityType
+
 		return ret
 	}
+
 	return *o.EntityType
 }
 
@@ -182,6 +197,7 @@ func (o *RunSourcePayload) GetEntityTypeOk() (*EntityType, bool) {
 	if o == nil || o.EntityType == nil {
 		return nil, false
 	}
+
 	return o.EntityType, true
 }
 
@@ -197,6 +213,7 @@ func (o *RunSourcePayload) HasEntityType() bool {
 // SetEntityType gets a reference to the given EntityType and assigns it to the EntityType field.
 func (o *RunSourcePayload) SetEntityType(v EntityType) *RunSourcePayload {
 	o.EntityType = &v
+
 	return o
 }
 
@@ -204,8 +221,10 @@ func (o *RunSourcePayload) SetEntityType(v EntityType) *RunSourcePayload {
 func (o *RunSourcePayload) GetRunMetadata() map[string]any {
 	if o == nil || o.RunMetadata == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.RunMetadata
 }
 
@@ -215,6 +234,7 @@ func (o *RunSourcePayload) GetRunMetadataOk() (map[string]any, bool) {
 	if o == nil || o.RunMetadata == nil {
 		return nil, false
 	}
+
 	return o.RunMetadata, true
 }
 
@@ -230,6 +250,7 @@ func (o *RunSourcePayload) HasRunMetadata() bool {
 // SetRunMetadata gets a reference to the given map[string]any and assigns it to the RunMetadata field.
 func (o *RunSourcePayload) SetRunMetadata(v map[string]any) *RunSourcePayload {
 	o.RunMetadata = v
+
 	return o
 }
 
@@ -238,18 +259,23 @@ func (o RunSourcePayload) MarshalJSON() ([]byte, error) {
 	if o.IndexToInclude != nil {
 		toSerialize["indexToInclude"] = o.IndexToInclude
 	}
+
 	if o.IndexToExclude != nil {
 		toSerialize["indexToExclude"] = o.IndexToExclude
 	}
+
 	if o.EntityIDs != nil {
 		toSerialize["entityIDs"] = o.EntityIDs
 	}
+
 	if o.EntityType != nil {
 		toSerialize["entityType"] = o.EntityType
 	}
+
 	if o.RunMetadata != nil {
 		toSerialize["runMetadata"] = o.RunMetadata
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunSourcePayload: %w", err)
@@ -265,5 +291,6 @@ func (o RunSourcePayload) String() string {
 	out += fmt.Sprintf("  entityIDs=%v\n", o.EntityIDs)
 	out += fmt.Sprintf("  entityType=%v\n", o.EntityType)
 	out += fmt.Sprintf("  runMetadata=%v\n", o.RunMetadata)
+
 	return fmt.Sprintf("RunSourcePayload {\n%s}", out)
 }

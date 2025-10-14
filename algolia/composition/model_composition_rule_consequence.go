@@ -18,6 +18,7 @@ type CompositionRuleConsequence struct {
 func NewCompositionRuleConsequence(behavior CompositionBehavior) *CompositionRuleConsequence {
 	this := &CompositionRuleConsequence{}
 	this.Behavior = behavior
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyCompositionRuleConsequence() *CompositionRuleConsequence {
 func (o *CompositionRuleConsequence) GetBehavior() CompositionBehavior {
 	if o == nil {
 		var ret CompositionBehavior
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *CompositionRuleConsequence) GetBehaviorOk() (*CompositionBehavior, bool
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Behavior, true
 }
 
 // SetBehavior sets field value.
 func (o *CompositionRuleConsequence) SetBehavior(v *CompositionBehavior) *CompositionRuleConsequence {
 	o.Behavior = *v
+
 	return o
 }
 
 func (o CompositionRuleConsequence) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["behavior"] = o.Behavior
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionRuleConsequence: %w", err)
@@ -65,5 +70,6 @@ func (o CompositionRuleConsequence) MarshalJSON() ([]byte, error) {
 func (o CompositionRuleConsequence) String() string {
 	out := ""
 	out += fmt.Sprintf("  behavior=%v\n", o.Behavior)
+
 	return fmt.Sprintf("CompositionRuleConsequence {\n%s}", out)
 }

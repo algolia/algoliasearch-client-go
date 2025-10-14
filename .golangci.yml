@@ -1,71 +1,60 @@
-linters-settings:
-  govet:
-    enable-all: true
-    disable:
-      - fieldalignment
-
-  revive:
-    rules:
-      - name: var-naming
-        disabled: true
-
-linters:
-  enable-all: true
-
-  disable:
-    - godox
-    - bodyclose
-    - contextcheck
-    - interfacebloat
-    - gci
-    - gosmopolitan
-    - wsl
-    - varnamelen
-    - nlreturn
-    - err113
-    - gochecknoglobals
-    - exhaustruct
-    - exhaustive
-    - depguard
-    - lll
-    - forbidigo
-    - gochecknoinits
-    - cyclop
-    - errorlint
-    - gomnd
-    - tagliatelle
-    - nilnil
-    - stylecheck
-    - musttag
-    - errchkjson
-    - nonamedreturns
-    - inamedparam
-    - ineffassign
-    - dupword
-    - nestif
-    - goconst
-    - funlen
-    - dupl
-    - unparam
-    - gocognit
-    - forcetypeassert
-    - wastedassign
-    - gocyclo
-    - maintidx
-    - copyloopvar
-    - intrange
-    - canonicalheader
-    - mnd
-    - perfsprint
-    - containedctx
-
-    # Deprecated
-    - execinquery
-    - exportloopref
-
-issues:
-  exclude-generated: disable
-
+version: "2"
 run:
   concurrency: 2
-  timeout: 10m
+linters:
+  default: all
+  disable:
+    - canonicalheader
+    - containedctx
+    - copyloopvar
+    - cyclop
+    - depguard
+    - dupl
+    - dupword
+    - err113
+    - exhaustive
+    - exhaustruct
+    - forbidigo
+    - funlen
+    - gochecknoglobals
+    - gocognit
+    - goconst
+    - gocyclo
+    - godoclint
+    - inamedparam
+    - intrange
+    - lll
+    - maintidx
+    - mnd
+    - nestif
+    - nilnil
+    - nonamedreturns
+    - perfsprint
+    - recvcheck
+    - tagliatelle
+    - varnamelen
+    - wsl
+  settings:
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+    revive:
+      rules:
+        - name: var-naming
+          disabled: true
+    staticcheck:
+      checks: ["all", "-ST1005", "-ST1016"]
+  exclusions:
+    generated: disable
+    presets:
+      - comments
+      - std-error-handling
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - golines
+  settings:
+    golines:
+      max-len: 150

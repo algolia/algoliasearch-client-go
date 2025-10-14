@@ -22,8 +22,8 @@ import (
 
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/ingestion"
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
@@ -294,10 +294,12 @@ func replaceAllObjectsToChunkBatchOptions(opts []ReplaceAllObjectsOption) []Chun
 
 func (r *ApiAddApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["apiKey"]; ok {
 		err = json.Unmarshal(v, &r.apiKey)
 		if err != nil {
@@ -365,6 +367,7 @@ func (c *APIClient) AddApiKeyWithHTTPInfo(r ApiAddApiKeyRequest, opts ...Request
 
 	// body params
 	postBody = r.apiKey
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -393,9 +396,11 @@ func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...RequestOption) (*Ad
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -411,10 +416,12 @@ func (c *APIClient) AddApiKey(r ApiAddApiKeyRequest, opts ...RequestOption) (*Ad
 
 func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -424,6 +431,7 @@ func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -433,6 +441,7 @@ func (r *ApiAddOrUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -498,6 +507,7 @@ func (c *APIClient) AddOrUpdateObjectWithHTTPInfo(r ApiAddOrUpdateObjectRequest,
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `AddOrUpdateObject`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `AddOrUpdateObject`.")
 	}
@@ -521,6 +531,7 @@ func (c *APIClient) AddOrUpdateObjectWithHTTPInfo(r ApiAddOrUpdateObjectRequest,
 
 	// body params
 	postBody = r.body
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -556,9 +567,11 @@ func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...Req
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -574,10 +587,12 @@ func (c *APIClient) AddOrUpdateObject(r ApiAddOrUpdateObjectRequest, opts ...Req
 
 func (r *ApiAppendSourceRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
@@ -645,6 +660,7 @@ func (c *APIClient) AppendSourceWithHTTPInfo(r ApiAppendSourceRequest, opts ...R
 
 	// body params
 	postBody = r.source
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -673,9 +689,11 @@ func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -691,10 +709,12 @@ func (c *APIClient) AppendSource(r ApiAppendSourceRequest, opts ...RequestOption
 
 func (r *ApiAssignUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["xAlgoliaUserID"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaUserID)
 		if err != nil {
@@ -704,6 +724,7 @@ func (r *ApiAssignUserIdRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["assignUserIdParams"]; ok {
 		err = json.Unmarshal(v, &r.assignUserIdParams)
 		if err != nil {
@@ -785,6 +806,7 @@ func (c *APIClient) AssignUserIdWithHTTPInfo(r ApiAssignUserIdRequest, opts ...R
 
 	// body params
 	postBody = r.assignUserIdParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -818,9 +840,11 @@ func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -836,10 +860,12 @@ func (c *APIClient) AssignUserId(r ApiAssignUserIdRequest, opts ...RequestOption
 
 func (r *ApiBatchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -849,6 +875,7 @@ func (r *ApiBatchRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["batchWriteParams"]; ok {
 		err = json.Unmarshal(v, &r.batchWriteParams)
 		if err != nil {
@@ -928,6 +955,7 @@ func (c *APIClient) BatchWithHTTPInfo(r ApiBatchRequest, opts ...RequestOption) 
 
 	// body params
 	postBody = r.batchWriteParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -961,9 +989,11 @@ func (c *APIClient) Batch(r ApiBatchRequest, opts ...RequestOption) (*BatchRespo
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -979,10 +1009,12 @@ func (c *APIClient) Batch(r ApiBatchRequest, opts ...RequestOption) (*BatchRespo
 
 func (r *ApiBatchAssignUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["xAlgoliaUserID"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaUserID)
 		if err != nil {
@@ -992,6 +1024,7 @@ func (r *ApiBatchAssignUserIdsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["batchAssignUserIdsParams"]; ok {
 		err = json.Unmarshal(v, &r.batchAssignUserIdsParams)
 		if err != nil {
@@ -1018,7 +1051,10 @@ type ApiBatchAssignUserIdsRequest struct {
 
 // Deprecated
 // NewApiBatchAssignUserIdsRequest creates an instance of the ApiBatchAssignUserIdsRequest to be used for the API call.
-func (c *APIClient) NewApiBatchAssignUserIdsRequest(xAlgoliaUserID string, batchAssignUserIdsParams *BatchAssignUserIdsParams) ApiBatchAssignUserIdsRequest {
+func (c *APIClient) NewApiBatchAssignUserIdsRequest(
+	xAlgoliaUserID string,
+	batchAssignUserIdsParams *BatchAssignUserIdsParams,
+) ApiBatchAssignUserIdsRequest {
 	return ApiBatchAssignUserIdsRequest{
 		xAlgoliaUserID:           xAlgoliaUserID,
 		batchAssignUserIdsParams: batchAssignUserIdsParams,
@@ -1073,6 +1109,7 @@ func (c *APIClient) BatchAssignUserIdsWithHTTPInfo(r ApiBatchAssignUserIdsReques
 
 	// body params
 	postBody = r.batchAssignUserIdsParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1106,9 +1143,11 @@ func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...R
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1124,10 +1163,12 @@ func (c *APIClient) BatchAssignUserIds(r ApiBatchAssignUserIdsRequest, opts ...R
 
 func (r *ApiBatchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["dictionaryName"]; ok {
 		err = json.Unmarshal(v, &r.dictionaryName)
 		if err != nil {
@@ -1137,6 +1178,7 @@ func (r *ApiBatchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["batchDictionaryEntriesParams"]; ok {
 		err = json.Unmarshal(v, &r.batchDictionaryEntriesParams)
 		if err != nil {
@@ -1162,7 +1204,10 @@ type ApiBatchDictionaryEntriesRequest struct {
 }
 
 // NewApiBatchDictionaryEntriesRequest creates an instance of the ApiBatchDictionaryEntriesRequest to be used for the API call.
-func (c *APIClient) NewApiBatchDictionaryEntriesRequest(dictionaryName DictionaryType, batchDictionaryEntriesParams *BatchDictionaryEntriesParams) ApiBatchDictionaryEntriesRequest {
+func (c *APIClient) NewApiBatchDictionaryEntriesRequest(
+	dictionaryName DictionaryType,
+	batchDictionaryEntriesParams *BatchDictionaryEntriesParams,
+) ApiBatchDictionaryEntriesRequest {
 	return ApiBatchDictionaryEntriesRequest{
 		dictionaryName:               dictionaryName,
 		batchDictionaryEntriesParams: batchDictionaryEntriesParams,
@@ -1208,6 +1253,7 @@ func (c *APIClient) BatchDictionaryEntriesWithHTTPInfo(r ApiBatchDictionaryEntri
 
 	// body params
 	postBody = r.batchDictionaryEntriesParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1237,9 +1283,11 @@ func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, o
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1255,10 +1303,12 @@ func (c *APIClient) BatchDictionaryEntries(r ApiBatchDictionaryEntriesRequest, o
 
 func (r *ApiBrowseRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1268,6 +1318,7 @@ func (r *ApiBrowseRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["browseParams"]; ok {
 		err = json.Unmarshal(v, &r.browseParams)
 		if err != nil {
@@ -1297,6 +1348,7 @@ func (c *APIClient) NewApiBrowseRequest(indexName string) ApiBrowseRequest {
 // WithBrowseParams adds the browseParams to the ApiBrowseRequest and returns the request for chaining.
 func (r ApiBrowseRequest) WithBrowseParams(browseParams *BrowseParams) ApiBrowseRequest {
 	r.browseParams = browseParams
+
 	return r
 }
 
@@ -1367,6 +1419,7 @@ func (c *APIClient) BrowseWithHTTPInfo(r ApiBrowseRequest, opts ...RequestOption
 	} else {
 		postBody = r.browseParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1420,9 +1473,11 @@ func (c *APIClient) Browse(r ApiBrowseRequest, opts ...RequestOption) (*BrowseRe
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1438,10 +1493,12 @@ func (c *APIClient) Browse(r ApiBrowseRequest, opts ...RequestOption) (*BrowseRe
 
 func (r *ApiClearObjectsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1534,9 +1591,11 @@ func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1552,10 +1611,12 @@ func (c *APIClient) ClearObjects(r ApiClearObjectsRequest, opts ...RequestOption
 
 func (r *ApiClearRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1565,6 +1626,7 @@ func (r *ApiClearRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -1594,6 +1656,7 @@ func (c *APIClient) NewApiClearRulesRequest(indexName string) ApiClearRulesReque
 // WithForwardToReplicas adds the forwardToReplicas to the ApiClearRulesRequest and returns the request for chaining.
 func (r ApiClearRulesRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearRulesRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -1667,9 +1730,11 @@ func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1685,10 +1750,12 @@ func (c *APIClient) ClearRules(r ApiClearRulesRequest, opts ...RequestOption) (*
 
 func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -1698,6 +1765,7 @@ func (r *ApiClearSynonymsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -1727,6 +1795,7 @@ func (c *APIClient) NewApiClearSynonymsRequest(indexName string) ApiClearSynonym
 // WithForwardToReplicas adds the forwardToReplicas to the ApiClearSynonymsRequest and returns the request for chaining.
 func (r ApiClearSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiClearSynonymsRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -1800,9 +1869,11 @@ func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1818,10 +1889,12 @@ func (c *APIClient) ClearSynonyms(r ApiClearSynonymsRequest, opts ...RequestOpti
 
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -1831,6 +1904,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -1860,6 +1934,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
 func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -1930,9 +2005,11 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1948,10 +2025,12 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -1961,6 +2040,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -1990,6 +2070,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
 func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -2060,9 +2141,11 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2078,10 +2161,12 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -2091,6 +2176,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -2100,6 +2186,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -2130,12 +2217,14 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
+
 	return r
 }
 
@@ -2187,6 +2276,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2214,9 +2304,11 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2232,10 +2324,12 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -2245,6 +2339,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -2254,6 +2349,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -2284,12 +2380,14 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
+
 	return r
 }
 
@@ -2341,6 +2439,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2368,9 +2467,11 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2386,10 +2487,12 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 func (r *ApiDeleteApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
@@ -2479,9 +2582,11 @@ func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2497,10 +2602,12 @@ func (c *APIClient) DeleteApiKey(r ApiDeleteApiKeyRequest, opts ...RequestOption
 
 func (r *ApiDeleteByRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -2510,6 +2617,7 @@ func (r *ApiDeleteByRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["deleteByParams"]; ok {
 		err = json.Unmarshal(v, &r.deleteByParams)
 		if err != nil {
@@ -2592,6 +2700,7 @@ func (c *APIClient) DeleteByWithHTTPInfo(r ApiDeleteByRequest, opts ...RequestOp
 
 	// body params
 	postBody = r.deleteByParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -2628,9 +2737,11 @@ func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*Upda
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2646,10 +2757,12 @@ func (c *APIClient) DeleteBy(r ApiDeleteByRequest, opts ...RequestOption) (*Upda
 
 func (r *ApiDeleteIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -2687,18 +2800,20 @@ DeleteIndex calls the API and returns the raw response from it.
 	  - If the index you want to delete has replica indices, the replicas become independent indices.
 
 	  - If the index you want to delete is a replica index, you must first unlink it from its primary index before you can delete it.
-	    For more information, see [Delete replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/deleting-replicas).
 
-	    Required API Key ACLs:
 
-	  - deleteIndex
+	  For more information, see [Delete replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/deleting-replicas).
 
-	    Request can be constructed by NewApiDeleteIndexRequest with parameters below.
-	    @param indexName string - Name of the index on which to perform the operation.
-	    @param opts ...RequestOption - Optional parameters for the API call
-	    @return *http.Response - The raw response from the API
-	    @return []byte - The raw response body from the API
-	    @return error - An error if the API call fails
+	  Required API Key ACLs:
+
+	- deleteIndex
+
+	  Request can be constructed by NewApiDeleteIndexRequest with parameters below.
+	  @param indexName string - Name of the index on which to perform the operation.
+	  @param opts ...RequestOption - Optional parameters for the API call
+	  @return *http.Response - The raw response from the API
+	  @return []byte - The raw response body from the API
+	  @return error - An error if the API call fails
 */
 func (c *APIClient) DeleteIndexWithHTTPInfo(r ApiDeleteIndexRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}"
@@ -2735,9 +2850,13 @@ DeleteIndex casts the HTTP response body to a defined struct.
 Deletes an index and all its settings.
 
   - Deleting an index doesn't delete its analytics data.
+
   - If you try to delete a non-existing index, the operation is ignored without warning.
+
   - If the index you want to delete has replica indices, the replicas become independent indices.
+
   - If the index you want to delete is a replica index, you must first unlink it from its primary index before you can delete it.
+
     For more information, see [Delete replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/deleting-replicas).
 
 Required API Key ACLs:
@@ -2755,9 +2874,11 @@ func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2773,10 +2894,12 @@ func (c *APIClient) DeleteIndex(r ApiDeleteIndexRequest, opts ...RequestOption) 
 
 func (r *ApiDeleteObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -2786,6 +2909,7 @@ func (r *ApiDeleteObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -2840,6 +2964,7 @@ func (c *APIClient) DeleteObjectWithHTTPInfo(r ApiDeleteObjectRequest, opts ...R
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `DeleteObject`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteObject`.")
 	}
@@ -2889,9 +3014,11 @@ func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2907,10 +3034,12 @@ func (c *APIClient) DeleteObject(r ApiDeleteObjectRequest, opts ...RequestOption
 
 func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -2920,6 +3049,7 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -2929,6 +3059,7 @@ func (r *ApiDeleteRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -2960,6 +3091,7 @@ func (c *APIClient) NewApiDeleteRuleRequest(indexName string, objectID string) A
 // WithForwardToReplicas adds the forwardToReplicas to the ApiDeleteRuleRequest and returns the request for chaining.
 func (r ApiDeleteRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiDeleteRuleRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -2991,6 +3123,7 @@ func (c *APIClient) DeleteRuleWithHTTPInfo(r ApiDeleteRuleRequest, opts ...Reque
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `DeleteRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteRule`.")
 	}
@@ -3044,9 +3177,11 @@ func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3062,10 +3197,12 @@ func (c *APIClient) DeleteRule(r ApiDeleteRuleRequest, opts ...RequestOption) (*
 
 func (r *ApiDeleteSourceRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
@@ -3155,9 +3292,11 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3173,10 +3312,12 @@ func (c *APIClient) DeleteSource(r ApiDeleteSourceRequest, opts ...RequestOption
 
 func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -3186,6 +3327,7 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -3195,6 +3337,7 @@ func (r *ApiDeleteSynonymRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -3226,6 +3369,7 @@ func (c *APIClient) NewApiDeleteSynonymRequest(indexName string, objectID string
 // WithForwardToReplicas adds the forwardToReplicas to the ApiDeleteSynonymRequest and returns the request for chaining.
 func (r ApiDeleteSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) ApiDeleteSynonymRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -3256,6 +3400,7 @@ func (c *APIClient) DeleteSynonymWithHTTPInfo(r ApiDeleteSynonymRequest, opts ..
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `DeleteSynonym`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `DeleteSynonym`.")
 	}
@@ -3308,9 +3453,11 @@ func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3326,10 +3473,12 @@ func (c *APIClient) DeleteSynonym(r ApiDeleteSynonymRequest, opts ...RequestOpti
 
 func (r *ApiGetApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
@@ -3421,9 +3570,11 @@ func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...RequestOption) (*Ge
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3439,10 +3590,12 @@ func (c *APIClient) GetApiKey(r ApiGetApiKeyRequest, opts ...RequestOption) (*Ge
 
 func (r *ApiGetAppTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["taskID"]; ok {
 		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
@@ -3529,9 +3682,11 @@ func (c *APIClient) GetAppTask(r ApiGetAppTaskRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3603,9 +3758,11 @@ func (c *APIClient) GetDictionaryLanguages(opts ...RequestOption) (*map[string]L
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3676,9 +3833,11 @@ func (c *APIClient) GetDictionarySettings(opts ...RequestOption) (*GetDictionary
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3694,10 +3853,12 @@ func (c *APIClient) GetDictionarySettings(opts ...RequestOption) (*GetDictionary
 
 func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -3707,6 +3868,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["length"]; ok {
 		err = json.Unmarshal(v, &r.length)
 		if err != nil {
@@ -3716,6 +3878,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -3725,6 +3888,7 @@ func (r *ApiGetLogsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["type"]; ok {
 		err = json.Unmarshal(v, &r.type_)
 		if err != nil {
@@ -3754,24 +3918,28 @@ func (c *APIClient) NewApiGetLogsRequest() ApiGetLogsRequest {
 // WithOffset adds the offset to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithOffset(offset int32) ApiGetLogsRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithLength adds the length to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithLength(length int32) ApiGetLogsRequest {
 	r.length = &length
+
 	return r
 }
 
 // WithIndexName adds the indexName to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithIndexName(indexName string) ApiGetLogsRequest {
 	r.indexName = &indexName
+
 	return r
 }
 
 // WithType adds the type_ to the ApiGetLogsRequest and returns the request for chaining.
 func (r ApiGetLogsRequest) WithType(type_ LogType) ApiGetLogsRequest {
 	r.type_ = type_
+
 	return r
 }
 
@@ -3809,12 +3977,15 @@ func (c *APIClient) GetLogsWithHTTPInfo(r ApiGetLogsRequest, opts ...RequestOpti
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.length) {
 		conf.queryParams.Set("length", utils.QueryParameterToString(*r.length))
 	}
+
 	if !utils.IsNilOrEmpty(r.indexName) {
 		conf.queryParams.Set("indexName", utils.QueryParameterToString(*r.indexName))
 	}
+
 	if !utils.IsNilOrEmpty(r.type_) {
 		conf.queryParams.Set("type", utils.QueryParameterToString(r.type_))
 	}
@@ -3861,9 +4032,11 @@ func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...RequestOption) (*GetLog
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3879,10 +4052,12 @@ func (c *APIClient) GetLogs(r ApiGetLogsRequest, opts ...RequestOption) (*GetLog
 
 func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -3892,6 +4067,7 @@ func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -3901,6 +4077,7 @@ func (r *ApiGetObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["attributesToRetrieve"]; ok {
 		err = json.Unmarshal(v, &r.attributesToRetrieve)
 		if err != nil {
@@ -3932,6 +4109,7 @@ func (c *APIClient) NewApiGetObjectRequest(indexName string, objectID string) Ap
 // WithAttributesToRetrieve adds the attributesToRetrieve to the ApiGetObjectRequest and returns the request for chaining.
 func (r ApiGetObjectRequest) WithAttributesToRetrieve(attributesToRetrieve []string) ApiGetObjectRequest {
 	r.attributesToRetrieve = attributesToRetrieve
+
 	return r
 }
 
@@ -3948,6 +4126,8 @@ To retrieve more than one record, use the [`objects` operation](https://www.algo
 	Request can be constructed by NewApiGetObjectRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param objectID string - Unique record identifier.
+
+
 	  @param attributesToRetrieve []string - Attributes to include with the records in the response. This is useful to reduce the size of the API response. By default, all retrievable attributes are returned.  `objectID` is always retrieved.  Attributes included in `unretrievableAttributes` won't be retrieved unless the request is authenticated with the admin API key.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3962,6 +4142,7 @@ func (c *APIClient) GetObjectWithHTTPInfo(r ApiGetObjectRequest, opts ...Request
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetObject`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetObject`.")
 	}
@@ -4005,6 +4186,8 @@ Request can be constructed by NewApiGetObjectRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
 	@param objectID string - Unique record identifier.
+
+
 	@param attributesToRetrieve []string - Attributes to include with the records in the response. This is useful to reduce the size of the API response. By default, all retrievable attributes are returned.  `objectID` is always retrieved.  Attributes included in `unretrievableAttributes` won't be retrieved unless the request is authenticated with the admin API key.
 	@return map[string]any
 */
@@ -4015,9 +4198,11 @@ func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4033,10 +4218,12 @@ func (c *APIClient) GetObject(r ApiGetObjectRequest, opts ...RequestOption) (*ma
 
 func (r *ApiGetObjectsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["getObjectsParams"]; ok {
 		err = json.Unmarshal(v, &r.getObjectsParams)
 		if err != nil {
@@ -4106,6 +4293,7 @@ func (c *APIClient) GetObjectsWithHTTPInfo(r ApiGetObjectsRequest, opts ...Reque
 
 	// body params
 	postBody = r.getObjectsParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -4136,9 +4324,11 @@ func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4154,10 +4344,12 @@ func (c *APIClient) GetObjects(r ApiGetObjectsRequest, opts ...RequestOption) (*
 
 func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -4167,6 +4359,7 @@ func (r *ApiGetRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -4220,6 +4413,7 @@ func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOpti
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetRule`.")
 	}
@@ -4267,9 +4461,11 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Rule, 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4285,10 +4481,12 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Rule, 
 
 func (r *ApiGetSettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -4298,6 +4496,7 @@ func (r *ApiGetSettingsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["getVersion"]; ok {
 		err = json.Unmarshal(v, &r.getVersion)
 		if err != nil {
@@ -4327,6 +4526,7 @@ func (c *APIClient) NewApiGetSettingsRequest(indexName string) ApiGetSettingsReq
 // WithGetVersion adds the getVersion to the ApiGetSettingsRequest and returns the request for chaining.
 func (r ApiGetSettingsRequest) WithGetVersion(getVersion int32) ApiGetSettingsRequest {
 	r.getVersion = &getVersion
+
 	return r
 }
 
@@ -4340,6 +4540,8 @@ GetSettings calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetSettingsRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
+
+
 	  @param getVersion int32 - When set to 2, the endpoint will not include `synonyms` in the response. This parameter is here for backward compatibility.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4390,6 +4592,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetSettingsRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
+
+
 	@param getVersion int32 - When set to 2, the endpoint will not include `synonyms` in the response. This parameter is here for backward compatibility.
 	@return SettingsResponse
 */
@@ -4400,9 +4604,11 @@ func (c *APIClient) GetSettings(r ApiGetSettingsRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4473,9 +4679,11 @@ func (c *APIClient) GetSources(opts ...RequestOption) ([]Source, error) {
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4491,10 +4699,12 @@ func (c *APIClient) GetSources(opts ...RequestOption) ([]Source, error) {
 
 func (r *ApiGetSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -4504,6 +4714,7 @@ func (r *ApiGetSynonymRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -4558,6 +4769,7 @@ func (c *APIClient) GetSynonymWithHTTPInfo(r ApiGetSynonymRequest, opts ...Reque
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `GetSynonym`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `GetSynonym`.")
 	}
@@ -4606,9 +4818,11 @@ func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4624,10 +4838,12 @@ func (c *APIClient) GetSynonym(r ApiGetSynonymRequest, opts ...RequestOption) (*
 
 func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -4637,6 +4853,7 @@ func (r *ApiGetTaskRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["taskID"]; ok {
 		err = json.Unmarshal(v, &r.taskID)
 		if err != nil {
@@ -4743,9 +4960,11 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTas
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4826,9 +5045,11 @@ func (c *APIClient) GetTopUserIds(opts ...RequestOption) (*GetTopUserIdsResponse
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4844,10 +5065,12 @@ func (c *APIClient) GetTopUserIds(opts ...RequestOption) (*GetTopUserIdsResponse
 
 func (r *ApiGetUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["userID"]; ok {
 		err = json.Unmarshal(v, &r.userID)
 		if err != nil {
@@ -4948,9 +5171,11 @@ func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...RequestOption) (*Us
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4966,10 +5191,12 @@ func (c *APIClient) GetUserId(r ApiGetUserIdRequest, opts ...RequestOption) (*Us
 
 func (r *ApiHasPendingMappingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["getClusters"]; ok {
 		err = json.Unmarshal(v, &r.getClusters)
 		if err != nil {
@@ -4997,6 +5224,7 @@ func (c *APIClient) NewApiHasPendingMappingsRequest() ApiHasPendingMappingsReque
 // WithGetClusters adds the getClusters to the ApiHasPendingMappingsRequest and returns the request for chaining.
 func (r ApiHasPendingMappingsRequest) WithGetClusters(getClusters bool) ApiHasPendingMappingsRequest {
 	r.getClusters = &getClusters
+
 	return r
 }
 
@@ -5068,9 +5296,11 @@ func (c *APIClient) HasPendingMappings(r ApiHasPendingMappingsRequest, opts ...R
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5141,9 +5371,11 @@ func (c *APIClient) ListApiKeys(opts ...RequestOption) (*ListApiKeysResponse, er
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5218,9 +5450,11 @@ func (c *APIClient) ListClusters(opts ...RequestOption) (*ListClustersResponse, 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5236,10 +5470,12 @@ func (c *APIClient) ListClusters(opts ...RequestOption) (*ListClustersResponse, 
 
 func (r *ApiListIndicesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["page"]; ok {
 		err = json.Unmarshal(v, &r.page)
 		if err != nil {
@@ -5249,6 +5485,7 @@ func (r *ApiListIndicesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["hitsPerPage"]; ok {
 		err = json.Unmarshal(v, &r.hitsPerPage)
 		if err != nil {
@@ -5276,12 +5513,14 @@ func (c *APIClient) NewApiListIndicesRequest() ApiListIndicesRequest {
 // WithPage adds the page to the ApiListIndicesRequest and returns the request for chaining.
 func (r ApiListIndicesRequest) WithPage(page int32) ApiListIndicesRequest {
 	r.page = &page
+
 	return r
 }
 
 // WithHitsPerPage adds the hitsPerPage to the ApiListIndicesRequest and returns the request for chaining.
 func (r ApiListIndicesRequest) WithHitsPerPage(hitsPerPage int32) ApiListIndicesRequest {
 	r.hitsPerPage = &hitsPerPage
+
 	return r
 }
 
@@ -5315,6 +5554,7 @@ func (c *APIClient) ListIndicesWithHTTPInfo(r ApiListIndicesRequest, opts ...Req
 	if !utils.IsNilOrEmpty(r.page) {
 		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
 	}
+
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
 	}
@@ -5357,9 +5597,11 @@ func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5375,10 +5617,12 @@ func (c *APIClient) ListIndices(r ApiListIndicesRequest, opts ...RequestOption) 
 
 func (r *ApiListUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["page"]; ok {
 		err = json.Unmarshal(v, &r.page)
 		if err != nil {
@@ -5388,6 +5632,7 @@ func (r *ApiListUserIdsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["hitsPerPage"]; ok {
 		err = json.Unmarshal(v, &r.hitsPerPage)
 		if err != nil {
@@ -5416,12 +5661,14 @@ func (c *APIClient) NewApiListUserIdsRequest() ApiListUserIdsRequest {
 // WithPage adds the page to the ApiListUserIdsRequest and returns the request for chaining.
 func (r ApiListUserIdsRequest) WithPage(page int32) ApiListUserIdsRequest {
 	r.page = &page
+
 	return r
 }
 
 // WithHitsPerPage adds the hitsPerPage to the ApiListUserIdsRequest and returns the request for chaining.
 func (r ApiListUserIdsRequest) WithHitsPerPage(hitsPerPage int32) ApiListUserIdsRequest {
 	r.hitsPerPage = &hitsPerPage
+
 	return r
 }
 
@@ -5458,6 +5705,7 @@ func (c *APIClient) ListUserIdsWithHTTPInfo(r ApiListUserIdsRequest, opts ...Req
 	if !utils.IsNilOrEmpty(r.page) {
 		conf.queryParams.Set("page", utils.QueryParameterToString(*r.page))
 	}
+
 	if !utils.IsNilOrEmpty(r.hitsPerPage) {
 		conf.queryParams.Set("hitsPerPage", utils.QueryParameterToString(*r.hitsPerPage))
 	}
@@ -5503,9 +5751,11 @@ func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5521,10 +5771,12 @@ func (c *APIClient) ListUserIds(r ApiListUserIdsRequest, opts ...RequestOption) 
 
 func (r *ApiMultipleBatchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["batchParams"]; ok {
 		err = json.Unmarshal(v, &r.batchParams)
 		if err != nil {
@@ -5594,6 +5846,7 @@ func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ..
 
 	// body params
 	postBody = r.batchParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -5624,9 +5877,11 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5642,10 +5897,12 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 
 func (r *ApiOperationIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -5655,6 +5912,7 @@ func (r *ApiOperationIndexRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["operationIndexParams"]; ok {
 		err = json.Unmarshal(v, &r.operationIndexParams)
 		if err != nil {
@@ -5708,9 +5966,12 @@ OperationIndex calls the API and returns the raw response from it.
 **Move**
 
   - Moving a source index that doesn't exist is ignored without returning an error.
+
   - When moving an index, the analytics data keeps its original name, and a new set of analytics data is started for the new name.
     To access the original analytics in the dashboard, create an index with the original name.
+
   - If the destination index has replicas, moving will overwrite the existing index and copy the data to the replica indices.
+
   - Related guide: [Move indices](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/how-to/move-indices).
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
@@ -5753,6 +6014,7 @@ func (c *APIClient) OperationIndexWithHTTPInfo(r ApiOperationIndexRequest, opts 
 
 	// body params
 	postBody = r.operationIndexParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -5782,9 +6044,12 @@ Copies or moves (renames) an index within the same Algolia application.
 **Move**
 
   - Moving a source index that doesn't exist is ignored without returning an error.
+
   - When moving an index, the analytics data keeps its original name, and a new set of analytics data is started for the new name.
     To access the original analytics in the dashboard, create an index with the original name.
+
   - If the destination index has replicas, moving will overwrite the existing index and copy the data to the replica indices.
+
   - Related guide: [Move indices](https://www.algolia.com/doc/guides/sending-and-managing-data/manage-indices-and-apps/manage-indices/how-to/move-indices).
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/en-us/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
@@ -5805,9 +6070,11 @@ func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -5823,10 +6090,12 @@ func (c *APIClient) OperationIndex(r ApiOperationIndexRequest, opts ...RequestOp
 
 func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -5836,6 +6105,7 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -5845,6 +6115,7 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["attributesToUpdate"]; ok {
 		err = json.Unmarshal(v, &r.attributesToUpdate)
 		if err != nil {
@@ -5859,6 +6130,7 @@ func (r *ApiPartialUpdateObjectRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter attributesToUpdate: %w", err)
 		}
 	}
+
 	if v, ok := req["createIfNotExists"]; ok {
 		err = json.Unmarshal(v, &r.createIfNotExists)
 		if err != nil {
@@ -5881,7 +6153,11 @@ type ApiPartialUpdateObjectRequest struct {
 }
 
 // NewApiPartialUpdateObjectRequest creates an instance of the ApiPartialUpdateObjectRequest to be used for the API call.
-func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID string, attributesToUpdate map[string]any) ApiPartialUpdateObjectRequest {
+func (c *APIClient) NewApiPartialUpdateObjectRequest(
+	indexName string,
+	objectID string,
+	attributesToUpdate map[string]any,
+) ApiPartialUpdateObjectRequest {
 	return ApiPartialUpdateObjectRequest{
 		indexName:          indexName,
 		objectID:           objectID,
@@ -5892,6 +6168,7 @@ func (c *APIClient) NewApiPartialUpdateObjectRequest(indexName string, objectID 
 // WithCreateIfNotExists adds the createIfNotExists to the ApiPartialUpdateObjectRequest and returns the request for chaining.
 func (r ApiPartialUpdateObjectRequest) WithCreateIfNotExists(createIfNotExists bool) ApiPartialUpdateObjectRequest {
 	r.createIfNotExists = &createIfNotExists
+
 	return r
 }
 
@@ -5947,6 +6224,7 @@ func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequ
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `PartialUpdateObject`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `PartialUpdateObject`.")
 	}
@@ -5974,6 +6252,7 @@ func (c *APIClient) PartialUpdateObjectWithHTTPInfo(r ApiPartialUpdateObjectRequ
 
 	// body params
 	postBody = r.attributesToUpdate
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6031,9 +6310,11 @@ func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ..
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6049,10 +6330,12 @@ func (c *APIClient) PartialUpdateObject(r ApiPartialUpdateObjectRequest, opts ..
 
 func (r *ApiRemoveUserIdRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["userID"]; ok {
 		err = json.Unmarshal(v, &r.userID)
 		if err != nil {
@@ -6147,9 +6430,11 @@ func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6165,10 +6450,12 @@ func (c *APIClient) RemoveUserId(r ApiRemoveUserIdRequest, opts ...RequestOption
 
 func (r *ApiReplaceSourcesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["source"]; ok {
 		err = json.Unmarshal(v, &r.source)
 		if err != nil {
@@ -6236,6 +6523,7 @@ func (c *APIClient) ReplaceSourcesWithHTTPInfo(r ApiReplaceSourcesRequest, opts 
 
 	// body params
 	postBody = r.source
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6264,9 +6552,11 @@ func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6282,10 +6572,12 @@ func (c *APIClient) ReplaceSources(r ApiReplaceSourcesRequest, opts ...RequestOp
 
 func (r *ApiRestoreApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
@@ -6385,9 +6677,11 @@ func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6403,10 +6697,12 @@ func (c *APIClient) RestoreApiKey(r ApiRestoreApiKeyRequest, opts ...RequestOpti
 
 func (r *ApiSaveObjectRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -6416,6 +6712,7 @@ func (r *ApiSaveObjectRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -6501,6 +6798,7 @@ func (c *APIClient) SaveObjectWithHTTPInfo(r ApiSaveObjectRequest, opts ...Reque
 
 	// body params
 	postBody = r.body
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6540,9 +6838,11 @@ func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6558,10 +6858,12 @@ func (c *APIClient) SaveObject(r ApiSaveObjectRequest, opts ...RequestOption) (*
 
 func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -6571,6 +6873,7 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -6580,6 +6883,7 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["rule"]; ok {
 		err = json.Unmarshal(v, &r.rule)
 		if err != nil {
@@ -6594,6 +6898,7 @@ func (r *ApiSaveRuleRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter rule: %w", err)
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -6627,6 +6932,7 @@ func (c *APIClient) NewApiSaveRuleRequest(indexName string, objectID string, rul
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveRuleRequest and returns the request for chaining.
 func (r ApiSaveRuleRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveRuleRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -6660,6 +6966,7 @@ func (c *APIClient) SaveRuleWithHTTPInfo(r ApiSaveRuleRequest, opts ...RequestOp
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SaveRule`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `SaveRule`.")
 	}
@@ -6687,6 +6994,7 @@ func (c *APIClient) SaveRuleWithHTTPInfo(r ApiSaveRuleRequest, opts ...RequestOp
 
 	// body params
 	postBody = r.rule
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6721,9 +7029,11 @@ func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*Upda
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6739,10 +7049,12 @@ func (c *APIClient) SaveRule(r ApiSaveRuleRequest, opts ...RequestOption) (*Upda
 
 func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -6752,6 +7064,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["rules"]; ok {
 		err = json.Unmarshal(v, &r.rules)
 		if err != nil {
@@ -6766,6 +7079,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter rules: %w", err)
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -6775,6 +7089,7 @@ func (r *ApiSaveRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["clearExistingRules"]; ok {
 		err = json.Unmarshal(v, &r.clearExistingRules)
 		if err != nil {
@@ -6807,12 +7122,14 @@ func (c *APIClient) NewApiSaveRulesRequest(indexName string, rules []Rule) ApiSa
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveRulesRequest and returns the request for chaining.
 func (r ApiSaveRulesRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveRulesRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
 // WithClearExistingRules adds the clearExistingRules to the ApiSaveRulesRequest and returns the request for chaining.
 func (r ApiSaveRulesRequest) WithClearExistingRules(clearExistingRules bool) ApiSaveRulesRequest {
 	r.clearExistingRules = &clearExistingRules
+
 	return r
 }
 
@@ -6860,6 +7177,7 @@ func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...Request
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
+
 	if !utils.IsNilOrEmpty(r.clearExistingRules) {
 		conf.queryParams.Set("clearExistingRules", utils.QueryParameterToString(*r.clearExistingRules))
 	}
@@ -6873,6 +7191,7 @@ func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...Request
 
 	// body params
 	postBody = r.rules
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -6909,9 +7228,11 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Up
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -6927,10 +7248,12 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Up
 
 func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -6940,6 +7263,7 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["objectID"]; ok {
 		err = json.Unmarshal(v, &r.objectID)
 		if err != nil {
@@ -6949,6 +7273,7 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["synonymHit"]; ok {
 		err = json.Unmarshal(v, &r.synonymHit)
 		if err != nil {
@@ -6963,6 +7288,7 @@ func (r *ApiSaveSynonymRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter synonymHit: %w", err)
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -6996,6 +7322,7 @@ func (c *APIClient) NewApiSaveSynonymRequest(indexName string, objectID string, 
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveSynonymRequest and returns the request for chaining.
 func (r ApiSaveSynonymRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveSynonymRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -7028,6 +7355,7 @@ func (c *APIClient) SaveSynonymWithHTTPInfo(r ApiSaveSynonymRequest, opts ...Req
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SaveSynonym`.")
 	}
+
 	if r.objectID == "" {
 		return nil, nil, reportError("Parameter `objectID` is required when calling `SaveSynonym`.")
 	}
@@ -7055,6 +7383,7 @@ func (c *APIClient) SaveSynonymWithHTTPInfo(r ApiSaveSynonymRequest, opts ...Req
 
 	// body params
 	postBody = r.synonymHit
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7088,9 +7417,11 @@ func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7106,10 +7437,12 @@ func (c *APIClient) SaveSynonym(r ApiSaveSynonymRequest, opts ...RequestOption) 
 
 func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -7119,6 +7452,7 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["synonymHit"]; ok {
 		err = json.Unmarshal(v, &r.synonymHit)
 		if err != nil {
@@ -7133,6 +7467,7 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter synonymHit: %w", err)
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -7142,6 +7477,7 @@ func (r *ApiSaveSynonymsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["replaceExistingSynonyms"]; ok {
 		err = json.Unmarshal(v, &r.replaceExistingSynonyms)
 		if err != nil {
@@ -7174,12 +7510,14 @@ func (c *APIClient) NewApiSaveSynonymsRequest(indexName string, synonymHit []Syn
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSaveSynonymsRequest and returns the request for chaining.
 func (r ApiSaveSynonymsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSaveSynonymsRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
 // WithReplaceExistingSynonyms adds the replaceExistingSynonyms to the ApiSaveSynonymsRequest and returns the request for chaining.
 func (r ApiSaveSynonymsRequest) WithReplaceExistingSynonyms(replaceExistingSynonyms bool) ApiSaveSynonymsRequest {
 	r.replaceExistingSynonyms = &replaceExistingSynonyms
+
 	return r
 }
 
@@ -7226,6 +7564,7 @@ func (c *APIClient) SaveSynonymsWithHTTPInfo(r ApiSaveSynonymsRequest, opts ...R
 	if !utils.IsNilOrEmpty(r.forwardToReplicas) {
 		conf.queryParams.Set("forwardToReplicas", utils.QueryParameterToString(*r.forwardToReplicas))
 	}
+
 	if !utils.IsNilOrEmpty(r.replaceExistingSynonyms) {
 		conf.queryParams.Set("replaceExistingSynonyms", utils.QueryParameterToString(*r.replaceExistingSynonyms))
 	}
@@ -7239,6 +7578,7 @@ func (c *APIClient) SaveSynonymsWithHTTPInfo(r ApiSaveSynonymsRequest, opts ...R
 
 	// body params
 	postBody = r.synonymHit
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7273,9 +7613,11 @@ func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7291,10 +7633,12 @@ func (c *APIClient) SaveSynonyms(r ApiSaveSynonymsRequest, opts ...RequestOption
 
 func (r *ApiSearchRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["searchMethodParams"]; ok {
 		err = json.Unmarshal(v, &r.searchMethodParams)
 		if err != nil {
@@ -7369,6 +7713,7 @@ func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption
 
 	// body params
 	postBody = r.searchMethodParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7404,9 +7749,11 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7422,10 +7769,12 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 
 func (r *ApiSearchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["dictionaryName"]; ok {
 		err = json.Unmarshal(v, &r.dictionaryName)
 		if err != nil {
@@ -7435,6 +7784,7 @@ func (r *ApiSearchDictionaryEntriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchDictionaryEntriesParams"]; ok {
 		err = json.Unmarshal(v, &r.searchDictionaryEntriesParams)
 		if err != nil {
@@ -7460,7 +7810,10 @@ type ApiSearchDictionaryEntriesRequest struct {
 }
 
 // NewApiSearchDictionaryEntriesRequest creates an instance of the ApiSearchDictionaryEntriesRequest to be used for the API call.
-func (c *APIClient) NewApiSearchDictionaryEntriesRequest(dictionaryName DictionaryType, searchDictionaryEntriesParams *SearchDictionaryEntriesParams) ApiSearchDictionaryEntriesRequest {
+func (c *APIClient) NewApiSearchDictionaryEntriesRequest(
+	dictionaryName DictionaryType,
+	searchDictionaryEntriesParams *SearchDictionaryEntriesParams,
+) ApiSearchDictionaryEntriesRequest {
 	return ApiSearchDictionaryEntriesRequest{
 		dictionaryName:                dictionaryName,
 		searchDictionaryEntriesParams: searchDictionaryEntriesParams,
@@ -7506,6 +7859,7 @@ func (c *APIClient) SearchDictionaryEntriesWithHTTPInfo(r ApiSearchDictionaryEnt
 
 	// body params
 	postBody = r.searchDictionaryEntriesParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7535,9 +7889,11 @@ func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest,
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7553,10 +7909,12 @@ func (c *APIClient) SearchDictionaryEntries(r ApiSearchDictionaryEntriesRequest,
 
 func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -7566,6 +7924,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["facetName"]; ok {
 		err = json.Unmarshal(v, &r.facetName)
 		if err != nil {
@@ -7575,6 +7934,7 @@ func (r *ApiSearchForFacetValuesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchForFacetValuesRequest"]; ok {
 		err = json.Unmarshal(v, &r.searchForFacetValuesRequest)
 		if err != nil {
@@ -7604,8 +7964,11 @@ func (c *APIClient) NewApiSearchForFacetValuesRequest(indexName string, facetNam
 }
 
 // WithSearchForFacetValuesRequest adds the searchForFacetValuesRequest to the ApiSearchForFacetValuesRequest and returns the request for chaining.
-func (r ApiSearchForFacetValuesRequest) WithSearchForFacetValuesRequest(searchForFacetValuesRequest *SearchForFacetValuesRequest) ApiSearchForFacetValuesRequest {
+func (r ApiSearchForFacetValuesRequest) WithSearchForFacetValuesRequest(
+	searchForFacetValuesRequest *SearchForFacetValuesRequest,
+) ApiSearchForFacetValuesRequest {
 	r.searchForFacetValuesRequest = searchForFacetValuesRequest
+
 	return r
 }
 
@@ -7625,12 +7988,14 @@ SearchForFacetValues calls the API and returns the raw response from it.
 
 	    Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 	    @param indexName string - Name of the index on which to perform the operation.
-	    @param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
-	    @param searchForFacetValuesRequest SearchForFacetValuesRequest
-	    @param opts ...RequestOption - Optional parameters for the API call
-	    @return *http.Response - The raw response from the API
-	    @return []byte - The raw response body from the API
-	    @return error - An error if the API call fails
+
+
+	@param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
+	@param searchForFacetValuesRequest SearchForFacetValuesRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
 */
 func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/1/indexes/{indexName}/facets/{facetName}/query"
@@ -7640,6 +8005,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 	if r.indexName == "" {
 		return nil, nil, reportError("Parameter `indexName` is required when calling `SearchForFacetValues`.")
 	}
+
 	if r.facetName == "" {
 		return nil, nil, reportError("Parameter `facetName` is required when calling `SearchForFacetValues`.")
 	}
@@ -7663,6 +8029,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 	} else {
 		postBody = r.searchForFacetValuesRequest
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7686,6 +8053,8 @@ Required API Key ACLs:
 Request can be constructed by NewApiSearchForFacetValuesRequest with parameters below.
 
 	@param indexName string - Name of the index on which to perform the operation.
+
+
 	@param facetName string - Facet attribute in which to search for values.  This attribute must be included in the `attributesForFaceting` index setting with the `searchable()` modifier.
 	@param searchForFacetValuesRequest SearchForFacetValuesRequest
 	@return SearchForFacetValuesResponse
@@ -7697,9 +8066,11 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7715,10 +8086,12 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 
 func (r *ApiSearchRulesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -7728,6 +8101,7 @@ func (r *ApiSearchRulesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchRulesParams"]; ok {
 		err = json.Unmarshal(v, &r.searchRulesParams)
 		if err != nil {
@@ -7757,6 +8131,7 @@ func (c *APIClient) NewApiSearchRulesRequest(indexName string) ApiSearchRulesReq
 // WithSearchRulesParams adds the searchRulesParams to the ApiSearchRulesRequest and returns the request for chaining.
 func (r ApiSearchRulesRequest) WithSearchRulesParams(searchRulesParams *SearchRulesParams) ApiSearchRulesRequest {
 	r.searchRulesParams = searchRulesParams
+
 	return r
 }
 
@@ -7803,6 +8178,7 @@ func (c *APIClient) SearchRulesWithHTTPInfo(r ApiSearchRulesRequest, opts ...Req
 	} else {
 		postBody = r.searchRulesParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7832,9 +8208,11 @@ func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7850,10 +8228,12 @@ func (c *APIClient) SearchRules(r ApiSearchRulesRequest, opts ...RequestOption) 
 
 func (r *ApiSearchSingleIndexRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -7863,6 +8243,7 @@ func (r *ApiSearchSingleIndexRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchParams"]; ok {
 		err = json.Unmarshal(v, &r.searchParams)
 		if err != nil {
@@ -7892,6 +8273,7 @@ func (c *APIClient) NewApiSearchSingleIndexRequest(indexName string) ApiSearchSi
 // WithSearchParams adds the searchParams to the ApiSearchSingleIndexRequest and returns the request for chaining.
 func (r ApiSearchSingleIndexRequest) WithSearchParams(searchParams *SearchParams) ApiSearchSingleIndexRequest {
 	r.searchParams = searchParams
+
 	return r
 }
 
@@ -7941,6 +8323,7 @@ func (c *APIClient) SearchSingleIndexWithHTTPInfo(r ApiSearchSingleIndexRequest,
 	} else {
 		postBody = r.searchParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -7973,9 +8356,11 @@ func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...Req
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -7991,10 +8376,12 @@ func (c *APIClient) SearchSingleIndex(r ApiSearchSingleIndexRequest, opts ...Req
 
 func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -8004,6 +8391,7 @@ func (r *ApiSearchSynonymsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["searchSynonymsParams"]; ok {
 		err = json.Unmarshal(v, &r.searchSynonymsParams)
 		if err != nil {
@@ -8033,6 +8421,7 @@ func (c *APIClient) NewApiSearchSynonymsRequest(indexName string) ApiSearchSynon
 // WithSearchSynonymsParams adds the searchSynonymsParams to the ApiSearchSynonymsRequest and returns the request for chaining.
 func (r ApiSearchSynonymsRequest) WithSearchSynonymsParams(searchSynonymsParams *SearchSynonymsParams) ApiSearchSynonymsRequest {
 	r.searchSynonymsParams = searchSynonymsParams
+
 	return r
 }
 
@@ -8079,6 +8468,7 @@ func (c *APIClient) SearchSynonymsWithHTTPInfo(r ApiSearchSynonymsRequest, opts 
 	} else {
 		postBody = r.searchSynonymsParams
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -8108,9 +8498,11 @@ func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -8126,10 +8518,12 @@ func (c *APIClient) SearchSynonyms(r ApiSearchSynonymsRequest, opts ...RequestOp
 
 func (r *ApiSearchUserIdsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["searchUserIdsParams"]; ok {
 		err = json.Unmarshal(v, &r.searchUserIdsParams)
 		if err != nil {
@@ -8204,6 +8598,7 @@ func (c *APIClient) SearchUserIdsWithHTTPInfo(r ApiSearchUserIdsRequest, opts ..
 
 	// body params
 	postBody = r.searchUserIdsParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -8237,9 +8632,11 @@ func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -8255,10 +8652,12 @@ func (c *APIClient) SearchUserIds(r ApiSearchUserIdsRequest, opts ...RequestOpti
 
 func (r *ApiSetDictionarySettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["dictionarySettingsParams"]; ok {
 		err = json.Unmarshal(v, &r.dictionarySettingsParams)
 		if err != nil {
@@ -8326,6 +8725,7 @@ func (c *APIClient) SetDictionarySettingsWithHTTPInfo(r ApiSetDictionarySettings
 
 	// body params
 	postBody = r.dictionarySettingsParams
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -8354,9 +8754,11 @@ func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opt
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -8372,10 +8774,12 @@ func (c *APIClient) SetDictionarySettings(r ApiSetDictionarySettingsRequest, opt
 
 func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["indexName"]; ok {
 		err = json.Unmarshal(v, &r.indexName)
 		if err != nil {
@@ -8385,6 +8789,7 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["indexSettings"]; ok {
 		err = json.Unmarshal(v, &r.indexSettings)
 		if err != nil {
@@ -8399,6 +8804,7 @@ func (r *ApiSetSettingsRequest) UnmarshalJSON(b []byte) error {
 			return fmt.Errorf("cannot unmarshal body parameter indexSettings: %w", err)
 		}
 	}
+
 	if v, ok := req["forwardToReplicas"]; ok {
 		err = json.Unmarshal(v, &r.forwardToReplicas)
 		if err != nil {
@@ -8430,6 +8836,7 @@ func (c *APIClient) NewApiSetSettingsRequest(indexName string, indexSettings *In
 // WithForwardToReplicas adds the forwardToReplicas to the ApiSetSettingsRequest and returns the request for chaining.
 func (r ApiSetSettingsRequest) WithForwardToReplicas(forwardToReplicas bool) ApiSetSettingsRequest {
 	r.forwardToReplicas = &forwardToReplicas
+
 	return r
 }
 
@@ -8486,6 +8893,7 @@ func (c *APIClient) SetSettingsWithHTTPInfo(r ApiSetSettingsRequest, opts ...Req
 
 	// body params
 	postBody = r.indexSettings
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -8521,9 +8929,11 @@ func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -8539,10 +8949,12 @@ func (c *APIClient) SetSettings(r ApiSetSettingsRequest, opts ...RequestOption) 
 
 func (r *ApiUpdateApiKeyRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["key"]; ok {
 		err = json.Unmarshal(v, &r.key)
 		if err != nil {
@@ -8552,6 +8964,7 @@ func (r *ApiUpdateApiKeyRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["apiKey"]; ok {
 		err = json.Unmarshal(v, &r.apiKey)
 		if err != nil {
@@ -8629,6 +9042,7 @@ func (c *APIClient) UpdateApiKeyWithHTTPInfo(r ApiUpdateApiKeyRequest, opts ...R
 
 	// body params
 	postBody = r.apiKey
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -8660,9 +9074,11 @@ func (c *APIClient) UpdateApiKey(r ApiUpdateApiKeyRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -8871,7 +9287,7 @@ func (c *APIClient) WaitForTask(
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
 
-	return CreateIterable( 
+	return CreateIterable(
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
 			return c.GetTask(c.NewApiGetTaskRequest(indexName, taskID), toRequestOptions(opts)...)
 		},
@@ -8905,7 +9321,7 @@ func (c *APIClient) WaitForAppTask(
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
 
-	return CreateIterable( 
+	return CreateIterable(
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
 			return c.GetAppTask(c.NewApiGetAppTaskRequest(taskID), toRequestOptions(opts)...)
 		},
@@ -9038,7 +9454,7 @@ func (c *APIClient) WaitForApiKey(
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
 	}), WithMaxRetries(50)}, opts...)
 
-	return CreateIterable( 
+	return CreateIterable(
 		func(*GetApiKeyResponse, error) (*GetApiKeyResponse, error) {
 			return c.GetApiKey(c.NewApiGetApiKeyRequest(key), toRequestOptions(opts)...)
 		},
@@ -9066,7 +9482,7 @@ func (c *APIClient) BrowseObjects(
 		browseParams.HitsPerPage = utils.ToPtr(int32(1000))
 	}
 
-	_, err := CreateIterable( 
+	_, err := CreateIterable(
 		func(previousResponse *BrowseResponse, previousErr error) (*BrowseResponse, error) {
 			if previousResponse != nil {
 				browseParams.Cursor = previousResponse.Cursor
@@ -9106,7 +9522,7 @@ func (c *APIClient) BrowseRules(
 		hitsPerPage = *searchRulesParams.HitsPerPage
 	}
 
-	_, err := CreateIterable( 
+	_, err := CreateIterable(
 		func(previousResponse *SearchRulesResponse, previousErr error) (*SearchRulesResponse, error) {
 			searchRulesParams.HitsPerPage = &hitsPerPage
 
@@ -9156,7 +9572,7 @@ func (c *APIClient) BrowseSynonyms(
 		searchSynonymsParams.Page = utils.ToPtr(int32(0))
 	}
 
-	_, err := CreateIterable( 
+	_, err := CreateIterable(
 		func(previousResponse *SearchSynonymsResponse, previousErr error) (*SearchSynonymsResponse, error) {
 			searchSynonymsParams.HitsPerPage = &hitsPerPage
 
@@ -9187,24 +9603,30 @@ func encodeRestrictions(restrictions *SecuredApiKeyRestrictions) (string, error)
 	if restrictions.Filters != nil {
 		toSerialize["filters"] = *restrictions.Filters
 	}
+
 	if restrictions.ValidUntil != nil {
 		toSerialize["validUntil"] = *restrictions.ValidUntil
 	}
+
 	if restrictions.RestrictIndices != nil {
 		toSerialize["restrictIndices"] = restrictions.RestrictIndices
 	}
+
 	if restrictions.RestrictSources != nil {
 		toSerialize["restrictSources"] = *restrictions.RestrictSources
 	}
+
 	if restrictions.UserToken != nil {
 		toSerialize["userToken"] = *restrictions.UserToken
 	}
+
 	if restrictions.SearchParams != nil {
 		// merge with searchParams
 		serializedParams, err := restrictions.SearchParams.MarshalJSON()
 		if err != nil {
 			return "", fmt.Errorf("failed to marshal SearchParams: %w", err)
 		}
+
 		err = json.Unmarshal(serializedParams, &toSerialize)
 		if err != nil {
 			return "", fmt.Errorf("failed to unmarshal SearchParams: %w", err)
@@ -9216,6 +9638,7 @@ func encodeRestrictions(restrictions *SecuredApiKeyRestrictions) (string, error)
 	for k := range toSerialize {
 		keys = append(keys, k)
 	}
+
 	sort.Strings(keys)
 
 	queryString := make([]string, 0, len(toSerialize))
@@ -9242,6 +9665,7 @@ func (c *APIClient) GenerateSecuredApiKey(parentApiKey string, restrictions *Sec
 	if err != nil {
 		return "", err
 	}
+
 	_, err = h.Write([]byte(message))
 	if err != nil {
 		return "", fmt.Errorf("failed to compute HMAC: %w", err)
@@ -9267,7 +9691,7 @@ func (c *APIClient) GetSecuredApiKeyRemainingValidity(securedApiKey string) (tim
 
 	decoded, err := base64.StdEncoding.DecodeString(securedApiKey)
 	if err != nil {
-		return 0, fmt.Errorf("unable to decode given secured API key: %s", err)
+		return 0, fmt.Errorf("unable to decode given secured API key: %w", err)
 	}
 
 	submatch := regexp.MustCompile(`validUntil=(\d{1,10})`).FindSubmatch(decoded)
@@ -9406,7 +9830,11 @@ See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallob
 	@return *ReplaceAllObjectsResponse - The response of the replace all objects operation.
 	@return error - Error if any.
 */
-func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, objects []map[string]any, opts ...ReplaceAllObjectsOption) (*ReplaceAllObjectsWithTransformationResponse, error) {
+func (c *APIClient) ReplaceAllObjectsWithTransformation(
+	indexName string,
+	objects []map[string]any,
+	opts ...ReplaceAllObjectsOption,
+) (*ReplaceAllObjectsWithTransformationResponse, error) {
 	if c.ingestionTransporter == nil {
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
@@ -9424,12 +9852,22 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, object
 
 	opts = append(opts, WithWaitForTasks(true))
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	copyResp, err := c.OperationIndex(
+		c.NewApiOperationIndexRequest(
+			indexName,
+			NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes)),
+		),
+		toRequestOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
 
-	watchResp, err := c.ingestionTransporter.ChunkedPush(tmpIndexName, objects, ingestion.Action(ACTION_ADD_OBJECT), &indexName, toIngestionChunkedBatchOptions(replaceAllObjectsToChunkBatchOptions(opts))...)
+	watchResp, err := c.ingestionTransporter.ChunkedPush(
+		tmpIndexName,
+		objects,
+		ingestion.Action(ACTION_ADD_OBJECT),
+		&indexName,
+		toIngestionChunkedBatchOptions(replaceAllObjectsToChunkBatchOptions(opts))...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9443,7 +9881,12 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, object
 		return nil, err
 	}
 
-	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	copyResp, err = c.OperationIndex(
+		c.NewApiOperationIndexRequest(
+			indexName,
+			NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes)),
+		),
+		toRequestOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9457,7 +9900,9 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(indexName string, object
 		return nil, err
 	}
 
-	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), toRequestOptions(opts)...)
+	moveResp, err := c.OperationIndex(
+		c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)),
+		toRequestOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9500,7 +9945,11 @@ See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallob
 	@return *ReplaceAllObjectsResponse - The response of the replace all objects operation.
 	@return error - Error if any.
 */
-func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any, opts ...ReplaceAllObjectsOption) (*ReplaceAllObjectsResponse, error) {
+func (c *APIClient) ReplaceAllObjects(
+	indexName string,
+	objects []map[string]any,
+	opts ...ReplaceAllObjectsOption,
+) (*ReplaceAllObjectsResponse, error) {
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
 
 	conf := config{
@@ -9514,7 +9963,12 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 
 	opts = append(opts, WithWaitForTasks(true))
 
-	copyResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	copyResp, err := c.OperationIndex(
+		c.NewApiOperationIndexRequest(
+			indexName,
+			NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes)),
+		),
+		toRequestOptions(opts)...)
 	if err != nil {
 		return nil, err
 	}
@@ -9533,7 +9987,12 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	copyResp, err = c.OperationIndex(c.NewApiOperationIndexRequest(indexName, NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes))), toRequestOptions(opts)...)
+	copyResp, err = c.OperationIndex(
+		c.NewApiOperationIndexRequest(
+			indexName,
+			NewOperationIndexParams(OPERATION_TYPE_COPY, tmpIndexName, WithOperationIndexParamsScope(conf.scopes)),
+		),
+		toRequestOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9547,7 +10006,9 @@ func (c *APIClient) ReplaceAllObjects(indexName string, objects []map[string]any
 		return nil, err
 	}
 
-	moveResp, err := c.OperationIndex(c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)), toRequestOptions(opts)...)
+	moveResp, err := c.OperationIndex(
+		c.NewApiOperationIndexRequest(tmpIndexName, NewOperationIndexParams(OPERATION_TYPE_MOVE, indexName)),
+		toRequestOptions(opts)...)
 	if err != nil {
 		_, _ = c.DeleteIndex(c.NewApiDeleteIndexRequest(tmpIndexName))
 
@@ -9594,12 +10055,21 @@ Helper: Similar to the `SaveObjects` method but requires a Push connector (https
 	@return []BatchResponse - List of batch responses.
 	@return error - Error if any.
 */
-func (c *APIClient) SaveObjectsWithTransformation(indexName string, objects []map[string]any, opts ...ChunkedBatchOption) ([]ingestion.WatchResponse, error) {
+func (c *APIClient) SaveObjectsWithTransformation(
+	indexName string,
+	objects []map[string]any,
+	opts ...ChunkedBatchOption,
+) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
 
-	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(ACTION_ADD_OBJECT), nil, toIngestionChunkedBatchOptions(opts)...) //nolint:wrapcheck
+	return c.ingestionTransporter.ChunkedPush(
+		indexName,
+		objects,
+		ingestion.Action(ACTION_ADD_OBJECT),
+		nil,
+		toIngestionChunkedBatchOptions(opts)...) //nolint:wrapcheck
 }
 
 /*
@@ -9611,7 +10081,11 @@ Helper: Similar to the `PartialUpdateObjects` method but requires a Push connect
 	@return []BatchResponse - List of batch responses.
 	@return error - Error if any.
 */
-func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, objects []map[string]any, opts ...PartialUpdateObjectsOption) ([]ingestion.WatchResponse, error) {
+func (c *APIClient) PartialUpdateObjectsWithTransformation(
+	indexName string,
+	objects []map[string]any,
+	opts ...PartialUpdateObjectsOption,
+) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
 		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
 	}
@@ -9633,5 +10107,10 @@ func (c *APIClient) PartialUpdateObjectsWithTransformation(indexName string, obj
 		action = ACTION_PARTIAL_UPDATE_OBJECT_NO_CREATE
 	}
 
-	return c.ingestionTransporter.ChunkedPush(indexName, objects, ingestion.Action(action), nil, toIngestionChunkedBatchOptions(partialUpdateObjectsToChunkedBatchOptions(opts))...) //nolint:wrapcheck
+	return c.ingestionTransporter.ChunkedPush(
+		indexName,
+		objects,
+		ingestion.Action(action),
+		nil,
+		toIngestionChunkedBatchOptions(partialUpdateObjectsToChunkedBatchOptions(opts))...) //nolint:wrapcheck
 }

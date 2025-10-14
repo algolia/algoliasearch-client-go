@@ -22,6 +22,7 @@ func NewGetRevenue(currencies map[string]CurrencyCode, dates []DailyRevenue) *Ge
 	this := &GetRevenue{}
 	this.Currencies = currencies
 	this.Dates = dates
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyGetRevenue() *GetRevenue {
 func (o *GetRevenue) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
 		var ret map[string]CurrencyCode
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *GetRevenue) GetCurrenciesOk() (*map[string]CurrencyCode, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Currencies, true
 }
 
 // SetCurrencies sets field value.
 func (o *GetRevenue) SetCurrencies(v map[string]CurrencyCode) *GetRevenue {
 	o.Currencies = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *GetRevenue) SetCurrencies(v map[string]CurrencyCode) *GetRevenue {
 func (o *GetRevenue) GetDates() []DailyRevenue {
 	if o == nil {
 		var ret []DailyRevenue
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *GetRevenue) GetDatesOk() ([]DailyRevenue, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetRevenue) SetDates(v []DailyRevenue) *GetRevenue {
 	o.Dates = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o GetRevenue) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["currencies"] = o.Currencies
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetRevenue: %w", err)
@@ -96,5 +104,6 @@ func (o GetRevenue) String() string {
 	out := ""
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetRevenue {\n%s}", out)
 }

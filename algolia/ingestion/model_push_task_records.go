@@ -9,8 +9,8 @@ import (
 // PushTaskRecords struct for PushTaskRecords.
 type PushTaskRecords struct {
 	// Unique record identifier.
-	ObjectID             string `json:"objectID"`
-	AdditionalProperties map[string]any
+	ObjectID             string         `json:"objectID"`
+	AdditionalProperties map[string]any `json:"-"`
 }
 
 type _PushTaskRecords PushTaskRecords
@@ -22,6 +22,7 @@ type _PushTaskRecords PushTaskRecords
 func NewPushTaskRecords(objectID string) *PushTaskRecords {
 	this := &PushTaskRecords{}
 	this.ObjectID = objectID
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyPushTaskRecords() *PushTaskRecords {
 func (o *PushTaskRecords) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *PushTaskRecords) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *PushTaskRecords) SetObjectID(v string) *PushTaskRecords {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -106,9 +110,11 @@ func (o *PushTaskRecords) UnmarshalJSON(bytes []byte) error {
 
 func (o PushTaskRecords) String() string {
 	out := ""
+
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("PushTaskRecords {\n%s}", out)
 }

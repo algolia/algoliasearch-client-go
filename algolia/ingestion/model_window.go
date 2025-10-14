@@ -22,6 +22,7 @@ func NewWindow(startDate string, endDate string) *Window {
 	this := &Window{}
 	this.StartDate = startDate
 	this.EndDate = endDate
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyWindow() *Window {
 func (o *Window) GetStartDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *Window) GetStartDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.StartDate, true
 }
 
 // SetStartDate sets field value.
 func (o *Window) SetStartDate(v string) *Window {
 	o.StartDate = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *Window) SetStartDate(v string) *Window {
 func (o *Window) GetEndDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *Window) GetEndDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndDate, true
 }
 
 // SetEndDate sets field value.
 func (o *Window) SetEndDate(v string) *Window {
 	o.EndDate = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o Window) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["startDate"] = o.StartDate
 	toSerialize["endDate"] = o.EndDate
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Window: %w", err)
@@ -96,5 +104,6 @@ func (o Window) String() string {
 	out := ""
 	out += fmt.Sprintf("  startDate=%v\n", o.StartDate)
 	out += fmt.Sprintf("  endDate=%v\n", o.EndDate)
+
 	return fmt.Sprintf("Window {\n%s}", out)
 }

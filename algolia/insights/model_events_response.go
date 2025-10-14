@@ -37,6 +37,7 @@ func NewEventsResponse(opts ...EventsResponseOption) *EventsResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyEventsResponse() *EventsResponse {
 func (o *EventsResponse) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -60,6 +63,7 @@ func (o *EventsResponse) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -75,6 +79,7 @@ func (o *EventsResponse) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *EventsResponse) SetMessage(v string) *EventsResponse {
 	o.Message = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *EventsResponse) SetMessage(v string) *EventsResponse {
 func (o *EventsResponse) GetStatus() int32 {
 	if o == nil || o.Status == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Status
 }
 
@@ -93,6 +100,7 @@ func (o *EventsResponse) GetStatusOk() (*int32, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
+
 	return o.Status, true
 }
 
@@ -108,6 +116,7 @@ func (o *EventsResponse) HasStatus() bool {
 // SetStatus gets a reference to the given int32 and assigns it to the Status field.
 func (o *EventsResponse) SetStatus(v int32) *EventsResponse {
 	o.Status = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o EventsResponse) MarshalJSON() ([]byte, error) {
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EventsResponse: %w", err)
@@ -131,5 +142,6 @@ func (o EventsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+
 	return fmt.Sprintf("EventsResponse {\n%s}", out)
 }

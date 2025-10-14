@@ -22,6 +22,7 @@ func NewTaskUpdateResponse(taskID string, updatedAt string) *TaskUpdateResponse 
 	this := &TaskUpdateResponse{}
 	this.TaskID = taskID
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTaskUpdateResponse() *TaskUpdateResponse {
 func (o *TaskUpdateResponse) GetTaskID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *TaskUpdateResponse) GetTaskIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *TaskUpdateResponse) SetTaskID(v string) *TaskUpdateResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *TaskUpdateResponse) SetTaskID(v string) *TaskUpdateResponse {
 func (o *TaskUpdateResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *TaskUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *TaskUpdateResponse) SetUpdatedAt(v string) *TaskUpdateResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o TaskUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskUpdateResponse: %w", err)
@@ -96,5 +104,6 @@ func (o TaskUpdateResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("TaskUpdateResponse {\n%s}", out)
 }

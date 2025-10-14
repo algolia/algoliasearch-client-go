@@ -28,6 +28,7 @@ func NewInventoryResponse(opts ...InventoryResponseOption) *InventoryResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyInventoryResponse() *InventoryResponse {
 func (o *InventoryResponse) GetInventory() []Server {
 	if o == nil || o.Inventory == nil {
 		var ret []Server
+
 		return ret
 	}
+
 	return o.Inventory
 }
 
@@ -51,6 +54,7 @@ func (o *InventoryResponse) GetInventoryOk() ([]Server, bool) {
 	if o == nil || o.Inventory == nil {
 		return nil, false
 	}
+
 	return o.Inventory, true
 }
 
@@ -66,6 +70,7 @@ func (o *InventoryResponse) HasInventory() bool {
 // SetInventory gets a reference to the given []Server and assigns it to the Inventory field.
 func (o *InventoryResponse) SetInventory(v []Server) *InventoryResponse {
 	o.Inventory = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o InventoryResponse) MarshalJSON() ([]byte, error) {
 	if o.Inventory != nil {
 		toSerialize["inventory"] = o.Inventory
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InventoryResponse: %w", err)
@@ -85,5 +91,6 @@ func (o InventoryResponse) MarshalJSON() ([]byte, error) {
 func (o InventoryResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  inventory=%v\n", o.Inventory)
+
 	return fmt.Sprintf("InventoryResponse {\n%s}", out)
 }

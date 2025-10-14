@@ -22,6 +22,7 @@ func NewBatchAssignUserIdsParams(cluster string, users []string) *BatchAssignUse
 	this := &BatchAssignUserIdsParams{}
 	this.Cluster = cluster
 	this.Users = users
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyBatchAssignUserIdsParams() *BatchAssignUserIdsParams {
 func (o *BatchAssignUserIdsParams) GetCluster() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *BatchAssignUserIdsParams) GetClusterOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Cluster, true
 }
 
 // SetCluster sets field value.
 func (o *BatchAssignUserIdsParams) SetCluster(v string) *BatchAssignUserIdsParams {
 	o.Cluster = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *BatchAssignUserIdsParams) SetCluster(v string) *BatchAssignUserIdsParam
 func (o *BatchAssignUserIdsParams) GetUsers() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *BatchAssignUserIdsParams) GetUsersOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Users, true
 }
 
 // SetUsers sets field value.
 func (o *BatchAssignUserIdsParams) SetUsers(v []string) *BatchAssignUserIdsParams {
 	o.Users = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o BatchAssignUserIdsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["cluster"] = o.Cluster
 	toSerialize["users"] = o.Users
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchAssignUserIdsParams: %w", err)
@@ -96,5 +104,6 @@ func (o BatchAssignUserIdsParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  cluster=%v\n", o.Cluster)
 	out += fmt.Sprintf("  users=%v\n", o.Users)
+
 	return fmt.Sprintf("BatchAssignUserIdsParams {\n%s}", out)
 }

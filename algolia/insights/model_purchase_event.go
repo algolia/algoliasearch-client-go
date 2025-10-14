@@ -19,24 +19,7 @@ var AllowedPurchaseEventEnumValues = []PurchaseEvent{
 	"purchase",
 }
 
-func (v *PurchaseEvent) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'PurchaseEvent': %w", string(src), err)
-	}
-	enumTypeValue := PurchaseEvent(value)
-	for _, existing := range AllowedPurchaseEventEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid PurchaseEvent", value)
-}
-
-// NewPurchaseEventFromValue returns a pointer to a valid PurchaseEvent
+// NewPurchaseEventFromValue returns a pointer to a valid PurchaseEvent.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewPurchaseEventFromValue(v string) (*PurchaseEvent, error) {
 	ev := PurchaseEvent(v)
@@ -47,6 +30,26 @@ func NewPurchaseEventFromValue(v string) (*PurchaseEvent, error) {
 	}
 }
 
+func (v *PurchaseEvent) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'PurchaseEvent': %w", string(src), err)
+	}
+
+	enumTypeValue := PurchaseEvent(value)
+	for _, existing := range AllowedPurchaseEventEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid PurchaseEvent", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v PurchaseEvent) IsValid() bool {
 	for _, existing := range AllowedPurchaseEventEnumValues {
@@ -54,6 +57,7 @@ func (v PurchaseEvent) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

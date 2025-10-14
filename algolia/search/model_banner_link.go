@@ -28,6 +28,7 @@ func NewBannerLink(opts ...BannerLinkOption) *BannerLink {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyBannerLink() *BannerLink {
 func (o *BannerLink) GetUrl() string {
 	if o == nil || o.Url == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Url
 }
 
@@ -51,6 +54,7 @@ func (o *BannerLink) GetUrlOk() (*string, bool) {
 	if o == nil || o.Url == nil {
 		return nil, false
 	}
+
 	return o.Url, true
 }
 
@@ -66,6 +70,7 @@ func (o *BannerLink) HasUrl() bool {
 // SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *BannerLink) SetUrl(v string) *BannerLink {
 	o.Url = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o BannerLink) MarshalJSON() ([]byte, error) {
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BannerLink: %w", err)
@@ -85,5 +91,6 @@ func (o BannerLink) MarshalJSON() ([]byte, error) {
 func (o BannerLink) String() string {
 	out := ""
 	out += fmt.Sprintf("  url=%v\n", o.Url)
+
 	return fmt.Sprintf("BannerLink {\n%s}", out)
 }

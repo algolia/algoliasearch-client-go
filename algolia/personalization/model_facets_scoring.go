@@ -22,6 +22,7 @@ func NewFacetsScoring(score int32, facetName string) *FacetsScoring {
 	this := &FacetsScoring{}
 	this.Score = score
 	this.FacetName = facetName
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyFacetsScoring() *FacetsScoring {
 func (o *FacetsScoring) GetScore() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *FacetsScoring) GetScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Score, true
 }
 
 // SetScore sets field value.
 func (o *FacetsScoring) SetScore(v int32) *FacetsScoring {
 	o.Score = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *FacetsScoring) SetScore(v int32) *FacetsScoring {
 func (o *FacetsScoring) GetFacetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *FacetsScoring) GetFacetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FacetName, true
 }
 
 // SetFacetName sets field value.
 func (o *FacetsScoring) SetFacetName(v string) *FacetsScoring {
 	o.FacetName = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o FacetsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["score"] = o.Score
 	toSerialize["facetName"] = o.FacetName
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetsScoring: %w", err)
@@ -96,5 +104,6 @@ func (o FacetsScoring) String() string {
 	out := ""
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
+
 	return fmt.Sprintf("FacetsScoring {\n%s}", out)
 }

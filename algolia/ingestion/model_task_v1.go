@@ -73,7 +73,16 @@ func WithTaskV1Policies(val Policies) TaskV1Option {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTaskV1(taskID string, sourceID string, destinationID string, trigger Trigger, enabled bool, createdAt string, updatedAt string, opts ...TaskV1Option) *TaskV1 {
+func NewTaskV1(
+	taskID string,
+	sourceID string,
+	destinationID string,
+	trigger Trigger,
+	enabled bool,
+	createdAt string,
+	updatedAt string,
+	opts ...TaskV1Option,
+) *TaskV1 {
 	this := &TaskV1{}
 	this.TaskID = taskID
 	this.SourceID = sourceID
@@ -81,10 +90,12 @@ func NewTaskV1(taskID string, sourceID string, destinationID string, trigger Tri
 	this.Trigger = trigger
 	this.Enabled = enabled
 	this.CreatedAt = createdAt
+
 	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -97,6 +108,7 @@ func NewEmptyTaskV1() *TaskV1 {
 func (o *TaskV1) GetTaskID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -109,12 +121,14 @@ func (o *TaskV1) GetTaskIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *TaskV1) SetTaskID(v string) *TaskV1 {
 	o.TaskID = v
+
 	return o
 }
 
@@ -122,6 +136,7 @@ func (o *TaskV1) SetTaskID(v string) *TaskV1 {
 func (o *TaskV1) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -134,12 +149,14 @@ func (o *TaskV1) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *TaskV1) SetSourceID(v string) *TaskV1 {
 	o.SourceID = v
+
 	return o
 }
 
@@ -147,6 +164,7 @@ func (o *TaskV1) SetSourceID(v string) *TaskV1 {
 func (o *TaskV1) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -159,12 +177,14 @@ func (o *TaskV1) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *TaskV1) SetDestinationID(v string) *TaskV1 {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -172,6 +192,7 @@ func (o *TaskV1) SetDestinationID(v string) *TaskV1 {
 func (o *TaskV1) GetTrigger() Trigger {
 	if o == nil {
 		var ret Trigger
+
 		return ret
 	}
 
@@ -184,12 +205,14 @@ func (o *TaskV1) GetTriggerOk() (*Trigger, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Trigger, true
 }
 
 // SetTrigger sets field value.
 func (o *TaskV1) SetTrigger(v *Trigger) *TaskV1 {
 	o.Trigger = *v
+
 	return o
 }
 
@@ -197,8 +220,10 @@ func (o *TaskV1) SetTrigger(v *Trigger) *TaskV1 {
 func (o *TaskV1) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -208,6 +233,7 @@ func (o *TaskV1) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -223,6 +249,7 @@ func (o *TaskV1) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskV1) SetInput(v *TaskInput) *TaskV1 {
 	o.Input = v
+
 	return o
 }
 
@@ -230,6 +257,7 @@ func (o *TaskV1) SetInput(v *TaskInput) *TaskV1 {
 func (o *TaskV1) GetEnabled() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -242,12 +270,14 @@ func (o *TaskV1) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Enabled, true
 }
 
 // SetEnabled sets field value.
 func (o *TaskV1) SetEnabled(v bool) *TaskV1 {
 	o.Enabled = v
+
 	return o
 }
 
@@ -255,8 +285,10 @@ func (o *TaskV1) SetEnabled(v bool) *TaskV1 {
 func (o *TaskV1) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -266,6 +298,7 @@ func (o *TaskV1) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -281,6 +314,7 @@ func (o *TaskV1) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskV1) SetFailureThreshold(v int32) *TaskV1 {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -288,8 +322,10 @@ func (o *TaskV1) SetFailureThreshold(v int32) *TaskV1 {
 func (o *TaskV1) GetAction() ActionType {
 	if o == nil || o.Action == nil {
 		var ret ActionType
+
 		return ret
 	}
+
 	return *o.Action
 }
 
@@ -299,6 +335,7 @@ func (o *TaskV1) GetActionOk() (*ActionType, bool) {
 	if o == nil || o.Action == nil {
 		return nil, false
 	}
+
 	return o.Action, true
 }
 
@@ -314,6 +351,7 @@ func (o *TaskV1) HasAction() bool {
 // SetAction gets a reference to the given ActionType and assigns it to the Action field.
 func (o *TaskV1) SetAction(v ActionType) *TaskV1 {
 	o.Action = &v
+
 	return o
 }
 
@@ -321,8 +359,10 @@ func (o *TaskV1) SetAction(v ActionType) *TaskV1 {
 func (o *TaskV1) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cursor
 }
 
@@ -332,6 +372,7 @@ func (o *TaskV1) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
+
 	return o.Cursor, true
 }
 
@@ -347,6 +388,7 @@ func (o *TaskV1) HasCursor() bool {
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
 func (o *TaskV1) SetCursor(v string) *TaskV1 {
 	o.Cursor = &v
+
 	return o
 }
 
@@ -354,8 +396,10 @@ func (o *TaskV1) SetCursor(v string) *TaskV1 {
 func (o *TaskV1) GetNotifications() Notifications {
 	if o == nil || o.Notifications == nil {
 		var ret Notifications
+
 		return ret
 	}
+
 	return *o.Notifications
 }
 
@@ -365,6 +409,7 @@ func (o *TaskV1) GetNotificationsOk() (*Notifications, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
+
 	return o.Notifications, true
 }
 
@@ -380,6 +425,7 @@ func (o *TaskV1) HasNotifications() bool {
 // SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
 func (o *TaskV1) SetNotifications(v *Notifications) *TaskV1 {
 	o.Notifications = v
+
 	return o
 }
 
@@ -387,8 +433,10 @@ func (o *TaskV1) SetNotifications(v *Notifications) *TaskV1 {
 func (o *TaskV1) GetPolicies() Policies {
 	if o == nil || o.Policies == nil {
 		var ret Policies
+
 		return ret
 	}
+
 	return *o.Policies
 }
 
@@ -398,6 +446,7 @@ func (o *TaskV1) GetPoliciesOk() (*Policies, bool) {
 	if o == nil || o.Policies == nil {
 		return nil, false
 	}
+
 	return o.Policies, true
 }
 
@@ -413,6 +462,7 @@ func (o *TaskV1) HasPolicies() bool {
 // SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
 func (o *TaskV1) SetPolicies(v *Policies) *TaskV1 {
 	o.Policies = v
+
 	return o
 }
 
@@ -420,6 +470,7 @@ func (o *TaskV1) SetPolicies(v *Policies) *TaskV1 {
 func (o *TaskV1) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -432,12 +483,14 @@ func (o *TaskV1) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *TaskV1) SetCreatedAt(v string) *TaskV1 {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -445,6 +498,7 @@ func (o *TaskV1) SetCreatedAt(v string) *TaskV1 {
 func (o *TaskV1) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -457,12 +511,14 @@ func (o *TaskV1) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *TaskV1) SetUpdatedAt(v string) *TaskV1 {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -471,28 +527,36 @@ func (o TaskV1) MarshalJSON() ([]byte, error) {
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["destinationID"] = o.DestinationID
+
 	toSerialize["trigger"] = o.Trigger
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	toSerialize["enabled"] = o.Enabled
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Action != nil {
 		toSerialize["action"] = o.Action
 	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+
 	if o.Notifications != nil {
 		toSerialize["notifications"] = o.Notifications
 	}
+
 	if o.Policies != nil {
 		toSerialize["policies"] = o.Policies
 	}
+
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskV1: %w", err)
@@ -516,5 +580,6 @@ func (o TaskV1) String() string {
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("TaskV1 {\n%s}", out)
 }

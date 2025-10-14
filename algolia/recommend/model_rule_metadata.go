@@ -29,6 +29,7 @@ func NewRuleMetadata(opts ...RuleMetadataOption) *RuleMetadata {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyRuleMetadata() *RuleMetadata {
 func (o *RuleMetadata) GetLastUpdate() string {
 	if o == nil || o.LastUpdate == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.LastUpdate
 }
 
@@ -52,6 +55,7 @@ func (o *RuleMetadata) GetLastUpdateOk() (*string, bool) {
 	if o == nil || o.LastUpdate == nil {
 		return nil, false
 	}
+
 	return o.LastUpdate, true
 }
 
@@ -67,6 +71,7 @@ func (o *RuleMetadata) HasLastUpdate() bool {
 // SetLastUpdate gets a reference to the given string and assigns it to the LastUpdate field.
 func (o *RuleMetadata) SetLastUpdate(v string) *RuleMetadata {
 	o.LastUpdate = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o RuleMetadata) MarshalJSON() ([]byte, error) {
 	if o.LastUpdate != nil {
 		toSerialize["lastUpdate"] = o.LastUpdate
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RuleMetadata: %w", err)
@@ -86,5 +92,6 @@ func (o RuleMetadata) MarshalJSON() ([]byte, error) {
 func (o RuleMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  lastUpdate=%v\n", o.LastUpdate)
+
 	return fmt.Sprintf("RuleMetadata {\n%s}", out)
 }

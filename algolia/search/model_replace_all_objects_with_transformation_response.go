@@ -18,11 +18,16 @@ type ReplaceAllObjectsWithTransformationResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewReplaceAllObjectsWithTransformationResponse(copyOperationResponse UpdatedAtResponse, watchResponses []WatchResponse, moveOperationResponse UpdatedAtResponse) *ReplaceAllObjectsWithTransformationResponse {
+func NewReplaceAllObjectsWithTransformationResponse(
+	copyOperationResponse UpdatedAtResponse,
+	watchResponses []WatchResponse,
+	moveOperationResponse UpdatedAtResponse,
+) *ReplaceAllObjectsWithTransformationResponse {
 	this := &ReplaceAllObjectsWithTransformationResponse{}
 	this.CopyOperationResponse = copyOperationResponse
 	this.WatchResponses = watchResponses
 	this.MoveOperationResponse = moveOperationResponse
+
 	return this
 }
 
@@ -35,6 +40,7 @@ func NewEmptyReplaceAllObjectsWithTransformationResponse() *ReplaceAllObjectsWit
 func (o *ReplaceAllObjectsWithTransformationResponse) GetCopyOperationResponse() UpdatedAtResponse {
 	if o == nil {
 		var ret UpdatedAtResponse
+
 		return ret
 	}
 
@@ -47,12 +53,14 @@ func (o *ReplaceAllObjectsWithTransformationResponse) GetCopyOperationResponseOk
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CopyOperationResponse, true
 }
 
 // SetCopyOperationResponse sets field value.
 func (o *ReplaceAllObjectsWithTransformationResponse) SetCopyOperationResponse(v *UpdatedAtResponse) *ReplaceAllObjectsWithTransformationResponse {
 	o.CopyOperationResponse = *v
+
 	return o
 }
 
@@ -60,6 +68,7 @@ func (o *ReplaceAllObjectsWithTransformationResponse) SetCopyOperationResponse(v
 func (o *ReplaceAllObjectsWithTransformationResponse) GetWatchResponses() []WatchResponse {
 	if o == nil {
 		var ret []WatchResponse
+
 		return ret
 	}
 
@@ -72,12 +81,14 @@ func (o *ReplaceAllObjectsWithTransformationResponse) GetWatchResponsesOk() ([]W
 	if o == nil {
 		return nil, false
 	}
+
 	return o.WatchResponses, true
 }
 
 // SetWatchResponses sets field value.
 func (o *ReplaceAllObjectsWithTransformationResponse) SetWatchResponses(v []WatchResponse) *ReplaceAllObjectsWithTransformationResponse {
 	o.WatchResponses = v
+
 	return o
 }
 
@@ -85,6 +96,7 @@ func (o *ReplaceAllObjectsWithTransformationResponse) SetWatchResponses(v []Watc
 func (o *ReplaceAllObjectsWithTransformationResponse) GetMoveOperationResponse() UpdatedAtResponse {
 	if o == nil {
 		var ret UpdatedAtResponse
+
 		return ret
 	}
 
@@ -97,12 +109,14 @@ func (o *ReplaceAllObjectsWithTransformationResponse) GetMoveOperationResponseOk
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MoveOperationResponse, true
 }
 
 // SetMoveOperationResponse sets field value.
 func (o *ReplaceAllObjectsWithTransformationResponse) SetMoveOperationResponse(v *UpdatedAtResponse) *ReplaceAllObjectsWithTransformationResponse {
 	o.MoveOperationResponse = *v
+
 	return o
 }
 
@@ -111,6 +125,7 @@ func (o ReplaceAllObjectsWithTransformationResponse) MarshalJSON() ([]byte, erro
 	toSerialize["copyOperationResponse"] = o.CopyOperationResponse
 	toSerialize["watchResponses"] = o.WatchResponses
 	toSerialize["moveOperationResponse"] = o.MoveOperationResponse
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ReplaceAllObjectsWithTransformationResponse: %w", err)
@@ -124,5 +139,6 @@ func (o ReplaceAllObjectsWithTransformationResponse) String() string {
 	out += fmt.Sprintf("  copyOperationResponse=%v\n", o.CopyOperationResponse)
 	out += fmt.Sprintf("  watchResponses=%v\n", o.WatchResponses)
 	out += fmt.Sprintf("  moveOperationResponse=%v\n", o.MoveOperationResponse)
+
 	return fmt.Sprintf("ReplaceAllObjectsWithTransformationResponse {\n%s}", out)
 }

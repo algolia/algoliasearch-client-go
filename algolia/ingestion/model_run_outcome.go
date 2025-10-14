@@ -21,24 +21,7 @@ var AllowedRunOutcomeEnumValues = []RunOutcome{
 	"failure",
 }
 
-func (v *RunOutcome) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunOutcome': %w", string(src), err)
-	}
-	enumTypeValue := RunOutcome(value)
-	for _, existing := range AllowedRunOutcomeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RunOutcome", value)
-}
-
-// NewRunOutcomeFromValue returns a pointer to a valid RunOutcome
+// NewRunOutcomeFromValue returns a pointer to a valid RunOutcome.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRunOutcomeFromValue(v string) (*RunOutcome, error) {
 	ev := RunOutcome(v)
@@ -49,6 +32,26 @@ func NewRunOutcomeFromValue(v string) (*RunOutcome, error) {
 	}
 }
 
+func (v *RunOutcome) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunOutcome': %w", string(src), err)
+	}
+
+	enumTypeValue := RunOutcome(value)
+	for _, existing := range AllowedRunOutcomeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RunOutcome", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RunOutcome) IsValid() bool {
 	for _, existing := range AllowedRunOutcomeEnumValues {
@@ -56,6 +59,7 @@ func (v RunOutcome) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

@@ -22,6 +22,7 @@ func NewUpdateApiKeyResponse(key string, updatedAt string) *UpdateApiKeyResponse
 	this := &UpdateApiKeyResponse{}
 	this.Key = key
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyUpdateApiKeyResponse() *UpdateApiKeyResponse {
 func (o *UpdateApiKeyResponse) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *UpdateApiKeyResponse) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *UpdateApiKeyResponse) SetKey(v string) *UpdateApiKeyResponse {
 	o.Key = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *UpdateApiKeyResponse) SetKey(v string) *UpdateApiKeyResponse {
 func (o *UpdateApiKeyResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *UpdateApiKeyResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *UpdateApiKeyResponse) SetUpdatedAt(v string) *UpdateApiKeyResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o UpdateApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["key"] = o.Key
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UpdateApiKeyResponse: %w", err)
@@ -96,5 +104,6 @@ func (o UpdateApiKeyResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("UpdateApiKeyResponse {\n%s}", out)
 }

@@ -20,6 +20,7 @@ func NewBatchDictionaryEntriesRequest(action DictionaryAction, body DictionaryEn
 	this := &BatchDictionaryEntriesRequest{}
 	this.Action = action
 	this.Body = body
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyBatchDictionaryEntriesRequest() *BatchDictionaryEntriesRequest {
 func (o *BatchDictionaryEntriesRequest) GetAction() DictionaryAction {
 	if o == nil {
 		var ret DictionaryAction
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *BatchDictionaryEntriesRequest) GetActionOk() (*DictionaryAction, bool) 
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *BatchDictionaryEntriesRequest) SetAction(v DictionaryAction) *BatchDictionaryEntriesRequest {
 	o.Action = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *BatchDictionaryEntriesRequest) SetAction(v DictionaryAction) *BatchDict
 func (o *BatchDictionaryEntriesRequest) GetBody() DictionaryEntry {
 	if o == nil {
 		var ret DictionaryEntry
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *BatchDictionaryEntriesRequest) GetBodyOk() (*DictionaryEntry, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Body, true
 }
 
 // SetBody sets field value.
 func (o *BatchDictionaryEntriesRequest) SetBody(v *DictionaryEntry) *BatchDictionaryEntriesRequest {
 	o.Body = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o BatchDictionaryEntriesRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["action"] = o.Action
 	toSerialize["body"] = o.Body
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchDictionaryEntriesRequest: %w", err)
@@ -94,5 +102,6 @@ func (o BatchDictionaryEntriesRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  action=%v\n", o.Action)
 	out += fmt.Sprintf("  body=%v\n", o.Body)
+
 	return fmt.Sprintf("BatchDictionaryEntriesRequest {\n%s}", out)
 }

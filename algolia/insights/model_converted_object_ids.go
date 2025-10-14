@@ -41,16 +41,25 @@ func WithConvertedObjectIDsTimestamp(val int64) ConvertedObjectIDsOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewConvertedObjectIDs(eventName string, eventType ConversionEvent, index string, objectIDs []string, userToken string, opts ...ConvertedObjectIDsOption) *ConvertedObjectIDs {
+func NewConvertedObjectIDs(
+	eventName string,
+	eventType ConversionEvent,
+	index string,
+	objectIDs []string,
+	userToken string,
+	opts ...ConvertedObjectIDsOption,
+) *ConvertedObjectIDs {
 	this := &ConvertedObjectIDs{}
 	this.EventName = eventName
 	this.EventType = eventType
 	this.Index = index
 	this.ObjectIDs = objectIDs
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -63,6 +72,7 @@ func NewEmptyConvertedObjectIDs() *ConvertedObjectIDs {
 func (o *ConvertedObjectIDs) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -75,12 +85,14 @@ func (o *ConvertedObjectIDs) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *ConvertedObjectIDs) SetEventName(v string) *ConvertedObjectIDs {
 	o.EventName = v
+
 	return o
 }
 
@@ -88,6 +100,7 @@ func (o *ConvertedObjectIDs) SetEventName(v string) *ConvertedObjectIDs {
 func (o *ConvertedObjectIDs) GetEventType() ConversionEvent {
 	if o == nil {
 		var ret ConversionEvent
+
 		return ret
 	}
 
@@ -100,12 +113,14 @@ func (o *ConvertedObjectIDs) GetEventTypeOk() (*ConversionEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *ConvertedObjectIDs) SetEventType(v ConversionEvent) *ConvertedObjectIDs {
 	o.EventType = v
+
 	return o
 }
 
@@ -113,6 +128,7 @@ func (o *ConvertedObjectIDs) SetEventType(v ConversionEvent) *ConvertedObjectIDs
 func (o *ConvertedObjectIDs) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -125,12 +141,14 @@ func (o *ConvertedObjectIDs) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ConvertedObjectIDs) SetIndex(v string) *ConvertedObjectIDs {
 	o.Index = v
+
 	return o
 }
 
@@ -138,6 +156,7 @@ func (o *ConvertedObjectIDs) SetIndex(v string) *ConvertedObjectIDs {
 func (o *ConvertedObjectIDs) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -150,12 +169,14 @@ func (o *ConvertedObjectIDs) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *ConvertedObjectIDs) SetObjectIDs(v []string) *ConvertedObjectIDs {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -163,6 +184,7 @@ func (o *ConvertedObjectIDs) SetObjectIDs(v []string) *ConvertedObjectIDs {
 func (o *ConvertedObjectIDs) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -175,12 +197,14 @@ func (o *ConvertedObjectIDs) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *ConvertedObjectIDs) SetUserToken(v string) *ConvertedObjectIDs {
 	o.UserToken = v
+
 	return o
 }
 
@@ -188,8 +212,10 @@ func (o *ConvertedObjectIDs) SetUserToken(v string) *ConvertedObjectIDs {
 func (o *ConvertedObjectIDs) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -199,6 +225,7 @@ func (o *ConvertedObjectIDs) GetAuthenticatedUserTokenOk() (*string, bool) {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -214,6 +241,7 @@ func (o *ConvertedObjectIDs) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *ConvertedObjectIDs) SetAuthenticatedUserToken(v string) *ConvertedObjectIDs {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -221,8 +249,10 @@ func (o *ConvertedObjectIDs) SetAuthenticatedUserToken(v string) *ConvertedObjec
 func (o *ConvertedObjectIDs) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -232,6 +262,7 @@ func (o *ConvertedObjectIDs) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -247,6 +278,7 @@ func (o *ConvertedObjectIDs) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *ConvertedObjectIDs) SetTimestamp(v int64) *ConvertedObjectIDs {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -256,13 +288,16 @@ func (o ConvertedObjectIDs) MarshalJSON() ([]byte, error) {
 	toSerialize["eventType"] = o.EventType
 	toSerialize["index"] = o.Index
 	toSerialize["objectIDs"] = o.ObjectIDs
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConvertedObjectIDs: %w", err)
@@ -280,5 +315,6 @@ func (o ConvertedObjectIDs) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+
 	return fmt.Sprintf("ConvertedObjectIDs {\n%s}", out)
 }

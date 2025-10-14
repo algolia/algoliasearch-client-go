@@ -19,7 +19,7 @@ type DictionaryEntry struct {
 	Decomposition        []string              `json:"decomposition,omitempty"`
 	State                *DictionaryEntryState `json:"state,omitempty"`
 	Type                 *DictionaryEntryType  `json:"type,omitempty"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any        `json:"-"`
 }
 
 type _DictionaryEntry DictionaryEntry
@@ -68,10 +68,12 @@ func WithDictionaryEntryType(val DictionaryEntryType) DictionaryEntryOption {
 // will change when the set of required properties is changed.
 func NewDictionaryEntry(objectID string, opts ...DictionaryEntryOption) *DictionaryEntry {
 	this := &DictionaryEntry{}
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -84,6 +86,7 @@ func NewEmptyDictionaryEntry() *DictionaryEntry {
 func (o *DictionaryEntry) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -96,12 +99,14 @@ func (o *DictionaryEntry) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *DictionaryEntry) SetObjectID(v string) *DictionaryEntry {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -109,8 +114,10 @@ func (o *DictionaryEntry) SetObjectID(v string) *DictionaryEntry {
 func (o *DictionaryEntry) GetLanguage() SupportedLanguage {
 	if o == nil || o.Language == nil {
 		var ret SupportedLanguage
+
 		return ret
 	}
+
 	return *o.Language
 }
 
@@ -120,6 +127,7 @@ func (o *DictionaryEntry) GetLanguageOk() (*SupportedLanguage, bool) {
 	if o == nil || o.Language == nil {
 		return nil, false
 	}
+
 	return o.Language, true
 }
 
@@ -135,6 +143,7 @@ func (o *DictionaryEntry) HasLanguage() bool {
 // SetLanguage gets a reference to the given SupportedLanguage and assigns it to the Language field.
 func (o *DictionaryEntry) SetLanguage(v SupportedLanguage) *DictionaryEntry {
 	o.Language = &v
+
 	return o
 }
 
@@ -142,8 +151,10 @@ func (o *DictionaryEntry) SetLanguage(v SupportedLanguage) *DictionaryEntry {
 func (o *DictionaryEntry) GetWord() string {
 	if o == nil || o.Word == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Word
 }
 
@@ -153,6 +164,7 @@ func (o *DictionaryEntry) GetWordOk() (*string, bool) {
 	if o == nil || o.Word == nil {
 		return nil, false
 	}
+
 	return o.Word, true
 }
 
@@ -168,6 +180,7 @@ func (o *DictionaryEntry) HasWord() bool {
 // SetWord gets a reference to the given string and assigns it to the Word field.
 func (o *DictionaryEntry) SetWord(v string) *DictionaryEntry {
 	o.Word = &v
+
 	return o
 }
 
@@ -175,8 +188,10 @@ func (o *DictionaryEntry) SetWord(v string) *DictionaryEntry {
 func (o *DictionaryEntry) GetWords() []string {
 	if o == nil || o.Words == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Words
 }
 
@@ -186,6 +201,7 @@ func (o *DictionaryEntry) GetWordsOk() ([]string, bool) {
 	if o == nil || o.Words == nil {
 		return nil, false
 	}
+
 	return o.Words, true
 }
 
@@ -201,6 +217,7 @@ func (o *DictionaryEntry) HasWords() bool {
 // SetWords gets a reference to the given []string and assigns it to the Words field.
 func (o *DictionaryEntry) SetWords(v []string) *DictionaryEntry {
 	o.Words = v
+
 	return o
 }
 
@@ -208,8 +225,10 @@ func (o *DictionaryEntry) SetWords(v []string) *DictionaryEntry {
 func (o *DictionaryEntry) GetDecomposition() []string {
 	if o == nil || o.Decomposition == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Decomposition
 }
 
@@ -219,6 +238,7 @@ func (o *DictionaryEntry) GetDecompositionOk() ([]string, bool) {
 	if o == nil || o.Decomposition == nil {
 		return nil, false
 	}
+
 	return o.Decomposition, true
 }
 
@@ -234,6 +254,7 @@ func (o *DictionaryEntry) HasDecomposition() bool {
 // SetDecomposition gets a reference to the given []string and assigns it to the Decomposition field.
 func (o *DictionaryEntry) SetDecomposition(v []string) *DictionaryEntry {
 	o.Decomposition = v
+
 	return o
 }
 
@@ -241,8 +262,10 @@ func (o *DictionaryEntry) SetDecomposition(v []string) *DictionaryEntry {
 func (o *DictionaryEntry) GetState() DictionaryEntryState {
 	if o == nil || o.State == nil {
 		var ret DictionaryEntryState
+
 		return ret
 	}
+
 	return *o.State
 }
 
@@ -252,6 +275,7 @@ func (o *DictionaryEntry) GetStateOk() (*DictionaryEntryState, bool) {
 	if o == nil || o.State == nil {
 		return nil, false
 	}
+
 	return o.State, true
 }
 
@@ -267,6 +291,7 @@ func (o *DictionaryEntry) HasState() bool {
 // SetState gets a reference to the given DictionaryEntryState and assigns it to the State field.
 func (o *DictionaryEntry) SetState(v DictionaryEntryState) *DictionaryEntry {
 	o.State = &v
+
 	return o
 }
 
@@ -274,8 +299,10 @@ func (o *DictionaryEntry) SetState(v DictionaryEntryState) *DictionaryEntry {
 func (o *DictionaryEntry) GetType() DictionaryEntryType {
 	if o == nil || o.Type == nil {
 		var ret DictionaryEntryType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -285,6 +312,7 @@ func (o *DictionaryEntry) GetTypeOk() (*DictionaryEntryType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -300,6 +328,7 @@ func (o *DictionaryEntry) HasType() bool {
 // SetType gets a reference to the given DictionaryEntryType and assigns it to the Type field.
 func (o *DictionaryEntry) SetType(v DictionaryEntryType) *DictionaryEntry {
 	o.Type = &v
+
 	return o
 }
 
@@ -315,22 +344,28 @@ func (o *DictionaryEntry) SetAdditionalProperty(key string, value any) *Dictiona
 
 func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.Language != nil {
 		toSerialize["language"] = o.Language
 	}
+
 	if o.Word != nil {
 		toSerialize["word"] = o.Word
 	}
+
 	if o.Words != nil {
 		toSerialize["words"] = o.Words
 	}
+
 	if o.Decomposition != nil {
 		toSerialize["decomposition"] = o.Decomposition
 	}
+
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
+
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
@@ -384,9 +419,11 @@ func (o DictionaryEntry) String() string {
 	out += fmt.Sprintf("  words=%v\n", o.Words)
 	out += fmt.Sprintf("  decomposition=%v\n", o.Decomposition)
 	out += fmt.Sprintf("  state=%v\n", o.State)
+
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("DictionaryEntry {\n%s}", out)
 }

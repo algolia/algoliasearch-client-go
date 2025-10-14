@@ -20,6 +20,7 @@ func NewListSourcesResponse(sources []Source, pagination Pagination) *ListSource
 	this := &ListSourcesResponse{}
 	this.Sources = sources
 	this.Pagination = pagination
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyListSourcesResponse() *ListSourcesResponse {
 func (o *ListSourcesResponse) GetSources() []Source {
 	if o == nil {
 		var ret []Source
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *ListSourcesResponse) GetSourcesOk() ([]Source, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Sources, true
 }
 
 // SetSources sets field value.
 func (o *ListSourcesResponse) SetSources(v []Source) *ListSourcesResponse {
 	o.Sources = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *ListSourcesResponse) SetSources(v []Source) *ListSourcesResponse {
 func (o *ListSourcesResponse) GetPagination() Pagination {
 	if o == nil {
 		var ret Pagination
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *ListSourcesResponse) GetPaginationOk() (*Pagination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pagination, true
 }
 
 // SetPagination sets field value.
 func (o *ListSourcesResponse) SetPagination(v *Pagination) *ListSourcesResponse {
 	o.Pagination = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o ListSourcesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["sources"] = o.Sources
 	toSerialize["pagination"] = o.Pagination
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListSourcesResponse: %w", err)
@@ -94,5 +102,6 @@ func (o ListSourcesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  sources=%v\n", o.Sources)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
+
 	return fmt.Sprintf("ListSourcesResponse {\n%s}", out)
 }

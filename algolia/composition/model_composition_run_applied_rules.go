@@ -19,6 +19,7 @@ type CompositionRunAppliedRules struct {
 func NewCompositionRunAppliedRules(objectID string) *CompositionRunAppliedRules {
 	this := &CompositionRunAppliedRules{}
 	this.ObjectID = objectID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyCompositionRunAppliedRules() *CompositionRunAppliedRules {
 func (o *CompositionRunAppliedRules) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *CompositionRunAppliedRules) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *CompositionRunAppliedRules) SetObjectID(v string) *CompositionRunAppliedRules {
 	o.ObjectID = v
+
 	return o
 }
 
 func (o CompositionRunAppliedRules) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionRunAppliedRules: %w", err)
@@ -66,5 +71,6 @@ func (o CompositionRunAppliedRules) MarshalJSON() ([]byte, error) {
 func (o CompositionRunAppliedRules) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("CompositionRunAppliedRules {\n%s}", out)
 }

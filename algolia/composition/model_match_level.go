@@ -23,24 +23,7 @@ var AllowedMatchLevelEnumValues = []MatchLevel{
 	"full",
 }
 
-func (v *MatchLevel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MatchLevel': %w", string(src), err)
-	}
-	enumTypeValue := MatchLevel(value)
-	for _, existing := range AllowedMatchLevelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid MatchLevel", value)
-}
-
-// NewMatchLevelFromValue returns a pointer to a valid MatchLevel
+// NewMatchLevelFromValue returns a pointer to a valid MatchLevel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewMatchLevelFromValue(v string) (*MatchLevel, error) {
 	ev := MatchLevel(v)
@@ -51,6 +34,26 @@ func NewMatchLevelFromValue(v string) (*MatchLevel, error) {
 	}
 }
 
+func (v *MatchLevel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MatchLevel': %w", string(src), err)
+	}
+
+	enumTypeValue := MatchLevel(value)
+	for _, existing := range AllowedMatchLevelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid MatchLevel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v MatchLevel) IsValid() bool {
 	for _, existing := range AllowedMatchLevelEnumValues {
@@ -58,6 +61,7 @@ func (v MatchLevel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

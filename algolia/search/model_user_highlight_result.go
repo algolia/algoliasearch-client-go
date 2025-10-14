@@ -20,6 +20,7 @@ func NewUserHighlightResult(userID HighlightResult, clusterName HighlightResult)
 	this := &UserHighlightResult{}
 	this.UserID = userID
 	this.ClusterName = clusterName
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyUserHighlightResult() *UserHighlightResult {
 func (o *UserHighlightResult) GetUserID() HighlightResult {
 	if o == nil {
 		var ret HighlightResult
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *UserHighlightResult) GetUserIDOk() (*HighlightResult, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserID, true
 }
 
 // SetUserID sets field value.
 func (o *UserHighlightResult) SetUserID(v *HighlightResult) *UserHighlightResult {
 	o.UserID = *v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *UserHighlightResult) SetUserID(v *HighlightResult) *UserHighlightResult
 func (o *UserHighlightResult) GetClusterName() HighlightResult {
 	if o == nil {
 		var ret HighlightResult
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *UserHighlightResult) GetClusterNameOk() (*HighlightResult, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClusterName, true
 }
 
 // SetClusterName sets field value.
 func (o *UserHighlightResult) SetClusterName(v *HighlightResult) *UserHighlightResult {
 	o.ClusterName = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o UserHighlightResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["userID"] = o.UserID
 	toSerialize["clusterName"] = o.ClusterName
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserHighlightResult: %w", err)
@@ -94,5 +102,6 @@ func (o UserHighlightResult) String() string {
 	out := ""
 	out += fmt.Sprintf("  userID=%v\n", o.UserID)
 	out += fmt.Sprintf("  clusterName=%v\n", o.ClusterName)
+
 	return fmt.Sprintf("UserHighlightResult {\n%s}", out)
 }

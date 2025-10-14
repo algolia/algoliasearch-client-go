@@ -30,6 +30,7 @@ func NewDailyAddToCartRates(rate utils.Nullable[float64], trackedSearchCount int
 	this.TrackedSearchCount = trackedSearchCount
 	this.AddToCartCount = addToCartCount
 	this.Date = date
+
 	return this
 }
 
@@ -43,6 +44,7 @@ func NewEmptyDailyAddToCartRates() *DailyAddToCartRates {
 func (o *DailyAddToCartRates) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +58,14 @@ func (o *DailyAddToCartRates) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *DailyAddToCartRates) SetRate(v float64) *DailyAddToCartRates {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +73,7 @@ func (o *DailyAddToCartRates) SetRate(v float64) *DailyAddToCartRates {
 func (o *DailyAddToCartRates) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +86,14 @@ func (o *DailyAddToCartRates) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *DailyAddToCartRates) SetTrackedSearchCount(v int32) *DailyAddToCartRates {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -94,6 +101,7 @@ func (o *DailyAddToCartRates) SetTrackedSearchCount(v int32) *DailyAddToCartRate
 func (o *DailyAddToCartRates) GetAddToCartCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +114,14 @@ func (o *DailyAddToCartRates) GetAddToCartCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AddToCartCount, true
 }
 
 // SetAddToCartCount sets field value.
 func (o *DailyAddToCartRates) SetAddToCartCount(v int32) *DailyAddToCartRates {
 	o.AddToCartCount = v
+
 	return o
 }
 
@@ -119,6 +129,7 @@ func (o *DailyAddToCartRates) SetAddToCartCount(v int32) *DailyAddToCartRates {
 func (o *DailyAddToCartRates) GetDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -131,12 +142,14 @@ func (o *DailyAddToCartRates) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Date, true
 }
 
 // SetDate sets field value.
 func (o *DailyAddToCartRates) SetDate(v string) *DailyAddToCartRates {
 	o.Date = v
+
 	return o
 }
 
@@ -146,6 +159,7 @@ func (o DailyAddToCartRates) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["addToCartCount"] = o.AddToCartCount
 	toSerialize["date"] = o.Date
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyAddToCartRates: %w", err)
@@ -160,5 +174,6 @@ func (o DailyAddToCartRates) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  addToCartCount=%v\n", o.AddToCartCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
+
 	return fmt.Sprintf("DailyAddToCartRates {\n%s}", out)
 }

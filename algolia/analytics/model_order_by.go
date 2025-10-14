@@ -25,24 +25,7 @@ var AllowedOrderByEnumValues = []OrderBy{
 	"averageClickPosition",
 }
 
-func (v *OrderBy) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OrderBy': %w", string(src), err)
-	}
-	enumTypeValue := OrderBy(value)
-	for _, existing := range AllowedOrderByEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid OrderBy", value)
-}
-
-// NewOrderByFromValue returns a pointer to a valid OrderBy
+// NewOrderByFromValue returns a pointer to a valid OrderBy.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewOrderByFromValue(v string) (*OrderBy, error) {
 	ev := OrderBy(v)
@@ -53,6 +36,26 @@ func NewOrderByFromValue(v string) (*OrderBy, error) {
 	}
 }
 
+func (v *OrderBy) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OrderBy': %w", string(src), err)
+	}
+
+	enumTypeValue := OrderBy(value)
+	for _, existing := range AllowedOrderByEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid OrderBy", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v OrderBy) IsValid() bool {
 	for _, existing := range AllowedOrderByEnumValues {
@@ -60,6 +63,7 @@ func (v OrderBy) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

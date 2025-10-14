@@ -23,24 +23,7 @@ var AllowedLogLevelEnumValues = []LogLevel{
 	"ERROR",
 }
 
-func (v *LogLevel) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'LogLevel': %w", string(src), err)
-	}
-	enumTypeValue := LogLevel(value)
-	for _, existing := range AllowedLogLevelEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid LogLevel", value)
-}
-
-// NewLogLevelFromValue returns a pointer to a valid LogLevel
+// NewLogLevelFromValue returns a pointer to a valid LogLevel.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewLogLevelFromValue(v string) (*LogLevel, error) {
 	ev := LogLevel(v)
@@ -51,6 +34,26 @@ func NewLogLevelFromValue(v string) (*LogLevel, error) {
 	}
 }
 
+func (v *LogLevel) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'LogLevel': %w", string(src), err)
+	}
+
+	enumTypeValue := LogLevel(value)
+	for _, existing := range AllowedLogLevelEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid LogLevel", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v LogLevel) IsValid() bool {
 	for _, existing := range AllowedLogLevelEnumValues {
@@ -58,6 +61,7 @@ func (v LogLevel) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

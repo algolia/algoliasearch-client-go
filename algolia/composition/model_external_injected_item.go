@@ -18,6 +18,7 @@ type ExternalInjectedItem struct {
 func NewExternalInjectedItem(items []ExternalInjection) *ExternalInjectedItem {
 	this := &ExternalInjectedItem{}
 	this.Items = items
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyExternalInjectedItem() *ExternalInjectedItem {
 func (o *ExternalInjectedItem) GetItems() []ExternalInjection {
 	if o == nil {
 		var ret []ExternalInjection
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *ExternalInjectedItem) GetItemsOk() ([]ExternalInjection, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Items, true
 }
 
 // SetItems sets field value.
 func (o *ExternalInjectedItem) SetItems(v []ExternalInjection) *ExternalInjectedItem {
 	o.Items = v
+
 	return o
 }
 
 func (o ExternalInjectedItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["items"] = o.Items
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ExternalInjectedItem: %w", err)
@@ -65,5 +70,6 @@ func (o ExternalInjectedItem) MarshalJSON() ([]byte, error) {
 func (o ExternalInjectedItem) String() string {
 	out := ""
 	out += fmt.Sprintf("  items=%v\n", o.Items)
+
 	return fmt.Sprintf("ExternalInjectedItem {\n%s}", out)
 }

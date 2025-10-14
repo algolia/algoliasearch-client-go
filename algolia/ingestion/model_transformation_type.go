@@ -21,24 +21,7 @@ var AllowedTransformationTypeEnumValues = []TransformationType{
 	"noCode",
 }
 
-func (v *TransformationType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TransformationType': %w", string(src), err)
-	}
-	enumTypeValue := TransformationType(value)
-	for _, existing := range AllowedTransformationTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TransformationType", value)
-}
-
-// NewTransformationTypeFromValue returns a pointer to a valid TransformationType
+// NewTransformationTypeFromValue returns a pointer to a valid TransformationType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTransformationTypeFromValue(v string) (*TransformationType, error) {
 	ev := TransformationType(v)
@@ -49,6 +32,26 @@ func NewTransformationTypeFromValue(v string) (*TransformationType, error) {
 	}
 }
 
+func (v *TransformationType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TransformationType': %w", string(src), err)
+	}
+
+	enumTypeValue := TransformationType(value)
+	for _, existing := range AllowedTransformationTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TransformationType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TransformationType) IsValid() bool {
 	for _, existing := range AllowedTransformationTypeEnumValues {
@@ -56,6 +59,7 @@ func (v TransformationType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

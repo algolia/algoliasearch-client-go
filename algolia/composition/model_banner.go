@@ -35,6 +35,7 @@ func NewBanner(opts ...BannerOption) *Banner {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,8 +48,10 @@ func NewEmptyBanner() *Banner {
 func (o *Banner) GetImage() BannerImage {
 	if o == nil || o.Image == nil {
 		var ret BannerImage
+
 		return ret
 	}
+
 	return *o.Image
 }
 
@@ -58,6 +61,7 @@ func (o *Banner) GetImageOk() (*BannerImage, bool) {
 	if o == nil || o.Image == nil {
 		return nil, false
 	}
+
 	return o.Image, true
 }
 
@@ -73,6 +77,7 @@ func (o *Banner) HasImage() bool {
 // SetImage gets a reference to the given BannerImage and assigns it to the Image field.
 func (o *Banner) SetImage(v *BannerImage) *Banner {
 	o.Image = v
+
 	return o
 }
 
@@ -80,8 +85,10 @@ func (o *Banner) SetImage(v *BannerImage) *Banner {
 func (o *Banner) GetLink() BannerLink {
 	if o == nil || o.Link == nil {
 		var ret BannerLink
+
 		return ret
 	}
+
 	return *o.Link
 }
 
@@ -91,6 +98,7 @@ func (o *Banner) GetLinkOk() (*BannerLink, bool) {
 	if o == nil || o.Link == nil {
 		return nil, false
 	}
+
 	return o.Link, true
 }
 
@@ -106,6 +114,7 @@ func (o *Banner) HasLink() bool {
 // SetLink gets a reference to the given BannerLink and assigns it to the Link field.
 func (o *Banner) SetLink(v *BannerLink) *Banner {
 	o.Link = v
+
 	return o
 }
 
@@ -114,9 +123,11 @@ func (o Banner) MarshalJSON() ([]byte, error) {
 	if o.Image != nil {
 		toSerialize["image"] = o.Image
 	}
+
 	if o.Link != nil {
 		toSerialize["link"] = o.Link
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Banner: %w", err)
@@ -129,5 +140,6 @@ func (o Banner) String() string {
 	out := ""
 	out += fmt.Sprintf("  image=%v\n", o.Image)
 	out += fmt.Sprintf("  link=%v\n", o.Link)
+
 	return fmt.Sprintf("Banner {\n%s}", out)
 }

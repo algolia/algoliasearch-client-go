@@ -22,6 +22,7 @@ func NewRunListResponse(runs []Run, pagination Pagination, window Window) *RunLi
 	this.Runs = runs
 	this.Pagination = pagination
 	this.Window = window
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyRunListResponse() *RunListResponse {
 func (o *RunListResponse) GetRuns() []Run {
 	if o == nil {
 		var ret []Run
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *RunListResponse) GetRunsOk() ([]Run, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Runs, true
 }
 
 // SetRuns sets field value.
 func (o *RunListResponse) SetRuns(v []Run) *RunListResponse {
 	o.Runs = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *RunListResponse) SetRuns(v []Run) *RunListResponse {
 func (o *RunListResponse) GetPagination() Pagination {
 	if o == nil {
 		var ret Pagination
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *RunListResponse) GetPaginationOk() (*Pagination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pagination, true
 }
 
 // SetPagination sets field value.
 func (o *RunListResponse) SetPagination(v *Pagination) *RunListResponse {
 	o.Pagination = *v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o *RunListResponse) SetPagination(v *Pagination) *RunListResponse {
 func (o *RunListResponse) GetWindow() Window {
 	if o == nil {
 		var ret Window
+
 		return ret
 	}
 
@@ -96,12 +104,14 @@ func (o *RunListResponse) GetWindowOk() (*Window, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Window, true
 }
 
 // SetWindow sets field value.
 func (o *RunListResponse) SetWindow(v *Window) *RunListResponse {
 	o.Window = *v
+
 	return o
 }
 
@@ -110,6 +120,7 @@ func (o RunListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["runs"] = o.Runs
 	toSerialize["pagination"] = o.Pagination
 	toSerialize["window"] = o.Window
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunListResponse: %w", err)
@@ -123,5 +134,6 @@ func (o RunListResponse) String() string {
 	out += fmt.Sprintf("  runs=%v\n", o.Runs)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
 	out += fmt.Sprintf("  window=%v\n", o.Window)
+
 	return fmt.Sprintf("RunListResponse {\n%s}", out)
 }

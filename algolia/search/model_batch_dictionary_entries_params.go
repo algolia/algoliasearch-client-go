@@ -26,12 +26,17 @@ func WithBatchDictionaryEntriesParamsClearExistingDictionaryEntries(val bool) Ba
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBatchDictionaryEntriesParams(requests []BatchDictionaryEntriesRequest, opts ...BatchDictionaryEntriesParamsOption) *BatchDictionaryEntriesParams {
+func NewBatchDictionaryEntriesParams(
+	requests []BatchDictionaryEntriesRequest,
+	opts ...BatchDictionaryEntriesParamsOption,
+) *BatchDictionaryEntriesParams {
 	this := &BatchDictionaryEntriesParams{}
+
 	this.Requests = requests
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,8 +49,10 @@ func NewEmptyBatchDictionaryEntriesParams() *BatchDictionaryEntriesParams {
 func (o *BatchDictionaryEntriesParams) GetClearExistingDictionaryEntries() bool {
 	if o == nil || o.ClearExistingDictionaryEntries == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClearExistingDictionaryEntries
 }
 
@@ -55,6 +62,7 @@ func (o *BatchDictionaryEntriesParams) GetClearExistingDictionaryEntriesOk() (*b
 	if o == nil || o.ClearExistingDictionaryEntries == nil {
 		return nil, false
 	}
+
 	return o.ClearExistingDictionaryEntries, true
 }
 
@@ -70,6 +78,7 @@ func (o *BatchDictionaryEntriesParams) HasClearExistingDictionaryEntries() bool 
 // SetClearExistingDictionaryEntries gets a reference to the given bool and assigns it to the ClearExistingDictionaryEntries field.
 func (o *BatchDictionaryEntriesParams) SetClearExistingDictionaryEntries(v bool) *BatchDictionaryEntriesParams {
 	o.ClearExistingDictionaryEntries = &v
+
 	return o
 }
 
@@ -77,6 +86,7 @@ func (o *BatchDictionaryEntriesParams) SetClearExistingDictionaryEntries(v bool)
 func (o *BatchDictionaryEntriesParams) GetRequests() []BatchDictionaryEntriesRequest {
 	if o == nil {
 		var ret []BatchDictionaryEntriesRequest
+
 		return ret
 	}
 
@@ -89,12 +99,14 @@ func (o *BatchDictionaryEntriesParams) GetRequestsOk() ([]BatchDictionaryEntries
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
 // SetRequests sets field value.
 func (o *BatchDictionaryEntriesParams) SetRequests(v []BatchDictionaryEntriesRequest) *BatchDictionaryEntriesParams {
 	o.Requests = v
+
 	return o
 }
 
@@ -103,7 +115,9 @@ func (o BatchDictionaryEntriesParams) MarshalJSON() ([]byte, error) {
 	if o.ClearExistingDictionaryEntries != nil {
 		toSerialize["clearExistingDictionaryEntries"] = o.ClearExistingDictionaryEntries
 	}
+
 	toSerialize["requests"] = o.Requests
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchDictionaryEntriesParams: %w", err)
@@ -116,5 +130,6 @@ func (o BatchDictionaryEntriesParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  clearExistingDictionaryEntries=%v\n", o.ClearExistingDictionaryEntries)
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
+
 	return fmt.Sprintf("BatchDictionaryEntriesParams {\n%s}", out)
 }

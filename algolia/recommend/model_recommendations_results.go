@@ -259,10 +259,12 @@ func WithRecommendationsResultsHitsPerPage(val int32) RecommendationsResultsOpti
 // will change when the set of required properties is changed.
 func NewRecommendationsResults(hits []RecommendationsHit, opts ...RecommendationsResultsOption) *RecommendationsResults {
 	this := &RecommendationsResults{}
+
 	this.Hits = hits
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -275,8 +277,10 @@ func NewEmptyRecommendationsResults() *RecommendationsResults {
 func (o *RecommendationsResults) GetAbTestID() int32 {
 	if o == nil || o.AbTestID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.AbTestID
 }
 
@@ -286,6 +290,7 @@ func (o *RecommendationsResults) GetAbTestIDOk() (*int32, bool) {
 	if o == nil || o.AbTestID == nil {
 		return nil, false
 	}
+
 	return o.AbTestID, true
 }
 
@@ -301,6 +306,7 @@ func (o *RecommendationsResults) HasAbTestID() bool {
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
 func (o *RecommendationsResults) SetAbTestID(v int32) *RecommendationsResults {
 	o.AbTestID = &v
+
 	return o
 }
 
@@ -308,8 +314,10 @@ func (o *RecommendationsResults) SetAbTestID(v int32) *RecommendationsResults {
 func (o *RecommendationsResults) GetAbTestVariantID() int32 {
 	if o == nil || o.AbTestVariantID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.AbTestVariantID
 }
 
@@ -319,6 +327,7 @@ func (o *RecommendationsResults) GetAbTestVariantIDOk() (*int32, bool) {
 	if o == nil || o.AbTestVariantID == nil {
 		return nil, false
 	}
+
 	return o.AbTestVariantID, true
 }
 
@@ -334,6 +343,7 @@ func (o *RecommendationsResults) HasAbTestVariantID() bool {
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
 func (o *RecommendationsResults) SetAbTestVariantID(v int32) *RecommendationsResults {
 	o.AbTestVariantID = &v
+
 	return o
 }
 
@@ -341,8 +351,10 @@ func (o *RecommendationsResults) SetAbTestVariantID(v int32) *RecommendationsRes
 func (o *RecommendationsResults) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -352,6 +364,7 @@ func (o *RecommendationsResults) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -367,6 +380,7 @@ func (o *RecommendationsResults) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *RecommendationsResults) SetAroundLatLng(v string) *RecommendationsResults {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -374,8 +388,10 @@ func (o *RecommendationsResults) SetAroundLatLng(v string) *RecommendationsResul
 func (o *RecommendationsResults) GetAutomaticRadius() string {
 	if o == nil || o.AutomaticRadius == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AutomaticRadius
 }
 
@@ -385,6 +401,7 @@ func (o *RecommendationsResults) GetAutomaticRadiusOk() (*string, bool) {
 	if o == nil || o.AutomaticRadius == nil {
 		return nil, false
 	}
+
 	return o.AutomaticRadius, true
 }
 
@@ -400,6 +417,7 @@ func (o *RecommendationsResults) HasAutomaticRadius() bool {
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
 func (o *RecommendationsResults) SetAutomaticRadius(v string) *RecommendationsResults {
 	o.AutomaticRadius = &v
+
 	return o
 }
 
@@ -407,8 +425,10 @@ func (o *RecommendationsResults) SetAutomaticRadius(v string) *RecommendationsRe
 func (o *RecommendationsResults) GetExhaustive() Exhaustive {
 	if o == nil || o.Exhaustive == nil {
 		var ret Exhaustive
+
 		return ret
 	}
+
 	return *o.Exhaustive
 }
 
@@ -418,6 +438,7 @@ func (o *RecommendationsResults) GetExhaustiveOk() (*Exhaustive, bool) {
 	if o == nil || o.Exhaustive == nil {
 		return nil, false
 	}
+
 	return o.Exhaustive, true
 }
 
@@ -433,6 +454,7 @@ func (o *RecommendationsResults) HasExhaustive() bool {
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
 func (o *RecommendationsResults) SetExhaustive(v *Exhaustive) *RecommendationsResults {
 	o.Exhaustive = v
+
 	return o
 }
 
@@ -440,8 +462,10 @@ func (o *RecommendationsResults) SetExhaustive(v *Exhaustive) *RecommendationsRe
 func (o *RecommendationsResults) GetAppliedRules() []map[string]any {
 	if o == nil || o.AppliedRules == nil {
 		var ret []map[string]any
+
 		return ret
 	}
+
 	return o.AppliedRules
 }
 
@@ -451,6 +475,7 @@ func (o *RecommendationsResults) GetAppliedRulesOk() ([]map[string]any, bool) {
 	if o == nil || o.AppliedRules == nil {
 		return nil, false
 	}
+
 	return o.AppliedRules, true
 }
 
@@ -466,6 +491,7 @@ func (o *RecommendationsResults) HasAppliedRules() bool {
 // SetAppliedRules gets a reference to the given []map[string]any and assigns it to the AppliedRules field.
 func (o *RecommendationsResults) SetAppliedRules(v []map[string]any) *RecommendationsResults {
 	o.AppliedRules = v
+
 	return o
 }
 
@@ -474,8 +500,10 @@ func (o *RecommendationsResults) SetAppliedRules(v []map[string]any) *Recommenda
 func (o *RecommendationsResults) GetExhaustiveFacetsCount() bool {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveFacetsCount
 }
 
@@ -486,6 +514,7 @@ func (o *RecommendationsResults) GetExhaustiveFacetsCountOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveFacetsCount, true
 }
 
@@ -502,6 +531,7 @@ func (o *RecommendationsResults) HasExhaustiveFacetsCount() bool {
 // Deprecated.
 func (o *RecommendationsResults) SetExhaustiveFacetsCount(v bool) *RecommendationsResults {
 	o.ExhaustiveFacetsCount = &v
+
 	return o
 }
 
@@ -510,8 +540,10 @@ func (o *RecommendationsResults) SetExhaustiveFacetsCount(v bool) *Recommendatio
 func (o *RecommendationsResults) GetExhaustiveNbHits() bool {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveNbHits
 }
 
@@ -522,6 +554,7 @@ func (o *RecommendationsResults) GetExhaustiveNbHitsOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveNbHits, true
 }
 
@@ -538,6 +571,7 @@ func (o *RecommendationsResults) HasExhaustiveNbHits() bool {
 // Deprecated.
 func (o *RecommendationsResults) SetExhaustiveNbHits(v bool) *RecommendationsResults {
 	o.ExhaustiveNbHits = &v
+
 	return o
 }
 
@@ -546,8 +580,10 @@ func (o *RecommendationsResults) SetExhaustiveNbHits(v bool) *RecommendationsRes
 func (o *RecommendationsResults) GetExhaustiveTypo() bool {
 	if o == nil || o.ExhaustiveTypo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveTypo
 }
 
@@ -558,6 +594,7 @@ func (o *RecommendationsResults) GetExhaustiveTypoOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveTypo == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveTypo, true
 }
 
@@ -574,6 +611,7 @@ func (o *RecommendationsResults) HasExhaustiveTypo() bool {
 // Deprecated.
 func (o *RecommendationsResults) SetExhaustiveTypo(v bool) *RecommendationsResults {
 	o.ExhaustiveTypo = &v
+
 	return o
 }
 
@@ -581,8 +619,10 @@ func (o *RecommendationsResults) SetExhaustiveTypo(v bool) *RecommendationsResul
 func (o *RecommendationsResults) GetFacets() map[string]map[string]int32 {
 	if o == nil || o.Facets == nil {
 		var ret map[string]map[string]int32
+
 		return ret
 	}
+
 	return *o.Facets
 }
 
@@ -592,6 +632,7 @@ func (o *RecommendationsResults) GetFacetsOk() (*map[string]map[string]int32, bo
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -607,6 +648,7 @@ func (o *RecommendationsResults) HasFacets() bool {
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
 func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) *RecommendationsResults {
 	o.Facets = &v
+
 	return o
 }
 
@@ -614,8 +656,10 @@ func (o *RecommendationsResults) SetFacets(v map[string]map[string]int32) *Recom
 func (o *RecommendationsResults) GetFacetsStats() map[string]FacetStats {
 	if o == nil || o.FacetsStats == nil {
 		var ret map[string]FacetStats
+
 		return ret
 	}
+
 	return *o.FacetsStats
 }
 
@@ -625,6 +669,7 @@ func (o *RecommendationsResults) GetFacetsStatsOk() (*map[string]FacetStats, boo
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
+
 	return o.FacetsStats, true
 }
 
@@ -640,6 +685,7 @@ func (o *RecommendationsResults) HasFacetsStats() bool {
 // SetFacetsStats gets a reference to the given map[string]FacetStats and assigns it to the FacetsStats field.
 func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetStats) *RecommendationsResults {
 	o.FacetsStats = &v
+
 	return o
 }
 
@@ -647,8 +693,10 @@ func (o *RecommendationsResults) SetFacetsStats(v map[string]FacetStats) *Recomm
 func (o *RecommendationsResults) GetIndex() string {
 	if o == nil || o.Index == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Index
 }
 
@@ -658,6 +706,7 @@ func (o *RecommendationsResults) GetIndexOk() (*string, bool) {
 	if o == nil || o.Index == nil {
 		return nil, false
 	}
+
 	return o.Index, true
 }
 
@@ -673,6 +722,7 @@ func (o *RecommendationsResults) HasIndex() bool {
 // SetIndex gets a reference to the given string and assigns it to the Index field.
 func (o *RecommendationsResults) SetIndex(v string) *RecommendationsResults {
 	o.Index = &v
+
 	return o
 }
 
@@ -680,8 +730,10 @@ func (o *RecommendationsResults) SetIndex(v string) *RecommendationsResults {
 func (o *RecommendationsResults) GetIndexUsed() string {
 	if o == nil || o.IndexUsed == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.IndexUsed
 }
 
@@ -691,6 +743,7 @@ func (o *RecommendationsResults) GetIndexUsedOk() (*string, bool) {
 	if o == nil || o.IndexUsed == nil {
 		return nil, false
 	}
+
 	return o.IndexUsed, true
 }
 
@@ -706,6 +759,7 @@ func (o *RecommendationsResults) HasIndexUsed() bool {
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
 func (o *RecommendationsResults) SetIndexUsed(v string) *RecommendationsResults {
 	o.IndexUsed = &v
+
 	return o
 }
 
@@ -713,8 +767,10 @@ func (o *RecommendationsResults) SetIndexUsed(v string) *RecommendationsResults 
 func (o *RecommendationsResults) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -724,6 +780,7 @@ func (o *RecommendationsResults) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -739,6 +796,7 @@ func (o *RecommendationsResults) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *RecommendationsResults) SetMessage(v string) *RecommendationsResults {
 	o.Message = &v
+
 	return o
 }
 
@@ -746,8 +804,10 @@ func (o *RecommendationsResults) SetMessage(v string) *RecommendationsResults {
 func (o *RecommendationsResults) GetNbSortedHits() int32 {
 	if o == nil || o.NbSortedHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbSortedHits
 }
 
@@ -757,6 +817,7 @@ func (o *RecommendationsResults) GetNbSortedHitsOk() (*int32, bool) {
 	if o == nil || o.NbSortedHits == nil {
 		return nil, false
 	}
+
 	return o.NbSortedHits, true
 }
 
@@ -772,6 +833,7 @@ func (o *RecommendationsResults) HasNbSortedHits() bool {
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
 func (o *RecommendationsResults) SetNbSortedHits(v int32) *RecommendationsResults {
 	o.NbSortedHits = &v
+
 	return o
 }
 
@@ -779,8 +841,10 @@ func (o *RecommendationsResults) SetNbSortedHits(v int32) *RecommendationsResult
 func (o *RecommendationsResults) GetParsedQuery() string {
 	if o == nil || o.ParsedQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ParsedQuery
 }
 
@@ -790,6 +854,7 @@ func (o *RecommendationsResults) GetParsedQueryOk() (*string, bool) {
 	if o == nil || o.ParsedQuery == nil {
 		return nil, false
 	}
+
 	return o.ParsedQuery, true
 }
 
@@ -805,6 +870,7 @@ func (o *RecommendationsResults) HasParsedQuery() bool {
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
 func (o *RecommendationsResults) SetParsedQuery(v string) *RecommendationsResults {
 	o.ParsedQuery = &v
+
 	return o
 }
 
@@ -812,8 +878,10 @@ func (o *RecommendationsResults) SetParsedQuery(v string) *RecommendationsResult
 func (o *RecommendationsResults) GetProcessingTimeMS() int32 {
 	if o == nil || o.ProcessingTimeMS == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ProcessingTimeMS
 }
 
@@ -823,6 +891,7 @@ func (o *RecommendationsResults) GetProcessingTimeMSOk() (*int32, bool) {
 	if o == nil || o.ProcessingTimeMS == nil {
 		return nil, false
 	}
+
 	return o.ProcessingTimeMS, true
 }
 
@@ -838,6 +907,7 @@ func (o *RecommendationsResults) HasProcessingTimeMS() bool {
 // SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
 func (o *RecommendationsResults) SetProcessingTimeMS(v int32) *RecommendationsResults {
 	o.ProcessingTimeMS = &v
+
 	return o
 }
 
@@ -845,8 +915,10 @@ func (o *RecommendationsResults) SetProcessingTimeMS(v int32) *RecommendationsRe
 func (o *RecommendationsResults) GetProcessingTimingsMS() map[string]any {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.ProcessingTimingsMS
 }
 
@@ -856,6 +928,7 @@ func (o *RecommendationsResults) GetProcessingTimingsMSOk() (map[string]any, boo
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
+
 	return o.ProcessingTimingsMS, true
 }
 
@@ -871,6 +944,7 @@ func (o *RecommendationsResults) HasProcessingTimingsMS() bool {
 // SetProcessingTimingsMS gets a reference to the given map[string]any and assigns it to the ProcessingTimingsMS field.
 func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]any) *RecommendationsResults {
 	o.ProcessingTimingsMS = v
+
 	return o
 }
 
@@ -878,8 +952,10 @@ func (o *RecommendationsResults) SetProcessingTimingsMS(v map[string]any) *Recom
 func (o *RecommendationsResults) GetQueryAfterRemoval() string {
 	if o == nil || o.QueryAfterRemoval == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryAfterRemoval
 }
 
@@ -889,6 +965,7 @@ func (o *RecommendationsResults) GetQueryAfterRemovalOk() (*string, bool) {
 	if o == nil || o.QueryAfterRemoval == nil {
 		return nil, false
 	}
+
 	return o.QueryAfterRemoval, true
 }
 
@@ -904,6 +981,7 @@ func (o *RecommendationsResults) HasQueryAfterRemoval() bool {
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
 func (o *RecommendationsResults) SetQueryAfterRemoval(v string) *RecommendationsResults {
 	o.QueryAfterRemoval = &v
+
 	return o
 }
 
@@ -911,8 +989,10 @@ func (o *RecommendationsResults) SetQueryAfterRemoval(v string) *Recommendations
 func (o *RecommendationsResults) GetRedirect() Redirect {
 	if o == nil || o.Redirect == nil {
 		var ret Redirect
+
 		return ret
 	}
+
 	return *o.Redirect
 }
 
@@ -922,6 +1002,7 @@ func (o *RecommendationsResults) GetRedirectOk() (*Redirect, bool) {
 	if o == nil || o.Redirect == nil {
 		return nil, false
 	}
+
 	return o.Redirect, true
 }
 
@@ -937,6 +1018,7 @@ func (o *RecommendationsResults) HasRedirect() bool {
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
 func (o *RecommendationsResults) SetRedirect(v *Redirect) *RecommendationsResults {
 	o.Redirect = v
+
 	return o
 }
 
@@ -944,8 +1026,10 @@ func (o *RecommendationsResults) SetRedirect(v *Redirect) *RecommendationsResult
 func (o *RecommendationsResults) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -955,6 +1039,7 @@ func (o *RecommendationsResults) GetRenderingContentOk() (*RenderingContent, boo
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -970,6 +1055,7 @@ func (o *RecommendationsResults) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *RecommendationsResults) SetRenderingContent(v *RenderingContent) *RecommendationsResults {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -977,8 +1063,10 @@ func (o *RecommendationsResults) SetRenderingContent(v *RenderingContent) *Recom
 func (o *RecommendationsResults) GetServerTimeMS() int32 {
 	if o == nil || o.ServerTimeMS == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ServerTimeMS
 }
 
@@ -988,6 +1076,7 @@ func (o *RecommendationsResults) GetServerTimeMSOk() (*int32, bool) {
 	if o == nil || o.ServerTimeMS == nil {
 		return nil, false
 	}
+
 	return o.ServerTimeMS, true
 }
 
@@ -1003,6 +1092,7 @@ func (o *RecommendationsResults) HasServerTimeMS() bool {
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
 func (o *RecommendationsResults) SetServerTimeMS(v int32) *RecommendationsResults {
 	o.ServerTimeMS = &v
+
 	return o
 }
 
@@ -1010,8 +1100,10 @@ func (o *RecommendationsResults) SetServerTimeMS(v int32) *RecommendationsResult
 func (o *RecommendationsResults) GetServerUsed() string {
 	if o == nil || o.ServerUsed == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ServerUsed
 }
 
@@ -1021,6 +1113,7 @@ func (o *RecommendationsResults) GetServerUsedOk() (*string, bool) {
 	if o == nil || o.ServerUsed == nil {
 		return nil, false
 	}
+
 	return o.ServerUsed, true
 }
 
@@ -1036,6 +1129,7 @@ func (o *RecommendationsResults) HasServerUsed() bool {
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
 func (o *RecommendationsResults) SetServerUsed(v string) *RecommendationsResults {
 	o.ServerUsed = &v
+
 	return o
 }
 
@@ -1043,8 +1137,10 @@ func (o *RecommendationsResults) SetServerUsed(v string) *RecommendationsResults
 func (o *RecommendationsResults) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -1055,6 +1151,7 @@ func (o *RecommendationsResults) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -1070,6 +1167,7 @@ func (o *RecommendationsResults) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *RecommendationsResults) SetUserData(v any) *RecommendationsResults {
 	o.UserData = v
+
 	return o
 }
 
@@ -1077,8 +1175,10 @@ func (o *RecommendationsResults) SetUserData(v any) *RecommendationsResults {
 func (o *RecommendationsResults) GetQueryID() string {
 	if o == nil || o.QueryID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryID
 }
 
@@ -1088,6 +1188,7 @@ func (o *RecommendationsResults) GetQueryIDOk() (*string, bool) {
 	if o == nil || o.QueryID == nil {
 		return nil, false
 	}
+
 	return o.QueryID, true
 }
 
@@ -1103,6 +1204,7 @@ func (o *RecommendationsResults) HasQueryID() bool {
 // SetQueryID gets a reference to the given string and assigns it to the QueryID field.
 func (o *RecommendationsResults) SetQueryID(v string) *RecommendationsResults {
 	o.QueryID = &v
+
 	return o
 }
 
@@ -1110,8 +1212,10 @@ func (o *RecommendationsResults) SetQueryID(v string) *RecommendationsResults {
 func (o *RecommendationsResults) GetAutomaticInsights() bool {
 	if o == nil || o.AutomaticInsights == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AutomaticInsights
 }
 
@@ -1121,6 +1225,7 @@ func (o *RecommendationsResults) GetAutomaticInsightsOk() (*bool, bool) {
 	if o == nil || o.AutomaticInsights == nil {
 		return nil, false
 	}
+
 	return o.AutomaticInsights, true
 }
 
@@ -1136,6 +1241,7 @@ func (o *RecommendationsResults) HasAutomaticInsights() bool {
 // SetAutomaticInsights gets a reference to the given bool and assigns it to the AutomaticInsights field.
 func (o *RecommendationsResults) SetAutomaticInsights(v bool) *RecommendationsResults {
 	o.AutomaticInsights = &v
+
 	return o
 }
 
@@ -1143,8 +1249,10 @@ func (o *RecommendationsResults) SetAutomaticInsights(v bool) *RecommendationsRe
 func (o *RecommendationsResults) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -1154,6 +1262,7 @@ func (o *RecommendationsResults) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -1169,6 +1278,7 @@ func (o *RecommendationsResults) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *RecommendationsResults) SetPage(v int32) *RecommendationsResults {
 	o.Page = &v
+
 	return o
 }
 
@@ -1176,8 +1286,10 @@ func (o *RecommendationsResults) SetPage(v int32) *RecommendationsResults {
 func (o *RecommendationsResults) GetNbHits() int32 {
 	if o == nil || o.NbHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbHits
 }
 
@@ -1187,6 +1299,7 @@ func (o *RecommendationsResults) GetNbHitsOk() (*int32, bool) {
 	if o == nil || o.NbHits == nil {
 		return nil, false
 	}
+
 	return o.NbHits, true
 }
 
@@ -1202,6 +1315,7 @@ func (o *RecommendationsResults) HasNbHits() bool {
 // SetNbHits gets a reference to the given int32 and assigns it to the NbHits field.
 func (o *RecommendationsResults) SetNbHits(v int32) *RecommendationsResults {
 	o.NbHits = &v
+
 	return o
 }
 
@@ -1209,8 +1323,10 @@ func (o *RecommendationsResults) SetNbHits(v int32) *RecommendationsResults {
 func (o *RecommendationsResults) GetNbPages() int32 {
 	if o == nil || o.NbPages == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbPages
 }
 
@@ -1220,6 +1336,7 @@ func (o *RecommendationsResults) GetNbPagesOk() (*int32, bool) {
 	if o == nil || o.NbPages == nil {
 		return nil, false
 	}
+
 	return o.NbPages, true
 }
 
@@ -1235,6 +1352,7 @@ func (o *RecommendationsResults) HasNbPages() bool {
 // SetNbPages gets a reference to the given int32 and assigns it to the NbPages field.
 func (o *RecommendationsResults) SetNbPages(v int32) *RecommendationsResults {
 	o.NbPages = &v
+
 	return o
 }
 
@@ -1242,8 +1360,10 @@ func (o *RecommendationsResults) SetNbPages(v int32) *RecommendationsResults {
 func (o *RecommendationsResults) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -1253,6 +1373,7 @@ func (o *RecommendationsResults) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -1268,6 +1389,7 @@ func (o *RecommendationsResults) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *RecommendationsResults) SetHitsPerPage(v int32) *RecommendationsResults {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -1275,6 +1397,7 @@ func (o *RecommendationsResults) SetHitsPerPage(v int32) *RecommendationsResults
 func (o *RecommendationsResults) GetHits() []RecommendationsHit {
 	if o == nil {
 		var ret []RecommendationsHit
+
 		return ret
 	}
 
@@ -1287,12 +1410,14 @@ func (o *RecommendationsResults) GetHitsOk() ([]RecommendationsHit, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *RecommendationsResults) SetHits(v []RecommendationsHit) *RecommendationsResults {
 	o.Hits = v
+
 	return o
 }
 
@@ -1301,94 +1426,125 @@ func (o RecommendationsResults) MarshalJSON() ([]byte, error) {
 	if o.AbTestID != nil {
 		toSerialize["abTestID"] = o.AbTestID
 	}
+
 	if o.AbTestVariantID != nil {
 		toSerialize["abTestVariantID"] = o.AbTestVariantID
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AutomaticRadius != nil {
 		toSerialize["automaticRadius"] = o.AutomaticRadius
 	}
+
 	if o.Exhaustive != nil {
 		toSerialize["exhaustive"] = o.Exhaustive
 	}
+
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
 	}
+
 	if o.ExhaustiveFacetsCount != nil {
 		toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
 	}
+
 	if o.ExhaustiveNbHits != nil {
 		toSerialize["exhaustiveNbHits"] = o.ExhaustiveNbHits
 	}
+
 	if o.ExhaustiveTypo != nil {
 		toSerialize["exhaustiveTypo"] = o.ExhaustiveTypo
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetsStats != nil {
 		toSerialize["facets_stats"] = o.FacetsStats
 	}
+
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
+
 	if o.IndexUsed != nil {
 		toSerialize["indexUsed"] = o.IndexUsed
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	if o.NbSortedHits != nil {
 		toSerialize["nbSortedHits"] = o.NbSortedHits
 	}
+
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
+
 	if o.ProcessingTimeMS != nil {
 		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	}
+
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
+
 	if o.QueryAfterRemoval != nil {
 		toSerialize["queryAfterRemoval"] = o.QueryAfterRemoval
 	}
+
 	if o.Redirect != nil {
 		toSerialize["redirect"] = o.Redirect
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.ServerTimeMS != nil {
 		toSerialize["serverTimeMS"] = o.ServerTimeMS
 	}
+
 	if o.ServerUsed != nil {
 		toSerialize["serverUsed"] = o.ServerUsed
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.QueryID != nil {
 		toSerialize["queryID"] = o.QueryID
 	}
+
 	if o.AutomaticInsights != nil {
 		toSerialize["_automaticInsights"] = o.AutomaticInsights
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.NbHits != nil {
 		toSerialize["nbHits"] = o.NbHits
 	}
+
 	if o.NbPages != nil {
 		toSerialize["nbPages"] = o.NbPages
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	toSerialize["hits"] = o.Hits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendationsResults: %w", err)
@@ -1430,5 +1586,6 @@ func (o RecommendationsResults) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+
 	return fmt.Sprintf("RecommendationsResults {\n%s}", out)
 }

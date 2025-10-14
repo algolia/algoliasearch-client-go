@@ -388,6 +388,7 @@ func NewBaseInjectionQueryParameters(opts ...BaseInjectionQueryParametersOption)
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -400,8 +401,10 @@ func NewEmptyBaseInjectionQueryParameters() *BaseInjectionQueryParameters {
 func (o *BaseInjectionQueryParameters) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -411,6 +414,7 @@ func (o *BaseInjectionQueryParameters) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -426,6 +430,7 @@ func (o *BaseInjectionQueryParameters) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *BaseInjectionQueryParameters) SetAdvancedSyntax(v bool) *BaseInjectionQueryParameters {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -433,8 +438,10 @@ func (o *BaseInjectionQueryParameters) SetAdvancedSyntax(v bool) *BaseInjectionQ
 func (o *BaseInjectionQueryParameters) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -444,6 +451,7 @@ func (o *BaseInjectionQueryParameters) GetAdvancedSyntaxFeaturesOk() ([]Advanced
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -459,6 +467,7 @@ func (o *BaseInjectionQueryParameters) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *BaseInjectionQueryParameters) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *BaseInjectionQueryParameters {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -466,8 +475,10 @@ func (o *BaseInjectionQueryParameters) SetAdvancedSyntaxFeatures(v []AdvancedSyn
 func (o *BaseInjectionQueryParameters) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -477,6 +488,7 @@ func (o *BaseInjectionQueryParameters) GetAllowTyposOnNumericTokensOk() (*bool, 
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -492,6 +504,7 @@ func (o *BaseInjectionQueryParameters) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *BaseInjectionQueryParameters) SetAllowTyposOnNumericTokens(v bool) *BaseInjectionQueryParameters {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -499,8 +512,10 @@ func (o *BaseInjectionQueryParameters) SetAllowTyposOnNumericTokens(v bool) *Bas
 func (o *BaseInjectionQueryParameters) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -510,6 +525,7 @@ func (o *BaseInjectionQueryParameters) GetAlternativesAsExactOk() ([]Alternative
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -525,6 +541,7 @@ func (o *BaseInjectionQueryParameters) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *BaseInjectionQueryParameters) SetAlternativesAsExact(v []AlternativesAsExact) *BaseInjectionQueryParameters {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -532,8 +549,10 @@ func (o *BaseInjectionQueryParameters) SetAlternativesAsExact(v []AlternativesAs
 func (o *BaseInjectionQueryParameters) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -543,6 +562,7 @@ func (o *BaseInjectionQueryParameters) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -558,6 +578,7 @@ func (o *BaseInjectionQueryParameters) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *BaseInjectionQueryParameters) SetAnalytics(v bool) *BaseInjectionQueryParameters {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -565,8 +586,10 @@ func (o *BaseInjectionQueryParameters) SetAnalytics(v bool) *BaseInjectionQueryP
 func (o *BaseInjectionQueryParameters) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -576,6 +599,7 @@ func (o *BaseInjectionQueryParameters) GetAttributeCriteriaComputedByMinProximit
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -591,6 +615,7 @@ func (o *BaseInjectionQueryParameters) HasAttributeCriteriaComputedByMinProximit
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *BaseInjectionQueryParameters) SetAttributeCriteriaComputedByMinProximity(v bool) *BaseInjectionQueryParameters {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -598,8 +623,10 @@ func (o *BaseInjectionQueryParameters) SetAttributeCriteriaComputedByMinProximit
 func (o *BaseInjectionQueryParameters) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -609,6 +636,7 @@ func (o *BaseInjectionQueryParameters) GetAttributesToHighlightOk() ([]string, b
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -624,6 +652,7 @@ func (o *BaseInjectionQueryParameters) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *BaseInjectionQueryParameters) SetAttributesToHighlight(v []string) *BaseInjectionQueryParameters {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -631,8 +660,10 @@ func (o *BaseInjectionQueryParameters) SetAttributesToHighlight(v []string) *Bas
 func (o *BaseInjectionQueryParameters) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -642,6 +673,7 @@ func (o *BaseInjectionQueryParameters) GetAttributesToRetrieveOk() ([]string, bo
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -657,6 +689,7 @@ func (o *BaseInjectionQueryParameters) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *BaseInjectionQueryParameters) SetAttributesToRetrieve(v []string) *BaseInjectionQueryParameters {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -664,8 +697,10 @@ func (o *BaseInjectionQueryParameters) SetAttributesToRetrieve(v []string) *Base
 func (o *BaseInjectionQueryParameters) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -675,6 +710,7 @@ func (o *BaseInjectionQueryParameters) GetAttributesToSnippetOk() ([]string, boo
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -690,6 +726,7 @@ func (o *BaseInjectionQueryParameters) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *BaseInjectionQueryParameters) SetAttributesToSnippet(v []string) *BaseInjectionQueryParameters {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -697,8 +734,10 @@ func (o *BaseInjectionQueryParameters) SetAttributesToSnippet(v []string) *BaseI
 func (o *BaseInjectionQueryParameters) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -708,6 +747,7 @@ func (o *BaseInjectionQueryParameters) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -723,6 +763,7 @@ func (o *BaseInjectionQueryParameters) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *BaseInjectionQueryParameters) SetClickAnalytics(v bool) *BaseInjectionQueryParameters {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -730,8 +771,10 @@ func (o *BaseInjectionQueryParameters) SetClickAnalytics(v bool) *BaseInjectionQ
 func (o *BaseInjectionQueryParameters) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -741,6 +784,7 @@ func (o *BaseInjectionQueryParameters) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -756,6 +800,7 @@ func (o *BaseInjectionQueryParameters) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *BaseInjectionQueryParameters) SetDecompoundQuery(v bool) *BaseInjectionQueryParameters {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -763,8 +808,10 @@ func (o *BaseInjectionQueryParameters) SetDecompoundQuery(v bool) *BaseInjection
 func (o *BaseInjectionQueryParameters) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -774,6 +821,7 @@ func (o *BaseInjectionQueryParameters) GetDisableExactOnAttributesOk() ([]string
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -789,6 +837,7 @@ func (o *BaseInjectionQueryParameters) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *BaseInjectionQueryParameters) SetDisableExactOnAttributes(v []string) *BaseInjectionQueryParameters {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -796,8 +845,10 @@ func (o *BaseInjectionQueryParameters) SetDisableExactOnAttributes(v []string) *
 func (o *BaseInjectionQueryParameters) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -807,6 +858,7 @@ func (o *BaseInjectionQueryParameters) GetDisableTypoToleranceOnAttributesOk() (
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -822,6 +874,7 @@ func (o *BaseInjectionQueryParameters) HasDisableTypoToleranceOnAttributes() boo
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *BaseInjectionQueryParameters) SetDisableTypoToleranceOnAttributes(v []string) *BaseInjectionQueryParameters {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -829,8 +882,10 @@ func (o *BaseInjectionQueryParameters) SetDisableTypoToleranceOnAttributes(v []s
 func (o *BaseInjectionQueryParameters) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -840,6 +895,7 @@ func (o *BaseInjectionQueryParameters) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -855,6 +911,7 @@ func (o *BaseInjectionQueryParameters) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *BaseInjectionQueryParameters) SetDistinct(v *Distinct) *BaseInjectionQueryParameters {
 	o.Distinct = v
+
 	return o
 }
 
@@ -862,8 +919,10 @@ func (o *BaseInjectionQueryParameters) SetDistinct(v *Distinct) *BaseInjectionQu
 func (o *BaseInjectionQueryParameters) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -873,6 +932,7 @@ func (o *BaseInjectionQueryParameters) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -888,6 +948,7 @@ func (o *BaseInjectionQueryParameters) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *BaseInjectionQueryParameters) SetEnableABTest(v bool) *BaseInjectionQueryParameters {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -895,8 +956,10 @@ func (o *BaseInjectionQueryParameters) SetEnableABTest(v bool) *BaseInjectionQue
 func (o *BaseInjectionQueryParameters) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -906,6 +969,7 @@ func (o *BaseInjectionQueryParameters) GetEnablePersonalizationOk() (*bool, bool
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -921,6 +985,7 @@ func (o *BaseInjectionQueryParameters) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *BaseInjectionQueryParameters) SetEnablePersonalization(v bool) *BaseInjectionQueryParameters {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -928,8 +993,10 @@ func (o *BaseInjectionQueryParameters) SetEnablePersonalization(v bool) *BaseInj
 func (o *BaseInjectionQueryParameters) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -939,6 +1006,7 @@ func (o *BaseInjectionQueryParameters) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -954,6 +1022,7 @@ func (o *BaseInjectionQueryParameters) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *BaseInjectionQueryParameters) SetEnableReRanking(v bool) *BaseInjectionQueryParameters {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -961,8 +1030,10 @@ func (o *BaseInjectionQueryParameters) SetEnableReRanking(v bool) *BaseInjection
 func (o *BaseInjectionQueryParameters) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -972,6 +1043,7 @@ func (o *BaseInjectionQueryParameters) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -987,6 +1059,7 @@ func (o *BaseInjectionQueryParameters) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *BaseInjectionQueryParameters) SetEnableRules(v bool) *BaseInjectionQueryParameters {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -994,8 +1067,10 @@ func (o *BaseInjectionQueryParameters) SetEnableRules(v bool) *BaseInjectionQuer
 func (o *BaseInjectionQueryParameters) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -1005,6 +1080,7 @@ func (o *BaseInjectionQueryParameters) GetExactOnSingleWordQueryOk() (*ExactOnSi
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -1020,6 +1096,7 @@ func (o *BaseInjectionQueryParameters) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *BaseInjectionQueryParameters) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *BaseInjectionQueryParameters {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -1027,8 +1104,10 @@ func (o *BaseInjectionQueryParameters) SetExactOnSingleWordQuery(v ExactOnSingle
 func (o *BaseInjectionQueryParameters) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -1038,6 +1117,7 @@ func (o *BaseInjectionQueryParameters) GetFacetFiltersOk() (*FacetFilters, bool)
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -1053,6 +1133,7 @@ func (o *BaseInjectionQueryParameters) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *BaseInjectionQueryParameters) SetFacetFilters(v *FacetFilters) *BaseInjectionQueryParameters {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -1060,8 +1141,10 @@ func (o *BaseInjectionQueryParameters) SetFacetFilters(v *FacetFilters) *BaseInj
 func (o *BaseInjectionQueryParameters) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -1071,6 +1154,7 @@ func (o *BaseInjectionQueryParameters) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -1086,6 +1170,7 @@ func (o *BaseInjectionQueryParameters) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *BaseInjectionQueryParameters) SetFilters(v string) *BaseInjectionQueryParameters {
 	o.Filters = &v
+
 	return o
 }
 
@@ -1093,8 +1178,10 @@ func (o *BaseInjectionQueryParameters) SetFilters(v string) *BaseInjectionQueryP
 func (o *BaseInjectionQueryParameters) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -1104,6 +1191,7 @@ func (o *BaseInjectionQueryParameters) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -1119,6 +1207,7 @@ func (o *BaseInjectionQueryParameters) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *BaseInjectionQueryParameters) SetGetRankingInfo(v bool) *BaseInjectionQueryParameters {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -1126,8 +1215,10 @@ func (o *BaseInjectionQueryParameters) SetGetRankingInfo(v bool) *BaseInjectionQ
 func (o *BaseInjectionQueryParameters) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -1137,6 +1228,7 @@ func (o *BaseInjectionQueryParameters) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -1152,6 +1244,7 @@ func (o *BaseInjectionQueryParameters) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *BaseInjectionQueryParameters) SetHighlightPostTag(v string) *BaseInjectionQueryParameters {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -1159,8 +1252,10 @@ func (o *BaseInjectionQueryParameters) SetHighlightPostTag(v string) *BaseInject
 func (o *BaseInjectionQueryParameters) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -1170,6 +1265,7 @@ func (o *BaseInjectionQueryParameters) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -1185,6 +1281,7 @@ func (o *BaseInjectionQueryParameters) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *BaseInjectionQueryParameters) SetHighlightPreTag(v string) *BaseInjectionQueryParameters {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -1192,8 +1289,10 @@ func (o *BaseInjectionQueryParameters) SetHighlightPreTag(v string) *BaseInjecti
 func (o *BaseInjectionQueryParameters) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -1203,6 +1302,7 @@ func (o *BaseInjectionQueryParameters) GetIgnorePluralsOk() (*IgnorePlurals, boo
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -1218,6 +1318,7 @@ func (o *BaseInjectionQueryParameters) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *BaseInjectionQueryParameters) SetIgnorePlurals(v *IgnorePlurals) *BaseInjectionQueryParameters {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -1225,8 +1326,10 @@ func (o *BaseInjectionQueryParameters) SetIgnorePlurals(v *IgnorePlurals) *BaseI
 func (o *BaseInjectionQueryParameters) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -1236,6 +1339,7 @@ func (o *BaseInjectionQueryParameters) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -1251,6 +1355,7 @@ func (o *BaseInjectionQueryParameters) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *BaseInjectionQueryParameters) SetMaxFacetHits(v int32) *BaseInjectionQueryParameters {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -1258,8 +1363,10 @@ func (o *BaseInjectionQueryParameters) SetMaxFacetHits(v int32) *BaseInjectionQu
 func (o *BaseInjectionQueryParameters) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -1269,6 +1376,7 @@ func (o *BaseInjectionQueryParameters) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -1284,6 +1392,7 @@ func (o *BaseInjectionQueryParameters) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *BaseInjectionQueryParameters) SetMinProximity(v int32) *BaseInjectionQueryParameters {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -1291,8 +1400,10 @@ func (o *BaseInjectionQueryParameters) SetMinProximity(v int32) *BaseInjectionQu
 func (o *BaseInjectionQueryParameters) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -1302,6 +1413,7 @@ func (o *BaseInjectionQueryParameters) GetMinWordSizefor1TypoOk() (*int32, bool)
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -1317,6 +1429,7 @@ func (o *BaseInjectionQueryParameters) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *BaseInjectionQueryParameters) SetMinWordSizefor1Typo(v int32) *BaseInjectionQueryParameters {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -1324,8 +1437,10 @@ func (o *BaseInjectionQueryParameters) SetMinWordSizefor1Typo(v int32) *BaseInje
 func (o *BaseInjectionQueryParameters) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -1335,6 +1450,7 @@ func (o *BaseInjectionQueryParameters) GetMinWordSizefor2TyposOk() (*int32, bool
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -1350,6 +1466,7 @@ func (o *BaseInjectionQueryParameters) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *BaseInjectionQueryParameters) SetMinWordSizefor2Typos(v int32) *BaseInjectionQueryParameters {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -1357,8 +1474,10 @@ func (o *BaseInjectionQueryParameters) SetMinWordSizefor2Typos(v int32) *BaseInj
 func (o *BaseInjectionQueryParameters) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -1368,6 +1487,7 @@ func (o *BaseInjectionQueryParameters) GetNaturalLanguagesOk() ([]SupportedLangu
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -1383,6 +1503,7 @@ func (o *BaseInjectionQueryParameters) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *BaseInjectionQueryParameters) SetNaturalLanguages(v []SupportedLanguage) *BaseInjectionQueryParameters {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -1390,8 +1511,10 @@ func (o *BaseInjectionQueryParameters) SetNaturalLanguages(v []SupportedLanguage
 func (o *BaseInjectionQueryParameters) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -1401,6 +1524,7 @@ func (o *BaseInjectionQueryParameters) GetNumericFiltersOk() (*NumericFilters, b
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -1416,6 +1540,7 @@ func (o *BaseInjectionQueryParameters) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *BaseInjectionQueryParameters) SetNumericFilters(v *NumericFilters) *BaseInjectionQueryParameters {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -1423,8 +1548,10 @@ func (o *BaseInjectionQueryParameters) SetNumericFilters(v *NumericFilters) *Bas
 func (o *BaseInjectionQueryParameters) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -1434,6 +1561,7 @@ func (o *BaseInjectionQueryParameters) GetOptionalFiltersOk() (*OptionalFilters,
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -1449,6 +1577,7 @@ func (o *BaseInjectionQueryParameters) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *BaseInjectionQueryParameters) SetOptionalFilters(v *OptionalFilters) *BaseInjectionQueryParameters {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -1456,8 +1585,10 @@ func (o *BaseInjectionQueryParameters) SetOptionalFilters(v *OptionalFilters) *B
 func (o *BaseInjectionQueryParameters) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -1468,6 +1599,7 @@ func (o *BaseInjectionQueryParameters) GetOptionalWordsOk() (*OptionalWords, boo
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -1483,6 +1615,7 @@ func (o *BaseInjectionQueryParameters) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *BaseInjectionQueryParameters) SetOptionalWords(v *OptionalWords) *BaseInjectionQueryParameters {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -1500,8 +1633,10 @@ func (o *BaseInjectionQueryParameters) UnsetOptionalWords() {
 func (o *BaseInjectionQueryParameters) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PercentileComputation
 }
 
@@ -1511,6 +1646,7 @@ func (o *BaseInjectionQueryParameters) GetPercentileComputationOk() (*bool, bool
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
+
 	return o.PercentileComputation, true
 }
 
@@ -1526,6 +1662,7 @@ func (o *BaseInjectionQueryParameters) HasPercentileComputation() bool {
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
 func (o *BaseInjectionQueryParameters) SetPercentileComputation(v bool) *BaseInjectionQueryParameters {
 	o.PercentileComputation = &v
+
 	return o
 }
 
@@ -1533,8 +1670,10 @@ func (o *BaseInjectionQueryParameters) SetPercentileComputation(v bool) *BaseInj
 func (o *BaseInjectionQueryParameters) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PersonalizationImpact
 }
 
@@ -1544,6 +1683,7 @@ func (o *BaseInjectionQueryParameters) GetPersonalizationImpactOk() (*int32, boo
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
+
 	return o.PersonalizationImpact, true
 }
 
@@ -1559,6 +1699,7 @@ func (o *BaseInjectionQueryParameters) HasPersonalizationImpact() bool {
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
 func (o *BaseInjectionQueryParameters) SetPersonalizationImpact(v int32) *BaseInjectionQueryParameters {
 	o.PersonalizationImpact = &v
+
 	return o
 }
 
@@ -1566,8 +1707,10 @@ func (o *BaseInjectionQueryParameters) SetPersonalizationImpact(v int32) *BaseIn
 func (o *BaseInjectionQueryParameters) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -1577,6 +1720,7 @@ func (o *BaseInjectionQueryParameters) GetQueryLanguagesOk() ([]SupportedLanguag
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -1592,6 +1736,7 @@ func (o *BaseInjectionQueryParameters) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *BaseInjectionQueryParameters) SetQueryLanguages(v []SupportedLanguage) *BaseInjectionQueryParameters {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -1599,8 +1744,10 @@ func (o *BaseInjectionQueryParameters) SetQueryLanguages(v []SupportedLanguage) 
 func (o *BaseInjectionQueryParameters) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -1610,6 +1757,7 @@ func (o *BaseInjectionQueryParameters) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -1625,6 +1773,7 @@ func (o *BaseInjectionQueryParameters) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *BaseInjectionQueryParameters) SetQueryType(v QueryType) *BaseInjectionQueryParameters {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -1632,8 +1781,10 @@ func (o *BaseInjectionQueryParameters) SetQueryType(v QueryType) *BaseInjectionQ
 func (o *BaseInjectionQueryParameters) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -1643,6 +1794,7 @@ func (o *BaseInjectionQueryParameters) GetRemoveStopWordsOk() (*RemoveStopWords,
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -1658,6 +1810,7 @@ func (o *BaseInjectionQueryParameters) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *BaseInjectionQueryParameters) SetRemoveStopWords(v *RemoveStopWords) *BaseInjectionQueryParameters {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -1665,8 +1818,10 @@ func (o *BaseInjectionQueryParameters) SetRemoveStopWords(v *RemoveStopWords) *B
 func (o *BaseInjectionQueryParameters) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -1676,6 +1831,7 @@ func (o *BaseInjectionQueryParameters) GetRemoveWordsIfNoResultsOk() (*RemoveWor
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -1691,6 +1847,7 @@ func (o *BaseInjectionQueryParameters) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *BaseInjectionQueryParameters) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *BaseInjectionQueryParameters {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -1698,8 +1855,10 @@ func (o *BaseInjectionQueryParameters) SetRemoveWordsIfNoResults(v RemoveWordsIf
 func (o *BaseInjectionQueryParameters) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -1709,6 +1868,7 @@ func (o *BaseInjectionQueryParameters) GetReplaceSynonymsInHighlightOk() (*bool,
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -1724,6 +1884,7 @@ func (o *BaseInjectionQueryParameters) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *BaseInjectionQueryParameters) SetReplaceSynonymsInHighlight(v bool) *BaseInjectionQueryParameters {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -1731,8 +1892,10 @@ func (o *BaseInjectionQueryParameters) SetReplaceSynonymsInHighlight(v bool) *Ba
 func (o *BaseInjectionQueryParameters) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -1742,6 +1905,7 @@ func (o *BaseInjectionQueryParameters) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -1757,6 +1921,7 @@ func (o *BaseInjectionQueryParameters) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *BaseInjectionQueryParameters) SetResponseFields(v []string) *BaseInjectionQueryParameters {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -1764,8 +1929,10 @@ func (o *BaseInjectionQueryParameters) SetResponseFields(v []string) *BaseInject
 func (o *BaseInjectionQueryParameters) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -1775,6 +1942,7 @@ func (o *BaseInjectionQueryParameters) GetRestrictHighlightAndSnippetArraysOk() 
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -1790,6 +1958,7 @@ func (o *BaseInjectionQueryParameters) HasRestrictHighlightAndSnippetArrays() bo
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *BaseInjectionQueryParameters) SetRestrictHighlightAndSnippetArrays(v bool) *BaseInjectionQueryParameters {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -1797,8 +1966,10 @@ func (o *BaseInjectionQueryParameters) SetRestrictHighlightAndSnippetArrays(v bo
 func (o *BaseInjectionQueryParameters) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictSearchableAttributes
 }
 
@@ -1808,6 +1979,7 @@ func (o *BaseInjectionQueryParameters) GetRestrictSearchableAttributesOk() ([]st
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.RestrictSearchableAttributes, true
 }
 
@@ -1823,6 +1995,7 @@ func (o *BaseInjectionQueryParameters) HasRestrictSearchableAttributes() bool {
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
 func (o *BaseInjectionQueryParameters) SetRestrictSearchableAttributes(v []string) *BaseInjectionQueryParameters {
 	o.RestrictSearchableAttributes = v
+
 	return o
 }
 
@@ -1830,8 +2003,10 @@ func (o *BaseInjectionQueryParameters) SetRestrictSearchableAttributes(v []strin
 func (o *BaseInjectionQueryParameters) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -1841,6 +2016,7 @@ func (o *BaseInjectionQueryParameters) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -1856,6 +2032,7 @@ func (o *BaseInjectionQueryParameters) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *BaseInjectionQueryParameters) SetRuleContexts(v []string) *BaseInjectionQueryParameters {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -1863,8 +2040,10 @@ func (o *BaseInjectionQueryParameters) SetRuleContexts(v []string) *BaseInjectio
 func (o *BaseInjectionQueryParameters) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -1874,6 +2053,7 @@ func (o *BaseInjectionQueryParameters) GetSnippetEllipsisTextOk() (*string, bool
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -1889,6 +2069,7 @@ func (o *BaseInjectionQueryParameters) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *BaseInjectionQueryParameters) SetSnippetEllipsisText(v string) *BaseInjectionQueryParameters {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -1896,8 +2077,10 @@ func (o *BaseInjectionQueryParameters) SetSnippetEllipsisText(v string) *BaseInj
 func (o *BaseInjectionQueryParameters) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Synonyms
 }
 
@@ -1907,6 +2090,7 @@ func (o *BaseInjectionQueryParameters) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -1922,6 +2106,7 @@ func (o *BaseInjectionQueryParameters) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
 func (o *BaseInjectionQueryParameters) SetSynonyms(v bool) *BaseInjectionQueryParameters {
 	o.Synonyms = &v
+
 	return o
 }
 
@@ -1929,8 +2114,10 @@ func (o *BaseInjectionQueryParameters) SetSynonyms(v bool) *BaseInjectionQueryPa
 func (o *BaseInjectionQueryParameters) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -1940,6 +2127,7 @@ func (o *BaseInjectionQueryParameters) GetTypoToleranceOk() (*TypoTolerance, boo
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -1955,6 +2143,7 @@ func (o *BaseInjectionQueryParameters) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *BaseInjectionQueryParameters) SetTypoTolerance(v *TypoTolerance) *BaseInjectionQueryParameters {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -1963,144 +2152,191 @@ func (o BaseInjectionQueryParameters) MarshalJSON() ([]byte, error) {
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.PercentileComputation != nil {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
+
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.RestrictSearchableAttributes != nil {
 		toSerialize["restrictSearchableAttributes"] = o.RestrictSearchableAttributes
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BaseInjectionQueryParameters: %w", err)
@@ -2158,5 +2394,6 @@ func (o BaseInjectionQueryParameters) String() string {
 	out += fmt.Sprintf("  snippetEllipsisText=%v\n", o.SnippetEllipsisText)
 	out += fmt.Sprintf("  synonyms=%v\n", o.Synonyms)
 	out += fmt.Sprintf("  typoTolerance=%v\n", o.TypoTolerance)
+
 	return fmt.Sprintf("BaseInjectionQueryParameters {\n%s}", out)
 }

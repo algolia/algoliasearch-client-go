@@ -54,7 +54,16 @@ func WithABTestMigratedAbTestID(val int32) ABTestOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
+func NewABTest(
+	abTestID int32,
+	updatedAt string,
+	createdAt string,
+	endAt string,
+	name string,
+	status Status,
+	variants []Variant,
+	opts ...ABTestOption,
+) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
 	this.UpdatedAt = updatedAt
@@ -62,10 +71,12 @@ func NewABTest(abTestID int32, updatedAt string, createdAt string, endAt string,
 	this.EndAt = endAt
 	this.Name = name
 	this.Status = status
+
 	this.Variants = variants
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -78,6 +89,7 @@ func NewEmptyABTest() *ABTest {
 func (o *ABTest) GetAbTestID() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -90,12 +102,14 @@ func (o *ABTest) GetAbTestIDOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AbTestID, true
 }
 
 // SetAbTestID sets field value.
 func (o *ABTest) SetAbTestID(v int32) *ABTest {
 	o.AbTestID = v
+
 	return o
 }
 
@@ -103,6 +117,7 @@ func (o *ABTest) SetAbTestID(v int32) *ABTest {
 func (o *ABTest) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -115,12 +130,14 @@ func (o *ABTest) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *ABTest) SetUpdatedAt(v string) *ABTest {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -128,6 +145,7 @@ func (o *ABTest) SetUpdatedAt(v string) *ABTest {
 func (o *ABTest) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -140,12 +158,14 @@ func (o *ABTest) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *ABTest) SetCreatedAt(v string) *ABTest {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -153,6 +173,7 @@ func (o *ABTest) SetCreatedAt(v string) *ABTest {
 func (o *ABTest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -165,12 +186,14 @@ func (o *ABTest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *ABTest) SetEndAt(v string) *ABTest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -178,8 +201,10 @@ func (o *ABTest) SetEndAt(v string) *ABTest {
 func (o *ABTest) GetStoppedAt() string {
 	if o == nil || o.StoppedAt.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.StoppedAt.Get()
 }
 
@@ -190,6 +215,7 @@ func (o *ABTest) GetStoppedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.StoppedAt.Get(), o.StoppedAt.IsSet()
 }
 
@@ -205,6 +231,7 @@ func (o *ABTest) HasStoppedAt() bool {
 // SetStoppedAt gets a reference to the given utils.Nullable[string] and assigns it to the StoppedAt field.
 func (o *ABTest) SetStoppedAt(v string) *ABTest {
 	o.StoppedAt.Set(&v)
+
 	return o
 }
 
@@ -222,6 +249,7 @@ func (o *ABTest) UnsetStoppedAt() {
 func (o *ABTest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -234,12 +262,14 @@ func (o *ABTest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *ABTest) SetName(v string) *ABTest {
 	o.Name = v
+
 	return o
 }
 
@@ -247,6 +277,7 @@ func (o *ABTest) SetName(v string) *ABTest {
 func (o *ABTest) GetStatus() Status {
 	if o == nil {
 		var ret Status
+
 		return ret
 	}
 
@@ -259,12 +290,14 @@ func (o *ABTest) GetStatusOk() (*Status, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Status, true
 }
 
 // SetStatus sets field value.
 func (o *ABTest) SetStatus(v Status) *ABTest {
 	o.Status = v
+
 	return o
 }
 
@@ -272,6 +305,7 @@ func (o *ABTest) SetStatus(v Status) *ABTest {
 func (o *ABTest) GetVariants() []Variant {
 	if o == nil {
 		var ret []Variant
+
 		return ret
 	}
 
@@ -284,12 +318,14 @@ func (o *ABTest) GetVariantsOk() ([]Variant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *ABTest) SetVariants(v []Variant) *ABTest {
 	o.Variants = v
+
 	return o
 }
 
@@ -297,8 +333,10 @@ func (o *ABTest) SetVariants(v []Variant) *ABTest {
 func (o *ABTest) GetConfiguration() ABTestConfiguration {
 	if o == nil || o.Configuration == nil {
 		var ret ABTestConfiguration
+
 		return ret
 	}
+
 	return *o.Configuration
 }
 
@@ -308,6 +346,7 @@ func (o *ABTest) GetConfigurationOk() (*ABTestConfiguration, bool) {
 	if o == nil || o.Configuration == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
@@ -323,6 +362,7 @@ func (o *ABTest) HasConfiguration() bool {
 // SetConfiguration gets a reference to the given ABTestConfiguration and assigns it to the Configuration field.
 func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
 	o.Configuration = v
+
 	return o
 }
 
@@ -330,8 +370,10 @@ func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
 func (o *ABTest) GetMigratedAbTestID() int32 {
 	if o == nil || o.MigratedAbTestID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MigratedAbTestID
 }
 
@@ -341,6 +383,7 @@ func (o *ABTest) GetMigratedAbTestIDOk() (*int32, bool) {
 	if o == nil || o.MigratedAbTestID == nil {
 		return nil, false
 	}
+
 	return o.MigratedAbTestID, true
 }
 
@@ -356,6 +399,7 @@ func (o *ABTest) HasMigratedAbTestID() bool {
 // SetMigratedAbTestID gets a reference to the given int32 and assigns it to the MigratedAbTestID field.
 func (o *ABTest) SetMigratedAbTestID(v int32) *ABTest {
 	o.MigratedAbTestID = &v
+
 	return o
 }
 
@@ -364,19 +408,24 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 	toSerialize["abTestID"] = o.AbTestID
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
+
 	toSerialize["endAt"] = o.EndAt
 	if o.StoppedAt.IsSet() {
 		toSerialize["stoppedAt"] = o.StoppedAt.Get()
 	}
+
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
+
 	toSerialize["variants"] = o.Variants
 	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}
+
 	if o.MigratedAbTestID != nil {
 		toSerialize["migratedAbTestID"] = o.MigratedAbTestID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTest: %w", err)
@@ -397,5 +446,6 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	out += fmt.Sprintf("  migratedAbTestID=%v\n", o.MigratedAbTestID)
+
 	return fmt.Sprintf("ABTest {\n%s}", out)
 }

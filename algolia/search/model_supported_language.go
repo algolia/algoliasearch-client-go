@@ -153,24 +153,7 @@ var AllowedSupportedLanguageEnumValues = []SupportedLanguage{
 	"zh",
 }
 
-func (v *SupportedLanguage) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SupportedLanguage': %w", string(src), err)
-	}
-	enumTypeValue := SupportedLanguage(value)
-	for _, existing := range AllowedSupportedLanguageEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SupportedLanguage", value)
-}
-
-// NewSupportedLanguageFromValue returns a pointer to a valid SupportedLanguage
+// NewSupportedLanguageFromValue returns a pointer to a valid SupportedLanguage.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSupportedLanguageFromValue(v string) (*SupportedLanguage, error) {
 	ev := SupportedLanguage(v)
@@ -181,6 +164,26 @@ func NewSupportedLanguageFromValue(v string) (*SupportedLanguage, error) {
 	}
 }
 
+func (v *SupportedLanguage) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SupportedLanguage': %w", string(src), err)
+	}
+
+	enumTypeValue := SupportedLanguage(value)
+	for _, existing := range AllowedSupportedLanguageEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SupportedLanguage", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SupportedLanguage) IsValid() bool {
 	for _, existing := range AllowedSupportedLanguageEnumValues {
@@ -188,6 +191,7 @@ func (v SupportedLanguage) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

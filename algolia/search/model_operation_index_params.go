@@ -30,10 +30,12 @@ func WithOperationIndexParamsScope(val []ScopeType) OperationIndexParamsOption {
 func NewOperationIndexParams(operation OperationType, destination string, opts ...OperationIndexParamsOption) *OperationIndexParams {
 	this := &OperationIndexParams{}
 	this.Operation = operation
+
 	this.Destination = destination
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -46,6 +48,7 @@ func NewEmptyOperationIndexParams() *OperationIndexParams {
 func (o *OperationIndexParams) GetOperation() OperationType {
 	if o == nil {
 		var ret OperationType
+
 		return ret
 	}
 
@@ -58,12 +61,14 @@ func (o *OperationIndexParams) GetOperationOk() (*OperationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Operation, true
 }
 
 // SetOperation sets field value.
 func (o *OperationIndexParams) SetOperation(v OperationType) *OperationIndexParams {
 	o.Operation = v
+
 	return o
 }
 
@@ -71,6 +76,7 @@ func (o *OperationIndexParams) SetOperation(v OperationType) *OperationIndexPara
 func (o *OperationIndexParams) GetDestination() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -83,12 +89,14 @@ func (o *OperationIndexParams) GetDestinationOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Destination, true
 }
 
 // SetDestination sets field value.
 func (o *OperationIndexParams) SetDestination(v string) *OperationIndexParams {
 	o.Destination = v
+
 	return o
 }
 
@@ -96,8 +104,10 @@ func (o *OperationIndexParams) SetDestination(v string) *OperationIndexParams {
 func (o *OperationIndexParams) GetScope() []ScopeType {
 	if o == nil || o.Scope == nil {
 		var ret []ScopeType
+
 		return ret
 	}
+
 	return o.Scope
 }
 
@@ -107,6 +117,7 @@ func (o *OperationIndexParams) GetScopeOk() ([]ScopeType, bool) {
 	if o == nil || o.Scope == nil {
 		return nil, false
 	}
+
 	return o.Scope, true
 }
 
@@ -122,16 +133,19 @@ func (o *OperationIndexParams) HasScope() bool {
 // SetScope gets a reference to the given []ScopeType and assigns it to the Scope field.
 func (o *OperationIndexParams) SetScope(v []ScopeType) *OperationIndexParams {
 	o.Scope = v
+
 	return o
 }
 
 func (o OperationIndexParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["operation"] = o.Operation
+
 	toSerialize["destination"] = o.Destination
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal OperationIndexParams: %w", err)
@@ -145,5 +159,6 @@ func (o OperationIndexParams) String() string {
 	out += fmt.Sprintf("  operation=%v\n", o.Operation)
 	out += fmt.Sprintf("  destination=%v\n", o.Destination)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
+
 	return fmt.Sprintf("OperationIndexParams {\n%s}", out)
 }

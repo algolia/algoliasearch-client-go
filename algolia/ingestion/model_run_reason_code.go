@@ -31,24 +31,7 @@ var AllowedRunReasonCodeEnumValues = []RunReasonCode{
 	"blocking",
 }
 
-func (v *RunReasonCode) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunReasonCode': %w", string(src), err)
-	}
-	enumTypeValue := RunReasonCode(value)
-	for _, existing := range AllowedRunReasonCodeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RunReasonCode", value)
-}
-
-// NewRunReasonCodeFromValue returns a pointer to a valid RunReasonCode
+// NewRunReasonCodeFromValue returns a pointer to a valid RunReasonCode.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRunReasonCodeFromValue(v string) (*RunReasonCode, error) {
 	ev := RunReasonCode(v)
@@ -59,6 +42,26 @@ func NewRunReasonCodeFromValue(v string) (*RunReasonCode, error) {
 	}
 }
 
+func (v *RunReasonCode) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RunReasonCode': %w", string(src), err)
+	}
+
+	enumTypeValue := RunReasonCode(value)
+	for _, existing := range AllowedRunReasonCodeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RunReasonCode", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RunReasonCode) IsValid() bool {
 	for _, existing := range AllowedRunReasonCodeEnumValues {
@@ -66,6 +69,7 @@ func (v RunReasonCode) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

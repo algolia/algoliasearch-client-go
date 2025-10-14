@@ -33,10 +33,12 @@ func NewInjectedItem(key string, source InjectedItemSource, position int32, leng
 	this.Key = key
 	this.Source = source
 	this.Position = position
+
 	this.Length = length
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +51,7 @@ func NewEmptyInjectedItem() *InjectedItem {
 func (o *InjectedItem) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -61,12 +64,14 @@ func (o *InjectedItem) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *InjectedItem) SetKey(v string) *InjectedItem {
 	o.Key = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o *InjectedItem) SetKey(v string) *InjectedItem {
 func (o *InjectedItem) GetSource() InjectedItemSource {
 	if o == nil {
 		var ret InjectedItemSource
+
 		return ret
 	}
 
@@ -86,12 +92,14 @@ func (o *InjectedItem) GetSourceOk() (*InjectedItemSource, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Source, true
 }
 
 // SetSource sets field value.
 func (o *InjectedItem) SetSource(v *InjectedItemSource) *InjectedItem {
 	o.Source = *v
+
 	return o
 }
 
@@ -99,6 +107,7 @@ func (o *InjectedItem) SetSource(v *InjectedItemSource) *InjectedItem {
 func (o *InjectedItem) GetPosition() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -111,12 +120,14 @@ func (o *InjectedItem) GetPositionOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Position, true
 }
 
 // SetPosition sets field value.
 func (o *InjectedItem) SetPosition(v int32) *InjectedItem {
 	o.Position = v
+
 	return o
 }
 
@@ -124,6 +135,7 @@ func (o *InjectedItem) SetPosition(v int32) *InjectedItem {
 func (o *InjectedItem) GetLength() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -136,12 +148,14 @@ func (o *InjectedItem) GetLengthOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Length, true
 }
 
 // SetLength sets field value.
 func (o *InjectedItem) SetLength(v int32) *InjectedItem {
 	o.Length = v
+
 	return o
 }
 
@@ -149,8 +163,10 @@ func (o *InjectedItem) SetLength(v int32) *InjectedItem {
 func (o *InjectedItem) GetMetadata() InjectedItemMetadata {
 	if o == nil || o.Metadata == nil {
 		var ret InjectedItemMetadata
+
 		return ret
 	}
+
 	return *o.Metadata
 }
 
@@ -160,6 +176,7 @@ func (o *InjectedItem) GetMetadataOk() (*InjectedItemMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
+
 	return o.Metadata, true
 }
 
@@ -175,6 +192,7 @@ func (o *InjectedItem) HasMetadata() bool {
 // SetMetadata gets a reference to the given InjectedItemMetadata and assigns it to the Metadata field.
 func (o *InjectedItem) SetMetadata(v *InjectedItemMetadata) *InjectedItem {
 	o.Metadata = v
+
 	return o
 }
 
@@ -183,10 +201,12 @@ func (o InjectedItem) MarshalJSON() ([]byte, error) {
 	toSerialize["key"] = o.Key
 	toSerialize["source"] = o.Source
 	toSerialize["position"] = o.Position
+
 	toSerialize["length"] = o.Length
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InjectedItem: %w", err)
@@ -202,5 +222,6 @@ func (o InjectedItem) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 	out += fmt.Sprintf("  length=%v\n", o.Length)
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
+
 	return fmt.Sprintf("InjectedItem {\n%s}", out)
 }

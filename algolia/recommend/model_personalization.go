@@ -45,6 +45,7 @@ func NewPersonalization(opts ...PersonalizationOption) *Personalization {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyPersonalization() *Personalization {
 func (o *Personalization) GetFiltersScore() int32 {
 	if o == nil || o.FiltersScore == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FiltersScore
 }
 
@@ -68,6 +71,7 @@ func (o *Personalization) GetFiltersScoreOk() (*int32, bool) {
 	if o == nil || o.FiltersScore == nil {
 		return nil, false
 	}
+
 	return o.FiltersScore, true
 }
 
@@ -83,6 +87,7 @@ func (o *Personalization) HasFiltersScore() bool {
 // SetFiltersScore gets a reference to the given int32 and assigns it to the FiltersScore field.
 func (o *Personalization) SetFiltersScore(v int32) *Personalization {
 	o.FiltersScore = &v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *Personalization) SetFiltersScore(v int32) *Personalization {
 func (o *Personalization) GetRankingScore() int32 {
 	if o == nil || o.RankingScore == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RankingScore
 }
 
@@ -101,6 +108,7 @@ func (o *Personalization) GetRankingScoreOk() (*int32, bool) {
 	if o == nil || o.RankingScore == nil {
 		return nil, false
 	}
+
 	return o.RankingScore, true
 }
 
@@ -116,6 +124,7 @@ func (o *Personalization) HasRankingScore() bool {
 // SetRankingScore gets a reference to the given int32 and assigns it to the RankingScore field.
 func (o *Personalization) SetRankingScore(v int32) *Personalization {
 	o.RankingScore = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *Personalization) SetRankingScore(v int32) *Personalization {
 func (o *Personalization) GetScore() int32 {
 	if o == nil || o.Score == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Score
 }
 
@@ -134,6 +145,7 @@ func (o *Personalization) GetScoreOk() (*int32, bool) {
 	if o == nil || o.Score == nil {
 		return nil, false
 	}
+
 	return o.Score, true
 }
 
@@ -149,6 +161,7 @@ func (o *Personalization) HasScore() bool {
 // SetScore gets a reference to the given int32 and assigns it to the Score field.
 func (o *Personalization) SetScore(v int32) *Personalization {
 	o.Score = &v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o Personalization) MarshalJSON() ([]byte, error) {
 	if o.FiltersScore != nil {
 		toSerialize["filtersScore"] = o.FiltersScore
 	}
+
 	if o.RankingScore != nil {
 		toSerialize["rankingScore"] = o.RankingScore
 	}
+
 	if o.Score != nil {
 		toSerialize["score"] = o.Score
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Personalization: %w", err)
@@ -176,5 +192,6 @@ func (o Personalization) String() string {
 	out += fmt.Sprintf("  filtersScore=%v\n", o.FiltersScore)
 	out += fmt.Sprintf("  rankingScore=%v\n", o.RankingScore)
 	out += fmt.Sprintf("  score=%v\n", o.Score)
+
 	return fmt.Sprintf("Personalization {\n%s}", out)
 }

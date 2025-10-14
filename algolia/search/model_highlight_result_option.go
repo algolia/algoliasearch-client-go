@@ -29,14 +29,21 @@ func WithHighlightResultOptionFullyHighlighted(val bool) HighlightResultOptionOp
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewHighlightResultOption(value string, matchLevel MatchLevel, matchedWords []string, opts ...HighlightResultOptionOption) *HighlightResultOption {
+func NewHighlightResultOption(
+	value string,
+	matchLevel MatchLevel,
+	matchedWords []string,
+	opts ...HighlightResultOptionOption,
+) *HighlightResultOption {
 	this := &HighlightResultOption{}
 	this.Value = value
 	this.MatchLevel = matchLevel
+
 	this.MatchedWords = matchedWords
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +56,7 @@ func NewEmptyHighlightResultOption() *HighlightResultOption {
 func (o *HighlightResultOption) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -61,12 +69,14 @@ func (o *HighlightResultOption) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *HighlightResultOption) SetValue(v string) *HighlightResultOption {
 	o.Value = v
+
 	return o
 }
 
@@ -74,6 +84,7 @@ func (o *HighlightResultOption) SetValue(v string) *HighlightResultOption {
 func (o *HighlightResultOption) GetMatchLevel() MatchLevel {
 	if o == nil {
 		var ret MatchLevel
+
 		return ret
 	}
 
@@ -86,12 +97,14 @@ func (o *HighlightResultOption) GetMatchLevelOk() (*MatchLevel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MatchLevel, true
 }
 
 // SetMatchLevel sets field value.
 func (o *HighlightResultOption) SetMatchLevel(v MatchLevel) *HighlightResultOption {
 	o.MatchLevel = v
+
 	return o
 }
 
@@ -99,6 +112,7 @@ func (o *HighlightResultOption) SetMatchLevel(v MatchLevel) *HighlightResultOpti
 func (o *HighlightResultOption) GetMatchedWords() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -111,12 +125,14 @@ func (o *HighlightResultOption) GetMatchedWordsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.MatchedWords, true
 }
 
 // SetMatchedWords sets field value.
 func (o *HighlightResultOption) SetMatchedWords(v []string) *HighlightResultOption {
 	o.MatchedWords = v
+
 	return o
 }
 
@@ -124,8 +140,10 @@ func (o *HighlightResultOption) SetMatchedWords(v []string) *HighlightResultOpti
 func (o *HighlightResultOption) GetFullyHighlighted() bool {
 	if o == nil || o.FullyHighlighted == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FullyHighlighted
 }
 
@@ -135,6 +153,7 @@ func (o *HighlightResultOption) GetFullyHighlightedOk() (*bool, bool) {
 	if o == nil || o.FullyHighlighted == nil {
 		return nil, false
 	}
+
 	return o.FullyHighlighted, true
 }
 
@@ -150,6 +169,7 @@ func (o *HighlightResultOption) HasFullyHighlighted() bool {
 // SetFullyHighlighted gets a reference to the given bool and assigns it to the FullyHighlighted field.
 func (o *HighlightResultOption) SetFullyHighlighted(v bool) *HighlightResultOption {
 	o.FullyHighlighted = &v
+
 	return o
 }
 
@@ -157,10 +177,12 @@ func (o HighlightResultOption) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["value"] = o.Value
 	toSerialize["matchLevel"] = o.MatchLevel
+
 	toSerialize["matchedWords"] = o.MatchedWords
 	if o.FullyHighlighted != nil {
 		toSerialize["fullyHighlighted"] = o.FullyHighlighted
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal HighlightResultOption: %w", err)
@@ -175,5 +197,6 @@ func (o HighlightResultOption) String() string {
 	out += fmt.Sprintf("  matchLevel=%v\n", o.MatchLevel)
 	out += fmt.Sprintf("  matchedWords=%v\n", o.MatchedWords)
 	out += fmt.Sprintf("  fullyHighlighted=%v\n", o.FullyHighlighted)
+
 	return fmt.Sprintf("HighlightResultOption {\n%s}", out)
 }

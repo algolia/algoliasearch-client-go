@@ -25,24 +25,7 @@ var AllowedEffectMetricEnumValues = []EffectMetric{
 	"purchaseRate",
 }
 
-func (v *EffectMetric) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EffectMetric': %w", string(src), err)
-	}
-	enumTypeValue := EffectMetric(value)
-	for _, existing := range AllowedEffectMetricEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid EffectMetric", value)
-}
-
-// NewEffectMetricFromValue returns a pointer to a valid EffectMetric
+// NewEffectMetricFromValue returns a pointer to a valid EffectMetric.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewEffectMetricFromValue(v string) (*EffectMetric, error) {
 	ev := EffectMetric(v)
@@ -53,6 +36,26 @@ func NewEffectMetricFromValue(v string) (*EffectMetric, error) {
 	}
 }
 
+func (v *EffectMetric) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EffectMetric': %w", string(src), err)
+	}
+
+	enumTypeValue := EffectMetric(value)
+	for _, existing := range AllowedEffectMetricEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid EffectMetric", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v EffectMetric) IsValid() bool {
 	for _, existing := range AllowedEffectMetricEnumValues {
@@ -60,6 +63,7 @@ func (v EffectMetric) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

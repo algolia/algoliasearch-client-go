@@ -45,7 +45,16 @@ func WithClickedObjectIDsAfterSearchTimestamp(val int64) ClickedObjectIDsAfterSe
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewClickedObjectIDsAfterSearch(eventName string, eventType ClickEvent, index string, objectIDs []string, positions []int32, queryID string, userToken string, opts ...ClickedObjectIDsAfterSearchOption) *ClickedObjectIDsAfterSearch {
+func NewClickedObjectIDsAfterSearch(
+	eventName string,
+	eventType ClickEvent,
+	index string,
+	objectIDs []string,
+	positions []int32,
+	queryID string,
+	userToken string,
+	opts ...ClickedObjectIDsAfterSearchOption,
+) *ClickedObjectIDsAfterSearch {
 	this := &ClickedObjectIDsAfterSearch{}
 	this.EventName = eventName
 	this.EventType = eventType
@@ -53,10 +62,12 @@ func NewClickedObjectIDsAfterSearch(eventName string, eventType ClickEvent, inde
 	this.ObjectIDs = objectIDs
 	this.Positions = positions
 	this.QueryID = queryID
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -69,6 +80,7 @@ func NewEmptyClickedObjectIDsAfterSearch() *ClickedObjectIDsAfterSearch {
 func (o *ClickedObjectIDsAfterSearch) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -81,12 +93,14 @@ func (o *ClickedObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetEventName(v string) *ClickedObjectIDsAfterSearch {
 	o.EventName = v
+
 	return o
 }
 
@@ -94,6 +108,7 @@ func (o *ClickedObjectIDsAfterSearch) SetEventName(v string) *ClickedObjectIDsAf
 func (o *ClickedObjectIDsAfterSearch) GetEventType() ClickEvent {
 	if o == nil {
 		var ret ClickEvent
+
 		return ret
 	}
 
@@ -106,12 +121,14 @@ func (o *ClickedObjectIDsAfterSearch) GetEventTypeOk() (*ClickEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetEventType(v ClickEvent) *ClickedObjectIDsAfterSearch {
 	o.EventType = v
+
 	return o
 }
 
@@ -119,6 +136,7 @@ func (o *ClickedObjectIDsAfterSearch) SetEventType(v ClickEvent) *ClickedObjectI
 func (o *ClickedObjectIDsAfterSearch) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -131,12 +149,14 @@ func (o *ClickedObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetIndex(v string) *ClickedObjectIDsAfterSearch {
 	o.Index = v
+
 	return o
 }
 
@@ -144,6 +164,7 @@ func (o *ClickedObjectIDsAfterSearch) SetIndex(v string) *ClickedObjectIDsAfterS
 func (o *ClickedObjectIDsAfterSearch) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -156,12 +177,14 @@ func (o *ClickedObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetObjectIDs(v []string) *ClickedObjectIDsAfterSearch {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -169,6 +192,7 @@ func (o *ClickedObjectIDsAfterSearch) SetObjectIDs(v []string) *ClickedObjectIDs
 func (o *ClickedObjectIDsAfterSearch) GetPositions() []int32 {
 	if o == nil {
 		var ret []int32
+
 		return ret
 	}
 
@@ -181,12 +205,14 @@ func (o *ClickedObjectIDsAfterSearch) GetPositionsOk() ([]int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Positions, true
 }
 
 // SetPositions sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetPositions(v []int32) *ClickedObjectIDsAfterSearch {
 	o.Positions = v
+
 	return o
 }
 
@@ -194,6 +220,7 @@ func (o *ClickedObjectIDsAfterSearch) SetPositions(v []int32) *ClickedObjectIDsA
 func (o *ClickedObjectIDsAfterSearch) GetQueryID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -206,12 +233,14 @@ func (o *ClickedObjectIDsAfterSearch) GetQueryIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.QueryID, true
 }
 
 // SetQueryID sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetQueryID(v string) *ClickedObjectIDsAfterSearch {
 	o.QueryID = v
+
 	return o
 }
 
@@ -219,6 +248,7 @@ func (o *ClickedObjectIDsAfterSearch) SetQueryID(v string) *ClickedObjectIDsAfte
 func (o *ClickedObjectIDsAfterSearch) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -231,12 +261,14 @@ func (o *ClickedObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *ClickedObjectIDsAfterSearch) SetUserToken(v string) *ClickedObjectIDsAfterSearch {
 	o.UserToken = v
+
 	return o
 }
 
@@ -244,8 +276,10 @@ func (o *ClickedObjectIDsAfterSearch) SetUserToken(v string) *ClickedObjectIDsAf
 func (o *ClickedObjectIDsAfterSearch) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -255,6 +289,7 @@ func (o *ClickedObjectIDsAfterSearch) GetAuthenticatedUserTokenOk() (*string, bo
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -270,6 +305,7 @@ func (o *ClickedObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *ClickedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *ClickedObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -277,8 +313,10 @@ func (o *ClickedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *Click
 func (o *ClickedObjectIDsAfterSearch) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -288,6 +326,7 @@ func (o *ClickedObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -303,6 +342,7 @@ func (o *ClickedObjectIDsAfterSearch) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *ClickedObjectIDsAfterSearch) SetTimestamp(v int64) *ClickedObjectIDsAfterSearch {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -314,13 +354,16 @@ func (o ClickedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	toSerialize["objectIDs"] = o.ObjectIDs
 	toSerialize["positions"] = o.Positions
 	toSerialize["queryID"] = o.QueryID
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ClickedObjectIDsAfterSearch: %w", err)
@@ -340,5 +383,6 @@ func (o ClickedObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+
 	return fmt.Sprintf("ClickedObjectIDsAfterSearch {\n%s}", out)
 }

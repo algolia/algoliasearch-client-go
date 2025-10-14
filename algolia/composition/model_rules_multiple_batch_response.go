@@ -19,6 +19,7 @@ type RulesMultipleBatchResponse struct {
 func NewRulesMultipleBatchResponse(taskID int64) *RulesMultipleBatchResponse {
 	this := &RulesMultipleBatchResponse{}
 	this.TaskID = taskID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyRulesMultipleBatchResponse() *RulesMultipleBatchResponse {
 func (o *RulesMultipleBatchResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *RulesMultipleBatchResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *RulesMultipleBatchResponse) SetTaskID(v int64) *RulesMultipleBatchResponse {
 	o.TaskID = v
+
 	return o
 }
 
 func (o RulesMultipleBatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RulesMultipleBatchResponse: %w", err)
@@ -66,5 +71,6 @@ func (o RulesMultipleBatchResponse) MarshalJSON() ([]byte, error) {
 func (o RulesMultipleBatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
+
 	return fmt.Sprintf("RulesMultipleBatchResponse {\n%s}", out)
 }

@@ -70,10 +70,12 @@ func WithSynonymHitReplacements(val []string) SynonymHitOption {
 func NewSynonymHit(objectID string, type_ SynonymType, opts ...SynonymHitOption) *SynonymHit {
 	this := &SynonymHit{}
 	this.ObjectID = objectID
+
 	this.Type = type_
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -86,6 +88,7 @@ func NewEmptySynonymHit() *SynonymHit {
 func (o *SynonymHit) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -98,12 +101,14 @@ func (o *SynonymHit) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *SynonymHit) SetObjectID(v string) *SynonymHit {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -111,6 +116,7 @@ func (o *SynonymHit) SetObjectID(v string) *SynonymHit {
 func (o *SynonymHit) GetType() SynonymType {
 	if o == nil {
 		var ret SynonymType
+
 		return ret
 	}
 
@@ -123,12 +129,14 @@ func (o *SynonymHit) GetTypeOk() (*SynonymType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *SynonymHit) SetType(v SynonymType) *SynonymHit {
 	o.Type = v
+
 	return o
 }
 
@@ -136,8 +144,10 @@ func (o *SynonymHit) SetType(v SynonymType) *SynonymHit {
 func (o *SynonymHit) GetSynonyms() []string {
 	if o == nil || o.Synonyms == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Synonyms
 }
 
@@ -147,6 +157,7 @@ func (o *SynonymHit) GetSynonymsOk() ([]string, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -162,6 +173,7 @@ func (o *SynonymHit) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given []string and assigns it to the Synonyms field.
 func (o *SynonymHit) SetSynonyms(v []string) *SynonymHit {
 	o.Synonyms = v
+
 	return o
 }
 
@@ -169,8 +181,10 @@ func (o *SynonymHit) SetSynonyms(v []string) *SynonymHit {
 func (o *SynonymHit) GetInput() string {
 	if o == nil || o.Input == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -180,6 +194,7 @@ func (o *SynonymHit) GetInputOk() (*string, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -195,6 +210,7 @@ func (o *SynonymHit) HasInput() bool {
 // SetInput gets a reference to the given string and assigns it to the Input field.
 func (o *SynonymHit) SetInput(v string) *SynonymHit {
 	o.Input = &v
+
 	return o
 }
 
@@ -202,8 +218,10 @@ func (o *SynonymHit) SetInput(v string) *SynonymHit {
 func (o *SynonymHit) GetWord() string {
 	if o == nil || o.Word == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Word
 }
 
@@ -213,6 +231,7 @@ func (o *SynonymHit) GetWordOk() (*string, bool) {
 	if o == nil || o.Word == nil {
 		return nil, false
 	}
+
 	return o.Word, true
 }
 
@@ -228,6 +247,7 @@ func (o *SynonymHit) HasWord() bool {
 // SetWord gets a reference to the given string and assigns it to the Word field.
 func (o *SynonymHit) SetWord(v string) *SynonymHit {
 	o.Word = &v
+
 	return o
 }
 
@@ -235,8 +255,10 @@ func (o *SynonymHit) SetWord(v string) *SynonymHit {
 func (o *SynonymHit) GetCorrections() []string {
 	if o == nil || o.Corrections == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Corrections
 }
 
@@ -246,6 +268,7 @@ func (o *SynonymHit) GetCorrectionsOk() ([]string, bool) {
 	if o == nil || o.Corrections == nil {
 		return nil, false
 	}
+
 	return o.Corrections, true
 }
 
@@ -261,6 +284,7 @@ func (o *SynonymHit) HasCorrections() bool {
 // SetCorrections gets a reference to the given []string and assigns it to the Corrections field.
 func (o *SynonymHit) SetCorrections(v []string) *SynonymHit {
 	o.Corrections = v
+
 	return o
 }
 
@@ -268,8 +292,10 @@ func (o *SynonymHit) SetCorrections(v []string) *SynonymHit {
 func (o *SynonymHit) GetPlaceholder() string {
 	if o == nil || o.Placeholder == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Placeholder
 }
 
@@ -279,6 +305,7 @@ func (o *SynonymHit) GetPlaceholderOk() (*string, bool) {
 	if o == nil || o.Placeholder == nil {
 		return nil, false
 	}
+
 	return o.Placeholder, true
 }
 
@@ -294,6 +321,7 @@ func (o *SynonymHit) HasPlaceholder() bool {
 // SetPlaceholder gets a reference to the given string and assigns it to the Placeholder field.
 func (o *SynonymHit) SetPlaceholder(v string) *SynonymHit {
 	o.Placeholder = &v
+
 	return o
 }
 
@@ -301,8 +329,10 @@ func (o *SynonymHit) SetPlaceholder(v string) *SynonymHit {
 func (o *SynonymHit) GetReplacements() []string {
 	if o == nil || o.Replacements == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replacements
 }
 
@@ -312,6 +342,7 @@ func (o *SynonymHit) GetReplacementsOk() ([]string, bool) {
 	if o == nil || o.Replacements == nil {
 		return nil, false
 	}
+
 	return o.Replacements, true
 }
 
@@ -327,31 +358,39 @@ func (o *SynonymHit) HasReplacements() bool {
 // SetReplacements gets a reference to the given []string and assigns it to the Replacements field.
 func (o *SynonymHit) SetReplacements(v []string) *SynonymHit {
 	o.Replacements = v
+
 	return o
 }
 
 func (o SynonymHit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	toSerialize["type"] = o.Type
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Word != nil {
 		toSerialize["word"] = o.Word
 	}
+
 	if o.Corrections != nil {
 		toSerialize["corrections"] = o.Corrections
 	}
+
 	if o.Placeholder != nil {
 		toSerialize["placeholder"] = o.Placeholder
 	}
+
 	if o.Replacements != nil {
 		toSerialize["replacements"] = o.Replacements
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SynonymHit: %w", err)
@@ -370,5 +409,6 @@ func (o SynonymHit) String() string {
 	out += fmt.Sprintf("  corrections=%v\n", o.Corrections)
 	out += fmt.Sprintf("  placeholder=%v\n", o.Placeholder)
 	out += fmt.Sprintf("  replacements=%v\n", o.Replacements)
+
 	return fmt.Sprintf("SynonymHit {\n%s}", out)
 }

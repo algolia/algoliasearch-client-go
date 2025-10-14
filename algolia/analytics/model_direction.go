@@ -21,24 +21,7 @@ var AllowedDirectionEnumValues = []Direction{
 	"desc",
 }
 
-func (v *Direction) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Direction': %w", string(src), err)
-	}
-	enumTypeValue := Direction(value)
-	for _, existing := range AllowedDirectionEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Direction", value)
-}
-
-// NewDirectionFromValue returns a pointer to a valid Direction
+// NewDirectionFromValue returns a pointer to a valid Direction.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewDirectionFromValue(v string) (*Direction, error) {
 	ev := Direction(v)
@@ -49,6 +32,26 @@ func NewDirectionFromValue(v string) (*Direction, error) {
 	}
 }
 
+func (v *Direction) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Direction': %w", string(src), err)
+	}
+
+	enumTypeValue := Direction(value)
+	for _, existing := range AllowedDirectionEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Direction", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Direction) IsValid() bool {
 	for _, existing := range AllowedDirectionEnumValues {
@@ -56,6 +59,7 @@ func (v Direction) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

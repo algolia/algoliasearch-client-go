@@ -45,6 +45,7 @@ func NewCommercetoolsCustomFields(opts ...CommercetoolsCustomFieldsOption) *Comm
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyCommercetoolsCustomFields() *CommercetoolsCustomFields {
 func (o *CommercetoolsCustomFields) GetInventory() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Inventory
 }
 
@@ -69,6 +72,7 @@ func (o *CommercetoolsCustomFields) GetInventoryOk() ([]string, bool) {
 	if o == nil || o.Inventory == nil {
 		return nil, false
 	}
+
 	return o.Inventory, true
 }
 
@@ -84,6 +88,7 @@ func (o *CommercetoolsCustomFields) HasInventory() bool {
 // SetInventory gets a reference to the given []string and assigns it to the Inventory field.
 func (o *CommercetoolsCustomFields) SetInventory(v []string) *CommercetoolsCustomFields {
 	o.Inventory = v
+
 	return o
 }
 
@@ -91,8 +96,10 @@ func (o *CommercetoolsCustomFields) SetInventory(v []string) *CommercetoolsCusto
 func (o *CommercetoolsCustomFields) GetPrice() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Price
 }
 
@@ -103,6 +110,7 @@ func (o *CommercetoolsCustomFields) GetPriceOk() ([]string, bool) {
 	if o == nil || o.Price == nil {
 		return nil, false
 	}
+
 	return o.Price, true
 }
 
@@ -118,6 +126,7 @@ func (o *CommercetoolsCustomFields) HasPrice() bool {
 // SetPrice gets a reference to the given []string and assigns it to the Price field.
 func (o *CommercetoolsCustomFields) SetPrice(v []string) *CommercetoolsCustomFields {
 	o.Price = v
+
 	return o
 }
 
@@ -125,8 +134,10 @@ func (o *CommercetoolsCustomFields) SetPrice(v []string) *CommercetoolsCustomFie
 func (o *CommercetoolsCustomFields) GetCategory() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Category
 }
 
@@ -137,6 +148,7 @@ func (o *CommercetoolsCustomFields) GetCategoryOk() ([]string, bool) {
 	if o == nil || o.Category == nil {
 		return nil, false
 	}
+
 	return o.Category, true
 }
 
@@ -152,6 +164,7 @@ func (o *CommercetoolsCustomFields) HasCategory() bool {
 // SetCategory gets a reference to the given []string and assigns it to the Category field.
 func (o *CommercetoolsCustomFields) SetCategory(v []string) *CommercetoolsCustomFields {
 	o.Category = v
+
 	return o
 }
 
@@ -160,12 +173,15 @@ func (o CommercetoolsCustomFields) MarshalJSON() ([]byte, error) {
 	if o.Inventory != nil {
 		toSerialize["inventory"] = o.Inventory
 	}
+
 	if o.Price != nil {
 		toSerialize["price"] = o.Price
 	}
+
 	if o.Category != nil {
 		toSerialize["category"] = o.Category
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CommercetoolsCustomFields: %w", err)
@@ -179,5 +195,6 @@ func (o CommercetoolsCustomFields) String() string {
 	out += fmt.Sprintf("  inventory=%v\n", o.Inventory)
 	out += fmt.Sprintf("  price=%v\n", o.Price)
 	out += fmt.Sprintf("  category=%v\n", o.Category)
+
 	return fmt.Sprintf("CommercetoolsCustomFields {\n%s}", out)
 }

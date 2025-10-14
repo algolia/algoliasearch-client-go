@@ -28,6 +28,7 @@ func NewRedirect(opts ...RedirectOption) *Redirect {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyRedirect() *Redirect {
 func (o *Redirect) GetIndex() []RedirectRuleIndexMetadata {
 	if o == nil || o.Index == nil {
 		var ret []RedirectRuleIndexMetadata
+
 		return ret
 	}
+
 	return o.Index
 }
 
@@ -51,6 +54,7 @@ func (o *Redirect) GetIndexOk() ([]RedirectRuleIndexMetadata, bool) {
 	if o == nil || o.Index == nil {
 		return nil, false
 	}
+
 	return o.Index, true
 }
 
@@ -66,6 +70,7 @@ func (o *Redirect) HasIndex() bool {
 // SetIndex gets a reference to the given []RedirectRuleIndexMetadata and assigns it to the Index field.
 func (o *Redirect) SetIndex(v []RedirectRuleIndexMetadata) *Redirect {
 	o.Index = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o Redirect) MarshalJSON() ([]byte, error) {
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Redirect: %w", err)
@@ -85,5 +91,6 @@ func (o Redirect) MarshalJSON() ([]byte, error) {
 func (o Redirect) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
+
 	return fmt.Sprintf("Redirect {\n%s}", out)
 }

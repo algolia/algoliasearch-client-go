@@ -22,6 +22,7 @@ func NewAuthBasic(username string, password string) *AuthBasic {
 	this := &AuthBasic{}
 	this.Username = username
 	this.Password = password
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyAuthBasic() *AuthBasic {
 func (o *AuthBasic) GetUsername() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *AuthBasic) GetUsernameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Username, true
 }
 
 // SetUsername sets field value.
 func (o *AuthBasic) SetUsername(v string) *AuthBasic {
 	o.Username = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *AuthBasic) SetUsername(v string) *AuthBasic {
 func (o *AuthBasic) GetPassword() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *AuthBasic) GetPasswordOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Password, true
 }
 
 // SetPassword sets field value.
 func (o *AuthBasic) SetPassword(v string) *AuthBasic {
 	o.Password = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o AuthBasic) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["username"] = o.Username
 	toSerialize["password"] = o.Password
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthBasic: %w", err)
@@ -96,5 +104,6 @@ func (o AuthBasic) String() string {
 	out := ""
 	out += fmt.Sprintf("  username=%v\n", o.Username)
 	out += fmt.Sprintf("  password=%v\n", o.Password)
+
 	return fmt.Sprintf("AuthBasic {\n%s}", out)
 }

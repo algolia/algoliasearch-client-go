@@ -31,24 +31,7 @@ var AllowedAuthenticationTypeEnumValues = []AuthenticationType{
 	"secrets",
 }
 
-func (v *AuthenticationType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AuthenticationType': %w", string(src), err)
-	}
-	enumTypeValue := AuthenticationType(value)
-	for _, existing := range AllowedAuthenticationTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AuthenticationType", value)
-}
-
-// NewAuthenticationTypeFromValue returns a pointer to a valid AuthenticationType
+// NewAuthenticationTypeFromValue returns a pointer to a valid AuthenticationType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAuthenticationTypeFromValue(v string) (*AuthenticationType, error) {
 	ev := AuthenticationType(v)
@@ -59,6 +42,26 @@ func NewAuthenticationTypeFromValue(v string) (*AuthenticationType, error) {
 	}
 }
 
+func (v *AuthenticationType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AuthenticationType': %w", string(src), err)
+	}
+
+	enumTypeValue := AuthenticationType(value)
+	for _, existing := range AllowedAuthenticationTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid AuthenticationType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v AuthenticationType) IsValid() bool {
 	for _, existing := range AllowedAuthenticationTypeEnumValues {
@@ -66,6 +69,7 @@ func (v AuthenticationType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

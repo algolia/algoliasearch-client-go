@@ -49,6 +49,7 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "cron") {
 		// try to unmarshal data into ScheduleTriggerInput
@@ -81,7 +82,7 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 		dst.StreamingTrigger = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(TaskCreateTrigger)")
+	return fmt.Errorf("data failed to match schemas in oneOf(TaskCreateTrigger)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

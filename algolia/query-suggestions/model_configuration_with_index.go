@@ -53,10 +53,12 @@ func WithConfigurationWithIndexAllowSpecialCharacters(val bool) ConfigurationWit
 func NewConfigurationWithIndex(sourceIndices []SourceIndex, indexName string, opts ...ConfigurationWithIndexOption) *ConfigurationWithIndex {
 	this := &ConfigurationWithIndex{}
 	this.SourceIndices = sourceIndices
+
 	this.IndexName = indexName
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -69,6 +71,7 @@ func NewEmptyConfigurationWithIndex() *ConfigurationWithIndex {
 func (o *ConfigurationWithIndex) GetSourceIndices() []SourceIndex {
 	if o == nil {
 		var ret []SourceIndex
+
 		return ret
 	}
 
@@ -81,12 +84,14 @@ func (o *ConfigurationWithIndex) GetSourceIndicesOk() ([]SourceIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.SourceIndices, true
 }
 
 // SetSourceIndices sets field value.
 func (o *ConfigurationWithIndex) SetSourceIndices(v []SourceIndex) *ConfigurationWithIndex {
 	o.SourceIndices = v
+
 	return o
 }
 
@@ -94,8 +99,10 @@ func (o *ConfigurationWithIndex) SetSourceIndices(v []SourceIndex) *Configuratio
 func (o *ConfigurationWithIndex) GetLanguages() Languages {
 	if o == nil || o.Languages == nil {
 		var ret Languages
+
 		return ret
 	}
+
 	return *o.Languages
 }
 
@@ -105,6 +112,7 @@ func (o *ConfigurationWithIndex) GetLanguagesOk() (*Languages, bool) {
 	if o == nil || o.Languages == nil {
 		return nil, false
 	}
+
 	return o.Languages, true
 }
 
@@ -120,6 +128,7 @@ func (o *ConfigurationWithIndex) HasLanguages() bool {
 // SetLanguages gets a reference to the given Languages and assigns it to the Languages field.
 func (o *ConfigurationWithIndex) SetLanguages(v *Languages) *ConfigurationWithIndex {
 	o.Languages = v
+
 	return o
 }
 
@@ -127,8 +136,10 @@ func (o *ConfigurationWithIndex) SetLanguages(v *Languages) *ConfigurationWithIn
 func (o *ConfigurationWithIndex) GetExclude() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Exclude
 }
 
@@ -139,6 +150,7 @@ func (o *ConfigurationWithIndex) GetExcludeOk() ([]string, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
+
 	return o.Exclude, true
 }
 
@@ -154,6 +166,7 @@ func (o *ConfigurationWithIndex) HasExclude() bool {
 // SetExclude gets a reference to the given []string and assigns it to the Exclude field.
 func (o *ConfigurationWithIndex) SetExclude(v []string) *ConfigurationWithIndex {
 	o.Exclude = v
+
 	return o
 }
 
@@ -161,8 +174,10 @@ func (o *ConfigurationWithIndex) SetExclude(v []string) *ConfigurationWithIndex 
 func (o *ConfigurationWithIndex) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -172,6 +187,7 @@ func (o *ConfigurationWithIndex) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -187,6 +203,7 @@ func (o *ConfigurationWithIndex) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *ConfigurationWithIndex) SetEnablePersonalization(v bool) *ConfigurationWithIndex {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -194,8 +211,10 @@ func (o *ConfigurationWithIndex) SetEnablePersonalization(v bool) *Configuration
 func (o *ConfigurationWithIndex) GetAllowSpecialCharacters() bool {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowSpecialCharacters
 }
 
@@ -205,6 +224,7 @@ func (o *ConfigurationWithIndex) GetAllowSpecialCharactersOk() (*bool, bool) {
 	if o == nil || o.AllowSpecialCharacters == nil {
 		return nil, false
 	}
+
 	return o.AllowSpecialCharacters, true
 }
 
@@ -220,6 +240,7 @@ func (o *ConfigurationWithIndex) HasAllowSpecialCharacters() bool {
 // SetAllowSpecialCharacters gets a reference to the given bool and assigns it to the AllowSpecialCharacters field.
 func (o *ConfigurationWithIndex) SetAllowSpecialCharacters(v bool) *ConfigurationWithIndex {
 	o.AllowSpecialCharacters = &v
+
 	return o
 }
 
@@ -227,6 +248,7 @@ func (o *ConfigurationWithIndex) SetAllowSpecialCharacters(v bool) *Configuratio
 func (o *ConfigurationWithIndex) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -239,31 +261,39 @@ func (o *ConfigurationWithIndex) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *ConfigurationWithIndex) SetIndexName(v string) *ConfigurationWithIndex {
 	o.IndexName = v
+
 	return o
 }
 
 func (o ConfigurationWithIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["sourceIndices"] = o.SourceIndices
 	if o.Languages != nil {
 		toSerialize["languages"] = o.Languages
 	}
+
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.AllowSpecialCharacters != nil {
 		toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
 	}
+
 	toSerialize["indexName"] = o.IndexName
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConfigurationWithIndex: %w", err)
@@ -280,5 +310,6 @@ func (o ConfigurationWithIndex) String() string {
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
+
 	return fmt.Sprintf("ConfigurationWithIndex {\n%s}", out)
 }

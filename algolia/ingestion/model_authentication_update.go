@@ -52,6 +52,7 @@ func NewAuthenticationUpdate(opts ...AuthenticationUpdateOption) *Authentication
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -64,8 +65,10 @@ func NewEmptyAuthenticationUpdate() *AuthenticationUpdate {
 func (o *AuthenticationUpdate) GetType() AuthenticationType {
 	if o == nil || o.Type == nil {
 		var ret AuthenticationType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -75,6 +78,7 @@ func (o *AuthenticationUpdate) GetTypeOk() (*AuthenticationType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -90,6 +94,7 @@ func (o *AuthenticationUpdate) HasType() bool {
 // SetType gets a reference to the given AuthenticationType and assigns it to the Type field.
 func (o *AuthenticationUpdate) SetType(v AuthenticationType) *AuthenticationUpdate {
 	o.Type = &v
+
 	return o
 }
 
@@ -97,8 +102,10 @@ func (o *AuthenticationUpdate) SetType(v AuthenticationType) *AuthenticationUpda
 func (o *AuthenticationUpdate) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Name
 }
 
@@ -108,6 +115,7 @@ func (o *AuthenticationUpdate) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
+
 	return o.Name, true
 }
 
@@ -123,6 +131,7 @@ func (o *AuthenticationUpdate) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *AuthenticationUpdate) SetName(v string) *AuthenticationUpdate {
 	o.Name = &v
+
 	return o
 }
 
@@ -130,8 +139,10 @@ func (o *AuthenticationUpdate) SetName(v string) *AuthenticationUpdate {
 func (o *AuthenticationUpdate) GetPlatform() Platform {
 	if o == nil || o.Platform.Get() == nil {
 		var ret Platform
+
 		return ret
 	}
+
 	return *o.Platform.Get()
 }
 
@@ -142,6 +153,7 @@ func (o *AuthenticationUpdate) GetPlatformOk() (*Platform, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Platform.Get(), o.Platform.IsSet()
 }
 
@@ -157,6 +169,7 @@ func (o *AuthenticationUpdate) HasPlatform() bool {
 // SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
 func (o *AuthenticationUpdate) SetPlatform(v Platform) *AuthenticationUpdate {
 	o.Platform.Set(&v)
+
 	return o
 }
 
@@ -174,8 +187,10 @@ func (o *AuthenticationUpdate) UnsetPlatform() {
 func (o *AuthenticationUpdate) GetInput() AuthInputPartial {
 	if o == nil || o.Input == nil {
 		var ret AuthInputPartial
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -185,6 +200,7 @@ func (o *AuthenticationUpdate) GetInputOk() (*AuthInputPartial, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -200,6 +216,7 @@ func (o *AuthenticationUpdate) HasInput() bool {
 // SetInput gets a reference to the given AuthInputPartial and assigns it to the Input field.
 func (o *AuthenticationUpdate) SetInput(v *AuthInputPartial) *AuthenticationUpdate {
 	o.Input = v
+
 	return o
 }
 
@@ -208,15 +225,19 @@ func (o AuthenticationUpdate) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
+
 	if o.Platform.IsSet() {
 		toSerialize["platform"] = o.Platform.Get()
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationUpdate: %w", err)
@@ -231,5 +252,6 @@ func (o AuthenticationUpdate) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  platform=%v\n", o.Platform)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
+
 	return fmt.Sprintf("AuthenticationUpdate {\n%s}", out)
 }

@@ -55,10 +55,12 @@ func NewSource(sourceID string, type_ SourceType, name string, createdAt string,
 	this.Type = type_
 	this.Name = name
 	this.CreatedAt = createdAt
+
 	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -71,6 +73,7 @@ func NewEmptySource() *Source {
 func (o *Source) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -83,12 +86,14 @@ func (o *Source) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *Source) SetSourceID(v string) *Source {
 	o.SourceID = v
+
 	return o
 }
 
@@ -96,6 +101,7 @@ func (o *Source) SetSourceID(v string) *Source {
 func (o *Source) GetType() SourceType {
 	if o == nil {
 		var ret SourceType
+
 		return ret
 	}
 
@@ -108,12 +114,14 @@ func (o *Source) GetTypeOk() (*SourceType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *Source) SetType(v SourceType) *Source {
 	o.Type = v
+
 	return o
 }
 
@@ -121,6 +129,7 @@ func (o *Source) SetType(v SourceType) *Source {
 func (o *Source) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -133,12 +142,14 @@ func (o *Source) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *Source) SetName(v string) *Source {
 	o.Name = v
+
 	return o
 }
 
@@ -146,8 +157,10 @@ func (o *Source) SetName(v string) *Source {
 func (o *Source) GetOwner() string {
 	if o == nil || o.Owner.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Owner.Get()
 }
 
@@ -158,6 +171,7 @@ func (o *Source) GetOwnerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Owner.Get(), o.Owner.IsSet()
 }
 
@@ -173,6 +187,7 @@ func (o *Source) HasOwner() bool {
 // SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
 func (o *Source) SetOwner(v string) *Source {
 	o.Owner.Set(&v)
+
 	return o
 }
 
@@ -190,8 +205,10 @@ func (o *Source) UnsetOwner() {
 func (o *Source) GetInput() SourceInput {
 	if o == nil || o.Input == nil {
 		var ret SourceInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -201,6 +218,7 @@ func (o *Source) GetInputOk() (*SourceInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -216,6 +234,7 @@ func (o *Source) HasInput() bool {
 // SetInput gets a reference to the given SourceInput and assigns it to the Input field.
 func (o *Source) SetInput(v *SourceInput) *Source {
 	o.Input = v
+
 	return o
 }
 
@@ -223,8 +242,10 @@ func (o *Source) SetInput(v *SourceInput) *Source {
 func (o *Source) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -234,6 +255,7 @@ func (o *Source) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -249,6 +271,7 @@ func (o *Source) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *Source) SetAuthenticationID(v string) *Source {
 	o.AuthenticationID = &v
+
 	return o
 }
 
@@ -256,6 +279,7 @@ func (o *Source) SetAuthenticationID(v string) *Source {
 func (o *Source) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -268,12 +292,14 @@ func (o *Source) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *Source) SetCreatedAt(v string) *Source {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -281,6 +307,7 @@ func (o *Source) SetCreatedAt(v string) *Source {
 func (o *Source) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -293,12 +320,14 @@ func (o *Source) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *Source) SetUpdatedAt(v string) *Source {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -306,18 +335,23 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["type"] = o.Type
+
 	toSerialize["name"] = o.Name
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Source: %w", err)
@@ -336,5 +370,6 @@ func (o Source) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("Source {\n%s}", out)
 }

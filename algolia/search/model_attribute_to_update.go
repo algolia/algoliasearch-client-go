@@ -44,7 +44,7 @@ func (dst *AttributeToUpdate) UnmarshalJSON(data []byte) error {
 		dst.BuiltInOperation = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(AttributeToUpdate)")
+	return fmt.Errorf("data failed to match schemas in oneOf(AttributeToUpdate)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

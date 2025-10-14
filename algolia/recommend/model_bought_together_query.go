@@ -38,15 +38,23 @@ func WithBoughtTogetherQueryQueryParameters(val RecommendSearchParams) BoughtTog
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewBoughtTogetherQuery(indexName string, threshold float64, model FbtModel, objectID string, opts ...BoughtTogetherQueryOption) *BoughtTogetherQuery {
+func NewBoughtTogetherQuery(
+	indexName string,
+	threshold float64,
+	model FbtModel,
+	objectID string,
+	opts ...BoughtTogetherQueryOption,
+) *BoughtTogetherQuery {
 	this := &BoughtTogetherQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
 	this.Model = model
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -59,6 +67,7 @@ func NewEmptyBoughtTogetherQuery() *BoughtTogetherQuery {
 func (o *BoughtTogetherQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +80,14 @@ func (o *BoughtTogetherQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *BoughtTogetherQuery) SetIndexName(v string) *BoughtTogetherQuery {
 	o.IndexName = v
+
 	return o
 }
 
@@ -84,6 +95,7 @@ func (o *BoughtTogetherQuery) SetIndexName(v string) *BoughtTogetherQuery {
 func (o *BoughtTogetherQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -96,12 +108,14 @@ func (o *BoughtTogetherQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Threshold, true
 }
 
 // SetThreshold sets field value.
 func (o *BoughtTogetherQuery) SetThreshold(v float64) *BoughtTogetherQuery {
 	o.Threshold = v
+
 	return o
 }
 
@@ -109,8 +123,10 @@ func (o *BoughtTogetherQuery) SetThreshold(v float64) *BoughtTogetherQuery {
 func (o *BoughtTogetherQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxRecommendations
 }
 
@@ -120,6 +136,7 @@ func (o *BoughtTogetherQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
+
 	return o.MaxRecommendations, true
 }
 
@@ -135,6 +152,7 @@ func (o *BoughtTogetherQuery) HasMaxRecommendations() bool {
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
 func (o *BoughtTogetherQuery) SetMaxRecommendations(v int32) *BoughtTogetherQuery {
 	o.MaxRecommendations = &v
+
 	return o
 }
 
@@ -142,8 +160,10 @@ func (o *BoughtTogetherQuery) SetMaxRecommendations(v int32) *BoughtTogetherQuer
 func (o *BoughtTogetherQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret RecommendSearchParams
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -153,6 +173,7 @@ func (o *BoughtTogetherQuery) GetQueryParametersOk() (*RecommendSearchParams, bo
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -168,6 +189,7 @@ func (o *BoughtTogetherQuery) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
 func (o *BoughtTogetherQuery) SetQueryParameters(v *RecommendSearchParams) *BoughtTogetherQuery {
 	o.QueryParameters = v
+
 	return o
 }
 
@@ -175,6 +197,7 @@ func (o *BoughtTogetherQuery) SetQueryParameters(v *RecommendSearchParams) *Boug
 func (o *BoughtTogetherQuery) GetModel() FbtModel {
 	if o == nil {
 		var ret FbtModel
+
 		return ret
 	}
 
@@ -187,12 +210,14 @@ func (o *BoughtTogetherQuery) GetModelOk() (*FbtModel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Model, true
 }
 
 // SetModel sets field value.
 func (o *BoughtTogetherQuery) SetModel(v FbtModel) *BoughtTogetherQuery {
 	o.Model = v
+
 	return o
 }
 
@@ -200,6 +225,7 @@ func (o *BoughtTogetherQuery) SetModel(v FbtModel) *BoughtTogetherQuery {
 func (o *BoughtTogetherQuery) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -212,27 +238,33 @@ func (o *BoughtTogetherQuery) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *BoughtTogetherQuery) SetObjectID(v string) *BoughtTogetherQuery {
 	o.ObjectID = v
+
 	return o
 }
 
 func (o BoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
+
 	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	toSerialize["model"] = o.Model
 	toSerialize["objectID"] = o.ObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BoughtTogetherQuery: %w", err)
@@ -249,5 +281,6 @@ func (o BoughtTogetherQuery) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("BoughtTogetherQuery {\n%s}", out)
 }

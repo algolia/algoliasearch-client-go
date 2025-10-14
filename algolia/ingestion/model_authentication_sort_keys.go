@@ -27,24 +27,7 @@ var AllowedAuthenticationSortKeysEnumValues = []AuthenticationSortKeys{
 	"createdAt",
 }
 
-func (v *AuthenticationSortKeys) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AuthenticationSortKeys': %w", string(src), err)
-	}
-	enumTypeValue := AuthenticationSortKeys(value)
-	for _, existing := range AllowedAuthenticationSortKeysEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AuthenticationSortKeys", value)
-}
-
-// NewAuthenticationSortKeysFromValue returns a pointer to a valid AuthenticationSortKeys
+// NewAuthenticationSortKeysFromValue returns a pointer to a valid AuthenticationSortKeys.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAuthenticationSortKeysFromValue(v string) (*AuthenticationSortKeys, error) {
 	ev := AuthenticationSortKeys(v)
@@ -55,6 +38,26 @@ func NewAuthenticationSortKeysFromValue(v string) (*AuthenticationSortKeys, erro
 	}
 }
 
+func (v *AuthenticationSortKeys) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AuthenticationSortKeys': %w", string(src), err)
+	}
+
+	enumTypeValue := AuthenticationSortKeys(value)
+	for _, existing := range AllowedAuthenticationSortKeysEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid AuthenticationSortKeys", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v AuthenticationSortKeys) IsValid() bool {
 	for _, existing := range AllowedAuthenticationSortKeysEnumValues {
@@ -62,6 +65,7 @@ func (v AuthenticationSortKeys) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

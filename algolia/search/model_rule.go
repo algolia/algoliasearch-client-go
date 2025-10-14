@@ -54,10 +54,12 @@ func WithRuleValidity(val []TimeRange) RuleOption {
 func NewRule(objectID string, consequence Consequence, opts ...RuleOption) *Rule {
 	this := &Rule{}
 	this.ObjectID = objectID
+
 	this.Consequence = consequence
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -70,6 +72,7 @@ func NewEmptyRule() *Rule {
 func (o *Rule) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -82,12 +85,14 @@ func (o *Rule) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *Rule) SetObjectID(v string) *Rule {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -95,8 +100,10 @@ func (o *Rule) SetObjectID(v string) *Rule {
 func (o *Rule) GetConditions() []Condition {
 	if o == nil || o.Conditions == nil {
 		var ret []Condition
+
 		return ret
 	}
+
 	return o.Conditions
 }
 
@@ -106,6 +113,7 @@ func (o *Rule) GetConditionsOk() ([]Condition, bool) {
 	if o == nil || o.Conditions == nil {
 		return nil, false
 	}
+
 	return o.Conditions, true
 }
 
@@ -121,6 +129,7 @@ func (o *Rule) HasConditions() bool {
 // SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
 func (o *Rule) SetConditions(v []Condition) *Rule {
 	o.Conditions = v
+
 	return o
 }
 
@@ -128,6 +137,7 @@ func (o *Rule) SetConditions(v []Condition) *Rule {
 func (o *Rule) GetConsequence() Consequence {
 	if o == nil {
 		var ret Consequence
+
 		return ret
 	}
 
@@ -140,12 +150,14 @@ func (o *Rule) GetConsequenceOk() (*Consequence, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Consequence, true
 }
 
 // SetConsequence sets field value.
 func (o *Rule) SetConsequence(v *Consequence) *Rule {
 	o.Consequence = *v
+
 	return o
 }
 
@@ -153,8 +165,10 @@ func (o *Rule) SetConsequence(v *Consequence) *Rule {
 func (o *Rule) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -164,6 +178,7 @@ func (o *Rule) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -179,6 +194,7 @@ func (o *Rule) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Rule) SetDescription(v string) *Rule {
 	o.Description = &v
+
 	return o
 }
 
@@ -186,8 +202,10 @@ func (o *Rule) SetDescription(v string) *Rule {
 func (o *Rule) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -197,6 +215,7 @@ func (o *Rule) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -212,6 +231,7 @@ func (o *Rule) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *Rule) SetEnabled(v bool) *Rule {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -219,8 +239,10 @@ func (o *Rule) SetEnabled(v bool) *Rule {
 func (o *Rule) GetValidity() []TimeRange {
 	if o == nil || o.Validity == nil {
 		var ret []TimeRange
+
 		return ret
 	}
+
 	return o.Validity
 }
 
@@ -230,6 +252,7 @@ func (o *Rule) GetValidityOk() ([]TimeRange, bool) {
 	if o == nil || o.Validity == nil {
 		return nil, false
 	}
+
 	return o.Validity, true
 }
 
@@ -245,25 +268,31 @@ func (o *Rule) HasValidity() bool {
 // SetValidity gets a reference to the given []TimeRange and assigns it to the Validity field.
 func (o *Rule) SetValidity(v []TimeRange) *Rule {
 	o.Validity = v
+
 	return o
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.Conditions != nil {
 		toSerialize["conditions"] = o.Conditions
 	}
+
 	toSerialize["consequence"] = o.Consequence
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.Validity != nil {
 		toSerialize["validity"] = o.Validity
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Rule: %w", err)
@@ -280,5 +309,6 @@ func (o Rule) String() string {
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
+
 	return fmt.Sprintf("Rule {\n%s}", out)
 }

@@ -23,24 +23,7 @@ var AllowedRecordTypeEnumValues = []RecordType{
 	"collection",
 }
 
-func (v *RecordType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RecordType': %w", string(src), err)
-	}
-	enumTypeValue := RecordType(value)
-	for _, existing := range AllowedRecordTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid RecordType", value)
-}
-
-// NewRecordTypeFromValue returns a pointer to a valid RecordType
+// NewRecordTypeFromValue returns a pointer to a valid RecordType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRecordTypeFromValue(v string) (*RecordType, error) {
 	ev := RecordType(v)
@@ -51,6 +34,26 @@ func NewRecordTypeFromValue(v string) (*RecordType, error) {
 	}
 }
 
+func (v *RecordType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'RecordType': %w", string(src), err)
+	}
+
+	enumTypeValue := RecordType(value)
+	for _, existing := range AllowedRecordTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid RecordType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v RecordType) IsValid() bool {
 	for _, existing := range AllowedRecordTypeEnumValues {
@@ -58,6 +61,7 @@ func (v RecordType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

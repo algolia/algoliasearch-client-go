@@ -25,6 +25,7 @@ func NewDailySearchesNoResults(search string, count int32, withFilterCount int32
 	this.Search = search
 	this.Count = count
 	this.WithFilterCount = withFilterCount
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyDailySearchesNoResults() *DailySearchesNoResults {
 func (o *DailySearchesNoResults) GetSearch() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *DailySearchesNoResults) GetSearchOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *DailySearchesNoResults) SetSearch(v string) *DailySearchesNoResults {
 	o.Search = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *DailySearchesNoResults) SetSearch(v string) *DailySearchesNoResults {
 func (o *DailySearchesNoResults) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *DailySearchesNoResults) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *DailySearchesNoResults) SetCount(v int32) *DailySearchesNoResults {
 	o.Count = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *DailySearchesNoResults) SetCount(v int32) *DailySearchesNoResults {
 func (o *DailySearchesNoResults) GetWithFilterCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *DailySearchesNoResults) GetWithFilterCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.WithFilterCount, true
 }
 
 // SetWithFilterCount sets field value.
 func (o *DailySearchesNoResults) SetWithFilterCount(v int32) *DailySearchesNoResults {
 	o.WithFilterCount = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o DailySearchesNoResults) MarshalJSON() ([]byte, error) {
 	toSerialize["search"] = o.Search
 	toSerialize["count"] = o.Count
 	toSerialize["withFilterCount"] = o.WithFilterCount
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearchesNoResults: %w", err)
@@ -126,5 +137,6 @@ func (o DailySearchesNoResults) String() string {
 	out += fmt.Sprintf("  search=%v\n", o.Search)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  withFilterCount=%v\n", o.WithFilterCount)
+
 	return fmt.Sprintf("DailySearchesNoResults {\n%s}", out)
 }

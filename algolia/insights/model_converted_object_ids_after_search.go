@@ -43,17 +43,27 @@ func WithConvertedObjectIDsAfterSearchTimestamp(val int64) ConvertedObjectIDsAft
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewConvertedObjectIDsAfterSearch(eventName string, eventType ConversionEvent, index string, objectIDs []string, queryID string, userToken string, opts ...ConvertedObjectIDsAfterSearchOption) *ConvertedObjectIDsAfterSearch {
+func NewConvertedObjectIDsAfterSearch(
+	eventName string,
+	eventType ConversionEvent,
+	index string,
+	objectIDs []string,
+	queryID string,
+	userToken string,
+	opts ...ConvertedObjectIDsAfterSearchOption,
+) *ConvertedObjectIDsAfterSearch {
 	this := &ConvertedObjectIDsAfterSearch{}
 	this.EventName = eventName
 	this.EventType = eventType
 	this.Index = index
 	this.ObjectIDs = objectIDs
 	this.QueryID = queryID
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -66,6 +76,7 @@ func NewEmptyConvertedObjectIDsAfterSearch() *ConvertedObjectIDsAfterSearch {
 func (o *ConvertedObjectIDsAfterSearch) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -78,12 +89,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetEventName(v string) *ConvertedObjectIDsAfterSearch {
 	o.EventName = v
+
 	return o
 }
 
@@ -91,6 +104,7 @@ func (o *ConvertedObjectIDsAfterSearch) SetEventName(v string) *ConvertedObjectI
 func (o *ConvertedObjectIDsAfterSearch) GetEventType() ConversionEvent {
 	if o == nil {
 		var ret ConversionEvent
+
 		return ret
 	}
 
@@ -103,12 +117,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetEventTypeOk() (*ConversionEvent, bool
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetEventType(v ConversionEvent) *ConvertedObjectIDsAfterSearch {
 	o.EventType = v
+
 	return o
 }
 
@@ -116,6 +132,7 @@ func (o *ConvertedObjectIDsAfterSearch) SetEventType(v ConversionEvent) *Convert
 func (o *ConvertedObjectIDsAfterSearch) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -128,12 +145,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetIndex(v string) *ConvertedObjectIDsAfterSearch {
 	o.Index = v
+
 	return o
 }
 
@@ -141,6 +160,7 @@ func (o *ConvertedObjectIDsAfterSearch) SetIndex(v string) *ConvertedObjectIDsAf
 func (o *ConvertedObjectIDsAfterSearch) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -153,12 +173,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetObjectIDs(v []string) *ConvertedObjectIDsAfterSearch {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -166,6 +188,7 @@ func (o *ConvertedObjectIDsAfterSearch) SetObjectIDs(v []string) *ConvertedObjec
 func (o *ConvertedObjectIDsAfterSearch) GetQueryID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -178,12 +201,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetQueryIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.QueryID, true
 }
 
 // SetQueryID sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetQueryID(v string) *ConvertedObjectIDsAfterSearch {
 	o.QueryID = v
+
 	return o
 }
 
@@ -191,6 +216,7 @@ func (o *ConvertedObjectIDsAfterSearch) SetQueryID(v string) *ConvertedObjectIDs
 func (o *ConvertedObjectIDsAfterSearch) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -203,12 +229,14 @@ func (o *ConvertedObjectIDsAfterSearch) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *ConvertedObjectIDsAfterSearch) SetUserToken(v string) *ConvertedObjectIDsAfterSearch {
 	o.UserToken = v
+
 	return o
 }
 
@@ -216,8 +244,10 @@ func (o *ConvertedObjectIDsAfterSearch) SetUserToken(v string) *ConvertedObjectI
 func (o *ConvertedObjectIDsAfterSearch) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -227,6 +257,7 @@ func (o *ConvertedObjectIDsAfterSearch) GetAuthenticatedUserTokenOk() (*string, 
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -242,6 +273,7 @@ func (o *ConvertedObjectIDsAfterSearch) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *ConvertedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *ConvertedObjectIDsAfterSearch {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -249,8 +281,10 @@ func (o *ConvertedObjectIDsAfterSearch) SetAuthenticatedUserToken(v string) *Con
 func (o *ConvertedObjectIDsAfterSearch) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -260,6 +294,7 @@ func (o *ConvertedObjectIDsAfterSearch) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -275,6 +310,7 @@ func (o *ConvertedObjectIDsAfterSearch) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *ConvertedObjectIDsAfterSearch) SetTimestamp(v int64) *ConvertedObjectIDsAfterSearch {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -285,13 +321,16 @@ func (o ConvertedObjectIDsAfterSearch) MarshalJSON() ([]byte, error) {
 	toSerialize["index"] = o.Index
 	toSerialize["objectIDs"] = o.ObjectIDs
 	toSerialize["queryID"] = o.QueryID
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConvertedObjectIDsAfterSearch: %w", err)
@@ -310,5 +349,6 @@ func (o ConvertedObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  authenticatedUserToken=%v\n", o.AuthenticatedUserToken)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
+
 	return fmt.Sprintf("ConvertedObjectIDsAfterSearch {\n%s}", out)
 }

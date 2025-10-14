@@ -19,6 +19,7 @@ type InsightsEvents struct {
 func NewInsightsEvents(events []EventsItems) *InsightsEvents {
 	this := &InsightsEvents{}
 	this.Events = events
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyInsightsEvents() *InsightsEvents {
 func (o *InsightsEvents) GetEvents() []EventsItems {
 	if o == nil {
 		var ret []EventsItems
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *InsightsEvents) GetEventsOk() ([]EventsItems, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Events, true
 }
 
 // SetEvents sets field value.
 func (o *InsightsEvents) SetEvents(v []EventsItems) *InsightsEvents {
 	o.Events = v
+
 	return o
 }
 
 func (o InsightsEvents) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["events"] = o.Events
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InsightsEvents: %w", err)
@@ -66,5 +71,6 @@ func (o InsightsEvents) MarshalJSON() ([]byte, error) {
 func (o InsightsEvents) String() string {
 	out := ""
 	out += fmt.Sprintf("  events=%v\n", o.Events)
+
 	return fmt.Sprintf("InsightsEvents {\n%s}", out)
 }

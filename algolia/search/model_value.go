@@ -44,6 +44,7 @@ func NewValue(opts ...ValueOption) *Value {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -56,8 +57,10 @@ func NewEmptyValue() *Value {
 func (o *Value) GetOrder() []string {
 	if o == nil || o.Order == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Order
 }
 
@@ -67,6 +70,7 @@ func (o *Value) GetOrderOk() ([]string, bool) {
 	if o == nil || o.Order == nil {
 		return nil, false
 	}
+
 	return o.Order, true
 }
 
@@ -82,6 +86,7 @@ func (o *Value) HasOrder() bool {
 // SetOrder gets a reference to the given []string and assigns it to the Order field.
 func (o *Value) SetOrder(v []string) *Value {
 	o.Order = v
+
 	return o
 }
 
@@ -89,8 +94,10 @@ func (o *Value) SetOrder(v []string) *Value {
 func (o *Value) GetSortRemainingBy() SortRemainingBy {
 	if o == nil || o.SortRemainingBy == nil {
 		var ret SortRemainingBy
+
 		return ret
 	}
+
 	return *o.SortRemainingBy
 }
 
@@ -100,6 +107,7 @@ func (o *Value) GetSortRemainingByOk() (*SortRemainingBy, bool) {
 	if o == nil || o.SortRemainingBy == nil {
 		return nil, false
 	}
+
 	return o.SortRemainingBy, true
 }
 
@@ -115,6 +123,7 @@ func (o *Value) HasSortRemainingBy() bool {
 // SetSortRemainingBy gets a reference to the given SortRemainingBy and assigns it to the SortRemainingBy field.
 func (o *Value) SetSortRemainingBy(v SortRemainingBy) *Value {
 	o.SortRemainingBy = &v
+
 	return o
 }
 
@@ -122,8 +131,10 @@ func (o *Value) SetSortRemainingBy(v SortRemainingBy) *Value {
 func (o *Value) GetHide() []string {
 	if o == nil || o.Hide == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Hide
 }
 
@@ -133,6 +144,7 @@ func (o *Value) GetHideOk() ([]string, bool) {
 	if o == nil || o.Hide == nil {
 		return nil, false
 	}
+
 	return o.Hide, true
 }
 
@@ -148,6 +160,7 @@ func (o *Value) HasHide() bool {
 // SetHide gets a reference to the given []string and assigns it to the Hide field.
 func (o *Value) SetHide(v []string) *Value {
 	o.Hide = v
+
 	return o
 }
 
@@ -156,12 +169,15 @@ func (o Value) MarshalJSON() ([]byte, error) {
 	if o.Order != nil {
 		toSerialize["order"] = o.Order
 	}
+
 	if o.SortRemainingBy != nil {
 		toSerialize["sortRemainingBy"] = o.SortRemainingBy
 	}
+
 	if o.Hide != nil {
 		toSerialize["hide"] = o.Hide
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Value: %w", err)
@@ -175,5 +191,6 @@ func (o Value) String() string {
 	out += fmt.Sprintf("  order=%v\n", o.Order)
 	out += fmt.Sprintf("  sortRemainingBy=%v\n", o.SortRemainingBy)
 	out += fmt.Sprintf("  hide=%v\n", o.Hide)
+
 	return fmt.Sprintf("Value {\n%s}", out)
 }

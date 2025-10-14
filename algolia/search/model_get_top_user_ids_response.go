@@ -19,6 +19,7 @@ type GetTopUserIdsResponse struct {
 func NewGetTopUserIdsResponse(topUsers []map[string][]UserId) *GetTopUserIdsResponse {
 	this := &GetTopUserIdsResponse{}
 	this.TopUsers = topUsers
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetTopUserIdsResponse() *GetTopUserIdsResponse {
 func (o *GetTopUserIdsResponse) GetTopUsers() []map[string][]UserId {
 	if o == nil {
 		var ret []map[string][]UserId
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetTopUserIdsResponse) GetTopUsersOk() ([]map[string][]UserId, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.TopUsers, true
 }
 
 // SetTopUsers sets field value.
 func (o *GetTopUserIdsResponse) SetTopUsers(v []map[string][]UserId) *GetTopUserIdsResponse {
 	o.TopUsers = v
+
 	return o
 }
 
 func (o GetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["topUsers"] = o.TopUsers
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopUserIdsResponse: %w", err)
@@ -66,5 +71,6 @@ func (o GetTopUserIdsResponse) MarshalJSON() ([]byte, error) {
 func (o GetTopUserIdsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  topUsers=%v\n", o.TopUsers)
+
 	return fmt.Sprintf("GetTopUserIdsResponse {\n%s}", out)
 }

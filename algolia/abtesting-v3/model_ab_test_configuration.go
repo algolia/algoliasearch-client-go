@@ -43,6 +43,7 @@ func NewABTestConfiguration(opts ...ABTestConfigurationOption) *ABTestConfigurat
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -55,8 +56,10 @@ func NewEmptyABTestConfiguration() *ABTestConfiguration {
 func (o *ABTestConfiguration) GetMinimumDetectableEffect() MinimumDetectableEffect {
 	if o == nil || o.MinimumDetectableEffect == nil {
 		var ret MinimumDetectableEffect
+
 		return ret
 	}
+
 	return *o.MinimumDetectableEffect
 }
 
@@ -66,6 +69,7 @@ func (o *ABTestConfiguration) GetMinimumDetectableEffectOk() (*MinimumDetectable
 	if o == nil || o.MinimumDetectableEffect == nil {
 		return nil, false
 	}
+
 	return o.MinimumDetectableEffect, true
 }
 
@@ -81,6 +85,7 @@ func (o *ABTestConfiguration) HasMinimumDetectableEffect() bool {
 // SetMinimumDetectableEffect gets a reference to the given MinimumDetectableEffect and assigns it to the MinimumDetectableEffect field.
 func (o *ABTestConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEffect) *ABTestConfiguration {
 	o.MinimumDetectableEffect = v
+
 	return o
 }
 
@@ -88,8 +93,10 @@ func (o *ABTestConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEff
 func (o *ABTestConfiguration) GetFilters() []MetricsFilter {
 	if o == nil || o.Filters == nil {
 		var ret []MetricsFilter
+
 		return ret
 	}
+
 	return o.Filters
 }
 
@@ -99,6 +106,7 @@ func (o *ABTestConfiguration) GetFiltersOk() ([]MetricsFilter, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -114,6 +122,7 @@ func (o *ABTestConfiguration) HasFilters() bool {
 // SetFilters gets a reference to the given []MetricsFilter and assigns it to the Filters field.
 func (o *ABTestConfiguration) SetFilters(v []MetricsFilter) *ABTestConfiguration {
 	o.Filters = v
+
 	return o
 }
 
@@ -121,8 +130,10 @@ func (o *ABTestConfiguration) SetFilters(v []MetricsFilter) *ABTestConfiguration
 func (o *ABTestConfiguration) GetErrorCorrection() ErrorCorrectionType {
 	if o == nil || o.ErrorCorrection == nil {
 		var ret ErrorCorrectionType
+
 		return ret
 	}
+
 	return *o.ErrorCorrection
 }
 
@@ -132,6 +143,7 @@ func (o *ABTestConfiguration) GetErrorCorrectionOk() (*ErrorCorrectionType, bool
 	if o == nil || o.ErrorCorrection == nil {
 		return nil, false
 	}
+
 	return o.ErrorCorrection, true
 }
 
@@ -147,6 +159,7 @@ func (o *ABTestConfiguration) HasErrorCorrection() bool {
 // SetErrorCorrection gets a reference to the given ErrorCorrectionType and assigns it to the ErrorCorrection field.
 func (o *ABTestConfiguration) SetErrorCorrection(v ErrorCorrectionType) *ABTestConfiguration {
 	o.ErrorCorrection = &v
+
 	return o
 }
 
@@ -155,12 +168,15 @@ func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 	if o.MinimumDetectableEffect != nil {
 		toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.ErrorCorrection != nil {
 		toSerialize["errorCorrection"] = o.ErrorCorrection
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTestConfiguration: %w", err)
@@ -174,5 +190,6 @@ func (o ABTestConfiguration) String() string {
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  errorCorrection=%v\n", o.ErrorCorrection)
+
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }

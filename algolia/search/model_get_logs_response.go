@@ -18,6 +18,7 @@ type GetLogsResponse struct {
 func NewGetLogsResponse(logs []Log) *GetLogsResponse {
 	this := &GetLogsResponse{}
 	this.Logs = logs
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyGetLogsResponse() *GetLogsResponse {
 func (o *GetLogsResponse) GetLogs() []Log {
 	if o == nil {
 		var ret []Log
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *GetLogsResponse) GetLogsOk() ([]Log, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Logs, true
 }
 
 // SetLogs sets field value.
 func (o *GetLogsResponse) SetLogs(v []Log) *GetLogsResponse {
 	o.Logs = v
+
 	return o
 }
 
 func (o GetLogsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["logs"] = o.Logs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetLogsResponse: %w", err)
@@ -65,5 +70,6 @@ func (o GetLogsResponse) MarshalJSON() ([]byte, error) {
 func (o GetLogsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  logs=%v\n", o.Logs)
+
 	return fmt.Sprintf("GetLogsResponse {\n%s}", out)
 }

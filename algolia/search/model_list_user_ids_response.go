@@ -19,6 +19,7 @@ type ListUserIdsResponse struct {
 func NewListUserIdsResponse(userIDs []UserId) *ListUserIdsResponse {
 	this := &ListUserIdsResponse{}
 	this.UserIDs = userIDs
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyListUserIdsResponse() *ListUserIdsResponse {
 func (o *ListUserIdsResponse) GetUserIDs() []UserId {
 	if o == nil {
 		var ret []UserId
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ListUserIdsResponse) GetUserIDsOk() ([]UserId, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.UserIDs, true
 }
 
 // SetUserIDs sets field value.
 func (o *ListUserIdsResponse) SetUserIDs(v []UserId) *ListUserIdsResponse {
 	o.UserIDs = v
+
 	return o
 }
 
 func (o ListUserIdsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["userIDs"] = o.UserIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListUserIdsResponse: %w", err)
@@ -66,5 +71,6 @@ func (o ListUserIdsResponse) MarshalJSON() ([]byte, error) {
 func (o ListUserIdsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  userIDs=%v\n", o.UserIDs)
+
 	return fmt.Sprintf("ListUserIdsResponse {\n%s}", out)
 }

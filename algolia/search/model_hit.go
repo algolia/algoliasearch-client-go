@@ -16,7 +16,7 @@ type Hit struct {
 	SnippetResult        *map[string]SnippetResult `json:"_snippetResult,omitempty"`
 	RankingInfo          *RankingInfo              `json:"_rankingInfo,omitempty"`
 	DistinctSeqID        *int32                    `json:"_distinctSeqID,omitempty"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any            `json:"-"`
 }
 
 type _Hit Hit
@@ -53,10 +53,12 @@ func WithHitDistinctSeqID(val int32) HitOption {
 // will change when the set of required properties is changed.
 func NewHit(objectID string, opts ...HitOption) *Hit {
 	this := &Hit{}
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -69,6 +71,7 @@ func NewEmptyHit() *Hit {
 func (o *Hit) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -81,12 +84,14 @@ func (o *Hit) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *Hit) SetObjectID(v string) *Hit {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -94,8 +99,10 @@ func (o *Hit) SetObjectID(v string) *Hit {
 func (o *Hit) GetHighlightResult() map[string]HighlightResult {
 	if o == nil || o.HighlightResult == nil {
 		var ret map[string]HighlightResult
+
 		return ret
 	}
+
 	return *o.HighlightResult
 }
 
@@ -105,6 +112,7 @@ func (o *Hit) GetHighlightResultOk() (*map[string]HighlightResult, bool) {
 	if o == nil || o.HighlightResult == nil {
 		return nil, false
 	}
+
 	return o.HighlightResult, true
 }
 
@@ -120,6 +128,7 @@ func (o *Hit) HasHighlightResult() bool {
 // SetHighlightResult gets a reference to the given map[string]HighlightResult and assigns it to the HighlightResult field.
 func (o *Hit) SetHighlightResult(v map[string]HighlightResult) *Hit {
 	o.HighlightResult = &v
+
 	return o
 }
 
@@ -127,8 +136,10 @@ func (o *Hit) SetHighlightResult(v map[string]HighlightResult) *Hit {
 func (o *Hit) GetSnippetResult() map[string]SnippetResult {
 	if o == nil || o.SnippetResult == nil {
 		var ret map[string]SnippetResult
+
 		return ret
 	}
+
 	return *o.SnippetResult
 }
 
@@ -138,6 +149,7 @@ func (o *Hit) GetSnippetResultOk() (*map[string]SnippetResult, bool) {
 	if o == nil || o.SnippetResult == nil {
 		return nil, false
 	}
+
 	return o.SnippetResult, true
 }
 
@@ -153,6 +165,7 @@ func (o *Hit) HasSnippetResult() bool {
 // SetSnippetResult gets a reference to the given map[string]SnippetResult and assigns it to the SnippetResult field.
 func (o *Hit) SetSnippetResult(v map[string]SnippetResult) *Hit {
 	o.SnippetResult = &v
+
 	return o
 }
 
@@ -160,8 +173,10 @@ func (o *Hit) SetSnippetResult(v map[string]SnippetResult) *Hit {
 func (o *Hit) GetRankingInfo() RankingInfo {
 	if o == nil || o.RankingInfo == nil {
 		var ret RankingInfo
+
 		return ret
 	}
+
 	return *o.RankingInfo
 }
 
@@ -171,6 +186,7 @@ func (o *Hit) GetRankingInfoOk() (*RankingInfo, bool) {
 	if o == nil || o.RankingInfo == nil {
 		return nil, false
 	}
+
 	return o.RankingInfo, true
 }
 
@@ -186,6 +202,7 @@ func (o *Hit) HasRankingInfo() bool {
 // SetRankingInfo gets a reference to the given RankingInfo and assigns it to the RankingInfo field.
 func (o *Hit) SetRankingInfo(v *RankingInfo) *Hit {
 	o.RankingInfo = v
+
 	return o
 }
 
@@ -193,8 +210,10 @@ func (o *Hit) SetRankingInfo(v *RankingInfo) *Hit {
 func (o *Hit) GetDistinctSeqID() int32 {
 	if o == nil || o.DistinctSeqID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.DistinctSeqID
 }
 
@@ -204,6 +223,7 @@ func (o *Hit) GetDistinctSeqIDOk() (*int32, bool) {
 	if o == nil || o.DistinctSeqID == nil {
 		return nil, false
 	}
+
 	return o.DistinctSeqID, true
 }
 
@@ -219,6 +239,7 @@ func (o *Hit) HasDistinctSeqID() bool {
 // SetDistinctSeqID gets a reference to the given int32 and assigns it to the DistinctSeqID field.
 func (o *Hit) SetDistinctSeqID(v int32) *Hit {
 	o.DistinctSeqID = &v
+
 	return o
 }
 
@@ -234,16 +255,20 @@ func (o *Hit) SetAdditionalProperty(key string, value any) *Hit {
 
 func (o Hit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.HighlightResult != nil {
 		toSerialize["_highlightResult"] = o.HighlightResult
 	}
+
 	if o.SnippetResult != nil {
 		toSerialize["_snippetResult"] = o.SnippetResult
 	}
+
 	if o.RankingInfo != nil {
 		toSerialize["_rankingInfo"] = o.RankingInfo
 	}
+
 	if o.DistinctSeqID != nil {
 		toSerialize["_distinctSeqID"] = o.DistinctSeqID
 	}
@@ -293,9 +318,11 @@ func (o Hit) String() string {
 	out += fmt.Sprintf("  _highlightResult=%v\n", o.HighlightResult)
 	out += fmt.Sprintf("  _snippetResult=%v\n", o.SnippetResult)
 	out += fmt.Sprintf("  _rankingInfo=%v\n", o.RankingInfo)
+
 	out += fmt.Sprintf("  _distinctSeqID=%v\n", o.DistinctSeqID)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("Hit {\n%s}", out)
 }

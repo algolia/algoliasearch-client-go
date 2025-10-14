@@ -45,6 +45,7 @@ func NewParamsConsequence(opts ...ParamsConsequenceOption) *ParamsConsequence {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyParamsConsequence() *ParamsConsequence {
 func (o *ParamsConsequence) GetAutomaticFacetFilters() []AutoFacetFilter {
 	if o == nil || o.AutomaticFacetFilters == nil {
 		var ret []AutoFacetFilter
+
 		return ret
 	}
+
 	return o.AutomaticFacetFilters
 }
 
@@ -68,6 +71,7 @@ func (o *ParamsConsequence) GetAutomaticFacetFiltersOk() ([]AutoFacetFilter, boo
 	if o == nil || o.AutomaticFacetFilters == nil {
 		return nil, false
 	}
+
 	return o.AutomaticFacetFilters, true
 }
 
@@ -83,6 +87,7 @@ func (o *ParamsConsequence) HasAutomaticFacetFilters() bool {
 // SetAutomaticFacetFilters gets a reference to the given []AutoFacetFilter and assigns it to the AutomaticFacetFilters field.
 func (o *ParamsConsequence) SetAutomaticFacetFilters(v []AutoFacetFilter) *ParamsConsequence {
 	o.AutomaticFacetFilters = v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *ParamsConsequence) SetAutomaticFacetFilters(v []AutoFacetFilter) *Param
 func (o *ParamsConsequence) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -101,6 +108,7 @@ func (o *ParamsConsequence) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -116,6 +124,7 @@ func (o *ParamsConsequence) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *ParamsConsequence) SetFilters(v string) *ParamsConsequence {
 	o.Filters = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *ParamsConsequence) SetFilters(v string) *ParamsConsequence {
 func (o *ParamsConsequence) GetOptionalFilters() []string {
 	if o == nil || o.OptionalFilters == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.OptionalFilters
 }
 
@@ -134,6 +145,7 @@ func (o *ParamsConsequence) GetOptionalFiltersOk() ([]string, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -149,6 +161,7 @@ func (o *ParamsConsequence) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given []string and assigns it to the OptionalFilters field.
 func (o *ParamsConsequence) SetOptionalFilters(v []string) *ParamsConsequence {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o ParamsConsequence) MarshalJSON() ([]byte, error) {
 	if o.AutomaticFacetFilters != nil {
 		toSerialize["automaticFacetFilters"] = o.AutomaticFacetFilters
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ParamsConsequence: %w", err)
@@ -176,5 +192,6 @@ func (o ParamsConsequence) String() string {
 	out += fmt.Sprintf("  automaticFacetFilters=%v\n", o.AutomaticFacetFilters)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
+
 	return fmt.Sprintf("ParamsConsequence {\n%s}", out)
 }

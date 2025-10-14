@@ -233,6 +233,7 @@ func NewParams(opts ...ParamsOption) *Params {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -245,8 +246,10 @@ func NewEmptyParams() *Params {
 func (o *Params) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -256,6 +259,7 @@ func (o *Params) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -271,6 +275,7 @@ func (o *Params) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *Params) SetQuery(v string) *Params {
 	o.Query = &v
+
 	return o
 }
 
@@ -278,8 +283,10 @@ func (o *Params) SetQuery(v string) *Params {
 func (o *Params) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -289,6 +296,7 @@ func (o *Params) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -304,6 +312,7 @@ func (o *Params) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *Params) SetFilters(v string) *Params {
 	o.Filters = &v
+
 	return o
 }
 
@@ -311,8 +320,10 @@ func (o *Params) SetFilters(v string) *Params {
 func (o *Params) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -322,6 +333,7 @@ func (o *Params) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -337,6 +349,7 @@ func (o *Params) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *Params) SetPage(v int32) *Params {
 	o.Page = &v
+
 	return o
 }
 
@@ -344,8 +357,10 @@ func (o *Params) SetPage(v int32) *Params {
 func (o *Params) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -355,6 +370,7 @@ func (o *Params) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -370,6 +386,7 @@ func (o *Params) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *Params) SetGetRankingInfo(v bool) *Params {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -377,8 +394,10 @@ func (o *Params) SetGetRankingInfo(v bool) *Params {
 func (o *Params) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -388,6 +407,7 @@ func (o *Params) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -403,6 +423,7 @@ func (o *Params) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *Params) SetRelevancyStrictness(v int32) *Params {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -410,8 +431,10 @@ func (o *Params) SetRelevancyStrictness(v int32) *Params {
 func (o *Params) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -421,6 +444,7 @@ func (o *Params) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -436,6 +460,7 @@ func (o *Params) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *Params) SetFacetFilters(v *FacetFilters) *Params {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -443,8 +468,10 @@ func (o *Params) SetFacetFilters(v *FacetFilters) *Params {
 func (o *Params) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -454,6 +481,7 @@ func (o *Params) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -469,6 +497,7 @@ func (o *Params) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *Params) SetOptionalFilters(v *OptionalFilters) *Params {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -476,8 +505,10 @@ func (o *Params) SetOptionalFilters(v *OptionalFilters) *Params {
 func (o *Params) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -487,6 +518,7 @@ func (o *Params) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -502,6 +534,7 @@ func (o *Params) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *Params) SetNumericFilters(v *NumericFilters) *Params {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -509,8 +542,10 @@ func (o *Params) SetNumericFilters(v *NumericFilters) *Params {
 func (o *Params) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -520,6 +555,7 @@ func (o *Params) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -535,6 +571,7 @@ func (o *Params) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *Params) SetHitsPerPage(v int32) *Params {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -542,8 +579,10 @@ func (o *Params) SetHitsPerPage(v int32) *Params {
 func (o *Params) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -553,6 +592,7 @@ func (o *Params) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -568,6 +608,7 @@ func (o *Params) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *Params) SetAroundLatLng(v string) *Params {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -575,8 +616,10 @@ func (o *Params) SetAroundLatLng(v string) *Params {
 func (o *Params) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AroundLatLngViaIP
 }
 
@@ -586,6 +629,7 @@ func (o *Params) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLngViaIP, true
 }
 
@@ -601,6 +645,7 @@ func (o *Params) HasAroundLatLngViaIP() bool {
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
 func (o *Params) SetAroundLatLngViaIP(v bool) *Params {
 	o.AroundLatLngViaIP = &v
+
 	return o
 }
 
@@ -608,8 +653,10 @@ func (o *Params) SetAroundLatLngViaIP(v bool) *Params {
 func (o *Params) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -619,6 +666,7 @@ func (o *Params) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -634,6 +682,7 @@ func (o *Params) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *Params) SetAroundRadius(v *AroundRadius) *Params {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -641,8 +690,10 @@ func (o *Params) SetAroundRadius(v *AroundRadius) *Params {
 func (o *Params) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
+
 		return ret
 	}
+
 	return *o.AroundPrecision
 }
 
@@ -652,6 +703,7 @@ func (o *Params) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
+
 	return o.AroundPrecision, true
 }
 
@@ -667,6 +719,7 @@ func (o *Params) HasAroundPrecision() bool {
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
 func (o *Params) SetAroundPrecision(v *AroundPrecision) *Params {
 	o.AroundPrecision = v
+
 	return o
 }
 
@@ -674,8 +727,10 @@ func (o *Params) SetAroundPrecision(v *AroundPrecision) *Params {
 func (o *Params) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinimumAroundRadius
 }
 
@@ -685,6 +740,7 @@ func (o *Params) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
+
 	return o.MinimumAroundRadius, true
 }
 
@@ -700,6 +756,7 @@ func (o *Params) HasMinimumAroundRadius() bool {
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
 func (o *Params) SetMinimumAroundRadius(v int32) *Params {
 	o.MinimumAroundRadius = &v
+
 	return o
 }
 
@@ -707,8 +764,10 @@ func (o *Params) SetMinimumAroundRadius(v int32) *Params {
 func (o *Params) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -719,6 +778,7 @@ func (o *Params) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -734,6 +794,7 @@ func (o *Params) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *Params) SetInsideBoundingBox(v *InsideBoundingBox) *Params {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -751,8 +812,10 @@ func (o *Params) UnsetInsideBoundingBox() {
 func (o *Params) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -762,6 +825,7 @@ func (o *Params) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -777,6 +841,7 @@ func (o *Params) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *Params) SetInsidePolygon(v [][]float64) *Params {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -784,8 +849,10 @@ func (o *Params) SetInsidePolygon(v [][]float64) *Params {
 func (o *Params) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -795,6 +862,7 @@ func (o *Params) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -810,6 +878,7 @@ func (o *Params) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *Params) SetQueryLanguages(v []SupportedLanguage) *Params {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -817,8 +886,10 @@ func (o *Params) SetQueryLanguages(v []SupportedLanguage) *Params {
 func (o *Params) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -828,6 +899,7 @@ func (o *Params) GetNaturalLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -843,6 +915,7 @@ func (o *Params) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *Params) SetNaturalLanguages(v []SupportedLanguage) *Params {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -850,8 +923,10 @@ func (o *Params) SetNaturalLanguages(v []SupportedLanguage) *Params {
 func (o *Params) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -861,6 +936,7 @@ func (o *Params) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -876,6 +952,7 @@ func (o *Params) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *Params) SetEnableRules(v bool) *Params {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -883,8 +960,10 @@ func (o *Params) SetEnableRules(v bool) *Params {
 func (o *Params) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -894,6 +973,7 @@ func (o *Params) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -909,6 +989,7 @@ func (o *Params) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *Params) SetRuleContexts(v []string) *Params {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -916,8 +997,10 @@ func (o *Params) SetRuleContexts(v []string) *Params {
 func (o *Params) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -927,6 +1010,7 @@ func (o *Params) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -942,6 +1026,7 @@ func (o *Params) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *Params) SetUserToken(v string) *Params {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -949,8 +1034,10 @@ func (o *Params) SetUserToken(v string) *Params {
 func (o *Params) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -960,6 +1047,7 @@ func (o *Params) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -975,6 +1063,7 @@ func (o *Params) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *Params) SetClickAnalytics(v bool) *Params {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -982,8 +1071,10 @@ func (o *Params) SetClickAnalytics(v bool) *Params {
 func (o *Params) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -993,6 +1084,7 @@ func (o *Params) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -1008,6 +1100,7 @@ func (o *Params) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *Params) SetAnalytics(v bool) *Params {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -1015,8 +1108,10 @@ func (o *Params) SetAnalytics(v bool) *Params {
 func (o *Params) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AnalyticsTags
 }
 
@@ -1026,6 +1121,7 @@ func (o *Params) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
+
 	return o.AnalyticsTags, true
 }
 
@@ -1041,6 +1137,7 @@ func (o *Params) HasAnalyticsTags() bool {
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
 func (o *Params) SetAnalyticsTags(v []string) *Params {
 	o.AnalyticsTags = v
+
 	return o
 }
 
@@ -1048,8 +1145,10 @@ func (o *Params) SetAnalyticsTags(v []string) *Params {
 func (o *Params) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -1059,6 +1158,7 @@ func (o *Params) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -1074,6 +1174,7 @@ func (o *Params) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *Params) SetEnableABTest(v bool) *Params {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -1081,8 +1182,10 @@ func (o *Params) SetEnableABTest(v bool) *Params {
 func (o *Params) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -1092,6 +1195,7 @@ func (o *Params) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -1107,6 +1211,7 @@ func (o *Params) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *Params) SetEnableReRanking(v bool) *Params {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -1114,8 +1219,10 @@ func (o *Params) SetEnableReRanking(v bool) *Params {
 func (o *Params) GetInjectedItems() map[string]ExternalInjectedItem {
 	if o == nil || o.InjectedItems == nil {
 		var ret map[string]ExternalInjectedItem
+
 		return ret
 	}
+
 	return *o.InjectedItems
 }
 
@@ -1125,6 +1232,7 @@ func (o *Params) GetInjectedItemsOk() (*map[string]ExternalInjectedItem, bool) {
 	if o == nil || o.InjectedItems == nil {
 		return nil, false
 	}
+
 	return o.InjectedItems, true
 }
 
@@ -1140,6 +1248,7 @@ func (o *Params) HasInjectedItems() bool {
 // SetInjectedItems gets a reference to the given map[string]ExternalInjectedItem and assigns it to the InjectedItems field.
 func (o *Params) SetInjectedItems(v map[string]ExternalInjectedItem) *Params {
 	o.InjectedItems = &v
+
 	return o
 }
 
@@ -1148,84 +1257,111 @@ func (o Params) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundLatLngViaIP != nil {
 		toSerialize["aroundLatLngViaIP"] = o.AroundLatLngViaIP
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.AroundPrecision != nil {
 		toSerialize["aroundPrecision"] = o.AroundPrecision
 	}
+
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AnalyticsTags != nil {
 		toSerialize["analyticsTags"] = o.AnalyticsTags
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.InjectedItems != nil {
 		toSerialize["injectedItems"] = o.InjectedItems
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Params: %w", err)
@@ -1263,5 +1399,6 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  injectedItems=%v\n", o.InjectedItems)
+
 	return fmt.Sprintf("Params {\n%s}", out)
 }

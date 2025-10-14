@@ -25,6 +25,7 @@ func NewListABTestsResponse(abtests []ABTest, count int32, total int32) *ListABT
 	this.Abtests = abtests
 	this.Count = count
 	this.Total = total
+
 	return this
 }
 
@@ -38,6 +39,7 @@ func NewEmptyListABTestsResponse() *ListABTestsResponse {
 func (o *ListABTestsResponse) GetAbtests() []ABTest {
 	if o == nil {
 		var ret []ABTest
+
 		return ret
 	}
 
@@ -51,12 +53,14 @@ func (o *ListABTestsResponse) GetAbtestsOk() ([]ABTest, bool) {
 	if o == nil || o.Abtests == nil {
 		return nil, false
 	}
+
 	return o.Abtests, true
 }
 
 // SetAbtests sets field value.
 func (o *ListABTestsResponse) SetAbtests(v []ABTest) *ListABTestsResponse {
 	o.Abtests = v
+
 	return o
 }
 
@@ -64,6 +68,7 @@ func (o *ListABTestsResponse) SetAbtests(v []ABTest) *ListABTestsResponse {
 func (o *ListABTestsResponse) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -76,12 +81,14 @@ func (o *ListABTestsResponse) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *ListABTestsResponse) SetCount(v int32) *ListABTestsResponse {
 	o.Count = v
+
 	return o
 }
 
@@ -89,6 +96,7 @@ func (o *ListABTestsResponse) SetCount(v int32) *ListABTestsResponse {
 func (o *ListABTestsResponse) GetTotal() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -101,12 +109,14 @@ func (o *ListABTestsResponse) GetTotalOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Total, true
 }
 
 // SetTotal sets field value.
 func (o *ListABTestsResponse) SetTotal(v int32) *ListABTestsResponse {
 	o.Total = v
+
 	return o
 }
 
@@ -115,8 +125,10 @@ func (o ListABTestsResponse) MarshalJSON() ([]byte, error) {
 	if o.Abtests != nil {
 		toSerialize["abtests"] = o.Abtests
 	}
+
 	toSerialize["count"] = o.Count
 	toSerialize["total"] = o.Total
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListABTestsResponse: %w", err)
@@ -130,5 +142,6 @@ func (o ListABTestsResponse) String() string {
 	out += fmt.Sprintf("  abtests=%v\n", o.Abtests)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  total=%v\n", o.Total)
+
 	return fmt.Sprintf("ListABTestsResponse {\n%s}", out)
 }

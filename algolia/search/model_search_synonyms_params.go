@@ -52,6 +52,7 @@ func NewSearchSynonymsParams(opts ...SearchSynonymsParamsOption) *SearchSynonyms
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -64,8 +65,10 @@ func NewEmptySearchSynonymsParams() *SearchSynonymsParams {
 func (o *SearchSynonymsParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -75,6 +78,7 @@ func (o *SearchSynonymsParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -90,6 +94,7 @@ func (o *SearchSynonymsParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchSynonymsParams) SetQuery(v string) *SearchSynonymsParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -97,8 +102,10 @@ func (o *SearchSynonymsParams) SetQuery(v string) *SearchSynonymsParams {
 func (o *SearchSynonymsParams) GetType() SynonymType {
 	if o == nil || o.Type == nil {
 		var ret SynonymType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -108,6 +115,7 @@ func (o *SearchSynonymsParams) GetTypeOk() (*SynonymType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -123,6 +131,7 @@ func (o *SearchSynonymsParams) HasType() bool {
 // SetType gets a reference to the given SynonymType and assigns it to the Type field.
 func (o *SearchSynonymsParams) SetType(v SynonymType) *SearchSynonymsParams {
 	o.Type = &v
+
 	return o
 }
 
@@ -130,8 +139,10 @@ func (o *SearchSynonymsParams) SetType(v SynonymType) *SearchSynonymsParams {
 func (o *SearchSynonymsParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -141,6 +152,7 @@ func (o *SearchSynonymsParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -156,6 +168,7 @@ func (o *SearchSynonymsParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchSynonymsParams) SetPage(v int32) *SearchSynonymsParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -163,8 +176,10 @@ func (o *SearchSynonymsParams) SetPage(v int32) *SearchSynonymsParams {
 func (o *SearchSynonymsParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -174,6 +189,7 @@ func (o *SearchSynonymsParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -189,6 +205,7 @@ func (o *SearchSynonymsParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchSynonymsParams) SetHitsPerPage(v int32) *SearchSynonymsParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -197,15 +214,19 @@ func (o SearchSynonymsParams) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchSynonymsParams: %w", err)
@@ -220,5 +241,6 @@ func (o SearchSynonymsParams) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
+
 	return fmt.Sprintf("SearchSynonymsParams {\n%s}", out)
 }

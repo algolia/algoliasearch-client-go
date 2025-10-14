@@ -82,6 +82,7 @@ func NewDeleteByParams(opts ...DeleteByParamsOption) *DeleteByParams {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -94,8 +95,10 @@ func NewEmptyDeleteByParams() *DeleteByParams {
 func (o *DeleteByParams) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -105,6 +108,7 @@ func (o *DeleteByParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -120,6 +124,7 @@ func (o *DeleteByParams) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *DeleteByParams) SetFacetFilters(v *FacetFilters) *DeleteByParams {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -127,8 +132,10 @@ func (o *DeleteByParams) SetFacetFilters(v *FacetFilters) *DeleteByParams {
 func (o *DeleteByParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -138,6 +145,7 @@ func (o *DeleteByParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -153,6 +161,7 @@ func (o *DeleteByParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *DeleteByParams) SetFilters(v string) *DeleteByParams {
 	o.Filters = &v
+
 	return o
 }
 
@@ -160,8 +169,10 @@ func (o *DeleteByParams) SetFilters(v string) *DeleteByParams {
 func (o *DeleteByParams) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -171,6 +182,7 @@ func (o *DeleteByParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -186,6 +198,7 @@ func (o *DeleteByParams) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *DeleteByParams) SetNumericFilters(v *NumericFilters) *DeleteByParams {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -193,8 +206,10 @@ func (o *DeleteByParams) SetNumericFilters(v *NumericFilters) *DeleteByParams {
 func (o *DeleteByParams) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
+
 		return ret
 	}
+
 	return *o.TagFilters
 }
 
@@ -204,6 +219,7 @@ func (o *DeleteByParams) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
+
 	return o.TagFilters, true
 }
 
@@ -219,6 +235,7 @@ func (o *DeleteByParams) HasTagFilters() bool {
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
 func (o *DeleteByParams) SetTagFilters(v *TagFilters) *DeleteByParams {
 	o.TagFilters = v
+
 	return o
 }
 
@@ -226,8 +243,10 @@ func (o *DeleteByParams) SetTagFilters(v *TagFilters) *DeleteByParams {
 func (o *DeleteByParams) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -237,6 +256,7 @@ func (o *DeleteByParams) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -252,6 +272,7 @@ func (o *DeleteByParams) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *DeleteByParams) SetAroundLatLng(v string) *DeleteByParams {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -259,8 +280,10 @@ func (o *DeleteByParams) SetAroundLatLng(v string) *DeleteByParams {
 func (o *DeleteByParams) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -270,6 +293,7 @@ func (o *DeleteByParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -285,6 +309,7 @@ func (o *DeleteByParams) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *DeleteByParams) SetAroundRadius(v *AroundRadius) *DeleteByParams {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -292,8 +317,10 @@ func (o *DeleteByParams) SetAroundRadius(v *AroundRadius) *DeleteByParams {
 func (o *DeleteByParams) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -304,6 +331,7 @@ func (o *DeleteByParams) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -319,6 +347,7 @@ func (o *DeleteByParams) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *DeleteByParams) SetInsideBoundingBox(v *InsideBoundingBox) *DeleteByParams {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -336,8 +365,10 @@ func (o *DeleteByParams) UnsetInsideBoundingBox() {
 func (o *DeleteByParams) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -347,6 +378,7 @@ func (o *DeleteByParams) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -362,6 +394,7 @@ func (o *DeleteByParams) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *DeleteByParams) SetInsidePolygon(v [][]float64) *DeleteByParams {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -370,27 +403,35 @@ func (o DeleteByParams) MarshalJSON() ([]byte, error) {
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.TagFilters != nil {
 		toSerialize["tagFilters"] = o.TagFilters
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteByParams: %w", err)
@@ -409,5 +450,6 @@ func (o DeleteByParams) String() string {
 	out += fmt.Sprintf("  aroundRadius=%v\n", o.AroundRadius)
 	out += fmt.Sprintf("  insideBoundingBox=%v\n", o.InsideBoundingBox)
 	out += fmt.Sprintf("  insidePolygon=%v\n", o.InsidePolygon)
+
 	return fmt.Sprintf("DeleteByParams {\n%s}", out)
 }

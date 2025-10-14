@@ -35,10 +35,12 @@ func WithSourceJSONMethod(val MethodType) SourceJSONOption {
 // will change when the set of required properties is changed.
 func NewSourceJSON(url string, opts ...SourceJSONOption) *SourceJSON {
 	this := &SourceJSON{}
+
 	this.Url = url
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -51,6 +53,7 @@ func NewEmptySourceJSON() *SourceJSON {
 func (o *SourceJSON) GetUrl() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -63,12 +66,14 @@ func (o *SourceJSON) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Url, true
 }
 
 // SetUrl sets field value.
 func (o *SourceJSON) SetUrl(v string) *SourceJSON {
 	o.Url = v
+
 	return o
 }
 
@@ -76,8 +81,10 @@ func (o *SourceJSON) SetUrl(v string) *SourceJSON {
 func (o *SourceJSON) GetUniqueIDColumn() string {
 	if o == nil || o.UniqueIDColumn == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UniqueIDColumn
 }
 
@@ -87,6 +94,7 @@ func (o *SourceJSON) GetUniqueIDColumnOk() (*string, bool) {
 	if o == nil || o.UniqueIDColumn == nil {
 		return nil, false
 	}
+
 	return o.UniqueIDColumn, true
 }
 
@@ -102,6 +110,7 @@ func (o *SourceJSON) HasUniqueIDColumn() bool {
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
 func (o *SourceJSON) SetUniqueIDColumn(v string) *SourceJSON {
 	o.UniqueIDColumn = &v
+
 	return o
 }
 
@@ -109,8 +118,10 @@ func (o *SourceJSON) SetUniqueIDColumn(v string) *SourceJSON {
 func (o *SourceJSON) GetMethod() MethodType {
 	if o == nil || o.Method == nil {
 		var ret MethodType
+
 		return ret
 	}
+
 	return *o.Method
 }
 
@@ -120,6 +131,7 @@ func (o *SourceJSON) GetMethodOk() (*MethodType, bool) {
 	if o == nil || o.Method == nil {
 		return nil, false
 	}
+
 	return o.Method, true
 }
 
@@ -135,18 +147,22 @@ func (o *SourceJSON) HasMethod() bool {
 // SetMethod gets a reference to the given MethodType and assigns it to the Method field.
 func (o *SourceJSON) SetMethod(v MethodType) *SourceJSON {
 	o.Method = &v
+
 	return o
 }
 
 func (o SourceJSON) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["url"] = o.Url
 	if o.UniqueIDColumn != nil {
 		toSerialize["uniqueIDColumn"] = o.UniqueIDColumn
 	}
+
 	if o.Method != nil {
 		toSerialize["method"] = o.Method
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceJSON: %w", err)
@@ -160,5 +176,6 @@ func (o SourceJSON) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  uniqueIDColumn=%v\n", o.UniqueIDColumn)
 	out += fmt.Sprintf("  method=%v\n", o.Method)
+
 	return fmt.Sprintf("SourceJSON {\n%s}", out)
 }

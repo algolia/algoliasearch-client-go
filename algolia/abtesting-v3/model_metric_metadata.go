@@ -37,6 +37,7 @@ func NewMetricMetadata(opts ...MetricMetadataOption) *MetricMetadata {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyMetricMetadata() *MetricMetadata {
 func (o *MetricMetadata) GetWinsorizedValue() float64 {
 	if o == nil || o.WinsorizedValue == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.WinsorizedValue
 }
 
@@ -60,6 +63,7 @@ func (o *MetricMetadata) GetWinsorizedValueOk() (*float64, bool) {
 	if o == nil || o.WinsorizedValue == nil {
 		return nil, false
 	}
+
 	return o.WinsorizedValue, true
 }
 
@@ -75,6 +79,7 @@ func (o *MetricMetadata) HasWinsorizedValue() bool {
 // SetWinsorizedValue gets a reference to the given float64 and assigns it to the WinsorizedValue field.
 func (o *MetricMetadata) SetWinsorizedValue(v float64) *MetricMetadata {
 	o.WinsorizedValue = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *MetricMetadata) SetWinsorizedValue(v float64) *MetricMetadata {
 func (o *MetricMetadata) GetMean() float64 {
 	if o == nil || o.Mean == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Mean
 }
 
@@ -93,6 +100,7 @@ func (o *MetricMetadata) GetMeanOk() (*float64, bool) {
 	if o == nil || o.Mean == nil {
 		return nil, false
 	}
+
 	return o.Mean, true
 }
 
@@ -108,6 +116,7 @@ func (o *MetricMetadata) HasMean() bool {
 // SetMean gets a reference to the given float64 and assigns it to the Mean field.
 func (o *MetricMetadata) SetMean(v float64) *MetricMetadata {
 	o.Mean = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o MetricMetadata) MarshalJSON() ([]byte, error) {
 	if o.WinsorizedValue != nil {
 		toSerialize["winsorizedValue"] = o.WinsorizedValue
 	}
+
 	if o.Mean != nil {
 		toSerialize["mean"] = o.Mean
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MetricMetadata: %w", err)
@@ -131,5 +142,6 @@ func (o MetricMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  winsorizedValue=%v\n", o.WinsorizedValue)
 	out += fmt.Sprintf("  mean=%v\n", o.Mean)
+
 	return fmt.Sprintf("MetricMetadata {\n%s}", out)
 }

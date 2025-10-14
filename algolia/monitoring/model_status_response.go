@@ -28,6 +28,7 @@ func NewStatusResponse(opts ...StatusResponseOption) *StatusResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyStatusResponse() *StatusResponse {
 func (o *StatusResponse) GetStatus() map[string]Status {
 	if o == nil || o.Status == nil {
 		var ret map[string]Status
+
 		return ret
 	}
+
 	return *o.Status
 }
 
@@ -51,6 +54,7 @@ func (o *StatusResponse) GetStatusOk() (*map[string]Status, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
+
 	return o.Status, true
 }
 
@@ -66,6 +70,7 @@ func (o *StatusResponse) HasStatus() bool {
 // SetStatus gets a reference to the given map[string]Status and assigns it to the Status field.
 func (o *StatusResponse) SetStatus(v map[string]Status) *StatusResponse {
 	o.Status = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o StatusResponse) MarshalJSON() ([]byte, error) {
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal StatusResponse: %w", err)
@@ -85,5 +91,6 @@ func (o StatusResponse) MarshalJSON() ([]byte, error) {
 func (o StatusResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+
 	return fmt.Sprintf("StatusResponse {\n%s}", out)
 }

@@ -36,10 +36,12 @@ func WithAutomaticFacetFilterDisjunctive(val bool) AutomaticFacetFilterOption {
 // will change when the set of required properties is changed.
 func NewAutomaticFacetFilter(facet string, opts ...AutomaticFacetFilterOption) *AutomaticFacetFilter {
 	this := &AutomaticFacetFilter{}
+
 	this.Facet = facet
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -52,6 +54,7 @@ func NewEmptyAutomaticFacetFilter() *AutomaticFacetFilter {
 func (o *AutomaticFacetFilter) GetFacet() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -64,12 +67,14 @@ func (o *AutomaticFacetFilter) GetFacetOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Facet, true
 }
 
 // SetFacet sets field value.
 func (o *AutomaticFacetFilter) SetFacet(v string) *AutomaticFacetFilter {
 	o.Facet = v
+
 	return o
 }
 
@@ -77,8 +82,10 @@ func (o *AutomaticFacetFilter) SetFacet(v string) *AutomaticFacetFilter {
 func (o *AutomaticFacetFilter) GetScore() int32 {
 	if o == nil || o.Score == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Score
 }
 
@@ -88,6 +95,7 @@ func (o *AutomaticFacetFilter) GetScoreOk() (*int32, bool) {
 	if o == nil || o.Score == nil {
 		return nil, false
 	}
+
 	return o.Score, true
 }
 
@@ -103,6 +111,7 @@ func (o *AutomaticFacetFilter) HasScore() bool {
 // SetScore gets a reference to the given int32 and assigns it to the Score field.
 func (o *AutomaticFacetFilter) SetScore(v int32) *AutomaticFacetFilter {
 	o.Score = &v
+
 	return o
 }
 
@@ -110,8 +119,10 @@ func (o *AutomaticFacetFilter) SetScore(v int32) *AutomaticFacetFilter {
 func (o *AutomaticFacetFilter) GetDisjunctive() bool {
 	if o == nil || o.Disjunctive == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Disjunctive
 }
 
@@ -121,6 +132,7 @@ func (o *AutomaticFacetFilter) GetDisjunctiveOk() (*bool, bool) {
 	if o == nil || o.Disjunctive == nil {
 		return nil, false
 	}
+
 	return o.Disjunctive, true
 }
 
@@ -136,18 +148,22 @@ func (o *AutomaticFacetFilter) HasDisjunctive() bool {
 // SetDisjunctive gets a reference to the given bool and assigns it to the Disjunctive field.
 func (o *AutomaticFacetFilter) SetDisjunctive(v bool) *AutomaticFacetFilter {
 	o.Disjunctive = &v
+
 	return o
 }
 
 func (o AutomaticFacetFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["facet"] = o.Facet
 	if o.Score != nil {
 		toSerialize["score"] = o.Score
 	}
+
 	if o.Disjunctive != nil {
 		toSerialize["disjunctive"] = o.Disjunctive
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AutomaticFacetFilter: %w", err)
@@ -161,5 +177,6 @@ func (o AutomaticFacetFilter) String() string {
 	out += fmt.Sprintf("  facet=%v\n", o.Facet)
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	out += fmt.Sprintf("  disjunctive=%v\n", o.Disjunctive)
+
 	return fmt.Sprintf("AutomaticFacetFilter {\n%s}", out)
 }

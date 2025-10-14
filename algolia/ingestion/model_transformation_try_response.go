@@ -27,10 +27,12 @@ func WithTransformationTryResponseError(val TransformationError) TransformationT
 // will change when the set of required properties is changed.
 func NewTransformationTryResponse(payloads []string, opts ...TransformationTryResponseOption) *TransformationTryResponse {
 	this := &TransformationTryResponse{}
+
 	this.Payloads = payloads
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -43,6 +45,7 @@ func NewEmptyTransformationTryResponse() *TransformationTryResponse {
 func (o *TransformationTryResponse) GetPayloads() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -55,12 +58,14 @@ func (o *TransformationTryResponse) GetPayloadsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Payloads, true
 }
 
 // SetPayloads sets field value.
 func (o *TransformationTryResponse) SetPayloads(v []string) *TransformationTryResponse {
 	o.Payloads = v
+
 	return o
 }
 
@@ -68,8 +73,10 @@ func (o *TransformationTryResponse) SetPayloads(v []string) *TransformationTryRe
 func (o *TransformationTryResponse) GetError() TransformationError {
 	if o == nil || o.Error == nil {
 		var ret TransformationError
+
 		return ret
 	}
+
 	return *o.Error
 }
 
@@ -79,6 +86,7 @@ func (o *TransformationTryResponse) GetErrorOk() (*TransformationError, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
+
 	return o.Error, true
 }
 
@@ -94,15 +102,18 @@ func (o *TransformationTryResponse) HasError() bool {
 // SetError gets a reference to the given TransformationError and assigns it to the Error field.
 func (o *TransformationTryResponse) SetError(v *TransformationError) *TransformationTryResponse {
 	o.Error = v
+
 	return o
 }
 
 func (o TransformationTryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["payloads"] = o.Payloads
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationTryResponse: %w", err)
@@ -115,5 +126,6 @@ func (o TransformationTryResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  payloads=%v\n", o.Payloads)
 	out += fmt.Sprintf("  error=%v\n", o.Error)
+
 	return fmt.Sprintf("TransformationTryResponse {\n%s}", out)
 }

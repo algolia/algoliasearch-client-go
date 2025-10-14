@@ -85,10 +85,12 @@ func NewTaskCreate(sourceID string, destinationID string, action ActionType, opt
 	this := &TaskCreate{}
 	this.SourceID = sourceID
 	this.DestinationID = destinationID
+
 	this.Action = action
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -101,6 +103,7 @@ func NewEmptyTaskCreate() *TaskCreate {
 func (o *TaskCreate) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -113,12 +116,14 @@ func (o *TaskCreate) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *TaskCreate) SetSourceID(v string) *TaskCreate {
 	o.SourceID = v
+
 	return o
 }
 
@@ -126,6 +131,7 @@ func (o *TaskCreate) SetSourceID(v string) *TaskCreate {
 func (o *TaskCreate) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -138,12 +144,14 @@ func (o *TaskCreate) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *TaskCreate) SetDestinationID(v string) *TaskCreate {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -151,6 +159,7 @@ func (o *TaskCreate) SetDestinationID(v string) *TaskCreate {
 func (o *TaskCreate) GetAction() ActionType {
 	if o == nil {
 		var ret ActionType
+
 		return ret
 	}
 
@@ -163,12 +172,14 @@ func (o *TaskCreate) GetActionOk() (*ActionType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *TaskCreate) SetAction(v ActionType) *TaskCreate {
 	o.Action = v
+
 	return o
 }
 
@@ -176,8 +187,10 @@ func (o *TaskCreate) SetAction(v ActionType) *TaskCreate {
 func (o *TaskCreate) GetSubscriptionAction() ActionType {
 	if o == nil || o.SubscriptionAction == nil {
 		var ret ActionType
+
 		return ret
 	}
+
 	return *o.SubscriptionAction
 }
 
@@ -187,6 +200,7 @@ func (o *TaskCreate) GetSubscriptionActionOk() (*ActionType, bool) {
 	if o == nil || o.SubscriptionAction == nil {
 		return nil, false
 	}
+
 	return o.SubscriptionAction, true
 }
 
@@ -202,6 +216,7 @@ func (o *TaskCreate) HasSubscriptionAction() bool {
 // SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
 func (o *TaskCreate) SetSubscriptionAction(v ActionType) *TaskCreate {
 	o.SubscriptionAction = &v
+
 	return o
 }
 
@@ -209,8 +224,10 @@ func (o *TaskCreate) SetSubscriptionAction(v ActionType) *TaskCreate {
 func (o *TaskCreate) GetCron() string {
 	if o == nil || o.Cron == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cron
 }
 
@@ -220,6 +237,7 @@ func (o *TaskCreate) GetCronOk() (*string, bool) {
 	if o == nil || o.Cron == nil {
 		return nil, false
 	}
+
 	return o.Cron, true
 }
 
@@ -235,6 +253,7 @@ func (o *TaskCreate) HasCron() bool {
 // SetCron gets a reference to the given string and assigns it to the Cron field.
 func (o *TaskCreate) SetCron(v string) *TaskCreate {
 	o.Cron = &v
+
 	return o
 }
 
@@ -242,8 +261,10 @@ func (o *TaskCreate) SetCron(v string) *TaskCreate {
 func (o *TaskCreate) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -253,6 +274,7 @@ func (o *TaskCreate) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -268,6 +290,7 @@ func (o *TaskCreate) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *TaskCreate) SetEnabled(v bool) *TaskCreate {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -275,8 +298,10 @@ func (o *TaskCreate) SetEnabled(v bool) *TaskCreate {
 func (o *TaskCreate) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -286,6 +311,7 @@ func (o *TaskCreate) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -301,6 +327,7 @@ func (o *TaskCreate) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskCreate) SetFailureThreshold(v int32) *TaskCreate {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -308,8 +335,10 @@ func (o *TaskCreate) SetFailureThreshold(v int32) *TaskCreate {
 func (o *TaskCreate) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -319,6 +348,7 @@ func (o *TaskCreate) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -334,6 +364,7 @@ func (o *TaskCreate) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskCreate) SetInput(v *TaskInput) *TaskCreate {
 	o.Input = v
+
 	return o
 }
 
@@ -341,8 +372,10 @@ func (o *TaskCreate) SetInput(v *TaskInput) *TaskCreate {
 func (o *TaskCreate) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cursor
 }
 
@@ -352,6 +385,7 @@ func (o *TaskCreate) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
+
 	return o.Cursor, true
 }
 
@@ -367,6 +401,7 @@ func (o *TaskCreate) HasCursor() bool {
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
 func (o *TaskCreate) SetCursor(v string) *TaskCreate {
 	o.Cursor = &v
+
 	return o
 }
 
@@ -374,8 +409,10 @@ func (o *TaskCreate) SetCursor(v string) *TaskCreate {
 func (o *TaskCreate) GetNotifications() Notifications {
 	if o == nil || o.Notifications == nil {
 		var ret Notifications
+
 		return ret
 	}
+
 	return *o.Notifications
 }
 
@@ -385,6 +422,7 @@ func (o *TaskCreate) GetNotificationsOk() (*Notifications, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
+
 	return o.Notifications, true
 }
 
@@ -400,6 +438,7 @@ func (o *TaskCreate) HasNotifications() bool {
 // SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
 func (o *TaskCreate) SetNotifications(v *Notifications) *TaskCreate {
 	o.Notifications = v
+
 	return o
 }
 
@@ -407,8 +446,10 @@ func (o *TaskCreate) SetNotifications(v *Notifications) *TaskCreate {
 func (o *TaskCreate) GetPolicies() Policies {
 	if o == nil || o.Policies == nil {
 		var ret Policies
+
 		return ret
 	}
+
 	return *o.Policies
 }
 
@@ -418,6 +459,7 @@ func (o *TaskCreate) GetPoliciesOk() (*Policies, bool) {
 	if o == nil || o.Policies == nil {
 		return nil, false
 	}
+
 	return o.Policies, true
 }
 
@@ -433,6 +475,7 @@ func (o *TaskCreate) HasPolicies() bool {
 // SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
 func (o *TaskCreate) SetPolicies(v *Policies) *TaskCreate {
 	o.Policies = v
+
 	return o
 }
 
@@ -440,31 +483,40 @@ func (o TaskCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["destinationID"] = o.DestinationID
+
 	toSerialize["action"] = o.Action
 	if o.SubscriptionAction != nil {
 		toSerialize["subscriptionAction"] = o.SubscriptionAction
 	}
+
 	if o.Cron != nil {
 		toSerialize["cron"] = o.Cron
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+
 	if o.Notifications != nil {
 		toSerialize["notifications"] = o.Notifications
 	}
+
 	if o.Policies != nil {
 		toSerialize["policies"] = o.Policies
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskCreate: %w", err)
@@ -486,5 +538,6 @@ func (o TaskCreate) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
+
 	return fmt.Sprintf("TaskCreate {\n%s}", out)
 }

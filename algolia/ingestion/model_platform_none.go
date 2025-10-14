@@ -19,24 +19,7 @@ var AllowedPlatformNoneEnumValues = []PlatformNone{
 	"none",
 }
 
-func (v *PlatformNone) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'PlatformNone': %w", string(src), err)
-	}
-	enumTypeValue := PlatformNone(value)
-	for _, existing := range AllowedPlatformNoneEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid PlatformNone", value)
-}
-
-// NewPlatformNoneFromValue returns a pointer to a valid PlatformNone
+// NewPlatformNoneFromValue returns a pointer to a valid PlatformNone.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewPlatformNoneFromValue(v string) (*PlatformNone, error) {
 	ev := PlatformNone(v)
@@ -47,6 +30,26 @@ func NewPlatformNoneFromValue(v string) (*PlatformNone, error) {
 	}
 }
 
+func (v *PlatformNone) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'PlatformNone': %w", string(src), err)
+	}
+
+	enumTypeValue := PlatformNone(value)
+	for _, existing := range AllowedPlatformNoneEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid PlatformNone", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v PlatformNone) IsValid() bool {
 	for _, existing := range AllowedPlatformNoneEnumValues {
@@ -54,6 +57,7 @@ func (v PlatformNone) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

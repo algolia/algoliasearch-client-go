@@ -33,10 +33,12 @@ func WithEstimateConfigurationEmptySearch(val EmptySearch) EstimateConfiguration
 // will change when the set of required properties is changed.
 func NewEstimateConfiguration(minimumDetectableEffect MinimumDetectableEffect, opts ...EstimateConfigurationOption) *EstimateConfiguration {
 	this := &EstimateConfiguration{}
+
 	this.MinimumDetectableEffect = minimumDetectableEffect
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +51,10 @@ func NewEmptyEstimateConfiguration() *EstimateConfiguration {
 func (o *EstimateConfiguration) GetOutliers() Outliers {
 	if o == nil || o.Outliers == nil {
 		var ret Outliers
+
 		return ret
 	}
+
 	return *o.Outliers
 }
 
@@ -60,6 +64,7 @@ func (o *EstimateConfiguration) GetOutliersOk() (*Outliers, bool) {
 	if o == nil || o.Outliers == nil {
 		return nil, false
 	}
+
 	return o.Outliers, true
 }
 
@@ -75,6 +80,7 @@ func (o *EstimateConfiguration) HasOutliers() bool {
 // SetOutliers gets a reference to the given Outliers and assigns it to the Outliers field.
 func (o *EstimateConfiguration) SetOutliers(v *Outliers) *EstimateConfiguration {
 	o.Outliers = v
+
 	return o
 }
 
@@ -82,8 +88,10 @@ func (o *EstimateConfiguration) SetOutliers(v *Outliers) *EstimateConfiguration 
 func (o *EstimateConfiguration) GetEmptySearch() EmptySearch {
 	if o == nil || o.EmptySearch == nil {
 		var ret EmptySearch
+
 		return ret
 	}
+
 	return *o.EmptySearch
 }
 
@@ -93,6 +101,7 @@ func (o *EstimateConfiguration) GetEmptySearchOk() (*EmptySearch, bool) {
 	if o == nil || o.EmptySearch == nil {
 		return nil, false
 	}
+
 	return o.EmptySearch, true
 }
 
@@ -108,6 +117,7 @@ func (o *EstimateConfiguration) HasEmptySearch() bool {
 // SetEmptySearch gets a reference to the given EmptySearch and assigns it to the EmptySearch field.
 func (o *EstimateConfiguration) SetEmptySearch(v *EmptySearch) *EstimateConfiguration {
 	o.EmptySearch = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *EstimateConfiguration) SetEmptySearch(v *EmptySearch) *EstimateConfigur
 func (o *EstimateConfiguration) GetMinimumDetectableEffect() MinimumDetectableEffect {
 	if o == nil {
 		var ret MinimumDetectableEffect
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *EstimateConfiguration) GetMinimumDetectableEffectOk() (*MinimumDetectab
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MinimumDetectableEffect, true
 }
 
 // SetMinimumDetectableEffect sets field value.
 func (o *EstimateConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEffect) *EstimateConfiguration {
 	o.MinimumDetectableEffect = *v
+
 	return o
 }
 
@@ -141,10 +154,13 @@ func (o EstimateConfiguration) MarshalJSON() ([]byte, error) {
 	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
+
 	if o.EmptySearch != nil {
 		toSerialize["emptySearch"] = o.EmptySearch
 	}
+
 	toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateConfiguration: %w", err)
@@ -158,5 +174,6 @@ func (o EstimateConfiguration) String() string {
 	out += fmt.Sprintf("  outliers=%v\n", o.Outliers)
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
+
 	return fmt.Sprintf("EstimateConfiguration {\n%s}", out)
 }

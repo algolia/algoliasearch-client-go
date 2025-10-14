@@ -19,24 +19,7 @@ var AllowedSubscriptionTriggerTypeEnumValues = []SubscriptionTriggerType{
 	"subscription",
 }
 
-func (v *SubscriptionTriggerType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SubscriptionTriggerType': %w", string(src), err)
-	}
-	enumTypeValue := SubscriptionTriggerType(value)
-	for _, existing := range AllowedSubscriptionTriggerTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SubscriptionTriggerType", value)
-}
-
-// NewSubscriptionTriggerTypeFromValue returns a pointer to a valid SubscriptionTriggerType
+// NewSubscriptionTriggerTypeFromValue returns a pointer to a valid SubscriptionTriggerType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSubscriptionTriggerTypeFromValue(v string) (*SubscriptionTriggerType, error) {
 	ev := SubscriptionTriggerType(v)
@@ -47,6 +30,26 @@ func NewSubscriptionTriggerTypeFromValue(v string) (*SubscriptionTriggerType, er
 	}
 }
 
+func (v *SubscriptionTriggerType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SubscriptionTriggerType': %w", string(src), err)
+	}
+
+	enumTypeValue := SubscriptionTriggerType(value)
+	for _, existing := range AllowedSubscriptionTriggerTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SubscriptionTriggerType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SubscriptionTriggerType) IsValid() bool {
 	for _, existing := range AllowedSubscriptionTriggerTypeEnumValues {
@@ -54,6 +57,7 @@ func (v SubscriptionTriggerType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

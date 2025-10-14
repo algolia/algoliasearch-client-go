@@ -19,24 +19,7 @@ var AllowedTypeEnumValues = []Type{
 	"cluster",
 }
 
-func (v *Type) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Type': %w", string(src), err)
-	}
-	enumTypeValue := Type(value)
-	for _, existing := range AllowedTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Type", value)
-}
-
-// NewTypeFromValue returns a pointer to a valid Type
+// NewTypeFromValue returns a pointer to a valid Type.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTypeFromValue(v string) (*Type, error) {
 	ev := Type(v)
@@ -47,6 +30,26 @@ func NewTypeFromValue(v string) (*Type, error) {
 	}
 }
 
+func (v *Type) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Type': %w", string(src), err)
+	}
+
+	enumTypeValue := Type(value)
+	for _, existing := range AllowedTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Type", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Type) IsValid() bool {
 	for _, existing := range AllowedTypeEnumValues {
@@ -54,6 +57,7 @@ func (v Type) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

@@ -18,6 +18,7 @@ type BatchWriteParams struct {
 func NewBatchWriteParams(requests []BatchRequest) *BatchWriteParams {
 	this := &BatchWriteParams{}
 	this.Requests = requests
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyBatchWriteParams() *BatchWriteParams {
 func (o *BatchWriteParams) GetRequests() []BatchRequest {
 	if o == nil {
 		var ret []BatchRequest
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *BatchWriteParams) GetRequestsOk() ([]BatchRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
 // SetRequests sets field value.
 func (o *BatchWriteParams) SetRequests(v []BatchRequest) *BatchWriteParams {
 	o.Requests = v
+
 	return o
 }
 
 func (o BatchWriteParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["requests"] = o.Requests
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchWriteParams: %w", err)
@@ -65,5 +70,6 @@ func (o BatchWriteParams) MarshalJSON() ([]byte, error) {
 func (o BatchWriteParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
+
 	return fmt.Sprintf("BatchWriteParams {\n%s}", out)
 }

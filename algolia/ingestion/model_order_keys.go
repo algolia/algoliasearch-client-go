@@ -21,24 +21,7 @@ var AllowedOrderKeysEnumValues = []OrderKeys{
 	"desc",
 }
 
-func (v *OrderKeys) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OrderKeys': %w", string(src), err)
-	}
-	enumTypeValue := OrderKeys(value)
-	for _, existing := range AllowedOrderKeysEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid OrderKeys", value)
-}
-
-// NewOrderKeysFromValue returns a pointer to a valid OrderKeys
+// NewOrderKeysFromValue returns a pointer to a valid OrderKeys.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewOrderKeysFromValue(v string) (*OrderKeys, error) {
 	ev := OrderKeys(v)
@@ -49,6 +32,26 @@ func NewOrderKeysFromValue(v string) (*OrderKeys, error) {
 	}
 }
 
+func (v *OrderKeys) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OrderKeys': %w", string(src), err)
+	}
+
+	enumTypeValue := OrderKeys(value)
+	for _, existing := range AllowedOrderKeysEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid OrderKeys", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v OrderKeys) IsValid() bool {
 	for _, existing := range AllowedOrderKeysEnumValues {
@@ -56,6 +59,7 @@ func (v OrderKeys) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

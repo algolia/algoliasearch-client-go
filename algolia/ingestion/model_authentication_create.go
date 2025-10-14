@@ -33,10 +33,12 @@ func NewAuthenticationCreate(type_ AuthenticationType, name string, input AuthIn
 	this := &AuthenticationCreate{}
 	this.Type = type_
 	this.Name = name
+
 	this.Input = input
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +51,7 @@ func NewEmptyAuthenticationCreate() *AuthenticationCreate {
 func (o *AuthenticationCreate) GetType() AuthenticationType {
 	if o == nil {
 		var ret AuthenticationType
+
 		return ret
 	}
 
@@ -61,12 +64,14 @@ func (o *AuthenticationCreate) GetTypeOk() (*AuthenticationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *AuthenticationCreate) SetType(v AuthenticationType) *AuthenticationCreate {
 	o.Type = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o *AuthenticationCreate) SetType(v AuthenticationType) *AuthenticationCrea
 func (o *AuthenticationCreate) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -86,12 +92,14 @@ func (o *AuthenticationCreate) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *AuthenticationCreate) SetName(v string) *AuthenticationCreate {
 	o.Name = v
+
 	return o
 }
 
@@ -99,8 +107,10 @@ func (o *AuthenticationCreate) SetName(v string) *AuthenticationCreate {
 func (o *AuthenticationCreate) GetPlatform() Platform {
 	if o == nil || o.Platform.Get() == nil {
 		var ret Platform
+
 		return ret
 	}
+
 	return *o.Platform.Get()
 }
 
@@ -111,6 +121,7 @@ func (o *AuthenticationCreate) GetPlatformOk() (*Platform, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Platform.Get(), o.Platform.IsSet()
 }
 
@@ -126,6 +137,7 @@ func (o *AuthenticationCreate) HasPlatform() bool {
 // SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
 func (o *AuthenticationCreate) SetPlatform(v Platform) *AuthenticationCreate {
 	o.Platform.Set(&v)
+
 	return o
 }
 
@@ -143,6 +155,7 @@ func (o *AuthenticationCreate) UnsetPlatform() {
 func (o *AuthenticationCreate) GetInput() AuthInput {
 	if o == nil {
 		var ret AuthInput
+
 		return ret
 	}
 
@@ -155,23 +168,28 @@ func (o *AuthenticationCreate) GetInputOk() (*AuthInput, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Input, true
 }
 
 // SetInput sets field value.
 func (o *AuthenticationCreate) SetInput(v *AuthInput) *AuthenticationCreate {
 	o.Input = *v
+
 	return o
 }
 
 func (o AuthenticationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	toSerialize["name"] = o.Name
 	if o.Platform.IsSet() {
 		toSerialize["platform"] = o.Platform.Get()
 	}
+
 	toSerialize["input"] = o.Input
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationCreate: %w", err)
@@ -186,5 +204,6 @@ func (o AuthenticationCreate) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  platform=%v\n", o.Platform)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
+
 	return fmt.Sprintf("AuthenticationCreate {\n%s}", out)
 }

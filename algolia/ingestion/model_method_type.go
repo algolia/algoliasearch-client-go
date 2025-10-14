@@ -21,24 +21,7 @@ var AllowedMethodTypeEnumValues = []MethodType{
 	"POST",
 }
 
-func (v *MethodType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MethodType': %w", string(src), err)
-	}
-	enumTypeValue := MethodType(value)
-	for _, existing := range AllowedMethodTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid MethodType", value)
-}
-
-// NewMethodTypeFromValue returns a pointer to a valid MethodType
+// NewMethodTypeFromValue returns a pointer to a valid MethodType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewMethodTypeFromValue(v string) (*MethodType, error) {
 	ev := MethodType(v)
@@ -49,6 +32,26 @@ func NewMethodTypeFromValue(v string) (*MethodType, error) {
 	}
 }
 
+func (v *MethodType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'MethodType': %w", string(src), err)
+	}
+
+	enumTypeValue := MethodType(value)
+	for _, existing := range AllowedMethodTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid MethodType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v MethodType) IsValid() bool {
 	for _, existing := range AllowedMethodTypeEnumValues {
@@ -56,6 +59,7 @@ func (v MethodType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

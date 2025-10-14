@@ -31,10 +31,12 @@ func WithSaveObjectResponseObjectID(val string) SaveObjectResponseOption {
 func NewSaveObjectResponse(createdAt string, taskID int64, opts ...SaveObjectResponseOption) *SaveObjectResponse {
 	this := &SaveObjectResponse{}
 	this.CreatedAt = createdAt
+
 	this.TaskID = taskID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,6 +49,7 @@ func NewEmptySaveObjectResponse() *SaveObjectResponse {
 func (o *SaveObjectResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -59,12 +62,14 @@ func (o *SaveObjectResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *SaveObjectResponse) SetCreatedAt(v string) *SaveObjectResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -72,6 +77,7 @@ func (o *SaveObjectResponse) SetCreatedAt(v string) *SaveObjectResponse {
 func (o *SaveObjectResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -84,12 +90,14 @@ func (o *SaveObjectResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *SaveObjectResponse) SetTaskID(v int64) *SaveObjectResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -97,8 +105,10 @@ func (o *SaveObjectResponse) SetTaskID(v int64) *SaveObjectResponse {
 func (o *SaveObjectResponse) GetObjectID() string {
 	if o == nil || o.ObjectID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ObjectID
 }
 
@@ -108,6 +118,7 @@ func (o *SaveObjectResponse) GetObjectIDOk() (*string, bool) {
 	if o == nil || o.ObjectID == nil {
 		return nil, false
 	}
+
 	return o.ObjectID, true
 }
 
@@ -123,16 +134,19 @@ func (o *SaveObjectResponse) HasObjectID() bool {
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
 func (o *SaveObjectResponse) SetObjectID(v string) *SaveObjectResponse {
 	o.ObjectID = &v
+
 	return o
 }
 
 func (o SaveObjectResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["createdAt"] = o.CreatedAt
+
 	toSerialize["taskID"] = o.TaskID
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SaveObjectResponse: %w", err)
@@ -146,5 +160,6 @@ func (o SaveObjectResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("SaveObjectResponse {\n%s}", out)
 }

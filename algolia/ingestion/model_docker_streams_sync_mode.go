@@ -21,24 +21,7 @@ var AllowedDockerStreamsSyncModeEnumValues = []DockerStreamsSyncMode{
 	"fullTable",
 }
 
-func (v *DockerStreamsSyncMode) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DockerStreamsSyncMode': %w", string(src), err)
-	}
-	enumTypeValue := DockerStreamsSyncMode(value)
-	for _, existing := range AllowedDockerStreamsSyncModeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid DockerStreamsSyncMode", value)
-}
-
-// NewDockerStreamsSyncModeFromValue returns a pointer to a valid DockerStreamsSyncMode
+// NewDockerStreamsSyncModeFromValue returns a pointer to a valid DockerStreamsSyncMode.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewDockerStreamsSyncModeFromValue(v string) (*DockerStreamsSyncMode, error) {
 	ev := DockerStreamsSyncMode(v)
@@ -49,6 +32,26 @@ func NewDockerStreamsSyncModeFromValue(v string) (*DockerStreamsSyncMode, error)
 	}
 }
 
+func (v *DockerStreamsSyncMode) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DockerStreamsSyncMode': %w", string(src), err)
+	}
+
+	enumTypeValue := DockerStreamsSyncMode(value)
+	for _, existing := range AllowedDockerStreamsSyncModeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid DockerStreamsSyncMode", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v DockerStreamsSyncMode) IsValid() bool {
 	for _, existing := range AllowedDockerStreamsSyncModeEnumValues {
@@ -56,6 +59,7 @@ func (v DockerStreamsSyncMode) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

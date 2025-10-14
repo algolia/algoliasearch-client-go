@@ -27,10 +27,12 @@ func WithSearchParams(val BaseInjectionQueryParameters) SearchOption {
 // will change when the set of required properties is changed.
 func NewSearch(index string, opts ...SearchOption) *Search {
 	this := &Search{}
+
 	this.Index = index
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -43,6 +45,7 @@ func NewEmptySearch() *Search {
 func (o *Search) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -55,12 +58,14 @@ func (o *Search) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *Search) SetIndex(v string) *Search {
 	o.Index = v
+
 	return o
 }
 
@@ -68,8 +73,10 @@ func (o *Search) SetIndex(v string) *Search {
 func (o *Search) GetParams() BaseInjectionQueryParameters {
 	if o == nil || o.Params == nil {
 		var ret BaseInjectionQueryParameters
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -79,6 +86,7 @@ func (o *Search) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -94,15 +102,18 @@ func (o *Search) HasParams() bool {
 // SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
 func (o *Search) SetParams(v *BaseInjectionQueryParameters) *Search {
 	o.Params = v
+
 	return o
 }
 
 func (o Search) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["index"] = o.Index
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Search: %w", err)
@@ -115,5 +126,6 @@ func (o Search) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("Search {\n%s}", out)
 }

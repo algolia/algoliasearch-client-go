@@ -29,14 +29,21 @@ func WithAbTestsVariantSearchParamsDescription(val string) AbTestsVariantSearchP
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAbTestsVariantSearchParams(index string, trafficPercentage int32, customSearchParameters map[string]any, opts ...AbTestsVariantSearchParamsOption) *AbTestsVariantSearchParams {
+func NewAbTestsVariantSearchParams(
+	index string,
+	trafficPercentage int32,
+	customSearchParameters map[string]any,
+	opts ...AbTestsVariantSearchParamsOption,
+) *AbTestsVariantSearchParams {
 	this := &AbTestsVariantSearchParams{}
 	this.Index = index
 	this.TrafficPercentage = trafficPercentage
+
 	this.CustomSearchParameters = customSearchParameters
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +56,7 @@ func NewEmptyAbTestsVariantSearchParams() *AbTestsVariantSearchParams {
 func (o *AbTestsVariantSearchParams) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -61,12 +69,14 @@ func (o *AbTestsVariantSearchParams) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *AbTestsVariantSearchParams) SetIndex(v string) *AbTestsVariantSearchParams {
 	o.Index = v
+
 	return o
 }
 
@@ -74,6 +84,7 @@ func (o *AbTestsVariantSearchParams) SetIndex(v string) *AbTestsVariantSearchPar
 func (o *AbTestsVariantSearchParams) GetTrafficPercentage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -86,12 +97,14 @@ func (o *AbTestsVariantSearchParams) GetTrafficPercentageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrafficPercentage, true
 }
 
 // SetTrafficPercentage sets field value.
 func (o *AbTestsVariantSearchParams) SetTrafficPercentage(v int32) *AbTestsVariantSearchParams {
 	o.TrafficPercentage = v
+
 	return o
 }
 
@@ -99,8 +112,10 @@ func (o *AbTestsVariantSearchParams) SetTrafficPercentage(v int32) *AbTestsVaria
 func (o *AbTestsVariantSearchParams) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -110,6 +125,7 @@ func (o *AbTestsVariantSearchParams) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -125,6 +141,7 @@ func (o *AbTestsVariantSearchParams) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AbTestsVariantSearchParams) SetDescription(v string) *AbTestsVariantSearchParams {
 	o.Description = &v
+
 	return o
 }
 
@@ -132,6 +149,7 @@ func (o *AbTestsVariantSearchParams) SetDescription(v string) *AbTestsVariantSea
 func (o *AbTestsVariantSearchParams) GetCustomSearchParameters() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -144,23 +162,28 @@ func (o *AbTestsVariantSearchParams) GetCustomSearchParametersOk() (map[string]a
 	if o == nil {
 		return nil, false
 	}
+
 	return o.CustomSearchParameters, true
 }
 
 // SetCustomSearchParameters sets field value.
 func (o *AbTestsVariantSearchParams) SetCustomSearchParameters(v map[string]any) *AbTestsVariantSearchParams {
 	o.CustomSearchParameters = v
+
 	return o
 }
 
 func (o AbTestsVariantSearchParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["index"] = o.Index
+
 	toSerialize["trafficPercentage"] = o.TrafficPercentage
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	toSerialize["customSearchParameters"] = o.CustomSearchParameters
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AbTestsVariantSearchParams: %w", err)
@@ -175,5 +198,6 @@ func (o AbTestsVariantSearchParams) String() string {
 	out += fmt.Sprintf("  trafficPercentage=%v\n", o.TrafficPercentage)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  customSearchParameters=%v\n", o.CustomSearchParameters)
+
 	return fmt.Sprintf("AbTestsVariantSearchParams {\n%s}", out)
 }

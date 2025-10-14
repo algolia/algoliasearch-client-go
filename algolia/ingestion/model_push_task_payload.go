@@ -20,6 +20,7 @@ func NewPushTaskPayload(action Action, records []PushTaskRecords) *PushTaskPaylo
 	this := &PushTaskPayload{}
 	this.Action = action
 	this.Records = records
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyPushTaskPayload() *PushTaskPayload {
 func (o *PushTaskPayload) GetAction() Action {
 	if o == nil {
 		var ret Action
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *PushTaskPayload) GetActionOk() (*Action, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *PushTaskPayload) SetAction(v Action) *PushTaskPayload {
 	o.Action = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *PushTaskPayload) SetAction(v Action) *PushTaskPayload {
 func (o *PushTaskPayload) GetRecords() []PushTaskRecords {
 	if o == nil {
 		var ret []PushTaskRecords
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *PushTaskPayload) GetRecordsOk() ([]PushTaskRecords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Records, true
 }
 
 // SetRecords sets field value.
 func (o *PushTaskPayload) SetRecords(v []PushTaskRecords) *PushTaskPayload {
 	o.Records = v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o PushTaskPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["action"] = o.Action
 	toSerialize["records"] = o.Records
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PushTaskPayload: %w", err)
@@ -94,5 +102,6 @@ func (o PushTaskPayload) String() string {
 	out := ""
 	out += fmt.Sprintf("  action=%v\n", o.Action)
 	out += fmt.Sprintf("  records=%v\n", o.Records)
+
 	return fmt.Sprintf("PushTaskPayload {\n%s}", out)
 }

@@ -18,6 +18,7 @@ type SubscriptionTrigger struct {
 func NewSubscriptionTrigger(type_ SubscriptionTriggerType) *SubscriptionTrigger {
 	this := &SubscriptionTrigger{}
 	this.Type = type_
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptySubscriptionTrigger() *SubscriptionTrigger {
 func (o *SubscriptionTrigger) GetType() SubscriptionTriggerType {
 	if o == nil {
 		var ret SubscriptionTriggerType
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *SubscriptionTrigger) GetTypeOk() (*SubscriptionTriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *SubscriptionTrigger) SetType(v SubscriptionTriggerType) *SubscriptionTrigger {
 	o.Type = v
+
 	return o
 }
 
 func (o SubscriptionTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SubscriptionTrigger: %w", err)
@@ -65,5 +70,6 @@ func (o SubscriptionTrigger) MarshalJSON() ([]byte, error) {
 func (o SubscriptionTrigger) String() string {
 	out := ""
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+
 	return fmt.Sprintf("SubscriptionTrigger {\n%s}", out)
 }

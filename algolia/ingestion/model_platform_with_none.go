@@ -44,7 +44,7 @@ func (dst *PlatformWithNone) UnmarshalJSON(data []byte) error {
 		dst.PlatformNone = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(PlatformWithNone)")
+	return fmt.Errorf("data failed to match schemas in oneOf(PlatformWithNone)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

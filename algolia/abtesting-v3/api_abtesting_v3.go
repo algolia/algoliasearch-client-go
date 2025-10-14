@@ -70,10 +70,12 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 
 func (r *ApiAddABTestsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["addABTestsRequest"]; ok {
 		err = json.Unmarshal(v, &r.addABTestsRequest)
 		if err != nil {
@@ -141,6 +143,7 @@ func (c *APIClient) AddABTestsWithHTTPInfo(r ApiAddABTestsRequest, opts ...Reque
 
 	// body params
 	postBody = r.addABTestsRequest
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -169,9 +172,11 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -187,10 +192,12 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -200,6 +207,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -229,6 +237,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
 func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -299,9 +308,11 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -317,10 +328,12 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -330,6 +343,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -359,6 +373,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
 func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -429,9 +444,11 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -447,10 +464,12 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -460,6 +479,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -469,6 +489,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -499,12 +520,14 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
+
 	return r
 }
 
@@ -556,6 +579,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -583,9 +607,11 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -601,10 +627,12 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -614,6 +642,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -623,6 +652,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -653,12 +683,14 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
+
 	return r
 }
 
@@ -710,6 +742,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -737,9 +770,11 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -755,10 +790,12 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 func (r *ApiDeleteABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["id"]; ok {
 		err = json.Unmarshal(v, &r.id)
 		if err != nil {
@@ -844,9 +881,11 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -862,10 +901,12 @@ func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption
 
 func (r *ApiEstimateABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["estimateABTestRequest"]; ok {
 		err = json.Unmarshal(v, &r.estimateABTestRequest)
 		if err != nil {
@@ -933,6 +974,7 @@ func (c *APIClient) EstimateABTestWithHTTPInfo(r ApiEstimateABTestRequest, opts 
 
 	// body params
 	postBody = r.estimateABTestRequest
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -961,9 +1003,11 @@ func (c *APIClient) EstimateABTest(r ApiEstimateABTestRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -979,10 +1023,12 @@ func (c *APIClient) EstimateABTest(r ApiEstimateABTestRequest, opts ...RequestOp
 
 func (r *ApiGetABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["id"]; ok {
 		err = json.Unmarshal(v, &r.id)
 		if err != nil {
@@ -1068,9 +1114,11 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*AB
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1086,10 +1134,12 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*AB
 
 func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["id"]; ok {
 		err = json.Unmarshal(v, &r.id)
 		if err != nil {
@@ -1099,6 +1149,7 @@ func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1108,6 +1159,7 @@ func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1117,6 +1169,7 @@ func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["metric"]; ok {
 		err = json.Unmarshal(v, &r.metric)
 		if err != nil {
@@ -1148,18 +1201,21 @@ func (c *APIClient) NewApiGetTimeseriesRequest(id int32) ApiGetTimeseriesRequest
 // WithStartDate adds the startDate to the ApiGetTimeseriesRequest and returns the request for chaining.
 func (r ApiGetTimeseriesRequest) WithStartDate(startDate string) ApiGetTimeseriesRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTimeseriesRequest and returns the request for chaining.
 func (r ApiGetTimeseriesRequest) WithEndDate(endDate string) ApiGetTimeseriesRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithMetric adds the metric to the ApiGetTimeseriesRequest and returns the request for chaining.
 func (r ApiGetTimeseriesRequest) WithMetric(metric []MetricName) ApiGetTimeseriesRequest {
 	r.metric = metric
+
 	return r
 }
 
@@ -1194,9 +1250,11 @@ func (c *APIClient) GetTimeseriesWithHTTPInfo(r ApiGetTimeseriesRequest, opts ..
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.metric) {
 		conf.queryParams.Set("metric", utils.QueryParameterToString(r.metric))
 	}
@@ -1239,9 +1297,11 @@ func (c *APIClient) GetTimeseries(r ApiGetTimeseriesRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1257,10 +1317,12 @@ func (c *APIClient) GetTimeseries(r ApiGetTimeseriesRequest, opts ...RequestOpti
 
 func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -1270,6 +1332,7 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -1279,6 +1342,7 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["indexPrefix"]; ok {
 		err = json.Unmarshal(v, &r.indexPrefix)
 		if err != nil {
@@ -1288,6 +1352,7 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["indexSuffix"]; ok {
 		err = json.Unmarshal(v, &r.indexSuffix)
 		if err != nil {
@@ -1297,6 +1362,7 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["direction"]; ok {
 		err = json.Unmarshal(v, &r.direction)
 		if err != nil {
@@ -1327,30 +1393,35 @@ func (c *APIClient) NewApiListABTestsRequest() ApiListABTestsRequest {
 // WithOffset adds the offset to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithOffset(offset int32) ApiListABTestsRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithLimit(limit int32) ApiListABTestsRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithIndexPrefix adds the indexPrefix to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithIndexPrefix(indexPrefix string) ApiListABTestsRequest {
 	r.indexPrefix = &indexPrefix
+
 	return r
 }
 
 // WithIndexSuffix adds the indexSuffix to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTestsRequest {
 	r.indexSuffix = &indexSuffix
+
 	return r
 }
 
 // WithDirection adds the direction to the ApiListABTestsRequest and returns the request for chaining.
 func (r ApiListABTestsRequest) WithDirection(direction Direction) ApiListABTestsRequest {
 	r.direction = direction
+
 	return r
 }
 
@@ -1367,6 +1438,8 @@ ListABTests calls the API and returns the raw response from it.
 	  @param limit int32 - Number of items to return.
 	  @param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
 	  @param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
+
+
 	  @param direction Direction - Sort order for A/B tests by start date. Use 'asc' for ascending or 'desc' for descending. Active A/B tests are always listed first.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1385,15 +1458,19 @@ func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...Req
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.indexPrefix) {
 		conf.queryParams.Set("indexPrefix", utils.QueryParameterToString(*r.indexPrefix))
 	}
+
 	if !utils.IsNilOrEmpty(r.indexSuffix) {
 		conf.queryParams.Set("indexSuffix", utils.QueryParameterToString(*r.indexSuffix))
 	}
+
 	if !utils.IsNilOrEmpty(r.direction) {
 		conf.queryParams.Set("direction", utils.QueryParameterToString(r.direction))
 	}
@@ -1427,6 +1504,8 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 	@param limit int32 - Number of items to return.
 	@param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
 	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
+
+
 	@param direction Direction - Sort order for A/B tests by start date. Use 'asc' for ascending or 'desc' for descending. Active A/B tests are always listed first.
 	@return ListABTestsResponse
 */
@@ -1437,9 +1516,11 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1455,10 +1536,12 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) 
 
 func (r *ApiScheduleABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["scheduleABTestsRequest"]; ok {
 		err = json.Unmarshal(v, &r.scheduleABTestsRequest)
 		if err != nil {
@@ -1527,6 +1610,7 @@ func (c *APIClient) ScheduleABTestWithHTTPInfo(r ApiScheduleABTestRequest, opts 
 
 	// body params
 	postBody = r.scheduleABTestsRequest
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -1555,9 +1639,11 @@ func (c *APIClient) ScheduleABTest(r ApiScheduleABTestRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1573,10 +1659,12 @@ func (c *APIClient) ScheduleABTest(r ApiScheduleABTestRequest, opts ...RequestOp
 
 func (r *ApiStopABTestRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["id"]; ok {
 		err = json.Unmarshal(v, &r.id)
 		if err != nil {
@@ -1666,9 +1754,11 @@ func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)

@@ -18,6 +18,7 @@ type TaskSearch struct {
 func NewTaskSearch(taskIDs []string) *TaskSearch {
 	this := &TaskSearch{}
 	this.TaskIDs = taskIDs
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyTaskSearch() *TaskSearch {
 func (o *TaskSearch) GetTaskIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *TaskSearch) GetTaskIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.TaskIDs, true
 }
 
 // SetTaskIDs sets field value.
 func (o *TaskSearch) SetTaskIDs(v []string) *TaskSearch {
 	o.TaskIDs = v
+
 	return o
 }
 
 func (o TaskSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskIDs"] = o.TaskIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskSearch: %w", err)
@@ -65,5 +70,6 @@ func (o TaskSearch) MarshalJSON() ([]byte, error) {
 func (o TaskSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskIDs=%v\n", o.TaskIDs)
+
 	return fmt.Sprintf("TaskSearch {\n%s}", out)
 }

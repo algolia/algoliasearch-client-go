@@ -18,6 +18,7 @@ type Notifications struct {
 func NewNotifications(email EmailNotifications) *Notifications {
 	this := &Notifications{}
 	this.Email = email
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyNotifications() *Notifications {
 func (o *Notifications) GetEmail() EmailNotifications {
 	if o == nil {
 		var ret EmailNotifications
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *Notifications) GetEmailOk() (*EmailNotifications, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Email, true
 }
 
 // SetEmail sets field value.
 func (o *Notifications) SetEmail(v *EmailNotifications) *Notifications {
 	o.Email = *v
+
 	return o
 }
 
 func (o Notifications) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["email"] = o.Email
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Notifications: %w", err)
@@ -65,5 +70,6 @@ func (o Notifications) MarshalJSON() ([]byte, error) {
 func (o Notifications) String() string {
 	out := ""
 	out += fmt.Sprintf("  email=%v\n", o.Email)
+
 	return fmt.Sprintf("Notifications {\n%s}", out)
 }

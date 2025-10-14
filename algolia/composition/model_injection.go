@@ -34,10 +34,12 @@ func WithInjectionDeduplication(val Deduplication) InjectionOption {
 // will change when the set of required properties is changed.
 func NewInjection(main Main, opts ...InjectionOption) *Injection {
 	this := &Injection{}
+
 	this.Main = main
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -50,6 +52,7 @@ func NewEmptyInjection() *Injection {
 func (o *Injection) GetMain() Main {
 	if o == nil {
 		var ret Main
+
 		return ret
 	}
 
@@ -62,12 +65,14 @@ func (o *Injection) GetMainOk() (*Main, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Main, true
 }
 
 // SetMain sets field value.
 func (o *Injection) SetMain(v *Main) *Injection {
 	o.Main = *v
+
 	return o
 }
 
@@ -75,8 +80,10 @@ func (o *Injection) SetMain(v *Main) *Injection {
 func (o *Injection) GetInjectedItems() []InjectedItem {
 	if o == nil || o.InjectedItems == nil {
 		var ret []InjectedItem
+
 		return ret
 	}
+
 	return o.InjectedItems
 }
 
@@ -86,6 +93,7 @@ func (o *Injection) GetInjectedItemsOk() ([]InjectedItem, bool) {
 	if o == nil || o.InjectedItems == nil {
 		return nil, false
 	}
+
 	return o.InjectedItems, true
 }
 
@@ -101,6 +109,7 @@ func (o *Injection) HasInjectedItems() bool {
 // SetInjectedItems gets a reference to the given []InjectedItem and assigns it to the InjectedItems field.
 func (o *Injection) SetInjectedItems(v []InjectedItem) *Injection {
 	o.InjectedItems = v
+
 	return o
 }
 
@@ -108,8 +117,10 @@ func (o *Injection) SetInjectedItems(v []InjectedItem) *Injection {
 func (o *Injection) GetDeduplication() Deduplication {
 	if o == nil || o.Deduplication == nil {
 		var ret Deduplication
+
 		return ret
 	}
+
 	return *o.Deduplication
 }
 
@@ -119,6 +130,7 @@ func (o *Injection) GetDeduplicationOk() (*Deduplication, bool) {
 	if o == nil || o.Deduplication == nil {
 		return nil, false
 	}
+
 	return o.Deduplication, true
 }
 
@@ -134,18 +146,22 @@ func (o *Injection) HasDeduplication() bool {
 // SetDeduplication gets a reference to the given Deduplication and assigns it to the Deduplication field.
 func (o *Injection) SetDeduplication(v *Deduplication) *Injection {
 	o.Deduplication = v
+
 	return o
 }
 
 func (o Injection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["main"] = o.Main
 	if o.InjectedItems != nil {
 		toSerialize["injectedItems"] = o.InjectedItems
 	}
+
 	if o.Deduplication != nil {
 		toSerialize["deduplication"] = o.Deduplication
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Injection: %w", err)
@@ -159,5 +175,6 @@ func (o Injection) String() string {
 	out += fmt.Sprintf("  main=%v\n", o.Main)
 	out += fmt.Sprintf("  injectedItems=%v\n", o.InjectedItems)
 	out += fmt.Sprintf("  deduplication=%v\n", o.Deduplication)
+
 	return fmt.Sprintf("Injection {\n%s}", out)
 }

@@ -23,24 +23,7 @@ var AllowedExactOnSingleWordQueryEnumValues = []ExactOnSingleWordQuery{
 	"word",
 }
 
-func (v *ExactOnSingleWordQuery) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ExactOnSingleWordQuery': %w", string(src), err)
-	}
-	enumTypeValue := ExactOnSingleWordQuery(value)
-	for _, existing := range AllowedExactOnSingleWordQueryEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ExactOnSingleWordQuery", value)
-}
-
-// NewExactOnSingleWordQueryFromValue returns a pointer to a valid ExactOnSingleWordQuery
+// NewExactOnSingleWordQueryFromValue returns a pointer to a valid ExactOnSingleWordQuery.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewExactOnSingleWordQueryFromValue(v string) (*ExactOnSingleWordQuery, error) {
 	ev := ExactOnSingleWordQuery(v)
@@ -51,6 +34,26 @@ func NewExactOnSingleWordQueryFromValue(v string) (*ExactOnSingleWordQuery, erro
 	}
 }
 
+func (v *ExactOnSingleWordQuery) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ExactOnSingleWordQuery': %w", string(src), err)
+	}
+
+	enumTypeValue := ExactOnSingleWordQuery(value)
+	for _, existing := range AllowedExactOnSingleWordQueryEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ExactOnSingleWordQuery", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ExactOnSingleWordQuery) IsValid() bool {
 	for _, existing := range AllowedExactOnSingleWordQueryEnumValues {
@@ -58,6 +61,7 @@ func (v ExactOnSingleWordQuery) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

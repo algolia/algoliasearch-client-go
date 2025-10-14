@@ -19,6 +19,7 @@ type ConsequenceHide struct {
 func NewConsequenceHide(objectID string) *ConsequenceHide {
 	this := &ConsequenceHide{}
 	this.ObjectID = objectID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyConsequenceHide() *ConsequenceHide {
 func (o *ConsequenceHide) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ConsequenceHide) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *ConsequenceHide) SetObjectID(v string) *ConsequenceHide {
 	o.ObjectID = v
+
 	return o
 }
 
 func (o ConsequenceHide) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConsequenceHide: %w", err)
@@ -66,5 +71,6 @@ func (o ConsequenceHide) MarshalJSON() ([]byte, error) {
 func (o ConsequenceHide) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("ConsequenceHide {\n%s}", out)
 }

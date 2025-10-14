@@ -22,6 +22,7 @@ func NewMultipleBatchResponse(taskID map[string]int64, objectIDs []string) *Mult
 	this := &MultipleBatchResponse{}
 	this.TaskID = taskID
 	this.ObjectIDs = objectIDs
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyMultipleBatchResponse() *MultipleBatchResponse {
 func (o *MultipleBatchResponse) GetTaskID() map[string]int64 {
 	if o == nil {
 		var ret map[string]int64
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *MultipleBatchResponse) GetTaskIDOk() (*map[string]int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *MultipleBatchResponse) SetTaskID(v map[string]int64) *MultipleBatchResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *MultipleBatchResponse) SetTaskID(v map[string]int64) *MultipleBatchResp
 func (o *MultipleBatchResponse) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *MultipleBatchResponse) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *MultipleBatchResponse) SetObjectIDs(v []string) *MultipleBatchResponse {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o MultipleBatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["objectIDs"] = o.ObjectIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MultipleBatchResponse: %w", err)
@@ -96,5 +104,6 @@ func (o MultipleBatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
+
 	return fmt.Sprintf("MultipleBatchResponse {\n%s}", out)
 }

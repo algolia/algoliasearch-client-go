@@ -26,7 +26,15 @@ type ConfigurationResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewConfigurationResponse(appID string, indexName string, sourceIndices []SourceIndex, languages Languages, exclude []string, enablePersonalization bool, allowSpecialCharacters bool) *ConfigurationResponse {
+func NewConfigurationResponse(
+	appID string,
+	indexName string,
+	sourceIndices []SourceIndex,
+	languages Languages,
+	exclude []string,
+	enablePersonalization bool,
+	allowSpecialCharacters bool,
+) *ConfigurationResponse {
 	this := &ConfigurationResponse{}
 	this.AppID = appID
 	this.IndexName = indexName
@@ -35,6 +43,7 @@ func NewConfigurationResponse(appID string, indexName string, sourceIndices []So
 	this.Exclude = exclude
 	this.EnablePersonalization = enablePersonalization
 	this.AllowSpecialCharacters = allowSpecialCharacters
+
 	return this
 }
 
@@ -47,6 +56,7 @@ func NewEmptyConfigurationResponse() *ConfigurationResponse {
 func (o *ConfigurationResponse) GetAppID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -59,12 +69,14 @@ func (o *ConfigurationResponse) GetAppIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AppID, true
 }
 
 // SetAppID sets field value.
 func (o *ConfigurationResponse) SetAppID(v string) *ConfigurationResponse {
 	o.AppID = v
+
 	return o
 }
 
@@ -72,6 +84,7 @@ func (o *ConfigurationResponse) SetAppID(v string) *ConfigurationResponse {
 func (o *ConfigurationResponse) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -84,12 +97,14 @@ func (o *ConfigurationResponse) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *ConfigurationResponse) SetIndexName(v string) *ConfigurationResponse {
 	o.IndexName = v
+
 	return o
 }
 
@@ -97,6 +112,7 @@ func (o *ConfigurationResponse) SetIndexName(v string) *ConfigurationResponse {
 func (o *ConfigurationResponse) GetSourceIndices() []SourceIndex {
 	if o == nil {
 		var ret []SourceIndex
+
 		return ret
 	}
 
@@ -109,12 +125,14 @@ func (o *ConfigurationResponse) GetSourceIndicesOk() ([]SourceIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.SourceIndices, true
 }
 
 // SetSourceIndices sets field value.
 func (o *ConfigurationResponse) SetSourceIndices(v []SourceIndex) *ConfigurationResponse {
 	o.SourceIndices = v
+
 	return o
 }
 
@@ -122,6 +140,7 @@ func (o *ConfigurationResponse) SetSourceIndices(v []SourceIndex) *Configuration
 func (o *ConfigurationResponse) GetLanguages() Languages {
 	if o == nil {
 		var ret Languages
+
 		return ret
 	}
 
@@ -134,12 +153,14 @@ func (o *ConfigurationResponse) GetLanguagesOk() (*Languages, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Languages, true
 }
 
 // SetLanguages sets field value.
 func (o *ConfigurationResponse) SetLanguages(v *Languages) *ConfigurationResponse {
 	o.Languages = *v
+
 	return o
 }
 
@@ -148,6 +169,7 @@ func (o *ConfigurationResponse) SetLanguages(v *Languages) *ConfigurationRespons
 func (o *ConfigurationResponse) GetExclude() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -161,12 +183,14 @@ func (o *ConfigurationResponse) GetExcludeOk() ([]string, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
+
 	return o.Exclude, true
 }
 
 // SetExclude sets field value.
 func (o *ConfigurationResponse) SetExclude(v []string) *ConfigurationResponse {
 	o.Exclude = v
+
 	return o
 }
 
@@ -174,6 +198,7 @@ func (o *ConfigurationResponse) SetExclude(v []string) *ConfigurationResponse {
 func (o *ConfigurationResponse) GetEnablePersonalization() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -186,12 +211,14 @@ func (o *ConfigurationResponse) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EnablePersonalization, true
 }
 
 // SetEnablePersonalization sets field value.
 func (o *ConfigurationResponse) SetEnablePersonalization(v bool) *ConfigurationResponse {
 	o.EnablePersonalization = v
+
 	return o
 }
 
@@ -199,6 +226,7 @@ func (o *ConfigurationResponse) SetEnablePersonalization(v bool) *ConfigurationR
 func (o *ConfigurationResponse) GetAllowSpecialCharacters() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -211,12 +239,14 @@ func (o *ConfigurationResponse) GetAllowSpecialCharactersOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AllowSpecialCharacters, true
 }
 
 // SetAllowSpecialCharacters sets field value.
 func (o *ConfigurationResponse) SetAllowSpecialCharacters(v bool) *ConfigurationResponse {
 	o.AllowSpecialCharacters = v
+
 	return o
 }
 
@@ -225,12 +255,15 @@ func (o ConfigurationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["appID"] = o.AppID
 	toSerialize["indexName"] = o.IndexName
 	toSerialize["sourceIndices"] = o.SourceIndices
+
 	toSerialize["languages"] = o.Languages
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
+
 	toSerialize["enablePersonalization"] = o.EnablePersonalization
 	toSerialize["allowSpecialCharacters"] = o.AllowSpecialCharacters
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConfigurationResponse: %w", err)
@@ -248,5 +281,6 @@ func (o ConfigurationResponse) String() string {
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
+
 	return fmt.Sprintf("ConfigurationResponse {\n%s}", out)
 }

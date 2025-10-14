@@ -239,7 +239,17 @@ func WithSearchResultsItemAutomaticInsights(val bool) SearchResultsItemOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchResultsItem(page int32, nbHits int32, nbPages int32, hitsPerPage int32, hits []Hit, query string, params string, compositions map[string]ResultsCompositionInfoResponse, opts ...SearchResultsItemOption) *SearchResultsItem {
+func NewSearchResultsItem(
+	page int32,
+	nbHits int32,
+	nbPages int32,
+	hitsPerPage int32,
+	hits []Hit,
+	query string,
+	params string,
+	compositions map[string]ResultsCompositionInfoResponse,
+	opts ...SearchResultsItemOption,
+) *SearchResultsItem {
 	this := &SearchResultsItem{}
 	this.Page = page
 	this.NbHits = nbHits
@@ -248,10 +258,12 @@ func NewSearchResultsItem(page int32, nbHits int32, nbPages int32, hitsPerPage i
 	this.Hits = hits
 	this.Query = query
 	this.Params = params
+
 	this.Compositions = compositions
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -264,8 +276,10 @@ func NewEmptySearchResultsItem() *SearchResultsItem {
 func (o *SearchResultsItem) GetAbTestID() int32 {
 	if o == nil || o.AbTestID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.AbTestID
 }
 
@@ -275,6 +289,7 @@ func (o *SearchResultsItem) GetAbTestIDOk() (*int32, bool) {
 	if o == nil || o.AbTestID == nil {
 		return nil, false
 	}
+
 	return o.AbTestID, true
 }
 
@@ -290,6 +305,7 @@ func (o *SearchResultsItem) HasAbTestID() bool {
 // SetAbTestID gets a reference to the given int32 and assigns it to the AbTestID field.
 func (o *SearchResultsItem) SetAbTestID(v int32) *SearchResultsItem {
 	o.AbTestID = &v
+
 	return o
 }
 
@@ -297,8 +313,10 @@ func (o *SearchResultsItem) SetAbTestID(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetAbTestVariantID() int32 {
 	if o == nil || o.AbTestVariantID == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.AbTestVariantID
 }
 
@@ -308,6 +326,7 @@ func (o *SearchResultsItem) GetAbTestVariantIDOk() (*int32, bool) {
 	if o == nil || o.AbTestVariantID == nil {
 		return nil, false
 	}
+
 	return o.AbTestVariantID, true
 }
 
@@ -323,6 +342,7 @@ func (o *SearchResultsItem) HasAbTestVariantID() bool {
 // SetAbTestVariantID gets a reference to the given int32 and assigns it to the AbTestVariantID field.
 func (o *SearchResultsItem) SetAbTestVariantID(v int32) *SearchResultsItem {
 	o.AbTestVariantID = &v
+
 	return o
 }
 
@@ -330,8 +350,10 @@ func (o *SearchResultsItem) SetAbTestVariantID(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -341,6 +363,7 @@ func (o *SearchResultsItem) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -356,6 +379,7 @@ func (o *SearchResultsItem) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *SearchResultsItem) SetAroundLatLng(v string) *SearchResultsItem {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -363,8 +387,10 @@ func (o *SearchResultsItem) SetAroundLatLng(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetAutomaticRadius() string {
 	if o == nil || o.AutomaticRadius == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AutomaticRadius
 }
 
@@ -374,6 +400,7 @@ func (o *SearchResultsItem) GetAutomaticRadiusOk() (*string, bool) {
 	if o == nil || o.AutomaticRadius == nil {
 		return nil, false
 	}
+
 	return o.AutomaticRadius, true
 }
 
@@ -389,6 +416,7 @@ func (o *SearchResultsItem) HasAutomaticRadius() bool {
 // SetAutomaticRadius gets a reference to the given string and assigns it to the AutomaticRadius field.
 func (o *SearchResultsItem) SetAutomaticRadius(v string) *SearchResultsItem {
 	o.AutomaticRadius = &v
+
 	return o
 }
 
@@ -396,8 +424,10 @@ func (o *SearchResultsItem) SetAutomaticRadius(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetExhaustive() Exhaustive {
 	if o == nil || o.Exhaustive == nil {
 		var ret Exhaustive
+
 		return ret
 	}
+
 	return *o.Exhaustive
 }
 
@@ -407,6 +437,7 @@ func (o *SearchResultsItem) GetExhaustiveOk() (*Exhaustive, bool) {
 	if o == nil || o.Exhaustive == nil {
 		return nil, false
 	}
+
 	return o.Exhaustive, true
 }
 
@@ -422,6 +453,7 @@ func (o *SearchResultsItem) HasExhaustive() bool {
 // SetExhaustive gets a reference to the given Exhaustive and assigns it to the Exhaustive field.
 func (o *SearchResultsItem) SetExhaustive(v *Exhaustive) *SearchResultsItem {
 	o.Exhaustive = v
+
 	return o
 }
 
@@ -429,8 +461,10 @@ func (o *SearchResultsItem) SetExhaustive(v *Exhaustive) *SearchResultsItem {
 func (o *SearchResultsItem) GetAppliedRules() []map[string]any {
 	if o == nil || o.AppliedRules == nil {
 		var ret []map[string]any
+
 		return ret
 	}
+
 	return o.AppliedRules
 }
 
@@ -440,6 +474,7 @@ func (o *SearchResultsItem) GetAppliedRulesOk() ([]map[string]any, bool) {
 	if o == nil || o.AppliedRules == nil {
 		return nil, false
 	}
+
 	return o.AppliedRules, true
 }
 
@@ -455,6 +490,7 @@ func (o *SearchResultsItem) HasAppliedRules() bool {
 // SetAppliedRules gets a reference to the given []map[string]any and assigns it to the AppliedRules field.
 func (o *SearchResultsItem) SetAppliedRules(v []map[string]any) *SearchResultsItem {
 	o.AppliedRules = v
+
 	return o
 }
 
@@ -463,8 +499,10 @@ func (o *SearchResultsItem) SetAppliedRules(v []map[string]any) *SearchResultsIt
 func (o *SearchResultsItem) GetExhaustiveFacetsCount() bool {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveFacetsCount
 }
 
@@ -475,6 +513,7 @@ func (o *SearchResultsItem) GetExhaustiveFacetsCountOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveFacetsCount == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveFacetsCount, true
 }
 
@@ -491,6 +530,7 @@ func (o *SearchResultsItem) HasExhaustiveFacetsCount() bool {
 // Deprecated.
 func (o *SearchResultsItem) SetExhaustiveFacetsCount(v bool) *SearchResultsItem {
 	o.ExhaustiveFacetsCount = &v
+
 	return o
 }
 
@@ -499,8 +539,10 @@ func (o *SearchResultsItem) SetExhaustiveFacetsCount(v bool) *SearchResultsItem 
 func (o *SearchResultsItem) GetExhaustiveNbHits() bool {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveNbHits
 }
 
@@ -511,6 +553,7 @@ func (o *SearchResultsItem) GetExhaustiveNbHitsOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveNbHits == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveNbHits, true
 }
 
@@ -527,6 +570,7 @@ func (o *SearchResultsItem) HasExhaustiveNbHits() bool {
 // Deprecated.
 func (o *SearchResultsItem) SetExhaustiveNbHits(v bool) *SearchResultsItem {
 	o.ExhaustiveNbHits = &v
+
 	return o
 }
 
@@ -535,8 +579,10 @@ func (o *SearchResultsItem) SetExhaustiveNbHits(v bool) *SearchResultsItem {
 func (o *SearchResultsItem) GetExhaustiveTypo() bool {
 	if o == nil || o.ExhaustiveTypo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ExhaustiveTypo
 }
 
@@ -547,6 +593,7 @@ func (o *SearchResultsItem) GetExhaustiveTypoOk() (*bool, bool) {
 	if o == nil || o.ExhaustiveTypo == nil {
 		return nil, false
 	}
+
 	return o.ExhaustiveTypo, true
 }
 
@@ -563,6 +610,7 @@ func (o *SearchResultsItem) HasExhaustiveTypo() bool {
 // Deprecated.
 func (o *SearchResultsItem) SetExhaustiveTypo(v bool) *SearchResultsItem {
 	o.ExhaustiveTypo = &v
+
 	return o
 }
 
@@ -570,8 +618,10 @@ func (o *SearchResultsItem) SetExhaustiveTypo(v bool) *SearchResultsItem {
 func (o *SearchResultsItem) GetFacets() map[string]map[string]int32 {
 	if o == nil || o.Facets == nil {
 		var ret map[string]map[string]int32
+
 		return ret
 	}
+
 	return *o.Facets
 }
 
@@ -581,6 +631,7 @@ func (o *SearchResultsItem) GetFacetsOk() (*map[string]map[string]int32, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -596,6 +647,7 @@ func (o *SearchResultsItem) HasFacets() bool {
 // SetFacets gets a reference to the given map[string]map[string]int32 and assigns it to the Facets field.
 func (o *SearchResultsItem) SetFacets(v map[string]map[string]int32) *SearchResultsItem {
 	o.Facets = &v
+
 	return o
 }
 
@@ -603,8 +655,10 @@ func (o *SearchResultsItem) SetFacets(v map[string]map[string]int32) *SearchResu
 func (o *SearchResultsItem) GetFacetsStats() map[string]FacetStats {
 	if o == nil || o.FacetsStats == nil {
 		var ret map[string]FacetStats
+
 		return ret
 	}
+
 	return *o.FacetsStats
 }
 
@@ -614,6 +668,7 @@ func (o *SearchResultsItem) GetFacetsStatsOk() (*map[string]FacetStats, bool) {
 	if o == nil || o.FacetsStats == nil {
 		return nil, false
 	}
+
 	return o.FacetsStats, true
 }
 
@@ -629,6 +684,7 @@ func (o *SearchResultsItem) HasFacetsStats() bool {
 // SetFacetsStats gets a reference to the given map[string]FacetStats and assigns it to the FacetsStats field.
 func (o *SearchResultsItem) SetFacetsStats(v map[string]FacetStats) *SearchResultsItem {
 	o.FacetsStats = &v
+
 	return o
 }
 
@@ -636,8 +692,10 @@ func (o *SearchResultsItem) SetFacetsStats(v map[string]FacetStats) *SearchResul
 func (o *SearchResultsItem) GetIndex() string {
 	if o == nil || o.Index == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Index
 }
 
@@ -647,6 +705,7 @@ func (o *SearchResultsItem) GetIndexOk() (*string, bool) {
 	if o == nil || o.Index == nil {
 		return nil, false
 	}
+
 	return o.Index, true
 }
 
@@ -662,6 +721,7 @@ func (o *SearchResultsItem) HasIndex() bool {
 // SetIndex gets a reference to the given string and assigns it to the Index field.
 func (o *SearchResultsItem) SetIndex(v string) *SearchResultsItem {
 	o.Index = &v
+
 	return o
 }
 
@@ -669,8 +729,10 @@ func (o *SearchResultsItem) SetIndex(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetIndexUsed() string {
 	if o == nil || o.IndexUsed == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.IndexUsed
 }
 
@@ -680,6 +742,7 @@ func (o *SearchResultsItem) GetIndexUsedOk() (*string, bool) {
 	if o == nil || o.IndexUsed == nil {
 		return nil, false
 	}
+
 	return o.IndexUsed, true
 }
 
@@ -695,6 +758,7 @@ func (o *SearchResultsItem) HasIndexUsed() bool {
 // SetIndexUsed gets a reference to the given string and assigns it to the IndexUsed field.
 func (o *SearchResultsItem) SetIndexUsed(v string) *SearchResultsItem {
 	o.IndexUsed = &v
+
 	return o
 }
 
@@ -702,8 +766,10 @@ func (o *SearchResultsItem) SetIndexUsed(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -713,6 +779,7 @@ func (o *SearchResultsItem) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -728,6 +795,7 @@ func (o *SearchResultsItem) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *SearchResultsItem) SetMessage(v string) *SearchResultsItem {
 	o.Message = &v
+
 	return o
 }
 
@@ -735,8 +803,10 @@ func (o *SearchResultsItem) SetMessage(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetNbSortedHits() int32 {
 	if o == nil || o.NbSortedHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbSortedHits
 }
 
@@ -746,6 +816,7 @@ func (o *SearchResultsItem) GetNbSortedHitsOk() (*int32, bool) {
 	if o == nil || o.NbSortedHits == nil {
 		return nil, false
 	}
+
 	return o.NbSortedHits, true
 }
 
@@ -761,6 +832,7 @@ func (o *SearchResultsItem) HasNbSortedHits() bool {
 // SetNbSortedHits gets a reference to the given int32 and assigns it to the NbSortedHits field.
 func (o *SearchResultsItem) SetNbSortedHits(v int32) *SearchResultsItem {
 	o.NbSortedHits = &v
+
 	return o
 }
 
@@ -768,8 +840,10 @@ func (o *SearchResultsItem) SetNbSortedHits(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetParsedQuery() string {
 	if o == nil || o.ParsedQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ParsedQuery
 }
 
@@ -779,6 +853,7 @@ func (o *SearchResultsItem) GetParsedQueryOk() (*string, bool) {
 	if o == nil || o.ParsedQuery == nil {
 		return nil, false
 	}
+
 	return o.ParsedQuery, true
 }
 
@@ -794,6 +869,7 @@ func (o *SearchResultsItem) HasParsedQuery() bool {
 // SetParsedQuery gets a reference to the given string and assigns it to the ParsedQuery field.
 func (o *SearchResultsItem) SetParsedQuery(v string) *SearchResultsItem {
 	o.ParsedQuery = &v
+
 	return o
 }
 
@@ -801,8 +877,10 @@ func (o *SearchResultsItem) SetParsedQuery(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetProcessingTimeMS() int32 {
 	if o == nil || o.ProcessingTimeMS == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ProcessingTimeMS
 }
 
@@ -812,6 +890,7 @@ func (o *SearchResultsItem) GetProcessingTimeMSOk() (*int32, bool) {
 	if o == nil || o.ProcessingTimeMS == nil {
 		return nil, false
 	}
+
 	return o.ProcessingTimeMS, true
 }
 
@@ -827,6 +906,7 @@ func (o *SearchResultsItem) HasProcessingTimeMS() bool {
 // SetProcessingTimeMS gets a reference to the given int32 and assigns it to the ProcessingTimeMS field.
 func (o *SearchResultsItem) SetProcessingTimeMS(v int32) *SearchResultsItem {
 	o.ProcessingTimeMS = &v
+
 	return o
 }
 
@@ -834,8 +914,10 @@ func (o *SearchResultsItem) SetProcessingTimeMS(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetProcessingTimingsMS() map[string]any {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.ProcessingTimingsMS
 }
 
@@ -845,6 +927,7 @@ func (o *SearchResultsItem) GetProcessingTimingsMSOk() (map[string]any, bool) {
 	if o == nil || o.ProcessingTimingsMS == nil {
 		return nil, false
 	}
+
 	return o.ProcessingTimingsMS, true
 }
 
@@ -860,6 +943,7 @@ func (o *SearchResultsItem) HasProcessingTimingsMS() bool {
 // SetProcessingTimingsMS gets a reference to the given map[string]any and assigns it to the ProcessingTimingsMS field.
 func (o *SearchResultsItem) SetProcessingTimingsMS(v map[string]any) *SearchResultsItem {
 	o.ProcessingTimingsMS = v
+
 	return o
 }
 
@@ -867,8 +951,10 @@ func (o *SearchResultsItem) SetProcessingTimingsMS(v map[string]any) *SearchResu
 func (o *SearchResultsItem) GetQueryAfterRemoval() string {
 	if o == nil || o.QueryAfterRemoval == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryAfterRemoval
 }
 
@@ -878,6 +964,7 @@ func (o *SearchResultsItem) GetQueryAfterRemovalOk() (*string, bool) {
 	if o == nil || o.QueryAfterRemoval == nil {
 		return nil, false
 	}
+
 	return o.QueryAfterRemoval, true
 }
 
@@ -893,6 +980,7 @@ func (o *SearchResultsItem) HasQueryAfterRemoval() bool {
 // SetQueryAfterRemoval gets a reference to the given string and assigns it to the QueryAfterRemoval field.
 func (o *SearchResultsItem) SetQueryAfterRemoval(v string) *SearchResultsItem {
 	o.QueryAfterRemoval = &v
+
 	return o
 }
 
@@ -900,8 +988,10 @@ func (o *SearchResultsItem) SetQueryAfterRemoval(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetRedirect() Redirect {
 	if o == nil || o.Redirect == nil {
 		var ret Redirect
+
 		return ret
 	}
+
 	return *o.Redirect
 }
 
@@ -911,6 +1001,7 @@ func (o *SearchResultsItem) GetRedirectOk() (*Redirect, bool) {
 	if o == nil || o.Redirect == nil {
 		return nil, false
 	}
+
 	return o.Redirect, true
 }
 
@@ -926,6 +1017,7 @@ func (o *SearchResultsItem) HasRedirect() bool {
 // SetRedirect gets a reference to the given Redirect and assigns it to the Redirect field.
 func (o *SearchResultsItem) SetRedirect(v *Redirect) *SearchResultsItem {
 	o.Redirect = v
+
 	return o
 }
 
@@ -933,8 +1025,10 @@ func (o *SearchResultsItem) SetRedirect(v *Redirect) *SearchResultsItem {
 func (o *SearchResultsItem) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -944,6 +1038,7 @@ func (o *SearchResultsItem) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -959,6 +1054,7 @@ func (o *SearchResultsItem) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *SearchResultsItem) SetRenderingContent(v *RenderingContent) *SearchResultsItem {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -966,8 +1062,10 @@ func (o *SearchResultsItem) SetRenderingContent(v *RenderingContent) *SearchResu
 func (o *SearchResultsItem) GetServerTimeMS() int32 {
 	if o == nil || o.ServerTimeMS == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ServerTimeMS
 }
 
@@ -977,6 +1075,7 @@ func (o *SearchResultsItem) GetServerTimeMSOk() (*int32, bool) {
 	if o == nil || o.ServerTimeMS == nil {
 		return nil, false
 	}
+
 	return o.ServerTimeMS, true
 }
 
@@ -992,6 +1091,7 @@ func (o *SearchResultsItem) HasServerTimeMS() bool {
 // SetServerTimeMS gets a reference to the given int32 and assigns it to the ServerTimeMS field.
 func (o *SearchResultsItem) SetServerTimeMS(v int32) *SearchResultsItem {
 	o.ServerTimeMS = &v
+
 	return o
 }
 
@@ -999,8 +1099,10 @@ func (o *SearchResultsItem) SetServerTimeMS(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetServerUsed() string {
 	if o == nil || o.ServerUsed == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ServerUsed
 }
 
@@ -1010,6 +1112,7 @@ func (o *SearchResultsItem) GetServerUsedOk() (*string, bool) {
 	if o == nil || o.ServerUsed == nil {
 		return nil, false
 	}
+
 	return o.ServerUsed, true
 }
 
@@ -1025,6 +1128,7 @@ func (o *SearchResultsItem) HasServerUsed() bool {
 // SetServerUsed gets a reference to the given string and assigns it to the ServerUsed field.
 func (o *SearchResultsItem) SetServerUsed(v string) *SearchResultsItem {
 	o.ServerUsed = &v
+
 	return o
 }
 
@@ -1032,8 +1136,10 @@ func (o *SearchResultsItem) SetServerUsed(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -1044,6 +1150,7 @@ func (o *SearchResultsItem) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -1059,6 +1166,7 @@ func (o *SearchResultsItem) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *SearchResultsItem) SetUserData(v any) *SearchResultsItem {
 	o.UserData = v
+
 	return o
 }
 
@@ -1066,8 +1174,10 @@ func (o *SearchResultsItem) SetUserData(v any) *SearchResultsItem {
 func (o *SearchResultsItem) GetQueryID() string {
 	if o == nil || o.QueryID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryID
 }
 
@@ -1077,6 +1187,7 @@ func (o *SearchResultsItem) GetQueryIDOk() (*string, bool) {
 	if o == nil || o.QueryID == nil {
 		return nil, false
 	}
+
 	return o.QueryID, true
 }
 
@@ -1092,6 +1203,7 @@ func (o *SearchResultsItem) HasQueryID() bool {
 // SetQueryID gets a reference to the given string and assigns it to the QueryID field.
 func (o *SearchResultsItem) SetQueryID(v string) *SearchResultsItem {
 	o.QueryID = &v
+
 	return o
 }
 
@@ -1099,8 +1211,10 @@ func (o *SearchResultsItem) SetQueryID(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetAutomaticInsights() bool {
 	if o == nil || o.AutomaticInsights == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AutomaticInsights
 }
 
@@ -1110,6 +1224,7 @@ func (o *SearchResultsItem) GetAutomaticInsightsOk() (*bool, bool) {
 	if o == nil || o.AutomaticInsights == nil {
 		return nil, false
 	}
+
 	return o.AutomaticInsights, true
 }
 
@@ -1125,6 +1240,7 @@ func (o *SearchResultsItem) HasAutomaticInsights() bool {
 // SetAutomaticInsights gets a reference to the given bool and assigns it to the AutomaticInsights field.
 func (o *SearchResultsItem) SetAutomaticInsights(v bool) *SearchResultsItem {
 	o.AutomaticInsights = &v
+
 	return o
 }
 
@@ -1132,6 +1248,7 @@ func (o *SearchResultsItem) SetAutomaticInsights(v bool) *SearchResultsItem {
 func (o *SearchResultsItem) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -1144,12 +1261,14 @@ func (o *SearchResultsItem) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *SearchResultsItem) SetPage(v int32) *SearchResultsItem {
 	o.Page = v
+
 	return o
 }
 
@@ -1157,6 +1276,7 @@ func (o *SearchResultsItem) SetPage(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -1169,12 +1289,14 @@ func (o *SearchResultsItem) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchResultsItem) SetNbHits(v int32) *SearchResultsItem {
 	o.NbHits = v
+
 	return o
 }
 
@@ -1182,6 +1304,7 @@ func (o *SearchResultsItem) SetNbHits(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -1194,12 +1317,14 @@ func (o *SearchResultsItem) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *SearchResultsItem) SetNbPages(v int32) *SearchResultsItem {
 	o.NbPages = v
+
 	return o
 }
 
@@ -1207,6 +1332,7 @@ func (o *SearchResultsItem) SetNbPages(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetHitsPerPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -1219,12 +1345,14 @@ func (o *SearchResultsItem) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.HitsPerPage, true
 }
 
 // SetHitsPerPage sets field value.
 func (o *SearchResultsItem) SetHitsPerPage(v int32) *SearchResultsItem {
 	o.HitsPerPage = v
+
 	return o
 }
 
@@ -1232,6 +1360,7 @@ func (o *SearchResultsItem) SetHitsPerPage(v int32) *SearchResultsItem {
 func (o *SearchResultsItem) GetHits() []Hit {
 	if o == nil {
 		var ret []Hit
+
 		return ret
 	}
 
@@ -1244,12 +1373,14 @@ func (o *SearchResultsItem) GetHitsOk() ([]Hit, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchResultsItem) SetHits(v []Hit) *SearchResultsItem {
 	o.Hits = v
+
 	return o
 }
 
@@ -1257,6 +1388,7 @@ func (o *SearchResultsItem) SetHits(v []Hit) *SearchResultsItem {
 func (o *SearchResultsItem) GetQuery() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -1269,12 +1401,14 @@ func (o *SearchResultsItem) GetQueryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Query, true
 }
 
 // SetQuery sets field value.
 func (o *SearchResultsItem) SetQuery(v string) *SearchResultsItem {
 	o.Query = v
+
 	return o
 }
 
@@ -1282,6 +1416,7 @@ func (o *SearchResultsItem) SetQuery(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetParams() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -1294,12 +1429,14 @@ func (o *SearchResultsItem) GetParamsOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Params, true
 }
 
 // SetParams sets field value.
 func (o *SearchResultsItem) SetParams(v string) *SearchResultsItem {
 	o.Params = v
+
 	return o
 }
 
@@ -1307,6 +1444,7 @@ func (o *SearchResultsItem) SetParams(v string) *SearchResultsItem {
 func (o *SearchResultsItem) GetCompositions() map[string]ResultsCompositionInfoResponse {
 	if o == nil {
 		var ret map[string]ResultsCompositionInfoResponse
+
 		return ret
 	}
 
@@ -1319,12 +1457,14 @@ func (o *SearchResultsItem) GetCompositionsOk() (*map[string]ResultsCompositionI
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Compositions, true
 }
 
 // SetCompositions sets field value.
 func (o *SearchResultsItem) SetCompositions(v map[string]ResultsCompositionInfoResponse) *SearchResultsItem {
 	o.Compositions = v
+
 	return o
 }
 
@@ -1333,81 +1473,107 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 	if o.AbTestID != nil {
 		toSerialize["abTestID"] = o.AbTestID
 	}
+
 	if o.AbTestVariantID != nil {
 		toSerialize["abTestVariantID"] = o.AbTestVariantID
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AutomaticRadius != nil {
 		toSerialize["automaticRadius"] = o.AutomaticRadius
 	}
+
 	if o.Exhaustive != nil {
 		toSerialize["exhaustive"] = o.Exhaustive
 	}
+
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
 	}
+
 	if o.ExhaustiveFacetsCount != nil {
 		toSerialize["exhaustiveFacetsCount"] = o.ExhaustiveFacetsCount
 	}
+
 	if o.ExhaustiveNbHits != nil {
 		toSerialize["exhaustiveNbHits"] = o.ExhaustiveNbHits
 	}
+
 	if o.ExhaustiveTypo != nil {
 		toSerialize["exhaustiveTypo"] = o.ExhaustiveTypo
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetsStats != nil {
 		toSerialize["facets_stats"] = o.FacetsStats
 	}
+
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
+
 	if o.IndexUsed != nil {
 		toSerialize["indexUsed"] = o.IndexUsed
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	if o.NbSortedHits != nil {
 		toSerialize["nbSortedHits"] = o.NbSortedHits
 	}
+
 	if o.ParsedQuery != nil {
 		toSerialize["parsedQuery"] = o.ParsedQuery
 	}
+
 	if o.ProcessingTimeMS != nil {
 		toSerialize["processingTimeMS"] = o.ProcessingTimeMS
 	}
+
 	if o.ProcessingTimingsMS != nil {
 		toSerialize["processingTimingsMS"] = o.ProcessingTimingsMS
 	}
+
 	if o.QueryAfterRemoval != nil {
 		toSerialize["queryAfterRemoval"] = o.QueryAfterRemoval
 	}
+
 	if o.Redirect != nil {
 		toSerialize["redirect"] = o.Redirect
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.ServerTimeMS != nil {
 		toSerialize["serverTimeMS"] = o.ServerTimeMS
 	}
+
 	if o.ServerUsed != nil {
 		toSerialize["serverUsed"] = o.ServerUsed
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.QueryID != nil {
 		toSerialize["queryID"] = o.QueryID
 	}
+
 	if o.AutomaticInsights != nil {
 		toSerialize["_automaticInsights"] = o.AutomaticInsights
 	}
+
 	toSerialize["page"] = o.Page
 	toSerialize["nbHits"] = o.NbHits
 	toSerialize["nbPages"] = o.NbPages
@@ -1416,6 +1582,7 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 	toSerialize["query"] = o.Query
 	toSerialize["params"] = o.Params
 	toSerialize["compositions"] = o.Compositions
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchResultsItem: %w", err)
@@ -1460,5 +1627,6 @@ func (o SearchResultsItem) String() string {
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
+
 	return fmt.Sprintf("SearchResultsItem {\n%s}", out)
 }

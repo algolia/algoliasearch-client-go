@@ -22,6 +22,7 @@ func NewAddApiKeyResponse(key string, createdAt string) *AddApiKeyResponse {
 	this := &AddApiKeyResponse{}
 	this.Key = key
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyAddApiKeyResponse() *AddApiKeyResponse {
 func (o *AddApiKeyResponse) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *AddApiKeyResponse) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *AddApiKeyResponse) SetKey(v string) *AddApiKeyResponse {
 	o.Key = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *AddApiKeyResponse) SetKey(v string) *AddApiKeyResponse {
 func (o *AddApiKeyResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *AddApiKeyResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *AddApiKeyResponse) SetCreatedAt(v string) *AddApiKeyResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o AddApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["key"] = o.Key
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddApiKeyResponse: %w", err)
@@ -96,5 +104,6 @@ func (o AddApiKeyResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("AddApiKeyResponse {\n%s}", out)
 }

@@ -22,6 +22,7 @@ func NewShopifyMetafield(namespace string, key string, value string) *ShopifyMet
 	this.Namespace = namespace
 	this.Key = key
 	this.Value = value
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyShopifyMetafield() *ShopifyMetafield {
 func (o *ShopifyMetafield) GetNamespace() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *ShopifyMetafield) GetNamespaceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Namespace, true
 }
 
 // SetNamespace sets field value.
 func (o *ShopifyMetafield) SetNamespace(v string) *ShopifyMetafield {
 	o.Namespace = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *ShopifyMetafield) SetNamespace(v string) *ShopifyMetafield {
 func (o *ShopifyMetafield) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *ShopifyMetafield) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *ShopifyMetafield) SetKey(v string) *ShopifyMetafield {
 	o.Key = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o *ShopifyMetafield) SetKey(v string) *ShopifyMetafield {
 func (o *ShopifyMetafield) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -96,12 +104,14 @@ func (o *ShopifyMetafield) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *ShopifyMetafield) SetValue(v string) *ShopifyMetafield {
 	o.Value = v
+
 	return o
 }
 
@@ -110,6 +120,7 @@ func (o ShopifyMetafield) MarshalJSON() ([]byte, error) {
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["key"] = o.Key
 	toSerialize["value"] = o.Value
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ShopifyMetafield: %w", err)
@@ -123,5 +134,6 @@ func (o ShopifyMetafield) String() string {
 	out += fmt.Sprintf("  namespace=%v\n", o.Namespace)
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("ShopifyMetafield {\n%s}", out)
 }

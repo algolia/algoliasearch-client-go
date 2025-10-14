@@ -37,6 +37,7 @@ func NewAuthAlgoliaPartial(opts ...AuthAlgoliaPartialOption) *AuthAlgoliaPartial
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyAuthAlgoliaPartial() *AuthAlgoliaPartial {
 func (o *AuthAlgoliaPartial) GetAppID() string {
 	if o == nil || o.AppID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AppID
 }
 
@@ -60,6 +63,7 @@ func (o *AuthAlgoliaPartial) GetAppIDOk() (*string, bool) {
 	if o == nil || o.AppID == nil {
 		return nil, false
 	}
+
 	return o.AppID, true
 }
 
@@ -75,6 +79,7 @@ func (o *AuthAlgoliaPartial) HasAppID() bool {
 // SetAppID gets a reference to the given string and assigns it to the AppID field.
 func (o *AuthAlgoliaPartial) SetAppID(v string) *AuthAlgoliaPartial {
 	o.AppID = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *AuthAlgoliaPartial) SetAppID(v string) *AuthAlgoliaPartial {
 func (o *AuthAlgoliaPartial) GetApiKey() string {
 	if o == nil || o.ApiKey == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ApiKey
 }
 
@@ -93,6 +100,7 @@ func (o *AuthAlgoliaPartial) GetApiKeyOk() (*string, bool) {
 	if o == nil || o.ApiKey == nil {
 		return nil, false
 	}
+
 	return o.ApiKey, true
 }
 
@@ -108,6 +116,7 @@ func (o *AuthAlgoliaPartial) HasApiKey() bool {
 // SetApiKey gets a reference to the given string and assigns it to the ApiKey field.
 func (o *AuthAlgoliaPartial) SetApiKey(v string) *AuthAlgoliaPartial {
 	o.ApiKey = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o AuthAlgoliaPartial) MarshalJSON() ([]byte, error) {
 	if o.AppID != nil {
 		toSerialize["appID"] = o.AppID
 	}
+
 	if o.ApiKey != nil {
 		toSerialize["apiKey"] = o.ApiKey
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAlgoliaPartial: %w", err)
@@ -131,5 +142,6 @@ func (o AuthAlgoliaPartial) String() string {
 	out := ""
 	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
+
 	return fmt.Sprintf("AuthAlgoliaPartial {\n%s}", out)
 }

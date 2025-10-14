@@ -51,10 +51,12 @@ func WithSourceCSVDelimiter(val string) SourceCSVOption {
 // will change when the set of required properties is changed.
 func NewSourceCSV(url string, opts ...SourceCSVOption) *SourceCSV {
 	this := &SourceCSV{}
+
 	this.Url = url
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -67,6 +69,7 @@ func NewEmptySourceCSV() *SourceCSV {
 func (o *SourceCSV) GetUrl() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -79,12 +82,14 @@ func (o *SourceCSV) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Url, true
 }
 
 // SetUrl sets field value.
 func (o *SourceCSV) SetUrl(v string) *SourceCSV {
 	o.Url = v
+
 	return o
 }
 
@@ -92,8 +97,10 @@ func (o *SourceCSV) SetUrl(v string) *SourceCSV {
 func (o *SourceCSV) GetUniqueIDColumn() string {
 	if o == nil || o.UniqueIDColumn == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UniqueIDColumn
 }
 
@@ -103,6 +110,7 @@ func (o *SourceCSV) GetUniqueIDColumnOk() (*string, bool) {
 	if o == nil || o.UniqueIDColumn == nil {
 		return nil, false
 	}
+
 	return o.UniqueIDColumn, true
 }
 
@@ -118,6 +126,7 @@ func (o *SourceCSV) HasUniqueIDColumn() bool {
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
 func (o *SourceCSV) SetUniqueIDColumn(v string) *SourceCSV {
 	o.UniqueIDColumn = &v
+
 	return o
 }
 
@@ -125,8 +134,10 @@ func (o *SourceCSV) SetUniqueIDColumn(v string) *SourceCSV {
 func (o *SourceCSV) GetMapping() map[string]MappingTypeCSV {
 	if o == nil || o.Mapping == nil {
 		var ret map[string]MappingTypeCSV
+
 		return ret
 	}
+
 	return *o.Mapping
 }
 
@@ -136,6 +147,7 @@ func (o *SourceCSV) GetMappingOk() (*map[string]MappingTypeCSV, bool) {
 	if o == nil || o.Mapping == nil {
 		return nil, false
 	}
+
 	return o.Mapping, true
 }
 
@@ -151,6 +163,7 @@ func (o *SourceCSV) HasMapping() bool {
 // SetMapping gets a reference to the given map[string]MappingTypeCSV and assigns it to the Mapping field.
 func (o *SourceCSV) SetMapping(v map[string]MappingTypeCSV) *SourceCSV {
 	o.Mapping = &v
+
 	return o
 }
 
@@ -158,8 +171,10 @@ func (o *SourceCSV) SetMapping(v map[string]MappingTypeCSV) *SourceCSV {
 func (o *SourceCSV) GetMethod() MethodType {
 	if o == nil || o.Method == nil {
 		var ret MethodType
+
 		return ret
 	}
+
 	return *o.Method
 }
 
@@ -169,6 +184,7 @@ func (o *SourceCSV) GetMethodOk() (*MethodType, bool) {
 	if o == nil || o.Method == nil {
 		return nil, false
 	}
+
 	return o.Method, true
 }
 
@@ -184,6 +200,7 @@ func (o *SourceCSV) HasMethod() bool {
 // SetMethod gets a reference to the given MethodType and assigns it to the Method field.
 func (o *SourceCSV) SetMethod(v MethodType) *SourceCSV {
 	o.Method = &v
+
 	return o
 }
 
@@ -191,8 +208,10 @@ func (o *SourceCSV) SetMethod(v MethodType) *SourceCSV {
 func (o *SourceCSV) GetDelimiter() string {
 	if o == nil || o.Delimiter == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Delimiter
 }
 
@@ -202,6 +221,7 @@ func (o *SourceCSV) GetDelimiterOk() (*string, bool) {
 	if o == nil || o.Delimiter == nil {
 		return nil, false
 	}
+
 	return o.Delimiter, true
 }
 
@@ -217,24 +237,30 @@ func (o *SourceCSV) HasDelimiter() bool {
 // SetDelimiter gets a reference to the given string and assigns it to the Delimiter field.
 func (o *SourceCSV) SetDelimiter(v string) *SourceCSV {
 	o.Delimiter = &v
+
 	return o
 }
 
 func (o SourceCSV) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["url"] = o.Url
 	if o.UniqueIDColumn != nil {
 		toSerialize["uniqueIDColumn"] = o.UniqueIDColumn
 	}
+
 	if o.Mapping != nil {
 		toSerialize["mapping"] = o.Mapping
 	}
+
 	if o.Method != nil {
 		toSerialize["method"] = o.Method
 	}
+
 	if o.Delimiter != nil {
 		toSerialize["delimiter"] = o.Delimiter
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceCSV: %w", err)
@@ -250,5 +276,6 @@ func (o SourceCSV) String() string {
 	out += fmt.Sprintf("  mapping=%v\n", o.Mapping)
 	out += fmt.Sprintf("  method=%v\n", o.Method)
 	out += fmt.Sprintf("  delimiter=%v\n", o.Delimiter)
+
 	return fmt.Sprintf("SourceCSV {\n%s}", out)
 }

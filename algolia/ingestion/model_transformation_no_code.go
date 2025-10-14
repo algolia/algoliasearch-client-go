@@ -18,6 +18,7 @@ type TransformationNoCode struct {
 func NewTransformationNoCode(steps []map[string]any) *TransformationNoCode {
 	this := &TransformationNoCode{}
 	this.Steps = steps
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyTransformationNoCode() *TransformationNoCode {
 func (o *TransformationNoCode) GetSteps() []map[string]any {
 	if o == nil {
 		var ret []map[string]any
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *TransformationNoCode) GetStepsOk() ([]map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Steps, true
 }
 
 // SetSteps sets field value.
 func (o *TransformationNoCode) SetSteps(v []map[string]any) *TransformationNoCode {
 	o.Steps = v
+
 	return o
 }
 
 func (o TransformationNoCode) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["steps"] = o.Steps
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationNoCode: %w", err)
@@ -65,5 +70,6 @@ func (o TransformationNoCode) MarshalJSON() ([]byte, error) {
 func (o TransformationNoCode) String() string {
 	out := ""
 	out += fmt.Sprintf("  steps=%v\n", o.Steps)
+
 	return fmt.Sprintf("TransformationNoCode {\n%s}", out)
 }

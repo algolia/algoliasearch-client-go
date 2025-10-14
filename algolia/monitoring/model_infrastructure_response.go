@@ -28,6 +28,7 @@ func NewInfrastructureResponse(opts ...InfrastructureResponseOption) *Infrastruc
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyInfrastructureResponse() *InfrastructureResponse {
 func (o *InfrastructureResponse) GetMetrics() Metrics {
 	if o == nil || o.Metrics == nil {
 		var ret Metrics
+
 		return ret
 	}
+
 	return *o.Metrics
 }
 
@@ -51,6 +54,7 @@ func (o *InfrastructureResponse) GetMetricsOk() (*Metrics, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
@@ -66,6 +70,7 @@ func (o *InfrastructureResponse) HasMetrics() bool {
 // SetMetrics gets a reference to the given Metrics and assigns it to the Metrics field.
 func (o *InfrastructureResponse) SetMetrics(v *Metrics) *InfrastructureResponse {
 	o.Metrics = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o InfrastructureResponse) MarshalJSON() ([]byte, error) {
 	if o.Metrics != nil {
 		toSerialize["metrics"] = o.Metrics
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InfrastructureResponse: %w", err)
@@ -85,5 +91,6 @@ func (o InfrastructureResponse) MarshalJSON() ([]byte, error) {
 func (o InfrastructureResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
+
 	return fmt.Sprintf("InfrastructureResponse {\n%s}", out)
 }

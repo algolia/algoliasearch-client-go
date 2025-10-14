@@ -22,6 +22,7 @@ func NewTransformationCreateResponse(transformationID string, createdAt string) 
 	this := &TransformationCreateResponse{}
 	this.TransformationID = transformationID
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTransformationCreateResponse() *TransformationCreateResponse {
 func (o *TransformationCreateResponse) GetTransformationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *TransformationCreateResponse) GetTransformationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TransformationID, true
 }
 
 // SetTransformationID sets field value.
 func (o *TransformationCreateResponse) SetTransformationID(v string) *TransformationCreateResponse {
 	o.TransformationID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *TransformationCreateResponse) SetTransformationID(v string) *Transforma
 func (o *TransformationCreateResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *TransformationCreateResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *TransformationCreateResponse) SetCreatedAt(v string) *TransformationCreateResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o TransformationCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["transformationID"] = o.TransformationID
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationCreateResponse: %w", err)
@@ -96,5 +104,6 @@ func (o TransformationCreateResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  transformationID=%v\n", o.TransformationID)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("TransformationCreateResponse {\n%s}", out)
 }

@@ -21,24 +21,7 @@ var AllowedBooleanStringEnumValues = []BooleanString{
 	"false",
 }
 
-func (v *BooleanString) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BooleanString': %w", string(src), err)
-	}
-	enumTypeValue := BooleanString(value)
-	for _, existing := range AllowedBooleanStringEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid BooleanString", value)
-}
-
-// NewBooleanStringFromValue returns a pointer to a valid BooleanString
+// NewBooleanStringFromValue returns a pointer to a valid BooleanString.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewBooleanStringFromValue(v string) (*BooleanString, error) {
 	ev := BooleanString(v)
@@ -49,6 +32,26 @@ func NewBooleanStringFromValue(v string) (*BooleanString, error) {
 	}
 }
 
+func (v *BooleanString) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BooleanString': %w", string(src), err)
+	}
+
+	enumTypeValue := BooleanString(value)
+	for _, existing := range AllowedBooleanStringEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid BooleanString", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v BooleanString) IsValid() bool {
 	for _, existing := range AllowedBooleanStringEnumValues {
@@ -56,6 +59,7 @@ func (v BooleanString) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

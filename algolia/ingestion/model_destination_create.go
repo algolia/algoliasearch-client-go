@@ -39,10 +39,12 @@ func NewDestinationCreate(type_ DestinationType, name string, input DestinationI
 	this := &DestinationCreate{}
 	this.Type = type_
 	this.Name = name
+
 	this.Input = input
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -55,6 +57,7 @@ func NewEmptyDestinationCreate() *DestinationCreate {
 func (o *DestinationCreate) GetType() DestinationType {
 	if o == nil {
 		var ret DestinationType
+
 		return ret
 	}
 
@@ -67,12 +70,14 @@ func (o *DestinationCreate) GetTypeOk() (*DestinationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *DestinationCreate) SetType(v DestinationType) *DestinationCreate {
 	o.Type = v
+
 	return o
 }
 
@@ -80,6 +85,7 @@ func (o *DestinationCreate) SetType(v DestinationType) *DestinationCreate {
 func (o *DestinationCreate) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -92,12 +98,14 @@ func (o *DestinationCreate) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *DestinationCreate) SetName(v string) *DestinationCreate {
 	o.Name = v
+
 	return o
 }
 
@@ -105,6 +113,7 @@ func (o *DestinationCreate) SetName(v string) *DestinationCreate {
 func (o *DestinationCreate) GetInput() DestinationInput {
 	if o == nil {
 		var ret DestinationInput
+
 		return ret
 	}
 
@@ -117,12 +126,14 @@ func (o *DestinationCreate) GetInputOk() (*DestinationInput, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Input, true
 }
 
 // SetInput sets field value.
 func (o *DestinationCreate) SetInput(v *DestinationInput) *DestinationCreate {
 	o.Input = *v
+
 	return o
 }
 
@@ -130,8 +141,10 @@ func (o *DestinationCreate) SetInput(v *DestinationInput) *DestinationCreate {
 func (o *DestinationCreate) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -141,6 +154,7 @@ func (o *DestinationCreate) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -156,6 +170,7 @@ func (o *DestinationCreate) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *DestinationCreate) SetAuthenticationID(v string) *DestinationCreate {
 	o.AuthenticationID = &v
+
 	return o
 }
 
@@ -163,8 +178,10 @@ func (o *DestinationCreate) SetAuthenticationID(v string) *DestinationCreate {
 func (o *DestinationCreate) GetTransformationIDs() []string {
 	if o == nil || o.TransformationIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.TransformationIDs
 }
 
@@ -174,6 +191,7 @@ func (o *DestinationCreate) GetTransformationIDsOk() ([]string, bool) {
 	if o == nil || o.TransformationIDs == nil {
 		return nil, false
 	}
+
 	return o.TransformationIDs, true
 }
 
@@ -189,6 +207,7 @@ func (o *DestinationCreate) HasTransformationIDs() bool {
 // SetTransformationIDs gets a reference to the given []string and assigns it to the TransformationIDs field.
 func (o *DestinationCreate) SetTransformationIDs(v []string) *DestinationCreate {
 	o.TransformationIDs = v
+
 	return o
 }
 
@@ -196,13 +215,16 @@ func (o DestinationCreate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
 	toSerialize["name"] = o.Name
+
 	toSerialize["input"] = o.Input
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	if o.TransformationIDs != nil {
 		toSerialize["transformationIDs"] = o.TransformationIDs
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationCreate: %w", err)
@@ -218,5 +240,6 @@ func (o DestinationCreate) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
+
 	return fmt.Sprintf("DestinationCreate {\n%s}", out)
 }

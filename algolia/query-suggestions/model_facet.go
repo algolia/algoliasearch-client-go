@@ -37,6 +37,7 @@ func NewFacet(opts ...FacetOption) *Facet {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyFacet() *Facet {
 func (o *Facet) GetAttribute() string {
 	if o == nil || o.Attribute == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Attribute
 }
 
@@ -60,6 +63,7 @@ func (o *Facet) GetAttributeOk() (*string, bool) {
 	if o == nil || o.Attribute == nil {
 		return nil, false
 	}
+
 	return o.Attribute, true
 }
 
@@ -75,6 +79,7 @@ func (o *Facet) HasAttribute() bool {
 // SetAttribute gets a reference to the given string and assigns it to the Attribute field.
 func (o *Facet) SetAttribute(v string) *Facet {
 	o.Attribute = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *Facet) SetAttribute(v string) *Facet {
 func (o *Facet) GetAmount() int32 {
 	if o == nil || o.Amount == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Amount
 }
 
@@ -93,6 +100,7 @@ func (o *Facet) GetAmountOk() (*int32, bool) {
 	if o == nil || o.Amount == nil {
 		return nil, false
 	}
+
 	return o.Amount, true
 }
 
@@ -108,6 +116,7 @@ func (o *Facet) HasAmount() bool {
 // SetAmount gets a reference to the given int32 and assigns it to the Amount field.
 func (o *Facet) SetAmount(v int32) *Facet {
 	o.Amount = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o Facet) MarshalJSON() ([]byte, error) {
 	if o.Attribute != nil {
 		toSerialize["attribute"] = o.Attribute
 	}
+
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Facet: %w", err)
@@ -131,5 +142,6 @@ func (o Facet) String() string {
 	out := ""
 	out += fmt.Sprintf("  attribute=%v\n", o.Attribute)
 	out += fmt.Sprintf("  amount=%v\n", o.Amount)
+
 	return fmt.Sprintf("Facet {\n%s}", out)
 }

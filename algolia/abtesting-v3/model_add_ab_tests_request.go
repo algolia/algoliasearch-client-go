@@ -31,15 +31,23 @@ func WithAddABTestsRequestConfiguration(val ABTestConfiguration) AddABTestsReque
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAddABTestsRequest(name string, variants []AddABTestsVariant, metrics []CreateMetric, endAt string, opts ...AddABTestsRequestOption) *AddABTestsRequest {
+func NewAddABTestsRequest(
+	name string,
+	variants []AddABTestsVariant,
+	metrics []CreateMetric,
+	endAt string,
+	opts ...AddABTestsRequestOption,
+) *AddABTestsRequest {
 	this := &AddABTestsRequest{}
 	this.Name = name
 	this.Variants = variants
 	this.Metrics = metrics
+
 	this.EndAt = endAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -52,6 +60,7 @@ func NewEmptyAddABTestsRequest() *AddABTestsRequest {
 func (o *AddABTestsRequest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -64,12 +73,14 @@ func (o *AddABTestsRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 	o.Name = v
+
 	return o
 }
 
@@ -77,6 +88,7 @@ func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 func (o *AddABTestsRequest) GetVariants() []AddABTestsVariant {
 	if o == nil {
 		var ret []AddABTestsVariant
+
 		return ret
 	}
 
@@ -89,12 +101,14 @@ func (o *AddABTestsRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) *AddABTestsRequest {
 	o.Variants = v
+
 	return o
 }
 
@@ -102,6 +116,7 @@ func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) *AddABTestsReques
 func (o *AddABTestsRequest) GetMetrics() []CreateMetric {
 	if o == nil {
 		var ret []CreateMetric
+
 		return ret
 	}
 
@@ -114,12 +129,14 @@ func (o *AddABTestsRequest) GetMetricsOk() ([]CreateMetric, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
 // SetMetrics sets field value.
 func (o *AddABTestsRequest) SetMetrics(v []CreateMetric) *AddABTestsRequest {
 	o.Metrics = v
+
 	return o
 }
 
@@ -127,8 +144,10 @@ func (o *AddABTestsRequest) SetMetrics(v []CreateMetric) *AddABTestsRequest {
 func (o *AddABTestsRequest) GetConfiguration() ABTestConfiguration {
 	if o == nil || o.Configuration == nil {
 		var ret ABTestConfiguration
+
 		return ret
 	}
+
 	return *o.Configuration
 }
 
@@ -138,6 +157,7 @@ func (o *AddABTestsRequest) GetConfigurationOk() (*ABTestConfiguration, bool) {
 	if o == nil || o.Configuration == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
@@ -153,6 +173,7 @@ func (o *AddABTestsRequest) HasConfiguration() bool {
 // SetConfiguration gets a reference to the given ABTestConfiguration and assigns it to the Configuration field.
 func (o *AddABTestsRequest) SetConfiguration(v *ABTestConfiguration) *AddABTestsRequest {
 	o.Configuration = v
+
 	return o
 }
 
@@ -160,6 +181,7 @@ func (o *AddABTestsRequest) SetConfiguration(v *ABTestConfiguration) *AddABTests
 func (o *AddABTestsRequest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -172,12 +194,14 @@ func (o *AddABTestsRequest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *AddABTestsRequest) SetEndAt(v string) *AddABTestsRequest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -185,11 +209,14 @@ func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 	toSerialize["variants"] = o.Variants
+
 	toSerialize["metrics"] = o.Metrics
 	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}
+
 	toSerialize["endAt"] = o.EndAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddABTestsRequest: %w", err)
@@ -205,5 +232,6 @@ func (o AddABTestsRequest) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
+
 	return fmt.Sprintf("AddABTestsRequest {\n%s}", out)
 }

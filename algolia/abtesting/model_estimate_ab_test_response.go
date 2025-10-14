@@ -37,6 +37,7 @@ func NewEstimateABTestResponse(opts ...EstimateABTestResponseOption) *EstimateAB
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyEstimateABTestResponse() *EstimateABTestResponse {
 func (o *EstimateABTestResponse) GetDurationDays() int64 {
 	if o == nil || o.DurationDays == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.DurationDays
 }
 
@@ -60,6 +63,7 @@ func (o *EstimateABTestResponse) GetDurationDaysOk() (*int64, bool) {
 	if o == nil || o.DurationDays == nil {
 		return nil, false
 	}
+
 	return o.DurationDays, true
 }
 
@@ -75,6 +79,7 @@ func (o *EstimateABTestResponse) HasDurationDays() bool {
 // SetDurationDays gets a reference to the given int64 and assigns it to the DurationDays field.
 func (o *EstimateABTestResponse) SetDurationDays(v int64) *EstimateABTestResponse {
 	o.DurationDays = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *EstimateABTestResponse) SetDurationDays(v int64) *EstimateABTestRespons
 func (o *EstimateABTestResponse) GetSampleSizes() []int64 {
 	if o == nil || o.SampleSizes == nil {
 		var ret []int64
+
 		return ret
 	}
+
 	return o.SampleSizes
 }
 
@@ -93,6 +100,7 @@ func (o *EstimateABTestResponse) GetSampleSizesOk() ([]int64, bool) {
 	if o == nil || o.SampleSizes == nil {
 		return nil, false
 	}
+
 	return o.SampleSizes, true
 }
 
@@ -108,6 +116,7 @@ func (o *EstimateABTestResponse) HasSampleSizes() bool {
 // SetSampleSizes gets a reference to the given []int64 and assigns it to the SampleSizes field.
 func (o *EstimateABTestResponse) SetSampleSizes(v []int64) *EstimateABTestResponse {
 	o.SampleSizes = v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o EstimateABTestResponse) MarshalJSON() ([]byte, error) {
 	if o.DurationDays != nil {
 		toSerialize["durationDays"] = o.DurationDays
 	}
+
 	if o.SampleSizes != nil {
 		toSerialize["sampleSizes"] = o.SampleSizes
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateABTestResponse: %w", err)
@@ -131,5 +142,6 @@ func (o EstimateABTestResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  durationDays=%v\n", o.DurationDays)
 	out += fmt.Sprintf("  sampleSizes=%v\n", o.SampleSizes)
+
 	return fmt.Sprintf("EstimateABTestResponse {\n%s}", out)
 }

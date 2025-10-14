@@ -18,6 +18,7 @@ type CompositionSource struct {
 func NewCompositionSource(search CompositionSourceSearch) *CompositionSource {
 	this := &CompositionSource{}
 	this.Search = search
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyCompositionSource() *CompositionSource {
 func (o *CompositionSource) GetSearch() CompositionSourceSearch {
 	if o == nil {
 		var ret CompositionSourceSearch
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *CompositionSource) GetSearchOk() (*CompositionSourceSearch, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *CompositionSource) SetSearch(v *CompositionSourceSearch) *CompositionSource {
 	o.Search = *v
+
 	return o
 }
 
 func (o CompositionSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["search"] = o.Search
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionSource: %w", err)
@@ -65,5 +70,6 @@ func (o CompositionSource) MarshalJSON() ([]byte, error) {
 func (o CompositionSource) String() string {
 	out := ""
 	out += fmt.Sprintf("  search=%v\n", o.Search)
+
 	return fmt.Sprintf("CompositionSource {\n%s}", out)
 }

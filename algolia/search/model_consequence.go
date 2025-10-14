@@ -60,6 +60,7 @@ func NewConsequence(opts ...ConsequenceOption) *Consequence {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -72,8 +73,10 @@ func NewEmptyConsequence() *Consequence {
 func (o *Consequence) GetParams() ConsequenceParams {
 	if o == nil || o.Params == nil {
 		var ret ConsequenceParams
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -83,6 +86,7 @@ func (o *Consequence) GetParamsOk() (*ConsequenceParams, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -98,6 +102,7 @@ func (o *Consequence) HasParams() bool {
 // SetParams gets a reference to the given ConsequenceParams and assigns it to the Params field.
 func (o *Consequence) SetParams(v *ConsequenceParams) *Consequence {
 	o.Params = v
+
 	return o
 }
 
@@ -105,8 +110,10 @@ func (o *Consequence) SetParams(v *ConsequenceParams) *Consequence {
 func (o *Consequence) GetPromote() []Promote {
 	if o == nil || o.Promote == nil {
 		var ret []Promote
+
 		return ret
 	}
+
 	return o.Promote
 }
 
@@ -116,6 +123,7 @@ func (o *Consequence) GetPromoteOk() ([]Promote, bool) {
 	if o == nil || o.Promote == nil {
 		return nil, false
 	}
+
 	return o.Promote, true
 }
 
@@ -131,6 +139,7 @@ func (o *Consequence) HasPromote() bool {
 // SetPromote gets a reference to the given []Promote and assigns it to the Promote field.
 func (o *Consequence) SetPromote(v []Promote) *Consequence {
 	o.Promote = v
+
 	return o
 }
 
@@ -138,8 +147,10 @@ func (o *Consequence) SetPromote(v []Promote) *Consequence {
 func (o *Consequence) GetFilterPromotes() bool {
 	if o == nil || o.FilterPromotes == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FilterPromotes
 }
 
@@ -149,6 +160,7 @@ func (o *Consequence) GetFilterPromotesOk() (*bool, bool) {
 	if o == nil || o.FilterPromotes == nil {
 		return nil, false
 	}
+
 	return o.FilterPromotes, true
 }
 
@@ -164,6 +176,7 @@ func (o *Consequence) HasFilterPromotes() bool {
 // SetFilterPromotes gets a reference to the given bool and assigns it to the FilterPromotes field.
 func (o *Consequence) SetFilterPromotes(v bool) *Consequence {
 	o.FilterPromotes = &v
+
 	return o
 }
 
@@ -171,8 +184,10 @@ func (o *Consequence) SetFilterPromotes(v bool) *Consequence {
 func (o *Consequence) GetHide() []ConsequenceHide {
 	if o == nil || o.Hide == nil {
 		var ret []ConsequenceHide
+
 		return ret
 	}
+
 	return o.Hide
 }
 
@@ -182,6 +197,7 @@ func (o *Consequence) GetHideOk() ([]ConsequenceHide, bool) {
 	if o == nil || o.Hide == nil {
 		return nil, false
 	}
+
 	return o.Hide, true
 }
 
@@ -197,6 +213,7 @@ func (o *Consequence) HasHide() bool {
 // SetHide gets a reference to the given []ConsequenceHide and assigns it to the Hide field.
 func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 	o.Hide = v
+
 	return o
 }
 
@@ -204,8 +221,10 @@ func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 func (o *Consequence) GetUserData() map[string]any {
 	if o == nil || o.UserData == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -215,6 +234,7 @@ func (o *Consequence) GetUserDataOk() (map[string]any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return o.UserData, true
 }
 
@@ -230,6 +250,7 @@ func (o *Consequence) HasUserData() bool {
 // SetUserData gets a reference to the given map[string]any and assigns it to the UserData field.
 func (o *Consequence) SetUserData(v map[string]any) *Consequence {
 	o.UserData = v
+
 	return o
 }
 
@@ -238,18 +259,23 @@ func (o Consequence) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	if o.Promote != nil {
 		toSerialize["promote"] = o.Promote
 	}
+
 	if o.FilterPromotes != nil {
 		toSerialize["filterPromotes"] = o.FilterPromotes
 	}
+
 	if o.Hide != nil {
 		toSerialize["hide"] = o.Hide
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Consequence: %w", err)
@@ -265,5 +291,6 @@ func (o Consequence) String() string {
 	out += fmt.Sprintf("  filterPromotes=%v\n", o.FilterPromotes)
 	out += fmt.Sprintf("  hide=%v\n", o.Hide)
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
+
 	return fmt.Sprintf("Consequence {\n%s}", out)
 }

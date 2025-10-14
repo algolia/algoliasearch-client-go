@@ -22,6 +22,7 @@ func NewTransformationUpdateResponse(transformationID string, updatedAt string) 
 	this := &TransformationUpdateResponse{}
 	this.TransformationID = transformationID
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTransformationUpdateResponse() *TransformationUpdateResponse {
 func (o *TransformationUpdateResponse) GetTransformationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *TransformationUpdateResponse) GetTransformationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TransformationID, true
 }
 
 // SetTransformationID sets field value.
 func (o *TransformationUpdateResponse) SetTransformationID(v string) *TransformationUpdateResponse {
 	o.TransformationID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *TransformationUpdateResponse) SetTransformationID(v string) *Transforma
 func (o *TransformationUpdateResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *TransformationUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *TransformationUpdateResponse) SetUpdatedAt(v string) *TransformationUpdateResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o TransformationUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["transformationID"] = o.TransformationID
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationUpdateResponse: %w", err)
@@ -96,5 +104,6 @@ func (o TransformationUpdateResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  transformationID=%v\n", o.TransformationID)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("TransformationUpdateResponse {\n%s}", out)
 }

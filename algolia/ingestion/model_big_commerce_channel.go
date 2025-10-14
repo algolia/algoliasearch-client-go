@@ -28,10 +28,12 @@ func WithBigCommerceChannelCurrencies(val []string) BigCommerceChannelOption {
 // will change when the set of required properties is changed.
 func NewBigCommerceChannel(id int32, opts ...BigCommerceChannelOption) *BigCommerceChannel {
 	this := &BigCommerceChannel{}
+
 	this.Id = id
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptyBigCommerceChannel() *BigCommerceChannel {
 func (o *BigCommerceChannel) GetId() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *BigCommerceChannel) GetIdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Id, true
 }
 
 // SetId sets field value.
 func (o *BigCommerceChannel) SetId(v int32) *BigCommerceChannel {
 	o.Id = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *BigCommerceChannel) SetId(v int32) *BigCommerceChannel {
 func (o *BigCommerceChannel) GetCurrencies() []string {
 	if o == nil || o.Currencies == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Currencies
 }
 
@@ -80,6 +87,7 @@ func (o *BigCommerceChannel) GetCurrenciesOk() ([]string, bool) {
 	if o == nil || o.Currencies == nil {
 		return nil, false
 	}
+
 	return o.Currencies, true
 }
 
@@ -95,15 +103,18 @@ func (o *BigCommerceChannel) HasCurrencies() bool {
 // SetCurrencies gets a reference to the given []string and assigns it to the Currencies field.
 func (o *BigCommerceChannel) SetCurrencies(v []string) *BigCommerceChannel {
 	o.Currencies = v
+
 	return o
 }
 
 func (o BigCommerceChannel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["id"] = o.Id
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BigCommerceChannel: %w", err)
@@ -116,5 +127,6 @@ func (o BigCommerceChannel) String() string {
 	out := ""
 	out += fmt.Sprintf("  id=%v\n", o.Id)
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
+
 	return fmt.Sprintf("BigCommerceChannel {\n%s}", out)
 }

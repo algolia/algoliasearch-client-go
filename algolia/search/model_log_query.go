@@ -45,6 +45,7 @@ func NewLogQuery(opts ...LogQueryOption) *LogQuery {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyLogQuery() *LogQuery {
 func (o *LogQuery) GetIndexName() string {
 	if o == nil || o.IndexName == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.IndexName
 }
 
@@ -68,6 +71,7 @@ func (o *LogQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil || o.IndexName == nil {
 		return nil, false
 	}
+
 	return o.IndexName, true
 }
 
@@ -83,6 +87,7 @@ func (o *LogQuery) HasIndexName() bool {
 // SetIndexName gets a reference to the given string and assigns it to the IndexName field.
 func (o *LogQuery) SetIndexName(v string) *LogQuery {
 	o.IndexName = &v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *LogQuery) SetIndexName(v string) *LogQuery {
 func (o *LogQuery) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -101,6 +108,7 @@ func (o *LogQuery) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -116,6 +124,7 @@ func (o *LogQuery) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *LogQuery) SetUserToken(v string) *LogQuery {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *LogQuery) SetUserToken(v string) *LogQuery {
 func (o *LogQuery) GetQueryId() string {
 	if o == nil || o.QueryId == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryId
 }
 
@@ -134,6 +145,7 @@ func (o *LogQuery) GetQueryIdOk() (*string, bool) {
 	if o == nil || o.QueryId == nil {
 		return nil, false
 	}
+
 	return o.QueryId, true
 }
 
@@ -149,6 +161,7 @@ func (o *LogQuery) HasQueryId() bool {
 // SetQueryId gets a reference to the given string and assigns it to the QueryId field.
 func (o *LogQuery) SetQueryId(v string) *LogQuery {
 	o.QueryId = &v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o LogQuery) MarshalJSON() ([]byte, error) {
 	if o.IndexName != nil {
 		toSerialize["index_name"] = o.IndexName
 	}
+
 	if o.UserToken != nil {
 		toSerialize["user_token"] = o.UserToken
 	}
+
 	if o.QueryId != nil {
 		toSerialize["query_id"] = o.QueryId
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal LogQuery: %w", err)
@@ -176,5 +192,6 @@ func (o LogQuery) String() string {
 	out += fmt.Sprintf("  index_name=%v\n", o.IndexName)
 	out += fmt.Sprintf("  user_token=%v\n", o.UserToken)
 	out += fmt.Sprintf("  query_id=%v\n", o.QueryId)
+
 	return fmt.Sprintf("LogQuery {\n%s}", out)
 }

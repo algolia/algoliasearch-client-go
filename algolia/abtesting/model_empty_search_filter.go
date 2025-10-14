@@ -37,6 +37,7 @@ func NewEmptySearchFilter(opts ...EmptySearchFilterOption) *EmptySearchFilter {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyEmptySearchFilter() *EmptySearchFilter {
 func (o *EmptySearchFilter) GetUsersCount() int32 {
 	if o == nil || o.UsersCount == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.UsersCount
 }
 
@@ -60,6 +63,7 @@ func (o *EmptySearchFilter) GetUsersCountOk() (*int32, bool) {
 	if o == nil || o.UsersCount == nil {
 		return nil, false
 	}
+
 	return o.UsersCount, true
 }
 
@@ -75,6 +79,7 @@ func (o *EmptySearchFilter) HasUsersCount() bool {
 // SetUsersCount gets a reference to the given int32 and assigns it to the UsersCount field.
 func (o *EmptySearchFilter) SetUsersCount(v int32) *EmptySearchFilter {
 	o.UsersCount = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *EmptySearchFilter) SetUsersCount(v int32) *EmptySearchFilter {
 func (o *EmptySearchFilter) GetTrackedSearchesCount() int32 {
 	if o == nil || o.TrackedSearchesCount == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.TrackedSearchesCount
 }
 
@@ -93,6 +100,7 @@ func (o *EmptySearchFilter) GetTrackedSearchesCountOk() (*int32, bool) {
 	if o == nil || o.TrackedSearchesCount == nil {
 		return nil, false
 	}
+
 	return o.TrackedSearchesCount, true
 }
 
@@ -108,6 +116,7 @@ func (o *EmptySearchFilter) HasTrackedSearchesCount() bool {
 // SetTrackedSearchesCount gets a reference to the given int32 and assigns it to the TrackedSearchesCount field.
 func (o *EmptySearchFilter) SetTrackedSearchesCount(v int32) *EmptySearchFilter {
 	o.TrackedSearchesCount = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o EmptySearchFilter) MarshalJSON() ([]byte, error) {
 	if o.UsersCount != nil {
 		toSerialize["usersCount"] = o.UsersCount
 	}
+
 	if o.TrackedSearchesCount != nil {
 		toSerialize["trackedSearchesCount"] = o.TrackedSearchesCount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EmptySearchFilter: %w", err)
@@ -131,5 +142,6 @@ func (o EmptySearchFilter) String() string {
 	out := ""
 	out += fmt.Sprintf("  usersCount=%v\n", o.UsersCount)
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
+
 	return fmt.Sprintf("EmptySearchFilter {\n%s}", out)
 }

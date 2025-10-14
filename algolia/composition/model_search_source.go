@@ -18,6 +18,7 @@ type SearchSource struct {
 func NewSearchSource(search Search) *SearchSource {
 	this := &SearchSource{}
 	this.Search = search
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptySearchSource() *SearchSource {
 func (o *SearchSource) GetSearch() Search {
 	if o == nil {
 		var ret Search
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *SearchSource) GetSearchOk() (*Search, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *SearchSource) SetSearch(v *Search) *SearchSource {
 	o.Search = *v
+
 	return o
 }
 
 func (o SearchSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["search"] = o.Search
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchSource: %w", err)
@@ -65,5 +70,6 @@ func (o SearchSource) MarshalJSON() ([]byte, error) {
 func (o SearchSource) String() string {
 	out := ""
 	out += fmt.Sprintf("  search=%v\n", o.Search)
+
 	return fmt.Sprintf("SearchSource {\n%s}", out)
 }

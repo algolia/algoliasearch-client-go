@@ -19,6 +19,7 @@ type TopHitsResponse struct {
 func NewTopHitsResponse(hits []TopHit) *TopHitsResponse {
 	this := &TopHitsResponse{}
 	this.Hits = hits
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTopHitsResponse() *TopHitsResponse {
 func (o *TopHitsResponse) GetHits() []TopHit {
 	if o == nil {
 		var ret []TopHit
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TopHitsResponse) GetHitsOk() ([]TopHit, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *TopHitsResponse) SetHits(v []TopHit) *TopHitsResponse {
 	o.Hits = v
+
 	return o
 }
 
 func (o TopHitsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["hits"] = o.Hits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitsResponse: %w", err)
@@ -66,5 +71,6 @@ func (o TopHitsResponse) MarshalJSON() ([]byte, error) {
 func (o TopHitsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+
 	return fmt.Sprintf("TopHitsResponse {\n%s}", out)
 }

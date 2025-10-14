@@ -21,24 +21,7 @@ var AllowedBigQueryDataTypeEnumValues = []BigQueryDataType{
 	"ga360",
 }
 
-func (v *BigQueryDataType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BigQueryDataType': %w", string(src), err)
-	}
-	enumTypeValue := BigQueryDataType(value)
-	for _, existing := range AllowedBigQueryDataTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid BigQueryDataType", value)
-}
-
-// NewBigQueryDataTypeFromValue returns a pointer to a valid BigQueryDataType
+// NewBigQueryDataTypeFromValue returns a pointer to a valid BigQueryDataType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewBigQueryDataTypeFromValue(v string) (*BigQueryDataType, error) {
 	ev := BigQueryDataType(v)
@@ -49,6 +32,26 @@ func NewBigQueryDataTypeFromValue(v string) (*BigQueryDataType, error) {
 	}
 }
 
+func (v *BigQueryDataType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BigQueryDataType': %w", string(src), err)
+	}
+
+	enumTypeValue := BigQueryDataType(value)
+	for _, existing := range AllowedBigQueryDataTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid BigQueryDataType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v BigQueryDataType) IsValid() bool {
 	for _, existing := range AllowedBigQueryDataTypeEnumValues {
@@ -56,6 +59,7 @@ func (v BigQueryDataType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

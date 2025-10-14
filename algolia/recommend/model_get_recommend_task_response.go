@@ -18,6 +18,7 @@ type GetRecommendTaskResponse struct {
 func NewGetRecommendTaskResponse(status TaskStatus) *GetRecommendTaskResponse {
 	this := &GetRecommendTaskResponse{}
 	this.Status = status
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyGetRecommendTaskResponse() *GetRecommendTaskResponse {
 func (o *GetRecommendTaskResponse) GetStatus() TaskStatus {
 	if o == nil {
 		var ret TaskStatus
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *GetRecommendTaskResponse) GetStatusOk() (*TaskStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Status, true
 }
 
 // SetStatus sets field value.
 func (o *GetRecommendTaskResponse) SetStatus(v TaskStatus) *GetRecommendTaskResponse {
 	o.Status = v
+
 	return o
 }
 
 func (o GetRecommendTaskResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["status"] = o.Status
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetRecommendTaskResponse: %w", err)
@@ -65,5 +70,6 @@ func (o GetRecommendTaskResponse) MarshalJSON() ([]byte, error) {
 func (o GetRecommendTaskResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+
 	return fmt.Sprintf("GetRecommendTaskResponse {\n%s}", out)
 }

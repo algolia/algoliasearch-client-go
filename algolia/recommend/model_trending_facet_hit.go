@@ -31,10 +31,12 @@ func WithTrendingFacetHitScore(val float64) TrendingFacetHitOption {
 func NewTrendingFacetHit(facetName string, facetValue string, opts ...TrendingFacetHitOption) *TrendingFacetHit {
 	this := &TrendingFacetHit{}
 	this.FacetName = facetName
+
 	this.FacetValue = facetValue
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,8 +49,10 @@ func NewEmptyTrendingFacetHit() *TrendingFacetHit {
 func (o *TrendingFacetHit) GetScore() float64 {
 	if o == nil || o.Score == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Score
 }
 
@@ -58,6 +62,7 @@ func (o *TrendingFacetHit) GetScoreOk() (*float64, bool) {
 	if o == nil || o.Score == nil {
 		return nil, false
 	}
+
 	return o.Score, true
 }
 
@@ -73,6 +78,7 @@ func (o *TrendingFacetHit) HasScore() bool {
 // SetScore gets a reference to the given float64 and assigns it to the Score field.
 func (o *TrendingFacetHit) SetScore(v float64) *TrendingFacetHit {
 	o.Score = &v
+
 	return o
 }
 
@@ -80,6 +86,7 @@ func (o *TrendingFacetHit) SetScore(v float64) *TrendingFacetHit {
 func (o *TrendingFacetHit) GetFacetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -92,12 +99,14 @@ func (o *TrendingFacetHit) GetFacetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FacetName, true
 }
 
 // SetFacetName sets field value.
 func (o *TrendingFacetHit) SetFacetName(v string) *TrendingFacetHit {
 	o.FacetName = v
+
 	return o
 }
 
@@ -105,6 +114,7 @@ func (o *TrendingFacetHit) SetFacetName(v string) *TrendingFacetHit {
 func (o *TrendingFacetHit) GetFacetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -117,12 +127,14 @@ func (o *TrendingFacetHit) GetFacetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FacetValue, true
 }
 
 // SetFacetValue sets field value.
 func (o *TrendingFacetHit) SetFacetValue(v string) *TrendingFacetHit {
 	o.FacetValue = v
+
 	return o
 }
 
@@ -131,8 +143,10 @@ func (o TrendingFacetHit) MarshalJSON() ([]byte, error) {
 	if o.Score != nil {
 		toSerialize["_score"] = o.Score
 	}
+
 	toSerialize["facetName"] = o.FacetName
 	toSerialize["facetValue"] = o.FacetValue
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TrendingFacetHit: %w", err)
@@ -146,5 +160,6 @@ func (o TrendingFacetHit) String() string {
 	out += fmt.Sprintf("  _score=%v\n", o.Score)
 	out += fmt.Sprintf("  facetName=%v\n", o.FacetName)
 	out += fmt.Sprintf("  facetValue=%v\n", o.FacetValue)
+
 	return fmt.Sprintf("TrendingFacetHit {\n%s}", out)
 }

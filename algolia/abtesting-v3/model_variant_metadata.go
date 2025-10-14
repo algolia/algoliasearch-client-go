@@ -28,6 +28,7 @@ func NewVariantMetadata(opts ...VariantMetadataOption) *VariantMetadata {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyVariantMetadata() *VariantMetadata {
 func (o *VariantMetadata) GetFilterEffects() FilterEffects {
 	if o == nil || o.FilterEffects == nil {
 		var ret FilterEffects
+
 		return ret
 	}
+
 	return *o.FilterEffects
 }
 
@@ -51,6 +54,7 @@ func (o *VariantMetadata) GetFilterEffectsOk() (*FilterEffects, bool) {
 	if o == nil || o.FilterEffects == nil {
 		return nil, false
 	}
+
 	return o.FilterEffects, true
 }
 
@@ -66,6 +70,7 @@ func (o *VariantMetadata) HasFilterEffects() bool {
 // SetFilterEffects gets a reference to the given FilterEffects and assigns it to the FilterEffects field.
 func (o *VariantMetadata) SetFilterEffects(v *FilterEffects) *VariantMetadata {
 	o.FilterEffects = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o VariantMetadata) MarshalJSON() ([]byte, error) {
 	if o.FilterEffects != nil {
 		toSerialize["filterEffects"] = o.FilterEffects
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal VariantMetadata: %w", err)
@@ -85,5 +91,6 @@ func (o VariantMetadata) MarshalJSON() ([]byte, error) {
 func (o VariantMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  filterEffects=%v\n", o.FilterEffects)
+
 	return fmt.Sprintf("VariantMetadata {\n%s}", out)
 }

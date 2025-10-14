@@ -19,6 +19,7 @@ type GetRecommendationsParams struct {
 func NewGetRecommendationsParams(requests []RecommendationsRequest) *GetRecommendationsParams {
 	this := &GetRecommendationsParams{}
 	this.Requests = requests
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetRecommendationsParams() *GetRecommendationsParams {
 func (o *GetRecommendationsParams) GetRequests() []RecommendationsRequest {
 	if o == nil {
 		var ret []RecommendationsRequest
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetRecommendationsParams) GetRequestsOk() ([]RecommendationsRequest, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
 // SetRequests sets field value.
 func (o *GetRecommendationsParams) SetRequests(v []RecommendationsRequest) *GetRecommendationsParams {
 	o.Requests = v
+
 	return o
 }
 
 func (o GetRecommendationsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["requests"] = o.Requests
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetRecommendationsParams: %w", err)
@@ -66,5 +71,6 @@ func (o GetRecommendationsParams) MarshalJSON() ([]byte, error) {
 func (o GetRecommendationsParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
+
 	return fmt.Sprintf("GetRecommendationsParams {\n%s}", out)
 }

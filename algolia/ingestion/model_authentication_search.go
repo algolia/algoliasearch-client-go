@@ -18,6 +18,7 @@ type AuthenticationSearch struct {
 func NewAuthenticationSearch(authenticationIDs []string) *AuthenticationSearch {
 	this := &AuthenticationSearch{}
 	this.AuthenticationIDs = authenticationIDs
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyAuthenticationSearch() *AuthenticationSearch {
 func (o *AuthenticationSearch) GetAuthenticationIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *AuthenticationSearch) GetAuthenticationIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationIDs, true
 }
 
 // SetAuthenticationIDs sets field value.
 func (o *AuthenticationSearch) SetAuthenticationIDs(v []string) *AuthenticationSearch {
 	o.AuthenticationIDs = v
+
 	return o
 }
 
 func (o AuthenticationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["authenticationIDs"] = o.AuthenticationIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationSearch: %w", err)
@@ -65,5 +70,6 @@ func (o AuthenticationSearch) MarshalJSON() ([]byte, error) {
 func (o AuthenticationSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  authenticationIDs=%v\n", o.AuthenticationIDs)
+
 	return fmt.Sprintf("AuthenticationSearch {\n%s}", out)
 }

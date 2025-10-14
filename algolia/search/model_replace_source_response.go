@@ -19,6 +19,7 @@ type ReplaceSourceResponse struct {
 func NewReplaceSourceResponse(updatedAt string) *ReplaceSourceResponse {
 	this := &ReplaceSourceResponse{}
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyReplaceSourceResponse() *ReplaceSourceResponse {
 func (o *ReplaceSourceResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *ReplaceSourceResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *ReplaceSourceResponse) SetUpdatedAt(v string) *ReplaceSourceResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
 func (o ReplaceSourceResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ReplaceSourceResponse: %w", err)
@@ -66,5 +71,6 @@ func (o ReplaceSourceResponse) MarshalJSON() ([]byte, error) {
 func (o ReplaceSourceResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("ReplaceSourceResponse {\n%s}", out)
 }

@@ -19,24 +19,7 @@ var AllowedSearchTypeDefaultEnumValues = []SearchTypeDefault{
 	"default",
 }
 
-func (v *SearchTypeDefault) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchTypeDefault': %w", string(src), err)
-	}
-	enumTypeValue := SearchTypeDefault(value)
-	for _, existing := range AllowedSearchTypeDefaultEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SearchTypeDefault", value)
-}
-
-// NewSearchTypeDefaultFromValue returns a pointer to a valid SearchTypeDefault
+// NewSearchTypeDefaultFromValue returns a pointer to a valid SearchTypeDefault.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSearchTypeDefaultFromValue(v string) (*SearchTypeDefault, error) {
 	ev := SearchTypeDefault(v)
@@ -47,6 +30,26 @@ func NewSearchTypeDefaultFromValue(v string) (*SearchTypeDefault, error) {
 	}
 }
 
+func (v *SearchTypeDefault) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SearchTypeDefault': %w", string(src), err)
+	}
+
+	enumTypeValue := SearchTypeDefault(value)
+	for _, existing := range AllowedSearchTypeDefaultEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SearchTypeDefault", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SearchTypeDefault) IsValid() bool {
 	for _, existing := range AllowedSearchTypeDefaultEnumValues {
@@ -54,6 +57,7 @@ func (v SearchTypeDefault) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

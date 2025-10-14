@@ -61,6 +61,7 @@ func NewMetrics(opts ...MetricsOption) *Metrics {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -73,8 +74,10 @@ func NewEmptyMetrics() *Metrics {
 func (o *Metrics) GetCpuUsage() map[string][]ProbesMetric {
 	if o == nil || o.CpuUsage == nil {
 		var ret map[string][]ProbesMetric
+
 		return ret
 	}
+
 	return *o.CpuUsage
 }
 
@@ -84,6 +87,7 @@ func (o *Metrics) GetCpuUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.CpuUsage == nil {
 		return nil, false
 	}
+
 	return o.CpuUsage, true
 }
 
@@ -99,6 +103,7 @@ func (o *Metrics) HasCpuUsage() bool {
 // SetCpuUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the CpuUsage field.
 func (o *Metrics) SetCpuUsage(v map[string][]ProbesMetric) *Metrics {
 	o.CpuUsage = &v
+
 	return o
 }
 
@@ -106,8 +111,10 @@ func (o *Metrics) SetCpuUsage(v map[string][]ProbesMetric) *Metrics {
 func (o *Metrics) GetRamIndexingUsage() map[string][]ProbesMetric {
 	if o == nil || o.RamIndexingUsage == nil {
 		var ret map[string][]ProbesMetric
+
 		return ret
 	}
+
 	return *o.RamIndexingUsage
 }
 
@@ -117,6 +124,7 @@ func (o *Metrics) GetRamIndexingUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.RamIndexingUsage == nil {
 		return nil, false
 	}
+
 	return o.RamIndexingUsage, true
 }
 
@@ -132,6 +140,7 @@ func (o *Metrics) HasRamIndexingUsage() bool {
 // SetRamIndexingUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamIndexingUsage field.
 func (o *Metrics) SetRamIndexingUsage(v map[string][]ProbesMetric) *Metrics {
 	o.RamIndexingUsage = &v
+
 	return o
 }
 
@@ -139,8 +148,10 @@ func (o *Metrics) SetRamIndexingUsage(v map[string][]ProbesMetric) *Metrics {
 func (o *Metrics) GetRamSearchUsage() map[string][]ProbesMetric {
 	if o == nil || o.RamSearchUsage == nil {
 		var ret map[string][]ProbesMetric
+
 		return ret
 	}
+
 	return *o.RamSearchUsage
 }
 
@@ -150,6 +161,7 @@ func (o *Metrics) GetRamSearchUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.RamSearchUsage == nil {
 		return nil, false
 	}
+
 	return o.RamSearchUsage, true
 }
 
@@ -165,6 +177,7 @@ func (o *Metrics) HasRamSearchUsage() bool {
 // SetRamSearchUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the RamSearchUsage field.
 func (o *Metrics) SetRamSearchUsage(v map[string][]ProbesMetric) *Metrics {
 	o.RamSearchUsage = &v
+
 	return o
 }
 
@@ -172,8 +185,10 @@ func (o *Metrics) SetRamSearchUsage(v map[string][]ProbesMetric) *Metrics {
 func (o *Metrics) GetSsdUsage() map[string][]ProbesMetric {
 	if o == nil || o.SsdUsage == nil {
 		var ret map[string][]ProbesMetric
+
 		return ret
 	}
+
 	return *o.SsdUsage
 }
 
@@ -183,6 +198,7 @@ func (o *Metrics) GetSsdUsageOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.SsdUsage == nil {
 		return nil, false
 	}
+
 	return o.SsdUsage, true
 }
 
@@ -198,6 +214,7 @@ func (o *Metrics) HasSsdUsage() bool {
 // SetSsdUsage gets a reference to the given map[string][]ProbesMetric and assigns it to the SsdUsage field.
 func (o *Metrics) SetSsdUsage(v map[string][]ProbesMetric) *Metrics {
 	o.SsdUsage = &v
+
 	return o
 }
 
@@ -205,8 +222,10 @@ func (o *Metrics) SetSsdUsage(v map[string][]ProbesMetric) *Metrics {
 func (o *Metrics) GetAvgBuildTime() map[string][]ProbesMetric {
 	if o == nil || o.AvgBuildTime == nil {
 		var ret map[string][]ProbesMetric
+
 		return ret
 	}
+
 	return *o.AvgBuildTime
 }
 
@@ -216,6 +235,7 @@ func (o *Metrics) GetAvgBuildTimeOk() (*map[string][]ProbesMetric, bool) {
 	if o == nil || o.AvgBuildTime == nil {
 		return nil, false
 	}
+
 	return o.AvgBuildTime, true
 }
 
@@ -231,6 +251,7 @@ func (o *Metrics) HasAvgBuildTime() bool {
 // SetAvgBuildTime gets a reference to the given map[string][]ProbesMetric and assigns it to the AvgBuildTime field.
 func (o *Metrics) SetAvgBuildTime(v map[string][]ProbesMetric) *Metrics {
 	o.AvgBuildTime = &v
+
 	return o
 }
 
@@ -239,18 +260,23 @@ func (o Metrics) MarshalJSON() ([]byte, error) {
 	if o.CpuUsage != nil {
 		toSerialize["cpu_usage"] = o.CpuUsage
 	}
+
 	if o.RamIndexingUsage != nil {
 		toSerialize["ram_indexing_usage"] = o.RamIndexingUsage
 	}
+
 	if o.RamSearchUsage != nil {
 		toSerialize["ram_search_usage"] = o.RamSearchUsage
 	}
+
 	if o.SsdUsage != nil {
 		toSerialize["ssd_usage"] = o.SsdUsage
 	}
+
 	if o.AvgBuildTime != nil {
 		toSerialize["avg_build_time"] = o.AvgBuildTime
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Metrics: %w", err)
@@ -266,5 +292,6 @@ func (o Metrics) String() string {
 	out += fmt.Sprintf("  ram_search_usage=%v\n", o.RamSearchUsage)
 	out += fmt.Sprintf("  ssd_usage=%v\n", o.SsdUsage)
 	out += fmt.Sprintf("  avg_build_time=%v\n", o.AvgBuildTime)
+
 	return fmt.Sprintf("Metrics {\n%s}", out)
 }

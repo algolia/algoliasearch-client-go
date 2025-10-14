@@ -76,7 +76,19 @@ func WithLogInnerQueries(val []LogQuery) LogOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewLog(timestamp string, method string, answerCode string, queryBody string, answer string, url string, ip string, queryHeaders string, sha1 string, processingTimeMs string, opts ...LogOption) *Log {
+func NewLog(
+	timestamp string,
+	method string,
+	answerCode string,
+	queryBody string,
+	answer string,
+	url string,
+	ip string,
+	queryHeaders string,
+	sha1 string,
+	processingTimeMs string,
+	opts ...LogOption,
+) *Log {
 	this := &Log{}
 	this.Timestamp = timestamp
 	this.Method = method
@@ -87,10 +99,12 @@ func NewLog(timestamp string, method string, answerCode string, queryBody string
 	this.Ip = ip
 	this.QueryHeaders = queryHeaders
 	this.Sha1 = sha1
+
 	this.ProcessingTimeMs = processingTimeMs
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -103,6 +117,7 @@ func NewEmptyLog() *Log {
 func (o *Log) GetTimestamp() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -115,12 +130,14 @@ func (o *Log) GetTimestampOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Timestamp, true
 }
 
 // SetTimestamp sets field value.
 func (o *Log) SetTimestamp(v string) *Log {
 	o.Timestamp = v
+
 	return o
 }
 
@@ -128,6 +145,7 @@ func (o *Log) SetTimestamp(v string) *Log {
 func (o *Log) GetMethod() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -140,12 +158,14 @@ func (o *Log) GetMethodOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Method, true
 }
 
 // SetMethod sets field value.
 func (o *Log) SetMethod(v string) *Log {
 	o.Method = v
+
 	return o
 }
 
@@ -153,6 +173,7 @@ func (o *Log) SetMethod(v string) *Log {
 func (o *Log) GetAnswerCode() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -165,12 +186,14 @@ func (o *Log) GetAnswerCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AnswerCode, true
 }
 
 // SetAnswerCode sets field value.
 func (o *Log) SetAnswerCode(v string) *Log {
 	o.AnswerCode = v
+
 	return o
 }
 
@@ -178,6 +201,7 @@ func (o *Log) SetAnswerCode(v string) *Log {
 func (o *Log) GetQueryBody() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -190,12 +214,14 @@ func (o *Log) GetQueryBodyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.QueryBody, true
 }
 
 // SetQueryBody sets field value.
 func (o *Log) SetQueryBody(v string) *Log {
 	o.QueryBody = v
+
 	return o
 }
 
@@ -203,6 +229,7 @@ func (o *Log) SetQueryBody(v string) *Log {
 func (o *Log) GetAnswer() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -215,12 +242,14 @@ func (o *Log) GetAnswerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Answer, true
 }
 
 // SetAnswer sets field value.
 func (o *Log) SetAnswer(v string) *Log {
 	o.Answer = v
+
 	return o
 }
 
@@ -228,6 +257,7 @@ func (o *Log) SetAnswer(v string) *Log {
 func (o *Log) GetUrl() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -240,12 +270,14 @@ func (o *Log) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Url, true
 }
 
 // SetUrl sets field value.
 func (o *Log) SetUrl(v string) *Log {
 	o.Url = v
+
 	return o
 }
 
@@ -253,6 +285,7 @@ func (o *Log) SetUrl(v string) *Log {
 func (o *Log) GetIp() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -265,12 +298,14 @@ func (o *Log) GetIpOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Ip, true
 }
 
 // SetIp sets field value.
 func (o *Log) SetIp(v string) *Log {
 	o.Ip = v
+
 	return o
 }
 
@@ -278,6 +313,7 @@ func (o *Log) SetIp(v string) *Log {
 func (o *Log) GetQueryHeaders() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -290,12 +326,14 @@ func (o *Log) GetQueryHeadersOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.QueryHeaders, true
 }
 
 // SetQueryHeaders sets field value.
 func (o *Log) SetQueryHeaders(v string) *Log {
 	o.QueryHeaders = v
+
 	return o
 }
 
@@ -303,6 +341,7 @@ func (o *Log) SetQueryHeaders(v string) *Log {
 func (o *Log) GetSha1() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -315,12 +354,14 @@ func (o *Log) GetSha1Ok() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Sha1, true
 }
 
 // SetSha1 sets field value.
 func (o *Log) SetSha1(v string) *Log {
 	o.Sha1 = v
+
 	return o
 }
 
@@ -328,8 +369,10 @@ func (o *Log) SetSha1(v string) *Log {
 func (o *Log) GetNbApiCalls() string {
 	if o == nil || o.NbApiCalls == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.NbApiCalls
 }
 
@@ -339,6 +382,7 @@ func (o *Log) GetNbApiCallsOk() (*string, bool) {
 	if o == nil || o.NbApiCalls == nil {
 		return nil, false
 	}
+
 	return o.NbApiCalls, true
 }
 
@@ -354,6 +398,7 @@ func (o *Log) HasNbApiCalls() bool {
 // SetNbApiCalls gets a reference to the given string and assigns it to the NbApiCalls field.
 func (o *Log) SetNbApiCalls(v string) *Log {
 	o.NbApiCalls = &v
+
 	return o
 }
 
@@ -361,6 +406,7 @@ func (o *Log) SetNbApiCalls(v string) *Log {
 func (o *Log) GetProcessingTimeMs() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -373,12 +419,14 @@ func (o *Log) GetProcessingTimeMsOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ProcessingTimeMs, true
 }
 
 // SetProcessingTimeMs sets field value.
 func (o *Log) SetProcessingTimeMs(v string) *Log {
 	o.ProcessingTimeMs = v
+
 	return o
 }
 
@@ -386,8 +434,10 @@ func (o *Log) SetProcessingTimeMs(v string) *Log {
 func (o *Log) GetIndex() string {
 	if o == nil || o.Index == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Index
 }
 
@@ -397,6 +447,7 @@ func (o *Log) GetIndexOk() (*string, bool) {
 	if o == nil || o.Index == nil {
 		return nil, false
 	}
+
 	return o.Index, true
 }
 
@@ -412,6 +463,7 @@ func (o *Log) HasIndex() bool {
 // SetIndex gets a reference to the given string and assigns it to the Index field.
 func (o *Log) SetIndex(v string) *Log {
 	o.Index = &v
+
 	return o
 }
 
@@ -419,8 +471,10 @@ func (o *Log) SetIndex(v string) *Log {
 func (o *Log) GetQueryParams() string {
 	if o == nil || o.QueryParams == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryParams
 }
 
@@ -430,6 +484,7 @@ func (o *Log) GetQueryParamsOk() (*string, bool) {
 	if o == nil || o.QueryParams == nil {
 		return nil, false
 	}
+
 	return o.QueryParams, true
 }
 
@@ -445,6 +500,7 @@ func (o *Log) HasQueryParams() bool {
 // SetQueryParams gets a reference to the given string and assigns it to the QueryParams field.
 func (o *Log) SetQueryParams(v string) *Log {
 	o.QueryParams = &v
+
 	return o
 }
 
@@ -452,8 +508,10 @@ func (o *Log) SetQueryParams(v string) *Log {
 func (o *Log) GetQueryNbHits() string {
 	if o == nil || o.QueryNbHits == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryNbHits
 }
 
@@ -463,6 +521,7 @@ func (o *Log) GetQueryNbHitsOk() (*string, bool) {
 	if o == nil || o.QueryNbHits == nil {
 		return nil, false
 	}
+
 	return o.QueryNbHits, true
 }
 
@@ -478,6 +537,7 @@ func (o *Log) HasQueryNbHits() bool {
 // SetQueryNbHits gets a reference to the given string and assigns it to the QueryNbHits field.
 func (o *Log) SetQueryNbHits(v string) *Log {
 	o.QueryNbHits = &v
+
 	return o
 }
 
@@ -485,8 +545,10 @@ func (o *Log) SetQueryNbHits(v string) *Log {
 func (o *Log) GetInnerQueries() []LogQuery {
 	if o == nil || o.InnerQueries == nil {
 		var ret []LogQuery
+
 		return ret
 	}
+
 	return o.InnerQueries
 }
 
@@ -496,6 +558,7 @@ func (o *Log) GetInnerQueriesOk() ([]LogQuery, bool) {
 	if o == nil || o.InnerQueries == nil {
 		return nil, false
 	}
+
 	return o.InnerQueries, true
 }
 
@@ -511,6 +574,7 @@ func (o *Log) HasInnerQueries() bool {
 // SetInnerQueries gets a reference to the given []LogQuery and assigns it to the InnerQueries field.
 func (o *Log) SetInnerQueries(v []LogQuery) *Log {
 	o.InnerQueries = v
+
 	return o
 }
 
@@ -524,23 +588,29 @@ func (o Log) MarshalJSON() ([]byte, error) {
 	toSerialize["url"] = o.Url
 	toSerialize["ip"] = o.Ip
 	toSerialize["query_headers"] = o.QueryHeaders
+
 	toSerialize["sha1"] = o.Sha1
 	if o.NbApiCalls != nil {
 		toSerialize["nb_api_calls"] = o.NbApiCalls
 	}
+
 	toSerialize["processing_time_ms"] = o.ProcessingTimeMs
 	if o.Index != nil {
 		toSerialize["index"] = o.Index
 	}
+
 	if o.QueryParams != nil {
 		toSerialize["query_params"] = o.QueryParams
 	}
+
 	if o.QueryNbHits != nil {
 		toSerialize["query_nb_hits"] = o.QueryNbHits
 	}
+
 	if o.InnerQueries != nil {
 		toSerialize["inner_queries"] = o.InnerQueries
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Log: %w", err)
@@ -566,5 +636,6 @@ func (o Log) String() string {
 	out += fmt.Sprintf("  query_params=%v\n", o.QueryParams)
 	out += fmt.Sprintf("  query_nb_hits=%v\n", o.QueryNbHits)
 	out += fmt.Sprintf("  inner_queries=%v\n", o.InnerQueries)
+
 	return fmt.Sprintf("Log {\n%s}", out)
 }

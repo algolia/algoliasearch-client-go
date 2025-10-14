@@ -21,24 +21,7 @@ var AllowedEntityTypeEnumValues = []EntityType{
 	"collection",
 }
 
-func (v *EntityType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EntityType': %w", string(src), err)
-	}
-	enumTypeValue := EntityType(value)
-	for _, existing := range AllowedEntityTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid EntityType", value)
-}
-
-// NewEntityTypeFromValue returns a pointer to a valid EntityType
+// NewEntityTypeFromValue returns a pointer to a valid EntityType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewEntityTypeFromValue(v string) (*EntityType, error) {
 	ev := EntityType(v)
@@ -49,6 +32,26 @@ func NewEntityTypeFromValue(v string) (*EntityType, error) {
 	}
 }
 
+func (v *EntityType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'EntityType': %w", string(src), err)
+	}
+
+	enumTypeValue := EntityType(value)
+	for _, existing := range AllowedEntityTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid EntityType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v EntityType) IsValid() bool {
 	for _, existing := range AllowedEntityTypeEnumValues {
@@ -56,6 +59,7 @@ func (v EntityType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

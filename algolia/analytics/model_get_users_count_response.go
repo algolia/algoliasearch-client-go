@@ -22,6 +22,7 @@ func NewGetUsersCountResponse(count int32, dates []DailyUsers) *GetUsersCountRes
 	this := &GetUsersCountResponse{}
 	this.Count = count
 	this.Dates = dates
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyGetUsersCountResponse() *GetUsersCountResponse {
 func (o *GetUsersCountResponse) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *GetUsersCountResponse) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *GetUsersCountResponse) SetCount(v int32) *GetUsersCountResponse {
 	o.Count = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *GetUsersCountResponse) SetCount(v int32) *GetUsersCountResponse {
 func (o *GetUsersCountResponse) GetDates() []DailyUsers {
 	if o == nil {
 		var ret []DailyUsers
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *GetUsersCountResponse) GetDatesOk() ([]DailyUsers, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetUsersCountResponse) SetDates(v []DailyUsers) *GetUsersCountResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o GetUsersCountResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["count"] = o.Count
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetUsersCountResponse: %w", err)
@@ -96,5 +104,6 @@ func (o GetUsersCountResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetUsersCountResponse {\n%s}", out)
 }

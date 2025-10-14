@@ -24,6 +24,7 @@ func NewEventsScoring(score int32, eventName string, eventType EventType) *Event
 	this.Score = score
 	this.EventName = eventName
 	this.EventType = eventType
+
 	return this
 }
 
@@ -36,6 +37,7 @@ func NewEmptyEventsScoring() *EventsScoring {
 func (o *EventsScoring) GetScore() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -48,12 +50,14 @@ func (o *EventsScoring) GetScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Score, true
 }
 
 // SetScore sets field value.
 func (o *EventsScoring) SetScore(v int32) *EventsScoring {
 	o.Score = v
+
 	return o
 }
 
@@ -61,6 +65,7 @@ func (o *EventsScoring) SetScore(v int32) *EventsScoring {
 func (o *EventsScoring) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -73,12 +78,14 @@ func (o *EventsScoring) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *EventsScoring) SetEventName(v string) *EventsScoring {
 	o.EventName = v
+
 	return o
 }
 
@@ -86,6 +93,7 @@ func (o *EventsScoring) SetEventName(v string) *EventsScoring {
 func (o *EventsScoring) GetEventType() EventType {
 	if o == nil {
 		var ret EventType
+
 		return ret
 	}
 
@@ -98,12 +106,14 @@ func (o *EventsScoring) GetEventTypeOk() (*EventType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *EventsScoring) SetEventType(v EventType) *EventsScoring {
 	o.EventType = v
+
 	return o
 }
 
@@ -112,6 +122,7 @@ func (o EventsScoring) MarshalJSON() ([]byte, error) {
 	toSerialize["score"] = o.Score
 	toSerialize["eventName"] = o.EventName
 	toSerialize["eventType"] = o.EventType
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EventsScoring: %w", err)
@@ -125,5 +136,6 @@ func (o EventsScoring) String() string {
 	out += fmt.Sprintf("  score=%v\n", o.Score)
 	out += fmt.Sprintf("  eventName=%v\n", o.EventName)
 	out += fmt.Sprintf("  eventType=%v\n", o.EventType)
+
 	return fmt.Sprintf("EventsScoring {\n%s}", out)
 }

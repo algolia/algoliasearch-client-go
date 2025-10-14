@@ -19,6 +19,7 @@ type TriggerUpdateInput struct {
 func NewTriggerUpdateInput(cron string) *TriggerUpdateInput {
 	this := &TriggerUpdateInput{}
 	this.Cron = cron
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTriggerUpdateInput() *TriggerUpdateInput {
 func (o *TriggerUpdateInput) GetCron() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TriggerUpdateInput) GetCronOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Cron, true
 }
 
 // SetCron sets field value.
 func (o *TriggerUpdateInput) SetCron(v string) *TriggerUpdateInput {
 	o.Cron = v
+
 	return o
 }
 
 func (o TriggerUpdateInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["cron"] = o.Cron
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TriggerUpdateInput: %w", err)
@@ -66,5 +71,6 @@ func (o TriggerUpdateInput) MarshalJSON() ([]byte, error) {
 func (o TriggerUpdateInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
+
 	return fmt.Sprintf("TriggerUpdateInput {\n%s}", out)
 }

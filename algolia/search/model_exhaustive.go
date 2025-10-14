@@ -61,6 +61,7 @@ func NewExhaustive(opts ...ExhaustiveOption) *Exhaustive {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -73,8 +74,10 @@ func NewEmptyExhaustive() *Exhaustive {
 func (o *Exhaustive) GetFacetsCount() bool {
 	if o == nil || o.FacetsCount == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetsCount
 }
 
@@ -84,6 +87,7 @@ func (o *Exhaustive) GetFacetsCountOk() (*bool, bool) {
 	if o == nil || o.FacetsCount == nil {
 		return nil, false
 	}
+
 	return o.FacetsCount, true
 }
 
@@ -99,6 +103,7 @@ func (o *Exhaustive) HasFacetsCount() bool {
 // SetFacetsCount gets a reference to the given bool and assigns it to the FacetsCount field.
 func (o *Exhaustive) SetFacetsCount(v bool) *Exhaustive {
 	o.FacetsCount = &v
+
 	return o
 }
 
@@ -106,8 +111,10 @@ func (o *Exhaustive) SetFacetsCount(v bool) *Exhaustive {
 func (o *Exhaustive) GetFacetValues() bool {
 	if o == nil || o.FacetValues == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetValues
 }
 
@@ -117,6 +124,7 @@ func (o *Exhaustive) GetFacetValuesOk() (*bool, bool) {
 	if o == nil || o.FacetValues == nil {
 		return nil, false
 	}
+
 	return o.FacetValues, true
 }
 
@@ -132,6 +140,7 @@ func (o *Exhaustive) HasFacetValues() bool {
 // SetFacetValues gets a reference to the given bool and assigns it to the FacetValues field.
 func (o *Exhaustive) SetFacetValues(v bool) *Exhaustive {
 	o.FacetValues = &v
+
 	return o
 }
 
@@ -139,8 +148,10 @@ func (o *Exhaustive) SetFacetValues(v bool) *Exhaustive {
 func (o *Exhaustive) GetNbHits() bool {
 	if o == nil || o.NbHits == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.NbHits
 }
 
@@ -150,6 +161,7 @@ func (o *Exhaustive) GetNbHitsOk() (*bool, bool) {
 	if o == nil || o.NbHits == nil {
 		return nil, false
 	}
+
 	return o.NbHits, true
 }
 
@@ -165,6 +177,7 @@ func (o *Exhaustive) HasNbHits() bool {
 // SetNbHits gets a reference to the given bool and assigns it to the NbHits field.
 func (o *Exhaustive) SetNbHits(v bool) *Exhaustive {
 	o.NbHits = &v
+
 	return o
 }
 
@@ -172,8 +185,10 @@ func (o *Exhaustive) SetNbHits(v bool) *Exhaustive {
 func (o *Exhaustive) GetRulesMatch() bool {
 	if o == nil || o.RulesMatch == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RulesMatch
 }
 
@@ -183,6 +198,7 @@ func (o *Exhaustive) GetRulesMatchOk() (*bool, bool) {
 	if o == nil || o.RulesMatch == nil {
 		return nil, false
 	}
+
 	return o.RulesMatch, true
 }
 
@@ -198,6 +214,7 @@ func (o *Exhaustive) HasRulesMatch() bool {
 // SetRulesMatch gets a reference to the given bool and assigns it to the RulesMatch field.
 func (o *Exhaustive) SetRulesMatch(v bool) *Exhaustive {
 	o.RulesMatch = &v
+
 	return o
 }
 
@@ -205,8 +222,10 @@ func (o *Exhaustive) SetRulesMatch(v bool) *Exhaustive {
 func (o *Exhaustive) GetTypo() bool {
 	if o == nil || o.Typo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Typo
 }
 
@@ -216,6 +235,7 @@ func (o *Exhaustive) GetTypoOk() (*bool, bool) {
 	if o == nil || o.Typo == nil {
 		return nil, false
 	}
+
 	return o.Typo, true
 }
 
@@ -231,6 +251,7 @@ func (o *Exhaustive) HasTypo() bool {
 // SetTypo gets a reference to the given bool and assigns it to the Typo field.
 func (o *Exhaustive) SetTypo(v bool) *Exhaustive {
 	o.Typo = &v
+
 	return o
 }
 
@@ -239,18 +260,23 @@ func (o Exhaustive) MarshalJSON() ([]byte, error) {
 	if o.FacetsCount != nil {
 		toSerialize["facetsCount"] = o.FacetsCount
 	}
+
 	if o.FacetValues != nil {
 		toSerialize["facetValues"] = o.FacetValues
 	}
+
 	if o.NbHits != nil {
 		toSerialize["nbHits"] = o.NbHits
 	}
+
 	if o.RulesMatch != nil {
 		toSerialize["rulesMatch"] = o.RulesMatch
 	}
+
 	if o.Typo != nil {
 		toSerialize["typo"] = o.Typo
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Exhaustive: %w", err)
@@ -266,5 +292,6 @@ func (o Exhaustive) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  rulesMatch=%v\n", o.RulesMatch)
 	out += fmt.Sprintf("  typo=%v\n", o.Typo)
+
 	return fmt.Sprintf("Exhaustive {\n%s}", out)
 }

@@ -61,6 +61,7 @@ func NewConfigStatus(opts ...ConfigStatusOption) *ConfigStatus {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -73,8 +74,10 @@ func NewEmptyConfigStatus() *ConfigStatus {
 func (o *ConfigStatus) GetIndexName() string {
 	if o == nil || o.IndexName == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.IndexName
 }
 
@@ -84,6 +87,7 @@ func (o *ConfigStatus) GetIndexNameOk() (*string, bool) {
 	if o == nil || o.IndexName == nil {
 		return nil, false
 	}
+
 	return o.IndexName, true
 }
 
@@ -99,6 +103,7 @@ func (o *ConfigStatus) HasIndexName() bool {
 // SetIndexName gets a reference to the given string and assigns it to the IndexName field.
 func (o *ConfigStatus) SetIndexName(v string) *ConfigStatus {
 	o.IndexName = &v
+
 	return o
 }
 
@@ -106,8 +111,10 @@ func (o *ConfigStatus) SetIndexName(v string) *ConfigStatus {
 func (o *ConfigStatus) GetIsRunning() bool {
 	if o == nil || o.IsRunning == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.IsRunning
 }
 
@@ -117,6 +124,7 @@ func (o *ConfigStatus) GetIsRunningOk() (*bool, bool) {
 	if o == nil || o.IsRunning == nil {
 		return nil, false
 	}
+
 	return o.IsRunning, true
 }
 
@@ -132,6 +140,7 @@ func (o *ConfigStatus) HasIsRunning() bool {
 // SetIsRunning gets a reference to the given bool and assigns it to the IsRunning field.
 func (o *ConfigStatus) SetIsRunning(v bool) *ConfigStatus {
 	o.IsRunning = &v
+
 	return o
 }
 
@@ -139,8 +148,10 @@ func (o *ConfigStatus) SetIsRunning(v bool) *ConfigStatus {
 func (o *ConfigStatus) GetLastBuiltAt() string {
 	if o == nil || o.LastBuiltAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.LastBuiltAt
 }
 
@@ -150,6 +161,7 @@ func (o *ConfigStatus) GetLastBuiltAtOk() (*string, bool) {
 	if o == nil || o.LastBuiltAt == nil {
 		return nil, false
 	}
+
 	return o.LastBuiltAt, true
 }
 
@@ -165,6 +177,7 @@ func (o *ConfigStatus) HasLastBuiltAt() bool {
 // SetLastBuiltAt gets a reference to the given string and assigns it to the LastBuiltAt field.
 func (o *ConfigStatus) SetLastBuiltAt(v string) *ConfigStatus {
 	o.LastBuiltAt = &v
+
 	return o
 }
 
@@ -172,8 +185,10 @@ func (o *ConfigStatus) SetLastBuiltAt(v string) *ConfigStatus {
 func (o *ConfigStatus) GetLastSuccessfulBuiltAt() string {
 	if o == nil || o.LastSuccessfulBuiltAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.LastSuccessfulBuiltAt
 }
 
@@ -183,6 +198,7 @@ func (o *ConfigStatus) GetLastSuccessfulBuiltAtOk() (*string, bool) {
 	if o == nil || o.LastSuccessfulBuiltAt == nil {
 		return nil, false
 	}
+
 	return o.LastSuccessfulBuiltAt, true
 }
 
@@ -198,6 +214,7 @@ func (o *ConfigStatus) HasLastSuccessfulBuiltAt() bool {
 // SetLastSuccessfulBuiltAt gets a reference to the given string and assigns it to the LastSuccessfulBuiltAt field.
 func (o *ConfigStatus) SetLastSuccessfulBuiltAt(v string) *ConfigStatus {
 	o.LastSuccessfulBuiltAt = &v
+
 	return o
 }
 
@@ -205,8 +222,10 @@ func (o *ConfigStatus) SetLastSuccessfulBuiltAt(v string) *ConfigStatus {
 func (o *ConfigStatus) GetLastSuccessfulBuildDuration() string {
 	if o == nil || o.LastSuccessfulBuildDuration == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.LastSuccessfulBuildDuration
 }
 
@@ -216,6 +235,7 @@ func (o *ConfigStatus) GetLastSuccessfulBuildDurationOk() (*string, bool) {
 	if o == nil || o.LastSuccessfulBuildDuration == nil {
 		return nil, false
 	}
+
 	return o.LastSuccessfulBuildDuration, true
 }
 
@@ -231,6 +251,7 @@ func (o *ConfigStatus) HasLastSuccessfulBuildDuration() bool {
 // SetLastSuccessfulBuildDuration gets a reference to the given string and assigns it to the LastSuccessfulBuildDuration field.
 func (o *ConfigStatus) SetLastSuccessfulBuildDuration(v string) *ConfigStatus {
 	o.LastSuccessfulBuildDuration = &v
+
 	return o
 }
 
@@ -239,18 +260,23 @@ func (o ConfigStatus) MarshalJSON() ([]byte, error) {
 	if o.IndexName != nil {
 		toSerialize["indexName"] = o.IndexName
 	}
+
 	if o.IsRunning != nil {
 		toSerialize["isRunning"] = o.IsRunning
 	}
+
 	if o.LastBuiltAt != nil {
 		toSerialize["lastBuiltAt"] = o.LastBuiltAt
 	}
+
 	if o.LastSuccessfulBuiltAt != nil {
 		toSerialize["lastSuccessfulBuiltAt"] = o.LastSuccessfulBuiltAt
 	}
+
 	if o.LastSuccessfulBuildDuration != nil {
 		toSerialize["lastSuccessfulBuildDuration"] = o.LastSuccessfulBuildDuration
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConfigStatus: %w", err)
@@ -266,5 +292,6 @@ func (o ConfigStatus) String() string {
 	out += fmt.Sprintf("  lastBuiltAt=%v\n", o.LastBuiltAt)
 	out += fmt.Sprintf("  lastSuccessfulBuiltAt=%v\n", o.LastSuccessfulBuiltAt)
 	out += fmt.Sprintf("  lastSuccessfulBuildDuration=%v\n", o.LastSuccessfulBuildDuration)
+
 	return fmt.Sprintf("ConfigStatus {\n%s}", out)
 }

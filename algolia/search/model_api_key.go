@@ -76,10 +76,12 @@ func WithApiKeyValidity(val int32) ApiKeyOption {
 // will change when the set of required properties is changed.
 func NewApiKey(acl []Acl, opts ...ApiKeyOption) *ApiKey {
 	this := &ApiKey{}
+
 	this.Acl = acl
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -92,6 +94,7 @@ func NewEmptyApiKey() *ApiKey {
 func (o *ApiKey) GetAcl() []Acl {
 	if o == nil {
 		var ret []Acl
+
 		return ret
 	}
 
@@ -104,12 +107,14 @@ func (o *ApiKey) GetAclOk() ([]Acl, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Acl, true
 }
 
 // SetAcl sets field value.
 func (o *ApiKey) SetAcl(v []Acl) *ApiKey {
 	o.Acl = v
+
 	return o
 }
 
@@ -117,8 +122,10 @@ func (o *ApiKey) SetAcl(v []Acl) *ApiKey {
 func (o *ApiKey) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -128,6 +135,7 @@ func (o *ApiKey) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -143,6 +151,7 @@ func (o *ApiKey) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *ApiKey) SetDescription(v string) *ApiKey {
 	o.Description = &v
+
 	return o
 }
 
@@ -150,8 +159,10 @@ func (o *ApiKey) SetDescription(v string) *ApiKey {
 func (o *ApiKey) GetIndexes() []string {
 	if o == nil || o.Indexes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Indexes
 }
 
@@ -161,6 +172,7 @@ func (o *ApiKey) GetIndexesOk() ([]string, bool) {
 	if o == nil || o.Indexes == nil {
 		return nil, false
 	}
+
 	return o.Indexes, true
 }
 
@@ -176,6 +188,7 @@ func (o *ApiKey) HasIndexes() bool {
 // SetIndexes gets a reference to the given []string and assigns it to the Indexes field.
 func (o *ApiKey) SetIndexes(v []string) *ApiKey {
 	o.Indexes = v
+
 	return o
 }
 
@@ -183,8 +196,10 @@ func (o *ApiKey) SetIndexes(v []string) *ApiKey {
 func (o *ApiKey) GetMaxHitsPerQuery() int32 {
 	if o == nil || o.MaxHitsPerQuery == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxHitsPerQuery
 }
 
@@ -194,6 +209,7 @@ func (o *ApiKey) GetMaxHitsPerQueryOk() (*int32, bool) {
 	if o == nil || o.MaxHitsPerQuery == nil {
 		return nil, false
 	}
+
 	return o.MaxHitsPerQuery, true
 }
 
@@ -209,6 +225,7 @@ func (o *ApiKey) HasMaxHitsPerQuery() bool {
 // SetMaxHitsPerQuery gets a reference to the given int32 and assigns it to the MaxHitsPerQuery field.
 func (o *ApiKey) SetMaxHitsPerQuery(v int32) *ApiKey {
 	o.MaxHitsPerQuery = &v
+
 	return o
 }
 
@@ -216,8 +233,10 @@ func (o *ApiKey) SetMaxHitsPerQuery(v int32) *ApiKey {
 func (o *ApiKey) GetMaxQueriesPerIPPerHour() int32 {
 	if o == nil || o.MaxQueriesPerIPPerHour == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxQueriesPerIPPerHour
 }
 
@@ -227,6 +246,7 @@ func (o *ApiKey) GetMaxQueriesPerIPPerHourOk() (*int32, bool) {
 	if o == nil || o.MaxQueriesPerIPPerHour == nil {
 		return nil, false
 	}
+
 	return o.MaxQueriesPerIPPerHour, true
 }
 
@@ -242,6 +262,7 @@ func (o *ApiKey) HasMaxQueriesPerIPPerHour() bool {
 // SetMaxQueriesPerIPPerHour gets a reference to the given int32 and assigns it to the MaxQueriesPerIPPerHour field.
 func (o *ApiKey) SetMaxQueriesPerIPPerHour(v int32) *ApiKey {
 	o.MaxQueriesPerIPPerHour = &v
+
 	return o
 }
 
@@ -249,8 +270,10 @@ func (o *ApiKey) SetMaxQueriesPerIPPerHour(v int32) *ApiKey {
 func (o *ApiKey) GetQueryParameters() string {
 	if o == nil || o.QueryParameters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -260,6 +283,7 @@ func (o *ApiKey) GetQueryParametersOk() (*string, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -275,6 +299,7 @@ func (o *ApiKey) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given string and assigns it to the QueryParameters field.
 func (o *ApiKey) SetQueryParameters(v string) *ApiKey {
 	o.QueryParameters = &v
+
 	return o
 }
 
@@ -282,8 +307,10 @@ func (o *ApiKey) SetQueryParameters(v string) *ApiKey {
 func (o *ApiKey) GetReferers() []string {
 	if o == nil || o.Referers == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Referers
 }
 
@@ -293,6 +320,7 @@ func (o *ApiKey) GetReferersOk() ([]string, bool) {
 	if o == nil || o.Referers == nil {
 		return nil, false
 	}
+
 	return o.Referers, true
 }
 
@@ -308,6 +336,7 @@ func (o *ApiKey) HasReferers() bool {
 // SetReferers gets a reference to the given []string and assigns it to the Referers field.
 func (o *ApiKey) SetReferers(v []string) *ApiKey {
 	o.Referers = v
+
 	return o
 }
 
@@ -315,8 +344,10 @@ func (o *ApiKey) SetReferers(v []string) *ApiKey {
 func (o *ApiKey) GetValidity() int32 {
 	if o == nil || o.Validity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Validity
 }
 
@@ -326,6 +357,7 @@ func (o *ApiKey) GetValidityOk() (*int32, bool) {
 	if o == nil || o.Validity == nil {
 		return nil, false
 	}
+
 	return o.Validity, true
 }
 
@@ -341,33 +373,42 @@ func (o *ApiKey) HasValidity() bool {
 // SetValidity gets a reference to the given int32 and assigns it to the Validity field.
 func (o *ApiKey) SetValidity(v int32) *ApiKey {
 	o.Validity = &v
+
 	return o
 }
 
 func (o ApiKey) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["acl"] = o.Acl
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.Indexes != nil {
 		toSerialize["indexes"] = o.Indexes
 	}
+
 	if o.MaxHitsPerQuery != nil {
 		toSerialize["maxHitsPerQuery"] = o.MaxHitsPerQuery
 	}
+
 	if o.MaxQueriesPerIPPerHour != nil {
 		toSerialize["maxQueriesPerIPPerHour"] = o.MaxQueriesPerIPPerHour
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	if o.Referers != nil {
 		toSerialize["referers"] = o.Referers
 	}
+
 	if o.Validity != nil {
 		toSerialize["validity"] = o.Validity
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ApiKey: %w", err)
@@ -386,5 +427,6 @@ func (o ApiKey) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  referers=%v\n", o.Referers)
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
+
 	return fmt.Sprintf("ApiKey {\n%s}", out)
 }

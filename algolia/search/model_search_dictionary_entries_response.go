@@ -28,6 +28,7 @@ func NewSearchDictionaryEntriesResponse(hits []DictionaryEntry, page int32, nbHi
 	this.Page = page
 	this.NbHits = nbHits
 	this.NbPages = nbPages
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptySearchDictionaryEntriesResponse() *SearchDictionaryEntriesResponse 
 func (o *SearchDictionaryEntriesResponse) GetHits() []DictionaryEntry {
 	if o == nil {
 		var ret []DictionaryEntry
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *SearchDictionaryEntriesResponse) GetHitsOk() ([]DictionaryEntry, bool) 
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchDictionaryEntriesResponse) SetHits(v []DictionaryEntry) *SearchDictionaryEntriesResponse {
 	o.Hits = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *SearchDictionaryEntriesResponse) SetHits(v []DictionaryEntry) *SearchDi
 func (o *SearchDictionaryEntriesResponse) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *SearchDictionaryEntriesResponse) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *SearchDictionaryEntriesResponse) SetPage(v int32) *SearchDictionaryEntriesResponse {
 	o.Page = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *SearchDictionaryEntriesResponse) SetPage(v int32) *SearchDictionaryEntr
 func (o *SearchDictionaryEntriesResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *SearchDictionaryEntriesResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchDictionaryEntriesResponse) SetNbHits(v int32) *SearchDictionaryEntriesResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *SearchDictionaryEntriesResponse) SetNbHits(v int32) *SearchDictionaryEn
 func (o *SearchDictionaryEntriesResponse) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *SearchDictionaryEntriesResponse) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *SearchDictionaryEntriesResponse) SetNbPages(v int32) *SearchDictionaryEntriesResponse {
 	o.NbPages = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o SearchDictionaryEntriesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["page"] = o.Page
 	toSerialize["nbHits"] = o.NbHits
 	toSerialize["nbPages"] = o.NbPages
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchDictionaryEntriesResponse: %w", err)
@@ -156,5 +170,6 @@ func (o SearchDictionaryEntriesResponse) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
+
 	return fmt.Sprintf("SearchDictionaryEntriesResponse {\n%s}", out)
 }

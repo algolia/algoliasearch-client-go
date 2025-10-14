@@ -44,7 +44,7 @@ func (dst *RulesBatchCompositionAction) UnmarshalJSON(data []byte) error {
 		dst.DeleteCompositionRuleAction = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(RulesBatchCompositionAction)")
+	return fmt.Errorf("data failed to match schemas in oneOf(RulesBatchCompositionAction)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

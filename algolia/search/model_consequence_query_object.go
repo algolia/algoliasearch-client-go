@@ -37,6 +37,7 @@ func NewConsequenceQueryObject(opts ...ConsequenceQueryObjectOption) *Consequenc
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyConsequenceQueryObject() *ConsequenceQueryObject {
 func (o *ConsequenceQueryObject) GetRemove() []string {
 	if o == nil || o.Remove == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Remove
 }
 
@@ -60,6 +63,7 @@ func (o *ConsequenceQueryObject) GetRemoveOk() ([]string, bool) {
 	if o == nil || o.Remove == nil {
 		return nil, false
 	}
+
 	return o.Remove, true
 }
 
@@ -75,6 +79,7 @@ func (o *ConsequenceQueryObject) HasRemove() bool {
 // SetRemove gets a reference to the given []string and assigns it to the Remove field.
 func (o *ConsequenceQueryObject) SetRemove(v []string) *ConsequenceQueryObject {
 	o.Remove = v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *ConsequenceQueryObject) SetRemove(v []string) *ConsequenceQueryObject {
 func (o *ConsequenceQueryObject) GetEdits() []Edit {
 	if o == nil || o.Edits == nil {
 		var ret []Edit
+
 		return ret
 	}
+
 	return o.Edits
 }
 
@@ -93,6 +100,7 @@ func (o *ConsequenceQueryObject) GetEditsOk() ([]Edit, bool) {
 	if o == nil || o.Edits == nil {
 		return nil, false
 	}
+
 	return o.Edits, true
 }
 
@@ -108,6 +116,7 @@ func (o *ConsequenceQueryObject) HasEdits() bool {
 // SetEdits gets a reference to the given []Edit and assigns it to the Edits field.
 func (o *ConsequenceQueryObject) SetEdits(v []Edit) *ConsequenceQueryObject {
 	o.Edits = v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o ConsequenceQueryObject) MarshalJSON() ([]byte, error) {
 	if o.Remove != nil {
 		toSerialize["remove"] = o.Remove
 	}
+
 	if o.Edits != nil {
 		toSerialize["edits"] = o.Edits
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConsequenceQueryObject: %w", err)
@@ -131,5 +142,6 @@ func (o ConsequenceQueryObject) String() string {
 	out := ""
 	out += fmt.Sprintf("  remove=%v\n", o.Remove)
 	out += fmt.Sprintf("  edits=%v\n", o.Edits)
+
 	return fmt.Sprintf("ConsequenceQueryObject {\n%s}", out)
 }

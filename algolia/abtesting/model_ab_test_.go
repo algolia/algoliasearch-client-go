@@ -81,7 +81,16 @@ func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewABTest(abTestID int32, updatedAt string, createdAt string, endAt string, name string, status Status, variants []Variant, opts ...ABTestOption) *ABTest {
+func NewABTest(
+	abTestID int32,
+	updatedAt string,
+	createdAt string,
+	endAt string,
+	name string,
+	status Status,
+	variants []Variant,
+	opts ...ABTestOption,
+) *ABTest {
 	this := &ABTest{}
 	this.AbTestID = abTestID
 	this.UpdatedAt = updatedAt
@@ -89,10 +98,12 @@ func NewABTest(abTestID int32, updatedAt string, createdAt string, endAt string,
 	this.EndAt = endAt
 	this.Name = name
 	this.Status = status
+
 	this.Variants = variants
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -105,6 +116,7 @@ func NewEmptyABTest() *ABTest {
 func (o *ABTest) GetAbTestID() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -117,12 +129,14 @@ func (o *ABTest) GetAbTestIDOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AbTestID, true
 }
 
 // SetAbTestID sets field value.
 func (o *ABTest) SetAbTestID(v int32) *ABTest {
 	o.AbTestID = v
+
 	return o
 }
 
@@ -130,8 +144,10 @@ func (o *ABTest) SetAbTestID(v int32) *ABTest {
 func (o *ABTest) GetClickSignificance() float64 {
 	if o == nil || o.ClickSignificance.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ClickSignificance.Get()
 }
 
@@ -142,6 +158,7 @@ func (o *ABTest) GetClickSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickSignificance.Get(), o.ClickSignificance.IsSet()
 }
 
@@ -157,6 +174,7 @@ func (o *ABTest) HasClickSignificance() bool {
 // SetClickSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the ClickSignificance field.
 func (o *ABTest) SetClickSignificance(v float64) *ABTest {
 	o.ClickSignificance.Set(&v)
+
 	return o
 }
 
@@ -174,8 +192,10 @@ func (o *ABTest) UnsetClickSignificance() {
 func (o *ABTest) GetConversionSignificance() float64 {
 	if o == nil || o.ConversionSignificance.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.ConversionSignificance.Get()
 }
 
@@ -186,6 +206,7 @@ func (o *ABTest) GetConversionSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ConversionSignificance.Get(), o.ConversionSignificance.IsSet()
 }
 
@@ -201,6 +222,7 @@ func (o *ABTest) HasConversionSignificance() bool {
 // SetConversionSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the ConversionSignificance field.
 func (o *ABTest) SetConversionSignificance(v float64) *ABTest {
 	o.ConversionSignificance.Set(&v)
+
 	return o
 }
 
@@ -218,8 +240,10 @@ func (o *ABTest) UnsetConversionSignificance() {
 func (o *ABTest) GetAddToCartSignificance() float64 {
 	if o == nil || o.AddToCartSignificance.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.AddToCartSignificance.Get()
 }
 
@@ -230,6 +254,7 @@ func (o *ABTest) GetAddToCartSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AddToCartSignificance.Get(), o.AddToCartSignificance.IsSet()
 }
 
@@ -245,6 +270,7 @@ func (o *ABTest) HasAddToCartSignificance() bool {
 // SetAddToCartSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the AddToCartSignificance field.
 func (o *ABTest) SetAddToCartSignificance(v float64) *ABTest {
 	o.AddToCartSignificance.Set(&v)
+
 	return o
 }
 
@@ -262,8 +288,10 @@ func (o *ABTest) UnsetAddToCartSignificance() {
 func (o *ABTest) GetPurchaseSignificance() float64 {
 	if o == nil || o.PurchaseSignificance.Get() == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.PurchaseSignificance.Get()
 }
 
@@ -274,6 +302,7 @@ func (o *ABTest) GetPurchaseSignificanceOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.PurchaseSignificance.Get(), o.PurchaseSignificance.IsSet()
 }
 
@@ -289,6 +318,7 @@ func (o *ABTest) HasPurchaseSignificance() bool {
 // SetPurchaseSignificance gets a reference to the given utils.Nullable[float64] and assigns it to the PurchaseSignificance field.
 func (o *ABTest) SetPurchaseSignificance(v float64) *ABTest {
 	o.PurchaseSignificance.Set(&v)
+
 	return o
 }
 
@@ -306,8 +336,10 @@ func (o *ABTest) UnsetPurchaseSignificance() {
 func (o *ABTest) GetRevenueSignificance() map[string]float64 {
 	if o == nil {
 		var ret map[string]float64
+
 		return ret
 	}
+
 	return o.RevenueSignificance
 }
 
@@ -318,6 +350,7 @@ func (o *ABTest) GetRevenueSignificanceOk() (*map[string]float64, bool) {
 	if o == nil || o.RevenueSignificance == nil {
 		return nil, false
 	}
+
 	return &o.RevenueSignificance, true
 }
 
@@ -333,6 +366,7 @@ func (o *ABTest) HasRevenueSignificance() bool {
 // SetRevenueSignificance gets a reference to the given map[string]float64 and assigns it to the RevenueSignificance field.
 func (o *ABTest) SetRevenueSignificance(v map[string]float64) *ABTest {
 	o.RevenueSignificance = v
+
 	return o
 }
 
@@ -340,6 +374,7 @@ func (o *ABTest) SetRevenueSignificance(v map[string]float64) *ABTest {
 func (o *ABTest) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -352,12 +387,14 @@ func (o *ABTest) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *ABTest) SetUpdatedAt(v string) *ABTest {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -365,6 +402,7 @@ func (o *ABTest) SetUpdatedAt(v string) *ABTest {
 func (o *ABTest) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -377,12 +415,14 @@ func (o *ABTest) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *ABTest) SetCreatedAt(v string) *ABTest {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -390,6 +430,7 @@ func (o *ABTest) SetCreatedAt(v string) *ABTest {
 func (o *ABTest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -402,12 +443,14 @@ func (o *ABTest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *ABTest) SetEndAt(v string) *ABTest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -415,8 +458,10 @@ func (o *ABTest) SetEndAt(v string) *ABTest {
 func (o *ABTest) GetStoppedAt() string {
 	if o == nil || o.StoppedAt.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.StoppedAt.Get()
 }
 
@@ -427,6 +472,7 @@ func (o *ABTest) GetStoppedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.StoppedAt.Get(), o.StoppedAt.IsSet()
 }
 
@@ -442,6 +488,7 @@ func (o *ABTest) HasStoppedAt() bool {
 // SetStoppedAt gets a reference to the given utils.Nullable[string] and assigns it to the StoppedAt field.
 func (o *ABTest) SetStoppedAt(v string) *ABTest {
 	o.StoppedAt.Set(&v)
+
 	return o
 }
 
@@ -459,6 +506,7 @@ func (o *ABTest) UnsetStoppedAt() {
 func (o *ABTest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -471,12 +519,14 @@ func (o *ABTest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *ABTest) SetName(v string) *ABTest {
 	o.Name = v
+
 	return o
 }
 
@@ -484,6 +534,7 @@ func (o *ABTest) SetName(v string) *ABTest {
 func (o *ABTest) GetStatus() Status {
 	if o == nil {
 		var ret Status
+
 		return ret
 	}
 
@@ -496,12 +547,14 @@ func (o *ABTest) GetStatusOk() (*Status, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Status, true
 }
 
 // SetStatus sets field value.
 func (o *ABTest) SetStatus(v Status) *ABTest {
 	o.Status = v
+
 	return o
 }
 
@@ -509,6 +562,7 @@ func (o *ABTest) SetStatus(v Status) *ABTest {
 func (o *ABTest) GetVariants() []Variant {
 	if o == nil {
 		var ret []Variant
+
 		return ret
 	}
 
@@ -521,12 +575,14 @@ func (o *ABTest) GetVariantsOk() ([]Variant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *ABTest) SetVariants(v []Variant) *ABTest {
 	o.Variants = v
+
 	return o
 }
 
@@ -534,8 +590,10 @@ func (o *ABTest) SetVariants(v []Variant) *ABTest {
 func (o *ABTest) GetConfiguration() ABTestConfiguration {
 	if o == nil || o.Configuration == nil {
 		var ret ABTestConfiguration
+
 		return ret
 	}
+
 	return *o.Configuration
 }
 
@@ -545,6 +603,7 @@ func (o *ABTest) GetConfigurationOk() (*ABTestConfiguration, bool) {
 	if o == nil || o.Configuration == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
@@ -560,39 +619,50 @@ func (o *ABTest) HasConfiguration() bool {
 // SetConfiguration gets a reference to the given ABTestConfiguration and assigns it to the Configuration field.
 func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
 	o.Configuration = v
+
 	return o
 }
 
 func (o ABTest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["abTestID"] = o.AbTestID
 	if o.ClickSignificance.IsSet() {
 		toSerialize["clickSignificance"] = o.ClickSignificance.Get()
 	}
+
 	if o.ConversionSignificance.IsSet() {
 		toSerialize["conversionSignificance"] = o.ConversionSignificance.Get()
 	}
+
 	if o.AddToCartSignificance.IsSet() {
 		toSerialize["addToCartSignificance"] = o.AddToCartSignificance.Get()
 	}
+
 	if o.PurchaseSignificance.IsSet() {
 		toSerialize["purchaseSignificance"] = o.PurchaseSignificance.Get()
 	}
+
 	if o.RevenueSignificance != nil {
 		toSerialize["revenueSignificance"] = o.RevenueSignificance
 	}
+
 	toSerialize["updatedAt"] = o.UpdatedAt
 	toSerialize["createdAt"] = o.CreatedAt
+
 	toSerialize["endAt"] = o.EndAt
 	if o.StoppedAt.IsSet() {
 		toSerialize["stoppedAt"] = o.StoppedAt.Get()
 	}
+
 	toSerialize["name"] = o.Name
 	toSerialize["status"] = o.Status
+
 	toSerialize["variants"] = o.Variants
 	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTest: %w", err)
@@ -617,5 +687,6 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
+
 	return fmt.Sprintf("ABTest {\n%s}", out)
 }

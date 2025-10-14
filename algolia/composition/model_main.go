@@ -18,6 +18,7 @@ type Main struct {
 func NewMain(source CompositionSource) *Main {
 	this := &Main{}
 	this.Source = source
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyMain() *Main {
 func (o *Main) GetSource() CompositionSource {
 	if o == nil {
 		var ret CompositionSource
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *Main) GetSourceOk() (*CompositionSource, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Source, true
 }
 
 // SetSource sets field value.
 func (o *Main) SetSource(v *CompositionSource) *Main {
 	o.Source = *v
+
 	return o
 }
 
 func (o Main) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["source"] = o.Source
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Main: %w", err)
@@ -65,5 +70,6 @@ func (o Main) MarshalJSON() ([]byte, error) {
 func (o Main) String() string {
 	out := ""
 	out += fmt.Sprintf("  source=%v\n", o.Source)
+
 	return fmt.Sprintf("Main {\n%s}", out)
 }

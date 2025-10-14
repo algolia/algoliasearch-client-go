@@ -19,6 +19,7 @@ type TransformationCode struct {
 func NewTransformationCode(code string) *TransformationCode {
 	this := &TransformationCode{}
 	this.Code = code
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTransformationCode() *TransformationCode {
 func (o *TransformationCode) GetCode() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TransformationCode) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Code, true
 }
 
 // SetCode sets field value.
 func (o *TransformationCode) SetCode(v string) *TransformationCode {
 	o.Code = v
+
 	return o
 }
 
 func (o TransformationCode) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["code"] = o.Code
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationCode: %w", err)
@@ -66,5 +71,6 @@ func (o TransformationCode) MarshalJSON() ([]byte, error) {
 func (o TransformationCode) String() string {
 	out := ""
 	out += fmt.Sprintf("  code=%v\n", o.Code)
+
 	return fmt.Sprintf("TransformationCode {\n%s}", out)
 }

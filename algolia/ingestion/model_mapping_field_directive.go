@@ -22,6 +22,7 @@ func NewMappingFieldDirective(fieldKey string, value map[string]any) *MappingFie
 	this := &MappingFieldDirective{}
 	this.FieldKey = fieldKey
 	this.Value = value
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyMappingFieldDirective() *MappingFieldDirective {
 func (o *MappingFieldDirective) GetFieldKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *MappingFieldDirective) GetFieldKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FieldKey, true
 }
 
 // SetFieldKey sets field value.
 func (o *MappingFieldDirective) SetFieldKey(v string) *MappingFieldDirective {
 	o.FieldKey = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *MappingFieldDirective) SetFieldKey(v string) *MappingFieldDirective {
 func (o *MappingFieldDirective) GetValue() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *MappingFieldDirective) GetValueOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Value, true
 }
 
 // SetValue sets field value.
 func (o *MappingFieldDirective) SetValue(v map[string]any) *MappingFieldDirective {
 	o.Value = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o MappingFieldDirective) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["fieldKey"] = o.FieldKey
 	toSerialize["value"] = o.Value
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MappingFieldDirective: %w", err)
@@ -96,5 +104,6 @@ func (o MappingFieldDirective) String() string {
 	out := ""
 	out += fmt.Sprintf("  fieldKey=%v\n", o.FieldKey)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("MappingFieldDirective {\n%s}", out)
 }

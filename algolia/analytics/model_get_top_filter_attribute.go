@@ -22,6 +22,7 @@ func NewGetTopFilterAttribute(attribute string, count int32) *GetTopFilterAttrib
 	this := &GetTopFilterAttribute{}
 	this.Attribute = attribute
 	this.Count = count
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyGetTopFilterAttribute() *GetTopFilterAttribute {
 func (o *GetTopFilterAttribute) GetAttribute() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *GetTopFilterAttribute) GetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Attribute, true
 }
 
 // SetAttribute sets field value.
 func (o *GetTopFilterAttribute) SetAttribute(v string) *GetTopFilterAttribute {
 	o.Attribute = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *GetTopFilterAttribute) SetAttribute(v string) *GetTopFilterAttribute {
 func (o *GetTopFilterAttribute) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *GetTopFilterAttribute) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *GetTopFilterAttribute) SetCount(v int32) *GetTopFilterAttribute {
 	o.Count = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o GetTopFilterAttribute) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["attribute"] = o.Attribute
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFilterAttribute: %w", err)
@@ -96,5 +104,6 @@ func (o GetTopFilterAttribute) String() string {
 	out := ""
 	out += fmt.Sprintf("  attribute=%v\n", o.Attribute)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("GetTopFilterAttribute {\n%s}", out)
 }

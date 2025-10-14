@@ -28,6 +28,7 @@ func NewUserId(userID string, clusterName string, nbRecords int32, dataSize int3
 	this.ClusterName = clusterName
 	this.NbRecords = nbRecords
 	this.DataSize = dataSize
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptyUserId() *UserId {
 func (o *UserId) GetUserID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *UserId) GetUserIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserID, true
 }
 
 // SetUserID sets field value.
 func (o *UserId) SetUserID(v string) *UserId {
 	o.UserID = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *UserId) SetUserID(v string) *UserId {
 func (o *UserId) GetClusterName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *UserId) GetClusterNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClusterName, true
 }
 
 // SetClusterName sets field value.
 func (o *UserId) SetClusterName(v string) *UserId {
 	o.ClusterName = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *UserId) SetClusterName(v string) *UserId {
 func (o *UserId) GetNbRecords() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *UserId) GetNbRecordsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbRecords, true
 }
 
 // SetNbRecords sets field value.
 func (o *UserId) SetNbRecords(v int32) *UserId {
 	o.NbRecords = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *UserId) SetNbRecords(v int32) *UserId {
 func (o *UserId) GetDataSize() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *UserId) GetDataSizeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DataSize, true
 }
 
 // SetDataSize sets field value.
 func (o *UserId) SetDataSize(v int32) *UserId {
 	o.DataSize = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o UserId) MarshalJSON() ([]byte, error) {
 	toSerialize["clusterName"] = o.ClusterName
 	toSerialize["nbRecords"] = o.NbRecords
 	toSerialize["dataSize"] = o.DataSize
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserId: %w", err)
@@ -156,5 +170,6 @@ func (o UserId) String() string {
 	out += fmt.Sprintf("  clusterName=%v\n", o.ClusterName)
 	out += fmt.Sprintf("  nbRecords=%v\n", o.NbRecords)
 	out += fmt.Sprintf("  dataSize=%v\n", o.DataSize)
+
 	return fmt.Sprintf("UserId {\n%s}", out)
 }

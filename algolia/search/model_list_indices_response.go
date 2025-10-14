@@ -28,10 +28,12 @@ func WithListIndicesResponseNbPages(val int32) ListIndicesResponseOption {
 // will change when the set of required properties is changed.
 func NewListIndicesResponse(items []FetchedIndex, opts ...ListIndicesResponseOption) *ListIndicesResponse {
 	this := &ListIndicesResponse{}
+
 	this.Items = items
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptyListIndicesResponse() *ListIndicesResponse {
 func (o *ListIndicesResponse) GetItems() []FetchedIndex {
 	if o == nil {
 		var ret []FetchedIndex
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *ListIndicesResponse) GetItemsOk() ([]FetchedIndex, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Items, true
 }
 
 // SetItems sets field value.
 func (o *ListIndicesResponse) SetItems(v []FetchedIndex) *ListIndicesResponse {
 	o.Items = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *ListIndicesResponse) SetItems(v []FetchedIndex) *ListIndicesResponse {
 func (o *ListIndicesResponse) GetNbPages() int32 {
 	if o == nil || o.NbPages == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.NbPages
 }
 
@@ -80,6 +87,7 @@ func (o *ListIndicesResponse) GetNbPagesOk() (*int32, bool) {
 	if o == nil || o.NbPages == nil {
 		return nil, false
 	}
+
 	return o.NbPages, true
 }
 
@@ -95,15 +103,18 @@ func (o *ListIndicesResponse) HasNbPages() bool {
 // SetNbPages gets a reference to the given int32 and assigns it to the NbPages field.
 func (o *ListIndicesResponse) SetNbPages(v int32) *ListIndicesResponse {
 	o.NbPages = &v
+
 	return o
 }
 
 func (o ListIndicesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["items"] = o.Items
 	if o.NbPages != nil {
 		toSerialize["nbPages"] = o.NbPages
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListIndicesResponse: %w", err)
@@ -116,5 +127,6 @@ func (o ListIndicesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  items=%v\n", o.Items)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
+
 	return fmt.Sprintf("ListIndicesResponse {\n%s}", out)
 }

@@ -35,6 +35,7 @@ func NewFilterEffects(opts ...FilterEffectsOption) *FilterEffects {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,8 +48,10 @@ func NewEmptyFilterEffects() *FilterEffects {
 func (o *FilterEffects) GetOutliers() OutliersFilter {
 	if o == nil || o.Outliers == nil {
 		var ret OutliersFilter
+
 		return ret
 	}
+
 	return *o.Outliers
 }
 
@@ -58,6 +61,7 @@ func (o *FilterEffects) GetOutliersOk() (*OutliersFilter, bool) {
 	if o == nil || o.Outliers == nil {
 		return nil, false
 	}
+
 	return o.Outliers, true
 }
 
@@ -73,6 +77,7 @@ func (o *FilterEffects) HasOutliers() bool {
 // SetOutliers gets a reference to the given OutliersFilter and assigns it to the Outliers field.
 func (o *FilterEffects) SetOutliers(v *OutliersFilter) *FilterEffects {
 	o.Outliers = v
+
 	return o
 }
 
@@ -80,8 +85,10 @@ func (o *FilterEffects) SetOutliers(v *OutliersFilter) *FilterEffects {
 func (o *FilterEffects) GetEmptySearch() EmptySearchFilter {
 	if o == nil || o.EmptySearch == nil {
 		var ret EmptySearchFilter
+
 		return ret
 	}
+
 	return *o.EmptySearch
 }
 
@@ -91,6 +98,7 @@ func (o *FilterEffects) GetEmptySearchOk() (*EmptySearchFilter, bool) {
 	if o == nil || o.EmptySearch == nil {
 		return nil, false
 	}
+
 	return o.EmptySearch, true
 }
 
@@ -106,6 +114,7 @@ func (o *FilterEffects) HasEmptySearch() bool {
 // SetEmptySearch gets a reference to the given EmptySearchFilter and assigns it to the EmptySearch field.
 func (o *FilterEffects) SetEmptySearch(v *EmptySearchFilter) *FilterEffects {
 	o.EmptySearch = v
+
 	return o
 }
 
@@ -114,9 +123,11 @@ func (o FilterEffects) MarshalJSON() ([]byte, error) {
 	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
+
 	if o.EmptySearch != nil {
 		toSerialize["emptySearch"] = o.EmptySearch
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FilterEffects: %w", err)
@@ -129,5 +140,6 @@ func (o FilterEffects) String() string {
 	out := ""
 	out += fmt.Sprintf("  outliers=%v\n", o.Outliers)
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
+
 	return fmt.Sprintf("FilterEffects {\n%s}", out)
 }

@@ -21,24 +21,7 @@ var AllowedModeEnumValues = []Mode{
 	"keywordSearch",
 }
 
-func (v *Mode) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Mode': %w", string(src), err)
-	}
-	enumTypeValue := Mode(value)
-	for _, existing := range AllowedModeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Mode", value)
-}
-
-// NewModeFromValue returns a pointer to a valid Mode
+// NewModeFromValue returns a pointer to a valid Mode.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewModeFromValue(v string) (*Mode, error) {
 	ev := Mode(v)
@@ -49,6 +32,26 @@ func NewModeFromValue(v string) (*Mode, error) {
 	}
 }
 
+func (v *Mode) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Mode': %w", string(src), err)
+	}
+
+	enumTypeValue := Mode(value)
+	for _, existing := range AllowedModeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Mode", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Mode) IsValid() bool {
 	for _, existing := range AllowedModeEnumValues {
@@ -56,6 +59,7 @@ func (v Mode) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

@@ -52,6 +52,7 @@ func NewLogFile(opts ...LogFileOption) *LogFile {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -64,8 +65,10 @@ func NewEmptyLogFile() *LogFile {
 func (o *LogFile) GetTimestamp() string {
 	if o == nil || o.Timestamp == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -75,6 +78,7 @@ func (o *LogFile) GetTimestampOk() (*string, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -90,6 +94,7 @@ func (o *LogFile) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given string and assigns it to the Timestamp field.
 func (o *LogFile) SetTimestamp(v string) *LogFile {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -97,8 +102,10 @@ func (o *LogFile) SetTimestamp(v string) *LogFile {
 func (o *LogFile) GetLevel() LogLevel {
 	if o == nil || o.Level == nil {
 		var ret LogLevel
+
 		return ret
 	}
+
 	return *o.Level
 }
 
@@ -108,6 +115,7 @@ func (o *LogFile) GetLevelOk() (*LogLevel, bool) {
 	if o == nil || o.Level == nil {
 		return nil, false
 	}
+
 	return o.Level, true
 }
 
@@ -123,6 +131,7 @@ func (o *LogFile) HasLevel() bool {
 // SetLevel gets a reference to the given LogLevel and assigns it to the Level field.
 func (o *LogFile) SetLevel(v LogLevel) *LogFile {
 	o.Level = &v
+
 	return o
 }
 
@@ -130,8 +139,10 @@ func (o *LogFile) SetLevel(v LogLevel) *LogFile {
 func (o *LogFile) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -141,6 +152,7 @@ func (o *LogFile) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -156,6 +168,7 @@ func (o *LogFile) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *LogFile) SetMessage(v string) *LogFile {
 	o.Message = &v
+
 	return o
 }
 
@@ -163,8 +176,10 @@ func (o *LogFile) SetMessage(v string) *LogFile {
 func (o *LogFile) GetContextLevel() int32 {
 	if o == nil || o.ContextLevel == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ContextLevel
 }
 
@@ -174,6 +189,7 @@ func (o *LogFile) GetContextLevelOk() (*int32, bool) {
 	if o == nil || o.ContextLevel == nil {
 		return nil, false
 	}
+
 	return o.ContextLevel, true
 }
 
@@ -189,6 +205,7 @@ func (o *LogFile) HasContextLevel() bool {
 // SetContextLevel gets a reference to the given int32 and assigns it to the ContextLevel field.
 func (o *LogFile) SetContextLevel(v int32) *LogFile {
 	o.ContextLevel = &v
+
 	return o
 }
 
@@ -197,15 +214,19 @@ func (o LogFile) MarshalJSON() ([]byte, error) {
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	if o.Level != nil {
 		toSerialize["level"] = o.Level
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	if o.ContextLevel != nil {
 		toSerialize["contextLevel"] = o.ContextLevel
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal LogFile: %w", err)
@@ -220,5 +241,6 @@ func (o LogFile) String() string {
 	out += fmt.Sprintf("  level=%v\n", o.Level)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  contextLevel=%v\n", o.ContextLevel)
+
 	return fmt.Sprintf("LogFile {\n%s}", out)
 }

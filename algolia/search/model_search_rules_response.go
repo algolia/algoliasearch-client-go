@@ -28,6 +28,7 @@ func NewSearchRulesResponse(hits []Rule, nbHits int32, page int32, nbPages int32
 	this.NbHits = nbHits
 	this.Page = page
 	this.NbPages = nbPages
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptySearchRulesResponse() *SearchRulesResponse {
 func (o *SearchRulesResponse) GetHits() []Rule {
 	if o == nil {
 		var ret []Rule
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *SearchRulesResponse) GetHitsOk() ([]Rule, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchRulesResponse) SetHits(v []Rule) *SearchRulesResponse {
 	o.Hits = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *SearchRulesResponse) SetHits(v []Rule) *SearchRulesResponse {
 func (o *SearchRulesResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *SearchRulesResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchRulesResponse) SetNbHits(v int32) *SearchRulesResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *SearchRulesResponse) SetNbHits(v int32) *SearchRulesResponse {
 func (o *SearchRulesResponse) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *SearchRulesResponse) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *SearchRulesResponse) SetPage(v int32) *SearchRulesResponse {
 	o.Page = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *SearchRulesResponse) SetPage(v int32) *SearchRulesResponse {
 func (o *SearchRulesResponse) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *SearchRulesResponse) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *SearchRulesResponse) SetNbPages(v int32) *SearchRulesResponse {
 	o.NbPages = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o SearchRulesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["nbHits"] = o.NbHits
 	toSerialize["page"] = o.Page
 	toSerialize["nbPages"] = o.NbPages
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRulesResponse: %w", err)
@@ -156,5 +170,6 @@ func (o SearchRulesResponse) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
+
 	return fmt.Sprintf("SearchRulesResponse {\n%s}", out)
 }

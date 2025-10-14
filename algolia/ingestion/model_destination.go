@@ -51,17 +51,27 @@ func WithDestinationTransformationIDs(val []string) DestinationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewDestination(destinationID string, type_ DestinationType, name string, input DestinationInput, createdAt string, updatedAt string, opts ...DestinationOption) *Destination {
+func NewDestination(
+	destinationID string,
+	type_ DestinationType,
+	name string,
+	input DestinationInput,
+	createdAt string,
+	updatedAt string,
+	opts ...DestinationOption,
+) *Destination {
 	this := &Destination{}
 	this.DestinationID = destinationID
 	this.Type = type_
 	this.Name = name
 	this.Input = input
 	this.CreatedAt = createdAt
+
 	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -74,6 +84,7 @@ func NewEmptyDestination() *Destination {
 func (o *Destination) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -86,12 +97,14 @@ func (o *Destination) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *Destination) SetDestinationID(v string) *Destination {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -99,6 +112,7 @@ func (o *Destination) SetDestinationID(v string) *Destination {
 func (o *Destination) GetType() DestinationType {
 	if o == nil {
 		var ret DestinationType
+
 		return ret
 	}
 
@@ -111,12 +125,14 @@ func (o *Destination) GetTypeOk() (*DestinationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *Destination) SetType(v DestinationType) *Destination {
 	o.Type = v
+
 	return o
 }
 
@@ -124,6 +140,7 @@ func (o *Destination) SetType(v DestinationType) *Destination {
 func (o *Destination) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -136,12 +153,14 @@ func (o *Destination) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *Destination) SetName(v string) *Destination {
 	o.Name = v
+
 	return o
 }
 
@@ -149,8 +168,10 @@ func (o *Destination) SetName(v string) *Destination {
 func (o *Destination) GetOwner() string {
 	if o == nil || o.Owner.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Owner.Get()
 }
 
@@ -161,6 +182,7 @@ func (o *Destination) GetOwnerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Owner.Get(), o.Owner.IsSet()
 }
 
@@ -176,6 +198,7 @@ func (o *Destination) HasOwner() bool {
 // SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
 func (o *Destination) SetOwner(v string) *Destination {
 	o.Owner.Set(&v)
+
 	return o
 }
 
@@ -193,6 +216,7 @@ func (o *Destination) UnsetOwner() {
 func (o *Destination) GetInput() DestinationInput {
 	if o == nil {
 		var ret DestinationInput
+
 		return ret
 	}
 
@@ -205,12 +229,14 @@ func (o *Destination) GetInputOk() (*DestinationInput, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Input, true
 }
 
 // SetInput sets field value.
 func (o *Destination) SetInput(v *DestinationInput) *Destination {
 	o.Input = *v
+
 	return o
 }
 
@@ -218,6 +244,7 @@ func (o *Destination) SetInput(v *DestinationInput) *Destination {
 func (o *Destination) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -230,12 +257,14 @@ func (o *Destination) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *Destination) SetCreatedAt(v string) *Destination {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -243,6 +272,7 @@ func (o *Destination) SetCreatedAt(v string) *Destination {
 func (o *Destination) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -255,12 +285,14 @@ func (o *Destination) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *Destination) SetUpdatedAt(v string) *Destination {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -268,8 +300,10 @@ func (o *Destination) SetUpdatedAt(v string) *Destination {
 func (o *Destination) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -279,6 +313,7 @@ func (o *Destination) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -294,6 +329,7 @@ func (o *Destination) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *Destination) SetAuthenticationID(v string) *Destination {
 	o.AuthenticationID = &v
+
 	return o
 }
 
@@ -301,8 +337,10 @@ func (o *Destination) SetAuthenticationID(v string) *Destination {
 func (o *Destination) GetTransformationIDs() []string {
 	if o == nil || o.TransformationIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.TransformationIDs
 }
 
@@ -312,6 +350,7 @@ func (o *Destination) GetTransformationIDsOk() ([]string, bool) {
 	if o == nil || o.TransformationIDs == nil {
 		return nil, false
 	}
+
 	return o.TransformationIDs, true
 }
 
@@ -327,6 +366,7 @@ func (o *Destination) HasTransformationIDs() bool {
 // SetTransformationIDs gets a reference to the given []string and assigns it to the TransformationIDs field.
 func (o *Destination) SetTransformationIDs(v []string) *Destination {
 	o.TransformationIDs = v
+
 	return o
 }
 
@@ -334,19 +374,24 @@ func (o Destination) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["destinationID"] = o.DestinationID
 	toSerialize["type"] = o.Type
+
 	toSerialize["name"] = o.Name
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
+
 	toSerialize["input"] = o.Input
 	toSerialize["createdAt"] = o.CreatedAt
+
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	if o.TransformationIDs != nil {
 		toSerialize["transformationIDs"] = o.TransformationIDs
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Destination: %w", err)
@@ -366,5 +411,6 @@ func (o Destination) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
+
 	return fmt.Sprintf("Destination {\n%s}", out)
 }

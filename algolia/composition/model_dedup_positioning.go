@@ -21,24 +21,7 @@ var AllowedDedupPositioningEnumValues = []DedupPositioning{
 	"highestInjected",
 }
 
-func (v *DedupPositioning) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DedupPositioning': %w", string(src), err)
-	}
-	enumTypeValue := DedupPositioning(value)
-	for _, existing := range AllowedDedupPositioningEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid DedupPositioning", value)
-}
-
-// NewDedupPositioningFromValue returns a pointer to a valid DedupPositioning
+// NewDedupPositioningFromValue returns a pointer to a valid DedupPositioning.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewDedupPositioningFromValue(v string) (*DedupPositioning, error) {
 	ev := DedupPositioning(v)
@@ -49,6 +32,26 @@ func NewDedupPositioningFromValue(v string) (*DedupPositioning, error) {
 	}
 }
 
+func (v *DedupPositioning) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'DedupPositioning': %w", string(src), err)
+	}
+
+	enumTypeValue := DedupPositioning(value)
+	for _, existing := range AllowedDedupPositioningEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid DedupPositioning", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v DedupPositioning) IsValid() bool {
 	for _, existing := range AllowedDedupPositioningEnumValues {
@@ -56,6 +59,7 @@ func (v DedupPositioning) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

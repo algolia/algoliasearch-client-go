@@ -29,6 +29,7 @@ func NewPolicies(opts ...PoliciesOption) *Policies {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyPolicies() *Policies {
 func (o *Policies) GetCriticalThreshold() int32 {
 	if o == nil || o.CriticalThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.CriticalThreshold
 }
 
@@ -52,6 +55,7 @@ func (o *Policies) GetCriticalThresholdOk() (*int32, bool) {
 	if o == nil || o.CriticalThreshold == nil {
 		return nil, false
 	}
+
 	return o.CriticalThreshold, true
 }
 
@@ -67,6 +71,7 @@ func (o *Policies) HasCriticalThreshold() bool {
 // SetCriticalThreshold gets a reference to the given int32 and assigns it to the CriticalThreshold field.
 func (o *Policies) SetCriticalThreshold(v int32) *Policies {
 	o.CriticalThreshold = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o Policies) MarshalJSON() ([]byte, error) {
 	if o.CriticalThreshold != nil {
 		toSerialize["criticalThreshold"] = o.CriticalThreshold
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Policies: %w", err)
@@ -86,5 +92,6 @@ func (o Policies) MarshalJSON() ([]byte, error) {
 func (o Policies) String() string {
 	out := ""
 	out += fmt.Sprintf("  criticalThreshold=%v\n", o.CriticalThreshold)
+
 	return fmt.Sprintf("Policies {\n%s}", out)
 }

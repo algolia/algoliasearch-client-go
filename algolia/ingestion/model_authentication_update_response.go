@@ -25,6 +25,7 @@ func NewAuthenticationUpdateResponse(authenticationID string, name string, updat
 	this.AuthenticationID = authenticationID
 	this.Name = name
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyAuthenticationUpdateResponse() *AuthenticationUpdateResponse {
 func (o *AuthenticationUpdateResponse) GetAuthenticationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *AuthenticationUpdateResponse) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AuthenticationID, true
 }
 
 // SetAuthenticationID sets field value.
 func (o *AuthenticationUpdateResponse) SetAuthenticationID(v string) *AuthenticationUpdateResponse {
 	o.AuthenticationID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *AuthenticationUpdateResponse) SetAuthenticationID(v string) *Authentica
 func (o *AuthenticationUpdateResponse) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *AuthenticationUpdateResponse) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *AuthenticationUpdateResponse) SetName(v string) *AuthenticationUpdateResponse {
 	o.Name = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *AuthenticationUpdateResponse) SetName(v string) *AuthenticationUpdateRe
 func (o *AuthenticationUpdateResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *AuthenticationUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *AuthenticationUpdateResponse) SetUpdatedAt(v string) *AuthenticationUpdateResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o AuthenticationUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["authenticationID"] = o.AuthenticationID
 	toSerialize["name"] = o.Name
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthenticationUpdateResponse: %w", err)
@@ -126,5 +137,6 @@ func (o AuthenticationUpdateResponse) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("AuthenticationUpdateResponse {\n%s}", out)
 }

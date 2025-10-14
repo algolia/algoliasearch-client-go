@@ -24,6 +24,7 @@ func NewGetTopFiltersNoResultsValue(attribute string, operator Operator, value s
 	this.Attribute = attribute
 	this.Operator = operator
 	this.Value = value
+
 	return this
 }
 
@@ -36,6 +37,7 @@ func NewEmptyGetTopFiltersNoResultsValue() *GetTopFiltersNoResultsValue {
 func (o *GetTopFiltersNoResultsValue) GetAttribute() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -48,12 +50,14 @@ func (o *GetTopFiltersNoResultsValue) GetAttributeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Attribute, true
 }
 
 // SetAttribute sets field value.
 func (o *GetTopFiltersNoResultsValue) SetAttribute(v string) *GetTopFiltersNoResultsValue {
 	o.Attribute = v
+
 	return o
 }
 
@@ -61,6 +65,7 @@ func (o *GetTopFiltersNoResultsValue) SetAttribute(v string) *GetTopFiltersNoRes
 func (o *GetTopFiltersNoResultsValue) GetOperator() Operator {
 	if o == nil {
 		var ret Operator
+
 		return ret
 	}
 
@@ -73,12 +78,14 @@ func (o *GetTopFiltersNoResultsValue) GetOperatorOk() (*Operator, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Operator, true
 }
 
 // SetOperator sets field value.
 func (o *GetTopFiltersNoResultsValue) SetOperator(v Operator) *GetTopFiltersNoResultsValue {
 	o.Operator = v
+
 	return o
 }
 
@@ -86,6 +93,7 @@ func (o *GetTopFiltersNoResultsValue) SetOperator(v Operator) *GetTopFiltersNoRe
 func (o *GetTopFiltersNoResultsValue) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -98,12 +106,14 @@ func (o *GetTopFiltersNoResultsValue) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *GetTopFiltersNoResultsValue) SetValue(v string) *GetTopFiltersNoResultsValue {
 	o.Value = v
+
 	return o
 }
 
@@ -112,6 +122,7 @@ func (o GetTopFiltersNoResultsValue) MarshalJSON() ([]byte, error) {
 	toSerialize["attribute"] = o.Attribute
 	toSerialize["operator"] = o.Operator
 	toSerialize["value"] = o.Value
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFiltersNoResultsValue: %w", err)
@@ -125,5 +136,6 @@ func (o GetTopFiltersNoResultsValue) String() string {
 	out += fmt.Sprintf("  attribute=%v\n", o.Attribute)
 	out += fmt.Sprintf("  operator=%v\n", o.Operator)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("GetTopFiltersNoResultsValue {\n%s}", out)
 }

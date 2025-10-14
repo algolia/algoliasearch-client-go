@@ -29,6 +29,7 @@ func NewSearchParamsString(opts ...SearchParamsStringOption) *SearchParamsString
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptySearchParamsString() *SearchParamsString {
 func (o *SearchParamsString) GetParams() string {
 	if o == nil || o.Params == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -52,6 +55,7 @@ func (o *SearchParamsString) GetParamsOk() (*string, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -67,6 +71,7 @@ func (o *SearchParamsString) HasParams() bool {
 // SetParams gets a reference to the given string and assigns it to the Params field.
 func (o *SearchParamsString) SetParams(v string) *SearchParamsString {
 	o.Params = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o SearchParamsString) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchParamsString: %w", err)
@@ -86,5 +92,6 @@ func (o SearchParamsString) MarshalJSON() ([]byte, error) {
 func (o SearchParamsString) String() string {
 	out := ""
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("SearchParamsString {\n%s}", out)
 }

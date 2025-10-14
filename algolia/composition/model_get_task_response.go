@@ -18,6 +18,7 @@ type GetTaskResponse struct {
 func NewGetTaskResponse(status TaskStatus) *GetTaskResponse {
 	this := &GetTaskResponse{}
 	this.Status = status
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyGetTaskResponse() *GetTaskResponse {
 func (o *GetTaskResponse) GetStatus() TaskStatus {
 	if o == nil {
 		var ret TaskStatus
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *GetTaskResponse) GetStatusOk() (*TaskStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Status, true
 }
 
 // SetStatus sets field value.
 func (o *GetTaskResponse) SetStatus(v TaskStatus) *GetTaskResponse {
 	o.Status = v
+
 	return o
 }
 
 func (o GetTaskResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["status"] = o.Status
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTaskResponse: %w", err)
@@ -65,5 +70,6 @@ func (o GetTaskResponse) MarshalJSON() ([]byte, error) {
 func (o GetTaskResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+
 	return fmt.Sprintf("GetTaskResponse {\n%s}", out)
 }

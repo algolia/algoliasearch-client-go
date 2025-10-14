@@ -41,6 +41,7 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "matchLevel") && utils.HasKey(jsonDict, "matchedWords") {
 		// try to unmarshal data into HighlightResultOption
@@ -66,7 +67,7 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfHighlightResult = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(HighlightResult)")
+	return fmt.Errorf("data failed to match schemas in oneOf(HighlightResult)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

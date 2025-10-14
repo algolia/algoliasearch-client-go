@@ -67,16 +67,25 @@ func WithTransformationOwner(val utils.Nullable[string]) TransformationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTransformation(transformationID string, code string, name string, createdAt string, updatedAt string, opts ...TransformationOption) *Transformation {
+func NewTransformation(
+	transformationID string,
+	code string,
+	name string,
+	createdAt string,
+	updatedAt string,
+	opts ...TransformationOption,
+) *Transformation {
 	this := &Transformation{}
 	this.TransformationID = transformationID
 	this.Code = code
 	this.Name = name
 	this.CreatedAt = createdAt
+
 	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -89,6 +98,7 @@ func NewEmptyTransformation() *Transformation {
 func (o *Transformation) GetTransformationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -101,12 +111,14 @@ func (o *Transformation) GetTransformationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TransformationID, true
 }
 
 // SetTransformationID sets field value.
 func (o *Transformation) SetTransformationID(v string) *Transformation {
 	o.TransformationID = v
+
 	return o
 }
 
@@ -114,8 +126,10 @@ func (o *Transformation) SetTransformationID(v string) *Transformation {
 func (o *Transformation) GetAuthenticationIDs() []string {
 	if o == nil || o.AuthenticationIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AuthenticationIDs
 }
 
@@ -125,6 +139,7 @@ func (o *Transformation) GetAuthenticationIDsOk() ([]string, bool) {
 	if o == nil || o.AuthenticationIDs == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationIDs, true
 }
 
@@ -140,6 +155,7 @@ func (o *Transformation) HasAuthenticationIDs() bool {
 // SetAuthenticationIDs gets a reference to the given []string and assigns it to the AuthenticationIDs field.
 func (o *Transformation) SetAuthenticationIDs(v []string) *Transformation {
 	o.AuthenticationIDs = v
+
 	return o
 }
 
@@ -148,6 +164,7 @@ func (o *Transformation) SetAuthenticationIDs(v []string) *Transformation {
 func (o *Transformation) GetCode() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -161,6 +178,7 @@ func (o *Transformation) GetCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Code, true
 }
 
@@ -168,6 +186,7 @@ func (o *Transformation) GetCodeOk() (*string, bool) {
 // Deprecated.
 func (o *Transformation) SetCode(v string) *Transformation {
 	o.Code = v
+
 	return o
 }
 
@@ -175,8 +194,10 @@ func (o *Transformation) SetCode(v string) *Transformation {
 func (o *Transformation) GetType() TransformationType {
 	if o == nil || o.Type == nil {
 		var ret TransformationType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -186,6 +207,7 @@ func (o *Transformation) GetTypeOk() (*TransformationType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -201,6 +223,7 @@ func (o *Transformation) HasType() bool {
 // SetType gets a reference to the given TransformationType and assigns it to the Type field.
 func (o *Transformation) SetType(v TransformationType) *Transformation {
 	o.Type = &v
+
 	return o
 }
 
@@ -208,8 +231,10 @@ func (o *Transformation) SetType(v TransformationType) *Transformation {
 func (o *Transformation) GetInput() TransformationInput {
 	if o == nil || o.Input == nil {
 		var ret TransformationInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -219,6 +244,7 @@ func (o *Transformation) GetInputOk() (*TransformationInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -234,6 +260,7 @@ func (o *Transformation) HasInput() bool {
 // SetInput gets a reference to the given TransformationInput and assigns it to the Input field.
 func (o *Transformation) SetInput(v *TransformationInput) *Transformation {
 	o.Input = v
+
 	return o
 }
 
@@ -241,6 +268,7 @@ func (o *Transformation) SetInput(v *TransformationInput) *Transformation {
 func (o *Transformation) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -253,12 +281,14 @@ func (o *Transformation) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *Transformation) SetName(v string) *Transformation {
 	o.Name = v
+
 	return o
 }
 
@@ -266,8 +296,10 @@ func (o *Transformation) SetName(v string) *Transformation {
 func (o *Transformation) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -277,6 +309,7 @@ func (o *Transformation) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -292,6 +325,7 @@ func (o *Transformation) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Transformation) SetDescription(v string) *Transformation {
 	o.Description = &v
+
 	return o
 }
 
@@ -299,8 +333,10 @@ func (o *Transformation) SetDescription(v string) *Transformation {
 func (o *Transformation) GetOwner() string {
 	if o == nil || o.Owner.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Owner.Get()
 }
 
@@ -311,6 +347,7 @@ func (o *Transformation) GetOwnerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Owner.Get(), o.Owner.IsSet()
 }
 
@@ -326,6 +363,7 @@ func (o *Transformation) HasOwner() bool {
 // SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
 func (o *Transformation) SetOwner(v string) *Transformation {
 	o.Owner.Set(&v)
+
 	return o
 }
 
@@ -343,6 +381,7 @@ func (o *Transformation) UnsetOwner() {
 func (o *Transformation) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -355,12 +394,14 @@ func (o *Transformation) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *Transformation) SetCreatedAt(v string) *Transformation {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -368,6 +409,7 @@ func (o *Transformation) SetCreatedAt(v string) *Transformation {
 func (o *Transformation) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -380,37 +422,46 @@ func (o *Transformation) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *Transformation) SetUpdatedAt(v string) *Transformation {
 	o.UpdatedAt = v
+
 	return o
 }
 
 func (o Transformation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["transformationID"] = o.TransformationID
 	if o.AuthenticationIDs != nil {
 		toSerialize["authenticationIDs"] = o.AuthenticationIDs
 	}
+
 	toSerialize["code"] = o.Code
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	toSerialize["name"] = o.Name
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
+
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Transformation: %w", err)
@@ -431,5 +482,6 @@ func (o Transformation) String() string {
 	out += fmt.Sprintf("  owner=%v\n", o.Owner)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("Transformation {\n%s}", out)
 }

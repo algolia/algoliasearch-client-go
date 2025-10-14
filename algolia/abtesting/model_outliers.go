@@ -29,6 +29,7 @@ func NewOutliers(opts ...OutliersOption) *Outliers {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyOutliers() *Outliers {
 func (o *Outliers) GetExclude() bool {
 	if o == nil || o.Exclude == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Exclude
 }
 
@@ -52,6 +55,7 @@ func (o *Outliers) GetExcludeOk() (*bool, bool) {
 	if o == nil || o.Exclude == nil {
 		return nil, false
 	}
+
 	return o.Exclude, true
 }
 
@@ -67,6 +71,7 @@ func (o *Outliers) HasExclude() bool {
 // SetExclude gets a reference to the given bool and assigns it to the Exclude field.
 func (o *Outliers) SetExclude(v bool) *Outliers {
 	o.Exclude = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o Outliers) MarshalJSON() ([]byte, error) {
 	if o.Exclude != nil {
 		toSerialize["exclude"] = o.Exclude
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Outliers: %w", err)
@@ -86,5 +92,6 @@ func (o Outliers) MarshalJSON() ([]byte, error) {
 func (o Outliers) String() string {
 	out := ""
 	out += fmt.Sprintf("  exclude=%v\n", o.Exclude)
+
 	return fmt.Sprintf("Outliers {\n%s}", out)
 }

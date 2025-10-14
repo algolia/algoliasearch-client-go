@@ -24,12 +24,18 @@ type GetPurchaseRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetPurchaseRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, purchaseCount int32, dates []DailyPurchaseRates) *GetPurchaseRateResponse {
+func NewGetPurchaseRateResponse(
+	rate utils.Nullable[float64],
+	trackedSearchCount int32,
+	purchaseCount int32,
+	dates []DailyPurchaseRates,
+) *GetPurchaseRateResponse {
 	this := &GetPurchaseRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
 	this.PurchaseCount = purchaseCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -43,6 +49,7 @@ func NewEmptyGetPurchaseRateResponse() *GetPurchaseRateResponse {
 func (o *GetPurchaseRateResponse) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +63,14 @@ func (o *GetPurchaseRateResponse) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *GetPurchaseRateResponse) SetRate(v float64) *GetPurchaseRateResponse {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +78,7 @@ func (o *GetPurchaseRateResponse) SetRate(v float64) *GetPurchaseRateResponse {
 func (o *GetPurchaseRateResponse) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +91,14 @@ func (o *GetPurchaseRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *GetPurchaseRateResponse) SetTrackedSearchCount(v int32) *GetPurchaseRateResponse {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -94,6 +106,7 @@ func (o *GetPurchaseRateResponse) SetTrackedSearchCount(v int32) *GetPurchaseRat
 func (o *GetPurchaseRateResponse) GetPurchaseCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +119,14 @@ func (o *GetPurchaseRateResponse) GetPurchaseCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PurchaseCount, true
 }
 
 // SetPurchaseCount sets field value.
 func (o *GetPurchaseRateResponse) SetPurchaseCount(v int32) *GetPurchaseRateResponse {
 	o.PurchaseCount = v
+
 	return o
 }
 
@@ -119,6 +134,7 @@ func (o *GetPurchaseRateResponse) SetPurchaseCount(v int32) *GetPurchaseRateResp
 func (o *GetPurchaseRateResponse) GetDates() []DailyPurchaseRates {
 	if o == nil {
 		var ret []DailyPurchaseRates
+
 		return ret
 	}
 
@@ -131,12 +147,14 @@ func (o *GetPurchaseRateResponse) GetDatesOk() ([]DailyPurchaseRates, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetPurchaseRateResponse) SetDates(v []DailyPurchaseRates) *GetPurchaseRateResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -146,6 +164,7 @@ func (o GetPurchaseRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["purchaseCount"] = o.PurchaseCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetPurchaseRateResponse: %w", err)
@@ -160,5 +179,6 @@ func (o GetPurchaseRateResponse) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetPurchaseRateResponse {\n%s}", out)
 }

@@ -35,10 +35,12 @@ func WithDestinationInputAttributesToExclude(val []string) DestinationInputOptio
 // will change when the set of required properties is changed.
 func NewDestinationInput(indexName string, opts ...DestinationInputOption) *DestinationInput {
 	this := &DestinationInput{}
+
 	this.IndexName = indexName
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -51,6 +53,7 @@ func NewEmptyDestinationInput() *DestinationInput {
 func (o *DestinationInput) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -63,12 +66,14 @@ func (o *DestinationInput) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *DestinationInput) SetIndexName(v string) *DestinationInput {
 	o.IndexName = v
+
 	return o
 }
 
@@ -76,8 +81,10 @@ func (o *DestinationInput) SetIndexName(v string) *DestinationInput {
 func (o *DestinationInput) GetRecordType() RecordType {
 	if o == nil || o.RecordType == nil {
 		var ret RecordType
+
 		return ret
 	}
+
 	return *o.RecordType
 }
 
@@ -87,6 +94,7 @@ func (o *DestinationInput) GetRecordTypeOk() (*RecordType, bool) {
 	if o == nil || o.RecordType == nil {
 		return nil, false
 	}
+
 	return o.RecordType, true
 }
 
@@ -102,6 +110,7 @@ func (o *DestinationInput) HasRecordType() bool {
 // SetRecordType gets a reference to the given RecordType and assigns it to the RecordType field.
 func (o *DestinationInput) SetRecordType(v RecordType) *DestinationInput {
 	o.RecordType = &v
+
 	return o
 }
 
@@ -109,8 +118,10 @@ func (o *DestinationInput) SetRecordType(v RecordType) *DestinationInput {
 func (o *DestinationInput) GetAttributesToExclude() []string {
 	if o == nil || o.AttributesToExclude == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToExclude
 }
 
@@ -120,6 +131,7 @@ func (o *DestinationInput) GetAttributesToExcludeOk() ([]string, bool) {
 	if o == nil || o.AttributesToExclude == nil {
 		return nil, false
 	}
+
 	return o.AttributesToExclude, true
 }
 
@@ -135,18 +147,22 @@ func (o *DestinationInput) HasAttributesToExclude() bool {
 // SetAttributesToExclude gets a reference to the given []string and assigns it to the AttributesToExclude field.
 func (o *DestinationInput) SetAttributesToExclude(v []string) *DestinationInput {
 	o.AttributesToExclude = v
+
 	return o
 }
 
 func (o DestinationInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["indexName"] = o.IndexName
 	if o.RecordType != nil {
 		toSerialize["recordType"] = o.RecordType
 	}
+
 	if o.AttributesToExclude != nil {
 		toSerialize["attributesToExclude"] = o.AttributesToExclude
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationInput: %w", err)
@@ -160,5 +176,6 @@ func (o DestinationInput) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  recordType=%v\n", o.RecordType)
 	out += fmt.Sprintf("  attributesToExclude=%v\n", o.AttributesToExclude)
+
 	return fmt.Sprintf("DestinationInput {\n%s}", out)
 }

@@ -499,6 +499,7 @@ func NewIndexSettings(opts ...IndexSettingsOption) *IndexSettings {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -511,8 +512,10 @@ func NewEmptyIndexSettings() *IndexSettings {
 func (o *IndexSettings) GetAttributesForFaceting() []string {
 	if o == nil || o.AttributesForFaceting == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesForFaceting
 }
 
@@ -522,6 +525,7 @@ func (o *IndexSettings) GetAttributesForFacetingOk() ([]string, bool) {
 	if o == nil || o.AttributesForFaceting == nil {
 		return nil, false
 	}
+
 	return o.AttributesForFaceting, true
 }
 
@@ -537,6 +541,7 @@ func (o *IndexSettings) HasAttributesForFaceting() bool {
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
 func (o *IndexSettings) SetAttributesForFaceting(v []string) *IndexSettings {
 	o.AttributesForFaceting = v
+
 	return o
 }
 
@@ -544,8 +549,10 @@ func (o *IndexSettings) SetAttributesForFaceting(v []string) *IndexSettings {
 func (o *IndexSettings) GetReplicas() []string {
 	if o == nil || o.Replicas == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replicas
 }
 
@@ -555,6 +562,7 @@ func (o *IndexSettings) GetReplicasOk() ([]string, bool) {
 	if o == nil || o.Replicas == nil {
 		return nil, false
 	}
+
 	return o.Replicas, true
 }
 
@@ -570,6 +578,7 @@ func (o *IndexSettings) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *IndexSettings) SetReplicas(v []string) *IndexSettings {
 	o.Replicas = v
+
 	return o
 }
 
@@ -577,8 +586,10 @@ func (o *IndexSettings) SetReplicas(v []string) *IndexSettings {
 func (o *IndexSettings) GetPaginationLimitedTo() int32 {
 	if o == nil || o.PaginationLimitedTo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PaginationLimitedTo
 }
 
@@ -588,6 +599,7 @@ func (o *IndexSettings) GetPaginationLimitedToOk() (*int32, bool) {
 	if o == nil || o.PaginationLimitedTo == nil {
 		return nil, false
 	}
+
 	return o.PaginationLimitedTo, true
 }
 
@@ -603,6 +615,7 @@ func (o *IndexSettings) HasPaginationLimitedTo() bool {
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
 func (o *IndexSettings) SetPaginationLimitedTo(v int32) *IndexSettings {
 	o.PaginationLimitedTo = &v
+
 	return o
 }
 
@@ -610,8 +623,10 @@ func (o *IndexSettings) SetPaginationLimitedTo(v int32) *IndexSettings {
 func (o *IndexSettings) GetUnretrievableAttributes() []string {
 	if o == nil || o.UnretrievableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.UnretrievableAttributes
 }
 
@@ -621,6 +636,7 @@ func (o *IndexSettings) GetUnretrievableAttributesOk() ([]string, bool) {
 	if o == nil || o.UnretrievableAttributes == nil {
 		return nil, false
 	}
+
 	return o.UnretrievableAttributes, true
 }
 
@@ -636,6 +652,7 @@ func (o *IndexSettings) HasUnretrievableAttributes() bool {
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
 func (o *IndexSettings) SetUnretrievableAttributes(v []string) *IndexSettings {
 	o.UnretrievableAttributes = v
+
 	return o
 }
 
@@ -643,8 +660,10 @@ func (o *IndexSettings) SetUnretrievableAttributes(v []string) *IndexSettings {
 func (o *IndexSettings) GetDisableTypoToleranceOnWords() []string {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnWords
 }
 
@@ -654,6 +673,7 @@ func (o *IndexSettings) GetDisableTypoToleranceOnWordsOk() ([]string, bool) {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnWords, true
 }
 
@@ -669,6 +689,7 @@ func (o *IndexSettings) HasDisableTypoToleranceOnWords() bool {
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
 func (o *IndexSettings) SetDisableTypoToleranceOnWords(v []string) *IndexSettings {
 	o.DisableTypoToleranceOnWords = v
+
 	return o
 }
 
@@ -676,8 +697,10 @@ func (o *IndexSettings) SetDisableTypoToleranceOnWords(v []string) *IndexSetting
 func (o *IndexSettings) GetAttributesToTransliterate() []string {
 	if o == nil || o.AttributesToTransliterate == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToTransliterate
 }
 
@@ -687,6 +710,7 @@ func (o *IndexSettings) GetAttributesToTransliterateOk() ([]string, bool) {
 	if o == nil || o.AttributesToTransliterate == nil {
 		return nil, false
 	}
+
 	return o.AttributesToTransliterate, true
 }
 
@@ -702,6 +726,7 @@ func (o *IndexSettings) HasAttributesToTransliterate() bool {
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
 func (o *IndexSettings) SetAttributesToTransliterate(v []string) *IndexSettings {
 	o.AttributesToTransliterate = v
+
 	return o
 }
 
@@ -709,8 +734,10 @@ func (o *IndexSettings) SetAttributesToTransliterate(v []string) *IndexSettings 
 func (o *IndexSettings) GetCamelCaseAttributes() []string {
 	if o == nil || o.CamelCaseAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CamelCaseAttributes
 }
 
@@ -720,6 +747,7 @@ func (o *IndexSettings) GetCamelCaseAttributesOk() ([]string, bool) {
 	if o == nil || o.CamelCaseAttributes == nil {
 		return nil, false
 	}
+
 	return o.CamelCaseAttributes, true
 }
 
@@ -735,6 +763,7 @@ func (o *IndexSettings) HasCamelCaseAttributes() bool {
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
 func (o *IndexSettings) SetCamelCaseAttributes(v []string) *IndexSettings {
 	o.CamelCaseAttributes = v
+
 	return o
 }
 
@@ -742,8 +771,10 @@ func (o *IndexSettings) SetCamelCaseAttributes(v []string) *IndexSettings {
 func (o *IndexSettings) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.DecompoundedAttributes
 }
 
@@ -753,6 +784,7 @@ func (o *IndexSettings) GetDecompoundedAttributesOk() (map[string]any, bool) {
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
+
 	return o.DecompoundedAttributes, true
 }
 
@@ -768,6 +800,7 @@ func (o *IndexSettings) HasDecompoundedAttributes() bool {
 // SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
 func (o *IndexSettings) SetDecompoundedAttributes(v map[string]any) *IndexSettings {
 	o.DecompoundedAttributes = v
+
 	return o
 }
 
@@ -775,8 +808,10 @@ func (o *IndexSettings) SetDecompoundedAttributes(v map[string]any) *IndexSettin
 func (o *IndexSettings) GetIndexLanguages() []SupportedLanguage {
 	if o == nil || o.IndexLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.IndexLanguages
 }
 
@@ -786,6 +821,7 @@ func (o *IndexSettings) GetIndexLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.IndexLanguages == nil {
 		return nil, false
 	}
+
 	return o.IndexLanguages, true
 }
 
@@ -801,6 +837,7 @@ func (o *IndexSettings) HasIndexLanguages() bool {
 // SetIndexLanguages gets a reference to the given []SupportedLanguage and assigns it to the IndexLanguages field.
 func (o *IndexSettings) SetIndexLanguages(v []SupportedLanguage) *IndexSettings {
 	o.IndexLanguages = v
+
 	return o
 }
 
@@ -808,8 +845,10 @@ func (o *IndexSettings) SetIndexLanguages(v []SupportedLanguage) *IndexSettings 
 func (o *IndexSettings) GetDisablePrefixOnAttributes() []string {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisablePrefixOnAttributes
 }
 
@@ -819,6 +858,7 @@ func (o *IndexSettings) GetDisablePrefixOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisablePrefixOnAttributes, true
 }
 
@@ -834,6 +874,7 @@ func (o *IndexSettings) HasDisablePrefixOnAttributes() bool {
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
 func (o *IndexSettings) SetDisablePrefixOnAttributes(v []string) *IndexSettings {
 	o.DisablePrefixOnAttributes = v
+
 	return o
 }
 
@@ -841,8 +882,10 @@ func (o *IndexSettings) SetDisablePrefixOnAttributes(v []string) *IndexSettings 
 func (o *IndexSettings) GetAllowCompressionOfIntegerArray() bool {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowCompressionOfIntegerArray
 }
 
@@ -852,6 +895,7 @@ func (o *IndexSettings) GetAllowCompressionOfIntegerArrayOk() (*bool, bool) {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		return nil, false
 	}
+
 	return o.AllowCompressionOfIntegerArray, true
 }
 
@@ -867,6 +911,7 @@ func (o *IndexSettings) HasAllowCompressionOfIntegerArray() bool {
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
 func (o *IndexSettings) SetAllowCompressionOfIntegerArray(v bool) *IndexSettings {
 	o.AllowCompressionOfIntegerArray = &v
+
 	return o
 }
 
@@ -874,8 +919,10 @@ func (o *IndexSettings) SetAllowCompressionOfIntegerArray(v bool) *IndexSettings
 func (o *IndexSettings) GetNumericAttributesForFiltering() []string {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.NumericAttributesForFiltering
 }
 
@@ -885,6 +932,7 @@ func (o *IndexSettings) GetNumericAttributesForFilteringOk() ([]string, bool) {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		return nil, false
 	}
+
 	return o.NumericAttributesForFiltering, true
 }
 
@@ -900,6 +948,7 @@ func (o *IndexSettings) HasNumericAttributesForFiltering() bool {
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
 func (o *IndexSettings) SetNumericAttributesForFiltering(v []string) *IndexSettings {
 	o.NumericAttributesForFiltering = v
+
 	return o
 }
 
@@ -907,8 +956,10 @@ func (o *IndexSettings) SetNumericAttributesForFiltering(v []string) *IndexSetti
 func (o *IndexSettings) GetSeparatorsToIndex() string {
 	if o == nil || o.SeparatorsToIndex == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SeparatorsToIndex
 }
 
@@ -918,6 +969,7 @@ func (o *IndexSettings) GetSeparatorsToIndexOk() (*string, bool) {
 	if o == nil || o.SeparatorsToIndex == nil {
 		return nil, false
 	}
+
 	return o.SeparatorsToIndex, true
 }
 
@@ -933,6 +985,7 @@ func (o *IndexSettings) HasSeparatorsToIndex() bool {
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
 func (o *IndexSettings) SetSeparatorsToIndex(v string) *IndexSettings {
 	o.SeparatorsToIndex = &v
+
 	return o
 }
 
@@ -940,8 +993,10 @@ func (o *IndexSettings) SetSeparatorsToIndex(v string) *IndexSettings {
 func (o *IndexSettings) GetSearchableAttributes() []string {
 	if o == nil || o.SearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.SearchableAttributes
 }
 
@@ -951,6 +1006,7 @@ func (o *IndexSettings) GetSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.SearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.SearchableAttributes, true
 }
 
@@ -966,6 +1022,7 @@ func (o *IndexSettings) HasSearchableAttributes() bool {
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
 func (o *IndexSettings) SetSearchableAttributes(v []string) *IndexSettings {
 	o.SearchableAttributes = v
+
 	return o
 }
 
@@ -973,8 +1030,10 @@ func (o *IndexSettings) SetSearchableAttributes(v []string) *IndexSettings {
 func (o *IndexSettings) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -985,6 +1044,7 @@ func (o *IndexSettings) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -1000,6 +1060,7 @@ func (o *IndexSettings) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *IndexSettings) SetUserData(v any) *IndexSettings {
 	o.UserData = v
+
 	return o
 }
 
@@ -1007,8 +1068,10 @@ func (o *IndexSettings) SetUserData(v any) *IndexSettings {
 func (o *IndexSettings) GetCustomNormalization() map[string]map[string]string {
 	if o == nil || o.CustomNormalization == nil {
 		var ret map[string]map[string]string
+
 		return ret
 	}
+
 	return *o.CustomNormalization
 }
 
@@ -1018,6 +1081,7 @@ func (o *IndexSettings) GetCustomNormalizationOk() (*map[string]map[string]strin
 	if o == nil || o.CustomNormalization == nil {
 		return nil, false
 	}
+
 	return o.CustomNormalization, true
 }
 
@@ -1033,6 +1097,7 @@ func (o *IndexSettings) HasCustomNormalization() bool {
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
 func (o *IndexSettings) SetCustomNormalization(v map[string]map[string]string) *IndexSettings {
 	o.CustomNormalization = &v
+
 	return o
 }
 
@@ -1040,8 +1105,10 @@ func (o *IndexSettings) SetCustomNormalization(v map[string]map[string]string) *
 func (o *IndexSettings) GetAttributeForDistinct() string {
 	if o == nil || o.AttributeForDistinct == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AttributeForDistinct
 }
 
@@ -1051,6 +1118,7 @@ func (o *IndexSettings) GetAttributeForDistinctOk() (*string, bool) {
 	if o == nil || o.AttributeForDistinct == nil {
 		return nil, false
 	}
+
 	return o.AttributeForDistinct, true
 }
 
@@ -1066,6 +1134,7 @@ func (o *IndexSettings) HasAttributeForDistinct() bool {
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
 func (o *IndexSettings) SetAttributeForDistinct(v string) *IndexSettings {
 	o.AttributeForDistinct = &v
+
 	return o
 }
 
@@ -1073,8 +1142,10 @@ func (o *IndexSettings) SetAttributeForDistinct(v string) *IndexSettings {
 func (o *IndexSettings) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -1084,6 +1155,7 @@ func (o *IndexSettings) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -1099,6 +1171,7 @@ func (o *IndexSettings) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *IndexSettings) SetMaxFacetHits(v int32) *IndexSettings {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -1106,8 +1179,10 @@ func (o *IndexSettings) SetMaxFacetHits(v int32) *IndexSettings {
 func (o *IndexSettings) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.KeepDiacriticsOnCharacters
 }
 
@@ -1117,6 +1192,7 @@ func (o *IndexSettings) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
+
 	return o.KeepDiacriticsOnCharacters, true
 }
 
@@ -1132,6 +1208,7 @@ func (o *IndexSettings) HasKeepDiacriticsOnCharacters() bool {
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
 func (o *IndexSettings) SetKeepDiacriticsOnCharacters(v string) *IndexSettings {
 	o.KeepDiacriticsOnCharacters = &v
+
 	return o
 }
 
@@ -1139,8 +1216,10 @@ func (o *IndexSettings) SetKeepDiacriticsOnCharacters(v string) *IndexSettings {
 func (o *IndexSettings) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CustomRanking
 }
 
@@ -1150,6 +1229,7 @@ func (o *IndexSettings) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
+
 	return o.CustomRanking, true
 }
 
@@ -1165,6 +1245,7 @@ func (o *IndexSettings) HasCustomRanking() bool {
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
 func (o *IndexSettings) SetCustomRanking(v []string) *IndexSettings {
 	o.CustomRanking = v
+
 	return o
 }
 
@@ -1172,8 +1253,10 @@ func (o *IndexSettings) SetCustomRanking(v []string) *IndexSettings {
 func (o *IndexSettings) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -1183,6 +1266,7 @@ func (o *IndexSettings) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -1198,6 +1282,7 @@ func (o *IndexSettings) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *IndexSettings) SetAttributesToRetrieve(v []string) *IndexSettings {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -1205,8 +1290,10 @@ func (o *IndexSettings) SetAttributesToRetrieve(v []string) *IndexSettings {
 func (o *IndexSettings) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -1216,6 +1303,7 @@ func (o *IndexSettings) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -1231,6 +1319,7 @@ func (o *IndexSettings) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *IndexSettings) SetRanking(v []string) *IndexSettings {
 	o.Ranking = v
+
 	return o
 }
 
@@ -1238,8 +1327,10 @@ func (o *IndexSettings) SetRanking(v []string) *IndexSettings {
 func (o *IndexSettings) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -1249,6 +1340,7 @@ func (o *IndexSettings) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -1264,6 +1356,7 @@ func (o *IndexSettings) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *IndexSettings) SetRelevancyStrictness(v int32) *IndexSettings {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -1271,8 +1364,10 @@ func (o *IndexSettings) SetRelevancyStrictness(v int32) *IndexSettings {
 func (o *IndexSettings) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -1282,6 +1377,7 @@ func (o *IndexSettings) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -1297,6 +1393,7 @@ func (o *IndexSettings) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *IndexSettings) SetAttributesToHighlight(v []string) *IndexSettings {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -1304,8 +1401,10 @@ func (o *IndexSettings) SetAttributesToHighlight(v []string) *IndexSettings {
 func (o *IndexSettings) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -1315,6 +1414,7 @@ func (o *IndexSettings) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -1330,6 +1430,7 @@ func (o *IndexSettings) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *IndexSettings) SetAttributesToSnippet(v []string) *IndexSettings {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -1337,8 +1438,10 @@ func (o *IndexSettings) SetAttributesToSnippet(v []string) *IndexSettings {
 func (o *IndexSettings) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -1348,6 +1451,7 @@ func (o *IndexSettings) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -1363,6 +1467,7 @@ func (o *IndexSettings) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *IndexSettings) SetHighlightPreTag(v string) *IndexSettings {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -1370,8 +1475,10 @@ func (o *IndexSettings) SetHighlightPreTag(v string) *IndexSettings {
 func (o *IndexSettings) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -1381,6 +1488,7 @@ func (o *IndexSettings) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -1396,6 +1504,7 @@ func (o *IndexSettings) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *IndexSettings) SetHighlightPostTag(v string) *IndexSettings {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -1403,8 +1512,10 @@ func (o *IndexSettings) SetHighlightPostTag(v string) *IndexSettings {
 func (o *IndexSettings) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -1414,6 +1525,7 @@ func (o *IndexSettings) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -1429,6 +1541,7 @@ func (o *IndexSettings) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *IndexSettings) SetSnippetEllipsisText(v string) *IndexSettings {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -1436,8 +1549,10 @@ func (o *IndexSettings) SetSnippetEllipsisText(v string) *IndexSettings {
 func (o *IndexSettings) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -1447,6 +1562,7 @@ func (o *IndexSettings) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool) {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -1462,6 +1578,7 @@ func (o *IndexSettings) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *IndexSettings) SetRestrictHighlightAndSnippetArrays(v bool) *IndexSettings {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -1469,8 +1586,10 @@ func (o *IndexSettings) SetRestrictHighlightAndSnippetArrays(v bool) *IndexSetti
 func (o *IndexSettings) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -1480,6 +1599,7 @@ func (o *IndexSettings) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -1495,6 +1615,7 @@ func (o *IndexSettings) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *IndexSettings) SetHitsPerPage(v int32) *IndexSettings {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -1502,8 +1623,10 @@ func (o *IndexSettings) SetHitsPerPage(v int32) *IndexSettings {
 func (o *IndexSettings) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -1513,6 +1636,7 @@ func (o *IndexSettings) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -1528,6 +1652,7 @@ func (o *IndexSettings) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *IndexSettings) SetMinWordSizefor1Typo(v int32) *IndexSettings {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -1535,8 +1660,10 @@ func (o *IndexSettings) SetMinWordSizefor1Typo(v int32) *IndexSettings {
 func (o *IndexSettings) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -1546,6 +1673,7 @@ func (o *IndexSettings) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -1561,6 +1689,7 @@ func (o *IndexSettings) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *IndexSettings) SetMinWordSizefor2Typos(v int32) *IndexSettings {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -1568,8 +1697,10 @@ func (o *IndexSettings) SetMinWordSizefor2Typos(v int32) *IndexSettings {
 func (o *IndexSettings) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -1579,6 +1710,7 @@ func (o *IndexSettings) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -1594,6 +1726,7 @@ func (o *IndexSettings) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *IndexSettings) SetTypoTolerance(v *TypoTolerance) *IndexSettings {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -1601,8 +1734,10 @@ func (o *IndexSettings) SetTypoTolerance(v *TypoTolerance) *IndexSettings {
 func (o *IndexSettings) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -1612,6 +1747,7 @@ func (o *IndexSettings) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -1627,6 +1763,7 @@ func (o *IndexSettings) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *IndexSettings) SetAllowTyposOnNumericTokens(v bool) *IndexSettings {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -1634,8 +1771,10 @@ func (o *IndexSettings) SetAllowTyposOnNumericTokens(v bool) *IndexSettings {
 func (o *IndexSettings) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -1645,6 +1784,7 @@ func (o *IndexSettings) GetDisableTypoToleranceOnAttributesOk() ([]string, bool)
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -1660,6 +1800,7 @@ func (o *IndexSettings) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *IndexSettings) SetDisableTypoToleranceOnAttributes(v []string) *IndexSettings {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -1667,8 +1808,10 @@ func (o *IndexSettings) SetDisableTypoToleranceOnAttributes(v []string) *IndexSe
 func (o *IndexSettings) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -1678,6 +1821,7 @@ func (o *IndexSettings) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -1693,6 +1837,7 @@ func (o *IndexSettings) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *IndexSettings) SetIgnorePlurals(v *IgnorePlurals) *IndexSettings {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -1700,8 +1845,10 @@ func (o *IndexSettings) SetIgnorePlurals(v *IgnorePlurals) *IndexSettings {
 func (o *IndexSettings) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -1711,6 +1858,7 @@ func (o *IndexSettings) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -1726,6 +1874,7 @@ func (o *IndexSettings) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *IndexSettings) SetRemoveStopWords(v *RemoveStopWords) *IndexSettings {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -1733,8 +1882,10 @@ func (o *IndexSettings) SetRemoveStopWords(v *RemoveStopWords) *IndexSettings {
 func (o *IndexSettings) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -1744,6 +1895,7 @@ func (o *IndexSettings) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -1759,6 +1911,7 @@ func (o *IndexSettings) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *IndexSettings) SetQueryLanguages(v []SupportedLanguage) *IndexSettings {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -1766,8 +1919,10 @@ func (o *IndexSettings) SetQueryLanguages(v []SupportedLanguage) *IndexSettings 
 func (o *IndexSettings) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -1777,6 +1932,7 @@ func (o *IndexSettings) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -1792,6 +1948,7 @@ func (o *IndexSettings) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *IndexSettings) SetDecompoundQuery(v bool) *IndexSettings {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -1799,8 +1956,10 @@ func (o *IndexSettings) SetDecompoundQuery(v bool) *IndexSettings {
 func (o *IndexSettings) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -1810,6 +1969,7 @@ func (o *IndexSettings) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -1825,6 +1985,7 @@ func (o *IndexSettings) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *IndexSettings) SetEnableRules(v bool) *IndexSettings {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -1832,8 +1993,10 @@ func (o *IndexSettings) SetEnableRules(v bool) *IndexSettings {
 func (o *IndexSettings) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -1843,6 +2006,7 @@ func (o *IndexSettings) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -1858,6 +2022,7 @@ func (o *IndexSettings) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *IndexSettings) SetEnablePersonalization(v bool) *IndexSettings {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -1865,8 +2030,10 @@ func (o *IndexSettings) SetEnablePersonalization(v bool) *IndexSettings {
 func (o *IndexSettings) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -1876,6 +2043,7 @@ func (o *IndexSettings) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -1891,6 +2059,7 @@ func (o *IndexSettings) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *IndexSettings) SetQueryType(v QueryType) *IndexSettings {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -1898,8 +2067,10 @@ func (o *IndexSettings) SetQueryType(v QueryType) *IndexSettings {
 func (o *IndexSettings) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -1909,6 +2080,7 @@ func (o *IndexSettings) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResults, 
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -1924,6 +2096,7 @@ func (o *IndexSettings) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *IndexSettings) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *IndexSettings {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -1931,8 +2104,10 @@ func (o *IndexSettings) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *Ind
 func (o *IndexSettings) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
+
 		return ret
 	}
+
 	return *o.Mode
 }
 
@@ -1942,6 +2117,7 @@ func (o *IndexSettings) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
+
 	return o.Mode, true
 }
 
@@ -1957,6 +2133,7 @@ func (o *IndexSettings) HasMode() bool {
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
 func (o *IndexSettings) SetMode(v Mode) *IndexSettings {
 	o.Mode = &v
+
 	return o
 }
 
@@ -1964,8 +2141,10 @@ func (o *IndexSettings) SetMode(v Mode) *IndexSettings {
 func (o *IndexSettings) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
+
 		return ret
 	}
+
 	return *o.SemanticSearch
 }
 
@@ -1975,6 +2154,7 @@ func (o *IndexSettings) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
+
 	return o.SemanticSearch, true
 }
 
@@ -1990,6 +2170,7 @@ func (o *IndexSettings) HasSemanticSearch() bool {
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
 func (o *IndexSettings) SetSemanticSearch(v *SemanticSearch) *IndexSettings {
 	o.SemanticSearch = v
+
 	return o
 }
 
@@ -1997,8 +2178,10 @@ func (o *IndexSettings) SetSemanticSearch(v *SemanticSearch) *IndexSettings {
 func (o *IndexSettings) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -2008,6 +2191,7 @@ func (o *IndexSettings) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -2023,6 +2207,7 @@ func (o *IndexSettings) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *IndexSettings) SetAdvancedSyntax(v bool) *IndexSettings {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -2030,8 +2215,10 @@ func (o *IndexSettings) SetAdvancedSyntax(v bool) *IndexSettings {
 func (o *IndexSettings) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -2042,6 +2229,7 @@ func (o *IndexSettings) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -2057,6 +2245,7 @@ func (o *IndexSettings) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *IndexSettings) SetOptionalWords(v *OptionalWords) *IndexSettings {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -2074,8 +2263,10 @@ func (o *IndexSettings) UnsetOptionalWords() {
 func (o *IndexSettings) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -2085,6 +2276,7 @@ func (o *IndexSettings) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -2100,6 +2292,7 @@ func (o *IndexSettings) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *IndexSettings) SetDisableExactOnAttributes(v []string) *IndexSettings {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -2107,8 +2300,10 @@ func (o *IndexSettings) SetDisableExactOnAttributes(v []string) *IndexSettings {
 func (o *IndexSettings) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -2118,6 +2313,7 @@ func (o *IndexSettings) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuery, 
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -2133,6 +2329,7 @@ func (o *IndexSettings) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *IndexSettings) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *IndexSettings {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -2140,8 +2337,10 @@ func (o *IndexSettings) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *Ind
 func (o *IndexSettings) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -2151,6 +2350,7 @@ func (o *IndexSettings) GetAlternativesAsExactOk() ([]AlternativesAsExact, bool)
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -2166,6 +2366,7 @@ func (o *IndexSettings) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *IndexSettings) SetAlternativesAsExact(v []AlternativesAsExact) *IndexSettings {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -2173,8 +2374,10 @@ func (o *IndexSettings) SetAlternativesAsExact(v []AlternativesAsExact) *IndexSe
 func (o *IndexSettings) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -2184,6 +2387,7 @@ func (o *IndexSettings) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatures,
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -2199,6 +2403,7 @@ func (o *IndexSettings) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *IndexSettings) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *IndexSettings {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -2206,8 +2411,10 @@ func (o *IndexSettings) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *I
 func (o *IndexSettings) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -2217,6 +2424,7 @@ func (o *IndexSettings) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -2232,6 +2440,7 @@ func (o *IndexSettings) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *IndexSettings) SetDistinct(v *Distinct) *IndexSettings {
 	o.Distinct = v
+
 	return o
 }
 
@@ -2239,8 +2448,10 @@ func (o *IndexSettings) SetDistinct(v *Distinct) *IndexSettings {
 func (o *IndexSettings) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -2250,6 +2461,7 @@ func (o *IndexSettings) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -2265,6 +2477,7 @@ func (o *IndexSettings) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *IndexSettings) SetReplaceSynonymsInHighlight(v bool) *IndexSettings {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -2272,8 +2485,10 @@ func (o *IndexSettings) SetReplaceSynonymsInHighlight(v bool) *IndexSettings {
 func (o *IndexSettings) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -2283,6 +2498,7 @@ func (o *IndexSettings) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -2298,6 +2514,7 @@ func (o *IndexSettings) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *IndexSettings) SetMinProximity(v int32) *IndexSettings {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -2305,8 +2522,10 @@ func (o *IndexSettings) SetMinProximity(v int32) *IndexSettings {
 func (o *IndexSettings) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -2316,6 +2535,7 @@ func (o *IndexSettings) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -2331,6 +2551,7 @@ func (o *IndexSettings) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *IndexSettings) SetResponseFields(v []string) *IndexSettings {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -2338,8 +2559,10 @@ func (o *IndexSettings) SetResponseFields(v []string) *IndexSettings {
 func (o *IndexSettings) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -2349,6 +2572,7 @@ func (o *IndexSettings) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -2364,6 +2588,7 @@ func (o *IndexSettings) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *IndexSettings) SetMaxValuesPerFacet(v int32) *IndexSettings {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -2371,8 +2596,10 @@ func (o *IndexSettings) SetMaxValuesPerFacet(v int32) *IndexSettings {
 func (o *IndexSettings) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -2382,6 +2609,7 @@ func (o *IndexSettings) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -2397,6 +2625,7 @@ func (o *IndexSettings) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *IndexSettings) SetSortFacetValuesBy(v string) *IndexSettings {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -2404,8 +2633,10 @@ func (o *IndexSettings) SetSortFacetValuesBy(v string) *IndexSettings {
 func (o *IndexSettings) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -2415,6 +2646,7 @@ func (o *IndexSettings) GetAttributeCriteriaComputedByMinProximityOk() (*bool, b
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -2430,6 +2662,7 @@ func (o *IndexSettings) HasAttributeCriteriaComputedByMinProximity() bool {
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *IndexSettings) SetAttributeCriteriaComputedByMinProximity(v bool) *IndexSettings {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -2437,8 +2670,10 @@ func (o *IndexSettings) SetAttributeCriteriaComputedByMinProximity(v bool) *Inde
 func (o *IndexSettings) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -2448,6 +2683,7 @@ func (o *IndexSettings) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -2463,6 +2699,7 @@ func (o *IndexSettings) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *IndexSettings) SetRenderingContent(v *RenderingContent) *IndexSettings {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -2470,8 +2707,10 @@ func (o *IndexSettings) SetRenderingContent(v *RenderingContent) *IndexSettings 
 func (o *IndexSettings) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -2481,6 +2720,7 @@ func (o *IndexSettings) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -2496,6 +2736,7 @@ func (o *IndexSettings) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *IndexSettings) SetEnableReRanking(v bool) *IndexSettings {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -2503,8 +2744,10 @@ func (o *IndexSettings) SetEnableReRanking(v bool) *IndexSettings {
 func (o *IndexSettings) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -2514,6 +2757,7 @@ func (o *IndexSettings) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -2529,6 +2773,7 @@ func (o *IndexSettings) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *IndexSettings) SetReRankingApplyFilter(v *ReRankingApplyFilter) *IndexSettings {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -2537,186 +2782,247 @@ func (o IndexSettings) MarshalJSON() ([]byte, error) {
 	if o.AttributesForFaceting != nil {
 		toSerialize["attributesForFaceting"] = o.AttributesForFaceting
 	}
+
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+
 	if o.PaginationLimitedTo != nil {
 		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
 	}
+
 	if o.UnretrievableAttributes != nil {
 		toSerialize["unretrievableAttributes"] = o.UnretrievableAttributes
 	}
+
 	if o.DisableTypoToleranceOnWords != nil {
 		toSerialize["disableTypoToleranceOnWords"] = o.DisableTypoToleranceOnWords
 	}
+
 	if o.AttributesToTransliterate != nil {
 		toSerialize["attributesToTransliterate"] = o.AttributesToTransliterate
 	}
+
 	if o.CamelCaseAttributes != nil {
 		toSerialize["camelCaseAttributes"] = o.CamelCaseAttributes
 	}
+
 	if o.DecompoundedAttributes != nil {
 		toSerialize["decompoundedAttributes"] = o.DecompoundedAttributes
 	}
+
 	if o.IndexLanguages != nil {
 		toSerialize["indexLanguages"] = o.IndexLanguages
 	}
+
 	if o.DisablePrefixOnAttributes != nil {
 		toSerialize["disablePrefixOnAttributes"] = o.DisablePrefixOnAttributes
 	}
+
 	if o.AllowCompressionOfIntegerArray != nil {
 		toSerialize["allowCompressionOfIntegerArray"] = o.AllowCompressionOfIntegerArray
 	}
+
 	if o.NumericAttributesForFiltering != nil {
 		toSerialize["numericAttributesForFiltering"] = o.NumericAttributesForFiltering
 	}
+
 	if o.SeparatorsToIndex != nil {
 		toSerialize["separatorsToIndex"] = o.SeparatorsToIndex
 	}
+
 	if o.SearchableAttributes != nil {
 		toSerialize["searchableAttributes"] = o.SearchableAttributes
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.CustomNormalization != nil {
 		toSerialize["customNormalization"] = o.CustomNormalization
 	}
+
 	if o.AttributeForDistinct != nil {
 		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	if o.KeepDiacriticsOnCharacters != nil {
 		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
 	}
+
 	if o.CustomRanking != nil {
 		toSerialize["customRanking"] = o.CustomRanking
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.Mode != nil {
 		toSerialize["mode"] = o.Mode
 	}
+
 	if o.SemanticSearch != nil {
 		toSerialize["semanticSearch"] = o.SemanticSearch
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IndexSettings: %w", err)
@@ -2788,5 +3094,6 @@ func (o IndexSettings) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+
 	return fmt.Sprintf("IndexSettings {\n%s}", out)
 }

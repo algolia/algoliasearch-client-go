@@ -24,12 +24,18 @@ type GetConversionRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetConversionRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, conversionCount int32, dates []DailyConversionRates) *GetConversionRateResponse {
+func NewGetConversionRateResponse(
+	rate utils.Nullable[float64],
+	trackedSearchCount int32,
+	conversionCount int32,
+	dates []DailyConversionRates,
+) *GetConversionRateResponse {
 	this := &GetConversionRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
 	this.ConversionCount = conversionCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -43,6 +49,7 @@ func NewEmptyGetConversionRateResponse() *GetConversionRateResponse {
 func (o *GetConversionRateResponse) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +63,14 @@ func (o *GetConversionRateResponse) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *GetConversionRateResponse) SetRate(v float64) *GetConversionRateResponse {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +78,7 @@ func (o *GetConversionRateResponse) SetRate(v float64) *GetConversionRateRespons
 func (o *GetConversionRateResponse) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +91,14 @@ func (o *GetConversionRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *GetConversionRateResponse) SetTrackedSearchCount(v int32) *GetConversionRateResponse {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -94,6 +106,7 @@ func (o *GetConversionRateResponse) SetTrackedSearchCount(v int32) *GetConversio
 func (o *GetConversionRateResponse) GetConversionCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +119,14 @@ func (o *GetConversionRateResponse) GetConversionCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ConversionCount, true
 }
 
 // SetConversionCount sets field value.
 func (o *GetConversionRateResponse) SetConversionCount(v int32) *GetConversionRateResponse {
 	o.ConversionCount = v
+
 	return o
 }
 
@@ -119,6 +134,7 @@ func (o *GetConversionRateResponse) SetConversionCount(v int32) *GetConversionRa
 func (o *GetConversionRateResponse) GetDates() []DailyConversionRates {
 	if o == nil {
 		var ret []DailyConversionRates
+
 		return ret
 	}
 
@@ -131,12 +147,14 @@ func (o *GetConversionRateResponse) GetDatesOk() ([]DailyConversionRates, bool) 
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetConversionRateResponse) SetDates(v []DailyConversionRates) *GetConversionRateResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -146,6 +164,7 @@ func (o GetConversionRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["conversionCount"] = o.ConversionCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetConversionRateResponse: %w", err)
@@ -160,5 +179,6 @@ func (o GetConversionRateResponse) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  conversionCount=%v\n", o.ConversionCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetConversionRateResponse {\n%s}", out)
 }

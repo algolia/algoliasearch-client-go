@@ -11,7 +11,7 @@ type CompositionRunSearchResponse struct {
 	// Unique record identifier.
 	ObjectID             string                       `json:"objectID"`
 	AppliedRules         []CompositionRunAppliedRules `json:"appliedRules,omitempty"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any               `json:"-"`
 }
 
 type _CompositionRunSearchResponse CompositionRunSearchResponse
@@ -30,10 +30,12 @@ func WithCompositionRunSearchResponseAppliedRules(val []CompositionRunAppliedRul
 // will change when the set of required properties is changed.
 func NewCompositionRunSearchResponse(objectID string, opts ...CompositionRunSearchResponseOption) *CompositionRunSearchResponse {
 	this := &CompositionRunSearchResponse{}
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -46,6 +48,7 @@ func NewEmptyCompositionRunSearchResponse() *CompositionRunSearchResponse {
 func (o *CompositionRunSearchResponse) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -58,12 +61,14 @@ func (o *CompositionRunSearchResponse) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *CompositionRunSearchResponse) SetObjectID(v string) *CompositionRunSearchResponse {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -71,8 +76,10 @@ func (o *CompositionRunSearchResponse) SetObjectID(v string) *CompositionRunSear
 func (o *CompositionRunSearchResponse) GetAppliedRules() []CompositionRunAppliedRules {
 	if o == nil || o.AppliedRules == nil {
 		var ret []CompositionRunAppliedRules
+
 		return ret
 	}
+
 	return o.AppliedRules
 }
 
@@ -82,6 +89,7 @@ func (o *CompositionRunSearchResponse) GetAppliedRulesOk() ([]CompositionRunAppl
 	if o == nil || o.AppliedRules == nil {
 		return nil, false
 	}
+
 	return o.AppliedRules, true
 }
 
@@ -97,6 +105,7 @@ func (o *CompositionRunSearchResponse) HasAppliedRules() bool {
 // SetAppliedRules gets a reference to the given []CompositionRunAppliedRules and assigns it to the AppliedRules field.
 func (o *CompositionRunSearchResponse) SetAppliedRules(v []CompositionRunAppliedRules) *CompositionRunSearchResponse {
 	o.AppliedRules = v
+
 	return o
 }
 
@@ -112,6 +121,7 @@ func (o *CompositionRunSearchResponse) SetAdditionalProperty(key string, value a
 
 func (o CompositionRunSearchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
@@ -156,9 +166,11 @@ func (o *CompositionRunSearchResponse) UnmarshalJSON(bytes []byte) error {
 func (o CompositionRunSearchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	out += fmt.Sprintf("  appliedRules=%v\n", o.AppliedRules)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("CompositionRunSearchResponse {\n%s}", out)
 }

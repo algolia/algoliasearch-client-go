@@ -19,6 +19,7 @@ type GetTopCountriesResponse struct {
 func NewGetTopCountriesResponse(countries []TopCountry) *GetTopCountriesResponse {
 	this := &GetTopCountriesResponse{}
 	this.Countries = countries
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetTopCountriesResponse() *GetTopCountriesResponse {
 func (o *GetTopCountriesResponse) GetCountries() []TopCountry {
 	if o == nil {
 		var ret []TopCountry
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetTopCountriesResponse) GetCountriesOk() ([]TopCountry, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Countries, true
 }
 
 // SetCountries sets field value.
 func (o *GetTopCountriesResponse) SetCountries(v []TopCountry) *GetTopCountriesResponse {
 	o.Countries = v
+
 	return o
 }
 
 func (o GetTopCountriesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["countries"] = o.Countries
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopCountriesResponse: %w", err)
@@ -66,5 +71,6 @@ func (o GetTopCountriesResponse) MarshalJSON() ([]byte, error) {
 func (o GetTopCountriesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  countries=%v\n", o.Countries)
+
 	return fmt.Sprintf("GetTopCountriesResponse {\n%s}", out)
 }

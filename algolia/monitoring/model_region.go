@@ -47,24 +47,7 @@ var AllowedRegionEnumValues = []Region{
 	"za",
 }
 
-func (v *Region) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Region': %w", string(src), err)
-	}
-	enumTypeValue := Region(value)
-	for _, existing := range AllowedRegionEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Region", value)
-}
-
-// NewRegionFromValue returns a pointer to a valid Region
+// NewRegionFromValue returns a pointer to a valid Region.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewRegionFromValue(v string) (*Region, error) {
 	ev := Region(v)
@@ -75,6 +58,26 @@ func NewRegionFromValue(v string) (*Region, error) {
 	}
 }
 
+func (v *Region) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Region': %w", string(src), err)
+	}
+
+	enumTypeValue := Region(value)
+	for _, existing := range AllowedRegionEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Region", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Region) IsValid() bool {
 	for _, existing := range AllowedRegionEnumValues {
@@ -82,6 +85,7 @@ func (v Region) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

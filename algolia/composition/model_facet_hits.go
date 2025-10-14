@@ -25,6 +25,7 @@ func NewFacetHits(value string, highlighted string, count int32) *FacetHits {
 	this.Value = value
 	this.Highlighted = highlighted
 	this.Count = count
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyFacetHits() *FacetHits {
 func (o *FacetHits) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *FacetHits) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *FacetHits) SetValue(v string) *FacetHits {
 	o.Value = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *FacetHits) SetValue(v string) *FacetHits {
 func (o *FacetHits) GetHighlighted() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *FacetHits) GetHighlightedOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Highlighted, true
 }
 
 // SetHighlighted sets field value.
 func (o *FacetHits) SetHighlighted(v string) *FacetHits {
 	o.Highlighted = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *FacetHits) SetHighlighted(v string) *FacetHits {
 func (o *FacetHits) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *FacetHits) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *FacetHits) SetCount(v int32) *FacetHits {
 	o.Count = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o FacetHits) MarshalJSON() ([]byte, error) {
 	toSerialize["value"] = o.Value
 	toSerialize["highlighted"] = o.Highlighted
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetHits: %w", err)
@@ -126,5 +137,6 @@ func (o FacetHits) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 	out += fmt.Sprintf("  highlighted=%v\n", o.Highlighted)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("FacetHits {\n%s}", out)
 }

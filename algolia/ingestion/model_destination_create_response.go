@@ -25,6 +25,7 @@ func NewDestinationCreateResponse(destinationID string, name string, createdAt s
 	this.DestinationID = destinationID
 	this.Name = name
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyDestinationCreateResponse() *DestinationCreateResponse {
 func (o *DestinationCreateResponse) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *DestinationCreateResponse) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *DestinationCreateResponse) SetDestinationID(v string) *DestinationCreateResponse {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *DestinationCreateResponse) SetDestinationID(v string) *DestinationCreat
 func (o *DestinationCreateResponse) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *DestinationCreateResponse) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *DestinationCreateResponse) SetName(v string) *DestinationCreateResponse {
 	o.Name = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *DestinationCreateResponse) SetName(v string) *DestinationCreateResponse
 func (o *DestinationCreateResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *DestinationCreateResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *DestinationCreateResponse) SetCreatedAt(v string) *DestinationCreateResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o DestinationCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["destinationID"] = o.DestinationID
 	toSerialize["name"] = o.Name
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationCreateResponse: %w", err)
@@ -126,5 +137,6 @@ func (o DestinationCreateResponse) String() string {
 	out += fmt.Sprintf("  destinationID=%v\n", o.DestinationID)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("DestinationCreateResponse {\n%s}", out)
 }

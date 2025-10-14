@@ -44,7 +44,7 @@ func (dst *AroundPrecision) UnmarshalJSON(data []byte) error {
 		dst.ArrayOfModelRange = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(AroundPrecision)")
+	return fmt.Errorf("data failed to match schemas in oneOf(AroundPrecision)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

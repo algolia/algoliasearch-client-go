@@ -25,6 +25,7 @@ func NewABTestResponse(index string, abTestID int32, taskID int64) *ABTestRespon
 	this.Index = index
 	this.AbTestID = abTestID
 	this.TaskID = taskID
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyABTestResponse() *ABTestResponse {
 func (o *ABTestResponse) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *ABTestResponse) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *ABTestResponse) SetIndex(v string) *ABTestResponse {
 	o.Index = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *ABTestResponse) SetIndex(v string) *ABTestResponse {
 func (o *ABTestResponse) GetAbTestID() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *ABTestResponse) GetAbTestIDOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AbTestID, true
 }
 
 // SetAbTestID sets field value.
 func (o *ABTestResponse) SetAbTestID(v int32) *ABTestResponse {
 	o.AbTestID = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *ABTestResponse) SetAbTestID(v int32) *ABTestResponse {
 func (o *ABTestResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *ABTestResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *ABTestResponse) SetTaskID(v int64) *ABTestResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o ABTestResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["index"] = o.Index
 	toSerialize["abTestID"] = o.AbTestID
 	toSerialize["taskID"] = o.TaskID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTestResponse: %w", err)
@@ -126,5 +137,6 @@ func (o ABTestResponse) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  abTestID=%v\n", o.AbTestID)
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
+
 	return fmt.Sprintf("ABTestResponse {\n%s}", out)
 }

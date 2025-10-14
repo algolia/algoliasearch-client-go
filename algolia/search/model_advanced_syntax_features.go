@@ -21,24 +21,7 @@ var AllowedAdvancedSyntaxFeaturesEnumValues = []AdvancedSyntaxFeatures{
 	"excludeWords",
 }
 
-func (v *AdvancedSyntaxFeatures) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AdvancedSyntaxFeatures': %w", string(src), err)
-	}
-	enumTypeValue := AdvancedSyntaxFeatures(value)
-	for _, existing := range AllowedAdvancedSyntaxFeaturesEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AdvancedSyntaxFeatures", value)
-}
-
-// NewAdvancedSyntaxFeaturesFromValue returns a pointer to a valid AdvancedSyntaxFeatures
+// NewAdvancedSyntaxFeaturesFromValue returns a pointer to a valid AdvancedSyntaxFeatures.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAdvancedSyntaxFeaturesFromValue(v string) (*AdvancedSyntaxFeatures, error) {
 	ev := AdvancedSyntaxFeatures(v)
@@ -49,6 +32,26 @@ func NewAdvancedSyntaxFeaturesFromValue(v string) (*AdvancedSyntaxFeatures, erro
 	}
 }
 
+func (v *AdvancedSyntaxFeatures) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AdvancedSyntaxFeatures': %w", string(src), err)
+	}
+
+	enumTypeValue := AdvancedSyntaxFeatures(value)
+	for _, existing := range AllowedAdvancedSyntaxFeaturesEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid AdvancedSyntaxFeatures", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v AdvancedSyntaxFeatures) IsValid() bool {
 	for _, existing := range AllowedAdvancedSyntaxFeaturesEnumValues {
@@ -56,6 +59,7 @@ func (v AdvancedSyntaxFeatures) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

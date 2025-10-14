@@ -30,6 +30,7 @@ func NewRedirectRuleIndexMetadata(source string, dest string, reason string, suc
 	this.Reason = reason
 	this.Succeed = succeed
 	this.Data = data
+
 	return this
 }
 
@@ -42,6 +43,7 @@ func NewEmptyRedirectRuleIndexMetadata() *RedirectRuleIndexMetadata {
 func (o *RedirectRuleIndexMetadata) GetSource() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -54,12 +56,14 @@ func (o *RedirectRuleIndexMetadata) GetSourceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Source, true
 }
 
 // SetSource sets field value.
 func (o *RedirectRuleIndexMetadata) SetSource(v string) *RedirectRuleIndexMetadata {
 	o.Source = v
+
 	return o
 }
 
@@ -67,6 +71,7 @@ func (o *RedirectRuleIndexMetadata) SetSource(v string) *RedirectRuleIndexMetada
 func (o *RedirectRuleIndexMetadata) GetDest() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -79,12 +84,14 @@ func (o *RedirectRuleIndexMetadata) GetDestOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Dest, true
 }
 
 // SetDest sets field value.
 func (o *RedirectRuleIndexMetadata) SetDest(v string) *RedirectRuleIndexMetadata {
 	o.Dest = v
+
 	return o
 }
 
@@ -92,6 +99,7 @@ func (o *RedirectRuleIndexMetadata) SetDest(v string) *RedirectRuleIndexMetadata
 func (o *RedirectRuleIndexMetadata) GetReason() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -104,12 +112,14 @@ func (o *RedirectRuleIndexMetadata) GetReasonOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Reason, true
 }
 
 // SetReason sets field value.
 func (o *RedirectRuleIndexMetadata) SetReason(v string) *RedirectRuleIndexMetadata {
 	o.Reason = v
+
 	return o
 }
 
@@ -117,6 +127,7 @@ func (o *RedirectRuleIndexMetadata) SetReason(v string) *RedirectRuleIndexMetada
 func (o *RedirectRuleIndexMetadata) GetSucceed() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -129,12 +140,14 @@ func (o *RedirectRuleIndexMetadata) GetSucceedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Succeed, true
 }
 
 // SetSucceed sets field value.
 func (o *RedirectRuleIndexMetadata) SetSucceed(v bool) *RedirectRuleIndexMetadata {
 	o.Succeed = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o *RedirectRuleIndexMetadata) SetSucceed(v bool) *RedirectRuleIndexMetadat
 func (o *RedirectRuleIndexMetadata) GetData() RedirectRuleIndexData {
 	if o == nil {
 		var ret RedirectRuleIndexData
+
 		return ret
 	}
 
@@ -154,12 +168,14 @@ func (o *RedirectRuleIndexMetadata) GetDataOk() (*RedirectRuleIndexData, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Data, true
 }
 
 // SetData sets field value.
 func (o *RedirectRuleIndexMetadata) SetData(v *RedirectRuleIndexData) *RedirectRuleIndexMetadata {
 	o.Data = *v
+
 	return o
 }
 
@@ -170,6 +186,7 @@ func (o RedirectRuleIndexMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize["reason"] = o.Reason
 	toSerialize["succeed"] = o.Succeed
 	toSerialize["data"] = o.Data
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RedirectRuleIndexMetadata: %w", err)
@@ -185,5 +202,6 @@ func (o RedirectRuleIndexMetadata) String() string {
 	out += fmt.Sprintf("  reason=%v\n", o.Reason)
 	out += fmt.Sprintf("  succeed=%v\n", o.Succeed)
 	out += fmt.Sprintf("  data=%v\n", o.Data)
+
 	return fmt.Sprintf("RedirectRuleIndexMetadata {\n%s}", out)
 }

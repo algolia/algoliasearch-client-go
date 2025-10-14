@@ -28,6 +28,7 @@ func NewSearchForFacetValuesRequest(opts ...SearchForFacetValuesRequestOption) *
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptySearchForFacetValuesRequest() *SearchForFacetValuesRequest {
 func (o *SearchForFacetValuesRequest) GetParams() SearchForFacetValuesParams {
 	if o == nil || o.Params == nil {
 		var ret SearchForFacetValuesParams
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -51,6 +54,7 @@ func (o *SearchForFacetValuesRequest) GetParamsOk() (*SearchForFacetValuesParams
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -66,6 +70,7 @@ func (o *SearchForFacetValuesRequest) HasParams() bool {
 // SetParams gets a reference to the given SearchForFacetValuesParams and assigns it to the Params field.
 func (o *SearchForFacetValuesRequest) SetParams(v *SearchForFacetValuesParams) *SearchForFacetValuesRequest {
 	o.Params = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o SearchForFacetValuesRequest) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForFacetValuesRequest: %w", err)
@@ -85,5 +91,6 @@ func (o SearchForFacetValuesRequest) MarshalJSON() ([]byte, error) {
 func (o SearchForFacetValuesRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("SearchForFacetValuesRequest {\n%s}", out)
 }

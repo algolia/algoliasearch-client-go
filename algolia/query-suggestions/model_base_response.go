@@ -37,6 +37,7 @@ func NewBaseResponse(opts ...BaseResponseOption) *BaseResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyBaseResponse() *BaseResponse {
 func (o *BaseResponse) GetStatus() int32 {
 	if o == nil || o.Status == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Status
 }
 
@@ -60,6 +63,7 @@ func (o *BaseResponse) GetStatusOk() (*int32, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
+
 	return o.Status, true
 }
 
@@ -75,6 +79,7 @@ func (o *BaseResponse) HasStatus() bool {
 // SetStatus gets a reference to the given int32 and assigns it to the Status field.
 func (o *BaseResponse) SetStatus(v int32) *BaseResponse {
 	o.Status = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *BaseResponse) SetStatus(v int32) *BaseResponse {
 func (o *BaseResponse) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -93,6 +100,7 @@ func (o *BaseResponse) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -108,6 +116,7 @@ func (o *BaseResponse) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *BaseResponse) SetMessage(v string) *BaseResponse {
 	o.Message = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o BaseResponse) MarshalJSON() ([]byte, error) {
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BaseResponse: %w", err)
@@ -131,5 +142,6 @@ func (o BaseResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
+
 	return fmt.Sprintf("BaseResponse {\n%s}", out)
 }

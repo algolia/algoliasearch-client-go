@@ -44,7 +44,7 @@ func (dst *TypoTolerance) UnmarshalJSON(data []byte) error {
 		dst.Bool = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(TypoTolerance)")
+	return fmt.Errorf("data failed to match schemas in oneOf(TypoTolerance)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

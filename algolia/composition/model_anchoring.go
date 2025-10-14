@@ -25,24 +25,7 @@ var AllowedAnchoringEnumValues = []Anchoring{
 	"contains",
 }
 
-func (v *Anchoring) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Anchoring': %w", string(src), err)
-	}
-	enumTypeValue := Anchoring(value)
-	for _, existing := range AllowedAnchoringEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Anchoring", value)
-}
-
-// NewAnchoringFromValue returns a pointer to a valid Anchoring
+// NewAnchoringFromValue returns a pointer to a valid Anchoring.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAnchoringFromValue(v string) (*Anchoring, error) {
 	ev := Anchoring(v)
@@ -53,6 +36,26 @@ func NewAnchoringFromValue(v string) (*Anchoring, error) {
 	}
 }
 
+func (v *Anchoring) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Anchoring': %w", string(src), err)
+	}
+
+	enumTypeValue := Anchoring(value)
+	for _, existing := range AllowedAnchoringEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Anchoring", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Anchoring) IsValid() bool {
 	for _, existing := range AllowedAnchoringEnumValues {
@@ -60,6 +63,7 @@ func (v Anchoring) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

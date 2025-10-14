@@ -24,12 +24,18 @@ type GetAddToCartRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetAddToCartRateResponse(rate utils.Nullable[float64], trackedSearchCount int32, addToCartCount int32, dates []DailyAddToCartRates) *GetAddToCartRateResponse {
+func NewGetAddToCartRateResponse(
+	rate utils.Nullable[float64],
+	trackedSearchCount int32,
+	addToCartCount int32,
+	dates []DailyAddToCartRates,
+) *GetAddToCartRateResponse {
 	this := &GetAddToCartRateResponse{}
 	this.Rate = rate
 	this.TrackedSearchCount = trackedSearchCount
 	this.AddToCartCount = addToCartCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -43,6 +49,7 @@ func NewEmptyGetAddToCartRateResponse() *GetAddToCartRateResponse {
 func (o *GetAddToCartRateResponse) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +63,14 @@ func (o *GetAddToCartRateResponse) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *GetAddToCartRateResponse) SetRate(v float64) *GetAddToCartRateResponse {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +78,7 @@ func (o *GetAddToCartRateResponse) SetRate(v float64) *GetAddToCartRateResponse 
 func (o *GetAddToCartRateResponse) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +91,14 @@ func (o *GetAddToCartRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *GetAddToCartRateResponse) SetTrackedSearchCount(v int32) *GetAddToCartRateResponse {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -94,6 +106,7 @@ func (o *GetAddToCartRateResponse) SetTrackedSearchCount(v int32) *GetAddToCartR
 func (o *GetAddToCartRateResponse) GetAddToCartCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +119,14 @@ func (o *GetAddToCartRateResponse) GetAddToCartCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AddToCartCount, true
 }
 
 // SetAddToCartCount sets field value.
 func (o *GetAddToCartRateResponse) SetAddToCartCount(v int32) *GetAddToCartRateResponse {
 	o.AddToCartCount = v
+
 	return o
 }
 
@@ -119,6 +134,7 @@ func (o *GetAddToCartRateResponse) SetAddToCartCount(v int32) *GetAddToCartRateR
 func (o *GetAddToCartRateResponse) GetDates() []DailyAddToCartRates {
 	if o == nil {
 		var ret []DailyAddToCartRates
+
 		return ret
 	}
 
@@ -131,12 +147,14 @@ func (o *GetAddToCartRateResponse) GetDatesOk() ([]DailyAddToCartRates, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetAddToCartRateResponse) SetDates(v []DailyAddToCartRates) *GetAddToCartRateResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -146,6 +164,7 @@ func (o GetAddToCartRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["addToCartCount"] = o.AddToCartCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetAddToCartRateResponse: %w", err)
@@ -160,5 +179,6 @@ func (o GetAddToCartRateResponse) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  addToCartCount=%v\n", o.AddToCartCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetAddToCartRateResponse {\n%s}", out)
 }

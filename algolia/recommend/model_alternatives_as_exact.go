@@ -25,24 +25,7 @@ var AllowedAlternativesAsExactEnumValues = []AlternativesAsExact{
 	"ignoreConjugations",
 }
 
-func (v *AlternativesAsExact) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AlternativesAsExact': %w", string(src), err)
-	}
-	enumTypeValue := AlternativesAsExact(value)
-	for _, existing := range AllowedAlternativesAsExactEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AlternativesAsExact", value)
-}
-
-// NewAlternativesAsExactFromValue returns a pointer to a valid AlternativesAsExact
+// NewAlternativesAsExactFromValue returns a pointer to a valid AlternativesAsExact.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAlternativesAsExactFromValue(v string) (*AlternativesAsExact, error) {
 	ev := AlternativesAsExact(v)
@@ -53,6 +36,26 @@ func NewAlternativesAsExactFromValue(v string) (*AlternativesAsExact, error) {
 	}
 }
 
+func (v *AlternativesAsExact) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'AlternativesAsExact': %w", string(src), err)
+	}
+
+	enumTypeValue := AlternativesAsExact(value)
+	for _, existing := range AllowedAlternativesAsExactEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid AlternativesAsExact", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v AlternativesAsExact) IsValid() bool {
 	for _, existing := range AllowedAlternativesAsExactEnumValues {
@@ -60,6 +63,7 @@ func (v AlternativesAsExact) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

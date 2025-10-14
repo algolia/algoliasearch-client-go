@@ -22,6 +22,7 @@ func NewBatchResponse(taskID int64, objectIDs []string) *BatchResponse {
 	this := &BatchResponse{}
 	this.TaskID = taskID
 	this.ObjectIDs = objectIDs
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyBatchResponse() *BatchResponse {
 func (o *BatchResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *BatchResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *BatchResponse) SetTaskID(v int64) *BatchResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *BatchResponse) SetTaskID(v int64) *BatchResponse {
 func (o *BatchResponse) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *BatchResponse) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *BatchResponse) SetObjectIDs(v []string) *BatchResponse {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o BatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["objectIDs"] = o.ObjectIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BatchResponse: %w", err)
@@ -96,5 +104,6 @@ func (o BatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
+
 	return fmt.Sprintf("BatchResponse {\n%s}", out)
 }

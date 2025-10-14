@@ -28,6 +28,7 @@ func NewIndexingMetric(opts ...IndexingMetricOption) *IndexingMetric {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyIndexingMetric() *IndexingMetric {
 func (o *IndexingMetric) GetIndexing() map[string][]TimeEntry {
 	if o == nil || o.Indexing == nil {
 		var ret map[string][]TimeEntry
+
 		return ret
 	}
+
 	return *o.Indexing
 }
 
@@ -51,6 +54,7 @@ func (o *IndexingMetric) GetIndexingOk() (*map[string][]TimeEntry, bool) {
 	if o == nil || o.Indexing == nil {
 		return nil, false
 	}
+
 	return o.Indexing, true
 }
 
@@ -66,6 +70,7 @@ func (o *IndexingMetric) HasIndexing() bool {
 // SetIndexing gets a reference to the given map[string][]TimeEntry and assigns it to the Indexing field.
 func (o *IndexingMetric) SetIndexing(v map[string][]TimeEntry) *IndexingMetric {
 	o.Indexing = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o IndexingMetric) MarshalJSON() ([]byte, error) {
 	if o.Indexing != nil {
 		toSerialize["indexing"] = o.Indexing
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IndexingMetric: %w", err)
@@ -85,5 +91,6 @@ func (o IndexingMetric) MarshalJSON() ([]byte, error) {
 func (o IndexingMetric) String() string {
 	out := ""
 	out += fmt.Sprintf("  indexing=%v\n", o.Indexing)
+
 	return fmt.Sprintf("IndexingMetric {\n%s}", out)
 }

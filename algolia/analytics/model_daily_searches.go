@@ -22,6 +22,7 @@ func NewDailySearches(date string, count int32) *DailySearches {
 	this := &DailySearches{}
 	this.Date = date
 	this.Count = count
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyDailySearches() *DailySearches {
 func (o *DailySearches) GetDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *DailySearches) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Date, true
 }
 
 // SetDate sets field value.
 func (o *DailySearches) SetDate(v string) *DailySearches {
 	o.Date = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *DailySearches) SetDate(v string) *DailySearches {
 func (o *DailySearches) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *DailySearches) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *DailySearches) SetCount(v int32) *DailySearches {
 	o.Count = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o DailySearches) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["date"] = o.Date
 	toSerialize["count"] = o.Count
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearches: %w", err)
@@ -96,5 +104,6 @@ func (o DailySearches) String() string {
 	out := ""
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
+
 	return fmt.Sprintf("DailySearches {\n%s}", out)
 }

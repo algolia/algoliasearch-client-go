@@ -40,7 +40,20 @@ type TopHitWithRevenueAnalytics struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate utils.Nullable[float64], conversionRate utils.Nullable[float64], trackedHitCount int32, clickCount int32, conversionCount int32, addToCartRate utils.Nullable[float64], addToCartCount int32, purchaseRate utils.Nullable[float64], purchaseCount int32, currencies map[string]CurrencyCode) *TopHitWithRevenueAnalytics {
+func NewTopHitWithRevenueAnalytics(
+	hit string,
+	count int32,
+	clickThroughRate utils.Nullable[float64],
+	conversionRate utils.Nullable[float64],
+	trackedHitCount int32,
+	clickCount int32,
+	conversionCount int32,
+	addToCartRate utils.Nullable[float64],
+	addToCartCount int32,
+	purchaseRate utils.Nullable[float64],
+	purchaseCount int32,
+	currencies map[string]CurrencyCode,
+) *TopHitWithRevenueAnalytics {
 	this := &TopHitWithRevenueAnalytics{}
 	this.Hit = hit
 	this.Count = count
@@ -54,6 +67,7 @@ func NewTopHitWithRevenueAnalytics(hit string, count int32, clickThroughRate uti
 	this.PurchaseRate = purchaseRate
 	this.PurchaseCount = purchaseCount
 	this.Currencies = currencies
+
 	return this
 }
 
@@ -66,6 +80,7 @@ func NewEmptyTopHitWithRevenueAnalytics() *TopHitWithRevenueAnalytics {
 func (o *TopHitWithRevenueAnalytics) GetHit() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -78,12 +93,14 @@ func (o *TopHitWithRevenueAnalytics) GetHitOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Hit, true
 }
 
 // SetHit sets field value.
 func (o *TopHitWithRevenueAnalytics) SetHit(v string) *TopHitWithRevenueAnalytics {
 	o.Hit = v
+
 	return o
 }
 
@@ -91,6 +108,7 @@ func (o *TopHitWithRevenueAnalytics) SetHit(v string) *TopHitWithRevenueAnalytic
 func (o *TopHitWithRevenueAnalytics) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -103,12 +121,14 @@ func (o *TopHitWithRevenueAnalytics) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetCount(v int32) *TopHitWithRevenueAnalytics {
 	o.Count = v
+
 	return o
 }
 
@@ -117,6 +137,7 @@ func (o *TopHitWithRevenueAnalytics) SetCount(v int32) *TopHitWithRevenueAnalyti
 func (o *TopHitWithRevenueAnalytics) GetClickThroughRate() float64 {
 	if o == nil || o.ClickThroughRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -130,12 +151,14 @@ func (o *TopHitWithRevenueAnalytics) GetClickThroughRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ClickThroughRate.Get(), o.ClickThroughRate.IsSet()
 }
 
 // SetClickThroughRate sets field value.
 func (o *TopHitWithRevenueAnalytics) SetClickThroughRate(v float64) *TopHitWithRevenueAnalytics {
 	o.ClickThroughRate.Set(&v)
+
 	return o
 }
 
@@ -144,6 +167,7 @@ func (o *TopHitWithRevenueAnalytics) SetClickThroughRate(v float64) *TopHitWithR
 func (o *TopHitWithRevenueAnalytics) GetConversionRate() float64 {
 	if o == nil || o.ConversionRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -157,12 +181,14 @@ func (o *TopHitWithRevenueAnalytics) GetConversionRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ConversionRate.Get(), o.ConversionRate.IsSet()
 }
 
 // SetConversionRate sets field value.
 func (o *TopHitWithRevenueAnalytics) SetConversionRate(v float64) *TopHitWithRevenueAnalytics {
 	o.ConversionRate.Set(&v)
+
 	return o
 }
 
@@ -170,6 +196,7 @@ func (o *TopHitWithRevenueAnalytics) SetConversionRate(v float64) *TopHitWithRev
 func (o *TopHitWithRevenueAnalytics) GetTrackedHitCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -182,12 +209,14 @@ func (o *TopHitWithRevenueAnalytics) GetTrackedHitCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedHitCount, true
 }
 
 // SetTrackedHitCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetTrackedHitCount(v int32) *TopHitWithRevenueAnalytics {
 	o.TrackedHitCount = v
+
 	return o
 }
 
@@ -195,6 +224,7 @@ func (o *TopHitWithRevenueAnalytics) SetTrackedHitCount(v int32) *TopHitWithReve
 func (o *TopHitWithRevenueAnalytics) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -207,12 +237,14 @@ func (o *TopHitWithRevenueAnalytics) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetClickCount(v int32) *TopHitWithRevenueAnalytics {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -220,6 +252,7 @@ func (o *TopHitWithRevenueAnalytics) SetClickCount(v int32) *TopHitWithRevenueAn
 func (o *TopHitWithRevenueAnalytics) GetConversionCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -232,12 +265,14 @@ func (o *TopHitWithRevenueAnalytics) GetConversionCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ConversionCount, true
 }
 
 // SetConversionCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetConversionCount(v int32) *TopHitWithRevenueAnalytics {
 	o.ConversionCount = v
+
 	return o
 }
 
@@ -246,6 +281,7 @@ func (o *TopHitWithRevenueAnalytics) SetConversionCount(v int32) *TopHitWithReve
 func (o *TopHitWithRevenueAnalytics) GetAddToCartRate() float64 {
 	if o == nil || o.AddToCartRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -259,12 +295,14 @@ func (o *TopHitWithRevenueAnalytics) GetAddToCartRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.AddToCartRate.Get(), o.AddToCartRate.IsSet()
 }
 
 // SetAddToCartRate sets field value.
 func (o *TopHitWithRevenueAnalytics) SetAddToCartRate(v float64) *TopHitWithRevenueAnalytics {
 	o.AddToCartRate.Set(&v)
+
 	return o
 }
 
@@ -272,6 +310,7 @@ func (o *TopHitWithRevenueAnalytics) SetAddToCartRate(v float64) *TopHitWithReve
 func (o *TopHitWithRevenueAnalytics) GetAddToCartCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -284,12 +323,14 @@ func (o *TopHitWithRevenueAnalytics) GetAddToCartCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AddToCartCount, true
 }
 
 // SetAddToCartCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetAddToCartCount(v int32) *TopHitWithRevenueAnalytics {
 	o.AddToCartCount = v
+
 	return o
 }
 
@@ -298,6 +339,7 @@ func (o *TopHitWithRevenueAnalytics) SetAddToCartCount(v int32) *TopHitWithReven
 func (o *TopHitWithRevenueAnalytics) GetPurchaseRate() float64 {
 	if o == nil || o.PurchaseRate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -311,12 +353,14 @@ func (o *TopHitWithRevenueAnalytics) GetPurchaseRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.PurchaseRate.Get(), o.PurchaseRate.IsSet()
 }
 
 // SetPurchaseRate sets field value.
 func (o *TopHitWithRevenueAnalytics) SetPurchaseRate(v float64) *TopHitWithRevenueAnalytics {
 	o.PurchaseRate.Set(&v)
+
 	return o
 }
 
@@ -324,6 +368,7 @@ func (o *TopHitWithRevenueAnalytics) SetPurchaseRate(v float64) *TopHitWithReven
 func (o *TopHitWithRevenueAnalytics) GetPurchaseCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -336,12 +381,14 @@ func (o *TopHitWithRevenueAnalytics) GetPurchaseCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PurchaseCount, true
 }
 
 // SetPurchaseCount sets field value.
 func (o *TopHitWithRevenueAnalytics) SetPurchaseCount(v int32) *TopHitWithRevenueAnalytics {
 	o.PurchaseCount = v
+
 	return o
 }
 
@@ -349,6 +396,7 @@ func (o *TopHitWithRevenueAnalytics) SetPurchaseCount(v int32) *TopHitWithRevenu
 func (o *TopHitWithRevenueAnalytics) GetCurrencies() map[string]CurrencyCode {
 	if o == nil {
 		var ret map[string]CurrencyCode
+
 		return ret
 	}
 
@@ -361,12 +409,14 @@ func (o *TopHitWithRevenueAnalytics) GetCurrenciesOk() (*map[string]CurrencyCode
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Currencies, true
 }
 
 // SetCurrencies sets field value.
 func (o *TopHitWithRevenueAnalytics) SetCurrencies(v map[string]CurrencyCode) *TopHitWithRevenueAnalytics {
 	o.Currencies = v
+
 	return o
 }
 
@@ -384,6 +434,7 @@ func (o TopHitWithRevenueAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize["purchaseRate"] = o.PurchaseRate.Get()
 	toSerialize["purchaseCount"] = o.PurchaseCount
 	toSerialize["currencies"] = o.Currencies
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitWithRevenueAnalytics: %w", err)
@@ -406,5 +457,6 @@ func (o TopHitWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  purchaseRate=%v\n", o.PurchaseRate)
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
+
 	return fmt.Sprintf("TopHitWithRevenueAnalytics {\n%s}", out)
 }

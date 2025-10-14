@@ -25,24 +25,7 @@ var AllowedSourceSortKeysEnumValues = []SourceSortKeys{
 	"createdAt",
 }
 
-func (v *SourceSortKeys) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SourceSortKeys': %w", string(src), err)
-	}
-	enumTypeValue := SourceSortKeys(value)
-	for _, existing := range AllowedSourceSortKeysEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SourceSortKeys", value)
-}
-
-// NewSourceSortKeysFromValue returns a pointer to a valid SourceSortKeys
+// NewSourceSortKeysFromValue returns a pointer to a valid SourceSortKeys.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSourceSortKeysFromValue(v string) (*SourceSortKeys, error) {
 	ev := SourceSortKeys(v)
@@ -53,6 +36,26 @@ func NewSourceSortKeysFromValue(v string) (*SourceSortKeys, error) {
 	}
 }
 
+func (v *SourceSortKeys) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SourceSortKeys': %w", string(src), err)
+	}
+
+	enumTypeValue := SourceSortKeys(value)
+	for _, existing := range AllowedSourceSortKeysEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SourceSortKeys", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SourceSortKeys) IsValid() bool {
 	for _, existing := range AllowedSourceSortKeysEnumValues {
@@ -60,6 +63,7 @@ func (v SourceSortKeys) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

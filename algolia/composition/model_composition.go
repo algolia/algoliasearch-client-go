@@ -33,10 +33,12 @@ func NewComposition(objectID string, name string, behavior CompositionBehavior, 
 	this := &Composition{}
 	this.ObjectID = objectID
 	this.Name = name
+
 	this.Behavior = behavior
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +51,7 @@ func NewEmptyComposition() *Composition {
 func (o *Composition) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -61,12 +64,14 @@ func (o *Composition) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *Composition) SetObjectID(v string) *Composition {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o *Composition) SetObjectID(v string) *Composition {
 func (o *Composition) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -86,12 +92,14 @@ func (o *Composition) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *Composition) SetName(v string) *Composition {
 	o.Name = v
+
 	return o
 }
 
@@ -99,8 +107,10 @@ func (o *Composition) SetName(v string) *Composition {
 func (o *Composition) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -110,6 +120,7 @@ func (o *Composition) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -125,6 +136,7 @@ func (o *Composition) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *Composition) SetDescription(v string) *Composition {
 	o.Description = &v
+
 	return o
 }
 
@@ -132,6 +144,7 @@ func (o *Composition) SetDescription(v string) *Composition {
 func (o *Composition) GetBehavior() CompositionBehavior {
 	if o == nil {
 		var ret CompositionBehavior
+
 		return ret
 	}
 
@@ -144,23 +157,28 @@ func (o *Composition) GetBehaviorOk() (*CompositionBehavior, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Behavior, true
 }
 
 // SetBehavior sets field value.
 func (o *Composition) SetBehavior(v *CompositionBehavior) *Composition {
 	o.Behavior = *v
+
 	return o
 }
 
 func (o Composition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	toSerialize["name"] = o.Name
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	toSerialize["behavior"] = o.Behavior
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Composition: %w", err)
@@ -175,5 +193,6 @@ func (o Composition) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  behavior=%v\n", o.Behavior)
+
 	return fmt.Sprintf("Composition {\n%s}", out)
 }

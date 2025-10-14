@@ -53,14 +53,21 @@ func WithCompositionRuleTags(val []string) CompositionRuleOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCompositionRule(objectID string, conditions []Condition, consequence CompositionRuleConsequence, opts ...CompositionRuleOption) *CompositionRule {
+func NewCompositionRule(
+	objectID string,
+	conditions []Condition,
+	consequence CompositionRuleConsequence,
+	opts ...CompositionRuleOption,
+) *CompositionRule {
 	this := &CompositionRule{}
 	this.ObjectID = objectID
 	this.Conditions = conditions
+
 	this.Consequence = consequence
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -73,6 +80,7 @@ func NewEmptyCompositionRule() *CompositionRule {
 func (o *CompositionRule) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -85,12 +93,14 @@ func (o *CompositionRule) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *CompositionRule) SetObjectID(v string) *CompositionRule {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -98,6 +108,7 @@ func (o *CompositionRule) SetObjectID(v string) *CompositionRule {
 func (o *CompositionRule) GetConditions() []Condition {
 	if o == nil {
 		var ret []Condition
+
 		return ret
 	}
 
@@ -110,12 +121,14 @@ func (o *CompositionRule) GetConditionsOk() ([]Condition, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Conditions, true
 }
 
 // SetConditions sets field value.
 func (o *CompositionRule) SetConditions(v []Condition) *CompositionRule {
 	o.Conditions = v
+
 	return o
 }
 
@@ -123,6 +136,7 @@ func (o *CompositionRule) SetConditions(v []Condition) *CompositionRule {
 func (o *CompositionRule) GetConsequence() CompositionRuleConsequence {
 	if o == nil {
 		var ret CompositionRuleConsequence
+
 		return ret
 	}
 
@@ -135,12 +149,14 @@ func (o *CompositionRule) GetConsequenceOk() (*CompositionRuleConsequence, bool)
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Consequence, true
 }
 
 // SetConsequence sets field value.
 func (o *CompositionRule) SetConsequence(v *CompositionRuleConsequence) *CompositionRule {
 	o.Consequence = *v
+
 	return o
 }
 
@@ -148,8 +164,10 @@ func (o *CompositionRule) SetConsequence(v *CompositionRuleConsequence) *Composi
 func (o *CompositionRule) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -159,6 +177,7 @@ func (o *CompositionRule) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -174,6 +193,7 @@ func (o *CompositionRule) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CompositionRule) SetDescription(v string) *CompositionRule {
 	o.Description = &v
+
 	return o
 }
 
@@ -181,8 +201,10 @@ func (o *CompositionRule) SetDescription(v string) *CompositionRule {
 func (o *CompositionRule) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -192,6 +214,7 @@ func (o *CompositionRule) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -207,6 +230,7 @@ func (o *CompositionRule) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *CompositionRule) SetEnabled(v bool) *CompositionRule {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -214,8 +238,10 @@ func (o *CompositionRule) SetEnabled(v bool) *CompositionRule {
 func (o *CompositionRule) GetValidity() []TimeRange {
 	if o == nil || o.Validity == nil {
 		var ret []TimeRange
+
 		return ret
 	}
+
 	return o.Validity
 }
 
@@ -225,6 +251,7 @@ func (o *CompositionRule) GetValidityOk() ([]TimeRange, bool) {
 	if o == nil || o.Validity == nil {
 		return nil, false
 	}
+
 	return o.Validity, true
 }
 
@@ -240,6 +267,7 @@ func (o *CompositionRule) HasValidity() bool {
 // SetValidity gets a reference to the given []TimeRange and assigns it to the Validity field.
 func (o *CompositionRule) SetValidity(v []TimeRange) *CompositionRule {
 	o.Validity = v
+
 	return o
 }
 
@@ -247,8 +275,10 @@ func (o *CompositionRule) SetValidity(v []TimeRange) *CompositionRule {
 func (o *CompositionRule) GetTags() []string {
 	if o == nil || o.Tags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Tags
 }
 
@@ -258,6 +288,7 @@ func (o *CompositionRule) GetTagsOk() ([]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
+
 	return o.Tags, true
 }
 
@@ -273,6 +304,7 @@ func (o *CompositionRule) HasTags() bool {
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *CompositionRule) SetTags(v []string) *CompositionRule {
 	o.Tags = v
+
 	return o
 }
 
@@ -280,19 +312,24 @@ func (o CompositionRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
 	toSerialize["conditions"] = o.Conditions
+
 	toSerialize["consequence"] = o.Consequence
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.Validity != nil {
 		toSerialize["validity"] = o.Validity
 	}
+
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CompositionRule: %w", err)
@@ -310,5 +347,6 @@ func (o CompositionRule) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 	out += fmt.Sprintf("  tags=%v\n", o.Tags)
+
 	return fmt.Sprintf("CompositionRule {\n%s}", out)
 }

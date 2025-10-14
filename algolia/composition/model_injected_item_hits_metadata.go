@@ -37,6 +37,7 @@ func NewInjectedItemHitsMetadata(opts ...InjectedItemHitsMetadataOption) *Inject
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyInjectedItemHitsMetadata() *InjectedItemHitsMetadata {
 func (o *InjectedItemHitsMetadata) GetAddItemKey() bool {
 	if o == nil || o.AddItemKey == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AddItemKey
 }
 
@@ -60,6 +63,7 @@ func (o *InjectedItemHitsMetadata) GetAddItemKeyOk() (*bool, bool) {
 	if o == nil || o.AddItemKey == nil {
 		return nil, false
 	}
+
 	return o.AddItemKey, true
 }
 
@@ -75,6 +79,7 @@ func (o *InjectedItemHitsMetadata) HasAddItemKey() bool {
 // SetAddItemKey gets a reference to the given bool and assigns it to the AddItemKey field.
 func (o *InjectedItemHitsMetadata) SetAddItemKey(v bool) *InjectedItemHitsMetadata {
 	o.AddItemKey = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *InjectedItemHitsMetadata) SetAddItemKey(v bool) *InjectedItemHitsMetada
 func (o *InjectedItemHitsMetadata) GetExtra() map[string]any {
 	if o == nil || o.Extra == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.Extra
 }
 
@@ -93,6 +100,7 @@ func (o *InjectedItemHitsMetadata) GetExtraOk() (map[string]any, bool) {
 	if o == nil || o.Extra == nil {
 		return nil, false
 	}
+
 	return o.Extra, true
 }
 
@@ -108,6 +116,7 @@ func (o *InjectedItemHitsMetadata) HasExtra() bool {
 // SetExtra gets a reference to the given map[string]any and assigns it to the Extra field.
 func (o *InjectedItemHitsMetadata) SetExtra(v map[string]any) *InjectedItemHitsMetadata {
 	o.Extra = v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o InjectedItemHitsMetadata) MarshalJSON() ([]byte, error) {
 	if o.AddItemKey != nil {
 		toSerialize["addItemKey"] = o.AddItemKey
 	}
+
 	if o.Extra != nil {
 		toSerialize["extra"] = o.Extra
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal InjectedItemHitsMetadata: %w", err)
@@ -131,5 +142,6 @@ func (o InjectedItemHitsMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  addItemKey=%v\n", o.AddItemKey)
 	out += fmt.Sprintf("  extra=%v\n", o.Extra)
+
 	return fmt.Sprintf("InjectedItemHitsMetadata {\n%s}", out)
 }

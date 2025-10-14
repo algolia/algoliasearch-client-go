@@ -44,7 +44,7 @@ func (dst *NumericFilters) UnmarshalJSON(data []byte) error {
 		dst.String = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(NumericFilters)")
+	return fmt.Errorf("data failed to match schemas in oneOf(NumericFilters)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

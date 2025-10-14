@@ -44,7 +44,7 @@ func (dst *TransformationInput) UnmarshalJSON(data []byte) error {
 		dst.TransformationNoCode = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(TransformationInput)")
+	return fmt.Errorf("data failed to match schemas in oneOf(TransformationInput)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

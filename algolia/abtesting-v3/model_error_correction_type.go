@@ -21,24 +21,7 @@ var AllowedErrorCorrectionTypeEnumValues = []ErrorCorrectionType{
 	"benjamini-hochberg",
 }
 
-func (v *ErrorCorrectionType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ErrorCorrectionType': %w", string(src), err)
-	}
-	enumTypeValue := ErrorCorrectionType(value)
-	for _, existing := range AllowedErrorCorrectionTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ErrorCorrectionType", value)
-}
-
-// NewErrorCorrectionTypeFromValue returns a pointer to a valid ErrorCorrectionType
+// NewErrorCorrectionTypeFromValue returns a pointer to a valid ErrorCorrectionType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewErrorCorrectionTypeFromValue(v string) (*ErrorCorrectionType, error) {
 	ev := ErrorCorrectionType(v)
@@ -49,6 +32,26 @@ func NewErrorCorrectionTypeFromValue(v string) (*ErrorCorrectionType, error) {
 	}
 }
 
+func (v *ErrorCorrectionType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ErrorCorrectionType': %w", string(src), err)
+	}
+
+	enumTypeValue := ErrorCorrectionType(value)
+	for _, existing := range AllowedErrorCorrectionTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ErrorCorrectionType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ErrorCorrectionType) IsValid() bool {
 	for _, existing := range AllowedErrorCorrectionTypeEnumValues {
@@ -56,6 +59,7 @@ func (v ErrorCorrectionType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

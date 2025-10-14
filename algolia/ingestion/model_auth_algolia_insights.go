@@ -22,6 +22,7 @@ func NewAuthAlgoliaInsights(appID string, apiKey string) *AuthAlgoliaInsights {
 	this := &AuthAlgoliaInsights{}
 	this.AppID = appID
 	this.ApiKey = apiKey
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyAuthAlgoliaInsights() *AuthAlgoliaInsights {
 func (o *AuthAlgoliaInsights) GetAppID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *AuthAlgoliaInsights) GetAppIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AppID, true
 }
 
 // SetAppID sets field value.
 func (o *AuthAlgoliaInsights) SetAppID(v string) *AuthAlgoliaInsights {
 	o.AppID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *AuthAlgoliaInsights) SetAppID(v string) *AuthAlgoliaInsights {
 func (o *AuthAlgoliaInsights) GetApiKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *AuthAlgoliaInsights) GetApiKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ApiKey, true
 }
 
 // SetApiKey sets field value.
 func (o *AuthAlgoliaInsights) SetApiKey(v string) *AuthAlgoliaInsights {
 	o.ApiKey = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o AuthAlgoliaInsights) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["appID"] = o.AppID
 	toSerialize["apiKey"] = o.ApiKey
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAlgoliaInsights: %w", err)
@@ -96,5 +104,6 @@ func (o AuthAlgoliaInsights) String() string {
 	out := ""
 	out += fmt.Sprintf("  appID=%v\n", o.AppID)
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
+
 	return fmt.Sprintf("AuthAlgoliaInsights {\n%s}", out)
 }

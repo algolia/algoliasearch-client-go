@@ -21,6 +21,7 @@ type GetStatusResponse struct {
 func NewGetStatusResponse(updatedAt utils.Nullable[string]) *GetStatusResponse {
 	this := &GetStatusResponse{}
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyGetStatusResponse() *GetStatusResponse {
 func (o *GetStatusResponse) GetUpdatedAt() string {
 	if o == nil || o.UpdatedAt.Get() == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -47,18 +49,21 @@ func (o *GetStatusResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.UpdatedAt.Get(), o.UpdatedAt.IsSet()
 }
 
 // SetUpdatedAt sets field value.
 func (o *GetStatusResponse) SetUpdatedAt(v string) *GetStatusResponse {
 	o.UpdatedAt.Set(&v)
+
 	return o
 }
 
 func (o GetStatusResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["updatedAt"] = o.UpdatedAt.Get()
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetStatusResponse: %w", err)
@@ -70,5 +75,6 @@ func (o GetStatusResponse) MarshalJSON() ([]byte, error) {
 func (o GetStatusResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("GetStatusResponse {\n%s}", out)
 }

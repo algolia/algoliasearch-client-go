@@ -33,16 +33,25 @@ func WithScheduleABTestsRequestConfiguration(val ABTestConfiguration) ScheduleAB
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewScheduleABTestsRequest(name string, variants []AddABTestsVariant, metrics []CreateMetric, scheduledAt string, endAt string, opts ...ScheduleABTestsRequestOption) *ScheduleABTestsRequest {
+func NewScheduleABTestsRequest(
+	name string,
+	variants []AddABTestsVariant,
+	metrics []CreateMetric,
+	scheduledAt string,
+	endAt string,
+	opts ...ScheduleABTestsRequestOption,
+) *ScheduleABTestsRequest {
 	this := &ScheduleABTestsRequest{}
 	this.Name = name
 	this.Variants = variants
 	this.Metrics = metrics
 	this.ScheduledAt = scheduledAt
+
 	this.EndAt = endAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -55,6 +64,7 @@ func NewEmptyScheduleABTestsRequest() *ScheduleABTestsRequest {
 func (o *ScheduleABTestsRequest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -67,12 +77,14 @@ func (o *ScheduleABTestsRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *ScheduleABTestsRequest) SetName(v string) *ScheduleABTestsRequest {
 	o.Name = v
+
 	return o
 }
 
@@ -80,6 +92,7 @@ func (o *ScheduleABTestsRequest) SetName(v string) *ScheduleABTestsRequest {
 func (o *ScheduleABTestsRequest) GetVariants() []AddABTestsVariant {
 	if o == nil {
 		var ret []AddABTestsVariant
+
 		return ret
 	}
 
@@ -92,12 +105,14 @@ func (o *ScheduleABTestsRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *ScheduleABTestsRequest) SetVariants(v []AddABTestsVariant) *ScheduleABTestsRequest {
 	o.Variants = v
+
 	return o
 }
 
@@ -105,6 +120,7 @@ func (o *ScheduleABTestsRequest) SetVariants(v []AddABTestsVariant) *ScheduleABT
 func (o *ScheduleABTestsRequest) GetMetrics() []CreateMetric {
 	if o == nil {
 		var ret []CreateMetric
+
 		return ret
 	}
 
@@ -117,12 +133,14 @@ func (o *ScheduleABTestsRequest) GetMetricsOk() ([]CreateMetric, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
 // SetMetrics sets field value.
 func (o *ScheduleABTestsRequest) SetMetrics(v []CreateMetric) *ScheduleABTestsRequest {
 	o.Metrics = v
+
 	return o
 }
 
@@ -130,8 +148,10 @@ func (o *ScheduleABTestsRequest) SetMetrics(v []CreateMetric) *ScheduleABTestsRe
 func (o *ScheduleABTestsRequest) GetConfiguration() ABTestConfiguration {
 	if o == nil || o.Configuration == nil {
 		var ret ABTestConfiguration
+
 		return ret
 	}
+
 	return *o.Configuration
 }
 
@@ -141,6 +161,7 @@ func (o *ScheduleABTestsRequest) GetConfigurationOk() (*ABTestConfiguration, boo
 	if o == nil || o.Configuration == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
@@ -156,6 +177,7 @@ func (o *ScheduleABTestsRequest) HasConfiguration() bool {
 // SetConfiguration gets a reference to the given ABTestConfiguration and assigns it to the Configuration field.
 func (o *ScheduleABTestsRequest) SetConfiguration(v *ABTestConfiguration) *ScheduleABTestsRequest {
 	o.Configuration = v
+
 	return o
 }
 
@@ -163,6 +185,7 @@ func (o *ScheduleABTestsRequest) SetConfiguration(v *ABTestConfiguration) *Sched
 func (o *ScheduleABTestsRequest) GetScheduledAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -175,12 +198,14 @@ func (o *ScheduleABTestsRequest) GetScheduledAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ScheduledAt, true
 }
 
 // SetScheduledAt sets field value.
 func (o *ScheduleABTestsRequest) SetScheduledAt(v string) *ScheduleABTestsRequest {
 	o.ScheduledAt = v
+
 	return o
 }
 
@@ -188,6 +213,7 @@ func (o *ScheduleABTestsRequest) SetScheduledAt(v string) *ScheduleABTestsReques
 func (o *ScheduleABTestsRequest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -200,12 +226,14 @@ func (o *ScheduleABTestsRequest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *ScheduleABTestsRequest) SetEndAt(v string) *ScheduleABTestsRequest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -213,12 +241,15 @@ func (o ScheduleABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 	toSerialize["variants"] = o.Variants
+
 	toSerialize["metrics"] = o.Metrics
 	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}
+
 	toSerialize["scheduledAt"] = o.ScheduledAt
 	toSerialize["endAt"] = o.EndAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleABTestsRequest: %w", err)
@@ -235,5 +266,6 @@ func (o ScheduleABTestsRequest) String() string {
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	out += fmt.Sprintf("  scheduledAt=%v\n", o.ScheduledAt)
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
+
 	return fmt.Sprintf("ScheduleABTestsRequest {\n%s}", out)
 }

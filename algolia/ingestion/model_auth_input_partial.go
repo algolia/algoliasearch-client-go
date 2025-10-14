@@ -73,6 +73,7 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "clientEmail") {
 		// try to unmarshal data into AuthGoogleServiceAccountPartial
@@ -83,6 +84,7 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 			dst.AuthGoogleServiceAccountPartial = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "username") {
 		// try to unmarshal data into AuthBasicPartial
 		err = json.Unmarshal(data, &dst.AuthBasicPartial)
@@ -92,6 +94,7 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 			dst.AuthBasicPartial = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "key") {
 		// try to unmarshal data into AuthAPIKeyPartial
 		err = json.Unmarshal(data, &dst.AuthAPIKeyPartial)
@@ -101,6 +104,7 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 			dst.AuthAPIKeyPartial = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "url") {
 		// try to unmarshal data into AuthOAuthPartial
 		err = json.Unmarshal(data, &dst.AuthOAuthPartial)
@@ -132,7 +136,7 @@ func (dst *AuthInputPartial) UnmarshalJSON(data []byte) error {
 		dst.MapmapOfStringstring = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInputPartial)")
+	return fmt.Errorf("data failed to match schemas in oneOf(AuthInputPartial)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

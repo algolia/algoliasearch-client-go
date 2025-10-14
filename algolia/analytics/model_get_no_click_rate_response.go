@@ -28,6 +28,7 @@ func NewGetNoClickRateResponse(rate float64, count int32, noClickCount int32, da
 	this.Count = count
 	this.NoClickCount = noClickCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptyGetNoClickRateResponse() *GetNoClickRateResponse {
 func (o *GetNoClickRateResponse) GetRate() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *GetNoClickRateResponse) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Rate, true
 }
 
 // SetRate sets field value.
 func (o *GetNoClickRateResponse) SetRate(v float64) *GetNoClickRateResponse {
 	o.Rate = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *GetNoClickRateResponse) SetRate(v float64) *GetNoClickRateResponse {
 func (o *GetNoClickRateResponse) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *GetNoClickRateResponse) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *GetNoClickRateResponse) SetCount(v int32) *GetNoClickRateResponse {
 	o.Count = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *GetNoClickRateResponse) SetCount(v int32) *GetNoClickRateResponse {
 func (o *GetNoClickRateResponse) GetNoClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *GetNoClickRateResponse) GetNoClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NoClickCount, true
 }
 
 // SetNoClickCount sets field value.
 func (o *GetNoClickRateResponse) SetNoClickCount(v int32) *GetNoClickRateResponse {
 	o.NoClickCount = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *GetNoClickRateResponse) SetNoClickCount(v int32) *GetNoClickRateRespons
 func (o *GetNoClickRateResponse) GetDates() []DailyNoClickRates {
 	if o == nil {
 		var ret []DailyNoClickRates
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *GetNoClickRateResponse) GetDatesOk() ([]DailyNoClickRates, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetNoClickRateResponse) SetDates(v []DailyNoClickRates) *GetNoClickRateResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o GetNoClickRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["count"] = o.Count
 	toSerialize["noClickCount"] = o.NoClickCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetNoClickRateResponse: %w", err)
@@ -156,5 +170,6 @@ func (o GetNoClickRateResponse) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  noClickCount=%v\n", o.NoClickCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetNoClickRateResponse {\n%s}", out)
 }

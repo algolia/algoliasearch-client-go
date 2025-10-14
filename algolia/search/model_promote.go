@@ -33,6 +33,7 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PromoteObjectIDs
@@ -43,6 +44,7 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 			dst.PromoteObjectIDs = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "objectID") {
 		// try to unmarshal data into PromoteObjectID
 		err = json.Unmarshal(data, &dst.PromoteObjectID)
@@ -53,7 +55,7 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(Promote)")
+	return fmt.Errorf("data failed to match schemas in oneOf(Promote)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

@@ -27,6 +27,7 @@ func (e *NoMoreHostToTryError) Error() string {
 	if len(e.intermediateNetworkErrors) > 0 {
 		return fmt.Errorf("%s %w", baseErr, errors.Join(e.intermediateNetworkErrors...)).Error()
 	}
+
 	return fmt.Sprintf("%s You can use 'ExposeIntermediateNetworkErrors: true' in the config to investigate.", baseErr)
 }
 

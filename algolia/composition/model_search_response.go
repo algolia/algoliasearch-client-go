@@ -11,7 +11,7 @@ type SearchResponse struct {
 	Compositions *CompositionsSearchResponse `json:"compositions,omitempty"`
 	// Search results.
 	Results              []SearchResultsItem `json:"results"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any      `json:"-"`
 }
 
 type _SearchResponse SearchResponse
@@ -30,10 +30,12 @@ func WithSearchResponseCompositions(val CompositionsSearchResponse) SearchRespon
 // will change when the set of required properties is changed.
 func NewSearchResponse(results []SearchResultsItem, opts ...SearchResponseOption) *SearchResponse {
 	this := &SearchResponse{}
+
 	this.Results = results
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -46,8 +48,10 @@ func NewEmptySearchResponse() *SearchResponse {
 func (o *SearchResponse) GetCompositions() CompositionsSearchResponse {
 	if o == nil || o.Compositions == nil {
 		var ret CompositionsSearchResponse
+
 		return ret
 	}
+
 	return *o.Compositions
 }
 
@@ -57,6 +61,7 @@ func (o *SearchResponse) GetCompositionsOk() (*CompositionsSearchResponse, bool)
 	if o == nil || o.Compositions == nil {
 		return nil, false
 	}
+
 	return o.Compositions, true
 }
 
@@ -72,6 +77,7 @@ func (o *SearchResponse) HasCompositions() bool {
 // SetCompositions gets a reference to the given CompositionsSearchResponse and assigns it to the Compositions field.
 func (o *SearchResponse) SetCompositions(v *CompositionsSearchResponse) *SearchResponse {
 	o.Compositions = v
+
 	return o
 }
 
@@ -79,6 +85,7 @@ func (o *SearchResponse) SetCompositions(v *CompositionsSearchResponse) *SearchR
 func (o *SearchResponse) GetResults() []SearchResultsItem {
 	if o == nil {
 		var ret []SearchResultsItem
+
 		return ret
 	}
 
@@ -91,12 +98,14 @@ func (o *SearchResponse) GetResultsOk() ([]SearchResultsItem, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Results, true
 }
 
 // SetResults sets field value.
 func (o *SearchResponse) SetResults(v []SearchResultsItem) *SearchResponse {
 	o.Results = v
+
 	return o
 }
 
@@ -115,6 +124,7 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	if o.Compositions != nil {
 		toSerialize["compositions"] = o.Compositions
 	}
+
 	toSerialize["results"] = o.Results
 
 	for key, value := range o.AdditionalProperties {
@@ -156,9 +166,11 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
 func (o SearchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
+
 	out += fmt.Sprintf("  results=%v\n", o.Results)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("SearchResponse {\n%s}", out)
 }

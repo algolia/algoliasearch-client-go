@@ -25,6 +25,7 @@ func NewSourceUpdateResponse(sourceID string, name string, updatedAt string) *So
 	this.SourceID = sourceID
 	this.Name = name
 	this.UpdatedAt = updatedAt
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptySourceUpdateResponse() *SourceUpdateResponse {
 func (o *SourceUpdateResponse) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *SourceUpdateResponse) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *SourceUpdateResponse) SetSourceID(v string) *SourceUpdateResponse {
 	o.SourceID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *SourceUpdateResponse) SetSourceID(v string) *SourceUpdateResponse {
 func (o *SourceUpdateResponse) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *SourceUpdateResponse) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *SourceUpdateResponse) SetName(v string) *SourceUpdateResponse {
 	o.Name = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *SourceUpdateResponse) SetName(v string) *SourceUpdateResponse {
 func (o *SourceUpdateResponse) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *SourceUpdateResponse) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *SourceUpdateResponse) SetUpdatedAt(v string) *SourceUpdateResponse {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o SourceUpdateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["name"] = o.Name
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdateResponse: %w", err)
@@ -126,5 +137,6 @@ func (o SourceUpdateResponse) String() string {
 	out += fmt.Sprintf("  sourceID=%v\n", o.SourceID)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("SourceUpdateResponse {\n%s}", out)
 }

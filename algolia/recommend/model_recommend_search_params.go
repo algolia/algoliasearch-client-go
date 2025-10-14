@@ -702,6 +702,7 @@ func NewRecommendSearchParams(opts ...RecommendSearchParamsOption) *RecommendSea
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -714,8 +715,10 @@ func NewEmptyRecommendSearchParams() *RecommendSearchParams {
 func (o *RecommendSearchParams) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SimilarQuery
 }
 
@@ -725,6 +728,7 @@ func (o *RecommendSearchParams) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
+
 	return o.SimilarQuery, true
 }
 
@@ -740,6 +744,7 @@ func (o *RecommendSearchParams) HasSimilarQuery() bool {
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
 func (o *RecommendSearchParams) SetSimilarQuery(v string) *RecommendSearchParams {
 	o.SimilarQuery = &v
+
 	return o
 }
 
@@ -747,8 +752,10 @@ func (o *RecommendSearchParams) SetSimilarQuery(v string) *RecommendSearchParams
 func (o *RecommendSearchParams) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -758,6 +765,7 @@ func (o *RecommendSearchParams) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -773,6 +781,7 @@ func (o *RecommendSearchParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *RecommendSearchParams) SetFilters(v string) *RecommendSearchParams {
 	o.Filters = &v
+
 	return o
 }
 
@@ -780,8 +789,10 @@ func (o *RecommendSearchParams) SetFilters(v string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -791,6 +802,7 @@ func (o *RecommendSearchParams) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -806,6 +818,7 @@ func (o *RecommendSearchParams) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *RecommendSearchParams) SetFacetFilters(v *FacetFilters) *RecommendSearchParams {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -813,8 +826,10 @@ func (o *RecommendSearchParams) SetFacetFilters(v *FacetFilters) *RecommendSearc
 func (o *RecommendSearchParams) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -824,6 +839,7 @@ func (o *RecommendSearchParams) GetOptionalFiltersOk() (*OptionalFilters, bool) 
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -839,6 +855,7 @@ func (o *RecommendSearchParams) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *RecommendSearchParams) SetOptionalFilters(v *OptionalFilters) *RecommendSearchParams {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -846,8 +863,10 @@ func (o *RecommendSearchParams) SetOptionalFilters(v *OptionalFilters) *Recommen
 func (o *RecommendSearchParams) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -857,6 +876,7 @@ func (o *RecommendSearchParams) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -872,6 +892,7 @@ func (o *RecommendSearchParams) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *RecommendSearchParams) SetNumericFilters(v *NumericFilters) *RecommendSearchParams {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -879,8 +900,10 @@ func (o *RecommendSearchParams) SetNumericFilters(v *NumericFilters) *RecommendS
 func (o *RecommendSearchParams) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
+
 		return ret
 	}
+
 	return *o.TagFilters
 }
 
@@ -890,6 +913,7 @@ func (o *RecommendSearchParams) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
+
 	return o.TagFilters, true
 }
 
@@ -905,6 +929,7 @@ func (o *RecommendSearchParams) HasTagFilters() bool {
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
 func (o *RecommendSearchParams) SetTagFilters(v *TagFilters) *RecommendSearchParams {
 	o.TagFilters = v
+
 	return o
 }
 
@@ -912,8 +937,10 @@ func (o *RecommendSearchParams) SetTagFilters(v *TagFilters) *RecommendSearchPar
 func (o *RecommendSearchParams) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.SumOrFiltersScores
 }
 
@@ -923,6 +950,7 @@ func (o *RecommendSearchParams) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
+
 	return o.SumOrFiltersScores, true
 }
 
@@ -938,6 +966,7 @@ func (o *RecommendSearchParams) HasSumOrFiltersScores() bool {
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
 func (o *RecommendSearchParams) SetSumOrFiltersScores(v bool) *RecommendSearchParams {
 	o.SumOrFiltersScores = &v
+
 	return o
 }
 
@@ -945,8 +974,10 @@ func (o *RecommendSearchParams) SetSumOrFiltersScores(v bool) *RecommendSearchPa
 func (o *RecommendSearchParams) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictSearchableAttributes
 }
 
@@ -956,6 +987,7 @@ func (o *RecommendSearchParams) GetRestrictSearchableAttributesOk() ([]string, b
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.RestrictSearchableAttributes, true
 }
 
@@ -971,6 +1003,7 @@ func (o *RecommendSearchParams) HasRestrictSearchableAttributes() bool {
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
 func (o *RecommendSearchParams) SetRestrictSearchableAttributes(v []string) *RecommendSearchParams {
 	o.RestrictSearchableAttributes = v
+
 	return o
 }
 
@@ -978,8 +1011,10 @@ func (o *RecommendSearchParams) SetRestrictSearchableAttributes(v []string) *Rec
 func (o *RecommendSearchParams) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Facets
 }
 
@@ -989,6 +1024,7 @@ func (o *RecommendSearchParams) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -1004,6 +1040,7 @@ func (o *RecommendSearchParams) HasFacets() bool {
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
 func (o *RecommendSearchParams) SetFacets(v []string) *RecommendSearchParams {
 	o.Facets = v
+
 	return o
 }
 
@@ -1011,8 +1048,10 @@ func (o *RecommendSearchParams) SetFacets(v []string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetingAfterDistinct
 }
 
@@ -1022,6 +1061,7 @@ func (o *RecommendSearchParams) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
+
 	return o.FacetingAfterDistinct, true
 }
 
@@ -1037,6 +1077,7 @@ func (o *RecommendSearchParams) HasFacetingAfterDistinct() bool {
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
 func (o *RecommendSearchParams) SetFacetingAfterDistinct(v bool) *RecommendSearchParams {
 	o.FacetingAfterDistinct = &v
+
 	return o
 }
 
@@ -1044,8 +1085,10 @@ func (o *RecommendSearchParams) SetFacetingAfterDistinct(v bool) *RecommendSearc
 func (o *RecommendSearchParams) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -1055,6 +1098,7 @@ func (o *RecommendSearchParams) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -1070,6 +1114,7 @@ func (o *RecommendSearchParams) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *RecommendSearchParams) SetAroundLatLng(v string) *RecommendSearchParams {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -1077,8 +1122,10 @@ func (o *RecommendSearchParams) SetAroundLatLng(v string) *RecommendSearchParams
 func (o *RecommendSearchParams) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AroundLatLngViaIP
 }
 
@@ -1088,6 +1135,7 @@ func (o *RecommendSearchParams) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLngViaIP, true
 }
 
@@ -1103,6 +1151,7 @@ func (o *RecommendSearchParams) HasAroundLatLngViaIP() bool {
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
 func (o *RecommendSearchParams) SetAroundLatLngViaIP(v bool) *RecommendSearchParams {
 	o.AroundLatLngViaIP = &v
+
 	return o
 }
 
@@ -1110,8 +1159,10 @@ func (o *RecommendSearchParams) SetAroundLatLngViaIP(v bool) *RecommendSearchPar
 func (o *RecommendSearchParams) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -1121,6 +1172,7 @@ func (o *RecommendSearchParams) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -1136,6 +1188,7 @@ func (o *RecommendSearchParams) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *RecommendSearchParams) SetAroundRadius(v *AroundRadius) *RecommendSearchParams {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -1143,8 +1196,10 @@ func (o *RecommendSearchParams) SetAroundRadius(v *AroundRadius) *RecommendSearc
 func (o *RecommendSearchParams) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
+
 		return ret
 	}
+
 	return *o.AroundPrecision
 }
 
@@ -1154,6 +1209,7 @@ func (o *RecommendSearchParams) GetAroundPrecisionOk() (*AroundPrecision, bool) 
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
+
 	return o.AroundPrecision, true
 }
 
@@ -1169,6 +1225,7 @@ func (o *RecommendSearchParams) HasAroundPrecision() bool {
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
 func (o *RecommendSearchParams) SetAroundPrecision(v *AroundPrecision) *RecommendSearchParams {
 	o.AroundPrecision = v
+
 	return o
 }
 
@@ -1176,8 +1233,10 @@ func (o *RecommendSearchParams) SetAroundPrecision(v *AroundPrecision) *Recommen
 func (o *RecommendSearchParams) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinimumAroundRadius
 }
 
@@ -1187,6 +1246,7 @@ func (o *RecommendSearchParams) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
+
 	return o.MinimumAroundRadius, true
 }
 
@@ -1202,6 +1262,7 @@ func (o *RecommendSearchParams) HasMinimumAroundRadius() bool {
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
 func (o *RecommendSearchParams) SetMinimumAroundRadius(v int32) *RecommendSearchParams {
 	o.MinimumAroundRadius = &v
+
 	return o
 }
 
@@ -1209,8 +1270,10 @@ func (o *RecommendSearchParams) SetMinimumAroundRadius(v int32) *RecommendSearch
 func (o *RecommendSearchParams) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -1221,6 +1284,7 @@ func (o *RecommendSearchParams) GetInsideBoundingBoxOk() (*InsideBoundingBox, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -1236,6 +1300,7 @@ func (o *RecommendSearchParams) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *RecommendSearchParams) SetInsideBoundingBox(v *InsideBoundingBox) *RecommendSearchParams {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -1253,8 +1318,10 @@ func (o *RecommendSearchParams) UnsetInsideBoundingBox() {
 func (o *RecommendSearchParams) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -1264,6 +1331,7 @@ func (o *RecommendSearchParams) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -1279,6 +1347,7 @@ func (o *RecommendSearchParams) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *RecommendSearchParams) SetInsidePolygon(v [][]float64) *RecommendSearchParams {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -1286,8 +1355,10 @@ func (o *RecommendSearchParams) SetInsidePolygon(v [][]float64) *RecommendSearch
 func (o *RecommendSearchParams) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -1297,6 +1368,7 @@ func (o *RecommendSearchParams) GetNaturalLanguagesOk() ([]SupportedLanguage, bo
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -1312,6 +1384,7 @@ func (o *RecommendSearchParams) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *RecommendSearchParams) SetNaturalLanguages(v []SupportedLanguage) *RecommendSearchParams {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -1319,8 +1392,10 @@ func (o *RecommendSearchParams) SetNaturalLanguages(v []SupportedLanguage) *Reco
 func (o *RecommendSearchParams) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -1330,6 +1405,7 @@ func (o *RecommendSearchParams) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -1345,6 +1421,7 @@ func (o *RecommendSearchParams) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *RecommendSearchParams) SetRuleContexts(v []string) *RecommendSearchParams {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -1352,8 +1429,10 @@ func (o *RecommendSearchParams) SetRuleContexts(v []string) *RecommendSearchPara
 func (o *RecommendSearchParams) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PersonalizationImpact
 }
 
@@ -1363,6 +1442,7 @@ func (o *RecommendSearchParams) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
+
 	return o.PersonalizationImpact, true
 }
 
@@ -1378,6 +1458,7 @@ func (o *RecommendSearchParams) HasPersonalizationImpact() bool {
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
 func (o *RecommendSearchParams) SetPersonalizationImpact(v int32) *RecommendSearchParams {
 	o.PersonalizationImpact = &v
+
 	return o
 }
 
@@ -1385,8 +1466,10 @@ func (o *RecommendSearchParams) SetPersonalizationImpact(v int32) *RecommendSear
 func (o *RecommendSearchParams) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -1396,6 +1479,7 @@ func (o *RecommendSearchParams) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -1411,6 +1495,7 @@ func (o *RecommendSearchParams) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *RecommendSearchParams) SetUserToken(v string) *RecommendSearchParams {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -1418,8 +1503,10 @@ func (o *RecommendSearchParams) SetUserToken(v string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -1429,6 +1516,7 @@ func (o *RecommendSearchParams) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -1444,6 +1532,7 @@ func (o *RecommendSearchParams) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *RecommendSearchParams) SetGetRankingInfo(v bool) *RecommendSearchParams {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -1451,8 +1540,10 @@ func (o *RecommendSearchParams) SetGetRankingInfo(v bool) *RecommendSearchParams
 func (o *RecommendSearchParams) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Synonyms
 }
 
@@ -1462,6 +1553,7 @@ func (o *RecommendSearchParams) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -1477,6 +1569,7 @@ func (o *RecommendSearchParams) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
 func (o *RecommendSearchParams) SetSynonyms(v bool) *RecommendSearchParams {
 	o.Synonyms = &v
+
 	return o
 }
 
@@ -1484,8 +1577,10 @@ func (o *RecommendSearchParams) SetSynonyms(v bool) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -1495,6 +1590,7 @@ func (o *RecommendSearchParams) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -1510,6 +1606,7 @@ func (o *RecommendSearchParams) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *RecommendSearchParams) SetClickAnalytics(v bool) *RecommendSearchParams {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -1517,8 +1614,10 @@ func (o *RecommendSearchParams) SetClickAnalytics(v bool) *RecommendSearchParams
 func (o *RecommendSearchParams) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -1528,6 +1627,7 @@ func (o *RecommendSearchParams) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -1543,6 +1643,7 @@ func (o *RecommendSearchParams) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *RecommendSearchParams) SetAnalytics(v bool) *RecommendSearchParams {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -1550,8 +1651,10 @@ func (o *RecommendSearchParams) SetAnalytics(v bool) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AnalyticsTags
 }
 
@@ -1561,6 +1664,7 @@ func (o *RecommendSearchParams) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
+
 	return o.AnalyticsTags, true
 }
 
@@ -1576,6 +1680,7 @@ func (o *RecommendSearchParams) HasAnalyticsTags() bool {
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
 func (o *RecommendSearchParams) SetAnalyticsTags(v []string) *RecommendSearchParams {
 	o.AnalyticsTags = v
+
 	return o
 }
 
@@ -1583,8 +1688,10 @@ func (o *RecommendSearchParams) SetAnalyticsTags(v []string) *RecommendSearchPar
 func (o *RecommendSearchParams) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PercentileComputation
 }
 
@@ -1594,6 +1701,7 @@ func (o *RecommendSearchParams) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
+
 	return o.PercentileComputation, true
 }
 
@@ -1609,6 +1717,7 @@ func (o *RecommendSearchParams) HasPercentileComputation() bool {
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
 func (o *RecommendSearchParams) SetPercentileComputation(v bool) *RecommendSearchParams {
 	o.PercentileComputation = &v
+
 	return o
 }
 
@@ -1616,8 +1725,10 @@ func (o *RecommendSearchParams) SetPercentileComputation(v bool) *RecommendSearc
 func (o *RecommendSearchParams) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -1627,6 +1738,7 @@ func (o *RecommendSearchParams) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -1642,6 +1754,7 @@ func (o *RecommendSearchParams) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *RecommendSearchParams) SetEnableABTest(v bool) *RecommendSearchParams {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -1649,8 +1762,10 @@ func (o *RecommendSearchParams) SetEnableABTest(v bool) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -1660,6 +1775,7 @@ func (o *RecommendSearchParams) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -1675,6 +1791,7 @@ func (o *RecommendSearchParams) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *RecommendSearchParams) SetQuery(v string) *RecommendSearchParams {
 	o.Query = &v
+
 	return o
 }
 
@@ -1682,8 +1799,10 @@ func (o *RecommendSearchParams) SetQuery(v string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetAttributesForFaceting() []string {
 	if o == nil || o.AttributesForFaceting == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesForFaceting
 }
 
@@ -1693,6 +1812,7 @@ func (o *RecommendSearchParams) GetAttributesForFacetingOk() ([]string, bool) {
 	if o == nil || o.AttributesForFaceting == nil {
 		return nil, false
 	}
+
 	return o.AttributesForFaceting, true
 }
 
@@ -1708,6 +1828,7 @@ func (o *RecommendSearchParams) HasAttributesForFaceting() bool {
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
 func (o *RecommendSearchParams) SetAttributesForFaceting(v []string) *RecommendSearchParams {
 	o.AttributesForFaceting = v
+
 	return o
 }
 
@@ -1715,8 +1836,10 @@ func (o *RecommendSearchParams) SetAttributesForFaceting(v []string) *RecommendS
 func (o *RecommendSearchParams) GetReplicas() []string {
 	if o == nil || o.Replicas == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replicas
 }
 
@@ -1726,6 +1849,7 @@ func (o *RecommendSearchParams) GetReplicasOk() ([]string, bool) {
 	if o == nil || o.Replicas == nil {
 		return nil, false
 	}
+
 	return o.Replicas, true
 }
 
@@ -1741,6 +1865,7 @@ func (o *RecommendSearchParams) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *RecommendSearchParams) SetReplicas(v []string) *RecommendSearchParams {
 	o.Replicas = v
+
 	return o
 }
 
@@ -1748,8 +1873,10 @@ func (o *RecommendSearchParams) SetReplicas(v []string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetPaginationLimitedTo() int32 {
 	if o == nil || o.PaginationLimitedTo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PaginationLimitedTo
 }
 
@@ -1759,6 +1886,7 @@ func (o *RecommendSearchParams) GetPaginationLimitedToOk() (*int32, bool) {
 	if o == nil || o.PaginationLimitedTo == nil {
 		return nil, false
 	}
+
 	return o.PaginationLimitedTo, true
 }
 
@@ -1774,6 +1902,7 @@ func (o *RecommendSearchParams) HasPaginationLimitedTo() bool {
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
 func (o *RecommendSearchParams) SetPaginationLimitedTo(v int32) *RecommendSearchParams {
 	o.PaginationLimitedTo = &v
+
 	return o
 }
 
@@ -1781,8 +1910,10 @@ func (o *RecommendSearchParams) SetPaginationLimitedTo(v int32) *RecommendSearch
 func (o *RecommendSearchParams) GetUnretrievableAttributes() []string {
 	if o == nil || o.UnretrievableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.UnretrievableAttributes
 }
 
@@ -1792,6 +1923,7 @@ func (o *RecommendSearchParams) GetUnretrievableAttributesOk() ([]string, bool) 
 	if o == nil || o.UnretrievableAttributes == nil {
 		return nil, false
 	}
+
 	return o.UnretrievableAttributes, true
 }
 
@@ -1807,6 +1939,7 @@ func (o *RecommendSearchParams) HasUnretrievableAttributes() bool {
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
 func (o *RecommendSearchParams) SetUnretrievableAttributes(v []string) *RecommendSearchParams {
 	o.UnretrievableAttributes = v
+
 	return o
 }
 
@@ -1814,8 +1947,10 @@ func (o *RecommendSearchParams) SetUnretrievableAttributes(v []string) *Recommen
 func (o *RecommendSearchParams) GetDisableTypoToleranceOnWords() []string {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnWords
 }
 
@@ -1825,6 +1960,7 @@ func (o *RecommendSearchParams) GetDisableTypoToleranceOnWordsOk() ([]string, bo
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnWords, true
 }
 
@@ -1840,6 +1976,7 @@ func (o *RecommendSearchParams) HasDisableTypoToleranceOnWords() bool {
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
 func (o *RecommendSearchParams) SetDisableTypoToleranceOnWords(v []string) *RecommendSearchParams {
 	o.DisableTypoToleranceOnWords = v
+
 	return o
 }
 
@@ -1847,8 +1984,10 @@ func (o *RecommendSearchParams) SetDisableTypoToleranceOnWords(v []string) *Reco
 func (o *RecommendSearchParams) GetAttributesToTransliterate() []string {
 	if o == nil || o.AttributesToTransliterate == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToTransliterate
 }
 
@@ -1858,6 +1997,7 @@ func (o *RecommendSearchParams) GetAttributesToTransliterateOk() ([]string, bool
 	if o == nil || o.AttributesToTransliterate == nil {
 		return nil, false
 	}
+
 	return o.AttributesToTransliterate, true
 }
 
@@ -1873,6 +2013,7 @@ func (o *RecommendSearchParams) HasAttributesToTransliterate() bool {
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
 func (o *RecommendSearchParams) SetAttributesToTransliterate(v []string) *RecommendSearchParams {
 	o.AttributesToTransliterate = v
+
 	return o
 }
 
@@ -1880,8 +2021,10 @@ func (o *RecommendSearchParams) SetAttributesToTransliterate(v []string) *Recomm
 func (o *RecommendSearchParams) GetCamelCaseAttributes() []string {
 	if o == nil || o.CamelCaseAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CamelCaseAttributes
 }
 
@@ -1891,6 +2034,7 @@ func (o *RecommendSearchParams) GetCamelCaseAttributesOk() ([]string, bool) {
 	if o == nil || o.CamelCaseAttributes == nil {
 		return nil, false
 	}
+
 	return o.CamelCaseAttributes, true
 }
 
@@ -1906,6 +2050,7 @@ func (o *RecommendSearchParams) HasCamelCaseAttributes() bool {
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
 func (o *RecommendSearchParams) SetCamelCaseAttributes(v []string) *RecommendSearchParams {
 	o.CamelCaseAttributes = v
+
 	return o
 }
 
@@ -1913,8 +2058,10 @@ func (o *RecommendSearchParams) SetCamelCaseAttributes(v []string) *RecommendSea
 func (o *RecommendSearchParams) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.DecompoundedAttributes
 }
 
@@ -1924,6 +2071,7 @@ func (o *RecommendSearchParams) GetDecompoundedAttributesOk() (map[string]any, b
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
+
 	return o.DecompoundedAttributes, true
 }
 
@@ -1939,6 +2087,7 @@ func (o *RecommendSearchParams) HasDecompoundedAttributes() bool {
 // SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
 func (o *RecommendSearchParams) SetDecompoundedAttributes(v map[string]any) *RecommendSearchParams {
 	o.DecompoundedAttributes = v
+
 	return o
 }
 
@@ -1946,8 +2095,10 @@ func (o *RecommendSearchParams) SetDecompoundedAttributes(v map[string]any) *Rec
 func (o *RecommendSearchParams) GetIndexLanguages() []SupportedLanguage {
 	if o == nil || o.IndexLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.IndexLanguages
 }
 
@@ -1957,6 +2108,7 @@ func (o *RecommendSearchParams) GetIndexLanguagesOk() ([]SupportedLanguage, bool
 	if o == nil || o.IndexLanguages == nil {
 		return nil, false
 	}
+
 	return o.IndexLanguages, true
 }
 
@@ -1972,6 +2124,7 @@ func (o *RecommendSearchParams) HasIndexLanguages() bool {
 // SetIndexLanguages gets a reference to the given []SupportedLanguage and assigns it to the IndexLanguages field.
 func (o *RecommendSearchParams) SetIndexLanguages(v []SupportedLanguage) *RecommendSearchParams {
 	o.IndexLanguages = v
+
 	return o
 }
 
@@ -1979,8 +2132,10 @@ func (o *RecommendSearchParams) SetIndexLanguages(v []SupportedLanguage) *Recomm
 func (o *RecommendSearchParams) GetDisablePrefixOnAttributes() []string {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisablePrefixOnAttributes
 }
 
@@ -1990,6 +2145,7 @@ func (o *RecommendSearchParams) GetDisablePrefixOnAttributesOk() ([]string, bool
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisablePrefixOnAttributes, true
 }
 
@@ -2005,6 +2161,7 @@ func (o *RecommendSearchParams) HasDisablePrefixOnAttributes() bool {
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
 func (o *RecommendSearchParams) SetDisablePrefixOnAttributes(v []string) *RecommendSearchParams {
 	o.DisablePrefixOnAttributes = v
+
 	return o
 }
 
@@ -2012,8 +2169,10 @@ func (o *RecommendSearchParams) SetDisablePrefixOnAttributes(v []string) *Recomm
 func (o *RecommendSearchParams) GetAllowCompressionOfIntegerArray() bool {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowCompressionOfIntegerArray
 }
 
@@ -2023,6 +2182,7 @@ func (o *RecommendSearchParams) GetAllowCompressionOfIntegerArrayOk() (*bool, bo
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		return nil, false
 	}
+
 	return o.AllowCompressionOfIntegerArray, true
 }
 
@@ -2038,6 +2198,7 @@ func (o *RecommendSearchParams) HasAllowCompressionOfIntegerArray() bool {
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
 func (o *RecommendSearchParams) SetAllowCompressionOfIntegerArray(v bool) *RecommendSearchParams {
 	o.AllowCompressionOfIntegerArray = &v
+
 	return o
 }
 
@@ -2045,8 +2206,10 @@ func (o *RecommendSearchParams) SetAllowCompressionOfIntegerArray(v bool) *Recom
 func (o *RecommendSearchParams) GetNumericAttributesForFiltering() []string {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.NumericAttributesForFiltering
 }
 
@@ -2056,6 +2219,7 @@ func (o *RecommendSearchParams) GetNumericAttributesForFilteringOk() ([]string, 
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		return nil, false
 	}
+
 	return o.NumericAttributesForFiltering, true
 }
 
@@ -2071,6 +2235,7 @@ func (o *RecommendSearchParams) HasNumericAttributesForFiltering() bool {
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
 func (o *RecommendSearchParams) SetNumericAttributesForFiltering(v []string) *RecommendSearchParams {
 	o.NumericAttributesForFiltering = v
+
 	return o
 }
 
@@ -2078,8 +2243,10 @@ func (o *RecommendSearchParams) SetNumericAttributesForFiltering(v []string) *Re
 func (o *RecommendSearchParams) GetSeparatorsToIndex() string {
 	if o == nil || o.SeparatorsToIndex == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SeparatorsToIndex
 }
 
@@ -2089,6 +2256,7 @@ func (o *RecommendSearchParams) GetSeparatorsToIndexOk() (*string, bool) {
 	if o == nil || o.SeparatorsToIndex == nil {
 		return nil, false
 	}
+
 	return o.SeparatorsToIndex, true
 }
 
@@ -2104,6 +2272,7 @@ func (o *RecommendSearchParams) HasSeparatorsToIndex() bool {
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
 func (o *RecommendSearchParams) SetSeparatorsToIndex(v string) *RecommendSearchParams {
 	o.SeparatorsToIndex = &v
+
 	return o
 }
 
@@ -2111,8 +2280,10 @@ func (o *RecommendSearchParams) SetSeparatorsToIndex(v string) *RecommendSearchP
 func (o *RecommendSearchParams) GetSearchableAttributes() []string {
 	if o == nil || o.SearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.SearchableAttributes
 }
 
@@ -2122,6 +2293,7 @@ func (o *RecommendSearchParams) GetSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.SearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.SearchableAttributes, true
 }
 
@@ -2137,6 +2309,7 @@ func (o *RecommendSearchParams) HasSearchableAttributes() bool {
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
 func (o *RecommendSearchParams) SetSearchableAttributes(v []string) *RecommendSearchParams {
 	o.SearchableAttributes = v
+
 	return o
 }
 
@@ -2144,8 +2317,10 @@ func (o *RecommendSearchParams) SetSearchableAttributes(v []string) *RecommendSe
 func (o *RecommendSearchParams) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -2156,6 +2331,7 @@ func (o *RecommendSearchParams) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -2171,6 +2347,7 @@ func (o *RecommendSearchParams) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *RecommendSearchParams) SetUserData(v any) *RecommendSearchParams {
 	o.UserData = v
+
 	return o
 }
 
@@ -2178,8 +2355,10 @@ func (o *RecommendSearchParams) SetUserData(v any) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetCustomNormalization() map[string]map[string]string {
 	if o == nil || o.CustomNormalization == nil {
 		var ret map[string]map[string]string
+
 		return ret
 	}
+
 	return *o.CustomNormalization
 }
 
@@ -2189,6 +2368,7 @@ func (o *RecommendSearchParams) GetCustomNormalizationOk() (*map[string]map[stri
 	if o == nil || o.CustomNormalization == nil {
 		return nil, false
 	}
+
 	return o.CustomNormalization, true
 }
 
@@ -2204,6 +2384,7 @@ func (o *RecommendSearchParams) HasCustomNormalization() bool {
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
 func (o *RecommendSearchParams) SetCustomNormalization(v map[string]map[string]string) *RecommendSearchParams {
 	o.CustomNormalization = &v
+
 	return o
 }
 
@@ -2211,8 +2392,10 @@ func (o *RecommendSearchParams) SetCustomNormalization(v map[string]map[string]s
 func (o *RecommendSearchParams) GetAttributeForDistinct() string {
 	if o == nil || o.AttributeForDistinct == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AttributeForDistinct
 }
 
@@ -2222,6 +2405,7 @@ func (o *RecommendSearchParams) GetAttributeForDistinctOk() (*string, bool) {
 	if o == nil || o.AttributeForDistinct == nil {
 		return nil, false
 	}
+
 	return o.AttributeForDistinct, true
 }
 
@@ -2237,6 +2421,7 @@ func (o *RecommendSearchParams) HasAttributeForDistinct() bool {
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
 func (o *RecommendSearchParams) SetAttributeForDistinct(v string) *RecommendSearchParams {
 	o.AttributeForDistinct = &v
+
 	return o
 }
 
@@ -2244,8 +2429,10 @@ func (o *RecommendSearchParams) SetAttributeForDistinct(v string) *RecommendSear
 func (o *RecommendSearchParams) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -2255,6 +2442,7 @@ func (o *RecommendSearchParams) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -2270,6 +2458,7 @@ func (o *RecommendSearchParams) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *RecommendSearchParams) SetMaxFacetHits(v int32) *RecommendSearchParams {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -2277,8 +2466,10 @@ func (o *RecommendSearchParams) SetMaxFacetHits(v int32) *RecommendSearchParams 
 func (o *RecommendSearchParams) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.KeepDiacriticsOnCharacters
 }
 
@@ -2288,6 +2479,7 @@ func (o *RecommendSearchParams) GetKeepDiacriticsOnCharactersOk() (*string, bool
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
+
 	return o.KeepDiacriticsOnCharacters, true
 }
 
@@ -2303,6 +2495,7 @@ func (o *RecommendSearchParams) HasKeepDiacriticsOnCharacters() bool {
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
 func (o *RecommendSearchParams) SetKeepDiacriticsOnCharacters(v string) *RecommendSearchParams {
 	o.KeepDiacriticsOnCharacters = &v
+
 	return o
 }
 
@@ -2310,8 +2503,10 @@ func (o *RecommendSearchParams) SetKeepDiacriticsOnCharacters(v string) *Recomme
 func (o *RecommendSearchParams) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CustomRanking
 }
 
@@ -2321,6 +2516,7 @@ func (o *RecommendSearchParams) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
+
 	return o.CustomRanking, true
 }
 
@@ -2336,6 +2532,7 @@ func (o *RecommendSearchParams) HasCustomRanking() bool {
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
 func (o *RecommendSearchParams) SetCustomRanking(v []string) *RecommendSearchParams {
 	o.CustomRanking = v
+
 	return o
 }
 
@@ -2343,8 +2540,10 @@ func (o *RecommendSearchParams) SetCustomRanking(v []string) *RecommendSearchPar
 func (o *RecommendSearchParams) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -2354,6 +2553,7 @@ func (o *RecommendSearchParams) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -2369,6 +2569,7 @@ func (o *RecommendSearchParams) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *RecommendSearchParams) SetAttributesToRetrieve(v []string) *RecommendSearchParams {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -2376,8 +2577,10 @@ func (o *RecommendSearchParams) SetAttributesToRetrieve(v []string) *RecommendSe
 func (o *RecommendSearchParams) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -2387,6 +2590,7 @@ func (o *RecommendSearchParams) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -2402,6 +2606,7 @@ func (o *RecommendSearchParams) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *RecommendSearchParams) SetRanking(v []string) *RecommendSearchParams {
 	o.Ranking = v
+
 	return o
 }
 
@@ -2409,8 +2614,10 @@ func (o *RecommendSearchParams) SetRanking(v []string) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -2420,6 +2627,7 @@ func (o *RecommendSearchParams) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -2435,6 +2643,7 @@ func (o *RecommendSearchParams) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *RecommendSearchParams) SetRelevancyStrictness(v int32) *RecommendSearchParams {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -2442,8 +2651,10 @@ func (o *RecommendSearchParams) SetRelevancyStrictness(v int32) *RecommendSearch
 func (o *RecommendSearchParams) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -2453,6 +2664,7 @@ func (o *RecommendSearchParams) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -2468,6 +2680,7 @@ func (o *RecommendSearchParams) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *RecommendSearchParams) SetAttributesToHighlight(v []string) *RecommendSearchParams {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -2475,8 +2688,10 @@ func (o *RecommendSearchParams) SetAttributesToHighlight(v []string) *RecommendS
 func (o *RecommendSearchParams) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -2486,6 +2701,7 @@ func (o *RecommendSearchParams) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -2501,6 +2717,7 @@ func (o *RecommendSearchParams) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *RecommendSearchParams) SetAttributesToSnippet(v []string) *RecommendSearchParams {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -2508,8 +2725,10 @@ func (o *RecommendSearchParams) SetAttributesToSnippet(v []string) *RecommendSea
 func (o *RecommendSearchParams) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -2519,6 +2738,7 @@ func (o *RecommendSearchParams) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -2534,6 +2754,7 @@ func (o *RecommendSearchParams) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *RecommendSearchParams) SetHighlightPreTag(v string) *RecommendSearchParams {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -2541,8 +2762,10 @@ func (o *RecommendSearchParams) SetHighlightPreTag(v string) *RecommendSearchPar
 func (o *RecommendSearchParams) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -2552,6 +2775,7 @@ func (o *RecommendSearchParams) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -2567,6 +2791,7 @@ func (o *RecommendSearchParams) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *RecommendSearchParams) SetHighlightPostTag(v string) *RecommendSearchParams {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -2574,8 +2799,10 @@ func (o *RecommendSearchParams) SetHighlightPostTag(v string) *RecommendSearchPa
 func (o *RecommendSearchParams) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -2585,6 +2812,7 @@ func (o *RecommendSearchParams) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -2600,6 +2828,7 @@ func (o *RecommendSearchParams) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *RecommendSearchParams) SetSnippetEllipsisText(v string) *RecommendSearchParams {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -2607,8 +2836,10 @@ func (o *RecommendSearchParams) SetSnippetEllipsisText(v string) *RecommendSearc
 func (o *RecommendSearchParams) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -2618,6 +2849,7 @@ func (o *RecommendSearchParams) GetRestrictHighlightAndSnippetArraysOk() (*bool,
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -2633,6 +2865,7 @@ func (o *RecommendSearchParams) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *RecommendSearchParams) SetRestrictHighlightAndSnippetArrays(v bool) *RecommendSearchParams {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -2640,8 +2873,10 @@ func (o *RecommendSearchParams) SetRestrictHighlightAndSnippetArrays(v bool) *Re
 func (o *RecommendSearchParams) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -2651,6 +2886,7 @@ func (o *RecommendSearchParams) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -2666,6 +2902,7 @@ func (o *RecommendSearchParams) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *RecommendSearchParams) SetMinWordSizefor1Typo(v int32) *RecommendSearchParams {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -2673,8 +2910,10 @@ func (o *RecommendSearchParams) SetMinWordSizefor1Typo(v int32) *RecommendSearch
 func (o *RecommendSearchParams) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -2684,6 +2923,7 @@ func (o *RecommendSearchParams) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -2699,6 +2939,7 @@ func (o *RecommendSearchParams) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *RecommendSearchParams) SetMinWordSizefor2Typos(v int32) *RecommendSearchParams {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -2706,8 +2947,10 @@ func (o *RecommendSearchParams) SetMinWordSizefor2Typos(v int32) *RecommendSearc
 func (o *RecommendSearchParams) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -2717,6 +2960,7 @@ func (o *RecommendSearchParams) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -2732,6 +2976,7 @@ func (o *RecommendSearchParams) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *RecommendSearchParams) SetTypoTolerance(v *TypoTolerance) *RecommendSearchParams {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -2739,8 +2984,10 @@ func (o *RecommendSearchParams) SetTypoTolerance(v *TypoTolerance) *RecommendSea
 func (o *RecommendSearchParams) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -2750,6 +2997,7 @@ func (o *RecommendSearchParams) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -2765,6 +3013,7 @@ func (o *RecommendSearchParams) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *RecommendSearchParams) SetAllowTyposOnNumericTokens(v bool) *RecommendSearchParams {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -2772,8 +3021,10 @@ func (o *RecommendSearchParams) SetAllowTyposOnNumericTokens(v bool) *RecommendS
 func (o *RecommendSearchParams) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -2783,6 +3034,7 @@ func (o *RecommendSearchParams) GetDisableTypoToleranceOnAttributesOk() ([]strin
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -2798,6 +3050,7 @@ func (o *RecommendSearchParams) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *RecommendSearchParams) SetDisableTypoToleranceOnAttributes(v []string) *RecommendSearchParams {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -2805,8 +3058,10 @@ func (o *RecommendSearchParams) SetDisableTypoToleranceOnAttributes(v []string) 
 func (o *RecommendSearchParams) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -2816,6 +3071,7 @@ func (o *RecommendSearchParams) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -2831,6 +3087,7 @@ func (o *RecommendSearchParams) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *RecommendSearchParams) SetIgnorePlurals(v *IgnorePlurals) *RecommendSearchParams {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -2838,8 +3095,10 @@ func (o *RecommendSearchParams) SetIgnorePlurals(v *IgnorePlurals) *RecommendSea
 func (o *RecommendSearchParams) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -2849,6 +3108,7 @@ func (o *RecommendSearchParams) GetRemoveStopWordsOk() (*RemoveStopWords, bool) 
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -2864,6 +3124,7 @@ func (o *RecommendSearchParams) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *RecommendSearchParams) SetRemoveStopWords(v *RemoveStopWords) *RecommendSearchParams {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -2871,8 +3132,10 @@ func (o *RecommendSearchParams) SetRemoveStopWords(v *RemoveStopWords) *Recommen
 func (o *RecommendSearchParams) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -2882,6 +3145,7 @@ func (o *RecommendSearchParams) GetQueryLanguagesOk() ([]SupportedLanguage, bool
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -2897,6 +3161,7 @@ func (o *RecommendSearchParams) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *RecommendSearchParams) SetQueryLanguages(v []SupportedLanguage) *RecommendSearchParams {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -2904,8 +3169,10 @@ func (o *RecommendSearchParams) SetQueryLanguages(v []SupportedLanguage) *Recomm
 func (o *RecommendSearchParams) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -2915,6 +3182,7 @@ func (o *RecommendSearchParams) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -2930,6 +3198,7 @@ func (o *RecommendSearchParams) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *RecommendSearchParams) SetDecompoundQuery(v bool) *RecommendSearchParams {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -2937,8 +3206,10 @@ func (o *RecommendSearchParams) SetDecompoundQuery(v bool) *RecommendSearchParam
 func (o *RecommendSearchParams) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -2948,6 +3219,7 @@ func (o *RecommendSearchParams) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -2963,6 +3235,7 @@ func (o *RecommendSearchParams) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *RecommendSearchParams) SetEnableRules(v bool) *RecommendSearchParams {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -2970,8 +3243,10 @@ func (o *RecommendSearchParams) SetEnableRules(v bool) *RecommendSearchParams {
 func (o *RecommendSearchParams) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -2981,6 +3256,7 @@ func (o *RecommendSearchParams) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -2996,6 +3272,7 @@ func (o *RecommendSearchParams) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *RecommendSearchParams) SetEnablePersonalization(v bool) *RecommendSearchParams {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -3003,8 +3280,10 @@ func (o *RecommendSearchParams) SetEnablePersonalization(v bool) *RecommendSearc
 func (o *RecommendSearchParams) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -3014,6 +3293,7 @@ func (o *RecommendSearchParams) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -3029,6 +3309,7 @@ func (o *RecommendSearchParams) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *RecommendSearchParams) SetQueryType(v QueryType) *RecommendSearchParams {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -3036,8 +3317,10 @@ func (o *RecommendSearchParams) SetQueryType(v QueryType) *RecommendSearchParams
 func (o *RecommendSearchParams) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -3047,6 +3330,7 @@ func (o *RecommendSearchParams) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoR
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -3062,6 +3346,7 @@ func (o *RecommendSearchParams) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *RecommendSearchParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *RecommendSearchParams {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -3069,8 +3354,10 @@ func (o *RecommendSearchParams) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResul
 func (o *RecommendSearchParams) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -3080,6 +3367,7 @@ func (o *RecommendSearchParams) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -3095,6 +3383,7 @@ func (o *RecommendSearchParams) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *RecommendSearchParams) SetAdvancedSyntax(v bool) *RecommendSearchParams {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -3102,8 +3391,10 @@ func (o *RecommendSearchParams) SetAdvancedSyntax(v bool) *RecommendSearchParams
 func (o *RecommendSearchParams) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -3114,6 +3405,7 @@ func (o *RecommendSearchParams) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -3129,6 +3421,7 @@ func (o *RecommendSearchParams) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *RecommendSearchParams) SetOptionalWords(v *OptionalWords) *RecommendSearchParams {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -3146,8 +3439,10 @@ func (o *RecommendSearchParams) UnsetOptionalWords() {
 func (o *RecommendSearchParams) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -3157,6 +3452,7 @@ func (o *RecommendSearchParams) GetDisableExactOnAttributesOk() ([]string, bool)
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -3172,6 +3468,7 @@ func (o *RecommendSearchParams) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *RecommendSearchParams) SetDisableExactOnAttributes(v []string) *RecommendSearchParams {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -3179,8 +3476,10 @@ func (o *RecommendSearchParams) SetDisableExactOnAttributes(v []string) *Recomme
 func (o *RecommendSearchParams) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -3190,6 +3489,7 @@ func (o *RecommendSearchParams) GetExactOnSingleWordQueryOk() (*ExactOnSingleWor
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -3205,6 +3505,7 @@ func (o *RecommendSearchParams) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *RecommendSearchParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *RecommendSearchParams {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -3212,8 +3513,10 @@ func (o *RecommendSearchParams) SetExactOnSingleWordQuery(v ExactOnSingleWordQue
 func (o *RecommendSearchParams) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -3223,6 +3526,7 @@ func (o *RecommendSearchParams) GetAlternativesAsExactOk() ([]AlternativesAsExac
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -3238,6 +3542,7 @@ func (o *RecommendSearchParams) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *RecommendSearchParams) SetAlternativesAsExact(v []AlternativesAsExact) *RecommendSearchParams {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -3245,8 +3550,10 @@ func (o *RecommendSearchParams) SetAlternativesAsExact(v []AlternativesAsExact) 
 func (o *RecommendSearchParams) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -3256,6 +3563,7 @@ func (o *RecommendSearchParams) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxF
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -3271,6 +3579,7 @@ func (o *RecommendSearchParams) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *RecommendSearchParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *RecommendSearchParams {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -3278,8 +3587,10 @@ func (o *RecommendSearchParams) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeat
 func (o *RecommendSearchParams) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -3289,6 +3600,7 @@ func (o *RecommendSearchParams) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -3304,6 +3616,7 @@ func (o *RecommendSearchParams) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *RecommendSearchParams) SetDistinct(v *Distinct) *RecommendSearchParams {
 	o.Distinct = v
+
 	return o
 }
 
@@ -3311,8 +3624,10 @@ func (o *RecommendSearchParams) SetDistinct(v *Distinct) *RecommendSearchParams 
 func (o *RecommendSearchParams) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -3322,6 +3637,7 @@ func (o *RecommendSearchParams) GetReplaceSynonymsInHighlightOk() (*bool, bool) 
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -3337,6 +3653,7 @@ func (o *RecommendSearchParams) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *RecommendSearchParams) SetReplaceSynonymsInHighlight(v bool) *RecommendSearchParams {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -3344,8 +3661,10 @@ func (o *RecommendSearchParams) SetReplaceSynonymsInHighlight(v bool) *Recommend
 func (o *RecommendSearchParams) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -3355,6 +3674,7 @@ func (o *RecommendSearchParams) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -3370,6 +3690,7 @@ func (o *RecommendSearchParams) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *RecommendSearchParams) SetMinProximity(v int32) *RecommendSearchParams {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -3377,8 +3698,10 @@ func (o *RecommendSearchParams) SetMinProximity(v int32) *RecommendSearchParams 
 func (o *RecommendSearchParams) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -3388,6 +3711,7 @@ func (o *RecommendSearchParams) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -3403,6 +3727,7 @@ func (o *RecommendSearchParams) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *RecommendSearchParams) SetResponseFields(v []string) *RecommendSearchParams {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -3410,8 +3735,10 @@ func (o *RecommendSearchParams) SetResponseFields(v []string) *RecommendSearchPa
 func (o *RecommendSearchParams) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -3421,6 +3748,7 @@ func (o *RecommendSearchParams) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -3436,6 +3764,7 @@ func (o *RecommendSearchParams) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *RecommendSearchParams) SetMaxValuesPerFacet(v int32) *RecommendSearchParams {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -3443,8 +3772,10 @@ func (o *RecommendSearchParams) SetMaxValuesPerFacet(v int32) *RecommendSearchPa
 func (o *RecommendSearchParams) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -3454,6 +3785,7 @@ func (o *RecommendSearchParams) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -3469,6 +3801,7 @@ func (o *RecommendSearchParams) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *RecommendSearchParams) SetSortFacetValuesBy(v string) *RecommendSearchParams {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -3476,8 +3809,10 @@ func (o *RecommendSearchParams) SetSortFacetValuesBy(v string) *RecommendSearchP
 func (o *RecommendSearchParams) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -3487,6 +3822,7 @@ func (o *RecommendSearchParams) GetAttributeCriteriaComputedByMinProximityOk() (
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -3502,6 +3838,7 @@ func (o *RecommendSearchParams) HasAttributeCriteriaComputedByMinProximity() boo
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *RecommendSearchParams) SetAttributeCriteriaComputedByMinProximity(v bool) *RecommendSearchParams {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -3509,8 +3846,10 @@ func (o *RecommendSearchParams) SetAttributeCriteriaComputedByMinProximity(v boo
 func (o *RecommendSearchParams) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -3520,6 +3859,7 @@ func (o *RecommendSearchParams) GetRenderingContentOk() (*RenderingContent, bool
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -3535,6 +3875,7 @@ func (o *RecommendSearchParams) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *RecommendSearchParams) SetRenderingContent(v *RenderingContent) *RecommendSearchParams {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -3542,8 +3883,10 @@ func (o *RecommendSearchParams) SetRenderingContent(v *RenderingContent) *Recomm
 func (o *RecommendSearchParams) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -3553,6 +3896,7 @@ func (o *RecommendSearchParams) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -3568,6 +3912,7 @@ func (o *RecommendSearchParams) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *RecommendSearchParams) SetEnableReRanking(v bool) *RecommendSearchParams {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -3575,8 +3920,10 @@ func (o *RecommendSearchParams) SetEnableReRanking(v bool) *RecommendSearchParam
 func (o *RecommendSearchParams) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -3586,6 +3933,7 @@ func (o *RecommendSearchParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilt
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -3601,6 +3949,7 @@ func (o *RecommendSearchParams) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *RecommendSearchParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *RecommendSearchParams {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -3609,264 +3958,351 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.TagFilters != nil {
 		toSerialize["tagFilters"] = o.TagFilters
 	}
+
 	if o.SumOrFiltersScores != nil {
 		toSerialize["sumOrFiltersScores"] = o.SumOrFiltersScores
 	}
+
 	if o.RestrictSearchableAttributes != nil {
 		toSerialize["restrictSearchableAttributes"] = o.RestrictSearchableAttributes
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetingAfterDistinct != nil {
 		toSerialize["facetingAfterDistinct"] = o.FacetingAfterDistinct
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundLatLngViaIP != nil {
 		toSerialize["aroundLatLngViaIP"] = o.AroundLatLngViaIP
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.AroundPrecision != nil {
 		toSerialize["aroundPrecision"] = o.AroundPrecision
 	}
+
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AnalyticsTags != nil {
 		toSerialize["analyticsTags"] = o.AnalyticsTags
 	}
+
 	if o.PercentileComputation != nil {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.AttributesForFaceting != nil {
 		toSerialize["attributesForFaceting"] = o.AttributesForFaceting
 	}
+
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+
 	if o.PaginationLimitedTo != nil {
 		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
 	}
+
 	if o.UnretrievableAttributes != nil {
 		toSerialize["unretrievableAttributes"] = o.UnretrievableAttributes
 	}
+
 	if o.DisableTypoToleranceOnWords != nil {
 		toSerialize["disableTypoToleranceOnWords"] = o.DisableTypoToleranceOnWords
 	}
+
 	if o.AttributesToTransliterate != nil {
 		toSerialize["attributesToTransliterate"] = o.AttributesToTransliterate
 	}
+
 	if o.CamelCaseAttributes != nil {
 		toSerialize["camelCaseAttributes"] = o.CamelCaseAttributes
 	}
+
 	if o.DecompoundedAttributes != nil {
 		toSerialize["decompoundedAttributes"] = o.DecompoundedAttributes
 	}
+
 	if o.IndexLanguages != nil {
 		toSerialize["indexLanguages"] = o.IndexLanguages
 	}
+
 	if o.DisablePrefixOnAttributes != nil {
 		toSerialize["disablePrefixOnAttributes"] = o.DisablePrefixOnAttributes
 	}
+
 	if o.AllowCompressionOfIntegerArray != nil {
 		toSerialize["allowCompressionOfIntegerArray"] = o.AllowCompressionOfIntegerArray
 	}
+
 	if o.NumericAttributesForFiltering != nil {
 		toSerialize["numericAttributesForFiltering"] = o.NumericAttributesForFiltering
 	}
+
 	if o.SeparatorsToIndex != nil {
 		toSerialize["separatorsToIndex"] = o.SeparatorsToIndex
 	}
+
 	if o.SearchableAttributes != nil {
 		toSerialize["searchableAttributes"] = o.SearchableAttributes
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.CustomNormalization != nil {
 		toSerialize["customNormalization"] = o.CustomNormalization
 	}
+
 	if o.AttributeForDistinct != nil {
 		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	if o.KeepDiacriticsOnCharacters != nil {
 		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
 	}
+
 	if o.CustomRanking != nil {
 		toSerialize["customRanking"] = o.CustomRanking
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendSearchParams: %w", err)
@@ -3964,5 +4400,6 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+
 	return fmt.Sprintf("RecommendSearchParams {\n%s}", out)
 }

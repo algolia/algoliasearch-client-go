@@ -22,6 +22,7 @@ func NewAuthGoogleServiceAccount(clientEmail string, privateKey string) *AuthGoo
 	this := &AuthGoogleServiceAccount{}
 	this.ClientEmail = clientEmail
 	this.PrivateKey = privateKey
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyAuthGoogleServiceAccount() *AuthGoogleServiceAccount {
 func (o *AuthGoogleServiceAccount) GetClientEmail() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *AuthGoogleServiceAccount) GetClientEmailOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClientEmail, true
 }
 
 // SetClientEmail sets field value.
 func (o *AuthGoogleServiceAccount) SetClientEmail(v string) *AuthGoogleServiceAccount {
 	o.ClientEmail = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *AuthGoogleServiceAccount) SetClientEmail(v string) *AuthGoogleServiceAc
 func (o *AuthGoogleServiceAccount) GetPrivateKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *AuthGoogleServiceAccount) GetPrivateKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PrivateKey, true
 }
 
 // SetPrivateKey sets field value.
 func (o *AuthGoogleServiceAccount) SetPrivateKey(v string) *AuthGoogleServiceAccount {
 	o.PrivateKey = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o AuthGoogleServiceAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["clientEmail"] = o.ClientEmail
 	toSerialize["privateKey"] = o.PrivateKey
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthGoogleServiceAccount: %w", err)
@@ -96,5 +104,6 @@ func (o AuthGoogleServiceAccount) String() string {
 	out := ""
 	out += fmt.Sprintf("  clientEmail=%v\n", o.ClientEmail)
 	out += fmt.Sprintf("  privateKey=%v\n", o.PrivateKey)
+
 	return fmt.Sprintf("AuthGoogleServiceAccount {\n%s}", out)
 }

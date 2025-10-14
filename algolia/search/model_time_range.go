@@ -37,6 +37,7 @@ func NewTimeRange(opts ...TimeRangeOption) *TimeRange {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyTimeRange() *TimeRange {
 func (o *TimeRange) GetFrom() int64 {
 	if o == nil || o.From == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.From
 }
 
@@ -60,6 +63,7 @@ func (o *TimeRange) GetFromOk() (*int64, bool) {
 	if o == nil || o.From == nil {
 		return nil, false
 	}
+
 	return o.From, true
 }
 
@@ -75,6 +79,7 @@ func (o *TimeRange) HasFrom() bool {
 // SetFrom gets a reference to the given int64 and assigns it to the From field.
 func (o *TimeRange) SetFrom(v int64) *TimeRange {
 	o.From = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *TimeRange) SetFrom(v int64) *TimeRange {
 func (o *TimeRange) GetUntil() int64 {
 	if o == nil || o.Until == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Until
 }
 
@@ -93,6 +100,7 @@ func (o *TimeRange) GetUntilOk() (*int64, bool) {
 	if o == nil || o.Until == nil {
 		return nil, false
 	}
+
 	return o.Until, true
 }
 
@@ -108,6 +116,7 @@ func (o *TimeRange) HasUntil() bool {
 // SetUntil gets a reference to the given int64 and assigns it to the Until field.
 func (o *TimeRange) SetUntil(v int64) *TimeRange {
 	o.Until = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o TimeRange) MarshalJSON() ([]byte, error) {
 	if o.From != nil {
 		toSerialize["from"] = o.From
 	}
+
 	if o.Until != nil {
 		toSerialize["until"] = o.Until
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TimeRange: %w", err)
@@ -131,5 +142,6 @@ func (o TimeRange) String() string {
 	out := ""
 	out += fmt.Sprintf("  from=%v\n", o.From)
 	out += fmt.Sprintf("  until=%v\n", o.Until)
+
 	return fmt.Sprintf("TimeRange {\n%s}", out)
 }

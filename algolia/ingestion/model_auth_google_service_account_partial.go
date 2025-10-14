@@ -37,6 +37,7 @@ func NewAuthGoogleServiceAccountPartial(opts ...AuthGoogleServiceAccountPartialO
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyAuthGoogleServiceAccountPartial() *AuthGoogleServiceAccountPartial 
 func (o *AuthGoogleServiceAccountPartial) GetClientEmail() string {
 	if o == nil || o.ClientEmail == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ClientEmail
 }
 
@@ -60,6 +63,7 @@ func (o *AuthGoogleServiceAccountPartial) GetClientEmailOk() (*string, bool) {
 	if o == nil || o.ClientEmail == nil {
 		return nil, false
 	}
+
 	return o.ClientEmail, true
 }
 
@@ -75,6 +79,7 @@ func (o *AuthGoogleServiceAccountPartial) HasClientEmail() bool {
 // SetClientEmail gets a reference to the given string and assigns it to the ClientEmail field.
 func (o *AuthGoogleServiceAccountPartial) SetClientEmail(v string) *AuthGoogleServiceAccountPartial {
 	o.ClientEmail = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *AuthGoogleServiceAccountPartial) SetClientEmail(v string) *AuthGoogleSe
 func (o *AuthGoogleServiceAccountPartial) GetPrivateKey() string {
 	if o == nil || o.PrivateKey == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.PrivateKey
 }
 
@@ -93,6 +100,7 @@ func (o *AuthGoogleServiceAccountPartial) GetPrivateKeyOk() (*string, bool) {
 	if o == nil || o.PrivateKey == nil {
 		return nil, false
 	}
+
 	return o.PrivateKey, true
 }
 
@@ -108,6 +116,7 @@ func (o *AuthGoogleServiceAccountPartial) HasPrivateKey() bool {
 // SetPrivateKey gets a reference to the given string and assigns it to the PrivateKey field.
 func (o *AuthGoogleServiceAccountPartial) SetPrivateKey(v string) *AuthGoogleServiceAccountPartial {
 	o.PrivateKey = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o AuthGoogleServiceAccountPartial) MarshalJSON() ([]byte, error) {
 	if o.ClientEmail != nil {
 		toSerialize["clientEmail"] = o.ClientEmail
 	}
+
 	if o.PrivateKey != nil {
 		toSerialize["privateKey"] = o.PrivateKey
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthGoogleServiceAccountPartial: %w", err)
@@ -131,5 +142,6 @@ func (o AuthGoogleServiceAccountPartial) String() string {
 	out := ""
 	out += fmt.Sprintf("  clientEmail=%v\n", o.ClientEmail)
 	out += fmt.Sprintf("  privateKey=%v\n", o.PrivateKey)
+
 	return fmt.Sprintf("AuthGoogleServiceAccountPartial {\n%s}", out)
 }

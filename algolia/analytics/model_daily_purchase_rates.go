@@ -30,6 +30,7 @@ func NewDailyPurchaseRates(rate utils.Nullable[float64], trackedSearchCount int3
 	this.TrackedSearchCount = trackedSearchCount
 	this.PurchaseCount = purchaseCount
 	this.Date = date
+
 	return this
 }
 
@@ -43,6 +44,7 @@ func NewEmptyDailyPurchaseRates() *DailyPurchaseRates {
 func (o *DailyPurchaseRates) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +58,14 @@ func (o *DailyPurchaseRates) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *DailyPurchaseRates) SetRate(v float64) *DailyPurchaseRates {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +73,7 @@ func (o *DailyPurchaseRates) SetRate(v float64) *DailyPurchaseRates {
 func (o *DailyPurchaseRates) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +86,14 @@ func (o *DailyPurchaseRates) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *DailyPurchaseRates) SetTrackedSearchCount(v int32) *DailyPurchaseRates {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -94,6 +101,7 @@ func (o *DailyPurchaseRates) SetTrackedSearchCount(v int32) *DailyPurchaseRates 
 func (o *DailyPurchaseRates) GetPurchaseCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +114,14 @@ func (o *DailyPurchaseRates) GetPurchaseCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PurchaseCount, true
 }
 
 // SetPurchaseCount sets field value.
 func (o *DailyPurchaseRates) SetPurchaseCount(v int32) *DailyPurchaseRates {
 	o.PurchaseCount = v
+
 	return o
 }
 
@@ -119,6 +129,7 @@ func (o *DailyPurchaseRates) SetPurchaseCount(v int32) *DailyPurchaseRates {
 func (o *DailyPurchaseRates) GetDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -131,12 +142,14 @@ func (o *DailyPurchaseRates) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Date, true
 }
 
 // SetDate sets field value.
 func (o *DailyPurchaseRates) SetDate(v string) *DailyPurchaseRates {
 	o.Date = v
+
 	return o
 }
 
@@ -146,6 +159,7 @@ func (o DailyPurchaseRates) MarshalJSON() ([]byte, error) {
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["purchaseCount"] = o.PurchaseCount
 	toSerialize["date"] = o.Date
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyPurchaseRates: %w", err)
@@ -160,5 +174,6 @@ func (o DailyPurchaseRates) String() string {
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  purchaseCount=%v\n", o.PurchaseCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
+
 	return fmt.Sprintf("DailyPurchaseRates {\n%s}", out)
 }

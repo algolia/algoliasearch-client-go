@@ -44,6 +44,7 @@ func NewEdit(opts ...EditOption) *Edit {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -56,8 +57,10 @@ func NewEmptyEdit() *Edit {
 func (o *Edit) GetType() EditType {
 	if o == nil || o.Type == nil {
 		var ret EditType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -67,6 +70,7 @@ func (o *Edit) GetTypeOk() (*EditType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -82,6 +86,7 @@ func (o *Edit) HasType() bool {
 // SetType gets a reference to the given EditType and assigns it to the Type field.
 func (o *Edit) SetType(v EditType) *Edit {
 	o.Type = &v
+
 	return o
 }
 
@@ -89,8 +94,10 @@ func (o *Edit) SetType(v EditType) *Edit {
 func (o *Edit) GetDelete() string {
 	if o == nil || o.Delete == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Delete
 }
 
@@ -100,6 +107,7 @@ func (o *Edit) GetDeleteOk() (*string, bool) {
 	if o == nil || o.Delete == nil {
 		return nil, false
 	}
+
 	return o.Delete, true
 }
 
@@ -115,6 +123,7 @@ func (o *Edit) HasDelete() bool {
 // SetDelete gets a reference to the given string and assigns it to the Delete field.
 func (o *Edit) SetDelete(v string) *Edit {
 	o.Delete = &v
+
 	return o
 }
 
@@ -122,8 +131,10 @@ func (o *Edit) SetDelete(v string) *Edit {
 func (o *Edit) GetInsert() string {
 	if o == nil || o.Insert == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Insert
 }
 
@@ -133,6 +144,7 @@ func (o *Edit) GetInsertOk() (*string, bool) {
 	if o == nil || o.Insert == nil {
 		return nil, false
 	}
+
 	return o.Insert, true
 }
 
@@ -148,6 +160,7 @@ func (o *Edit) HasInsert() bool {
 // SetInsert gets a reference to the given string and assigns it to the Insert field.
 func (o *Edit) SetInsert(v string) *Edit {
 	o.Insert = &v
+
 	return o
 }
 
@@ -156,12 +169,15 @@ func (o Edit) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Delete != nil {
 		toSerialize["delete"] = o.Delete
 	}
+
 	if o.Insert != nil {
 		toSerialize["insert"] = o.Insert
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Edit: %w", err)
@@ -175,5 +191,6 @@ func (o Edit) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  delete=%v\n", o.Delete)
 	out += fmt.Sprintf("  insert=%v\n", o.Insert)
+
 	return fmt.Sprintf("Edit {\n%s}", out)
 }

@@ -21,6 +21,7 @@ func NewMinimumDetectableEffect(size float64, metric EffectMetric) *MinimumDetec
 	this := &MinimumDetectableEffect{}
 	this.Size = size
 	this.Metric = metric
+
 	return this
 }
 
@@ -33,6 +34,7 @@ func NewEmptyMinimumDetectableEffect() *MinimumDetectableEffect {
 func (o *MinimumDetectableEffect) GetSize() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *MinimumDetectableEffect) GetSizeOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Size, true
 }
 
 // SetSize sets field value.
 func (o *MinimumDetectableEffect) SetSize(v float64) *MinimumDetectableEffect {
 	o.Size = v
+
 	return o
 }
 
@@ -58,6 +62,7 @@ func (o *MinimumDetectableEffect) SetSize(v float64) *MinimumDetectableEffect {
 func (o *MinimumDetectableEffect) GetMetric() EffectMetric {
 	if o == nil {
 		var ret EffectMetric
+
 		return ret
 	}
 
@@ -70,12 +75,14 @@ func (o *MinimumDetectableEffect) GetMetricOk() (*EffectMetric, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Metric, true
 }
 
 // SetMetric sets field value.
 func (o *MinimumDetectableEffect) SetMetric(v EffectMetric) *MinimumDetectableEffect {
 	o.Metric = v
+
 	return o
 }
 
@@ -83,6 +90,7 @@ func (o MinimumDetectableEffect) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["size"] = o.Size
 	toSerialize["metric"] = o.Metric
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MinimumDetectableEffect: %w", err)
@@ -95,5 +103,6 @@ func (o MinimumDetectableEffect) String() string {
 	out := ""
 	out += fmt.Sprintf("  size=%v\n", o.Size)
 	out += fmt.Sprintf("  metric=%v\n", o.Metric)
+
 	return fmt.Sprintf("MinimumDetectableEffect {\n%s}", out)
 }

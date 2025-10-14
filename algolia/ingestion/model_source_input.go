@@ -81,6 +81,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
@@ -91,6 +92,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceGA4BigQueryExport = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "image") && utils.HasKey(jsonDict, "configuration") {
 		// try to unmarshal data into SourceDocker
 		err = json.Unmarshal(data, &dst.SourceDocker)
@@ -100,6 +102,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceDocker = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "projectKey") {
 		// try to unmarshal data into SourceCommercetools
 		err = json.Unmarshal(data, &dst.SourceCommercetools)
@@ -109,6 +112,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceCommercetools = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "storeHash") {
 		// try to unmarshal data into SourceBigCommerce
 		err = json.Unmarshal(data, &dst.SourceBigCommerce)
@@ -118,6 +122,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceBigCommerce = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
 		err = json.Unmarshal(data, &dst.SourceBigQuery)
@@ -127,6 +132,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceBigQuery = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "shopURL") {
 		// try to unmarshal data into SourceShopify
 		err = json.Unmarshal(data, &dst.SourceShopify)
@@ -151,7 +157,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 		dst.SourceCSV = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(SourceInput)")
+	return fmt.Errorf("data failed to match schemas in oneOf(SourceInput)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

@@ -24,12 +24,18 @@ type GetClickThroughRateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetClickThroughRateResponse(rate utils.Nullable[float64], clickCount int32, trackedSearchCount int32, dates []DailyClickThroughRates) *GetClickThroughRateResponse {
+func NewGetClickThroughRateResponse(
+	rate utils.Nullable[float64],
+	clickCount int32,
+	trackedSearchCount int32,
+	dates []DailyClickThroughRates,
+) *GetClickThroughRateResponse {
 	this := &GetClickThroughRateResponse{}
 	this.Rate = rate
 	this.ClickCount = clickCount
 	this.TrackedSearchCount = trackedSearchCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -43,6 +49,7 @@ func NewEmptyGetClickThroughRateResponse() *GetClickThroughRateResponse {
 func (o *GetClickThroughRateResponse) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +63,14 @@ func (o *GetClickThroughRateResponse) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *GetClickThroughRateResponse) SetRate(v float64) *GetClickThroughRateResponse {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +78,7 @@ func (o *GetClickThroughRateResponse) SetRate(v float64) *GetClickThroughRateRes
 func (o *GetClickThroughRateResponse) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +91,14 @@ func (o *GetClickThroughRateResponse) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *GetClickThroughRateResponse) SetClickCount(v int32) *GetClickThroughRateResponse {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -94,6 +106,7 @@ func (o *GetClickThroughRateResponse) SetClickCount(v int32) *GetClickThroughRat
 func (o *GetClickThroughRateResponse) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +119,14 @@ func (o *GetClickThroughRateResponse) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *GetClickThroughRateResponse) SetTrackedSearchCount(v int32) *GetClickThroughRateResponse {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -119,6 +134,7 @@ func (o *GetClickThroughRateResponse) SetTrackedSearchCount(v int32) *GetClickTh
 func (o *GetClickThroughRateResponse) GetDates() []DailyClickThroughRates {
 	if o == nil {
 		var ret []DailyClickThroughRates
+
 		return ret
 	}
 
@@ -131,12 +147,14 @@ func (o *GetClickThroughRateResponse) GetDatesOk() ([]DailyClickThroughRates, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetClickThroughRateResponse) SetDates(v []DailyClickThroughRates) *GetClickThroughRateResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -146,6 +164,7 @@ func (o GetClickThroughRateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["clickCount"] = o.ClickCount
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetClickThroughRateResponse: %w", err)
@@ -160,5 +179,6 @@ func (o GetClickThroughRateResponse) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetClickThroughRateResponse {\n%s}", out)
 }

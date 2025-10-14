@@ -23,24 +23,7 @@ var AllowedQueryTypeEnumValues = []QueryType{
 	"prefixNone",
 }
 
-func (v *QueryType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'QueryType': %w", string(src), err)
-	}
-	enumTypeValue := QueryType(value)
-	for _, existing := range AllowedQueryTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid QueryType", value)
-}
-
-// NewQueryTypeFromValue returns a pointer to a valid QueryType
+// NewQueryTypeFromValue returns a pointer to a valid QueryType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewQueryTypeFromValue(v string) (*QueryType, error) {
 	ev := QueryType(v)
@@ -51,6 +34,26 @@ func NewQueryTypeFromValue(v string) (*QueryType, error) {
 	}
 }
 
+func (v *QueryType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'QueryType': %w", string(src), err)
+	}
+
+	enumTypeValue := QueryType(value)
+	for _, existing := range AllowedQueryTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid QueryType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v QueryType) IsValid() bool {
 	for _, existing := range AllowedQueryTypeEnumValues {
@@ -58,6 +61,7 @@ func (v QueryType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

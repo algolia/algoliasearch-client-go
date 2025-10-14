@@ -19,6 +19,7 @@ type CreatedAtResponse struct {
 func NewCreatedAtResponse(createdAt string) *CreatedAtResponse {
 	this := &CreatedAtResponse{}
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyCreatedAtResponse() *CreatedAtResponse {
 func (o *CreatedAtResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *CreatedAtResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *CreatedAtResponse) SetCreatedAt(v string) *CreatedAtResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
 func (o CreatedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CreatedAtResponse: %w", err)
@@ -66,5 +71,6 @@ func (o CreatedAtResponse) MarshalJSON() ([]byte, error) {
 func (o CreatedAtResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("CreatedAtResponse {\n%s}", out)
 }

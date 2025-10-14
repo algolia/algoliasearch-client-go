@@ -18,6 +18,7 @@ type OnDemandTriggerInput struct {
 func NewOnDemandTriggerInput(type_ OnDemandTriggerType) *OnDemandTriggerInput {
 	this := &OnDemandTriggerInput{}
 	this.Type = type_
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyOnDemandTriggerInput() *OnDemandTriggerInput {
 func (o *OnDemandTriggerInput) GetType() OnDemandTriggerType {
 	if o == nil {
 		var ret OnDemandTriggerType
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *OnDemandTriggerInput) GetTypeOk() (*OnDemandTriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *OnDemandTriggerInput) SetType(v OnDemandTriggerType) *OnDemandTriggerInput {
 	o.Type = v
+
 	return o
 }
 
 func (o OnDemandTriggerInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal OnDemandTriggerInput: %w", err)
@@ -65,5 +70,6 @@ func (o OnDemandTriggerInput) MarshalJSON() ([]byte, error) {
 func (o OnDemandTriggerInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+
 	return fmt.Sprintf("OnDemandTriggerInput {\n%s}", out)
 }

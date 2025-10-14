@@ -28,10 +28,12 @@ func WithCreateMetricDimension(val string) CreateMetricOption {
 // will change when the set of required properties is changed.
 func NewCreateMetric(name string, opts ...CreateMetricOption) *CreateMetric {
 	this := &CreateMetric{}
+
 	this.Name = name
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptyCreateMetric() *CreateMetric {
 func (o *CreateMetric) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *CreateMetric) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *CreateMetric) SetName(v string) *CreateMetric {
 	o.Name = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *CreateMetric) SetName(v string) *CreateMetric {
 func (o *CreateMetric) GetDimension() string {
 	if o == nil || o.Dimension == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Dimension
 }
 
@@ -80,6 +87,7 @@ func (o *CreateMetric) GetDimensionOk() (*string, bool) {
 	if o == nil || o.Dimension == nil {
 		return nil, false
 	}
+
 	return o.Dimension, true
 }
 
@@ -95,15 +103,18 @@ func (o *CreateMetric) HasDimension() bool {
 // SetDimension gets a reference to the given string and assigns it to the Dimension field.
 func (o *CreateMetric) SetDimension(v string) *CreateMetric {
 	o.Dimension = &v
+
 	return o
 }
 
 func (o CreateMetric) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["name"] = o.Name
 	if o.Dimension != nil {
 		toSerialize["dimension"] = o.Dimension
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CreateMetric: %w", err)
@@ -116,5 +127,6 @@ func (o CreateMetric) String() string {
 	out := ""
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  dimension=%v\n", o.Dimension)
+
 	return fmt.Sprintf("CreateMetric {\n%s}", out)
 }

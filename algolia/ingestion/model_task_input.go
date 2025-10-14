@@ -41,6 +41,7 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "mapping") {
 		// try to unmarshal data into StreamingInput
@@ -51,6 +52,7 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 			dst.StreamingInput = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "streams") {
 		// try to unmarshal data into DockerStreamsInput
 		err = json.Unmarshal(data, &dst.DockerStreamsInput)
@@ -68,7 +70,7 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 		dst.ShopifyInput = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(TaskInput)")
+	return fmt.Errorf("data failed to match schemas in oneOf(TaskInput)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

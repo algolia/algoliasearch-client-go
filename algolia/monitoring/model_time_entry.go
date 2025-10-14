@@ -37,6 +37,7 @@ func NewTimeEntry(opts ...TimeEntryOption) *TimeEntry {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyTimeEntry() *TimeEntry {
 func (o *TimeEntry) GetT() int64 {
 	if o == nil || o.T == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.T
 }
 
@@ -60,6 +63,7 @@ func (o *TimeEntry) GetTOk() (*int64, bool) {
 	if o == nil || o.T == nil {
 		return nil, false
 	}
+
 	return o.T, true
 }
 
@@ -75,6 +79,7 @@ func (o *TimeEntry) HasT() bool {
 // SetT gets a reference to the given int64 and assigns it to the T field.
 func (o *TimeEntry) SetT(v int64) *TimeEntry {
 	o.T = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *TimeEntry) SetT(v int64) *TimeEntry {
 func (o *TimeEntry) GetV() int32 {
 	if o == nil || o.V == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.V
 }
 
@@ -93,6 +100,7 @@ func (o *TimeEntry) GetVOk() (*int32, bool) {
 	if o == nil || o.V == nil {
 		return nil, false
 	}
+
 	return o.V, true
 }
 
@@ -108,6 +116,7 @@ func (o *TimeEntry) HasV() bool {
 // SetV gets a reference to the given int32 and assigns it to the V field.
 func (o *TimeEntry) SetV(v int32) *TimeEntry {
 	o.V = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o TimeEntry) MarshalJSON() ([]byte, error) {
 	if o.T != nil {
 		toSerialize["t"] = o.T
 	}
+
 	if o.V != nil {
 		toSerialize["v"] = o.V
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TimeEntry: %w", err)
@@ -131,5 +142,6 @@ func (o TimeEntry) String() string {
 	out := ""
 	out += fmt.Sprintf("  t=%v\n", o.T)
 	out += fmt.Sprintf("  v=%v\n", o.V)
+
 	return fmt.Sprintf("TimeEntry {\n%s}", out)
 }

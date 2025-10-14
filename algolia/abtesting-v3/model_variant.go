@@ -52,10 +52,12 @@ func NewVariant(description string, index string, trafficPercentage int32, metri
 	this.Description = description
 	this.Index = index
 	this.TrafficPercentage = trafficPercentage
+
 	this.Metrics = metrics
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -68,6 +70,7 @@ func NewEmptyVariant() *Variant {
 func (o *Variant) GetDescription() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -80,12 +83,14 @@ func (o *Variant) GetDescriptionOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Description, true
 }
 
 // SetDescription sets field value.
 func (o *Variant) SetDescription(v string) *Variant {
 	o.Description = v
+
 	return o
 }
 
@@ -93,8 +98,10 @@ func (o *Variant) SetDescription(v string) *Variant {
 func (o *Variant) GetEstimatedSampleSize() int32 {
 	if o == nil || o.EstimatedSampleSize == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.EstimatedSampleSize
 }
 
@@ -104,6 +111,7 @@ func (o *Variant) GetEstimatedSampleSizeOk() (*int32, bool) {
 	if o == nil || o.EstimatedSampleSize == nil {
 		return nil, false
 	}
+
 	return o.EstimatedSampleSize, true
 }
 
@@ -119,6 +127,7 @@ func (o *Variant) HasEstimatedSampleSize() bool {
 // SetEstimatedSampleSize gets a reference to the given int32 and assigns it to the EstimatedSampleSize field.
 func (o *Variant) SetEstimatedSampleSize(v int32) *Variant {
 	o.EstimatedSampleSize = &v
+
 	return o
 }
 
@@ -126,6 +135,7 @@ func (o *Variant) SetEstimatedSampleSize(v int32) *Variant {
 func (o *Variant) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -138,12 +148,14 @@ func (o *Variant) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *Variant) SetIndex(v string) *Variant {
 	o.Index = v
+
 	return o
 }
 
@@ -151,6 +163,7 @@ func (o *Variant) SetIndex(v string) *Variant {
 func (o *Variant) GetTrafficPercentage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -163,12 +176,14 @@ func (o *Variant) GetTrafficPercentageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrafficPercentage, true
 }
 
 // SetTrafficPercentage sets field value.
 func (o *Variant) SetTrafficPercentage(v int32) *Variant {
 	o.TrafficPercentage = v
+
 	return o
 }
 
@@ -176,6 +191,7 @@ func (o *Variant) SetTrafficPercentage(v int32) *Variant {
 func (o *Variant) GetMetrics() []MetricResult {
 	if o == nil {
 		var ret []MetricResult
+
 		return ret
 	}
 
@@ -188,12 +204,14 @@ func (o *Variant) GetMetricsOk() ([]MetricResult, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
 // SetMetrics sets field value.
 func (o *Variant) SetMetrics(v []MetricResult) *Variant {
 	o.Metrics = v
+
 	return o
 }
 
@@ -201,8 +219,10 @@ func (o *Variant) SetMetrics(v []MetricResult) *Variant {
 func (o *Variant) GetMetadata() VariantMetadata {
 	if o == nil || o.Metadata == nil {
 		var ret VariantMetadata
+
 		return ret
 	}
+
 	return *o.Metadata
 }
 
@@ -212,6 +232,7 @@ func (o *Variant) GetMetadataOk() (*VariantMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
+
 	return o.Metadata, true
 }
 
@@ -227,6 +248,7 @@ func (o *Variant) HasMetadata() bool {
 // SetMetadata gets a reference to the given VariantMetadata and assigns it to the Metadata field.
 func (o *Variant) SetMetadata(v *VariantMetadata) *Variant {
 	o.Metadata = v
+
 	return o
 }
 
@@ -234,8 +256,10 @@ func (o *Variant) SetMetadata(v *VariantMetadata) *Variant {
 func (o *Variant) GetCustomSearchParameters() map[string]any {
 	if o == nil || o.CustomSearchParameters == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.CustomSearchParameters
 }
 
@@ -245,6 +269,7 @@ func (o *Variant) GetCustomSearchParametersOk() (map[string]any, bool) {
 	if o == nil || o.CustomSearchParameters == nil {
 		return nil, false
 	}
+
 	return o.CustomSearchParameters, true
 }
 
@@ -260,24 +285,30 @@ func (o *Variant) HasCustomSearchParameters() bool {
 // SetCustomSearchParameters gets a reference to the given map[string]any and assigns it to the CustomSearchParameters field.
 func (o *Variant) SetCustomSearchParameters(v map[string]any) *Variant {
 	o.CustomSearchParameters = v
+
 	return o
 }
 
 func (o Variant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["description"] = o.Description
 	if o.EstimatedSampleSize != nil {
 		toSerialize["estimatedSampleSize"] = o.EstimatedSampleSize
 	}
+
 	toSerialize["index"] = o.Index
 	toSerialize["trafficPercentage"] = o.TrafficPercentage
+
 	toSerialize["metrics"] = o.Metrics
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
 	if o.CustomSearchParameters != nil {
 		toSerialize["customSearchParameters"] = o.CustomSearchParameters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Variant: %w", err)
@@ -295,5 +326,6 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 	out += fmt.Sprintf("  customSearchParameters=%v\n", o.CustomSearchParameters)
+
 	return fmt.Sprintf("Variant {\n%s}", out)
 }

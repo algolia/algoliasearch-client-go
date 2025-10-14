@@ -18,6 +18,7 @@ type ExternalSource struct {
 func NewExternalSource(external External) *ExternalSource {
 	this := &ExternalSource{}
 	this.External = external
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyExternalSource() *ExternalSource {
 func (o *ExternalSource) GetExternal() External {
 	if o == nil {
 		var ret External
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *ExternalSource) GetExternalOk() (*External, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.External, true
 }
 
 // SetExternal sets field value.
 func (o *ExternalSource) SetExternal(v *External) *ExternalSource {
 	o.External = *v
+
 	return o
 }
 
 func (o ExternalSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["external"] = o.External
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ExternalSource: %w", err)
@@ -65,5 +70,6 @@ func (o ExternalSource) MarshalJSON() ([]byte, error) {
 func (o ExternalSource) String() string {
 	out := ""
 	out += fmt.Sprintf("  external=%v\n", o.External)
+
 	return fmt.Sprintf("ExternalSource {\n%s}", out)
 }

@@ -18,6 +18,7 @@ type Deduplication struct {
 func NewDeduplication(positioning DedupPositioning) *Deduplication {
 	this := &Deduplication{}
 	this.Positioning = positioning
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyDeduplication() *Deduplication {
 func (o *Deduplication) GetPositioning() DedupPositioning {
 	if o == nil {
 		var ret DedupPositioning
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *Deduplication) GetPositioningOk() (*DedupPositioning, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Positioning, true
 }
 
 // SetPositioning sets field value.
 func (o *Deduplication) SetPositioning(v DedupPositioning) *Deduplication {
 	o.Positioning = v
+
 	return o
 }
 
 func (o Deduplication) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["positioning"] = o.Positioning
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Deduplication: %w", err)
@@ -65,5 +70,6 @@ func (o Deduplication) MarshalJSON() ([]byte, error) {
 func (o Deduplication) String() string {
 	out := ""
 	out += fmt.Sprintf("  positioning=%v\n", o.Positioning)
+
 	return fmt.Sprintf("Deduplication {\n%s}", out)
 }

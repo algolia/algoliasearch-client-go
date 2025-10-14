@@ -18,6 +18,7 @@ type DictionarySettingsParams struct {
 func NewDictionarySettingsParams(disableStandardEntries StandardEntries) *DictionarySettingsParams {
 	this := &DictionarySettingsParams{}
 	this.DisableStandardEntries = disableStandardEntries
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyDictionarySettingsParams() *DictionarySettingsParams {
 func (o *DictionarySettingsParams) GetDisableStandardEntries() StandardEntries {
 	if o == nil {
 		var ret StandardEntries
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *DictionarySettingsParams) GetDisableStandardEntriesOk() (*StandardEntri
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DisableStandardEntries, true
 }
 
 // SetDisableStandardEntries sets field value.
 func (o *DictionarySettingsParams) SetDisableStandardEntries(v *StandardEntries) *DictionarySettingsParams {
 	o.DisableStandardEntries = *v
+
 	return o
 }
 
 func (o DictionarySettingsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["disableStandardEntries"] = o.DisableStandardEntries
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DictionarySettingsParams: %w", err)
@@ -65,5 +70,6 @@ func (o DictionarySettingsParams) MarshalJSON() ([]byte, error) {
 func (o DictionarySettingsParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  disableStandardEntries=%v\n", o.DisableStandardEntries)
+
 	return fmt.Sprintf("DictionarySettingsParams {\n%s}", out)
 }

@@ -45,6 +45,7 @@ func NewStandardEntries(opts ...StandardEntriesOption) *StandardEntries {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyStandardEntries() *StandardEntries {
 func (o *StandardEntries) GetPlurals() map[string]bool {
 	if o == nil {
 		var ret map[string]bool
+
 		return ret
 	}
+
 	return o.Plurals
 }
 
@@ -69,6 +72,7 @@ func (o *StandardEntries) GetPluralsOk() (*map[string]bool, bool) {
 	if o == nil || o.Plurals == nil {
 		return nil, false
 	}
+
 	return &o.Plurals, true
 }
 
@@ -84,6 +88,7 @@ func (o *StandardEntries) HasPlurals() bool {
 // SetPlurals gets a reference to the given map[string]bool and assigns it to the Plurals field.
 func (o *StandardEntries) SetPlurals(v map[string]bool) *StandardEntries {
 	o.Plurals = v
+
 	return o
 }
 
@@ -91,8 +96,10 @@ func (o *StandardEntries) SetPlurals(v map[string]bool) *StandardEntries {
 func (o *StandardEntries) GetStopwords() map[string]bool {
 	if o == nil {
 		var ret map[string]bool
+
 		return ret
 	}
+
 	return o.Stopwords
 }
 
@@ -103,6 +110,7 @@ func (o *StandardEntries) GetStopwordsOk() (*map[string]bool, bool) {
 	if o == nil || o.Stopwords == nil {
 		return nil, false
 	}
+
 	return &o.Stopwords, true
 }
 
@@ -118,6 +126,7 @@ func (o *StandardEntries) HasStopwords() bool {
 // SetStopwords gets a reference to the given map[string]bool and assigns it to the Stopwords field.
 func (o *StandardEntries) SetStopwords(v map[string]bool) *StandardEntries {
 	o.Stopwords = v
+
 	return o
 }
 
@@ -125,8 +134,10 @@ func (o *StandardEntries) SetStopwords(v map[string]bool) *StandardEntries {
 func (o *StandardEntries) GetCompounds() map[string]bool {
 	if o == nil {
 		var ret map[string]bool
+
 		return ret
 	}
+
 	return o.Compounds
 }
 
@@ -137,6 +148,7 @@ func (o *StandardEntries) GetCompoundsOk() (*map[string]bool, bool) {
 	if o == nil || o.Compounds == nil {
 		return nil, false
 	}
+
 	return &o.Compounds, true
 }
 
@@ -152,6 +164,7 @@ func (o *StandardEntries) HasCompounds() bool {
 // SetCompounds gets a reference to the given map[string]bool and assigns it to the Compounds field.
 func (o *StandardEntries) SetCompounds(v map[string]bool) *StandardEntries {
 	o.Compounds = v
+
 	return o
 }
 
@@ -160,12 +173,15 @@ func (o StandardEntries) MarshalJSON() ([]byte, error) {
 	if o.Plurals != nil {
 		toSerialize["plurals"] = o.Plurals
 	}
+
 	if o.Stopwords != nil {
 		toSerialize["stopwords"] = o.Stopwords
 	}
+
 	if o.Compounds != nil {
 		toSerialize["compounds"] = o.Compounds
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal StandardEntries: %w", err)
@@ -179,5 +195,6 @@ func (o StandardEntries) String() string {
 	out += fmt.Sprintf("  plurals=%v\n", o.Plurals)
 	out += fmt.Sprintf("  stopwords=%v\n", o.Stopwords)
 	out += fmt.Sprintf("  compounds=%v\n", o.Compounds)
+
 	return fmt.Sprintf("StandardEntries {\n%s}", out)
 }

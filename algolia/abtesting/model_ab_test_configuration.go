@@ -42,6 +42,7 @@ func NewABTestConfiguration(opts ...ABTestConfigurationOption) *ABTestConfigurat
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -54,8 +55,10 @@ func NewEmptyABTestConfiguration() *ABTestConfiguration {
 func (o *ABTestConfiguration) GetOutliers() Outliers {
 	if o == nil || o.Outliers == nil {
 		var ret Outliers
+
 		return ret
 	}
+
 	return *o.Outliers
 }
 
@@ -65,6 +68,7 @@ func (o *ABTestConfiguration) GetOutliersOk() (*Outliers, bool) {
 	if o == nil || o.Outliers == nil {
 		return nil, false
 	}
+
 	return o.Outliers, true
 }
 
@@ -80,6 +84,7 @@ func (o *ABTestConfiguration) HasOutliers() bool {
 // SetOutliers gets a reference to the given Outliers and assigns it to the Outliers field.
 func (o *ABTestConfiguration) SetOutliers(v *Outliers) *ABTestConfiguration {
 	o.Outliers = v
+
 	return o
 }
 
@@ -87,8 +92,10 @@ func (o *ABTestConfiguration) SetOutliers(v *Outliers) *ABTestConfiguration {
 func (o *ABTestConfiguration) GetEmptySearch() EmptySearch {
 	if o == nil || o.EmptySearch == nil {
 		var ret EmptySearch
+
 		return ret
 	}
+
 	return *o.EmptySearch
 }
 
@@ -98,6 +105,7 @@ func (o *ABTestConfiguration) GetEmptySearchOk() (*EmptySearch, bool) {
 	if o == nil || o.EmptySearch == nil {
 		return nil, false
 	}
+
 	return o.EmptySearch, true
 }
 
@@ -113,6 +121,7 @@ func (o *ABTestConfiguration) HasEmptySearch() bool {
 // SetEmptySearch gets a reference to the given EmptySearch and assigns it to the EmptySearch field.
 func (o *ABTestConfiguration) SetEmptySearch(v *EmptySearch) *ABTestConfiguration {
 	o.EmptySearch = v
+
 	return o
 }
 
@@ -120,8 +129,10 @@ func (o *ABTestConfiguration) SetEmptySearch(v *EmptySearch) *ABTestConfiguratio
 func (o *ABTestConfiguration) GetMinimumDetectableEffect() MinimumDetectableEffect {
 	if o == nil || o.MinimumDetectableEffect == nil {
 		var ret MinimumDetectableEffect
+
 		return ret
 	}
+
 	return *o.MinimumDetectableEffect
 }
 
@@ -131,6 +142,7 @@ func (o *ABTestConfiguration) GetMinimumDetectableEffectOk() (*MinimumDetectable
 	if o == nil || o.MinimumDetectableEffect == nil {
 		return nil, false
 	}
+
 	return o.MinimumDetectableEffect, true
 }
 
@@ -146,6 +158,7 @@ func (o *ABTestConfiguration) HasMinimumDetectableEffect() bool {
 // SetMinimumDetectableEffect gets a reference to the given MinimumDetectableEffect and assigns it to the MinimumDetectableEffect field.
 func (o *ABTestConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEffect) *ABTestConfiguration {
 	o.MinimumDetectableEffect = v
+
 	return o
 }
 
@@ -154,12 +167,15 @@ func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
+
 	if o.EmptySearch != nil {
 		toSerialize["emptySearch"] = o.EmptySearch
 	}
+
 	if o.MinimumDetectableEffect != nil {
 		toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTestConfiguration: %w", err)
@@ -173,5 +189,6 @@ func (o ABTestConfiguration) String() string {
 	out += fmt.Sprintf("  outliers=%v\n", o.Outliers)
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
+
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }

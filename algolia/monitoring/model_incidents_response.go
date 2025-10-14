@@ -28,6 +28,7 @@ func NewIncidentsResponse(opts ...IncidentsResponseOption) *IncidentsResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyIncidentsResponse() *IncidentsResponse {
 func (o *IncidentsResponse) GetIncidents() map[string][]IncidentEntry {
 	if o == nil || o.Incidents == nil {
 		var ret map[string][]IncidentEntry
+
 		return ret
 	}
+
 	return *o.Incidents
 }
 
@@ -51,6 +54,7 @@ func (o *IncidentsResponse) GetIncidentsOk() (*map[string][]IncidentEntry, bool)
 	if o == nil || o.Incidents == nil {
 		return nil, false
 	}
+
 	return o.Incidents, true
 }
 
@@ -66,6 +70,7 @@ func (o *IncidentsResponse) HasIncidents() bool {
 // SetIncidents gets a reference to the given map[string][]IncidentEntry and assigns it to the Incidents field.
 func (o *IncidentsResponse) SetIncidents(v map[string][]IncidentEntry) *IncidentsResponse {
 	o.Incidents = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o IncidentsResponse) MarshalJSON() ([]byte, error) {
 	if o.Incidents != nil {
 		toSerialize["incidents"] = o.Incidents
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IncidentsResponse: %w", err)
@@ -85,5 +91,6 @@ func (o IncidentsResponse) MarshalJSON() ([]byte, error) {
 func (o IncidentsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  incidents=%v\n", o.Incidents)
+
 	return fmt.Sprintf("IncidentsResponse {\n%s}", out)
 }

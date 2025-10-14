@@ -33,10 +33,12 @@ func NewScheduleTrigger(type_ ScheduleTriggerType, cron string, nextRun string, 
 	this := &ScheduleTrigger{}
 	this.Type = type_
 	this.Cron = cron
+
 	this.NextRun = nextRun
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,6 +51,7 @@ func NewEmptyScheduleTrigger() *ScheduleTrigger {
 func (o *ScheduleTrigger) GetType() ScheduleTriggerType {
 	if o == nil {
 		var ret ScheduleTriggerType
+
 		return ret
 	}
 
@@ -61,12 +64,14 @@ func (o *ScheduleTrigger) GetTypeOk() (*ScheduleTriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *ScheduleTrigger) SetType(v ScheduleTriggerType) *ScheduleTrigger {
 	o.Type = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o *ScheduleTrigger) SetType(v ScheduleTriggerType) *ScheduleTrigger {
 func (o *ScheduleTrigger) GetCron() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -86,12 +92,14 @@ func (o *ScheduleTrigger) GetCronOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Cron, true
 }
 
 // SetCron sets field value.
 func (o *ScheduleTrigger) SetCron(v string) *ScheduleTrigger {
 	o.Cron = v
+
 	return o
 }
 
@@ -99,8 +107,10 @@ func (o *ScheduleTrigger) SetCron(v string) *ScheduleTrigger {
 func (o *ScheduleTrigger) GetLastRun() string {
 	if o == nil || o.LastRun == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.LastRun
 }
 
@@ -110,6 +120,7 @@ func (o *ScheduleTrigger) GetLastRunOk() (*string, bool) {
 	if o == nil || o.LastRun == nil {
 		return nil, false
 	}
+
 	return o.LastRun, true
 }
 
@@ -125,6 +136,7 @@ func (o *ScheduleTrigger) HasLastRun() bool {
 // SetLastRun gets a reference to the given string and assigns it to the LastRun field.
 func (o *ScheduleTrigger) SetLastRun(v string) *ScheduleTrigger {
 	o.LastRun = &v
+
 	return o
 }
 
@@ -132,6 +144,7 @@ func (o *ScheduleTrigger) SetLastRun(v string) *ScheduleTrigger {
 func (o *ScheduleTrigger) GetNextRun() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -144,23 +157,28 @@ func (o *ScheduleTrigger) GetNextRunOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NextRun, true
 }
 
 // SetNextRun sets field value.
 func (o *ScheduleTrigger) SetNextRun(v string) *ScheduleTrigger {
 	o.NextRun = v
+
 	return o
 }
 
 func (o ScheduleTrigger) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
+
 	toSerialize["cron"] = o.Cron
 	if o.LastRun != nil {
 		toSerialize["lastRun"] = o.LastRun
 	}
+
 	toSerialize["nextRun"] = o.NextRun
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleTrigger: %w", err)
@@ -175,5 +193,6 @@ func (o ScheduleTrigger) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 	out += fmt.Sprintf("  lastRun=%v\n", o.LastRun)
 	out += fmt.Sprintf("  nextRun=%v\n", o.NextRun)
+
 	return fmt.Sprintf("ScheduleTrigger {\n%s}", out)
 }

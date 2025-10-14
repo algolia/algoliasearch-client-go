@@ -29,6 +29,7 @@ func NewRunTaskPayload(opts ...RunTaskPayloadOption) *RunTaskPayload {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyRunTaskPayload() *RunTaskPayload {
 func (o *RunTaskPayload) GetRunMetadata() map[string]any {
 	if o == nil || o.RunMetadata == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.RunMetadata
 }
 
@@ -52,6 +55,7 @@ func (o *RunTaskPayload) GetRunMetadataOk() (map[string]any, bool) {
 	if o == nil || o.RunMetadata == nil {
 		return nil, false
 	}
+
 	return o.RunMetadata, true
 }
 
@@ -67,6 +71,7 @@ func (o *RunTaskPayload) HasRunMetadata() bool {
 // SetRunMetadata gets a reference to the given map[string]any and assigns it to the RunMetadata field.
 func (o *RunTaskPayload) SetRunMetadata(v map[string]any) *RunTaskPayload {
 	o.RunMetadata = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o RunTaskPayload) MarshalJSON() ([]byte, error) {
 	if o.RunMetadata != nil {
 		toSerialize["runMetadata"] = o.RunMetadata
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunTaskPayload: %w", err)
@@ -86,5 +92,6 @@ func (o RunTaskPayload) MarshalJSON() ([]byte, error) {
 func (o RunTaskPayload) String() string {
 	out := ""
 	out += fmt.Sprintf("  runMetadata=%v\n", o.RunMetadata)
+
 	return fmt.Sprintf("RunTaskPayload {\n%s}", out)
 }

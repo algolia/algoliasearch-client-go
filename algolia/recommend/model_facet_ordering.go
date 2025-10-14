@@ -36,6 +36,7 @@ func NewFacetOrdering(opts ...FacetOrderingOption) *FacetOrdering {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -48,8 +49,10 @@ func NewEmptyFacetOrdering() *FacetOrdering {
 func (o *FacetOrdering) GetFacets() IndexSettingsFacets {
 	if o == nil || o.Facets == nil {
 		var ret IndexSettingsFacets
+
 		return ret
 	}
+
 	return *o.Facets
 }
 
@@ -59,6 +62,7 @@ func (o *FacetOrdering) GetFacetsOk() (*IndexSettingsFacets, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -74,6 +78,7 @@ func (o *FacetOrdering) HasFacets() bool {
 // SetFacets gets a reference to the given IndexSettingsFacets and assigns it to the Facets field.
 func (o *FacetOrdering) SetFacets(v *IndexSettingsFacets) *FacetOrdering {
 	o.Facets = v
+
 	return o
 }
 
@@ -81,8 +86,10 @@ func (o *FacetOrdering) SetFacets(v *IndexSettingsFacets) *FacetOrdering {
 func (o *FacetOrdering) GetValues() map[string]Value {
 	if o == nil || o.Values == nil {
 		var ret map[string]Value
+
 		return ret
 	}
+
 	return *o.Values
 }
 
@@ -92,6 +99,7 @@ func (o *FacetOrdering) GetValuesOk() (*map[string]Value, bool) {
 	if o == nil || o.Values == nil {
 		return nil, false
 	}
+
 	return o.Values, true
 }
 
@@ -107,6 +115,7 @@ func (o *FacetOrdering) HasValues() bool {
 // SetValues gets a reference to the given map[string]Value and assigns it to the Values field.
 func (o *FacetOrdering) SetValues(v map[string]Value) *FacetOrdering {
 	o.Values = &v
+
 	return o
 }
 
@@ -115,9 +124,11 @@ func (o FacetOrdering) MarshalJSON() ([]byte, error) {
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.Values != nil {
 		toSerialize["values"] = o.Values
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FacetOrdering: %w", err)
@@ -130,5 +141,6 @@ func (o FacetOrdering) String() string {
 	out := ""
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  values=%v\n", o.Values)
+
 	return fmt.Sprintf("FacetOrdering {\n%s}", out)
 }

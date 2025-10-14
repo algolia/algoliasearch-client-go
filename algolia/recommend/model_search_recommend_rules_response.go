@@ -28,6 +28,7 @@ func NewSearchRecommendRulesResponse(hits []RecommendRule, nbHits int32, page in
 	this.NbHits = nbHits
 	this.Page = page
 	this.NbPages = nbPages
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptySearchRecommendRulesResponse() *SearchRecommendRulesResponse {
 func (o *SearchRecommendRulesResponse) GetHits() []RecommendRule {
 	if o == nil {
 		var ret []RecommendRule
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *SearchRecommendRulesResponse) GetHitsOk() ([]RecommendRule, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *SearchRecommendRulesResponse) SetHits(v []RecommendRule) *SearchRecommendRulesResponse {
 	o.Hits = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *SearchRecommendRulesResponse) SetHits(v []RecommendRule) *SearchRecomme
 func (o *SearchRecommendRulesResponse) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *SearchRecommendRulesResponse) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *SearchRecommendRulesResponse) SetNbHits(v int32) *SearchRecommendRulesResponse {
 	o.NbHits = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *SearchRecommendRulesResponse) SetNbHits(v int32) *SearchRecommendRulesR
 func (o *SearchRecommendRulesResponse) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *SearchRecommendRulesResponse) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *SearchRecommendRulesResponse) SetPage(v int32) *SearchRecommendRulesResponse {
 	o.Page = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *SearchRecommendRulesResponse) SetPage(v int32) *SearchRecommendRulesRes
 func (o *SearchRecommendRulesResponse) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *SearchRecommendRulesResponse) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *SearchRecommendRulesResponse) SetNbPages(v int32) *SearchRecommendRulesResponse {
 	o.NbPages = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o SearchRecommendRulesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["nbHits"] = o.NbHits
 	toSerialize["page"] = o.Page
 	toSerialize["nbPages"] = o.NbPages
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchRecommendRulesResponse: %w", err)
@@ -156,5 +170,6 @@ func (o SearchRecommendRulesResponse) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
+
 	return fmt.Sprintf("SearchRecommendRulesResponse {\n%s}", out)
 }

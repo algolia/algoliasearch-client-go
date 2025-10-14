@@ -19,24 +19,7 @@ var AllowedOnDemandTriggerTypeEnumValues = []OnDemandTriggerType{
 	"onDemand",
 }
 
-func (v *OnDemandTriggerType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OnDemandTriggerType': %w", string(src), err)
-	}
-	enumTypeValue := OnDemandTriggerType(value)
-	for _, existing := range AllowedOnDemandTriggerTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid OnDemandTriggerType", value)
-}
-
-// NewOnDemandTriggerTypeFromValue returns a pointer to a valid OnDemandTriggerType
+// NewOnDemandTriggerTypeFromValue returns a pointer to a valid OnDemandTriggerType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewOnDemandTriggerTypeFromValue(v string) (*OnDemandTriggerType, error) {
 	ev := OnDemandTriggerType(v)
@@ -47,6 +30,26 @@ func NewOnDemandTriggerTypeFromValue(v string) (*OnDemandTriggerType, error) {
 	}
 }
 
+func (v *OnDemandTriggerType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'OnDemandTriggerType': %w", string(src), err)
+	}
+
+	enumTypeValue := OnDemandTriggerType(value)
+	for _, existing := range AllowedOnDemandTriggerTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid OnDemandTriggerType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v OnDemandTriggerType) IsValid() bool {
 	for _, existing := range AllowedOnDemandTriggerTypeEnumValues {
@@ -54,6 +57,7 @@ func (v OnDemandTriggerType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

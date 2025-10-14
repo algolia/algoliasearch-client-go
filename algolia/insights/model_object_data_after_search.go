@@ -51,6 +51,7 @@ func NewObjectDataAfterSearch(opts ...ObjectDataAfterSearchOption) *ObjectDataAf
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -63,8 +64,10 @@ func NewEmptyObjectDataAfterSearch() *ObjectDataAfterSearch {
 func (o *ObjectDataAfterSearch) GetQueryID() string {
 	if o == nil || o.QueryID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryID
 }
 
@@ -74,6 +77,7 @@ func (o *ObjectDataAfterSearch) GetQueryIDOk() (*string, bool) {
 	if o == nil || o.QueryID == nil {
 		return nil, false
 	}
+
 	return o.QueryID, true
 }
 
@@ -89,6 +93,7 @@ func (o *ObjectDataAfterSearch) HasQueryID() bool {
 // SetQueryID gets a reference to the given string and assigns it to the QueryID field.
 func (o *ObjectDataAfterSearch) SetQueryID(v string) *ObjectDataAfterSearch {
 	o.QueryID = &v
+
 	return o
 }
 
@@ -96,8 +101,10 @@ func (o *ObjectDataAfterSearch) SetQueryID(v string) *ObjectDataAfterSearch {
 func (o *ObjectDataAfterSearch) GetPrice() Price {
 	if o == nil || o.Price == nil {
 		var ret Price
+
 		return ret
 	}
+
 	return *o.Price
 }
 
@@ -107,6 +114,7 @@ func (o *ObjectDataAfterSearch) GetPriceOk() (*Price, bool) {
 	if o == nil || o.Price == nil {
 		return nil, false
 	}
+
 	return o.Price, true
 }
 
@@ -122,6 +130,7 @@ func (o *ObjectDataAfterSearch) HasPrice() bool {
 // SetPrice gets a reference to the given Price and assigns it to the Price field.
 func (o *ObjectDataAfterSearch) SetPrice(v *Price) *ObjectDataAfterSearch {
 	o.Price = v
+
 	return o
 }
 
@@ -129,8 +138,10 @@ func (o *ObjectDataAfterSearch) SetPrice(v *Price) *ObjectDataAfterSearch {
 func (o *ObjectDataAfterSearch) GetQuantity() int32 {
 	if o == nil || o.Quantity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Quantity
 }
 
@@ -140,6 +151,7 @@ func (o *ObjectDataAfterSearch) GetQuantityOk() (*int32, bool) {
 	if o == nil || o.Quantity == nil {
 		return nil, false
 	}
+
 	return o.Quantity, true
 }
 
@@ -155,6 +167,7 @@ func (o *ObjectDataAfterSearch) HasQuantity() bool {
 // SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
 func (o *ObjectDataAfterSearch) SetQuantity(v int32) *ObjectDataAfterSearch {
 	o.Quantity = &v
+
 	return o
 }
 
@@ -162,8 +175,10 @@ func (o *ObjectDataAfterSearch) SetQuantity(v int32) *ObjectDataAfterSearch {
 func (o *ObjectDataAfterSearch) GetDiscount() Discount {
 	if o == nil || o.Discount == nil {
 		var ret Discount
+
 		return ret
 	}
+
 	return *o.Discount
 }
 
@@ -173,6 +188,7 @@ func (o *ObjectDataAfterSearch) GetDiscountOk() (*Discount, bool) {
 	if o == nil || o.Discount == nil {
 		return nil, false
 	}
+
 	return o.Discount, true
 }
 
@@ -188,6 +204,7 @@ func (o *ObjectDataAfterSearch) HasDiscount() bool {
 // SetDiscount gets a reference to the given Discount and assigns it to the Discount field.
 func (o *ObjectDataAfterSearch) SetDiscount(v *Discount) *ObjectDataAfterSearch {
 	o.Discount = v
+
 	return o
 }
 
@@ -196,15 +213,19 @@ func (o ObjectDataAfterSearch) MarshalJSON() ([]byte, error) {
 	if o.QueryID != nil {
 		toSerialize["queryID"] = o.QueryID
 	}
+
 	if o.Price != nil {
 		toSerialize["price"] = o.Price
 	}
+
 	if o.Quantity != nil {
 		toSerialize["quantity"] = o.Quantity
 	}
+
 	if o.Discount != nil {
 		toSerialize["discount"] = o.Discount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ObjectDataAfterSearch: %w", err)
@@ -219,5 +240,6 @@ func (o ObjectDataAfterSearch) String() string {
 	out += fmt.Sprintf("  price=%v\n", o.Price)
 	out += fmt.Sprintf("  quantity=%v\n", o.Quantity)
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
+
 	return fmt.Sprintf("ObjectDataAfterSearch {\n%s}", out)
 }

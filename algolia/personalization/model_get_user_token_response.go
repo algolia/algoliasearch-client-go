@@ -25,6 +25,7 @@ func NewGetUserTokenResponse(userToken string, lastEventAt string, scores map[st
 	this.UserToken = userToken
 	this.LastEventAt = lastEventAt
 	this.Scores = scores
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyGetUserTokenResponse() *GetUserTokenResponse {
 func (o *GetUserTokenResponse) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *GetUserTokenResponse) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *GetUserTokenResponse) SetUserToken(v string) *GetUserTokenResponse {
 	o.UserToken = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *GetUserTokenResponse) SetUserToken(v string) *GetUserTokenResponse {
 func (o *GetUserTokenResponse) GetLastEventAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *GetUserTokenResponse) GetLastEventAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.LastEventAt, true
 }
 
 // SetLastEventAt sets field value.
 func (o *GetUserTokenResponse) SetLastEventAt(v string) *GetUserTokenResponse {
 	o.LastEventAt = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *GetUserTokenResponse) SetLastEventAt(v string) *GetUserTokenResponse {
 func (o *GetUserTokenResponse) GetScores() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *GetUserTokenResponse) GetScoresOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Scores, true
 }
 
 // SetScores sets field value.
 func (o *GetUserTokenResponse) SetScores(v map[string]any) *GetUserTokenResponse {
 	o.Scores = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o GetUserTokenResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["userToken"] = o.UserToken
 	toSerialize["lastEventAt"] = o.LastEventAt
 	toSerialize["scores"] = o.Scores
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetUserTokenResponse: %w", err)
@@ -126,5 +137,6 @@ func (o GetUserTokenResponse) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  lastEventAt=%v\n", o.LastEventAt)
 	out += fmt.Sprintf("  scores=%v\n", o.Scores)
+
 	return fmt.Sprintf("GetUserTokenResponse {\n%s}", out)
 }

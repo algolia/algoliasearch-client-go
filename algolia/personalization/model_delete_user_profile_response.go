@@ -22,6 +22,7 @@ func NewDeleteUserProfileResponse(userToken string, deletedUntil string) *Delete
 	this := &DeleteUserProfileResponse{}
 	this.UserToken = userToken
 	this.DeletedUntil = deletedUntil
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyDeleteUserProfileResponse() *DeleteUserProfileResponse {
 func (o *DeleteUserProfileResponse) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *DeleteUserProfileResponse) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *DeleteUserProfileResponse) SetUserToken(v string) *DeleteUserProfileResponse {
 	o.UserToken = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *DeleteUserProfileResponse) SetUserToken(v string) *DeleteUserProfileRes
 func (o *DeleteUserProfileResponse) GetDeletedUntil() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *DeleteUserProfileResponse) GetDeletedUntilOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DeletedUntil, true
 }
 
 // SetDeletedUntil sets field value.
 func (o *DeleteUserProfileResponse) SetDeletedUntil(v string) *DeleteUserProfileResponse {
 	o.DeletedUntil = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o DeleteUserProfileResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["userToken"] = o.UserToken
 	toSerialize["deletedUntil"] = o.DeletedUntil
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteUserProfileResponse: %w", err)
@@ -96,5 +104,6 @@ func (o DeleteUserProfileResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 	out += fmt.Sprintf("  deletedUntil=%v\n", o.DeletedUntil)
+
 	return fmt.Sprintf("DeleteUserProfileResponse {\n%s}", out)
 }

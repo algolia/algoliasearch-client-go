@@ -19,6 +19,7 @@ type DeleteCompositionRuleAction struct {
 func NewDeleteCompositionRuleAction(objectID string) *DeleteCompositionRuleAction {
 	this := &DeleteCompositionRuleAction{}
 	this.ObjectID = objectID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyDeleteCompositionRuleAction() *DeleteCompositionRuleAction {
 func (o *DeleteCompositionRuleAction) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *DeleteCompositionRuleAction) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *DeleteCompositionRuleAction) SetObjectID(v string) *DeleteCompositionRuleAction {
 	o.ObjectID = v
+
 	return o
 }
 
 func (o DeleteCompositionRuleAction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteCompositionRuleAction: %w", err)
@@ -66,5 +71,6 @@ func (o DeleteCompositionRuleAction) MarshalJSON() ([]byte, error) {
 func (o DeleteCompositionRuleAction) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+
 	return fmt.Sprintf("DeleteCompositionRuleAction {\n%s}", out)
 }

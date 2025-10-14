@@ -82,10 +82,12 @@ func WithTaskReplacePolicies(val Policies) TaskReplaceOption {
 func NewTaskReplace(destinationID string, action ActionType, opts ...TaskReplaceOption) *TaskReplace {
 	this := &TaskReplace{}
 	this.DestinationID = destinationID
+
 	this.Action = action
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -98,6 +100,7 @@ func NewEmptyTaskReplace() *TaskReplace {
 func (o *TaskReplace) GetDestinationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -110,12 +113,14 @@ func (o *TaskReplace) GetDestinationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DestinationID, true
 }
 
 // SetDestinationID sets field value.
 func (o *TaskReplace) SetDestinationID(v string) *TaskReplace {
 	o.DestinationID = v
+
 	return o
 }
 
@@ -123,6 +128,7 @@ func (o *TaskReplace) SetDestinationID(v string) *TaskReplace {
 func (o *TaskReplace) GetAction() ActionType {
 	if o == nil {
 		var ret ActionType
+
 		return ret
 	}
 
@@ -135,12 +141,14 @@ func (o *TaskReplace) GetActionOk() (*ActionType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *TaskReplace) SetAction(v ActionType) *TaskReplace {
 	o.Action = v
+
 	return o
 }
 
@@ -148,8 +156,10 @@ func (o *TaskReplace) SetAction(v ActionType) *TaskReplace {
 func (o *TaskReplace) GetSubscriptionAction() ActionType {
 	if o == nil || o.SubscriptionAction == nil {
 		var ret ActionType
+
 		return ret
 	}
+
 	return *o.SubscriptionAction
 }
 
@@ -159,6 +169,7 @@ func (o *TaskReplace) GetSubscriptionActionOk() (*ActionType, bool) {
 	if o == nil || o.SubscriptionAction == nil {
 		return nil, false
 	}
+
 	return o.SubscriptionAction, true
 }
 
@@ -174,6 +185,7 @@ func (o *TaskReplace) HasSubscriptionAction() bool {
 // SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
 func (o *TaskReplace) SetSubscriptionAction(v ActionType) *TaskReplace {
 	o.SubscriptionAction = &v
+
 	return o
 }
 
@@ -181,8 +193,10 @@ func (o *TaskReplace) SetSubscriptionAction(v ActionType) *TaskReplace {
 func (o *TaskReplace) GetCron() string {
 	if o == nil || o.Cron == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cron
 }
 
@@ -192,6 +206,7 @@ func (o *TaskReplace) GetCronOk() (*string, bool) {
 	if o == nil || o.Cron == nil {
 		return nil, false
 	}
+
 	return o.Cron, true
 }
 
@@ -207,6 +222,7 @@ func (o *TaskReplace) HasCron() bool {
 // SetCron gets a reference to the given string and assigns it to the Cron field.
 func (o *TaskReplace) SetCron(v string) *TaskReplace {
 	o.Cron = &v
+
 	return o
 }
 
@@ -214,8 +230,10 @@ func (o *TaskReplace) SetCron(v string) *TaskReplace {
 func (o *TaskReplace) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -225,6 +243,7 @@ func (o *TaskReplace) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -240,6 +259,7 @@ func (o *TaskReplace) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *TaskReplace) SetEnabled(v bool) *TaskReplace {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -247,8 +267,10 @@ func (o *TaskReplace) SetEnabled(v bool) *TaskReplace {
 func (o *TaskReplace) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -258,6 +280,7 @@ func (o *TaskReplace) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -273,6 +296,7 @@ func (o *TaskReplace) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskReplace) SetFailureThreshold(v int32) *TaskReplace {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -280,8 +304,10 @@ func (o *TaskReplace) SetFailureThreshold(v int32) *TaskReplace {
 func (o *TaskReplace) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -291,6 +317,7 @@ func (o *TaskReplace) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -306,6 +333,7 @@ func (o *TaskReplace) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskReplace) SetInput(v *TaskInput) *TaskReplace {
 	o.Input = v
+
 	return o
 }
 
@@ -313,8 +341,10 @@ func (o *TaskReplace) SetInput(v *TaskInput) *TaskReplace {
 func (o *TaskReplace) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cursor
 }
 
@@ -324,6 +354,7 @@ func (o *TaskReplace) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
+
 	return o.Cursor, true
 }
 
@@ -339,6 +370,7 @@ func (o *TaskReplace) HasCursor() bool {
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
 func (o *TaskReplace) SetCursor(v string) *TaskReplace {
 	o.Cursor = &v
+
 	return o
 }
 
@@ -346,8 +378,10 @@ func (o *TaskReplace) SetCursor(v string) *TaskReplace {
 func (o *TaskReplace) GetNotifications() Notifications {
 	if o == nil || o.Notifications == nil {
 		var ret Notifications
+
 		return ret
 	}
+
 	return *o.Notifications
 }
 
@@ -357,6 +391,7 @@ func (o *TaskReplace) GetNotificationsOk() (*Notifications, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
+
 	return o.Notifications, true
 }
 
@@ -372,6 +407,7 @@ func (o *TaskReplace) HasNotifications() bool {
 // SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
 func (o *TaskReplace) SetNotifications(v *Notifications) *TaskReplace {
 	o.Notifications = v
+
 	return o
 }
 
@@ -379,8 +415,10 @@ func (o *TaskReplace) SetNotifications(v *Notifications) *TaskReplace {
 func (o *TaskReplace) GetPolicies() Policies {
 	if o == nil || o.Policies == nil {
 		var ret Policies
+
 		return ret
 	}
+
 	return *o.Policies
 }
 
@@ -390,6 +428,7 @@ func (o *TaskReplace) GetPoliciesOk() (*Policies, bool) {
 	if o == nil || o.Policies == nil {
 		return nil, false
 	}
+
 	return o.Policies, true
 }
 
@@ -405,37 +444,47 @@ func (o *TaskReplace) HasPolicies() bool {
 // SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
 func (o *TaskReplace) SetPolicies(v *Policies) *TaskReplace {
 	o.Policies = v
+
 	return o
 }
 
 func (o TaskReplace) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["destinationID"] = o.DestinationID
+
 	toSerialize["action"] = o.Action
 	if o.SubscriptionAction != nil {
 		toSerialize["subscriptionAction"] = o.SubscriptionAction
 	}
+
 	if o.Cron != nil {
 		toSerialize["cron"] = o.Cron
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+
 	if o.Notifications != nil {
 		toSerialize["notifications"] = o.Notifications
 	}
+
 	if o.Policies != nil {
 		toSerialize["policies"] = o.Policies
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskReplace: %w", err)
@@ -456,5 +505,6 @@ func (o TaskReplace) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
+
 	return fmt.Sprintf("TaskReplace {\n%s}", out)
 }

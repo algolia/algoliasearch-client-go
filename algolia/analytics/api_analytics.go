@@ -70,10 +70,12 @@ func WithConnectTimeout(timeout time.Duration) requestOption {
 
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -83,6 +85,7 @@ func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -112,6 +115,7 @@ func (c *APIClient) NewApiCustomDeleteRequest(path string) ApiCustomDeleteReques
 // WithParameters adds the parameters to the ApiCustomDeleteRequest and returns the request for chaining.
 func (r ApiCustomDeleteRequest) WithParameters(parameters map[string]any) ApiCustomDeleteRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -182,9 +186,11 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -200,10 +206,12 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -213,6 +221,7 @@ func (r *ApiCustomGetRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -242,6 +251,7 @@ func (c *APIClient) NewApiCustomGetRequest(path string) ApiCustomGetRequest {
 // WithParameters adds the parameters to the ApiCustomGetRequest and returns the request for chaining.
 func (r ApiCustomGetRequest) WithParameters(parameters map[string]any) ApiCustomGetRequest {
 	r.parameters = parameters
+
 	return r
 }
 
@@ -312,9 +322,11 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -330,10 +342,12 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -343,6 +357,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -352,6 +367,7 @@ func (r *ApiCustomPostRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -382,12 +398,14 @@ func (c *APIClient) NewApiCustomPostRequest(path string) ApiCustomPostRequest {
 // WithParameters adds the parameters to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithParameters(parameters map[string]any) ApiCustomPostRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPostRequest and returns the request for chaining.
 func (r ApiCustomPostRequest) WithBody(body map[string]any) ApiCustomPostRequest {
 	r.body = body
+
 	return r
 }
 
@@ -439,6 +457,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -466,9 +485,11 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -484,10 +505,12 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["path"]; ok {
 		err = json.Unmarshal(v, &r.path)
 		if err != nil {
@@ -497,6 +520,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["parameters"]; ok {
 		err = json.Unmarshal(v, &r.parameters)
 		if err != nil {
@@ -506,6 +530,7 @@ func (r *ApiCustomPutRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["body"]; ok {
 		err = json.Unmarshal(v, &r.body)
 		if err != nil {
@@ -536,12 +561,14 @@ func (c *APIClient) NewApiCustomPutRequest(path string) ApiCustomPutRequest {
 // WithParameters adds the parameters to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithParameters(parameters map[string]any) ApiCustomPutRequest {
 	r.parameters = parameters
+
 	return r
 }
 
 // WithBody adds the body to the ApiCustomPutRequest and returns the request for chaining.
 func (r ApiCustomPutRequest) WithBody(body map[string]any) ApiCustomPutRequest {
 	r.body = body
+
 	return r
 }
 
@@ -593,6 +620,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 	} else {
 		postBody = r.body
 	}
+
 	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
@@ -620,9 +648,11 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -638,10 +668,12 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 func (r *ApiGetAddToCartRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -651,6 +683,7 @@ func (r *ApiGetAddToCartRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -660,6 +693,7 @@ func (r *ApiGetAddToCartRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -669,6 +703,7 @@ func (r *ApiGetAddToCartRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -700,18 +735,21 @@ func (c *APIClient) NewApiGetAddToCartRateRequest(index string) ApiGetAddToCartR
 // WithStartDate adds the startDate to the ApiGetAddToCartRateRequest and returns the request for chaining.
 func (r ApiGetAddToCartRateRequest) WithStartDate(startDate string) ApiGetAddToCartRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetAddToCartRateRequest and returns the request for chaining.
 func (r ApiGetAddToCartRateRequest) WithEndDate(endDate string) ApiGetAddToCartRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetAddToCartRateRequest and returns the request for chaining.
 func (r ApiGetAddToCartRateRequest) WithTags(tags string) ApiGetAddToCartRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -738,6 +776,8 @@ This differs from the response's `count`, which shows the overall number of sear
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -758,12 +798,15 @@ func (c *APIClient) GetAddToCartRateWithHTTPInfo(r ApiGetAddToCartRateRequest, o
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -807,6 +850,8 @@ Request can be constructed by NewApiGetAddToCartRateRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetAddToCartRateResponse
 */
@@ -817,9 +862,11 @@ func (c *APIClient) GetAddToCartRate(r ApiGetAddToCartRateRequest, opts ...Reque
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -835,10 +882,12 @@ func (c *APIClient) GetAddToCartRate(r ApiGetAddToCartRateRequest, opts ...Reque
 
 func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -848,6 +897,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -857,6 +907,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -866,6 +917,7 @@ func (r *ApiGetAverageClickPositionRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -897,18 +949,21 @@ func (c *APIClient) NewApiGetAverageClickPositionRequest(index string) ApiGetAve
 // WithStartDate adds the startDate to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithStartDate(startDate string) ApiGetAverageClickPositionRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithEndDate(endDate string) ApiGetAverageClickPositionRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetAverageClickPositionRequest and returns the request for chaining.
 func (r ApiGetAverageClickPositionRequest) WithTags(tags string) ApiGetAverageClickPositionRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -931,6 +986,8 @@ The average is `null` until Algolia receives at least one click event.
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -951,12 +1008,15 @@ func (c *APIClient) GetAverageClickPositionWithHTTPInfo(r ApiGetAverageClickPosi
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -996,6 +1056,8 @@ Request can be constructed by NewApiGetAverageClickPositionRequest with paramete
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetAverageClickPositionResponse
 */
@@ -1006,9 +1068,11 @@ func (c *APIClient) GetAverageClickPosition(r ApiGetAverageClickPositionRequest,
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1024,10 +1088,12 @@ func (c *APIClient) GetAverageClickPosition(r ApiGetAverageClickPositionRequest,
 
 func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1037,6 +1103,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1046,6 +1113,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1055,6 +1123,7 @@ func (r *ApiGetClickPositionsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -1086,18 +1155,21 @@ func (c *APIClient) NewApiGetClickPositionsRequest(index string) ApiGetClickPosi
 // WithStartDate adds the startDate to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithStartDate(startDate string) ApiGetClickPositionsRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithEndDate(endDate string) ApiGetClickPositionsRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetClickPositionsRequest and returns the request for chaining.
 func (r ApiGetClickPositionsRequest) WithTags(tags string) ApiGetClickPositionsRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -1117,6 +1189,8 @@ An average of `0` when `clickAnalytics` is enabled means Algolia didn't receive 
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1137,12 +1211,15 @@ func (c *APIClient) GetClickPositionsWithHTTPInfo(r ApiGetClickPositionsRequest,
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -1179,6 +1256,8 @@ Request can be constructed by NewApiGetClickPositionsRequest with parameters bel
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetClickPositionsResponse
 */
@@ -1189,9 +1268,11 @@ func (c *APIClient) GetClickPositions(r ApiGetClickPositionsRequest, opts ...Req
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1207,10 +1288,12 @@ func (c *APIClient) GetClickPositions(r ApiGetClickPositionsRequest, opts ...Req
 
 func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1220,6 +1303,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1229,6 +1313,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1238,6 +1323,7 @@ func (r *ApiGetClickThroughRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -1269,18 +1355,21 @@ func (c *APIClient) NewApiGetClickThroughRateRequest(index string) ApiGetClickTh
 // WithStartDate adds the startDate to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithStartDate(startDate string) ApiGetClickThroughRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithEndDate(endDate string) ApiGetClickThroughRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetClickThroughRateRequest and returns the request for chaining.
 func (r ApiGetClickThroughRateRequest) WithTags(tags string) ApiGetClickThroughRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -1303,6 +1392,8 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1323,12 +1414,15 @@ func (c *APIClient) GetClickThroughRateWithHTTPInfo(r ApiGetClickThroughRateRequ
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -1368,6 +1462,8 @@ Request can be constructed by NewApiGetClickThroughRateRequest with parameters b
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetClickThroughRateResponse
 */
@@ -1378,9 +1474,11 @@ func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ..
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1396,10 +1494,12 @@ func (c *APIClient) GetClickThroughRate(r ApiGetClickThroughRateRequest, opts ..
 
 func (r *ApiGetConversionRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1409,6 +1509,7 @@ func (r *ApiGetConversionRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1418,6 +1519,7 @@ func (r *ApiGetConversionRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1427,6 +1529,7 @@ func (r *ApiGetConversionRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -1458,18 +1561,21 @@ func (c *APIClient) NewApiGetConversionRateRequest(index string) ApiGetConversio
 // WithStartDate adds the startDate to the ApiGetConversionRateRequest and returns the request for chaining.
 func (r ApiGetConversionRateRequest) WithStartDate(startDate string) ApiGetConversionRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetConversionRateRequest and returns the request for chaining.
 func (r ApiGetConversionRateRequest) WithEndDate(endDate string) ApiGetConversionRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetConversionRateRequest and returns the request for chaining.
 func (r ApiGetConversionRateRequest) WithTags(tags string) ApiGetConversionRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -1492,6 +1598,8 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1512,12 +1620,15 @@ func (c *APIClient) GetConversionRateWithHTTPInfo(r ApiGetConversionRateRequest,
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -1557,6 +1668,8 @@ Request can be constructed by NewApiGetConversionRateRequest with parameters bel
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetConversionRateResponse
 */
@@ -1567,9 +1680,11 @@ func (c *APIClient) GetConversionRate(r ApiGetConversionRateRequest, opts ...Req
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1585,10 +1700,12 @@ func (c *APIClient) GetConversionRate(r ApiGetConversionRateRequest, opts ...Req
 
 func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1598,6 +1715,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1607,6 +1725,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1616,6 +1735,7 @@ func (r *ApiGetNoClickRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -1647,18 +1767,21 @@ func (c *APIClient) NewApiGetNoClickRateRequest(index string) ApiGetNoClickRateR
 // WithStartDate adds the startDate to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithStartDate(startDate string) ApiGetNoClickRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithEndDate(endDate string) ApiGetNoClickRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetNoClickRateRequest and returns the request for chaining.
 func (r ApiGetNoClickRateRequest) WithTags(tags string) ApiGetNoClickRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -1678,6 +1801,8 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1698,12 +1823,15 @@ func (c *APIClient) GetNoClickRateWithHTTPInfo(r ApiGetNoClickRateRequest, opts 
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -1739,6 +1867,8 @@ Request can be constructed by NewApiGetNoClickRateRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetNoClickRateResponse
 */
@@ -1749,9 +1879,11 @@ func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1767,10 +1899,12 @@ func (c *APIClient) GetNoClickRate(r ApiGetNoClickRateRequest, opts ...RequestOp
 
 func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1780,6 +1914,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1789,6 +1924,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1798,6 +1934,7 @@ func (r *ApiGetNoResultsRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -1829,18 +1966,21 @@ func (c *APIClient) NewApiGetNoResultsRateRequest(index string) ApiGetNoResultsR
 // WithStartDate adds the startDate to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithStartDate(startDate string) ApiGetNoResultsRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithEndDate(endDate string) ApiGetNoResultsRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetNoResultsRateRequest and returns the request for chaining.
 func (r ApiGetNoResultsRateRequest) WithTags(tags string) ApiGetNoResultsRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -1860,6 +2000,8 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -1880,12 +2022,15 @@ func (c *APIClient) GetNoResultsRateWithHTTPInfo(r ApiGetNoResultsRateRequest, o
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -1921,6 +2066,8 @@ Request can be constructed by NewApiGetNoResultsRateRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetNoResultsRateResponse
 */
@@ -1931,9 +2078,11 @@ func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...Reque
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -1949,10 +2098,12 @@ func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...Reque
 
 func (r *ApiGetPurchaseRateRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -1962,6 +2113,7 @@ func (r *ApiGetPurchaseRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -1971,6 +2123,7 @@ func (r *ApiGetPurchaseRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -1980,6 +2133,7 @@ func (r *ApiGetPurchaseRateRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -2011,18 +2165,21 @@ func (c *APIClient) NewApiGetPurchaseRateRequest(index string) ApiGetPurchaseRat
 // WithStartDate adds the startDate to the ApiGetPurchaseRateRequest and returns the request for chaining.
 func (r ApiGetPurchaseRateRequest) WithStartDate(startDate string) ApiGetPurchaseRateRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetPurchaseRateRequest and returns the request for chaining.
 func (r ApiGetPurchaseRateRequest) WithEndDate(endDate string) ApiGetPurchaseRateRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetPurchaseRateRequest and returns the request for chaining.
 func (r ApiGetPurchaseRateRequest) WithTags(tags string) ApiGetPurchaseRateRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -2049,6 +2206,8 @@ This differs from the response's `count`, which shows the overall number of sear
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2069,12 +2228,15 @@ func (c *APIClient) GetPurchaseRateWithHTTPInfo(r ApiGetPurchaseRateRequest, opt
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -2118,6 +2280,8 @@ Request can be constructed by NewApiGetPurchaseRateRequest with parameters below
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetPurchaseRateResponse
 */
@@ -2128,9 +2292,11 @@ func (c *APIClient) GetPurchaseRate(r ApiGetPurchaseRateRequest, opts ...Request
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2146,10 +2312,12 @@ func (c *APIClient) GetPurchaseRate(r ApiGetPurchaseRateRequest, opts ...Request
 
 func (r *ApiGetRevenueRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -2159,6 +2327,7 @@ func (r *ApiGetRevenueRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -2168,6 +2337,7 @@ func (r *ApiGetRevenueRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -2177,6 +2347,7 @@ func (r *ApiGetRevenueRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -2208,18 +2379,21 @@ func (c *APIClient) NewApiGetRevenueRequest(index string) ApiGetRevenueRequest {
 // WithStartDate adds the startDate to the ApiGetRevenueRequest and returns the request for chaining.
 func (r ApiGetRevenueRequest) WithStartDate(startDate string) ApiGetRevenueRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetRevenueRequest and returns the request for chaining.
 func (r ApiGetRevenueRequest) WithEndDate(endDate string) ApiGetRevenueRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetRevenueRequest and returns the request for chaining.
 func (r ApiGetRevenueRequest) WithTags(tags string) ApiGetRevenueRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -2241,6 +2415,8 @@ The revenue is the `price` attribute multiplied by the `quantity` attribute for 
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2261,12 +2437,15 @@ func (c *APIClient) GetRevenueWithHTTPInfo(r ApiGetRevenueRequest, opts ...Reque
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -2305,6 +2484,8 @@ Request can be constructed by NewApiGetRevenueRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetRevenue
 */
@@ -2315,9 +2496,11 @@ func (c *APIClient) GetRevenue(r ApiGetRevenueRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2333,10 +2516,12 @@ func (c *APIClient) GetRevenue(r ApiGetRevenueRequest, opts ...RequestOption) (*
 
 func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -2346,6 +2531,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -2355,6 +2541,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -2364,6 +2551,7 @@ func (r *ApiGetSearchesCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -2395,18 +2583,21 @@ func (c *APIClient) NewApiGetSearchesCountRequest(index string) ApiGetSearchesCo
 // WithStartDate adds the startDate to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithStartDate(startDate string) ApiGetSearchesCountRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithEndDate(endDate string) ApiGetSearchesCountRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesCountRequest and returns the request for chaining.
 func (r ApiGetSearchesCountRequest) WithTags(tags string) ApiGetSearchesCountRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -2424,6 +2615,8 @@ By default, the analyzed period includes the last eight days including the curre
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2444,12 +2637,15 @@ func (c *APIClient) GetSearchesCountWithHTTPInfo(r ApiGetSearchesCountRequest, o
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -2484,6 +2680,8 @@ Request can be constructed by NewApiGetSearchesCountRequest with parameters belo
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesCountResponse
 */
@@ -2494,9 +2692,11 @@ func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...Reque
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2512,10 +2712,12 @@ func (c *APIClient) GetSearchesCount(r ApiGetSearchesCountRequest, opts ...Reque
 
 func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -2525,6 +2727,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -2534,6 +2737,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -2543,6 +2747,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -2552,6 +2757,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -2561,6 +2767,7 @@ func (r *ApiGetSearchesNoClicksRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -2594,30 +2801,35 @@ func (c *APIClient) NewApiGetSearchesNoClicksRequest(index string) ApiGetSearche
 // WithStartDate adds the startDate to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithStartDate(startDate string) ApiGetSearchesNoClicksRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithEndDate(endDate string) ApiGetSearchesNoClicksRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithLimit(limit int32) ApiGetSearchesNoClicksRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithOffset(offset int32) ApiGetSearchesNoClicksRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesNoClicksRequest and returns the request for chaining.
 func (r ApiGetSearchesNoClicksRequest) WithTags(tags string) ApiGetSearchesNoClicksRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -2637,6 +2849,8 @@ For each search, it also returns the number of displayed search results that rem
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2657,18 +2871,23 @@ func (c *APIClient) GetSearchesNoClicksWithHTTPInfo(r ApiGetSearchesNoClicksRequ
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -2705,6 +2924,8 @@ Request can be constructed by NewApiGetSearchesNoClicksRequest with parameters b
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesNoClicksResponse
 */
@@ -2715,9 +2936,11 @@ func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ..
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2733,10 +2956,12 @@ func (c *APIClient) GetSearchesNoClicks(r ApiGetSearchesNoClicksRequest, opts ..
 
 func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -2746,6 +2971,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -2755,6 +2981,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -2764,6 +2991,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -2773,6 +3001,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -2782,6 +3011,7 @@ func (r *ApiGetSearchesNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -2815,30 +3045,35 @@ func (c *APIClient) NewApiGetSearchesNoResultsRequest(index string) ApiGetSearch
 // WithStartDate adds the startDate to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithStartDate(startDate string) ApiGetSearchesNoResultsRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithEndDate(endDate string) ApiGetSearchesNoResultsRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithLimit(limit int32) ApiGetSearchesNoResultsRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithOffset(offset int32) ApiGetSearchesNoResultsRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetSearchesNoResultsRequest and returns the request for chaining.
 func (r ApiGetSearchesNoResultsRequest) WithTags(tags string) ApiGetSearchesNoResultsRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -2856,6 +3091,8 @@ GetSearchesNoResults calls the API and returns the raw response from it.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -2876,18 +3113,23 @@ func (c *APIClient) GetSearchesNoResultsWithHTTPInfo(r ApiGetSearchesNoResultsRe
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -2922,6 +3164,8 @@ Request can be constructed by NewApiGetSearchesNoResultsRequest with parameters 
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetSearchesNoResultsResponse
 */
@@ -2932,9 +3176,11 @@ func (c *APIClient) GetSearchesNoResults(r ApiGetSearchesNoResultsRequest, opts 
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -2950,10 +3196,12 @@ func (c *APIClient) GetSearchesNoResults(r ApiGetSearchesNoResultsRequest, opts 
 
 func (r *ApiGetStatusRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -3052,9 +3300,11 @@ func (c *APIClient) GetStatus(r ApiGetStatusRequest, opts ...RequestOption) (*Ge
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3070,10 +3320,12 @@ func (c *APIClient) GetStatus(r ApiGetStatusRequest, opts ...RequestOption) (*Ge
 
 func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -3083,6 +3335,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -3092,6 +3345,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -3101,6 +3355,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -3110,6 +3365,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -3119,6 +3375,7 @@ func (r *ApiGetTopCountriesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -3152,30 +3409,35 @@ func (c *APIClient) NewApiGetTopCountriesRequest(index string) ApiGetTopCountrie
 // WithStartDate adds the startDate to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithStartDate(startDate string) ApiGetTopCountriesRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithEndDate(endDate string) ApiGetTopCountriesRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithLimit(limit int32) ApiGetTopCountriesRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithOffset(offset int32) ApiGetTopCountriesRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopCountriesRequest and returns the request for chaining.
 func (r ApiGetTopCountriesRequest) WithTags(tags string) ApiGetTopCountriesRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -3193,6 +3455,8 @@ GetTopCountries calls the API and returns the raw response from it.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3213,18 +3477,23 @@ func (c *APIClient) GetTopCountriesWithHTTPInfo(r ApiGetTopCountriesRequest, opt
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -3259,6 +3528,8 @@ Request can be constructed by NewApiGetTopCountriesRequest with parameters below
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopCountriesResponse
 */
@@ -3269,9 +3540,11 @@ func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...Request
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3287,10 +3560,12 @@ func (c *APIClient) GetTopCountries(r ApiGetTopCountriesRequest, opts ...Request
 
 func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -3300,6 +3575,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["search"]; ok {
 		err = json.Unmarshal(v, &r.search)
 		if err != nil {
@@ -3309,6 +3585,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -3318,6 +3595,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -3327,6 +3605,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -3336,6 +3615,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -3345,6 +3625,7 @@ func (r *ApiGetTopFilterAttributesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -3379,36 +3660,42 @@ func (c *APIClient) NewApiGetTopFilterAttributesRequest(index string) ApiGetTopF
 // WithSearch adds the search to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithSearch(search string) ApiGetTopFilterAttributesRequest {
 	r.search = &search
+
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithStartDate(startDate string) ApiGetTopFilterAttributesRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithEndDate(endDate string) ApiGetTopFilterAttributesRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithLimit(limit int32) ApiGetTopFilterAttributesRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithOffset(offset int32) ApiGetTopFilterAttributesRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFilterAttributesRequest and returns the request for chaining.
 func (r ApiGetTopFilterAttributesRequest) WithTags(tags string) ApiGetTopFilterAttributesRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -3429,6 +3716,8 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3449,21 +3738,27 @@ func (c *APIClient) GetTopFilterAttributesWithHTTPInfo(r ApiGetTopFilterAttribut
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.search) {
 		conf.queryParams.Set("search", utils.QueryParameterToString(*r.search))
 	}
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -3501,6 +3796,8 @@ Request can be constructed by NewApiGetTopFilterAttributesRequest with parameter
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFilterAttributesResponse
 */
@@ -3511,9 +3808,11 @@ func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, o
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3529,10 +3828,12 @@ func (c *APIClient) GetTopFilterAttributes(r ApiGetTopFilterAttributesRequest, o
 
 func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["attribute"]; ok {
 		err = json.Unmarshal(v, &r.attribute)
 		if err != nil {
@@ -3542,6 +3843,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -3551,6 +3853,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["search"]; ok {
 		err = json.Unmarshal(v, &r.search)
 		if err != nil {
@@ -3560,6 +3863,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -3569,6 +3873,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -3578,6 +3883,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -3587,6 +3893,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -3596,6 +3903,7 @@ func (r *ApiGetTopFilterForAttributeRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -3632,36 +3940,42 @@ func (c *APIClient) NewApiGetTopFilterForAttributeRequest(attribute string, inde
 // WithSearch adds the search to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithSearch(search string) ApiGetTopFilterForAttributeRequest {
 	r.search = &search
+
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithStartDate(startDate string) ApiGetTopFilterForAttributeRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithEndDate(endDate string) ApiGetTopFilterForAttributeRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithLimit(limit int32) ApiGetTopFilterForAttributeRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithOffset(offset int32) ApiGetTopFilterForAttributeRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFilterForAttributeRequest and returns the request for chaining.
 func (r ApiGetTopFilterForAttributeRequest) WithTags(tags string) ApiGetTopFilterForAttributeRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -3683,19 +3997,25 @@ These are attributes of your records that you included in the `attributesForFace
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
 */
-func (c *APIClient) GetTopFilterForAttributeWithHTTPInfo(r ApiGetTopFilterForAttributeRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+func (c *APIClient) GetTopFilterForAttributeWithHTTPInfo(
+	r ApiGetTopFilterForAttributeRequest,
+	opts ...RequestOption,
+) (*http.Response, []byte, error) {
 	requestPath := "/2/filters/{attribute}"
 	requestPath = strings.ReplaceAll(requestPath, "{attribute}", url.PathEscape(utils.ParameterToString(r.attribute)))
 
 	if r.attribute == "" {
 		return nil, nil, reportError("Parameter `attribute` is required when calling `GetTopFilterForAttribute`.")
 	}
+
 	if r.index == "" {
 		return nil, nil, reportError("Parameter `index` is required when calling `GetTopFilterForAttribute`.")
 	}
@@ -3707,21 +4027,27 @@ func (c *APIClient) GetTopFilterForAttributeWithHTTPInfo(r ApiGetTopFilterForAtt
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.search) {
 		conf.queryParams.Set("search", utils.QueryParameterToString(*r.search))
 	}
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -3760,6 +4086,8 @@ Request can be constructed by NewApiGetTopFilterForAttributeRequest with paramet
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFilterForAttributeResponse
 */
@@ -3770,9 +4098,11 @@ func (c *APIClient) GetTopFilterForAttribute(r ApiGetTopFilterForAttributeReques
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -3788,10 +4118,12 @@ func (c *APIClient) GetTopFilterForAttribute(r ApiGetTopFilterForAttributeReques
 
 func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -3801,6 +4133,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["search"]; ok {
 		err = json.Unmarshal(v, &r.search)
 		if err != nil {
@@ -3810,6 +4143,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -3819,6 +4153,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -3828,6 +4163,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -3837,6 +4173,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -3846,6 +4183,7 @@ func (r *ApiGetTopFiltersNoResultsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -3880,36 +4218,42 @@ func (c *APIClient) NewApiGetTopFiltersNoResultsRequest(index string) ApiGetTopF
 // WithSearch adds the search to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithSearch(search string) ApiGetTopFiltersNoResultsRequest {
 	r.search = &search
+
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithStartDate(startDate string) ApiGetTopFiltersNoResultsRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithEndDate(endDate string) ApiGetTopFiltersNoResultsRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithLimit(limit int32) ApiGetTopFiltersNoResultsRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithOffset(offset int32) ApiGetTopFiltersNoResultsRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopFiltersNoResultsRequest and returns the request for chaining.
 func (r ApiGetTopFiltersNoResultsRequest) WithTags(tags string) ApiGetTopFiltersNoResultsRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -3930,6 +4274,8 @@ To get the most frequent searches without results, use the [Retrieve searches wi
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3950,21 +4296,27 @@ func (c *APIClient) GetTopFiltersNoResultsWithHTTPInfo(r ApiGetTopFiltersNoResul
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.search) {
 		conf.queryParams.Set("search", utils.QueryParameterToString(*r.search))
 	}
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -4002,6 +4354,8 @@ Request can be constructed by NewApiGetTopFiltersNoResultsRequest with parameter
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopFiltersNoResultsResponse
 */
@@ -4012,9 +4366,11 @@ func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, o
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4030,10 +4386,12 @@ func (c *APIClient) GetTopFiltersNoResults(r ApiGetTopFiltersNoResultsRequest, o
 
 func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -4043,6 +4401,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["search"]; ok {
 		err = json.Unmarshal(v, &r.search)
 		if err != nil {
@@ -4052,6 +4411,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["clickAnalytics"]; ok {
 		err = json.Unmarshal(v, &r.clickAnalytics)
 		if err != nil {
@@ -4061,6 +4421,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["revenueAnalytics"]; ok {
 		err = json.Unmarshal(v, &r.revenueAnalytics)
 		if err != nil {
@@ -4070,6 +4431,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -4079,6 +4441,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -4088,6 +4451,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -4097,6 +4461,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -4106,6 +4471,7 @@ func (r *ApiGetTopHitsRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -4142,48 +4508,56 @@ func (c *APIClient) NewApiGetTopHitsRequest(index string) ApiGetTopHitsRequest {
 // WithSearch adds the search to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithSearch(search string) ApiGetTopHitsRequest {
 	r.search = &search
+
 	return r
 }
 
 // WithClickAnalytics adds the clickAnalytics to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithClickAnalytics(clickAnalytics bool) ApiGetTopHitsRequest {
 	r.clickAnalytics = &clickAnalytics
+
 	return r
 }
 
 // WithRevenueAnalytics adds the revenueAnalytics to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithRevenueAnalytics(revenueAnalytics bool) ApiGetTopHitsRequest {
 	r.revenueAnalytics = &revenueAnalytics
+
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithStartDate(startDate string) ApiGetTopHitsRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithEndDate(endDate string) ApiGetTopHitsRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithLimit(limit int32) ApiGetTopHitsRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithOffset(offset int32) ApiGetTopHitsRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopHitsRequest and returns the request for chaining.
 func (r ApiGetTopHitsRequest) WithTags(tags string) ApiGetTopHitsRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -4226,6 +4600,8 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param limit int32 - Number of items to return.
 	  @param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4246,27 +4622,35 @@ func (c *APIClient) GetTopHitsWithHTTPInfo(r ApiGetTopHitsRequest, opts ...Reque
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.search) {
 		conf.queryParams.Set("search", utils.QueryParameterToString(*r.search))
 	}
+
 	if !utils.IsNilOrEmpty(r.clickAnalytics) {
 		conf.queryParams.Set("clickAnalytics", utils.QueryParameterToString(*r.clickAnalytics))
 	}
+
 	if !utils.IsNilOrEmpty(r.revenueAnalytics) {
 		conf.queryParams.Set("revenueAnalytics", utils.QueryParameterToString(*r.revenueAnalytics))
 	}
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -4326,6 +4710,8 @@ Request can be constructed by NewApiGetTopHitsRequest with parameters below.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopHitsResponse
 */
@@ -4336,9 +4722,11 @@ func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...RequestOption) (*
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4354,10 +4742,12 @@ func (c *APIClient) GetTopHits(r ApiGetTopHitsRequest, opts ...RequestOption) (*
 
 func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -4367,6 +4757,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["clickAnalytics"]; ok {
 		err = json.Unmarshal(v, &r.clickAnalytics)
 		if err != nil {
@@ -4376,6 +4767,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["revenueAnalytics"]; ok {
 		err = json.Unmarshal(v, &r.revenueAnalytics)
 		if err != nil {
@@ -4385,6 +4777,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -4394,6 +4787,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -4403,6 +4797,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["orderBy"]; ok {
 		err = json.Unmarshal(v, &r.orderBy)
 		if err != nil {
@@ -4412,6 +4807,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["direction"]; ok {
 		err = json.Unmarshal(v, &r.direction)
 		if err != nil {
@@ -4421,6 +4817,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["limit"]; ok {
 		err = json.Unmarshal(v, &r.limit)
 		if err != nil {
@@ -4430,6 +4827,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["offset"]; ok {
 		err = json.Unmarshal(v, &r.offset)
 		if err != nil {
@@ -4439,6 +4837,7 @@ func (r *ApiGetTopSearchesRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -4476,54 +4875,63 @@ func (c *APIClient) NewApiGetTopSearchesRequest(index string) ApiGetTopSearchesR
 // WithClickAnalytics adds the clickAnalytics to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithClickAnalytics(clickAnalytics bool) ApiGetTopSearchesRequest {
 	r.clickAnalytics = &clickAnalytics
+
 	return r
 }
 
 // WithRevenueAnalytics adds the revenueAnalytics to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithRevenueAnalytics(revenueAnalytics bool) ApiGetTopSearchesRequest {
 	r.revenueAnalytics = &revenueAnalytics
+
 	return r
 }
 
 // WithStartDate adds the startDate to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithStartDate(startDate string) ApiGetTopSearchesRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithEndDate(endDate string) ApiGetTopSearchesRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithOrderBy adds the orderBy to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithOrderBy(orderBy OrderBy) ApiGetTopSearchesRequest {
 	r.orderBy = orderBy
+
 	return r
 }
 
 // WithDirection adds the direction to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithDirection(direction Direction) ApiGetTopSearchesRequest {
 	r.direction = direction
+
 	return r
 }
 
 // WithLimit adds the limit to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithLimit(limit int32) ApiGetTopSearchesRequest {
 	r.limit = &limit
+
 	return r
 }
 
 // WithOffset adds the offset to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithOffset(offset int32) ApiGetTopSearchesRequest {
 	r.offset = &offset
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetTopSearchesRequest and returns the request for chaining.
 func (r ApiGetTopSearchesRequest) WithTags(tags string) ApiGetTopSearchesRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -4563,10 +4971,14 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 	  @param revenueAnalytics bool - Whether to include metrics related to revenue events in the response.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
-	  @param direction Direction - Sorting direction of the results: ascending or descending.
-	  @param limit int32 - Number of items to return.
-	  @param offset int32 - Position of the first item to return.
+
+
+	@param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
+	@param direction Direction - Sorting direction of the results: ascending or descending.
+	@param limit int32 - Number of items to return.
+	@param offset int32 - Position of the first item to return.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4587,30 +4999,39 @@ func (c *APIClient) GetTopSearchesWithHTTPInfo(r ApiGetTopSearchesRequest, opts 
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.clickAnalytics) {
 		conf.queryParams.Set("clickAnalytics", utils.QueryParameterToString(*r.clickAnalytics))
 	}
+
 	if !utils.IsNilOrEmpty(r.revenueAnalytics) {
 		conf.queryParams.Set("revenueAnalytics", utils.QueryParameterToString(*r.revenueAnalytics))
 	}
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.orderBy) {
 		conf.queryParams.Set("orderBy", utils.QueryParameterToString(r.orderBy))
 	}
+
 	if !utils.IsNilOrEmpty(r.direction) {
 		conf.queryParams.Set("direction", utils.QueryParameterToString(r.direction))
 	}
+
 	if !utils.IsNilOrEmpty(r.limit) {
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
+
 	if !utils.IsNilOrEmpty(r.offset) {
 		conf.queryParams.Set("offset", utils.QueryParameterToString(*r.offset))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -4667,10 +5088,14 @@ Request can be constructed by NewApiGetTopSearchesRequest with parameters below.
 	@param revenueAnalytics bool - Whether to include metrics related to revenue events in the response.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param orderBy OrderBy - Attribute by which to order the response items.  If the `clickAnalytics` parameter is false, only `searchCount` is available.
 	@param direction Direction - Sorting direction of the results: ascending or descending.
 	@param limit int32 - Number of items to return.
 	@param offset int32 - Position of the first item to return.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetTopSearchesResponse
 */
@@ -4681,9 +5106,11 @@ func (c *APIClient) GetTopSearches(r ApiGetTopSearchesRequest, opts ...RequestOp
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)
@@ -4699,10 +5126,12 @@ func (c *APIClient) GetTopSearches(r ApiGetTopSearchesRequest, opts ...RequestOp
 
 func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
+
 	err := json.Unmarshal(b, &req)
 	if err != nil {
 		return fmt.Errorf("cannot unmarshal request: %w", err)
 	}
+
 	if v, ok := req["index"]; ok {
 		err = json.Unmarshal(v, &r.index)
 		if err != nil {
@@ -4712,6 +5141,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["startDate"]; ok {
 		err = json.Unmarshal(v, &r.startDate)
 		if err != nil {
@@ -4721,6 +5151,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["endDate"]; ok {
 		err = json.Unmarshal(v, &r.endDate)
 		if err != nil {
@@ -4730,6 +5161,7 @@ func (r *ApiGetUsersCountRequest) UnmarshalJSON(b []byte) error {
 			}
 		}
 	}
+
 	if v, ok := req["tags"]; ok {
 		err = json.Unmarshal(v, &r.tags)
 		if err != nil {
@@ -4761,18 +5193,21 @@ func (c *APIClient) NewApiGetUsersCountRequest(index string) ApiGetUsersCountReq
 // WithStartDate adds the startDate to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithStartDate(startDate string) ApiGetUsersCountRequest {
 	r.startDate = &startDate
+
 	return r
 }
 
 // WithEndDate adds the endDate to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithEndDate(endDate string) ApiGetUsersCountRequest {
 	r.endDate = &endDate
+
 	return r
 }
 
 // WithTags adds the tags to the ApiGetUsersCountRequest and returns the request for chaining.
 func (r ApiGetUsersCountRequest) WithTags(tags string) ApiGetUsersCountRequest {
 	r.tags = &tags
+
 	return r
 }
 
@@ -4795,6 +5230,8 @@ By default:
 	  @param index string - Index name.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	  @param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4815,12 +5252,15 @@ func (c *APIClient) GetUsersCountWithHTTPInfo(r ApiGetUsersCountRequest, opts ..
 	}
 
 	conf.queryParams.Set("index", utils.QueryParameterToString(r.index))
+
 	if !utils.IsNilOrEmpty(r.startDate) {
 		conf.queryParams.Set("startDate", utils.QueryParameterToString(*r.startDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
+
 	if !utils.IsNilOrEmpty(r.tags) {
 		conf.queryParams.Set("tags", utils.QueryParameterToString(*r.tags))
 	}
@@ -4860,6 +5300,8 @@ Request can be constructed by NewApiGetUsersCountRequest with parameters below.
 	@param index string - Index name.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
+
+
 	@param tags string - Tags by which to segment the analytics.  You can combine multiple tags with `OR` and `AND`. Tags must be URL-encoded. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	@return GetUsersCountResponse
 */
@@ -4870,9 +5312,11 @@ func (c *APIClient) GetUsersCount(r ApiGetUsersCountRequest, opts ...RequestOpti
 	if err != nil {
 		return returnValue, err
 	}
+
 	if res == nil {
 		return returnValue, reportError("res is nil")
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode >= 300 {
 		return returnValue, c.decodeError(res, resBody)

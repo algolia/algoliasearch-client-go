@@ -25,24 +25,7 @@ var AllowedTypoToleranceEnumEnumValues = []TypoToleranceEnum{
 	"false",
 }
 
-func (v *TypoToleranceEnum) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TypoToleranceEnum': %w", string(src), err)
-	}
-	enumTypeValue := TypoToleranceEnum(value)
-	for _, existing := range AllowedTypoToleranceEnumEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TypoToleranceEnum", value)
-}
-
-// NewTypoToleranceEnumFromValue returns a pointer to a valid TypoToleranceEnum
+// NewTypoToleranceEnumFromValue returns a pointer to a valid TypoToleranceEnum.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTypoToleranceEnumFromValue(v string) (*TypoToleranceEnum, error) {
 	ev := TypoToleranceEnum(v)
@@ -53,6 +36,26 @@ func NewTypoToleranceEnumFromValue(v string) (*TypoToleranceEnum, error) {
 	}
 }
 
+func (v *TypoToleranceEnum) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TypoToleranceEnum': %w", string(src), err)
+	}
+
+	enumTypeValue := TypoToleranceEnum(value)
+	for _, existing := range AllowedTypoToleranceEnumEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TypoToleranceEnum", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TypoToleranceEnum) IsValid() bool {
 	for _, existing := range AllowedTypoToleranceEnumEnumValues {
@@ -60,6 +63,7 @@ func (v TypoToleranceEnum) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

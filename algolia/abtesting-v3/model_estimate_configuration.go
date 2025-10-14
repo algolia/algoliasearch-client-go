@@ -27,10 +27,12 @@ func WithEstimateConfigurationFilters(val []MetricsFilter) EstimateConfiguration
 // will change when the set of required properties is changed.
 func NewEstimateConfiguration(minimumDetectableEffect MinimumDetectableEffect, opts ...EstimateConfigurationOption) *EstimateConfiguration {
 	this := &EstimateConfiguration{}
+
 	this.MinimumDetectableEffect = minimumDetectableEffect
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -43,8 +45,10 @@ func NewEmptyEstimateConfiguration() *EstimateConfiguration {
 func (o *EstimateConfiguration) GetFilters() []MetricsFilter {
 	if o == nil || o.Filters == nil {
 		var ret []MetricsFilter
+
 		return ret
 	}
+
 	return o.Filters
 }
 
@@ -54,6 +58,7 @@ func (o *EstimateConfiguration) GetFiltersOk() ([]MetricsFilter, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -69,6 +74,7 @@ func (o *EstimateConfiguration) HasFilters() bool {
 // SetFilters gets a reference to the given []MetricsFilter and assigns it to the Filters field.
 func (o *EstimateConfiguration) SetFilters(v []MetricsFilter) *EstimateConfiguration {
 	o.Filters = v
+
 	return o
 }
 
@@ -76,6 +82,7 @@ func (o *EstimateConfiguration) SetFilters(v []MetricsFilter) *EstimateConfigura
 func (o *EstimateConfiguration) GetMinimumDetectableEffect() MinimumDetectableEffect {
 	if o == nil {
 		var ret MinimumDetectableEffect
+
 		return ret
 	}
 
@@ -88,12 +95,14 @@ func (o *EstimateConfiguration) GetMinimumDetectableEffectOk() (*MinimumDetectab
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.MinimumDetectableEffect, true
 }
 
 // SetMinimumDetectableEffect sets field value.
 func (o *EstimateConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEffect) *EstimateConfiguration {
 	o.MinimumDetectableEffect = *v
+
 	return o
 }
 
@@ -102,7 +111,9 @@ func (o EstimateConfiguration) MarshalJSON() ([]byte, error) {
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	toSerialize["minimumDetectableEffect"] = o.MinimumDetectableEffect
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EstimateConfiguration: %w", err)
@@ -115,5 +126,6 @@ func (o EstimateConfiguration) String() string {
 	out := ""
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
+
 	return fmt.Sprintf("EstimateConfiguration {\n%s}", out)
 }

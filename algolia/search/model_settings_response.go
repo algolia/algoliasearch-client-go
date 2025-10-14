@@ -507,6 +507,7 @@ func NewSettingsResponse(opts ...SettingsResponseOption) *SettingsResponse {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -519,8 +520,10 @@ func NewEmptySettingsResponse() *SettingsResponse {
 func (o *SettingsResponse) GetAttributesForFaceting() []string {
 	if o == nil || o.AttributesForFaceting == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesForFaceting
 }
 
@@ -530,6 +533,7 @@ func (o *SettingsResponse) GetAttributesForFacetingOk() ([]string, bool) {
 	if o == nil || o.AttributesForFaceting == nil {
 		return nil, false
 	}
+
 	return o.AttributesForFaceting, true
 }
 
@@ -545,6 +549,7 @@ func (o *SettingsResponse) HasAttributesForFaceting() bool {
 // SetAttributesForFaceting gets a reference to the given []string and assigns it to the AttributesForFaceting field.
 func (o *SettingsResponse) SetAttributesForFaceting(v []string) *SettingsResponse {
 	o.AttributesForFaceting = v
+
 	return o
 }
 
@@ -552,8 +557,10 @@ func (o *SettingsResponse) SetAttributesForFaceting(v []string) *SettingsRespons
 func (o *SettingsResponse) GetReplicas() []string {
 	if o == nil || o.Replicas == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Replicas
 }
 
@@ -563,6 +570,7 @@ func (o *SettingsResponse) GetReplicasOk() ([]string, bool) {
 	if o == nil || o.Replicas == nil {
 		return nil, false
 	}
+
 	return o.Replicas, true
 }
 
@@ -578,6 +586,7 @@ func (o *SettingsResponse) HasReplicas() bool {
 // SetReplicas gets a reference to the given []string and assigns it to the Replicas field.
 func (o *SettingsResponse) SetReplicas(v []string) *SettingsResponse {
 	o.Replicas = v
+
 	return o
 }
 
@@ -585,8 +594,10 @@ func (o *SettingsResponse) SetReplicas(v []string) *SettingsResponse {
 func (o *SettingsResponse) GetPaginationLimitedTo() int32 {
 	if o == nil || o.PaginationLimitedTo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PaginationLimitedTo
 }
 
@@ -596,6 +607,7 @@ func (o *SettingsResponse) GetPaginationLimitedToOk() (*int32, bool) {
 	if o == nil || o.PaginationLimitedTo == nil {
 		return nil, false
 	}
+
 	return o.PaginationLimitedTo, true
 }
 
@@ -611,6 +623,7 @@ func (o *SettingsResponse) HasPaginationLimitedTo() bool {
 // SetPaginationLimitedTo gets a reference to the given int32 and assigns it to the PaginationLimitedTo field.
 func (o *SettingsResponse) SetPaginationLimitedTo(v int32) *SettingsResponse {
 	o.PaginationLimitedTo = &v
+
 	return o
 }
 
@@ -618,8 +631,10 @@ func (o *SettingsResponse) SetPaginationLimitedTo(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetUnretrievableAttributes() []string {
 	if o == nil || o.UnretrievableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.UnretrievableAttributes
 }
 
@@ -629,6 +644,7 @@ func (o *SettingsResponse) GetUnretrievableAttributesOk() ([]string, bool) {
 	if o == nil || o.UnretrievableAttributes == nil {
 		return nil, false
 	}
+
 	return o.UnretrievableAttributes, true
 }
 
@@ -644,6 +660,7 @@ func (o *SettingsResponse) HasUnretrievableAttributes() bool {
 // SetUnretrievableAttributes gets a reference to the given []string and assigns it to the UnretrievableAttributes field.
 func (o *SettingsResponse) SetUnretrievableAttributes(v []string) *SettingsResponse {
 	o.UnretrievableAttributes = v
+
 	return o
 }
 
@@ -651,8 +668,10 @@ func (o *SettingsResponse) SetUnretrievableAttributes(v []string) *SettingsRespo
 func (o *SettingsResponse) GetDisableTypoToleranceOnWords() []string {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnWords
 }
 
@@ -662,6 +681,7 @@ func (o *SettingsResponse) GetDisableTypoToleranceOnWordsOk() ([]string, bool) {
 	if o == nil || o.DisableTypoToleranceOnWords == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnWords, true
 }
 
@@ -677,6 +697,7 @@ func (o *SettingsResponse) HasDisableTypoToleranceOnWords() bool {
 // SetDisableTypoToleranceOnWords gets a reference to the given []string and assigns it to the DisableTypoToleranceOnWords field.
 func (o *SettingsResponse) SetDisableTypoToleranceOnWords(v []string) *SettingsResponse {
 	o.DisableTypoToleranceOnWords = v
+
 	return o
 }
 
@@ -684,8 +705,10 @@ func (o *SettingsResponse) SetDisableTypoToleranceOnWords(v []string) *SettingsR
 func (o *SettingsResponse) GetAttributesToTransliterate() []string {
 	if o == nil || o.AttributesToTransliterate == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToTransliterate
 }
 
@@ -695,6 +718,7 @@ func (o *SettingsResponse) GetAttributesToTransliterateOk() ([]string, bool) {
 	if o == nil || o.AttributesToTransliterate == nil {
 		return nil, false
 	}
+
 	return o.AttributesToTransliterate, true
 }
 
@@ -710,6 +734,7 @@ func (o *SettingsResponse) HasAttributesToTransliterate() bool {
 // SetAttributesToTransliterate gets a reference to the given []string and assigns it to the AttributesToTransliterate field.
 func (o *SettingsResponse) SetAttributesToTransliterate(v []string) *SettingsResponse {
 	o.AttributesToTransliterate = v
+
 	return o
 }
 
@@ -717,8 +742,10 @@ func (o *SettingsResponse) SetAttributesToTransliterate(v []string) *SettingsRes
 func (o *SettingsResponse) GetCamelCaseAttributes() []string {
 	if o == nil || o.CamelCaseAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CamelCaseAttributes
 }
 
@@ -728,6 +755,7 @@ func (o *SettingsResponse) GetCamelCaseAttributesOk() ([]string, bool) {
 	if o == nil || o.CamelCaseAttributes == nil {
 		return nil, false
 	}
+
 	return o.CamelCaseAttributes, true
 }
 
@@ -743,6 +771,7 @@ func (o *SettingsResponse) HasCamelCaseAttributes() bool {
 // SetCamelCaseAttributes gets a reference to the given []string and assigns it to the CamelCaseAttributes field.
 func (o *SettingsResponse) SetCamelCaseAttributes(v []string) *SettingsResponse {
 	o.CamelCaseAttributes = v
+
 	return o
 }
 
@@ -750,8 +779,10 @@ func (o *SettingsResponse) SetCamelCaseAttributes(v []string) *SettingsResponse 
 func (o *SettingsResponse) GetDecompoundedAttributes() map[string]any {
 	if o == nil || o.DecompoundedAttributes == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.DecompoundedAttributes
 }
 
@@ -761,6 +792,7 @@ func (o *SettingsResponse) GetDecompoundedAttributesOk() (map[string]any, bool) 
 	if o == nil || o.DecompoundedAttributes == nil {
 		return nil, false
 	}
+
 	return o.DecompoundedAttributes, true
 }
 
@@ -776,6 +808,7 @@ func (o *SettingsResponse) HasDecompoundedAttributes() bool {
 // SetDecompoundedAttributes gets a reference to the given map[string]any and assigns it to the DecompoundedAttributes field.
 func (o *SettingsResponse) SetDecompoundedAttributes(v map[string]any) *SettingsResponse {
 	o.DecompoundedAttributes = v
+
 	return o
 }
 
@@ -783,8 +816,10 @@ func (o *SettingsResponse) SetDecompoundedAttributes(v map[string]any) *Settings
 func (o *SettingsResponse) GetIndexLanguages() []SupportedLanguage {
 	if o == nil || o.IndexLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.IndexLanguages
 }
 
@@ -794,6 +829,7 @@ func (o *SettingsResponse) GetIndexLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.IndexLanguages == nil {
 		return nil, false
 	}
+
 	return o.IndexLanguages, true
 }
 
@@ -809,6 +845,7 @@ func (o *SettingsResponse) HasIndexLanguages() bool {
 // SetIndexLanguages gets a reference to the given []SupportedLanguage and assigns it to the IndexLanguages field.
 func (o *SettingsResponse) SetIndexLanguages(v []SupportedLanguage) *SettingsResponse {
 	o.IndexLanguages = v
+
 	return o
 }
 
@@ -816,8 +853,10 @@ func (o *SettingsResponse) SetIndexLanguages(v []SupportedLanguage) *SettingsRes
 func (o *SettingsResponse) GetDisablePrefixOnAttributes() []string {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisablePrefixOnAttributes
 }
 
@@ -827,6 +866,7 @@ func (o *SettingsResponse) GetDisablePrefixOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisablePrefixOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisablePrefixOnAttributes, true
 }
 
@@ -842,6 +882,7 @@ func (o *SettingsResponse) HasDisablePrefixOnAttributes() bool {
 // SetDisablePrefixOnAttributes gets a reference to the given []string and assigns it to the DisablePrefixOnAttributes field.
 func (o *SettingsResponse) SetDisablePrefixOnAttributes(v []string) *SettingsResponse {
 	o.DisablePrefixOnAttributes = v
+
 	return o
 }
 
@@ -849,8 +890,10 @@ func (o *SettingsResponse) SetDisablePrefixOnAttributes(v []string) *SettingsRes
 func (o *SettingsResponse) GetAllowCompressionOfIntegerArray() bool {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowCompressionOfIntegerArray
 }
 
@@ -860,6 +903,7 @@ func (o *SettingsResponse) GetAllowCompressionOfIntegerArrayOk() (*bool, bool) {
 	if o == nil || o.AllowCompressionOfIntegerArray == nil {
 		return nil, false
 	}
+
 	return o.AllowCompressionOfIntegerArray, true
 }
 
@@ -875,6 +919,7 @@ func (o *SettingsResponse) HasAllowCompressionOfIntegerArray() bool {
 // SetAllowCompressionOfIntegerArray gets a reference to the given bool and assigns it to the AllowCompressionOfIntegerArray field.
 func (o *SettingsResponse) SetAllowCompressionOfIntegerArray(v bool) *SettingsResponse {
 	o.AllowCompressionOfIntegerArray = &v
+
 	return o
 }
 
@@ -882,8 +927,10 @@ func (o *SettingsResponse) SetAllowCompressionOfIntegerArray(v bool) *SettingsRe
 func (o *SettingsResponse) GetNumericAttributesForFiltering() []string {
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.NumericAttributesForFiltering
 }
 
@@ -893,6 +940,7 @@ func (o *SettingsResponse) GetNumericAttributesForFilteringOk() ([]string, bool)
 	if o == nil || o.NumericAttributesForFiltering == nil {
 		return nil, false
 	}
+
 	return o.NumericAttributesForFiltering, true
 }
 
@@ -908,6 +956,7 @@ func (o *SettingsResponse) HasNumericAttributesForFiltering() bool {
 // SetNumericAttributesForFiltering gets a reference to the given []string and assigns it to the NumericAttributesForFiltering field.
 func (o *SettingsResponse) SetNumericAttributesForFiltering(v []string) *SettingsResponse {
 	o.NumericAttributesForFiltering = v
+
 	return o
 }
 
@@ -915,8 +964,10 @@ func (o *SettingsResponse) SetNumericAttributesForFiltering(v []string) *Setting
 func (o *SettingsResponse) GetSeparatorsToIndex() string {
 	if o == nil || o.SeparatorsToIndex == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SeparatorsToIndex
 }
 
@@ -926,6 +977,7 @@ func (o *SettingsResponse) GetSeparatorsToIndexOk() (*string, bool) {
 	if o == nil || o.SeparatorsToIndex == nil {
 		return nil, false
 	}
+
 	return o.SeparatorsToIndex, true
 }
 
@@ -941,6 +993,7 @@ func (o *SettingsResponse) HasSeparatorsToIndex() bool {
 // SetSeparatorsToIndex gets a reference to the given string and assigns it to the SeparatorsToIndex field.
 func (o *SettingsResponse) SetSeparatorsToIndex(v string) *SettingsResponse {
 	o.SeparatorsToIndex = &v
+
 	return o
 }
 
@@ -948,8 +1001,10 @@ func (o *SettingsResponse) SetSeparatorsToIndex(v string) *SettingsResponse {
 func (o *SettingsResponse) GetSearchableAttributes() []string {
 	if o == nil || o.SearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.SearchableAttributes
 }
 
@@ -959,6 +1014,7 @@ func (o *SettingsResponse) GetSearchableAttributesOk() ([]string, bool) {
 	if o == nil || o.SearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.SearchableAttributes, true
 }
 
@@ -974,6 +1030,7 @@ func (o *SettingsResponse) HasSearchableAttributes() bool {
 // SetSearchableAttributes gets a reference to the given []string and assigns it to the SearchableAttributes field.
 func (o *SettingsResponse) SetSearchableAttributes(v []string) *SettingsResponse {
 	o.SearchableAttributes = v
+
 	return o
 }
 
@@ -981,8 +1038,10 @@ func (o *SettingsResponse) SetSearchableAttributes(v []string) *SettingsResponse
 func (o *SettingsResponse) GetUserData() any {
 	if o == nil {
 		var ret any
+
 		return ret
 	}
+
 	return o.UserData
 }
 
@@ -993,6 +1052,7 @@ func (o *SettingsResponse) GetUserDataOk() (*any, bool) {
 	if o == nil || o.UserData == nil {
 		return nil, false
 	}
+
 	return &o.UserData, true
 }
 
@@ -1008,6 +1068,7 @@ func (o *SettingsResponse) HasUserData() bool {
 // SetUserData gets a reference to the given any and assigns it to the UserData field.
 func (o *SettingsResponse) SetUserData(v any) *SettingsResponse {
 	o.UserData = v
+
 	return o
 }
 
@@ -1015,8 +1076,10 @@ func (o *SettingsResponse) SetUserData(v any) *SettingsResponse {
 func (o *SettingsResponse) GetCustomNormalization() map[string]map[string]string {
 	if o == nil || o.CustomNormalization == nil {
 		var ret map[string]map[string]string
+
 		return ret
 	}
+
 	return *o.CustomNormalization
 }
 
@@ -1026,6 +1089,7 @@ func (o *SettingsResponse) GetCustomNormalizationOk() (*map[string]map[string]st
 	if o == nil || o.CustomNormalization == nil {
 		return nil, false
 	}
+
 	return o.CustomNormalization, true
 }
 
@@ -1041,6 +1105,7 @@ func (o *SettingsResponse) HasCustomNormalization() bool {
 // SetCustomNormalization gets a reference to the given map[string]map[string]string and assigns it to the CustomNormalization field.
 func (o *SettingsResponse) SetCustomNormalization(v map[string]map[string]string) *SettingsResponse {
 	o.CustomNormalization = &v
+
 	return o
 }
 
@@ -1048,8 +1113,10 @@ func (o *SettingsResponse) SetCustomNormalization(v map[string]map[string]string
 func (o *SettingsResponse) GetAttributeForDistinct() string {
 	if o == nil || o.AttributeForDistinct == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AttributeForDistinct
 }
 
@@ -1059,6 +1126,7 @@ func (o *SettingsResponse) GetAttributeForDistinctOk() (*string, bool) {
 	if o == nil || o.AttributeForDistinct == nil {
 		return nil, false
 	}
+
 	return o.AttributeForDistinct, true
 }
 
@@ -1074,6 +1142,7 @@ func (o *SettingsResponse) HasAttributeForDistinct() bool {
 // SetAttributeForDistinct gets a reference to the given string and assigns it to the AttributeForDistinct field.
 func (o *SettingsResponse) SetAttributeForDistinct(v string) *SettingsResponse {
 	o.AttributeForDistinct = &v
+
 	return o
 }
 
@@ -1081,8 +1150,10 @@ func (o *SettingsResponse) SetAttributeForDistinct(v string) *SettingsResponse {
 func (o *SettingsResponse) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -1092,6 +1163,7 @@ func (o *SettingsResponse) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -1107,6 +1179,7 @@ func (o *SettingsResponse) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *SettingsResponse) SetMaxFacetHits(v int32) *SettingsResponse {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -1114,8 +1187,10 @@ func (o *SettingsResponse) SetMaxFacetHits(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetKeepDiacriticsOnCharacters() string {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.KeepDiacriticsOnCharacters
 }
 
@@ -1125,6 +1200,7 @@ func (o *SettingsResponse) GetKeepDiacriticsOnCharactersOk() (*string, bool) {
 	if o == nil || o.KeepDiacriticsOnCharacters == nil {
 		return nil, false
 	}
+
 	return o.KeepDiacriticsOnCharacters, true
 }
 
@@ -1140,6 +1216,7 @@ func (o *SettingsResponse) HasKeepDiacriticsOnCharacters() bool {
 // SetKeepDiacriticsOnCharacters gets a reference to the given string and assigns it to the KeepDiacriticsOnCharacters field.
 func (o *SettingsResponse) SetKeepDiacriticsOnCharacters(v string) *SettingsResponse {
 	o.KeepDiacriticsOnCharacters = &v
+
 	return o
 }
 
@@ -1147,8 +1224,10 @@ func (o *SettingsResponse) SetKeepDiacriticsOnCharacters(v string) *SettingsResp
 func (o *SettingsResponse) GetCustomRanking() []string {
 	if o == nil || o.CustomRanking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CustomRanking
 }
 
@@ -1158,6 +1237,7 @@ func (o *SettingsResponse) GetCustomRankingOk() ([]string, bool) {
 	if o == nil || o.CustomRanking == nil {
 		return nil, false
 	}
+
 	return o.CustomRanking, true
 }
 
@@ -1173,6 +1253,7 @@ func (o *SettingsResponse) HasCustomRanking() bool {
 // SetCustomRanking gets a reference to the given []string and assigns it to the CustomRanking field.
 func (o *SettingsResponse) SetCustomRanking(v []string) *SettingsResponse {
 	o.CustomRanking = v
+
 	return o
 }
 
@@ -1180,8 +1261,10 @@ func (o *SettingsResponse) SetCustomRanking(v []string) *SettingsResponse {
 func (o *SettingsResponse) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -1191,6 +1274,7 @@ func (o *SettingsResponse) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -1206,6 +1290,7 @@ func (o *SettingsResponse) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *SettingsResponse) SetAttributesToRetrieve(v []string) *SettingsResponse {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -1213,8 +1298,10 @@ func (o *SettingsResponse) SetAttributesToRetrieve(v []string) *SettingsResponse
 func (o *SettingsResponse) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -1224,6 +1311,7 @@ func (o *SettingsResponse) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -1239,6 +1327,7 @@ func (o *SettingsResponse) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *SettingsResponse) SetRanking(v []string) *SettingsResponse {
 	o.Ranking = v
+
 	return o
 }
 
@@ -1246,8 +1335,10 @@ func (o *SettingsResponse) SetRanking(v []string) *SettingsResponse {
 func (o *SettingsResponse) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -1257,6 +1348,7 @@ func (o *SettingsResponse) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -1272,6 +1364,7 @@ func (o *SettingsResponse) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *SettingsResponse) SetRelevancyStrictness(v int32) *SettingsResponse {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -1279,8 +1372,10 @@ func (o *SettingsResponse) SetRelevancyStrictness(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -1290,6 +1385,7 @@ func (o *SettingsResponse) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -1305,6 +1401,7 @@ func (o *SettingsResponse) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *SettingsResponse) SetAttributesToHighlight(v []string) *SettingsResponse {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -1312,8 +1409,10 @@ func (o *SettingsResponse) SetAttributesToHighlight(v []string) *SettingsRespons
 func (o *SettingsResponse) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -1323,6 +1422,7 @@ func (o *SettingsResponse) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -1338,6 +1438,7 @@ func (o *SettingsResponse) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *SettingsResponse) SetAttributesToSnippet(v []string) *SettingsResponse {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -1345,8 +1446,10 @@ func (o *SettingsResponse) SetAttributesToSnippet(v []string) *SettingsResponse 
 func (o *SettingsResponse) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -1356,6 +1459,7 @@ func (o *SettingsResponse) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -1371,6 +1475,7 @@ func (o *SettingsResponse) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *SettingsResponse) SetHighlightPreTag(v string) *SettingsResponse {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -1378,8 +1483,10 @@ func (o *SettingsResponse) SetHighlightPreTag(v string) *SettingsResponse {
 func (o *SettingsResponse) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -1389,6 +1496,7 @@ func (o *SettingsResponse) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -1404,6 +1512,7 @@ func (o *SettingsResponse) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *SettingsResponse) SetHighlightPostTag(v string) *SettingsResponse {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -1411,8 +1520,10 @@ func (o *SettingsResponse) SetHighlightPostTag(v string) *SettingsResponse {
 func (o *SettingsResponse) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -1422,6 +1533,7 @@ func (o *SettingsResponse) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -1437,6 +1549,7 @@ func (o *SettingsResponse) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *SettingsResponse) SetSnippetEllipsisText(v string) *SettingsResponse {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -1444,8 +1557,10 @@ func (o *SettingsResponse) SetSnippetEllipsisText(v string) *SettingsResponse {
 func (o *SettingsResponse) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -1455,6 +1570,7 @@ func (o *SettingsResponse) GetRestrictHighlightAndSnippetArraysOk() (*bool, bool
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -1470,6 +1586,7 @@ func (o *SettingsResponse) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *SettingsResponse) SetRestrictHighlightAndSnippetArrays(v bool) *SettingsResponse {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -1477,8 +1594,10 @@ func (o *SettingsResponse) SetRestrictHighlightAndSnippetArrays(v bool) *Setting
 func (o *SettingsResponse) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -1488,6 +1607,7 @@ func (o *SettingsResponse) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -1503,6 +1623,7 @@ func (o *SettingsResponse) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SettingsResponse) SetHitsPerPage(v int32) *SettingsResponse {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -1510,8 +1631,10 @@ func (o *SettingsResponse) SetHitsPerPage(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -1521,6 +1644,7 @@ func (o *SettingsResponse) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -1536,6 +1660,7 @@ func (o *SettingsResponse) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *SettingsResponse) SetMinWordSizefor1Typo(v int32) *SettingsResponse {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -1543,8 +1668,10 @@ func (o *SettingsResponse) SetMinWordSizefor1Typo(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -1554,6 +1681,7 @@ func (o *SettingsResponse) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -1569,6 +1697,7 @@ func (o *SettingsResponse) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *SettingsResponse) SetMinWordSizefor2Typos(v int32) *SettingsResponse {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -1576,8 +1705,10 @@ func (o *SettingsResponse) SetMinWordSizefor2Typos(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -1587,6 +1718,7 @@ func (o *SettingsResponse) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -1602,6 +1734,7 @@ func (o *SettingsResponse) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *SettingsResponse) SetTypoTolerance(v *TypoTolerance) *SettingsResponse {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -1609,8 +1742,10 @@ func (o *SettingsResponse) SetTypoTolerance(v *TypoTolerance) *SettingsResponse 
 func (o *SettingsResponse) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -1620,6 +1755,7 @@ func (o *SettingsResponse) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -1635,6 +1771,7 @@ func (o *SettingsResponse) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *SettingsResponse) SetAllowTyposOnNumericTokens(v bool) *SettingsResponse {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -1642,8 +1779,10 @@ func (o *SettingsResponse) SetAllowTyposOnNumericTokens(v bool) *SettingsRespons
 func (o *SettingsResponse) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -1653,6 +1792,7 @@ func (o *SettingsResponse) GetDisableTypoToleranceOnAttributesOk() ([]string, bo
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -1668,6 +1808,7 @@ func (o *SettingsResponse) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *SettingsResponse) SetDisableTypoToleranceOnAttributes(v []string) *SettingsResponse {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -1675,8 +1816,10 @@ func (o *SettingsResponse) SetDisableTypoToleranceOnAttributes(v []string) *Sett
 func (o *SettingsResponse) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -1686,6 +1829,7 @@ func (o *SettingsResponse) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -1701,6 +1845,7 @@ func (o *SettingsResponse) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *SettingsResponse) SetIgnorePlurals(v *IgnorePlurals) *SettingsResponse {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -1708,8 +1853,10 @@ func (o *SettingsResponse) SetIgnorePlurals(v *IgnorePlurals) *SettingsResponse 
 func (o *SettingsResponse) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -1719,6 +1866,7 @@ func (o *SettingsResponse) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -1734,6 +1882,7 @@ func (o *SettingsResponse) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *SettingsResponse) SetRemoveStopWords(v *RemoveStopWords) *SettingsResponse {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -1741,8 +1890,10 @@ func (o *SettingsResponse) SetRemoveStopWords(v *RemoveStopWords) *SettingsRespo
 func (o *SettingsResponse) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -1752,6 +1903,7 @@ func (o *SettingsResponse) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -1767,6 +1919,7 @@ func (o *SettingsResponse) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *SettingsResponse) SetQueryLanguages(v []SupportedLanguage) *SettingsResponse {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -1774,8 +1927,10 @@ func (o *SettingsResponse) SetQueryLanguages(v []SupportedLanguage) *SettingsRes
 func (o *SettingsResponse) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -1785,6 +1940,7 @@ func (o *SettingsResponse) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -1800,6 +1956,7 @@ func (o *SettingsResponse) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *SettingsResponse) SetDecompoundQuery(v bool) *SettingsResponse {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -1807,8 +1964,10 @@ func (o *SettingsResponse) SetDecompoundQuery(v bool) *SettingsResponse {
 func (o *SettingsResponse) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -1818,6 +1977,7 @@ func (o *SettingsResponse) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -1833,6 +1993,7 @@ func (o *SettingsResponse) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *SettingsResponse) SetEnableRules(v bool) *SettingsResponse {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -1840,8 +2001,10 @@ func (o *SettingsResponse) SetEnableRules(v bool) *SettingsResponse {
 func (o *SettingsResponse) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -1851,6 +2014,7 @@ func (o *SettingsResponse) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -1866,6 +2030,7 @@ func (o *SettingsResponse) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *SettingsResponse) SetEnablePersonalization(v bool) *SettingsResponse {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -1873,8 +2038,10 @@ func (o *SettingsResponse) SetEnablePersonalization(v bool) *SettingsResponse {
 func (o *SettingsResponse) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -1884,6 +2051,7 @@ func (o *SettingsResponse) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -1899,6 +2067,7 @@ func (o *SettingsResponse) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *SettingsResponse) SetQueryType(v QueryType) *SettingsResponse {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -1906,8 +2075,10 @@ func (o *SettingsResponse) SetQueryType(v QueryType) *SettingsResponse {
 func (o *SettingsResponse) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -1917,6 +2088,7 @@ func (o *SettingsResponse) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResult
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -1932,6 +2104,7 @@ func (o *SettingsResponse) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *SettingsResponse) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *SettingsResponse {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -1939,8 +2112,10 @@ func (o *SettingsResponse) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *
 func (o *SettingsResponse) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
+
 		return ret
 	}
+
 	return *o.Mode
 }
 
@@ -1950,6 +2125,7 @@ func (o *SettingsResponse) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
+
 	return o.Mode, true
 }
 
@@ -1965,6 +2141,7 @@ func (o *SettingsResponse) HasMode() bool {
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
 func (o *SettingsResponse) SetMode(v Mode) *SettingsResponse {
 	o.Mode = &v
+
 	return o
 }
 
@@ -1972,8 +2149,10 @@ func (o *SettingsResponse) SetMode(v Mode) *SettingsResponse {
 func (o *SettingsResponse) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
+
 		return ret
 	}
+
 	return *o.SemanticSearch
 }
 
@@ -1983,6 +2162,7 @@ func (o *SettingsResponse) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
+
 	return o.SemanticSearch, true
 }
 
@@ -1998,6 +2178,7 @@ func (o *SettingsResponse) HasSemanticSearch() bool {
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
 func (o *SettingsResponse) SetSemanticSearch(v *SemanticSearch) *SettingsResponse {
 	o.SemanticSearch = v
+
 	return o
 }
 
@@ -2005,8 +2186,10 @@ func (o *SettingsResponse) SetSemanticSearch(v *SemanticSearch) *SettingsRespons
 func (o *SettingsResponse) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -2016,6 +2199,7 @@ func (o *SettingsResponse) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -2031,6 +2215,7 @@ func (o *SettingsResponse) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *SettingsResponse) SetAdvancedSyntax(v bool) *SettingsResponse {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -2038,8 +2223,10 @@ func (o *SettingsResponse) SetAdvancedSyntax(v bool) *SettingsResponse {
 func (o *SettingsResponse) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -2050,6 +2237,7 @@ func (o *SettingsResponse) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -2065,6 +2253,7 @@ func (o *SettingsResponse) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *SettingsResponse) SetOptionalWords(v *OptionalWords) *SettingsResponse {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -2082,8 +2271,10 @@ func (o *SettingsResponse) UnsetOptionalWords() {
 func (o *SettingsResponse) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -2093,6 +2284,7 @@ func (o *SettingsResponse) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -2108,6 +2300,7 @@ func (o *SettingsResponse) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *SettingsResponse) SetDisableExactOnAttributes(v []string) *SettingsResponse {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -2115,8 +2308,10 @@ func (o *SettingsResponse) SetDisableExactOnAttributes(v []string) *SettingsResp
 func (o *SettingsResponse) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -2126,6 +2321,7 @@ func (o *SettingsResponse) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQuer
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -2141,6 +2337,7 @@ func (o *SettingsResponse) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *SettingsResponse) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *SettingsResponse {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -2148,8 +2345,10 @@ func (o *SettingsResponse) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *
 func (o *SettingsResponse) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -2159,6 +2358,7 @@ func (o *SettingsResponse) GetAlternativesAsExactOk() ([]AlternativesAsExact, bo
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -2174,6 +2374,7 @@ func (o *SettingsResponse) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *SettingsResponse) SetAlternativesAsExact(v []AlternativesAsExact) *SettingsResponse {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -2181,8 +2382,10 @@ func (o *SettingsResponse) SetAlternativesAsExact(v []AlternativesAsExact) *Sett
 func (o *SettingsResponse) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -2192,6 +2395,7 @@ func (o *SettingsResponse) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeatur
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -2207,6 +2411,7 @@ func (o *SettingsResponse) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *SettingsResponse) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *SettingsResponse {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -2214,8 +2419,10 @@ func (o *SettingsResponse) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures)
 func (o *SettingsResponse) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -2225,6 +2432,7 @@ func (o *SettingsResponse) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -2240,6 +2448,7 @@ func (o *SettingsResponse) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *SettingsResponse) SetDistinct(v *Distinct) *SettingsResponse {
 	o.Distinct = v
+
 	return o
 }
 
@@ -2247,8 +2456,10 @@ func (o *SettingsResponse) SetDistinct(v *Distinct) *SettingsResponse {
 func (o *SettingsResponse) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -2258,6 +2469,7 @@ func (o *SettingsResponse) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -2273,6 +2485,7 @@ func (o *SettingsResponse) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *SettingsResponse) SetReplaceSynonymsInHighlight(v bool) *SettingsResponse {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -2280,8 +2493,10 @@ func (o *SettingsResponse) SetReplaceSynonymsInHighlight(v bool) *SettingsRespon
 func (o *SettingsResponse) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -2291,6 +2506,7 @@ func (o *SettingsResponse) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -2306,6 +2522,7 @@ func (o *SettingsResponse) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *SettingsResponse) SetMinProximity(v int32) *SettingsResponse {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -2313,8 +2530,10 @@ func (o *SettingsResponse) SetMinProximity(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -2324,6 +2543,7 @@ func (o *SettingsResponse) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -2339,6 +2559,7 @@ func (o *SettingsResponse) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *SettingsResponse) SetResponseFields(v []string) *SettingsResponse {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -2346,8 +2567,10 @@ func (o *SettingsResponse) SetResponseFields(v []string) *SettingsResponse {
 func (o *SettingsResponse) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -2357,6 +2580,7 @@ func (o *SettingsResponse) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -2372,6 +2596,7 @@ func (o *SettingsResponse) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *SettingsResponse) SetMaxValuesPerFacet(v int32) *SettingsResponse {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -2379,8 +2604,10 @@ func (o *SettingsResponse) SetMaxValuesPerFacet(v int32) *SettingsResponse {
 func (o *SettingsResponse) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -2390,6 +2617,7 @@ func (o *SettingsResponse) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -2405,6 +2633,7 @@ func (o *SettingsResponse) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *SettingsResponse) SetSortFacetValuesBy(v string) *SettingsResponse {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -2412,8 +2641,10 @@ func (o *SettingsResponse) SetSortFacetValuesBy(v string) *SettingsResponse {
 func (o *SettingsResponse) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -2423,6 +2654,7 @@ func (o *SettingsResponse) GetAttributeCriteriaComputedByMinProximityOk() (*bool
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -2438,6 +2670,7 @@ func (o *SettingsResponse) HasAttributeCriteriaComputedByMinProximity() bool {
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *SettingsResponse) SetAttributeCriteriaComputedByMinProximity(v bool) *SettingsResponse {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -2445,8 +2678,10 @@ func (o *SettingsResponse) SetAttributeCriteriaComputedByMinProximity(v bool) *S
 func (o *SettingsResponse) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -2456,6 +2691,7 @@ func (o *SettingsResponse) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -2471,6 +2707,7 @@ func (o *SettingsResponse) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *SettingsResponse) SetRenderingContent(v *RenderingContent) *SettingsResponse {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -2478,8 +2715,10 @@ func (o *SettingsResponse) SetRenderingContent(v *RenderingContent) *SettingsRes
 func (o *SettingsResponse) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -2489,6 +2728,7 @@ func (o *SettingsResponse) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -2504,6 +2744,7 @@ func (o *SettingsResponse) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *SettingsResponse) SetEnableReRanking(v bool) *SettingsResponse {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -2511,8 +2752,10 @@ func (o *SettingsResponse) SetEnableReRanking(v bool) *SettingsResponse {
 func (o *SettingsResponse) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -2522,6 +2765,7 @@ func (o *SettingsResponse) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, b
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -2537,6 +2781,7 @@ func (o *SettingsResponse) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *SettingsResponse) SetReRankingApplyFilter(v *ReRankingApplyFilter) *SettingsResponse {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -2544,8 +2789,10 @@ func (o *SettingsResponse) SetReRankingApplyFilter(v *ReRankingApplyFilter) *Set
 func (o *SettingsResponse) GetPrimary() string {
 	if o == nil || o.Primary == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Primary
 }
 
@@ -2555,6 +2802,7 @@ func (o *SettingsResponse) GetPrimaryOk() (*string, bool) {
 	if o == nil || o.Primary == nil {
 		return nil, false
 	}
+
 	return o.Primary, true
 }
 
@@ -2570,6 +2818,7 @@ func (o *SettingsResponse) HasPrimary() bool {
 // SetPrimary gets a reference to the given string and assigns it to the Primary field.
 func (o *SettingsResponse) SetPrimary(v string) *SettingsResponse {
 	o.Primary = &v
+
 	return o
 }
 
@@ -2578,189 +2827,251 @@ func (o SettingsResponse) MarshalJSON() ([]byte, error) {
 	if o.AttributesForFaceting != nil {
 		toSerialize["attributesForFaceting"] = o.AttributesForFaceting
 	}
+
 	if o.Replicas != nil {
 		toSerialize["replicas"] = o.Replicas
 	}
+
 	if o.PaginationLimitedTo != nil {
 		toSerialize["paginationLimitedTo"] = o.PaginationLimitedTo
 	}
+
 	if o.UnretrievableAttributes != nil {
 		toSerialize["unretrievableAttributes"] = o.UnretrievableAttributes
 	}
+
 	if o.DisableTypoToleranceOnWords != nil {
 		toSerialize["disableTypoToleranceOnWords"] = o.DisableTypoToleranceOnWords
 	}
+
 	if o.AttributesToTransliterate != nil {
 		toSerialize["attributesToTransliterate"] = o.AttributesToTransliterate
 	}
+
 	if o.CamelCaseAttributes != nil {
 		toSerialize["camelCaseAttributes"] = o.CamelCaseAttributes
 	}
+
 	if o.DecompoundedAttributes != nil {
 		toSerialize["decompoundedAttributes"] = o.DecompoundedAttributes
 	}
+
 	if o.IndexLanguages != nil {
 		toSerialize["indexLanguages"] = o.IndexLanguages
 	}
+
 	if o.DisablePrefixOnAttributes != nil {
 		toSerialize["disablePrefixOnAttributes"] = o.DisablePrefixOnAttributes
 	}
+
 	if o.AllowCompressionOfIntegerArray != nil {
 		toSerialize["allowCompressionOfIntegerArray"] = o.AllowCompressionOfIntegerArray
 	}
+
 	if o.NumericAttributesForFiltering != nil {
 		toSerialize["numericAttributesForFiltering"] = o.NumericAttributesForFiltering
 	}
+
 	if o.SeparatorsToIndex != nil {
 		toSerialize["separatorsToIndex"] = o.SeparatorsToIndex
 	}
+
 	if o.SearchableAttributes != nil {
 		toSerialize["searchableAttributes"] = o.SearchableAttributes
 	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
+
 	if o.CustomNormalization != nil {
 		toSerialize["customNormalization"] = o.CustomNormalization
 	}
+
 	if o.AttributeForDistinct != nil {
 		toSerialize["attributeForDistinct"] = o.AttributeForDistinct
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	if o.KeepDiacriticsOnCharacters != nil {
 		toSerialize["keepDiacriticsOnCharacters"] = o.KeepDiacriticsOnCharacters
 	}
+
 	if o.CustomRanking != nil {
 		toSerialize["customRanking"] = o.CustomRanking
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.Mode != nil {
 		toSerialize["mode"] = o.Mode
 	}
+
 	if o.SemanticSearch != nil {
 		toSerialize["semanticSearch"] = o.SemanticSearch
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	if o.Primary != nil {
 		toSerialize["primary"] = o.Primary
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SettingsResponse: %w", err)
@@ -2833,5 +3144,6 @@ func (o SettingsResponse) String() string {
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	out += fmt.Sprintf("  primary=%v\n", o.Primary)
+
 	return fmt.Sprintf("SettingsResponse {\n%s}", out)
 }

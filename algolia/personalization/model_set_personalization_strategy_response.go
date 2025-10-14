@@ -19,6 +19,7 @@ type SetPersonalizationStrategyResponse struct {
 func NewSetPersonalizationStrategyResponse(message string) *SetPersonalizationStrategyResponse {
 	this := &SetPersonalizationStrategyResponse{}
 	this.Message = message
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptySetPersonalizationStrategyResponse() *SetPersonalizationStrategyRes
 func (o *SetPersonalizationStrategyResponse) GetMessage() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *SetPersonalizationStrategyResponse) GetMessageOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Message, true
 }
 
 // SetMessage sets field value.
 func (o *SetPersonalizationStrategyResponse) SetMessage(v string) *SetPersonalizationStrategyResponse {
 	o.Message = v
+
 	return o
 }
 
 func (o SetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["message"] = o.Message
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SetPersonalizationStrategyResponse: %w", err)
@@ -66,5 +71,6 @@ func (o SetPersonalizationStrategyResponse) MarshalJSON() ([]byte, error) {
 func (o SetPersonalizationStrategyResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  message=%v\n", o.Message)
+
 	return fmt.Sprintf("SetPersonalizationStrategyResponse {\n%s}", out)
 }

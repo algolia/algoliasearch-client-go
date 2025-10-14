@@ -19,6 +19,7 @@ type MultipleBatchResponse struct {
 func NewMultipleBatchResponse(taskID map[string]int64) *MultipleBatchResponse {
 	this := &MultipleBatchResponse{}
 	this.TaskID = taskID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyMultipleBatchResponse() *MultipleBatchResponse {
 func (o *MultipleBatchResponse) GetTaskID() map[string]int64 {
 	if o == nil {
 		var ret map[string]int64
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *MultipleBatchResponse) GetTaskIDOk() (*map[string]int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *MultipleBatchResponse) SetTaskID(v map[string]int64) *MultipleBatchResponse {
 	o.TaskID = v
+
 	return o
 }
 
 func (o MultipleBatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MultipleBatchResponse: %w", err)
@@ -66,5 +71,6 @@ func (o MultipleBatchResponse) MarshalJSON() ([]byte, error) {
 func (o MultipleBatchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
+
 	return fmt.Sprintf("MultipleBatchResponse {\n%s}", out)
 }

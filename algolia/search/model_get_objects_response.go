@@ -28,10 +28,12 @@ func WithGetObjectsResponseMessage(val string) GetObjectsResponseOption {
 // will change when the set of required properties is changed.
 func NewGetObjectsResponse(results []map[string]any, opts ...GetObjectsResponseOption) *GetObjectsResponse {
 	this := &GetObjectsResponse{}
+
 	this.Results = results
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,8 +46,10 @@ func NewEmptyGetObjectsResponse() *GetObjectsResponse {
 func (o *GetObjectsResponse) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -55,6 +59,7 @@ func (o *GetObjectsResponse) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -70,6 +75,7 @@ func (o *GetObjectsResponse) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *GetObjectsResponse) SetMessage(v string) *GetObjectsResponse {
 	o.Message = &v
+
 	return o
 }
 
@@ -77,6 +83,7 @@ func (o *GetObjectsResponse) SetMessage(v string) *GetObjectsResponse {
 func (o *GetObjectsResponse) GetResults() []map[string]any {
 	if o == nil {
 		var ret []map[string]any
+
 		return ret
 	}
 
@@ -89,12 +96,14 @@ func (o *GetObjectsResponse) GetResultsOk() ([]map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Results, true
 }
 
 // SetResults sets field value.
 func (o *GetObjectsResponse) SetResults(v []map[string]any) *GetObjectsResponse {
 	o.Results = v
+
 	return o
 }
 
@@ -103,7 +112,9 @@ func (o GetObjectsResponse) MarshalJSON() ([]byte, error) {
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	toSerialize["results"] = o.Results
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetObjectsResponse: %w", err)
@@ -116,5 +127,6 @@ func (o GetObjectsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  results=%v\n", o.Results)
+
 	return fmt.Sprintf("GetObjectsResponse {\n%s}", out)
 }

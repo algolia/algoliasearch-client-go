@@ -23,24 +23,7 @@ var AllowedTransformationSortKeysEnumValues = []TransformationSortKeys{
 	"createdAt",
 }
 
-func (v *TransformationSortKeys) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TransformationSortKeys': %w", string(src), err)
-	}
-	enumTypeValue := TransformationSortKeys(value)
-	for _, existing := range AllowedTransformationSortKeysEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid TransformationSortKeys", value)
-}
-
-// NewTransformationSortKeysFromValue returns a pointer to a valid TransformationSortKeys
+// NewTransformationSortKeysFromValue returns a pointer to a valid TransformationSortKeys.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewTransformationSortKeysFromValue(v string) (*TransformationSortKeys, error) {
 	ev := TransformationSortKeys(v)
@@ -51,6 +34,26 @@ func NewTransformationSortKeysFromValue(v string) (*TransformationSortKeys, erro
 	}
 }
 
+func (v *TransformationSortKeys) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'TransformationSortKeys': %w", string(src), err)
+	}
+
+	enumTypeValue := TransformationSortKeys(value)
+	for _, existing := range AllowedTransformationSortKeysEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid TransformationSortKeys", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v TransformationSortKeys) IsValid() bool {
 	for _, existing := range AllowedTransformationSortKeysEnumValues {
@@ -58,6 +61,7 @@ func (v TransformationSortKeys) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

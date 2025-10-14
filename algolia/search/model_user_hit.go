@@ -33,6 +33,7 @@ func NewUserHit(userID string, clusterName string, nbRecords int32, dataSize int
 	this.DataSize = dataSize
 	this.ObjectID = objectID
 	this.HighlightResult = highlightResult
+
 	return this
 }
 
@@ -45,6 +46,7 @@ func NewEmptyUserHit() *UserHit {
 func (o *UserHit) GetUserID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -57,12 +59,14 @@ func (o *UserHit) GetUserIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserID, true
 }
 
 // SetUserID sets field value.
 func (o *UserHit) SetUserID(v string) *UserHit {
 	o.UserID = v
+
 	return o
 }
 
@@ -70,6 +74,7 @@ func (o *UserHit) SetUserID(v string) *UserHit {
 func (o *UserHit) GetClusterName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -82,12 +87,14 @@ func (o *UserHit) GetClusterNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClusterName, true
 }
 
 // SetClusterName sets field value.
 func (o *UserHit) SetClusterName(v string) *UserHit {
 	o.ClusterName = v
+
 	return o
 }
 
@@ -95,6 +102,7 @@ func (o *UserHit) SetClusterName(v string) *UserHit {
 func (o *UserHit) GetNbRecords() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -107,12 +115,14 @@ func (o *UserHit) GetNbRecordsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbRecords, true
 }
 
 // SetNbRecords sets field value.
 func (o *UserHit) SetNbRecords(v int32) *UserHit {
 	o.NbRecords = v
+
 	return o
 }
 
@@ -120,6 +130,7 @@ func (o *UserHit) SetNbRecords(v int32) *UserHit {
 func (o *UserHit) GetDataSize() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -132,12 +143,14 @@ func (o *UserHit) GetDataSizeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DataSize, true
 }
 
 // SetDataSize sets field value.
 func (o *UserHit) SetDataSize(v int32) *UserHit {
 	o.DataSize = v
+
 	return o
 }
 
@@ -145,6 +158,7 @@ func (o *UserHit) SetDataSize(v int32) *UserHit {
 func (o *UserHit) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -157,12 +171,14 @@ func (o *UserHit) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *UserHit) SetObjectID(v string) *UserHit {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -170,6 +186,7 @@ func (o *UserHit) SetObjectID(v string) *UserHit {
 func (o *UserHit) GetHighlightResult() UserHighlightResult {
 	if o == nil {
 		var ret UserHighlightResult
+
 		return ret
 	}
 
@@ -182,12 +199,14 @@ func (o *UserHit) GetHighlightResultOk() (*UserHighlightResult, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.HighlightResult, true
 }
 
 // SetHighlightResult sets field value.
 func (o *UserHit) SetHighlightResult(v *UserHighlightResult) *UserHit {
 	o.HighlightResult = *v
+
 	return o
 }
 
@@ -199,6 +218,7 @@ func (o UserHit) MarshalJSON() ([]byte, error) {
 	toSerialize["dataSize"] = o.DataSize
 	toSerialize["objectID"] = o.ObjectID
 	toSerialize["_highlightResult"] = o.HighlightResult
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal UserHit: %w", err)
@@ -215,5 +235,6 @@ func (o UserHit) String() string {
 	out += fmt.Sprintf("  dataSize=%v\n", o.DataSize)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  _highlightResult=%v\n", o.HighlightResult)
+
 	return fmt.Sprintf("UserHit {\n%s}", out)
 }

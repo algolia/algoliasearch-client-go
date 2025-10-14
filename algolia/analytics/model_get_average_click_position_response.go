@@ -22,11 +22,16 @@ type GetAverageClickPositionResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetAverageClickPositionResponse(average utils.Nullable[float64], clickCount int32, dates []DailyAverageClicks) *GetAverageClickPositionResponse {
+func NewGetAverageClickPositionResponse(
+	average utils.Nullable[float64],
+	clickCount int32,
+	dates []DailyAverageClicks,
+) *GetAverageClickPositionResponse {
 	this := &GetAverageClickPositionResponse{}
 	this.Average = average
 	this.ClickCount = clickCount
 	this.Dates = dates
+
 	return this
 }
 
@@ -40,6 +45,7 @@ func NewEmptyGetAverageClickPositionResponse() *GetAverageClickPositionResponse 
 func (o *GetAverageClickPositionResponse) GetAverage() float64 {
 	if o == nil || o.Average.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -53,12 +59,14 @@ func (o *GetAverageClickPositionResponse) GetAverageOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Average.Get(), o.Average.IsSet()
 }
 
 // SetAverage sets field value.
 func (o *GetAverageClickPositionResponse) SetAverage(v float64) *GetAverageClickPositionResponse {
 	o.Average.Set(&v)
+
 	return o
 }
 
@@ -66,6 +74,7 @@ func (o *GetAverageClickPositionResponse) SetAverage(v float64) *GetAverageClick
 func (o *GetAverageClickPositionResponse) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -78,12 +87,14 @@ func (o *GetAverageClickPositionResponse) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *GetAverageClickPositionResponse) SetClickCount(v int32) *GetAverageClickPositionResponse {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -91,6 +102,7 @@ func (o *GetAverageClickPositionResponse) SetClickCount(v int32) *GetAverageClic
 func (o *GetAverageClickPositionResponse) GetDates() []DailyAverageClicks {
 	if o == nil {
 		var ret []DailyAverageClicks
+
 		return ret
 	}
 
@@ -103,12 +115,14 @@ func (o *GetAverageClickPositionResponse) GetDatesOk() ([]DailyAverageClicks, bo
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
 // SetDates sets field value.
 func (o *GetAverageClickPositionResponse) SetDates(v []DailyAverageClicks) *GetAverageClickPositionResponse {
 	o.Dates = v
+
 	return o
 }
 
@@ -117,6 +131,7 @@ func (o GetAverageClickPositionResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["average"] = o.Average.Get()
 	toSerialize["clickCount"] = o.ClickCount
 	toSerialize["dates"] = o.Dates
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetAverageClickPositionResponse: %w", err)
@@ -130,5 +145,6 @@ func (o GetAverageClickPositionResponse) String() string {
 	out += fmt.Sprintf("  average=%v\n", o.Average)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("GetAverageClickPositionResponse {\n%s}", out)
 }

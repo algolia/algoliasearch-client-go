@@ -63,10 +63,12 @@ func NewTrendingItemsQuery(indexName string, threshold float64, model TrendingIt
 	this := &TrendingItemsQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
+
 	this.Model = model
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -79,6 +81,7 @@ func NewEmptyTrendingItemsQuery() *TrendingItemsQuery {
 func (o *TrendingItemsQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -91,12 +94,14 @@ func (o *TrendingItemsQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *TrendingItemsQuery) SetIndexName(v string) *TrendingItemsQuery {
 	o.IndexName = v
+
 	return o
 }
 
@@ -104,6 +109,7 @@ func (o *TrendingItemsQuery) SetIndexName(v string) *TrendingItemsQuery {
 func (o *TrendingItemsQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -116,12 +122,14 @@ func (o *TrendingItemsQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Threshold, true
 }
 
 // SetThreshold sets field value.
 func (o *TrendingItemsQuery) SetThreshold(v float64) *TrendingItemsQuery {
 	o.Threshold = v
+
 	return o
 }
 
@@ -129,8 +137,10 @@ func (o *TrendingItemsQuery) SetThreshold(v float64) *TrendingItemsQuery {
 func (o *TrendingItemsQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxRecommendations
 }
 
@@ -140,6 +150,7 @@ func (o *TrendingItemsQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
+
 	return o.MaxRecommendations, true
 }
 
@@ -155,6 +166,7 @@ func (o *TrendingItemsQuery) HasMaxRecommendations() bool {
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
 func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) *TrendingItemsQuery {
 	o.MaxRecommendations = &v
+
 	return o
 }
 
@@ -162,8 +174,10 @@ func (o *TrendingItemsQuery) SetMaxRecommendations(v int32) *TrendingItemsQuery 
 func (o *TrendingItemsQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret RecommendSearchParams
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -173,6 +187,7 @@ func (o *TrendingItemsQuery) GetQueryParametersOk() (*RecommendSearchParams, boo
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -188,6 +203,7 @@ func (o *TrendingItemsQuery) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
 func (o *TrendingItemsQuery) SetQueryParameters(v *RecommendSearchParams) *TrendingItemsQuery {
 	o.QueryParameters = v
+
 	return o
 }
 
@@ -195,8 +211,10 @@ func (o *TrendingItemsQuery) SetQueryParameters(v *RecommendSearchParams) *Trend
 func (o *TrendingItemsQuery) GetFacetName() string {
 	if o == nil || o.FacetName == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.FacetName
 }
 
@@ -206,6 +224,7 @@ func (o *TrendingItemsQuery) GetFacetNameOk() (*string, bool) {
 	if o == nil || o.FacetName == nil {
 		return nil, false
 	}
+
 	return o.FacetName, true
 }
 
@@ -221,6 +240,7 @@ func (o *TrendingItemsQuery) HasFacetName() bool {
 // SetFacetName gets a reference to the given string and assigns it to the FacetName field.
 func (o *TrendingItemsQuery) SetFacetName(v string) *TrendingItemsQuery {
 	o.FacetName = &v
+
 	return o
 }
 
@@ -228,8 +248,10 @@ func (o *TrendingItemsQuery) SetFacetName(v string) *TrendingItemsQuery {
 func (o *TrendingItemsQuery) GetFacetValue() string {
 	if o == nil || o.FacetValue == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.FacetValue
 }
 
@@ -239,6 +261,7 @@ func (o *TrendingItemsQuery) GetFacetValueOk() (*string, bool) {
 	if o == nil || o.FacetValue == nil {
 		return nil, false
 	}
+
 	return o.FacetValue, true
 }
 
@@ -254,6 +277,7 @@ func (o *TrendingItemsQuery) HasFacetValue() bool {
 // SetFacetValue gets a reference to the given string and assigns it to the FacetValue field.
 func (o *TrendingItemsQuery) SetFacetValue(v string) *TrendingItemsQuery {
 	o.FacetValue = &v
+
 	return o
 }
 
@@ -261,6 +285,7 @@ func (o *TrendingItemsQuery) SetFacetValue(v string) *TrendingItemsQuery {
 func (o *TrendingItemsQuery) GetModel() TrendingItemsModel {
 	if o == nil {
 		var ret TrendingItemsModel
+
 		return ret
 	}
 
@@ -273,12 +298,14 @@ func (o *TrendingItemsQuery) GetModelOk() (*TrendingItemsModel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Model, true
 }
 
 // SetModel sets field value.
 func (o *TrendingItemsQuery) SetModel(v TrendingItemsModel) *TrendingItemsQuery {
 	o.Model = v
+
 	return o
 }
 
@@ -286,8 +313,10 @@ func (o *TrendingItemsQuery) SetModel(v TrendingItemsModel) *TrendingItemsQuery 
 func (o *TrendingItemsQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
 		var ret FallbackParams
+
 		return ret
 	}
+
 	return *o.FallbackParameters
 }
 
@@ -297,6 +326,7 @@ func (o *TrendingItemsQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
+
 	return o.FallbackParameters, true
 }
 
@@ -312,29 +342,36 @@ func (o *TrendingItemsQuery) HasFallbackParameters() bool {
 // SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
 func (o *TrendingItemsQuery) SetFallbackParameters(v *FallbackParams) *TrendingItemsQuery {
 	o.FallbackParameters = v
+
 	return o
 }
 
 func (o TrendingItemsQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
+
 	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	if o.FacetName != nil {
 		toSerialize["facetName"] = o.FacetName
 	}
+
 	if o.FacetValue != nil {
 		toSerialize["facetValue"] = o.FacetValue
 	}
+
 	toSerialize["model"] = o.Model
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TrendingItemsQuery: %w", err)
@@ -353,5 +390,6 @@ func (o TrendingItemsQuery) String() string {
 	out += fmt.Sprintf("  facetValue=%v\n", o.FacetValue)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
+
 	return fmt.Sprintf("TrendingItemsQuery {\n%s}", out)
 }

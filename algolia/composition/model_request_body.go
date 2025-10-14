@@ -28,6 +28,7 @@ func NewRequestBody(opts ...RequestBodyOption) *RequestBody {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyRequestBody() *RequestBody {
 func (o *RequestBody) GetParams() Params {
 	if o == nil || o.Params == nil {
 		var ret Params
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -51,6 +54,7 @@ func (o *RequestBody) GetParamsOk() (*Params, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -66,6 +70,7 @@ func (o *RequestBody) HasParams() bool {
 // SetParams gets a reference to the given Params and assigns it to the Params field.
 func (o *RequestBody) SetParams(v *Params) *RequestBody {
 	o.Params = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o RequestBody) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RequestBody: %w", err)
@@ -85,5 +91,6 @@ func (o RequestBody) MarshalJSON() ([]byte, error) {
 func (o RequestBody) String() string {
 	out := ""
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("RequestBody {\n%s}", out)
 }

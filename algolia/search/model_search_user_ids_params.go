@@ -43,10 +43,12 @@ func WithSearchUserIdsParamsHitsPerPage(val int32) SearchUserIdsParamsOption {
 // will change when the set of required properties is changed.
 func NewSearchUserIdsParams(query string, opts ...SearchUserIdsParamsOption) *SearchUserIdsParams {
 	this := &SearchUserIdsParams{}
+
 	this.Query = query
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -59,6 +61,7 @@ func NewEmptySearchUserIdsParams() *SearchUserIdsParams {
 func (o *SearchUserIdsParams) GetQuery() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +74,14 @@ func (o *SearchUserIdsParams) GetQueryOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Query, true
 }
 
 // SetQuery sets field value.
 func (o *SearchUserIdsParams) SetQuery(v string) *SearchUserIdsParams {
 	o.Query = v
+
 	return o
 }
 
@@ -84,8 +89,10 @@ func (o *SearchUserIdsParams) SetQuery(v string) *SearchUserIdsParams {
 func (o *SearchUserIdsParams) GetClusterName() string {
 	if o == nil || o.ClusterName == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ClusterName
 }
 
@@ -95,6 +102,7 @@ func (o *SearchUserIdsParams) GetClusterNameOk() (*string, bool) {
 	if o == nil || o.ClusterName == nil {
 		return nil, false
 	}
+
 	return o.ClusterName, true
 }
 
@@ -110,6 +118,7 @@ func (o *SearchUserIdsParams) HasClusterName() bool {
 // SetClusterName gets a reference to the given string and assigns it to the ClusterName field.
 func (o *SearchUserIdsParams) SetClusterName(v string) *SearchUserIdsParams {
 	o.ClusterName = &v
+
 	return o
 }
 
@@ -117,8 +126,10 @@ func (o *SearchUserIdsParams) SetClusterName(v string) *SearchUserIdsParams {
 func (o *SearchUserIdsParams) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -128,6 +139,7 @@ func (o *SearchUserIdsParams) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -143,6 +155,7 @@ func (o *SearchUserIdsParams) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *SearchUserIdsParams) SetPage(v int32) *SearchUserIdsParams {
 	o.Page = &v
+
 	return o
 }
 
@@ -150,8 +163,10 @@ func (o *SearchUserIdsParams) SetPage(v int32) *SearchUserIdsParams {
 func (o *SearchUserIdsParams) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -161,6 +176,7 @@ func (o *SearchUserIdsParams) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -176,21 +192,26 @@ func (o *SearchUserIdsParams) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *SearchUserIdsParams) SetHitsPerPage(v int32) *SearchUserIdsParams {
 	o.HitsPerPage = &v
+
 	return o
 }
 
 func (o SearchUserIdsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["query"] = o.Query
 	if o.ClusterName != nil {
 		toSerialize["clusterName"] = o.ClusterName
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchUserIdsParams: %w", err)
@@ -205,5 +226,6 @@ func (o SearchUserIdsParams) String() string {
 	out += fmt.Sprintf("  clusterName=%v\n", o.ClusterName)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
+
 	return fmt.Sprintf("SearchUserIdsParams {\n%s}", out)
 }

@@ -29,6 +29,7 @@ func NewSearchForFacetValuesResponse(opts ...SearchForFacetValuesResponseOption)
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptySearchForFacetValuesResponse() *SearchForFacetValuesResponse {
 func (o *SearchForFacetValuesResponse) GetResults() []SearchForFacetValuesResults {
 	if o == nil || o.Results == nil {
 		var ret []SearchForFacetValuesResults
+
 		return ret
 	}
+
 	return o.Results
 }
 
@@ -52,6 +55,7 @@ func (o *SearchForFacetValuesResponse) GetResultsOk() ([]SearchForFacetValuesRes
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
+
 	return o.Results, true
 }
 
@@ -67,6 +71,7 @@ func (o *SearchForFacetValuesResponse) HasResults() bool {
 // SetResults gets a reference to the given []SearchForFacetValuesResults and assigns it to the Results field.
 func (o *SearchForFacetValuesResponse) SetResults(v []SearchForFacetValuesResults) *SearchForFacetValuesResponse {
 	o.Results = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o SearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {
 	if o.Results != nil {
 		toSerialize["results"] = o.Results
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForFacetValuesResponse: %w", err)
@@ -86,5 +92,6 @@ func (o SearchForFacetValuesResponse) MarshalJSON() ([]byte, error) {
 func (o SearchForFacetValuesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  results=%v\n", o.Results)
+
 	return fmt.Sprintf("SearchForFacetValuesResponse {\n%s}", out)
 }

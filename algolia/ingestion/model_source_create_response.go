@@ -25,6 +25,7 @@ func NewSourceCreateResponse(sourceID string, name string, createdAt string) *So
 	this.SourceID = sourceID
 	this.Name = name
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptySourceCreateResponse() *SourceCreateResponse {
 func (o *SourceCreateResponse) GetSourceID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *SourceCreateResponse) GetSourceIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.SourceID, true
 }
 
 // SetSourceID sets field value.
 func (o *SourceCreateResponse) SetSourceID(v string) *SourceCreateResponse {
 	o.SourceID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *SourceCreateResponse) SetSourceID(v string) *SourceCreateResponse {
 func (o *SourceCreateResponse) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *SourceCreateResponse) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *SourceCreateResponse) SetName(v string) *SourceCreateResponse {
 	o.Name = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *SourceCreateResponse) SetName(v string) *SourceCreateResponse {
 func (o *SourceCreateResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *SourceCreateResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *SourceCreateResponse) SetCreatedAt(v string) *SourceCreateResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o SourceCreateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["sourceID"] = o.SourceID
 	toSerialize["name"] = o.Name
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceCreateResponse: %w", err)
@@ -126,5 +137,6 @@ func (o SourceCreateResponse) String() string {
 	out += fmt.Sprintf("  sourceID=%v\n", o.SourceID)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("SourceCreateResponse {\n%s}", out)
 }

@@ -37,6 +37,7 @@ func NewCondition(opts ...ConditionOption) *Condition {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyCondition() *Condition {
 func (o *Condition) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -60,6 +63,7 @@ func (o *Condition) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -75,6 +79,7 @@ func (o *Condition) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *Condition) SetFilters(v string) *Condition {
 	o.Filters = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *Condition) SetFilters(v string) *Condition {
 func (o *Condition) GetContext() string {
 	if o == nil || o.Context == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Context
 }
 
@@ -93,6 +100,7 @@ func (o *Condition) GetContextOk() (*string, bool) {
 	if o == nil || o.Context == nil {
 		return nil, false
 	}
+
 	return o.Context, true
 }
 
@@ -108,6 +116,7 @@ func (o *Condition) HasContext() bool {
 // SetContext gets a reference to the given string and assigns it to the Context field.
 func (o *Condition) SetContext(v string) *Condition {
 	o.Context = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Condition: %w", err)
@@ -131,5 +142,6 @@ func (o Condition) String() string {
 	out := ""
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  context=%v\n", o.Context)
+
 	return fmt.Sprintf("Condition {\n%s}", out)
 }

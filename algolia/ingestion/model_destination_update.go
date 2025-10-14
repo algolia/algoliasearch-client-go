@@ -58,6 +58,7 @@ func NewDestinationUpdate(opts ...DestinationUpdateOption) *DestinationUpdate {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -70,8 +71,10 @@ func NewEmptyDestinationUpdate() *DestinationUpdate {
 func (o *DestinationUpdate) GetType() DestinationType {
 	if o == nil || o.Type == nil {
 		var ret DestinationType
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -81,6 +84,7 @@ func (o *DestinationUpdate) GetTypeOk() (*DestinationType, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -96,6 +100,7 @@ func (o *DestinationUpdate) HasType() bool {
 // SetType gets a reference to the given DestinationType and assigns it to the Type field.
 func (o *DestinationUpdate) SetType(v DestinationType) *DestinationUpdate {
 	o.Type = &v
+
 	return o
 }
 
@@ -103,8 +108,10 @@ func (o *DestinationUpdate) SetType(v DestinationType) *DestinationUpdate {
 func (o *DestinationUpdate) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Name
 }
 
@@ -114,6 +121,7 @@ func (o *DestinationUpdate) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
+
 	return o.Name, true
 }
 
@@ -129,6 +137,7 @@ func (o *DestinationUpdate) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *DestinationUpdate) SetName(v string) *DestinationUpdate {
 	o.Name = &v
+
 	return o
 }
 
@@ -136,8 +145,10 @@ func (o *DestinationUpdate) SetName(v string) *DestinationUpdate {
 func (o *DestinationUpdate) GetInput() DestinationInput {
 	if o == nil || o.Input == nil {
 		var ret DestinationInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -147,6 +158,7 @@ func (o *DestinationUpdate) GetInputOk() (*DestinationInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -162,6 +174,7 @@ func (o *DestinationUpdate) HasInput() bool {
 // SetInput gets a reference to the given DestinationInput and assigns it to the Input field.
 func (o *DestinationUpdate) SetInput(v *DestinationInput) *DestinationUpdate {
 	o.Input = v
+
 	return o
 }
 
@@ -169,8 +182,10 @@ func (o *DestinationUpdate) SetInput(v *DestinationInput) *DestinationUpdate {
 func (o *DestinationUpdate) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -180,6 +195,7 @@ func (o *DestinationUpdate) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -195,6 +211,7 @@ func (o *DestinationUpdate) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *DestinationUpdate) SetAuthenticationID(v string) *DestinationUpdate {
 	o.AuthenticationID = &v
+
 	return o
 }
 
@@ -202,8 +219,10 @@ func (o *DestinationUpdate) SetAuthenticationID(v string) *DestinationUpdate {
 func (o *DestinationUpdate) GetTransformationIDs() []string {
 	if o == nil || o.TransformationIDs == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.TransformationIDs
 }
 
@@ -213,6 +232,7 @@ func (o *DestinationUpdate) GetTransformationIDsOk() ([]string, bool) {
 	if o == nil || o.TransformationIDs == nil {
 		return nil, false
 	}
+
 	return o.TransformationIDs, true
 }
 
@@ -228,6 +248,7 @@ func (o *DestinationUpdate) HasTransformationIDs() bool {
 // SetTransformationIDs gets a reference to the given []string and assigns it to the TransformationIDs field.
 func (o *DestinationUpdate) SetTransformationIDs(v []string) *DestinationUpdate {
 	o.TransformationIDs = v
+
 	return o
 }
 
@@ -236,18 +257,23 @@ func (o DestinationUpdate) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	if o.TransformationIDs != nil {
 		toSerialize["transformationIDs"] = o.TransformationIDs
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationUpdate: %w", err)
@@ -263,5 +289,6 @@ func (o DestinationUpdate) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
+
 	return fmt.Sprintf("DestinationUpdate {\n%s}", out)
 }

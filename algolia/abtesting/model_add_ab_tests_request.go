@@ -25,6 +25,7 @@ func NewAddABTestsRequest(name string, variants []AddABTestsVariant, endAt strin
 	this.Name = name
 	this.Variants = variants
 	this.EndAt = endAt
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyAddABTestsRequest() *AddABTestsRequest {
 func (o *AddABTestsRequest) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *AddABTestsRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 	o.Name = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 func (o *AddABTestsRequest) GetVariants() []AddABTestsVariant {
 	if o == nil {
 		var ret []AddABTestsVariant
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *AddABTestsRequest) GetVariantsOk() ([]AddABTestsVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) *AddABTestsRequest {
 	o.Variants = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *AddABTestsRequest) SetVariants(v []AddABTestsVariant) *AddABTestsReques
 func (o *AddABTestsRequest) GetEndAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *AddABTestsRequest) GetEndAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EndAt, true
 }
 
 // SetEndAt sets field value.
 func (o *AddABTestsRequest) SetEndAt(v string) *AddABTestsRequest {
 	o.EndAt = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["variants"] = o.Variants
 	toSerialize["endAt"] = o.EndAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddABTestsRequest: %w", err)
@@ -126,5 +137,6 @@ func (o AddABTestsRequest) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
+
 	return fmt.Sprintf("AddABTestsRequest {\n%s}", out)
 }

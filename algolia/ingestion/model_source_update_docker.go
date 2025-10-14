@@ -19,6 +19,7 @@ type SourceUpdateDocker struct {
 func NewSourceUpdateDocker(configuration map[string]any) *SourceUpdateDocker {
 	this := &SourceUpdateDocker{}
 	this.Configuration = configuration
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptySourceUpdateDocker() *SourceUpdateDocker {
 func (o *SourceUpdateDocker) GetConfiguration() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *SourceUpdateDocker) GetConfigurationOk() (map[string]any, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Configuration, true
 }
 
 // SetConfiguration sets field value.
 func (o *SourceUpdateDocker) SetConfiguration(v map[string]any) *SourceUpdateDocker {
 	o.Configuration = v
+
 	return o
 }
 
 func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["configuration"] = o.Configuration
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdateDocker: %w", err)
@@ -66,5 +71,6 @@ func (o SourceUpdateDocker) MarshalJSON() ([]byte, error) {
 func (o SourceUpdateDocker) String() string {
 	out := ""
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
+
 	return fmt.Sprintf("SourceUpdateDocker {\n%s}", out)
 }

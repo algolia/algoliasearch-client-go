@@ -37,6 +37,7 @@ func NewModelRange(opts ...ModelRangeOption) *ModelRange {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyModelRange() *ModelRange {
 func (o *ModelRange) GetFrom() int32 {
 	if o == nil || o.From == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.From
 }
 
@@ -60,6 +63,7 @@ func (o *ModelRange) GetFromOk() (*int32, bool) {
 	if o == nil || o.From == nil {
 		return nil, false
 	}
+
 	return o.From, true
 }
 
@@ -75,6 +79,7 @@ func (o *ModelRange) HasFrom() bool {
 // SetFrom gets a reference to the given int32 and assigns it to the From field.
 func (o *ModelRange) SetFrom(v int32) *ModelRange {
 	o.From = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *ModelRange) SetFrom(v int32) *ModelRange {
 func (o *ModelRange) GetValue() int32 {
 	if o == nil || o.Value == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Value
 }
 
@@ -93,6 +100,7 @@ func (o *ModelRange) GetValueOk() (*int32, bool) {
 	if o == nil || o.Value == nil {
 		return nil, false
 	}
+
 	return o.Value, true
 }
 
@@ -108,6 +116,7 @@ func (o *ModelRange) HasValue() bool {
 // SetValue gets a reference to the given int32 and assigns it to the Value field.
 func (o *ModelRange) SetValue(v int32) *ModelRange {
 	o.Value = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o ModelRange) MarshalJSON() ([]byte, error) {
 	if o.From != nil {
 		toSerialize["from"] = o.From
 	}
+
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ModelRange: %w", err)
@@ -131,5 +142,6 @@ func (o ModelRange) String() string {
 	out := ""
 	out += fmt.Sprintf("  from=%v\n", o.From)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("ModelRange {\n%s}", out)
 }

@@ -22,6 +22,7 @@ func NewTimeseries(abTestID int32, variants []TimeseriesVariant) *Timeseries {
 	this := &Timeseries{}
 	this.AbTestID = abTestID
 	this.Variants = variants
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyTimeseries() *Timeseries {
 func (o *Timeseries) GetAbTestID() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *Timeseries) GetAbTestIDOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AbTestID, true
 }
 
 // SetAbTestID sets field value.
 func (o *Timeseries) SetAbTestID(v int32) *Timeseries {
 	o.AbTestID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *Timeseries) SetAbTestID(v int32) *Timeseries {
 func (o *Timeseries) GetVariants() []TimeseriesVariant {
 	if o == nil {
 		var ret []TimeseriesVariant
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *Timeseries) GetVariantsOk() ([]TimeseriesVariant, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Variants, true
 }
 
 // SetVariants sets field value.
 func (o *Timeseries) SetVariants(v []TimeseriesVariant) *Timeseries {
 	o.Variants = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o Timeseries) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["abTestID"] = o.AbTestID
 	toSerialize["variants"] = o.Variants
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Timeseries: %w", err)
@@ -96,5 +104,6 @@ func (o Timeseries) String() string {
 	out := ""
 	out += fmt.Sprintf("  abTestID=%v\n", o.AbTestID)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
+
 	return fmt.Sprintf("Timeseries {\n%s}", out)
 }

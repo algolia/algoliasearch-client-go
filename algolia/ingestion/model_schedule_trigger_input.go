@@ -21,6 +21,7 @@ func NewScheduleTriggerInput(type_ ScheduleTriggerType, cron string) *ScheduleTr
 	this := &ScheduleTriggerInput{}
 	this.Type = type_
 	this.Cron = cron
+
 	return this
 }
 
@@ -33,6 +34,7 @@ func NewEmptyScheduleTriggerInput() *ScheduleTriggerInput {
 func (o *ScheduleTriggerInput) GetType() ScheduleTriggerType {
 	if o == nil {
 		var ret ScheduleTriggerType
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *ScheduleTriggerInput) GetTypeOk() (*ScheduleTriggerType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *ScheduleTriggerInput) SetType(v ScheduleTriggerType) *ScheduleTriggerInput {
 	o.Type = v
+
 	return o
 }
 
@@ -58,6 +62,7 @@ func (o *ScheduleTriggerInput) SetType(v ScheduleTriggerType) *ScheduleTriggerIn
 func (o *ScheduleTriggerInput) GetCron() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -70,12 +75,14 @@ func (o *ScheduleTriggerInput) GetCronOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Cron, true
 }
 
 // SetCron sets field value.
 func (o *ScheduleTriggerInput) SetCron(v string) *ScheduleTriggerInput {
 	o.Cron = v
+
 	return o
 }
 
@@ -83,6 +90,7 @@ func (o ScheduleTriggerInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
 	toSerialize["cron"] = o.Cron
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ScheduleTriggerInput: %w", err)
@@ -95,5 +103,6 @@ func (o ScheduleTriggerInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
+
 	return fmt.Sprintf("ScheduleTriggerInput {\n%s}", out)
 }

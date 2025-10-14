@@ -75,6 +75,7 @@ func NewServer(opts ...ServerOption) *Server {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -87,8 +88,10 @@ func NewEmptyServer() *Server {
 func (o *Server) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Name
 }
 
@@ -98,6 +101,7 @@ func (o *Server) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
+
 	return o.Name, true
 }
 
@@ -113,6 +117,7 @@ func (o *Server) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *Server) SetName(v string) *Server {
 	o.Name = &v
+
 	return o
 }
 
@@ -120,8 +125,10 @@ func (o *Server) SetName(v string) *Server {
 func (o *Server) GetRegion() Region {
 	if o == nil || o.Region == nil {
 		var ret Region
+
 		return ret
 	}
+
 	return *o.Region
 }
 
@@ -131,6 +138,7 @@ func (o *Server) GetRegionOk() (*Region, bool) {
 	if o == nil || o.Region == nil {
 		return nil, false
 	}
+
 	return o.Region, true
 }
 
@@ -146,6 +154,7 @@ func (o *Server) HasRegion() bool {
 // SetRegion gets a reference to the given Region and assigns it to the Region field.
 func (o *Server) SetRegion(v Region) *Server {
 	o.Region = &v
+
 	return o
 }
 
@@ -154,8 +163,10 @@ func (o *Server) SetRegion(v Region) *Server {
 func (o *Server) GetIsSlave() bool {
 	if o == nil || o.IsSlave == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.IsSlave
 }
 
@@ -166,6 +177,7 @@ func (o *Server) GetIsSlaveOk() (*bool, bool) {
 	if o == nil || o.IsSlave == nil {
 		return nil, false
 	}
+
 	return o.IsSlave, true
 }
 
@@ -182,6 +194,7 @@ func (o *Server) HasIsSlave() bool {
 // Deprecated.
 func (o *Server) SetIsSlave(v bool) *Server {
 	o.IsSlave = &v
+
 	return o
 }
 
@@ -189,8 +202,10 @@ func (o *Server) SetIsSlave(v bool) *Server {
 func (o *Server) GetIsReplica() bool {
 	if o == nil || o.IsReplica == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.IsReplica
 }
 
@@ -200,6 +215,7 @@ func (o *Server) GetIsReplicaOk() (*bool, bool) {
 	if o == nil || o.IsReplica == nil {
 		return nil, false
 	}
+
 	return o.IsReplica, true
 }
 
@@ -215,6 +231,7 @@ func (o *Server) HasIsReplica() bool {
 // SetIsReplica gets a reference to the given bool and assigns it to the IsReplica field.
 func (o *Server) SetIsReplica(v bool) *Server {
 	o.IsReplica = &v
+
 	return o
 }
 
@@ -222,8 +239,10 @@ func (o *Server) SetIsReplica(v bool) *Server {
 func (o *Server) GetCluster() string {
 	if o == nil || o.Cluster == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cluster
 }
 
@@ -233,6 +252,7 @@ func (o *Server) GetClusterOk() (*string, bool) {
 	if o == nil || o.Cluster == nil {
 		return nil, false
 	}
+
 	return o.Cluster, true
 }
 
@@ -248,6 +268,7 @@ func (o *Server) HasCluster() bool {
 // SetCluster gets a reference to the given string and assigns it to the Cluster field.
 func (o *Server) SetCluster(v string) *Server {
 	o.Cluster = &v
+
 	return o
 }
 
@@ -255,8 +276,10 @@ func (o *Server) SetCluster(v string) *Server {
 func (o *Server) GetStatus() ServerStatus {
 	if o == nil || o.Status == nil {
 		var ret ServerStatus
+
 		return ret
 	}
+
 	return *o.Status
 }
 
@@ -266,6 +289,7 @@ func (o *Server) GetStatusOk() (*ServerStatus, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
+
 	return o.Status, true
 }
 
@@ -281,6 +305,7 @@ func (o *Server) HasStatus() bool {
 // SetStatus gets a reference to the given ServerStatus and assigns it to the Status field.
 func (o *Server) SetStatus(v ServerStatus) *Server {
 	o.Status = &v
+
 	return o
 }
 
@@ -288,8 +313,10 @@ func (o *Server) SetStatus(v ServerStatus) *Server {
 func (o *Server) GetType() Type {
 	if o == nil || o.Type == nil {
 		var ret Type
+
 		return ret
 	}
+
 	return *o.Type
 }
 
@@ -299,6 +326,7 @@ func (o *Server) GetTypeOk() (*Type, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
+
 	return o.Type, true
 }
 
@@ -314,6 +342,7 @@ func (o *Server) HasType() bool {
 // SetType gets a reference to the given Type and assigns it to the Type field.
 func (o *Server) SetType(v Type) *Server {
 	o.Type = &v
+
 	return o
 }
 
@@ -322,24 +351,31 @@ func (o Server) MarshalJSON() ([]byte, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
+
 	if o.Region != nil {
 		toSerialize["region"] = o.Region
 	}
+
 	if o.IsSlave != nil {
 		toSerialize["is_slave"] = o.IsSlave
 	}
+
 	if o.IsReplica != nil {
 		toSerialize["is_replica"] = o.IsReplica
 	}
+
 	if o.Cluster != nil {
 		toSerialize["cluster"] = o.Cluster
 	}
+
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
+
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Server: %w", err)
@@ -357,5 +393,6 @@ func (o Server) String() string {
 	out += fmt.Sprintf("  cluster=%v\n", o.Cluster)
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+
 	return fmt.Sprintf("Server {\n%s}", out)
 }

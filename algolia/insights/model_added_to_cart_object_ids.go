@@ -65,17 +65,27 @@ func WithAddedToCartObjectIDsValue(val Value) AddedToCartObjectIDsOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAddedToCartObjectIDs(eventName string, eventType ConversionEvent, eventSubtype AddToCartEvent, index string, objectIDs []string, userToken string, opts ...AddedToCartObjectIDsOption) *AddedToCartObjectIDs {
+func NewAddedToCartObjectIDs(
+	eventName string,
+	eventType ConversionEvent,
+	eventSubtype AddToCartEvent,
+	index string,
+	objectIDs []string,
+	userToken string,
+	opts ...AddedToCartObjectIDsOption,
+) *AddedToCartObjectIDs {
 	this := &AddedToCartObjectIDs{}
 	this.EventName = eventName
 	this.EventType = eventType
 	this.EventSubtype = eventSubtype
 	this.Index = index
 	this.ObjectIDs = objectIDs
+
 	this.UserToken = userToken
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -88,6 +98,7 @@ func NewEmptyAddedToCartObjectIDs() *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetEventName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -100,12 +111,14 @@ func (o *AddedToCartObjectIDs) GetEventNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventName, true
 }
 
 // SetEventName sets field value.
 func (o *AddedToCartObjectIDs) SetEventName(v string) *AddedToCartObjectIDs {
 	o.EventName = v
+
 	return o
 }
 
@@ -113,6 +126,7 @@ func (o *AddedToCartObjectIDs) SetEventName(v string) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetEventType() ConversionEvent {
 	if o == nil {
 		var ret ConversionEvent
+
 		return ret
 	}
 
@@ -125,12 +139,14 @@ func (o *AddedToCartObjectIDs) GetEventTypeOk() (*ConversionEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventType, true
 }
 
 // SetEventType sets field value.
 func (o *AddedToCartObjectIDs) SetEventType(v ConversionEvent) *AddedToCartObjectIDs {
 	o.EventType = v
+
 	return o
 }
 
@@ -138,6 +154,7 @@ func (o *AddedToCartObjectIDs) SetEventType(v ConversionEvent) *AddedToCartObjec
 func (o *AddedToCartObjectIDs) GetEventSubtype() AddToCartEvent {
 	if o == nil {
 		var ret AddToCartEvent
+
 		return ret
 	}
 
@@ -150,12 +167,14 @@ func (o *AddedToCartObjectIDs) GetEventSubtypeOk() (*AddToCartEvent, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventSubtype, true
 }
 
 // SetEventSubtype sets field value.
 func (o *AddedToCartObjectIDs) SetEventSubtype(v AddToCartEvent) *AddedToCartObjectIDs {
 	o.EventSubtype = v
+
 	return o
 }
 
@@ -163,6 +182,7 @@ func (o *AddedToCartObjectIDs) SetEventSubtype(v AddToCartEvent) *AddedToCartObj
 func (o *AddedToCartObjectIDs) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -175,12 +195,14 @@ func (o *AddedToCartObjectIDs) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *AddedToCartObjectIDs) SetIndex(v string) *AddedToCartObjectIDs {
 	o.Index = v
+
 	return o
 }
 
@@ -188,6 +210,7 @@ func (o *AddedToCartObjectIDs) SetIndex(v string) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetObjectIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -200,12 +223,14 @@ func (o *AddedToCartObjectIDs) GetObjectIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.ObjectIDs, true
 }
 
 // SetObjectIDs sets field value.
 func (o *AddedToCartObjectIDs) SetObjectIDs(v []string) *AddedToCartObjectIDs {
 	o.ObjectIDs = v
+
 	return o
 }
 
@@ -213,6 +238,7 @@ func (o *AddedToCartObjectIDs) SetObjectIDs(v []string) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetUserToken() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -225,12 +251,14 @@ func (o *AddedToCartObjectIDs) GetUserTokenOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserToken, true
 }
 
 // SetUserToken sets field value.
 func (o *AddedToCartObjectIDs) SetUserToken(v string) *AddedToCartObjectIDs {
 	o.UserToken = v
+
 	return o
 }
 
@@ -238,8 +266,10 @@ func (o *AddedToCartObjectIDs) SetUserToken(v string) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetAuthenticatedUserToken() string {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticatedUserToken
 }
 
@@ -249,6 +279,7 @@ func (o *AddedToCartObjectIDs) GetAuthenticatedUserTokenOk() (*string, bool) {
 	if o == nil || o.AuthenticatedUserToken == nil {
 		return nil, false
 	}
+
 	return o.AuthenticatedUserToken, true
 }
 
@@ -264,6 +295,7 @@ func (o *AddedToCartObjectIDs) HasAuthenticatedUserToken() bool {
 // SetAuthenticatedUserToken gets a reference to the given string and assigns it to the AuthenticatedUserToken field.
 func (o *AddedToCartObjectIDs) SetAuthenticatedUserToken(v string) *AddedToCartObjectIDs {
 	o.AuthenticatedUserToken = &v
+
 	return o
 }
 
@@ -271,8 +303,10 @@ func (o *AddedToCartObjectIDs) SetAuthenticatedUserToken(v string) *AddedToCartO
 func (o *AddedToCartObjectIDs) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Currency
 }
 
@@ -282,6 +316,7 @@ func (o *AddedToCartObjectIDs) GetCurrencyOk() (*string, bool) {
 	if o == nil || o.Currency == nil {
 		return nil, false
 	}
+
 	return o.Currency, true
 }
 
@@ -297,6 +332,7 @@ func (o *AddedToCartObjectIDs) HasCurrency() bool {
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
 func (o *AddedToCartObjectIDs) SetCurrency(v string) *AddedToCartObjectIDs {
 	o.Currency = &v
+
 	return o
 }
 
@@ -304,8 +340,10 @@ func (o *AddedToCartObjectIDs) SetCurrency(v string) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetObjectData() []ObjectData {
 	if o == nil || o.ObjectData == nil {
 		var ret []ObjectData
+
 		return ret
 	}
+
 	return o.ObjectData
 }
 
@@ -315,6 +353,7 @@ func (o *AddedToCartObjectIDs) GetObjectDataOk() ([]ObjectData, bool) {
 	if o == nil || o.ObjectData == nil {
 		return nil, false
 	}
+
 	return o.ObjectData, true
 }
 
@@ -330,6 +369,7 @@ func (o *AddedToCartObjectIDs) HasObjectData() bool {
 // SetObjectData gets a reference to the given []ObjectData and assigns it to the ObjectData field.
 func (o *AddedToCartObjectIDs) SetObjectData(v []ObjectData) *AddedToCartObjectIDs {
 	o.ObjectData = v
+
 	return o
 }
 
@@ -337,8 +377,10 @@ func (o *AddedToCartObjectIDs) SetObjectData(v []ObjectData) *AddedToCartObjectI
 func (o *AddedToCartObjectIDs) GetTimestamp() int64 {
 	if o == nil || o.Timestamp == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.Timestamp
 }
 
@@ -348,6 +390,7 @@ func (o *AddedToCartObjectIDs) GetTimestampOk() (*int64, bool) {
 	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
+
 	return o.Timestamp, true
 }
 
@@ -363,6 +406,7 @@ func (o *AddedToCartObjectIDs) HasTimestamp() bool {
 // SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
 func (o *AddedToCartObjectIDs) SetTimestamp(v int64) *AddedToCartObjectIDs {
 	o.Timestamp = &v
+
 	return o
 }
 
@@ -370,8 +414,10 @@ func (o *AddedToCartObjectIDs) SetTimestamp(v int64) *AddedToCartObjectIDs {
 func (o *AddedToCartObjectIDs) GetValue() Value {
 	if o == nil || o.Value == nil {
 		var ret Value
+
 		return ret
 	}
+
 	return *o.Value
 }
 
@@ -381,6 +427,7 @@ func (o *AddedToCartObjectIDs) GetValueOk() (*Value, bool) {
 	if o == nil || o.Value == nil {
 		return nil, false
 	}
+
 	return o.Value, true
 }
 
@@ -396,6 +443,7 @@ func (o *AddedToCartObjectIDs) HasValue() bool {
 // SetValue gets a reference to the given Value and assigns it to the Value field.
 func (o *AddedToCartObjectIDs) SetValue(v *Value) *AddedToCartObjectIDs {
 	o.Value = v
+
 	return o
 }
 
@@ -406,22 +454,28 @@ func (o AddedToCartObjectIDs) MarshalJSON() ([]byte, error) {
 	toSerialize["eventSubtype"] = o.EventSubtype
 	toSerialize["index"] = o.Index
 	toSerialize["objectIDs"] = o.ObjectIDs
+
 	toSerialize["userToken"] = o.UserToken
 	if o.AuthenticatedUserToken != nil {
 		toSerialize["authenticatedUserToken"] = o.AuthenticatedUserToken
 	}
+
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
+
 	if o.ObjectData != nil {
 		toSerialize["objectData"] = o.ObjectData
 	}
+
 	if o.Timestamp != nil {
 		toSerialize["timestamp"] = o.Timestamp
 	}
+
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AddedToCartObjectIDs: %w", err)
@@ -443,5 +497,6 @@ func (o AddedToCartObjectIDs) String() string {
 	out += fmt.Sprintf("  objectData=%v\n", o.ObjectData)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  value=%v\n", o.Value)
+
 	return fmt.Sprintf("AddedToCartObjectIDs {\n%s}", out)
 }

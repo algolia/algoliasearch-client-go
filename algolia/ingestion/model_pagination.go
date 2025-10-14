@@ -28,6 +28,7 @@ func NewPagination(nbPages int32, page int32, nbItems int32, itemsPerPage int32)
 	this.Page = page
 	this.NbItems = nbItems
 	this.ItemsPerPage = itemsPerPage
+
 	return this
 }
 
@@ -40,6 +41,7 @@ func NewEmptyPagination() *Pagination {
 func (o *Pagination) GetNbPages() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -52,12 +54,14 @@ func (o *Pagination) GetNbPagesOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbPages, true
 }
 
 // SetNbPages sets field value.
 func (o *Pagination) SetNbPages(v int32) *Pagination {
 	o.NbPages = v
+
 	return o
 }
 
@@ -65,6 +69,7 @@ func (o *Pagination) SetNbPages(v int32) *Pagination {
 func (o *Pagination) GetPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -77,12 +82,14 @@ func (o *Pagination) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Page, true
 }
 
 // SetPage sets field value.
 func (o *Pagination) SetPage(v int32) *Pagination {
 	o.Page = v
+
 	return o
 }
 
@@ -90,6 +97,7 @@ func (o *Pagination) SetPage(v int32) *Pagination {
 func (o *Pagination) GetNbItems() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -102,12 +110,14 @@ func (o *Pagination) GetNbItemsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbItems, true
 }
 
 // SetNbItems sets field value.
 func (o *Pagination) SetNbItems(v int32) *Pagination {
 	o.NbItems = v
+
 	return o
 }
 
@@ -115,6 +125,7 @@ func (o *Pagination) SetNbItems(v int32) *Pagination {
 func (o *Pagination) GetItemsPerPage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -127,12 +138,14 @@ func (o *Pagination) GetItemsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ItemsPerPage, true
 }
 
 // SetItemsPerPage sets field value.
 func (o *Pagination) SetItemsPerPage(v int32) *Pagination {
 	o.ItemsPerPage = v
+
 	return o
 }
 
@@ -142,6 +155,7 @@ func (o Pagination) MarshalJSON() ([]byte, error) {
 	toSerialize["page"] = o.Page
 	toSerialize["nbItems"] = o.NbItems
 	toSerialize["itemsPerPage"] = o.ItemsPerPage
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Pagination: %w", err)
@@ -156,5 +170,6 @@ func (o Pagination) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  nbItems=%v\n", o.NbItems)
 	out += fmt.Sprintf("  itemsPerPage=%v\n", o.ItemsPerPage)
+
 	return fmt.Sprintf("Pagination {\n%s}", out)
 }

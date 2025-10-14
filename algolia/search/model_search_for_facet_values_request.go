@@ -45,6 +45,7 @@ func NewSearchForFacetValuesRequest(opts ...SearchForFacetValuesRequestOption) *
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptySearchForFacetValuesRequest() *SearchForFacetValuesRequest {
 func (o *SearchForFacetValuesRequest) GetParams() string {
 	if o == nil || o.Params == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -68,6 +71,7 @@ func (o *SearchForFacetValuesRequest) GetParamsOk() (*string, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -83,6 +87,7 @@ func (o *SearchForFacetValuesRequest) HasParams() bool {
 // SetParams gets a reference to the given string and assigns it to the Params field.
 func (o *SearchForFacetValuesRequest) SetParams(v string) *SearchForFacetValuesRequest {
 	o.Params = &v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *SearchForFacetValuesRequest) SetParams(v string) *SearchForFacetValuesR
 func (o *SearchForFacetValuesRequest) GetFacetQuery() string {
 	if o == nil || o.FacetQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.FacetQuery
 }
 
@@ -101,6 +108,7 @@ func (o *SearchForFacetValuesRequest) GetFacetQueryOk() (*string, bool) {
 	if o == nil || o.FacetQuery == nil {
 		return nil, false
 	}
+
 	return o.FacetQuery, true
 }
 
@@ -116,6 +124,7 @@ func (o *SearchForFacetValuesRequest) HasFacetQuery() bool {
 // SetFacetQuery gets a reference to the given string and assigns it to the FacetQuery field.
 func (o *SearchForFacetValuesRequest) SetFacetQuery(v string) *SearchForFacetValuesRequest {
 	o.FacetQuery = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *SearchForFacetValuesRequest) SetFacetQuery(v string) *SearchForFacetVal
 func (o *SearchForFacetValuesRequest) GetMaxFacetHits() int32 {
 	if o == nil || o.MaxFacetHits == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxFacetHits
 }
 
@@ -134,6 +145,7 @@ func (o *SearchForFacetValuesRequest) GetMaxFacetHitsOk() (*int32, bool) {
 	if o == nil || o.MaxFacetHits == nil {
 		return nil, false
 	}
+
 	return o.MaxFacetHits, true
 }
 
@@ -149,6 +161,7 @@ func (o *SearchForFacetValuesRequest) HasMaxFacetHits() bool {
 // SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
 func (o *SearchForFacetValuesRequest) SetMaxFacetHits(v int32) *SearchForFacetValuesRequest {
 	o.MaxFacetHits = &v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o SearchForFacetValuesRequest) MarshalJSON() ([]byte, error) {
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	if o.FacetQuery != nil {
 		toSerialize["facetQuery"] = o.FacetQuery
 	}
+
 	if o.MaxFacetHits != nil {
 		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForFacetValuesRequest: %w", err)
@@ -176,5 +192,6 @@ func (o SearchForFacetValuesRequest) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  facetQuery=%v\n", o.FacetQuery)
 	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
+
 	return fmt.Sprintf("SearchForFacetValuesRequest {\n%s}", out)
 }

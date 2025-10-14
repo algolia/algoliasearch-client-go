@@ -45,15 +45,23 @@ func WithLookingSimilarQueryFallbackParameters(val FallbackParams) LookingSimila
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewLookingSimilarQuery(indexName string, threshold float64, model LookingSimilarModel, objectID string, opts ...LookingSimilarQueryOption) *LookingSimilarQuery {
+func NewLookingSimilarQuery(
+	indexName string,
+	threshold float64,
+	model LookingSimilarModel,
+	objectID string,
+	opts ...LookingSimilarQueryOption,
+) *LookingSimilarQuery {
 	this := &LookingSimilarQuery{}
 	this.IndexName = indexName
 	this.Threshold = threshold
 	this.Model = model
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -66,6 +74,7 @@ func NewEmptyLookingSimilarQuery() *LookingSimilarQuery {
 func (o *LookingSimilarQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -78,12 +87,14 @@ func (o *LookingSimilarQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *LookingSimilarQuery) SetIndexName(v string) *LookingSimilarQuery {
 	o.IndexName = v
+
 	return o
 }
 
@@ -91,6 +102,7 @@ func (o *LookingSimilarQuery) SetIndexName(v string) *LookingSimilarQuery {
 func (o *LookingSimilarQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -103,12 +115,14 @@ func (o *LookingSimilarQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Threshold, true
 }
 
 // SetThreshold sets field value.
 func (o *LookingSimilarQuery) SetThreshold(v float64) *LookingSimilarQuery {
 	o.Threshold = v
+
 	return o
 }
 
@@ -116,8 +130,10 @@ func (o *LookingSimilarQuery) SetThreshold(v float64) *LookingSimilarQuery {
 func (o *LookingSimilarQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxRecommendations
 }
 
@@ -127,6 +143,7 @@ func (o *LookingSimilarQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
+
 	return o.MaxRecommendations, true
 }
 
@@ -142,6 +159,7 @@ func (o *LookingSimilarQuery) HasMaxRecommendations() bool {
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
 func (o *LookingSimilarQuery) SetMaxRecommendations(v int32) *LookingSimilarQuery {
 	o.MaxRecommendations = &v
+
 	return o
 }
 
@@ -149,8 +167,10 @@ func (o *LookingSimilarQuery) SetMaxRecommendations(v int32) *LookingSimilarQuer
 func (o *LookingSimilarQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret RecommendSearchParams
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -160,6 +180,7 @@ func (o *LookingSimilarQuery) GetQueryParametersOk() (*RecommendSearchParams, bo
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -175,6 +196,7 @@ func (o *LookingSimilarQuery) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
 func (o *LookingSimilarQuery) SetQueryParameters(v *RecommendSearchParams) *LookingSimilarQuery {
 	o.QueryParameters = v
+
 	return o
 }
 
@@ -182,6 +204,7 @@ func (o *LookingSimilarQuery) SetQueryParameters(v *RecommendSearchParams) *Look
 func (o *LookingSimilarQuery) GetModel() LookingSimilarModel {
 	if o == nil {
 		var ret LookingSimilarModel
+
 		return ret
 	}
 
@@ -194,12 +217,14 @@ func (o *LookingSimilarQuery) GetModelOk() (*LookingSimilarModel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Model, true
 }
 
 // SetModel sets field value.
 func (o *LookingSimilarQuery) SetModel(v LookingSimilarModel) *LookingSimilarQuery {
 	o.Model = v
+
 	return o
 }
 
@@ -207,6 +232,7 @@ func (o *LookingSimilarQuery) SetModel(v LookingSimilarModel) *LookingSimilarQue
 func (o *LookingSimilarQuery) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -219,12 +245,14 @@ func (o *LookingSimilarQuery) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *LookingSimilarQuery) SetObjectID(v string) *LookingSimilarQuery {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -232,8 +260,10 @@ func (o *LookingSimilarQuery) SetObjectID(v string) *LookingSimilarQuery {
 func (o *LookingSimilarQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
 		var ret FallbackParams
+
 		return ret
 	}
+
 	return *o.FallbackParameters
 }
 
@@ -243,6 +273,7 @@ func (o *LookingSimilarQuery) GetFallbackParametersOk() (*FallbackParams, bool) 
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
+
 	return o.FallbackParameters, true
 }
 
@@ -258,24 +289,30 @@ func (o *LookingSimilarQuery) HasFallbackParameters() bool {
 // SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
 func (o *LookingSimilarQuery) SetFallbackParameters(v *FallbackParams) *LookingSimilarQuery {
 	o.FallbackParameters = v
+
 	return o
 }
 
 func (o LookingSimilarQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
+
 	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	toSerialize["model"] = o.Model
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal LookingSimilarQuery: %w", err)
@@ -293,5 +330,6 @@ func (o LookingSimilarQuery) String() string {
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
+
 	return fmt.Sprintf("LookingSimilarQuery {\n%s}", out)
 }

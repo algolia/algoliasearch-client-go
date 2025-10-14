@@ -19,24 +19,7 @@ var AllowedConversionEventEnumValues = []ConversionEvent{
 	"conversion",
 }
 
-func (v *ConversionEvent) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ConversionEvent': %w", string(src), err)
-	}
-	enumTypeValue := ConversionEvent(value)
-	for _, existing := range AllowedConversionEventEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ConversionEvent", value)
-}
-
-// NewConversionEventFromValue returns a pointer to a valid ConversionEvent
+// NewConversionEventFromValue returns a pointer to a valid ConversionEvent.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewConversionEventFromValue(v string) (*ConversionEvent, error) {
 	ev := ConversionEvent(v)
@@ -47,6 +30,26 @@ func NewConversionEventFromValue(v string) (*ConversionEvent, error) {
 	}
 }
 
+func (v *ConversionEvent) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ConversionEvent': %w", string(src), err)
+	}
+
+	enumTypeValue := ConversionEvent(value)
+	for _, existing := range AllowedConversionEventEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ConversionEvent", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ConversionEvent) IsValid() bool {
 	for _, existing := range AllowedConversionEventEnumValues {
@@ -54,6 +57,7 @@ func (v ConversionEvent) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

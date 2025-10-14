@@ -44,6 +44,7 @@ func NewConsequence(opts ...ConsequenceOption) *Consequence {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -56,8 +57,10 @@ func NewEmptyConsequence() *Consequence {
 func (o *Consequence) GetHide() []HideConsequenceObject {
 	if o == nil || o.Hide == nil {
 		var ret []HideConsequenceObject
+
 		return ret
 	}
+
 	return o.Hide
 }
 
@@ -67,6 +70,7 @@ func (o *Consequence) GetHideOk() ([]HideConsequenceObject, bool) {
 	if o == nil || o.Hide == nil {
 		return nil, false
 	}
+
 	return o.Hide, true
 }
 
@@ -82,6 +86,7 @@ func (o *Consequence) HasHide() bool {
 // SetHide gets a reference to the given []HideConsequenceObject and assigns it to the Hide field.
 func (o *Consequence) SetHide(v []HideConsequenceObject) *Consequence {
 	o.Hide = v
+
 	return o
 }
 
@@ -89,8 +94,10 @@ func (o *Consequence) SetHide(v []HideConsequenceObject) *Consequence {
 func (o *Consequence) GetPromote() []PromoteConsequenceObject {
 	if o == nil || o.Promote == nil {
 		var ret []PromoteConsequenceObject
+
 		return ret
 	}
+
 	return o.Promote
 }
 
@@ -100,6 +107,7 @@ func (o *Consequence) GetPromoteOk() ([]PromoteConsequenceObject, bool) {
 	if o == nil || o.Promote == nil {
 		return nil, false
 	}
+
 	return o.Promote, true
 }
 
@@ -115,6 +123,7 @@ func (o *Consequence) HasPromote() bool {
 // SetPromote gets a reference to the given []PromoteConsequenceObject and assigns it to the Promote field.
 func (o *Consequence) SetPromote(v []PromoteConsequenceObject) *Consequence {
 	o.Promote = v
+
 	return o
 }
 
@@ -122,8 +131,10 @@ func (o *Consequence) SetPromote(v []PromoteConsequenceObject) *Consequence {
 func (o *Consequence) GetParams() ParamsConsequence {
 	if o == nil || o.Params == nil {
 		var ret ParamsConsequence
+
 		return ret
 	}
+
 	return *o.Params
 }
 
@@ -133,6 +144,7 @@ func (o *Consequence) GetParamsOk() (*ParamsConsequence, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
+
 	return o.Params, true
 }
 
@@ -148,6 +160,7 @@ func (o *Consequence) HasParams() bool {
 // SetParams gets a reference to the given ParamsConsequence and assigns it to the Params field.
 func (o *Consequence) SetParams(v *ParamsConsequence) *Consequence {
 	o.Params = v
+
 	return o
 }
 
@@ -156,12 +169,15 @@ func (o Consequence) MarshalJSON() ([]byte, error) {
 	if o.Hide != nil {
 		toSerialize["hide"] = o.Hide
 	}
+
 	if o.Promote != nil {
 		toSerialize["promote"] = o.Promote
 	}
+
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Consequence: %w", err)
@@ -175,5 +191,6 @@ func (o Consequence) String() string {
 	out += fmt.Sprintf("  hide=%v\n", o.Hide)
 	out += fmt.Sprintf("  promote=%v\n", o.Promote)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
 	return fmt.Sprintf("Consequence {\n%s}", out)
 }

@@ -18,6 +18,7 @@ type TransformationSearch struct {
 func NewTransformationSearch(transformationIDs []string) *TransformationSearch {
 	this := &TransformationSearch{}
 	this.TransformationIDs = transformationIDs
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyTransformationSearch() *TransformationSearch {
 func (o *TransformationSearch) GetTransformationIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *TransformationSearch) GetTransformationIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.TransformationIDs, true
 }
 
 // SetTransformationIDs sets field value.
 func (o *TransformationSearch) SetTransformationIDs(v []string) *TransformationSearch {
 	o.TransformationIDs = v
+
 	return o
 }
 
 func (o TransformationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["transformationIDs"] = o.TransformationIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TransformationSearch: %w", err)
@@ -65,5 +70,6 @@ func (o TransformationSearch) MarshalJSON() ([]byte, error) {
 func (o TransformationSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
+
 	return fmt.Sprintf("TransformationSearch {\n%s}", out)
 }

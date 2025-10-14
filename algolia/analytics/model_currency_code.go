@@ -37,6 +37,7 @@ func NewCurrencyCode(opts ...CurrencyCodeOption) *CurrencyCode {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyCurrencyCode() *CurrencyCode {
 func (o *CurrencyCode) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Currency
 }
 
@@ -60,6 +63,7 @@ func (o *CurrencyCode) GetCurrencyOk() (*string, bool) {
 	if o == nil || o.Currency == nil {
 		return nil, false
 	}
+
 	return o.Currency, true
 }
 
@@ -75,6 +79,7 @@ func (o *CurrencyCode) HasCurrency() bool {
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
 func (o *CurrencyCode) SetCurrency(v string) *CurrencyCode {
 	o.Currency = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *CurrencyCode) SetCurrency(v string) *CurrencyCode {
 func (o *CurrencyCode) GetRevenue() float32 {
 	if o == nil || o.Revenue == nil {
 		var ret float32
+
 		return ret
 	}
+
 	return *o.Revenue
 }
 
@@ -93,6 +100,7 @@ func (o *CurrencyCode) GetRevenueOk() (*float32, bool) {
 	if o == nil || o.Revenue == nil {
 		return nil, false
 	}
+
 	return o.Revenue, true
 }
 
@@ -108,6 +116,7 @@ func (o *CurrencyCode) HasRevenue() bool {
 // SetRevenue gets a reference to the given float32 and assigns it to the Revenue field.
 func (o *CurrencyCode) SetRevenue(v float32) *CurrencyCode {
 	o.Revenue = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o CurrencyCode) MarshalJSON() ([]byte, error) {
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
+
 	if o.Revenue != nil {
 		toSerialize["revenue"] = o.Revenue
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal CurrencyCode: %w", err)
@@ -131,5 +142,6 @@ func (o CurrencyCode) String() string {
 	out := ""
 	out += fmt.Sprintf("  currency=%v\n", o.Currency)
 	out += fmt.Sprintf("  revenue=%v\n", o.Revenue)
+
 	return fmt.Sprintf("CurrencyCode {\n%s}", out)
 }

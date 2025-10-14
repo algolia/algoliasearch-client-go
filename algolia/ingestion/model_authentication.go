@@ -43,17 +43,27 @@ func WithAuthenticationOwner(val utils.Nullable[string]) AuthenticationOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAuthentication(authenticationID string, type_ AuthenticationType, name string, input AuthInputPartial, createdAt string, updatedAt string, opts ...AuthenticationOption) *Authentication {
+func NewAuthentication(
+	authenticationID string,
+	type_ AuthenticationType,
+	name string,
+	input AuthInputPartial,
+	createdAt string,
+	updatedAt string,
+	opts ...AuthenticationOption,
+) *Authentication {
 	this := &Authentication{}
 	this.AuthenticationID = authenticationID
 	this.Type = type_
 	this.Name = name
 	this.Input = input
 	this.CreatedAt = createdAt
+
 	this.UpdatedAt = updatedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -66,6 +76,7 @@ func NewEmptyAuthentication() *Authentication {
 func (o *Authentication) GetAuthenticationID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -78,12 +89,14 @@ func (o *Authentication) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AuthenticationID, true
 }
 
 // SetAuthenticationID sets field value.
 func (o *Authentication) SetAuthenticationID(v string) *Authentication {
 	o.AuthenticationID = v
+
 	return o
 }
 
@@ -91,6 +104,7 @@ func (o *Authentication) SetAuthenticationID(v string) *Authentication {
 func (o *Authentication) GetType() AuthenticationType {
 	if o == nil {
 		var ret AuthenticationType
+
 		return ret
 	}
 
@@ -103,12 +117,14 @@ func (o *Authentication) GetTypeOk() (*AuthenticationType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *Authentication) SetType(v AuthenticationType) *Authentication {
 	o.Type = v
+
 	return o
 }
 
@@ -116,6 +132,7 @@ func (o *Authentication) SetType(v AuthenticationType) *Authentication {
 func (o *Authentication) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -128,12 +145,14 @@ func (o *Authentication) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *Authentication) SetName(v string) *Authentication {
 	o.Name = v
+
 	return o
 }
 
@@ -141,8 +160,10 @@ func (o *Authentication) SetName(v string) *Authentication {
 func (o *Authentication) GetPlatform() Platform {
 	if o == nil || o.Platform.Get() == nil {
 		var ret Platform
+
 		return ret
 	}
+
 	return *o.Platform.Get()
 }
 
@@ -153,6 +174,7 @@ func (o *Authentication) GetPlatformOk() (*Platform, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Platform.Get(), o.Platform.IsSet()
 }
 
@@ -168,6 +190,7 @@ func (o *Authentication) HasPlatform() bool {
 // SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
 func (o *Authentication) SetPlatform(v Platform) *Authentication {
 	o.Platform.Set(&v)
+
 	return o
 }
 
@@ -185,8 +208,10 @@ func (o *Authentication) UnsetPlatform() {
 func (o *Authentication) GetOwner() string {
 	if o == nil || o.Owner.Get() == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Owner.Get()
 }
 
@@ -197,6 +222,7 @@ func (o *Authentication) GetOwnerOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Owner.Get(), o.Owner.IsSet()
 }
 
@@ -212,6 +238,7 @@ func (o *Authentication) HasOwner() bool {
 // SetOwner gets a reference to the given utils.Nullable[string] and assigns it to the Owner field.
 func (o *Authentication) SetOwner(v string) *Authentication {
 	o.Owner.Set(&v)
+
 	return o
 }
 
@@ -229,6 +256,7 @@ func (o *Authentication) UnsetOwner() {
 func (o *Authentication) GetInput() AuthInputPartial {
 	if o == nil {
 		var ret AuthInputPartial
+
 		return ret
 	}
 
@@ -241,12 +269,14 @@ func (o *Authentication) GetInputOk() (*AuthInputPartial, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Input, true
 }
 
 // SetInput sets field value.
 func (o *Authentication) SetInput(v *AuthInputPartial) *Authentication {
 	o.Input = *v
+
 	return o
 }
 
@@ -254,6 +284,7 @@ func (o *Authentication) SetInput(v *AuthInputPartial) *Authentication {
 func (o *Authentication) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -266,12 +297,14 @@ func (o *Authentication) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *Authentication) SetCreatedAt(v string) *Authentication {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -279,6 +312,7 @@ func (o *Authentication) SetCreatedAt(v string) *Authentication {
 func (o *Authentication) GetUpdatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -291,12 +325,14 @@ func (o *Authentication) GetUpdatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UpdatedAt, true
 }
 
 // SetUpdatedAt sets field value.
 func (o *Authentication) SetUpdatedAt(v string) *Authentication {
 	o.UpdatedAt = v
+
 	return o
 }
 
@@ -304,16 +340,20 @@ func (o Authentication) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["authenticationID"] = o.AuthenticationID
 	toSerialize["type"] = o.Type
+
 	toSerialize["name"] = o.Name
 	if o.Platform.IsSet() {
 		toSerialize["platform"] = o.Platform.Get()
 	}
+
 	if o.Owner.IsSet() {
 		toSerialize["owner"] = o.Owner.Get()
 	}
+
 	toSerialize["input"] = o.Input
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Authentication: %w", err)
@@ -332,5 +372,6 @@ func (o Authentication) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
+
 	return fmt.Sprintf("Authentication {\n%s}", out)
 }

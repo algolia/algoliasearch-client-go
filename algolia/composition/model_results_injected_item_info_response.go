@@ -10,7 +10,7 @@ import (
 type ResultsInjectedItemInfoResponse struct {
 	Key                  string                                        `json:"key"`
 	AppliedRules         []ResultsInjectedItemAppliedRulesInfoResponse `json:"appliedRules,omitempty"`
-	AdditionalProperties map[string]any
+	AdditionalProperties map[string]any                                `json:"-"`
 }
 
 type _ResultsInjectedItemInfoResponse ResultsInjectedItemInfoResponse
@@ -29,10 +29,12 @@ func WithResultsInjectedItemInfoResponseAppliedRules(val []ResultsInjectedItemAp
 // will change when the set of required properties is changed.
 func NewResultsInjectedItemInfoResponse(key string, opts ...ResultsInjectedItemInfoResponseOption) *ResultsInjectedItemInfoResponse {
 	this := &ResultsInjectedItemInfoResponse{}
+
 	this.Key = key
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -45,6 +47,7 @@ func NewEmptyResultsInjectedItemInfoResponse() *ResultsInjectedItemInfoResponse 
 func (o *ResultsInjectedItemInfoResponse) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -57,12 +60,14 @@ func (o *ResultsInjectedItemInfoResponse) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *ResultsInjectedItemInfoResponse) SetKey(v string) *ResultsInjectedItemInfoResponse {
 	o.Key = v
+
 	return o
 }
 
@@ -70,8 +75,10 @@ func (o *ResultsInjectedItemInfoResponse) SetKey(v string) *ResultsInjectedItemI
 func (o *ResultsInjectedItemInfoResponse) GetAppliedRules() []ResultsInjectedItemAppliedRulesInfoResponse {
 	if o == nil || o.AppliedRules == nil {
 		var ret []ResultsInjectedItemAppliedRulesInfoResponse
+
 		return ret
 	}
+
 	return o.AppliedRules
 }
 
@@ -81,6 +88,7 @@ func (o *ResultsInjectedItemInfoResponse) GetAppliedRulesOk() ([]ResultsInjected
 	if o == nil || o.AppliedRules == nil {
 		return nil, false
 	}
+
 	return o.AppliedRules, true
 }
 
@@ -96,6 +104,7 @@ func (o *ResultsInjectedItemInfoResponse) HasAppliedRules() bool {
 // SetAppliedRules gets a reference to the given []ResultsInjectedItemAppliedRulesInfoResponse and assigns it to the AppliedRules field.
 func (o *ResultsInjectedItemInfoResponse) SetAppliedRules(v []ResultsInjectedItemAppliedRulesInfoResponse) *ResultsInjectedItemInfoResponse {
 	o.AppliedRules = v
+
 	return o
 }
 
@@ -111,6 +120,7 @@ func (o *ResultsInjectedItemInfoResponse) SetAdditionalProperty(key string, valu
 
 func (o ResultsInjectedItemInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["key"] = o.Key
 	if o.AppliedRules != nil {
 		toSerialize["appliedRules"] = o.AppliedRules
@@ -155,9 +165,11 @@ func (o *ResultsInjectedItemInfoResponse) UnmarshalJSON(bytes []byte) error {
 func (o ResultsInjectedItemInfoResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
+
 	out += fmt.Sprintf("  appliedRules=%v\n", o.AppliedRules)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}
+
 	return fmt.Sprintf("ResultsInjectedItemInfoResponse {\n%s}", out)
 }

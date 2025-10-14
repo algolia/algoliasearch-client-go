@@ -28,10 +28,12 @@ func WithHasPendingMappingsResponseClusters(val map[string][]string) HasPendingM
 // will change when the set of required properties is changed.
 func NewHasPendingMappingsResponse(pending bool, opts ...HasPendingMappingsResponseOption) *HasPendingMappingsResponse {
 	this := &HasPendingMappingsResponse{}
+
 	this.Pending = pending
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptyHasPendingMappingsResponse() *HasPendingMappingsResponse {
 func (o *HasPendingMappingsResponse) GetPending() bool {
 	if o == nil {
 		var ret bool
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *HasPendingMappingsResponse) GetPendingOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pending, true
 }
 
 // SetPending sets field value.
 func (o *HasPendingMappingsResponse) SetPending(v bool) *HasPendingMappingsResponse {
 	o.Pending = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *HasPendingMappingsResponse) SetPending(v bool) *HasPendingMappingsRespo
 func (o *HasPendingMappingsResponse) GetClusters() map[string][]string {
 	if o == nil || o.Clusters == nil {
 		var ret map[string][]string
+
 		return ret
 	}
+
 	return *o.Clusters
 }
 
@@ -80,6 +87,7 @@ func (o *HasPendingMappingsResponse) GetClustersOk() (*map[string][]string, bool
 	if o == nil || o.Clusters == nil {
 		return nil, false
 	}
+
 	return o.Clusters, true
 }
 
@@ -95,15 +103,18 @@ func (o *HasPendingMappingsResponse) HasClusters() bool {
 // SetClusters gets a reference to the given map[string][]string and assigns it to the Clusters field.
 func (o *HasPendingMappingsResponse) SetClusters(v map[string][]string) *HasPendingMappingsResponse {
 	o.Clusters = &v
+
 	return o
 }
 
 func (o HasPendingMappingsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["pending"] = o.Pending
 	if o.Clusters != nil {
 		toSerialize["clusters"] = o.Clusters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal HasPendingMappingsResponse: %w", err)
@@ -116,5 +127,6 @@ func (o HasPendingMappingsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  pending=%v\n", o.Pending)
 	out += fmt.Sprintf("  clusters=%v\n", o.Clusters)
+
 	return fmt.Sprintf("HasPendingMappingsResponse {\n%s}", out)
 }

@@ -60,10 +60,12 @@ func WithWatchResponseCreatedAt(val string) WatchResponseOption {
 // will change when the set of required properties is changed.
 func NewWatchResponse(runID string, opts ...WatchResponseOption) *WatchResponse {
 	this := &WatchResponse{}
+
 	this.RunID = runID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -76,6 +78,7 @@ func NewEmptyWatchResponse() *WatchResponse {
 func (o *WatchResponse) GetRunID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -88,12 +91,14 @@ func (o *WatchResponse) GetRunIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.RunID, true
 }
 
 // SetRunID sets field value.
 func (o *WatchResponse) SetRunID(v string) *WatchResponse {
 	o.RunID = v
+
 	return o
 }
 
@@ -101,8 +106,10 @@ func (o *WatchResponse) SetRunID(v string) *WatchResponse {
 func (o *WatchResponse) GetEventID() string {
 	if o == nil || o.EventID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.EventID
 }
 
@@ -112,6 +119,7 @@ func (o *WatchResponse) GetEventIDOk() (*string, bool) {
 	if o == nil || o.EventID == nil {
 		return nil, false
 	}
+
 	return o.EventID, true
 }
 
@@ -127,6 +135,7 @@ func (o *WatchResponse) HasEventID() bool {
 // SetEventID gets a reference to the given string and assigns it to the EventID field.
 func (o *WatchResponse) SetEventID(v string) *WatchResponse {
 	o.EventID = &v
+
 	return o
 }
 
@@ -134,8 +143,10 @@ func (o *WatchResponse) SetEventID(v string) *WatchResponse {
 func (o *WatchResponse) GetData() []map[string]any {
 	if o == nil || o.Data == nil {
 		var ret []map[string]any
+
 		return ret
 	}
+
 	return o.Data
 }
 
@@ -145,6 +156,7 @@ func (o *WatchResponse) GetDataOk() ([]map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
+
 	return o.Data, true
 }
 
@@ -160,6 +172,7 @@ func (o *WatchResponse) HasData() bool {
 // SetData gets a reference to the given []map[string]any and assigns it to the Data field.
 func (o *WatchResponse) SetData(v []map[string]any) *WatchResponse {
 	o.Data = v
+
 	return o
 }
 
@@ -167,8 +180,10 @@ func (o *WatchResponse) SetData(v []map[string]any) *WatchResponse {
 func (o *WatchResponse) GetEvents() []Event {
 	if o == nil || o.Events == nil {
 		var ret []Event
+
 		return ret
 	}
+
 	return o.Events
 }
 
@@ -178,6 +193,7 @@ func (o *WatchResponse) GetEventsOk() ([]Event, bool) {
 	if o == nil || o.Events == nil {
 		return nil, false
 	}
+
 	return o.Events, true
 }
 
@@ -193,6 +209,7 @@ func (o *WatchResponse) HasEvents() bool {
 // SetEvents gets a reference to the given []Event and assigns it to the Events field.
 func (o *WatchResponse) SetEvents(v []Event) *WatchResponse {
 	o.Events = v
+
 	return o
 }
 
@@ -200,8 +217,10 @@ func (o *WatchResponse) SetEvents(v []Event) *WatchResponse {
 func (o *WatchResponse) GetMessage() string {
 	if o == nil || o.Message == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Message
 }
 
@@ -211,6 +230,7 @@ func (o *WatchResponse) GetMessageOk() (*string, bool) {
 	if o == nil || o.Message == nil {
 		return nil, false
 	}
+
 	return o.Message, true
 }
 
@@ -226,6 +246,7 @@ func (o *WatchResponse) HasMessage() bool {
 // SetMessage gets a reference to the given string and assigns it to the Message field.
 func (o *WatchResponse) SetMessage(v string) *WatchResponse {
 	o.Message = &v
+
 	return o
 }
 
@@ -233,8 +254,10 @@ func (o *WatchResponse) SetMessage(v string) *WatchResponse {
 func (o *WatchResponse) GetCreatedAt() string {
 	if o == nil || o.CreatedAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.CreatedAt
 }
 
@@ -244,6 +267,7 @@ func (o *WatchResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
+
 	return o.CreatedAt, true
 }
 
@@ -259,27 +283,34 @@ func (o *WatchResponse) HasCreatedAt() bool {
 // SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
 func (o *WatchResponse) SetCreatedAt(v string) *WatchResponse {
 	o.CreatedAt = &v
+
 	return o
 }
 
 func (o WatchResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["runID"] = o.RunID
 	if o.EventID != nil {
 		toSerialize["eventID"] = o.EventID
 	}
+
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
+
 	if o.Events != nil {
 		toSerialize["events"] = o.Events
 	}
+
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
 	}
+
 	if o.CreatedAt != nil {
 		toSerialize["createdAt"] = o.CreatedAt
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal WatchResponse: %w", err)
@@ -296,5 +327,6 @@ func (o WatchResponse) String() string {
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("WatchResponse {\n%s}", out)
 }

@@ -26,10 +26,12 @@ func WithSearchMethodParamsStrategy(val SearchStrategy) SearchMethodParamsOption
 // will change when the set of required properties is changed.
 func NewSearchMethodParams(requests []SearchQuery, opts ...SearchMethodParamsOption) *SearchMethodParams {
 	this := &SearchMethodParams{}
+
 	this.Requests = requests
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -42,6 +44,7 @@ func NewEmptySearchMethodParams() *SearchMethodParams {
 func (o *SearchMethodParams) GetRequests() []SearchQuery {
 	if o == nil {
 		var ret []SearchQuery
+
 		return ret
 	}
 
@@ -54,12 +57,14 @@ func (o *SearchMethodParams) GetRequestsOk() ([]SearchQuery, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
 // SetRequests sets field value.
 func (o *SearchMethodParams) SetRequests(v []SearchQuery) *SearchMethodParams {
 	o.Requests = v
+
 	return o
 }
 
@@ -67,8 +72,10 @@ func (o *SearchMethodParams) SetRequests(v []SearchQuery) *SearchMethodParams {
 func (o *SearchMethodParams) GetStrategy() SearchStrategy {
 	if o == nil || o.Strategy == nil {
 		var ret SearchStrategy
+
 		return ret
 	}
+
 	return *o.Strategy
 }
 
@@ -78,6 +85,7 @@ func (o *SearchMethodParams) GetStrategyOk() (*SearchStrategy, bool) {
 	if o == nil || o.Strategy == nil {
 		return nil, false
 	}
+
 	return o.Strategy, true
 }
 
@@ -93,15 +101,18 @@ func (o *SearchMethodParams) HasStrategy() bool {
 // SetStrategy gets a reference to the given SearchStrategy and assigns it to the Strategy field.
 func (o *SearchMethodParams) SetStrategy(v SearchStrategy) *SearchMethodParams {
 	o.Strategy = &v
+
 	return o
 }
 
 func (o SearchMethodParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["requests"] = o.Requests
 	if o.Strategy != nil {
 		toSerialize["strategy"] = o.Strategy
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchMethodParams: %w", err)
@@ -114,5 +125,6 @@ func (o SearchMethodParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
 	out += fmt.Sprintf("  strategy=%v\n", o.Strategy)
+
 	return fmt.Sprintf("SearchMethodParams {\n%s}", out)
 }

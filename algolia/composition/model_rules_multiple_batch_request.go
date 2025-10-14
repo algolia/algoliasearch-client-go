@@ -20,6 +20,7 @@ func NewRulesMultipleBatchRequest(action Action, body RulesBatchCompositionActio
 	this := &RulesMultipleBatchRequest{}
 	this.Action = action
 	this.Body = body
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyRulesMultipleBatchRequest() *RulesMultipleBatchRequest {
 func (o *RulesMultipleBatchRequest) GetAction() Action {
 	if o == nil {
 		var ret Action
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *RulesMultipleBatchRequest) GetActionOk() (*Action, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Action, true
 }
 
 // SetAction sets field value.
 func (o *RulesMultipleBatchRequest) SetAction(v Action) *RulesMultipleBatchRequest {
 	o.Action = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *RulesMultipleBatchRequest) SetAction(v Action) *RulesMultipleBatchReque
 func (o *RulesMultipleBatchRequest) GetBody() RulesBatchCompositionAction {
 	if o == nil {
 		var ret RulesBatchCompositionAction
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *RulesMultipleBatchRequest) GetBodyOk() (*RulesBatchCompositionAction, b
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Body, true
 }
 
 // SetBody sets field value.
 func (o *RulesMultipleBatchRequest) SetBody(v *RulesBatchCompositionAction) *RulesMultipleBatchRequest {
 	o.Body = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o RulesMultipleBatchRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["action"] = o.Action
 	toSerialize["body"] = o.Body
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RulesMultipleBatchRequest: %w", err)
@@ -94,5 +102,6 @@ func (o RulesMultipleBatchRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  action=%v\n", o.Action)
 	out += fmt.Sprintf("  body=%v\n", o.Body)
+
 	return fmt.Sprintf("RulesMultipleBatchRequest {\n%s}", out)
 }

@@ -25,6 +25,7 @@ func NewSourceGA4BigQueryExport(projectID string, datasetID string, tablePrefix 
 	this.ProjectID = projectID
 	this.DatasetID = datasetID
 	this.TablePrefix = tablePrefix
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptySourceGA4BigQueryExport() *SourceGA4BigQueryExport {
 func (o *SourceGA4BigQueryExport) GetProjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *SourceGA4BigQueryExport) GetProjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ProjectID, true
 }
 
 // SetProjectID sets field value.
 func (o *SourceGA4BigQueryExport) SetProjectID(v string) *SourceGA4BigQueryExport {
 	o.ProjectID = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *SourceGA4BigQueryExport) SetProjectID(v string) *SourceGA4BigQueryExpor
 func (o *SourceGA4BigQueryExport) GetDatasetID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *SourceGA4BigQueryExport) GetDatasetIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DatasetID, true
 }
 
 // SetDatasetID sets field value.
 func (o *SourceGA4BigQueryExport) SetDatasetID(v string) *SourceGA4BigQueryExport {
 	o.DatasetID = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *SourceGA4BigQueryExport) SetDatasetID(v string) *SourceGA4BigQueryExpor
 func (o *SourceGA4BigQueryExport) GetTablePrefix() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *SourceGA4BigQueryExport) GetTablePrefixOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TablePrefix, true
 }
 
 // SetTablePrefix sets field value.
 func (o *SourceGA4BigQueryExport) SetTablePrefix(v string) *SourceGA4BigQueryExport {
 	o.TablePrefix = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o SourceGA4BigQueryExport) MarshalJSON() ([]byte, error) {
 	toSerialize["projectID"] = o.ProjectID
 	toSerialize["datasetID"] = o.DatasetID
 	toSerialize["tablePrefix"] = o.TablePrefix
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceGA4BigQueryExport: %w", err)
@@ -126,5 +137,6 @@ func (o SourceGA4BigQueryExport) String() string {
 	out += fmt.Sprintf("  projectID=%v\n", o.ProjectID)
 	out += fmt.Sprintf("  datasetID=%v\n", o.DatasetID)
 	out += fmt.Sprintf("  tablePrefix=%v\n", o.TablePrefix)
+
 	return fmt.Sprintf("SourceGA4BigQueryExport {\n%s}", out)
 }

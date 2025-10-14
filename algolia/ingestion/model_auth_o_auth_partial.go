@@ -53,6 +53,7 @@ func NewAuthOAuthPartial(opts ...AuthOAuthPartialOption) *AuthOAuthPartial {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -65,8 +66,10 @@ func NewEmptyAuthOAuthPartial() *AuthOAuthPartial {
 func (o *AuthOAuthPartial) GetUrl() string {
 	if o == nil || o.Url == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Url
 }
 
@@ -76,6 +79,7 @@ func (o *AuthOAuthPartial) GetUrlOk() (*string, bool) {
 	if o == nil || o.Url == nil {
 		return nil, false
 	}
+
 	return o.Url, true
 }
 
@@ -91,6 +95,7 @@ func (o *AuthOAuthPartial) HasUrl() bool {
 // SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *AuthOAuthPartial) SetUrl(v string) *AuthOAuthPartial {
 	o.Url = &v
+
 	return o
 }
 
@@ -98,8 +103,10 @@ func (o *AuthOAuthPartial) SetUrl(v string) *AuthOAuthPartial {
 func (o *AuthOAuthPartial) GetClientId() string {
 	if o == nil || o.ClientId == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ClientId
 }
 
@@ -109,6 +116,7 @@ func (o *AuthOAuthPartial) GetClientIdOk() (*string, bool) {
 	if o == nil || o.ClientId == nil {
 		return nil, false
 	}
+
 	return o.ClientId, true
 }
 
@@ -124,6 +132,7 @@ func (o *AuthOAuthPartial) HasClientId() bool {
 // SetClientId gets a reference to the given string and assigns it to the ClientId field.
 func (o *AuthOAuthPartial) SetClientId(v string) *AuthOAuthPartial {
 	o.ClientId = &v
+
 	return o
 }
 
@@ -131,8 +140,10 @@ func (o *AuthOAuthPartial) SetClientId(v string) *AuthOAuthPartial {
 func (o *AuthOAuthPartial) GetClientSecret() string {
 	if o == nil || o.ClientSecret == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ClientSecret
 }
 
@@ -142,6 +153,7 @@ func (o *AuthOAuthPartial) GetClientSecretOk() (*string, bool) {
 	if o == nil || o.ClientSecret == nil {
 		return nil, false
 	}
+
 	return o.ClientSecret, true
 }
 
@@ -157,6 +169,7 @@ func (o *AuthOAuthPartial) HasClientSecret() bool {
 // SetClientSecret gets a reference to the given string and assigns it to the ClientSecret field.
 func (o *AuthOAuthPartial) SetClientSecret(v string) *AuthOAuthPartial {
 	o.ClientSecret = &v
+
 	return o
 }
 
@@ -164,8 +177,10 @@ func (o *AuthOAuthPartial) SetClientSecret(v string) *AuthOAuthPartial {
 func (o *AuthOAuthPartial) GetScope() string {
 	if o == nil || o.Scope == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Scope
 }
 
@@ -175,6 +190,7 @@ func (o *AuthOAuthPartial) GetScopeOk() (*string, bool) {
 	if o == nil || o.Scope == nil {
 		return nil, false
 	}
+
 	return o.Scope, true
 }
 
@@ -190,6 +206,7 @@ func (o *AuthOAuthPartial) HasScope() bool {
 // SetScope gets a reference to the given string and assigns it to the Scope field.
 func (o *AuthOAuthPartial) SetScope(v string) *AuthOAuthPartial {
 	o.Scope = &v
+
 	return o
 }
 
@@ -198,15 +215,19 @@ func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
+
 	if o.ClientId != nil {
 		toSerialize["client_id"] = o.ClientId
 	}
+
 	if o.ClientSecret != nil {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
+
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthOAuthPartial: %w", err)
@@ -221,5 +242,6 @@ func (o AuthOAuthPartial) String() string {
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
+
 	return fmt.Sprintf("AuthOAuthPartial {\n%s}", out)
 }

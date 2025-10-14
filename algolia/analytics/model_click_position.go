@@ -37,6 +37,7 @@ func NewClickPosition(opts ...ClickPositionOption) *ClickPosition {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyClickPosition() *ClickPosition {
 func (o *ClickPosition) GetPosition() []int32 {
 	if o == nil || o.Position == nil {
 		var ret []int32
+
 		return ret
 	}
+
 	return o.Position
 }
 
@@ -60,6 +63,7 @@ func (o *ClickPosition) GetPositionOk() ([]int32, bool) {
 	if o == nil || o.Position == nil {
 		return nil, false
 	}
+
 	return o.Position, true
 }
 
@@ -75,6 +79,7 @@ func (o *ClickPosition) HasPosition() bool {
 // SetPosition gets a reference to the given []int32 and assigns it to the Position field.
 func (o *ClickPosition) SetPosition(v []int32) *ClickPosition {
 	o.Position = v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *ClickPosition) SetPosition(v []int32) *ClickPosition {
 func (o *ClickPosition) GetClickCount() int32 {
 	if o == nil || o.ClickCount == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ClickCount
 }
 
@@ -93,6 +100,7 @@ func (o *ClickPosition) GetClickCountOk() (*int32, bool) {
 	if o == nil || o.ClickCount == nil {
 		return nil, false
 	}
+
 	return o.ClickCount, true
 }
 
@@ -108,6 +116,7 @@ func (o *ClickPosition) HasClickCount() bool {
 // SetClickCount gets a reference to the given int32 and assigns it to the ClickCount field.
 func (o *ClickPosition) SetClickCount(v int32) *ClickPosition {
 	o.ClickCount = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o ClickPosition) MarshalJSON() ([]byte, error) {
 	if o.Position != nil {
 		toSerialize["position"] = o.Position
 	}
+
 	if o.ClickCount != nil {
 		toSerialize["clickCount"] = o.ClickCount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ClickPosition: %w", err)
@@ -131,5 +142,6 @@ func (o ClickPosition) String() string {
 	out := ""
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
+
 	return fmt.Sprintf("ClickPosition {\n%s}", out)
 }

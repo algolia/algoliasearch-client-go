@@ -31,10 +31,12 @@ func WithAbTestsVariantDescription(val string) AbTestsVariantOption {
 func NewAbTestsVariant(index string, trafficPercentage int32, opts ...AbTestsVariantOption) *AbTestsVariant {
 	this := &AbTestsVariant{}
 	this.Index = index
+
 	this.TrafficPercentage = trafficPercentage
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -47,6 +49,7 @@ func NewEmptyAbTestsVariant() *AbTestsVariant {
 func (o *AbTestsVariant) GetIndex() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -59,12 +62,14 @@ func (o *AbTestsVariant) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Index, true
 }
 
 // SetIndex sets field value.
 func (o *AbTestsVariant) SetIndex(v string) *AbTestsVariant {
 	o.Index = v
+
 	return o
 }
 
@@ -72,6 +77,7 @@ func (o *AbTestsVariant) SetIndex(v string) *AbTestsVariant {
 func (o *AbTestsVariant) GetTrafficPercentage() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -84,12 +90,14 @@ func (o *AbTestsVariant) GetTrafficPercentageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrafficPercentage, true
 }
 
 // SetTrafficPercentage sets field value.
 func (o *AbTestsVariant) SetTrafficPercentage(v int32) *AbTestsVariant {
 	o.TrafficPercentage = v
+
 	return o
 }
 
@@ -97,8 +105,10 @@ func (o *AbTestsVariant) SetTrafficPercentage(v int32) *AbTestsVariant {
 func (o *AbTestsVariant) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -108,6 +118,7 @@ func (o *AbTestsVariant) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -123,16 +134,19 @@ func (o *AbTestsVariant) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AbTestsVariant) SetDescription(v string) *AbTestsVariant {
 	o.Description = &v
+
 	return o
 }
 
 func (o AbTestsVariant) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["index"] = o.Index
+
 	toSerialize["trafficPercentage"] = o.TrafficPercentage
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AbTestsVariant: %w", err)
@@ -146,5 +160,6 @@ func (o AbTestsVariant) String() string {
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  trafficPercentage=%v\n", o.TrafficPercentage)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
+
 	return fmt.Sprintf("AbTestsVariant {\n%s}", out)
 }

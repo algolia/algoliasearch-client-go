@@ -22,6 +22,7 @@ func NewRunResponse(runID string, createdAt string) *RunResponse {
 	this := &RunResponse{}
 	this.RunID = runID
 	this.CreatedAt = createdAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyRunResponse() *RunResponse {
 func (o *RunResponse) GetRunID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *RunResponse) GetRunIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.RunID, true
 }
 
 // SetRunID sets field value.
 func (o *RunResponse) SetRunID(v string) *RunResponse {
 	o.RunID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *RunResponse) SetRunID(v string) *RunResponse {
 func (o *RunResponse) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *RunResponse) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *RunResponse) SetCreatedAt(v string) *RunResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o RunResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["runID"] = o.RunID
 	toSerialize["createdAt"] = o.CreatedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RunResponse: %w", err)
@@ -96,5 +104,6 @@ func (o RunResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  runID=%v\n", o.RunID)
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
+
 	return fmt.Sprintf("RunResponse {\n%s}", out)
 }

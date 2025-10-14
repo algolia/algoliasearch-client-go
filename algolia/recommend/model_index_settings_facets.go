@@ -29,6 +29,7 @@ func NewIndexSettingsFacets(opts ...IndexSettingsFacetsOption) *IndexSettingsFac
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyIndexSettingsFacets() *IndexSettingsFacets {
 func (o *IndexSettingsFacets) GetOrder() []string {
 	if o == nil || o.Order == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Order
 }
 
@@ -52,6 +55,7 @@ func (o *IndexSettingsFacets) GetOrderOk() ([]string, bool) {
 	if o == nil || o.Order == nil {
 		return nil, false
 	}
+
 	return o.Order, true
 }
 
@@ -67,6 +71,7 @@ func (o *IndexSettingsFacets) HasOrder() bool {
 // SetOrder gets a reference to the given []string and assigns it to the Order field.
 func (o *IndexSettingsFacets) SetOrder(v []string) *IndexSettingsFacets {
 	o.Order = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o IndexSettingsFacets) MarshalJSON() ([]byte, error) {
 	if o.Order != nil {
 		toSerialize["order"] = o.Order
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IndexSettingsFacets: %w", err)
@@ -86,5 +92,6 @@ func (o IndexSettingsFacets) MarshalJSON() ([]byte, error) {
 func (o IndexSettingsFacets) String() string {
 	out := ""
 	out += fmt.Sprintf("  order=%v\n", o.Order)
+
 	return fmt.Sprintf("IndexSettingsFacets {\n%s}", out)
 }

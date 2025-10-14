@@ -37,6 +37,7 @@ func NewMetricDate(opts ...MetricDateOption) *MetricDate {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyMetricDate() *MetricDate {
 func (o *MetricDate) GetDate() string {
 	if o == nil || o.Date == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Date
 }
 
@@ -60,6 +63,7 @@ func (o *MetricDate) GetDateOk() (*string, bool) {
 	if o == nil || o.Date == nil {
 		return nil, false
 	}
+
 	return o.Date, true
 }
 
@@ -75,6 +79,7 @@ func (o *MetricDate) HasDate() bool {
 // SetDate gets a reference to the given string and assigns it to the Date field.
 func (o *MetricDate) SetDate(v string) *MetricDate {
 	o.Date = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *MetricDate) SetDate(v string) *MetricDate {
 func (o *MetricDate) GetMetrics() []MetricResult {
 	if o == nil || o.Metrics == nil {
 		var ret []MetricResult
+
 		return ret
 	}
+
 	return o.Metrics
 }
 
@@ -93,6 +100,7 @@ func (o *MetricDate) GetMetricsOk() ([]MetricResult, bool) {
 	if o == nil || o.Metrics == nil {
 		return nil, false
 	}
+
 	return o.Metrics, true
 }
 
@@ -108,6 +116,7 @@ func (o *MetricDate) HasMetrics() bool {
 // SetMetrics gets a reference to the given []MetricResult and assigns it to the Metrics field.
 func (o *MetricDate) SetMetrics(v []MetricResult) *MetricDate {
 	o.Metrics = v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o MetricDate) MarshalJSON() ([]byte, error) {
 	if o.Date != nil {
 		toSerialize["date"] = o.Date
 	}
+
 	if o.Metrics != nil {
 		toSerialize["metrics"] = o.Metrics
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MetricDate: %w", err)
@@ -131,5 +142,6 @@ func (o MetricDate) String() string {
 	out := ""
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
+
 	return fmt.Sprintf("MetricDate {\n%s}", out)
 }

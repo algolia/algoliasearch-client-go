@@ -8,7 +8,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// Event An event describe a step of the task execution flow..
+// Event An event describe a step of the task execution flow.
 type Event struct {
 	// Universally unique identifier (UUID) of an event.
 	EventID string `json:"eventID"`
@@ -35,17 +35,27 @@ func WithEventData(val map[string]any) EventOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewEvent(eventID string, runID string, status utils.Nullable[EventStatus], type_ EventType, batchSize int32, publishedAt string, opts ...EventOption) *Event {
+func NewEvent(
+	eventID string,
+	runID string,
+	status utils.Nullable[EventStatus],
+	type_ EventType,
+	batchSize int32,
+	publishedAt string,
+	opts ...EventOption,
+) *Event {
 	this := &Event{}
 	this.EventID = eventID
 	this.RunID = runID
 	this.Status = status
 	this.Type = type_
 	this.BatchSize = batchSize
+
 	this.PublishedAt = publishedAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -58,6 +68,7 @@ func NewEmptyEvent() *Event {
 func (o *Event) GetEventID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -70,12 +81,14 @@ func (o *Event) GetEventIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.EventID, true
 }
 
 // SetEventID sets field value.
 func (o *Event) SetEventID(v string) *Event {
 	o.EventID = v
+
 	return o
 }
 
@@ -83,6 +96,7 @@ func (o *Event) SetEventID(v string) *Event {
 func (o *Event) GetRunID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -95,12 +109,14 @@ func (o *Event) GetRunIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.RunID, true
 }
 
 // SetRunID sets field value.
 func (o *Event) SetRunID(v string) *Event {
 	o.RunID = v
+
 	return o
 }
 
@@ -109,6 +125,7 @@ func (o *Event) SetRunID(v string) *Event {
 func (o *Event) GetStatus() EventStatus {
 	if o == nil || o.Status.Get() == nil {
 		var ret EventStatus
+
 		return ret
 	}
 
@@ -122,12 +139,14 @@ func (o *Event) GetStatusOk() (*EventStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Status.Get(), o.Status.IsSet()
 }
 
 // SetStatus sets field value.
 func (o *Event) SetStatus(v EventStatus) *Event {
 	o.Status.Set(&v)
+
 	return o
 }
 
@@ -135,6 +154,7 @@ func (o *Event) SetStatus(v EventStatus) *Event {
 func (o *Event) GetType() EventType {
 	if o == nil {
 		var ret EventType
+
 		return ret
 	}
 
@@ -147,12 +167,14 @@ func (o *Event) GetTypeOk() (*EventType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *Event) SetType(v EventType) *Event {
 	o.Type = v
+
 	return o
 }
 
@@ -160,6 +182,7 @@ func (o *Event) SetType(v EventType) *Event {
 func (o *Event) GetBatchSize() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -172,12 +195,14 @@ func (o *Event) GetBatchSizeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.BatchSize, true
 }
 
 // SetBatchSize sets field value.
 func (o *Event) SetBatchSize(v int32) *Event {
 	o.BatchSize = v
+
 	return o
 }
 
@@ -185,8 +210,10 @@ func (o *Event) SetBatchSize(v int32) *Event {
 func (o *Event) GetData() map[string]any {
 	if o == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.Data
 }
 
@@ -197,6 +224,7 @@ func (o *Event) GetDataOk() (map[string]any, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
+
 	return o.Data, true
 }
 
@@ -212,6 +240,7 @@ func (o *Event) HasData() bool {
 // SetData gets a reference to the given map[string]any and assigns it to the Data field.
 func (o *Event) SetData(v map[string]any) *Event {
 	o.Data = v
+
 	return o
 }
 
@@ -219,6 +248,7 @@ func (o *Event) SetData(v map[string]any) *Event {
 func (o *Event) GetPublishedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -231,12 +261,14 @@ func (o *Event) GetPublishedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.PublishedAt, true
 }
 
 // SetPublishedAt sets field value.
 func (o *Event) SetPublishedAt(v string) *Event {
 	o.PublishedAt = v
+
 	return o
 }
 
@@ -246,11 +278,14 @@ func (o Event) MarshalJSON() ([]byte, error) {
 	toSerialize["runID"] = o.RunID
 	toSerialize["status"] = o.Status.Get()
 	toSerialize["type"] = o.Type
+
 	toSerialize["batchSize"] = o.BatchSize
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
+
 	toSerialize["publishedAt"] = o.PublishedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Event: %w", err)
@@ -268,5 +303,6 @@ func (o Event) String() string {
 	out += fmt.Sprintf("  batchSize=%v\n", o.BatchSize)
 	out += fmt.Sprintf("  data=%v\n", o.Data)
 	out += fmt.Sprintf("  publishedAt=%v\n", o.PublishedAt)
+
 	return fmt.Sprintf("Event {\n%s}", out)
 }

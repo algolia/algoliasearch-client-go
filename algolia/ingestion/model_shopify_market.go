@@ -22,6 +22,7 @@ func NewShopifyMarket(countries []string, currencies []string, locales []string)
 	this.Countries = countries
 	this.Currencies = currencies
 	this.Locales = locales
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyShopifyMarket() *ShopifyMarket {
 func (o *ShopifyMarket) GetCountries() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *ShopifyMarket) GetCountriesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Countries, true
 }
 
 // SetCountries sets field value.
 func (o *ShopifyMarket) SetCountries(v []string) *ShopifyMarket {
 	o.Countries = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *ShopifyMarket) SetCountries(v []string) *ShopifyMarket {
 func (o *ShopifyMarket) GetCurrencies() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *ShopifyMarket) GetCurrenciesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Currencies, true
 }
 
 // SetCurrencies sets field value.
 func (o *ShopifyMarket) SetCurrencies(v []string) *ShopifyMarket {
 	o.Currencies = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o *ShopifyMarket) SetCurrencies(v []string) *ShopifyMarket {
 func (o *ShopifyMarket) GetLocales() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -96,12 +104,14 @@ func (o *ShopifyMarket) GetLocalesOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Locales, true
 }
 
 // SetLocales sets field value.
 func (o *ShopifyMarket) SetLocales(v []string) *ShopifyMarket {
 	o.Locales = v
+
 	return o
 }
 
@@ -110,6 +120,7 @@ func (o ShopifyMarket) MarshalJSON() ([]byte, error) {
 	toSerialize["countries"] = o.Countries
 	toSerialize["currencies"] = o.Currencies
 	toSerialize["locales"] = o.Locales
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ShopifyMarket: %w", err)
@@ -123,5 +134,6 @@ func (o ShopifyMarket) String() string {
 	out += fmt.Sprintf("  countries=%v\n", o.Countries)
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 	out += fmt.Sprintf("  locales=%v\n", o.Locales)
+
 	return fmt.Sprintf("ShopifyMarket {\n%s}", out)
 }

@@ -37,6 +37,7 @@ func NewAuthBasicPartial(opts ...AuthBasicPartialOption) *AuthBasicPartial {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyAuthBasicPartial() *AuthBasicPartial {
 func (o *AuthBasicPartial) GetUsername() string {
 	if o == nil || o.Username == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Username
 }
 
@@ -60,6 +63,7 @@ func (o *AuthBasicPartial) GetUsernameOk() (*string, bool) {
 	if o == nil || o.Username == nil {
 		return nil, false
 	}
+
 	return o.Username, true
 }
 
@@ -75,6 +79,7 @@ func (o *AuthBasicPartial) HasUsername() bool {
 // SetUsername gets a reference to the given string and assigns it to the Username field.
 func (o *AuthBasicPartial) SetUsername(v string) *AuthBasicPartial {
 	o.Username = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *AuthBasicPartial) SetUsername(v string) *AuthBasicPartial {
 func (o *AuthBasicPartial) GetPassword() string {
 	if o == nil || o.Password == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Password
 }
 
@@ -93,6 +100,7 @@ func (o *AuthBasicPartial) GetPasswordOk() (*string, bool) {
 	if o == nil || o.Password == nil {
 		return nil, false
 	}
+
 	return o.Password, true
 }
 
@@ -108,6 +116,7 @@ func (o *AuthBasicPartial) HasPassword() bool {
 // SetPassword gets a reference to the given string and assigns it to the Password field.
 func (o *AuthBasicPartial) SetPassword(v string) *AuthBasicPartial {
 	o.Password = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o AuthBasicPartial) MarshalJSON() ([]byte, error) {
 	if o.Username != nil {
 		toSerialize["username"] = o.Username
 	}
+
 	if o.Password != nil {
 		toSerialize["password"] = o.Password
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthBasicPartial: %w", err)
@@ -131,5 +142,6 @@ func (o AuthBasicPartial) String() string {
 	out := ""
 	out += fmt.Sprintf("  username=%v\n", o.Username)
 	out += fmt.Sprintf("  password=%v\n", o.Password)
+
 	return fmt.Sprintf("AuthBasicPartial {\n%s}", out)
 }

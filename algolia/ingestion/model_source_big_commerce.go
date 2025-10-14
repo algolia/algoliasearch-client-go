@@ -48,10 +48,12 @@ func WithSourceBigCommerceVariantMetafields(val []BigCommerceMetafield) SourceBi
 // will change when the set of required properties is changed.
 func NewSourceBigCommerce(storeHash string, opts ...SourceBigCommerceOption) *SourceBigCommerce {
 	this := &SourceBigCommerce{}
+
 	this.StoreHash = storeHash
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -64,6 +66,7 @@ func NewEmptySourceBigCommerce() *SourceBigCommerce {
 func (o *SourceBigCommerce) GetStoreHash() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -76,12 +79,14 @@ func (o *SourceBigCommerce) GetStoreHashOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.StoreHash, true
 }
 
 // SetStoreHash sets field value.
 func (o *SourceBigCommerce) SetStoreHash(v string) *SourceBigCommerce {
 	o.StoreHash = v
+
 	return o
 }
 
@@ -89,8 +94,10 @@ func (o *SourceBigCommerce) SetStoreHash(v string) *SourceBigCommerce {
 func (o *SourceBigCommerce) GetChannel() BigCommerceChannel {
 	if o == nil || o.Channel == nil {
 		var ret BigCommerceChannel
+
 		return ret
 	}
+
 	return *o.Channel
 }
 
@@ -100,6 +107,7 @@ func (o *SourceBigCommerce) GetChannelOk() (*BigCommerceChannel, bool) {
 	if o == nil || o.Channel == nil {
 		return nil, false
 	}
+
 	return o.Channel, true
 }
 
@@ -115,6 +123,7 @@ func (o *SourceBigCommerce) HasChannel() bool {
 // SetChannel gets a reference to the given BigCommerceChannel and assigns it to the Channel field.
 func (o *SourceBigCommerce) SetChannel(v *BigCommerceChannel) *SourceBigCommerce {
 	o.Channel = v
+
 	return o
 }
 
@@ -122,8 +131,10 @@ func (o *SourceBigCommerce) SetChannel(v *BigCommerceChannel) *SourceBigCommerce
 func (o *SourceBigCommerce) GetCustomFields() []string {
 	if o == nil || o.CustomFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.CustomFields
 }
 
@@ -133,6 +144,7 @@ func (o *SourceBigCommerce) GetCustomFieldsOk() ([]string, bool) {
 	if o == nil || o.CustomFields == nil {
 		return nil, false
 	}
+
 	return o.CustomFields, true
 }
 
@@ -148,6 +160,7 @@ func (o *SourceBigCommerce) HasCustomFields() bool {
 // SetCustomFields gets a reference to the given []string and assigns it to the CustomFields field.
 func (o *SourceBigCommerce) SetCustomFields(v []string) *SourceBigCommerce {
 	o.CustomFields = v
+
 	return o
 }
 
@@ -155,8 +168,10 @@ func (o *SourceBigCommerce) SetCustomFields(v []string) *SourceBigCommerce {
 func (o *SourceBigCommerce) GetProductMetafields() []BigCommerceMetafield {
 	if o == nil || o.ProductMetafields == nil {
 		var ret []BigCommerceMetafield
+
 		return ret
 	}
+
 	return o.ProductMetafields
 }
 
@@ -166,6 +181,7 @@ func (o *SourceBigCommerce) GetProductMetafieldsOk() ([]BigCommerceMetafield, bo
 	if o == nil || o.ProductMetafields == nil {
 		return nil, false
 	}
+
 	return o.ProductMetafields, true
 }
 
@@ -181,6 +197,7 @@ func (o *SourceBigCommerce) HasProductMetafields() bool {
 // SetProductMetafields gets a reference to the given []BigCommerceMetafield and assigns it to the ProductMetafields field.
 func (o *SourceBigCommerce) SetProductMetafields(v []BigCommerceMetafield) *SourceBigCommerce {
 	o.ProductMetafields = v
+
 	return o
 }
 
@@ -188,8 +205,10 @@ func (o *SourceBigCommerce) SetProductMetafields(v []BigCommerceMetafield) *Sour
 func (o *SourceBigCommerce) GetVariantMetafields() []BigCommerceMetafield {
 	if o == nil || o.VariantMetafields == nil {
 		var ret []BigCommerceMetafield
+
 		return ret
 	}
+
 	return o.VariantMetafields
 }
 
@@ -199,6 +218,7 @@ func (o *SourceBigCommerce) GetVariantMetafieldsOk() ([]BigCommerceMetafield, bo
 	if o == nil || o.VariantMetafields == nil {
 		return nil, false
 	}
+
 	return o.VariantMetafields, true
 }
 
@@ -214,24 +234,30 @@ func (o *SourceBigCommerce) HasVariantMetafields() bool {
 // SetVariantMetafields gets a reference to the given []BigCommerceMetafield and assigns it to the VariantMetafields field.
 func (o *SourceBigCommerce) SetVariantMetafields(v []BigCommerceMetafield) *SourceBigCommerce {
 	o.VariantMetafields = v
+
 	return o
 }
 
 func (o SourceBigCommerce) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["storeHash"] = o.StoreHash
 	if o.Channel != nil {
 		toSerialize["channel"] = o.Channel
 	}
+
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
+
 	if o.ProductMetafields != nil {
 		toSerialize["productMetafields"] = o.ProductMetafields
 	}
+
 	if o.VariantMetafields != nil {
 		toSerialize["variantMetafields"] = o.VariantMetafields
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceBigCommerce: %w", err)
@@ -247,5 +273,6 @@ func (o SourceBigCommerce) String() string {
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 	out += fmt.Sprintf("  productMetafields=%v\n", o.ProductMetafields)
 	out += fmt.Sprintf("  variantMetafields=%v\n", o.VariantMetafields)
+
 	return fmt.Sprintf("SourceBigCommerce {\n%s}", out)
 }

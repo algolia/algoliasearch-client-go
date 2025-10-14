@@ -29,24 +29,7 @@ var AllowedMetricEnumValues = []Metric{
 	"*",
 }
 
-func (v *Metric) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Metric': %w", string(src), err)
-	}
-	enumTypeValue := Metric(value)
-	for _, existing := range AllowedMetricEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Metric", value)
-}
-
-// NewMetricFromValue returns a pointer to a valid Metric
+// NewMetricFromValue returns a pointer to a valid Metric.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewMetricFromValue(v string) (*Metric, error) {
 	ev := Metric(v)
@@ -57,6 +40,26 @@ func NewMetricFromValue(v string) (*Metric, error) {
 	}
 }
 
+func (v *Metric) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Metric': %w", string(src), err)
+	}
+
+	enumTypeValue := Metric(value)
+	for _, existing := range AllowedMetricEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Metric", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Metric) IsValid() bool {
 	for _, existing := range AllowedMetricEnumValues {
@@ -64,6 +67,7 @@ func (v Metric) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

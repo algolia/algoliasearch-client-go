@@ -62,10 +62,12 @@ func WithSourceBigQueryUniqueIDColumn(val string) SourceBigQueryOption {
 func NewSourceBigQuery(projectID string, datasetID string, opts ...SourceBigQueryOption) *SourceBigQuery {
 	this := &SourceBigQuery{}
 	this.ProjectID = projectID
+
 	this.DatasetID = datasetID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -78,6 +80,7 @@ func NewEmptySourceBigQuery() *SourceBigQuery {
 func (o *SourceBigQuery) GetProjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -90,12 +93,14 @@ func (o *SourceBigQuery) GetProjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ProjectID, true
 }
 
 // SetProjectID sets field value.
 func (o *SourceBigQuery) SetProjectID(v string) *SourceBigQuery {
 	o.ProjectID = v
+
 	return o
 }
 
@@ -103,6 +108,7 @@ func (o *SourceBigQuery) SetProjectID(v string) *SourceBigQuery {
 func (o *SourceBigQuery) GetDatasetID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -115,12 +121,14 @@ func (o *SourceBigQuery) GetDatasetIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DatasetID, true
 }
 
 // SetDatasetID sets field value.
 func (o *SourceBigQuery) SetDatasetID(v string) *SourceBigQuery {
 	o.DatasetID = v
+
 	return o
 }
 
@@ -128,8 +136,10 @@ func (o *SourceBigQuery) SetDatasetID(v string) *SourceBigQuery {
 func (o *SourceBigQuery) GetDataType() BigQueryDataType {
 	if o == nil || o.DataType == nil {
 		var ret BigQueryDataType
+
 		return ret
 	}
+
 	return *o.DataType
 }
 
@@ -139,6 +149,7 @@ func (o *SourceBigQuery) GetDataTypeOk() (*BigQueryDataType, bool) {
 	if o == nil || o.DataType == nil {
 		return nil, false
 	}
+
 	return o.DataType, true
 }
 
@@ -154,6 +165,7 @@ func (o *SourceBigQuery) HasDataType() bool {
 // SetDataType gets a reference to the given BigQueryDataType and assigns it to the DataType field.
 func (o *SourceBigQuery) SetDataType(v BigQueryDataType) *SourceBigQuery {
 	o.DataType = &v
+
 	return o
 }
 
@@ -161,8 +173,10 @@ func (o *SourceBigQuery) SetDataType(v BigQueryDataType) *SourceBigQuery {
 func (o *SourceBigQuery) GetTable() string {
 	if o == nil || o.Table == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Table
 }
 
@@ -172,6 +186,7 @@ func (o *SourceBigQuery) GetTableOk() (*string, bool) {
 	if o == nil || o.Table == nil {
 		return nil, false
 	}
+
 	return o.Table, true
 }
 
@@ -187,6 +202,7 @@ func (o *SourceBigQuery) HasTable() bool {
 // SetTable gets a reference to the given string and assigns it to the Table field.
 func (o *SourceBigQuery) SetTable(v string) *SourceBigQuery {
 	o.Table = &v
+
 	return o
 }
 
@@ -194,8 +210,10 @@ func (o *SourceBigQuery) SetTable(v string) *SourceBigQuery {
 func (o *SourceBigQuery) GetTablePrefix() string {
 	if o == nil || o.TablePrefix == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.TablePrefix
 }
 
@@ -205,6 +223,7 @@ func (o *SourceBigQuery) GetTablePrefixOk() (*string, bool) {
 	if o == nil || o.TablePrefix == nil {
 		return nil, false
 	}
+
 	return o.TablePrefix, true
 }
 
@@ -220,6 +239,7 @@ func (o *SourceBigQuery) HasTablePrefix() bool {
 // SetTablePrefix gets a reference to the given string and assigns it to the TablePrefix field.
 func (o *SourceBigQuery) SetTablePrefix(v string) *SourceBigQuery {
 	o.TablePrefix = &v
+
 	return o
 }
 
@@ -227,8 +247,10 @@ func (o *SourceBigQuery) SetTablePrefix(v string) *SourceBigQuery {
 func (o *SourceBigQuery) GetCustomSQLRequest() string {
 	if o == nil || o.CustomSQLRequest == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.CustomSQLRequest
 }
 
@@ -238,6 +260,7 @@ func (o *SourceBigQuery) GetCustomSQLRequestOk() (*string, bool) {
 	if o == nil || o.CustomSQLRequest == nil {
 		return nil, false
 	}
+
 	return o.CustomSQLRequest, true
 }
 
@@ -253,6 +276,7 @@ func (o *SourceBigQuery) HasCustomSQLRequest() bool {
 // SetCustomSQLRequest gets a reference to the given string and assigns it to the CustomSQLRequest field.
 func (o *SourceBigQuery) SetCustomSQLRequest(v string) *SourceBigQuery {
 	o.CustomSQLRequest = &v
+
 	return o
 }
 
@@ -260,8 +284,10 @@ func (o *SourceBigQuery) SetCustomSQLRequest(v string) *SourceBigQuery {
 func (o *SourceBigQuery) GetUniqueIDColumn() string {
 	if o == nil || o.UniqueIDColumn == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UniqueIDColumn
 }
 
@@ -271,6 +297,7 @@ func (o *SourceBigQuery) GetUniqueIDColumnOk() (*string, bool) {
 	if o == nil || o.UniqueIDColumn == nil {
 		return nil, false
 	}
+
 	return o.UniqueIDColumn, true
 }
 
@@ -286,28 +313,35 @@ func (o *SourceBigQuery) HasUniqueIDColumn() bool {
 // SetUniqueIDColumn gets a reference to the given string and assigns it to the UniqueIDColumn field.
 func (o *SourceBigQuery) SetUniqueIDColumn(v string) *SourceBigQuery {
 	o.UniqueIDColumn = &v
+
 	return o
 }
 
 func (o SourceBigQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["projectID"] = o.ProjectID
+
 	toSerialize["datasetID"] = o.DatasetID
 	if o.DataType != nil {
 		toSerialize["dataType"] = o.DataType
 	}
+
 	if o.Table != nil {
 		toSerialize["table"] = o.Table
 	}
+
 	if o.TablePrefix != nil {
 		toSerialize["tablePrefix"] = o.TablePrefix
 	}
+
 	if o.CustomSQLRequest != nil {
 		toSerialize["customSQLRequest"] = o.CustomSQLRequest
 	}
+
 	if o.UniqueIDColumn != nil {
 		toSerialize["uniqueIDColumn"] = o.UniqueIDColumn
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceBigQuery: %w", err)
@@ -325,5 +359,6 @@ func (o SourceBigQuery) String() string {
 	out += fmt.Sprintf("  tablePrefix=%v\n", o.TablePrefix)
 	out += fmt.Sprintf("  customSQLRequest=%v\n", o.CustomSQLRequest)
 	out += fmt.Sprintf("  uniqueIDColumn=%v\n", o.UniqueIDColumn)
+
 	return fmt.Sprintf("SourceBigQuery {\n%s}", out)
 }

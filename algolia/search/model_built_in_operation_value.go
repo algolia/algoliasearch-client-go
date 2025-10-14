@@ -44,7 +44,7 @@ func (dst *BuiltInOperationValue) UnmarshalJSON(data []byte) error {
 		dst.Int32 = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(BuiltInOperationValue)")
+	return fmt.Errorf("data failed to match schemas in oneOf(BuiltInOperationValue)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

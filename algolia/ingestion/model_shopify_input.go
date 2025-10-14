@@ -20,6 +20,7 @@ func NewShopifyInput(metafields []ShopifyMetafield, market ShopifyMarket) *Shopi
 	this := &ShopifyInput{}
 	this.Metafields = metafields
 	this.Market = market
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyShopifyInput() *ShopifyInput {
 func (o *ShopifyInput) GetMetafields() []ShopifyMetafield {
 	if o == nil {
 		var ret []ShopifyMetafield
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *ShopifyInput) GetMetafieldsOk() ([]ShopifyMetafield, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Metafields, true
 }
 
 // SetMetafields sets field value.
 func (o *ShopifyInput) SetMetafields(v []ShopifyMetafield) *ShopifyInput {
 	o.Metafields = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *ShopifyInput) SetMetafields(v []ShopifyMetafield) *ShopifyInput {
 func (o *ShopifyInput) GetMarket() ShopifyMarket {
 	if o == nil {
 		var ret ShopifyMarket
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *ShopifyInput) GetMarketOk() (*ShopifyMarket, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Market, true
 }
 
 // SetMarket sets field value.
 func (o *ShopifyInput) SetMarket(v *ShopifyMarket) *ShopifyInput {
 	o.Market = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o ShopifyInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["metafields"] = o.Metafields
 	toSerialize["market"] = o.Market
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ShopifyInput: %w", err)
@@ -94,5 +102,6 @@ func (o ShopifyInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  metafields=%v\n", o.Metafields)
 	out += fmt.Sprintf("  market=%v\n", o.Market)
+
 	return fmt.Sprintf("ShopifyInput {\n%s}", out)
 }

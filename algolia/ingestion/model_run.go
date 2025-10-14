@@ -85,10 +85,12 @@ func NewRun(runID string, appID string, taskID string, status RunStatus, type_ R
 	this.TaskID = taskID
 	this.Status = status
 	this.Type = type_
+
 	this.CreatedAt = createdAt
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -101,6 +103,7 @@ func NewEmptyRun() *Run {
 func (o *Run) GetRunID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -113,12 +116,14 @@ func (o *Run) GetRunIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.RunID, true
 }
 
 // SetRunID sets field value.
 func (o *Run) SetRunID(v string) *Run {
 	o.RunID = v
+
 	return o
 }
 
@@ -126,6 +131,7 @@ func (o *Run) SetRunID(v string) *Run {
 func (o *Run) GetAppID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -138,12 +144,14 @@ func (o *Run) GetAppIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.AppID, true
 }
 
 // SetAppID sets field value.
 func (o *Run) SetAppID(v string) *Run {
 	o.AppID = v
+
 	return o
 }
 
@@ -151,6 +159,7 @@ func (o *Run) SetAppID(v string) *Run {
 func (o *Run) GetTaskID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -163,12 +172,14 @@ func (o *Run) GetTaskIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *Run) SetTaskID(v string) *Run {
 	o.TaskID = v
+
 	return o
 }
 
@@ -176,6 +187,7 @@ func (o *Run) SetTaskID(v string) *Run {
 func (o *Run) GetStatus() RunStatus {
 	if o == nil {
 		var ret RunStatus
+
 		return ret
 	}
 
@@ -188,12 +200,14 @@ func (o *Run) GetStatusOk() (*RunStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Status, true
 }
 
 // SetStatus sets field value.
 func (o *Run) SetStatus(v RunStatus) *Run {
 	o.Status = v
+
 	return o
 }
 
@@ -201,8 +215,10 @@ func (o *Run) SetStatus(v RunStatus) *Run {
 func (o *Run) GetProgress() RunProgress {
 	if o == nil || o.Progress == nil {
 		var ret RunProgress
+
 		return ret
 	}
+
 	return *o.Progress
 }
 
@@ -212,6 +228,7 @@ func (o *Run) GetProgressOk() (*RunProgress, bool) {
 	if o == nil || o.Progress == nil {
 		return nil, false
 	}
+
 	return o.Progress, true
 }
 
@@ -227,6 +244,7 @@ func (o *Run) HasProgress() bool {
 // SetProgress gets a reference to the given RunProgress and assigns it to the Progress field.
 func (o *Run) SetProgress(v *RunProgress) *Run {
 	o.Progress = v
+
 	return o
 }
 
@@ -234,8 +252,10 @@ func (o *Run) SetProgress(v *RunProgress) *Run {
 func (o *Run) GetOutcome() RunOutcome {
 	if o == nil || o.Outcome == nil {
 		var ret RunOutcome
+
 		return ret
 	}
+
 	return *o.Outcome
 }
 
@@ -245,6 +265,7 @@ func (o *Run) GetOutcomeOk() (*RunOutcome, bool) {
 	if o == nil || o.Outcome == nil {
 		return nil, false
 	}
+
 	return o.Outcome, true
 }
 
@@ -260,6 +281,7 @@ func (o *Run) HasOutcome() bool {
 // SetOutcome gets a reference to the given RunOutcome and assigns it to the Outcome field.
 func (o *Run) SetOutcome(v RunOutcome) *Run {
 	o.Outcome = &v
+
 	return o
 }
 
@@ -267,8 +289,10 @@ func (o *Run) SetOutcome(v RunOutcome) *Run {
 func (o *Run) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -278,6 +302,7 @@ func (o *Run) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -293,6 +318,7 @@ func (o *Run) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *Run) SetFailureThreshold(v int32) *Run {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -300,8 +326,10 @@ func (o *Run) SetFailureThreshold(v int32) *Run {
 func (o *Run) GetReason() string {
 	if o == nil || o.Reason == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Reason
 }
 
@@ -311,6 +339,7 @@ func (o *Run) GetReasonOk() (*string, bool) {
 	if o == nil || o.Reason == nil {
 		return nil, false
 	}
+
 	return o.Reason, true
 }
 
@@ -326,6 +355,7 @@ func (o *Run) HasReason() bool {
 // SetReason gets a reference to the given string and assigns it to the Reason field.
 func (o *Run) SetReason(v string) *Run {
 	o.Reason = &v
+
 	return o
 }
 
@@ -333,8 +363,10 @@ func (o *Run) SetReason(v string) *Run {
 func (o *Run) GetReasonCode() RunReasonCode {
 	if o == nil || o.ReasonCode == nil {
 		var ret RunReasonCode
+
 		return ret
 	}
+
 	return *o.ReasonCode
 }
 
@@ -344,6 +376,7 @@ func (o *Run) GetReasonCodeOk() (*RunReasonCode, bool) {
 	if o == nil || o.ReasonCode == nil {
 		return nil, false
 	}
+
 	return o.ReasonCode, true
 }
 
@@ -359,6 +392,7 @@ func (o *Run) HasReasonCode() bool {
 // SetReasonCode gets a reference to the given RunReasonCode and assigns it to the ReasonCode field.
 func (o *Run) SetReasonCode(v RunReasonCode) *Run {
 	o.ReasonCode = &v
+
 	return o
 }
 
@@ -366,6 +400,7 @@ func (o *Run) SetReasonCode(v RunReasonCode) *Run {
 func (o *Run) GetType() RunType {
 	if o == nil {
 		var ret RunType
+
 		return ret
 	}
 
@@ -378,12 +413,14 @@ func (o *Run) GetTypeOk() (*RunType, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Type, true
 }
 
 // SetType sets field value.
 func (o *Run) SetType(v RunType) *Run {
 	o.Type = v
+
 	return o
 }
 
@@ -391,6 +428,7 @@ func (o *Run) SetType(v RunType) *Run {
 func (o *Run) GetCreatedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -403,12 +441,14 @@ func (o *Run) GetCreatedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *Run) SetCreatedAt(v string) *Run {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -416,8 +456,10 @@ func (o *Run) SetCreatedAt(v string) *Run {
 func (o *Run) GetStartedAt() string {
 	if o == nil || o.StartedAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.StartedAt
 }
 
@@ -427,6 +469,7 @@ func (o *Run) GetStartedAtOk() (*string, bool) {
 	if o == nil || o.StartedAt == nil {
 		return nil, false
 	}
+
 	return o.StartedAt, true
 }
 
@@ -442,6 +485,7 @@ func (o *Run) HasStartedAt() bool {
 // SetStartedAt gets a reference to the given string and assigns it to the StartedAt field.
 func (o *Run) SetStartedAt(v string) *Run {
 	o.StartedAt = &v
+
 	return o
 }
 
@@ -449,8 +493,10 @@ func (o *Run) SetStartedAt(v string) *Run {
 func (o *Run) GetFinishedAt() string {
 	if o == nil || o.FinishedAt == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.FinishedAt
 }
 
@@ -460,6 +506,7 @@ func (o *Run) GetFinishedAtOk() (*string, bool) {
 	if o == nil || o.FinishedAt == nil {
 		return nil, false
 	}
+
 	return o.FinishedAt, true
 }
 
@@ -475,6 +522,7 @@ func (o *Run) HasFinishedAt() bool {
 // SetFinishedAt gets a reference to the given string and assigns it to the FinishedAt field.
 func (o *Run) SetFinishedAt(v string) *Run {
 	o.FinishedAt = &v
+
 	return o
 }
 
@@ -483,30 +531,39 @@ func (o Run) MarshalJSON() ([]byte, error) {
 	toSerialize["runID"] = o.RunID
 	toSerialize["appID"] = o.AppID
 	toSerialize["taskID"] = o.TaskID
+
 	toSerialize["status"] = o.Status
 	if o.Progress != nil {
 		toSerialize["progress"] = o.Progress
 	}
+
 	if o.Outcome != nil {
 		toSerialize["outcome"] = o.Outcome
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Reason != nil {
 		toSerialize["reason"] = o.Reason
 	}
+
 	if o.ReasonCode != nil {
 		toSerialize["reasonCode"] = o.ReasonCode
 	}
+
 	toSerialize["type"] = o.Type
+
 	toSerialize["createdAt"] = o.CreatedAt
 	if o.StartedAt != nil {
 		toSerialize["startedAt"] = o.StartedAt
 	}
+
 	if o.FinishedAt != nil {
 		toSerialize["finishedAt"] = o.FinishedAt
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Run: %w", err)
@@ -530,5 +587,6 @@ func (o Run) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  startedAt=%v\n", o.StartedAt)
 	out += fmt.Sprintf("  finishedAt=%v\n", o.FinishedAt)
+
 	return fmt.Sprintf("Run {\n%s}", out)
 }

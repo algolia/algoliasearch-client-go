@@ -29,6 +29,7 @@ func NewFacets(opts ...FacetsOption) *Facets {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyFacets() *Facets {
 func (o *Facets) GetOrder() []string {
 	if o == nil || o.Order == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Order
 }
 
@@ -52,6 +55,7 @@ func (o *Facets) GetOrderOk() ([]string, bool) {
 	if o == nil || o.Order == nil {
 		return nil, false
 	}
+
 	return o.Order, true
 }
 
@@ -67,6 +71,7 @@ func (o *Facets) HasOrder() bool {
 // SetOrder gets a reference to the given []string and assigns it to the Order field.
 func (o *Facets) SetOrder(v []string) *Facets {
 	o.Order = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o Facets) MarshalJSON() ([]byte, error) {
 	if o.Order != nil {
 		toSerialize["order"] = o.Order
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Facets: %w", err)
@@ -86,5 +92,6 @@ func (o Facets) MarshalJSON() ([]byte, error) {
 func (o Facets) String() string {
 	out := ""
 	out += fmt.Sprintf("  order=%v\n", o.Order)
+
 	return fmt.Sprintf("Facets {\n%s}", out)
 }

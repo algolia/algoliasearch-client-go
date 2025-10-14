@@ -19,6 +19,7 @@ type AuthAPIKey struct {
 func NewAuthAPIKey(key string) *AuthAPIKey {
 	this := &AuthAPIKey{}
 	this.Key = key
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyAuthAPIKey() *AuthAPIKey {
 func (o *AuthAPIKey) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *AuthAPIKey) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *AuthAPIKey) SetKey(v string) *AuthAPIKey {
 	o.Key = v
+
 	return o
 }
 
 func (o AuthAPIKey) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["key"] = o.Key
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal AuthAPIKey: %w", err)
@@ -66,5 +71,6 @@ func (o AuthAPIKey) MarshalJSON() ([]byte, error) {
 func (o AuthAPIKey) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
+
 	return fmt.Sprintf("AuthAPIKey {\n%s}", out)
 }

@@ -19,6 +19,7 @@ type GetTopFiltersNoResultsResponse struct {
 func NewGetTopFiltersNoResultsResponse(values []GetTopFiltersNoResultsValues) *GetTopFiltersNoResultsResponse {
 	this := &GetTopFiltersNoResultsResponse{}
 	this.Values = values
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyGetTopFiltersNoResultsResponse() *GetTopFiltersNoResultsResponse {
 func (o *GetTopFiltersNoResultsResponse) GetValues() []GetTopFiltersNoResultsValues {
 	if o == nil {
 		var ret []GetTopFiltersNoResultsValues
+
 		return ret
 	}
 
@@ -45,12 +47,14 @@ func (o *GetTopFiltersNoResultsResponse) GetValuesOk() ([]GetTopFiltersNoResults
 	if o == nil || o.Values == nil {
 		return nil, false
 	}
+
 	return o.Values, true
 }
 
 // SetValues sets field value.
 func (o *GetTopFiltersNoResultsResponse) SetValues(v []GetTopFiltersNoResultsValues) *GetTopFiltersNoResultsResponse {
 	o.Values = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o GetTopFiltersNoResultsResponse) MarshalJSON() ([]byte, error) {
 	if o.Values != nil {
 		toSerialize["values"] = o.Values
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFiltersNoResultsResponse: %w", err)
@@ -70,5 +75,6 @@ func (o GetTopFiltersNoResultsResponse) MarshalJSON() ([]byte, error) {
 func (o GetTopFiltersNoResultsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  values=%v\n", o.Values)
+
 	return fmt.Sprintf("GetTopFiltersNoResultsResponse {\n%s}", out)
 }

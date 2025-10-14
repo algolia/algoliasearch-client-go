@@ -19,6 +19,7 @@ type DeleteApiKeyResponse struct {
 func NewDeleteApiKeyResponse(deletedAt string) *DeleteApiKeyResponse {
 	this := &DeleteApiKeyResponse{}
 	this.DeletedAt = deletedAt
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyDeleteApiKeyResponse() *DeleteApiKeyResponse {
 func (o *DeleteApiKeyResponse) GetDeletedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *DeleteApiKeyResponse) GetDeletedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DeletedAt, true
 }
 
 // SetDeletedAt sets field value.
 func (o *DeleteApiKeyResponse) SetDeletedAt(v string) *DeleteApiKeyResponse {
 	o.DeletedAt = v
+
 	return o
 }
 
 func (o DeleteApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["deletedAt"] = o.DeletedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeleteApiKeyResponse: %w", err)
@@ -66,5 +71,6 @@ func (o DeleteApiKeyResponse) MarshalJSON() ([]byte, error) {
 func (o DeleteApiKeyResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
+
 	return fmt.Sprintf("DeleteApiKeyResponse {\n%s}", out)
 }

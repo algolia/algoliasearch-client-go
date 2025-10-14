@@ -19,6 +19,7 @@ type GetSearchesNoResultsResponse struct {
 func NewGetSearchesNoResultsResponse(searches []DailySearchesNoResults) *GetSearchesNoResultsResponse {
 	this := &GetSearchesNoResultsResponse{}
 	this.Searches = searches
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetSearchesNoResultsResponse() *GetSearchesNoResultsResponse {
 func (o *GetSearchesNoResultsResponse) GetSearches() []DailySearchesNoResults {
 	if o == nil {
 		var ret []DailySearchesNoResults
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetSearchesNoResultsResponse) GetSearchesOk() ([]DailySearchesNoResults
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Searches, true
 }
 
 // SetSearches sets field value.
 func (o *GetSearchesNoResultsResponse) SetSearches(v []DailySearchesNoResults) *GetSearchesNoResultsResponse {
 	o.Searches = v
+
 	return o
 }
 
 func (o GetSearchesNoResultsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["searches"] = o.Searches
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetSearchesNoResultsResponse: %w", err)
@@ -66,5 +71,6 @@ func (o GetSearchesNoResultsResponse) MarshalJSON() ([]byte, error) {
 func (o GetSearchesNoResultsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  searches=%v\n", o.Searches)
+
 	return fmt.Sprintf("GetSearchesNoResultsResponse {\n%s}", out)
 }

@@ -19,6 +19,7 @@ type TopHitsResponseWithAnalytics struct {
 func NewTopHitsResponseWithAnalytics(hits []TopHitWithAnalytics) *TopHitsResponseWithAnalytics {
 	this := &TopHitsResponseWithAnalytics{}
 	this.Hits = hits
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTopHitsResponseWithAnalytics() *TopHitsResponseWithAnalytics {
 func (o *TopHitsResponseWithAnalytics) GetHits() []TopHitWithAnalytics {
 	if o == nil {
 		var ret []TopHitWithAnalytics
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TopHitsResponseWithAnalytics) GetHitsOk() ([]TopHitWithAnalytics, bool)
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Hits, true
 }
 
 // SetHits sets field value.
 func (o *TopHitsResponseWithAnalytics) SetHits(v []TopHitWithAnalytics) *TopHitsResponseWithAnalytics {
 	o.Hits = v
+
 	return o
 }
 
 func (o TopHitsResponseWithAnalytics) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["hits"] = o.Hits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TopHitsResponseWithAnalytics: %w", err)
@@ -66,5 +71,6 @@ func (o TopHitsResponseWithAnalytics) MarshalJSON() ([]byte, error) {
 func (o TopHitsResponseWithAnalytics) String() string {
 	out := ""
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+
 	return fmt.Sprintf("TopHitsResponseWithAnalytics {\n%s}", out)
 }

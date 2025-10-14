@@ -25,6 +25,7 @@ func NewDailySearchesNoClicks(search string, count int32, nbHits int32) *DailySe
 	this.Search = search
 	this.Count = count
 	this.NbHits = nbHits
+
 	return this
 }
 
@@ -37,6 +38,7 @@ func NewEmptyDailySearchesNoClicks() *DailySearchesNoClicks {
 func (o *DailySearchesNoClicks) GetSearch() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -49,12 +51,14 @@ func (o *DailySearchesNoClicks) GetSearchOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Search, true
 }
 
 // SetSearch sets field value.
 func (o *DailySearchesNoClicks) SetSearch(v string) *DailySearchesNoClicks {
 	o.Search = v
+
 	return o
 }
 
@@ -62,6 +66,7 @@ func (o *DailySearchesNoClicks) SetSearch(v string) *DailySearchesNoClicks {
 func (o *DailySearchesNoClicks) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -74,12 +79,14 @@ func (o *DailySearchesNoClicks) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *DailySearchesNoClicks) SetCount(v int32) *DailySearchesNoClicks {
 	o.Count = v
+
 	return o
 }
 
@@ -87,6 +94,7 @@ func (o *DailySearchesNoClicks) SetCount(v int32) *DailySearchesNoClicks {
 func (o *DailySearchesNoClicks) GetNbHits() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -99,12 +107,14 @@ func (o *DailySearchesNoClicks) GetNbHitsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbHits, true
 }
 
 // SetNbHits sets field value.
 func (o *DailySearchesNoClicks) SetNbHits(v int32) *DailySearchesNoClicks {
 	o.NbHits = v
+
 	return o
 }
 
@@ -113,6 +123,7 @@ func (o DailySearchesNoClicks) MarshalJSON() ([]byte, error) {
 	toSerialize["search"] = o.Search
 	toSerialize["count"] = o.Count
 	toSerialize["nbHits"] = o.NbHits
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailySearchesNoClicks: %w", err)
@@ -126,5 +137,6 @@ func (o DailySearchesNoClicks) String() string {
 	out += fmt.Sprintf("  search=%v\n", o.Search)
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
+
 	return fmt.Sprintf("DailySearchesNoClicks {\n%s}", out)
 }

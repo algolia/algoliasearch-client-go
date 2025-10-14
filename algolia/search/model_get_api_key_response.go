@@ -82,10 +82,12 @@ func NewGetApiKeyResponse(value string, createdAt int64, acl []Acl, opts ...GetA
 	this := &GetApiKeyResponse{}
 	this.Value = value
 	this.CreatedAt = createdAt
+
 	this.Acl = acl
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -98,6 +100,7 @@ func NewEmptyGetApiKeyResponse() *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetValue() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -110,12 +113,14 @@ func (o *GetApiKeyResponse) GetValueOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Value, true
 }
 
 // SetValue sets field value.
 func (o *GetApiKeyResponse) SetValue(v string) *GetApiKeyResponse {
 	o.Value = v
+
 	return o
 }
 
@@ -123,6 +128,7 @@ func (o *GetApiKeyResponse) SetValue(v string) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetCreatedAt() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -135,12 +141,14 @@ func (o *GetApiKeyResponse) GetCreatedAtOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.CreatedAt, true
 }
 
 // SetCreatedAt sets field value.
 func (o *GetApiKeyResponse) SetCreatedAt(v int64) *GetApiKeyResponse {
 	o.CreatedAt = v
+
 	return o
 }
 
@@ -148,6 +156,7 @@ func (o *GetApiKeyResponse) SetCreatedAt(v int64) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetAcl() []Acl {
 	if o == nil {
 		var ret []Acl
+
 		return ret
 	}
 
@@ -160,12 +169,14 @@ func (o *GetApiKeyResponse) GetAclOk() ([]Acl, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Acl, true
 }
 
 // SetAcl sets field value.
 func (o *GetApiKeyResponse) SetAcl(v []Acl) *GetApiKeyResponse {
 	o.Acl = v
+
 	return o
 }
 
@@ -173,8 +184,10 @@ func (o *GetApiKeyResponse) SetAcl(v []Acl) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Description
 }
 
@@ -184,6 +197,7 @@ func (o *GetApiKeyResponse) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
+
 	return o.Description, true
 }
 
@@ -199,6 +213,7 @@ func (o *GetApiKeyResponse) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *GetApiKeyResponse) SetDescription(v string) *GetApiKeyResponse {
 	o.Description = &v
+
 	return o
 }
 
@@ -206,8 +221,10 @@ func (o *GetApiKeyResponse) SetDescription(v string) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetIndexes() []string {
 	if o == nil || o.Indexes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Indexes
 }
 
@@ -217,6 +234,7 @@ func (o *GetApiKeyResponse) GetIndexesOk() ([]string, bool) {
 	if o == nil || o.Indexes == nil {
 		return nil, false
 	}
+
 	return o.Indexes, true
 }
 
@@ -232,6 +250,7 @@ func (o *GetApiKeyResponse) HasIndexes() bool {
 // SetIndexes gets a reference to the given []string and assigns it to the Indexes field.
 func (o *GetApiKeyResponse) SetIndexes(v []string) *GetApiKeyResponse {
 	o.Indexes = v
+
 	return o
 }
 
@@ -239,8 +258,10 @@ func (o *GetApiKeyResponse) SetIndexes(v []string) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetMaxHitsPerQuery() int32 {
 	if o == nil || o.MaxHitsPerQuery == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxHitsPerQuery
 }
 
@@ -250,6 +271,7 @@ func (o *GetApiKeyResponse) GetMaxHitsPerQueryOk() (*int32, bool) {
 	if o == nil || o.MaxHitsPerQuery == nil {
 		return nil, false
 	}
+
 	return o.MaxHitsPerQuery, true
 }
 
@@ -265,6 +287,7 @@ func (o *GetApiKeyResponse) HasMaxHitsPerQuery() bool {
 // SetMaxHitsPerQuery gets a reference to the given int32 and assigns it to the MaxHitsPerQuery field.
 func (o *GetApiKeyResponse) SetMaxHitsPerQuery(v int32) *GetApiKeyResponse {
 	o.MaxHitsPerQuery = &v
+
 	return o
 }
 
@@ -272,8 +295,10 @@ func (o *GetApiKeyResponse) SetMaxHitsPerQuery(v int32) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetMaxQueriesPerIPPerHour() int32 {
 	if o == nil || o.MaxQueriesPerIPPerHour == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxQueriesPerIPPerHour
 }
 
@@ -283,6 +308,7 @@ func (o *GetApiKeyResponse) GetMaxQueriesPerIPPerHourOk() (*int32, bool) {
 	if o == nil || o.MaxQueriesPerIPPerHour == nil {
 		return nil, false
 	}
+
 	return o.MaxQueriesPerIPPerHour, true
 }
 
@@ -298,6 +324,7 @@ func (o *GetApiKeyResponse) HasMaxQueriesPerIPPerHour() bool {
 // SetMaxQueriesPerIPPerHour gets a reference to the given int32 and assigns it to the MaxQueriesPerIPPerHour field.
 func (o *GetApiKeyResponse) SetMaxQueriesPerIPPerHour(v int32) *GetApiKeyResponse {
 	o.MaxQueriesPerIPPerHour = &v
+
 	return o
 }
 
@@ -305,8 +332,10 @@ func (o *GetApiKeyResponse) SetMaxQueriesPerIPPerHour(v int32) *GetApiKeyRespons
 func (o *GetApiKeyResponse) GetQueryParameters() string {
 	if o == nil || o.QueryParameters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -316,6 +345,7 @@ func (o *GetApiKeyResponse) GetQueryParametersOk() (*string, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -331,6 +361,7 @@ func (o *GetApiKeyResponse) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given string and assigns it to the QueryParameters field.
 func (o *GetApiKeyResponse) SetQueryParameters(v string) *GetApiKeyResponse {
 	o.QueryParameters = &v
+
 	return o
 }
 
@@ -338,8 +369,10 @@ func (o *GetApiKeyResponse) SetQueryParameters(v string) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetReferers() []string {
 	if o == nil || o.Referers == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Referers
 }
 
@@ -349,6 +382,7 @@ func (o *GetApiKeyResponse) GetReferersOk() ([]string, bool) {
 	if o == nil || o.Referers == nil {
 		return nil, false
 	}
+
 	return o.Referers, true
 }
 
@@ -364,6 +398,7 @@ func (o *GetApiKeyResponse) HasReferers() bool {
 // SetReferers gets a reference to the given []string and assigns it to the Referers field.
 func (o *GetApiKeyResponse) SetReferers(v []string) *GetApiKeyResponse {
 	o.Referers = v
+
 	return o
 }
 
@@ -371,8 +406,10 @@ func (o *GetApiKeyResponse) SetReferers(v []string) *GetApiKeyResponse {
 func (o *GetApiKeyResponse) GetValidity() int32 {
 	if o == nil || o.Validity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Validity
 }
 
@@ -382,6 +419,7 @@ func (o *GetApiKeyResponse) GetValidityOk() (*int32, bool) {
 	if o == nil || o.Validity == nil {
 		return nil, false
 	}
+
 	return o.Validity, true
 }
 
@@ -397,6 +435,7 @@ func (o *GetApiKeyResponse) HasValidity() bool {
 // SetValidity gets a reference to the given int32 and assigns it to the Validity field.
 func (o *GetApiKeyResponse) SetValidity(v int32) *GetApiKeyResponse {
 	o.Validity = &v
+
 	return o
 }
 
@@ -404,28 +443,36 @@ func (o GetApiKeyResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["value"] = o.Value
 	toSerialize["createdAt"] = o.CreatedAt
+
 	toSerialize["acl"] = o.Acl
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+
 	if o.Indexes != nil {
 		toSerialize["indexes"] = o.Indexes
 	}
+
 	if o.MaxHitsPerQuery != nil {
 		toSerialize["maxHitsPerQuery"] = o.MaxHitsPerQuery
 	}
+
 	if o.MaxQueriesPerIPPerHour != nil {
 		toSerialize["maxQueriesPerIPPerHour"] = o.MaxQueriesPerIPPerHour
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	if o.Referers != nil {
 		toSerialize["referers"] = o.Referers
 	}
+
 	if o.Validity != nil {
 		toSerialize["validity"] = o.Validity
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetApiKeyResponse: %w", err)
@@ -446,5 +493,6 @@ func (o GetApiKeyResponse) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  referers=%v\n", o.Referers)
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
+
 	return fmt.Sprintf("GetApiKeyResponse {\n%s}", out)
 }

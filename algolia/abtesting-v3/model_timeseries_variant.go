@@ -28,6 +28,7 @@ func NewTimeseriesVariant(opts ...TimeseriesVariantOption) *TimeseriesVariant {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyTimeseriesVariant() *TimeseriesVariant {
 func (o *TimeseriesVariant) GetDates() []MetricDate {
 	if o == nil || o.Dates == nil {
 		var ret []MetricDate
+
 		return ret
 	}
+
 	return o.Dates
 }
 
@@ -51,6 +54,7 @@ func (o *TimeseriesVariant) GetDatesOk() ([]MetricDate, bool) {
 	if o == nil || o.Dates == nil {
 		return nil, false
 	}
+
 	return o.Dates, true
 }
 
@@ -66,6 +70,7 @@ func (o *TimeseriesVariant) HasDates() bool {
 // SetDates gets a reference to the given []MetricDate and assigns it to the Dates field.
 func (o *TimeseriesVariant) SetDates(v []MetricDate) *TimeseriesVariant {
 	o.Dates = v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o TimeseriesVariant) MarshalJSON() ([]byte, error) {
 	if o.Dates != nil {
 		toSerialize["dates"] = o.Dates
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TimeseriesVariant: %w", err)
@@ -85,5 +91,6 @@ func (o TimeseriesVariant) MarshalJSON() ([]byte, error) {
 func (o TimeseriesVariant) String() string {
 	out := ""
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
+
 	return fmt.Sprintf("TimeseriesVariant {\n%s}", out)
 }

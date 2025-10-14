@@ -37,6 +37,7 @@ func NewPromoteConsequenceObject(opts ...PromoteConsequenceObjectOption) *Promot
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -49,8 +50,10 @@ func NewEmptyPromoteConsequenceObject() *PromoteConsequenceObject {
 func (o *PromoteConsequenceObject) GetObjectID() string {
 	if o == nil || o.ObjectID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.ObjectID
 }
 
@@ -60,6 +63,7 @@ func (o *PromoteConsequenceObject) GetObjectIDOk() (*string, bool) {
 	if o == nil || o.ObjectID == nil {
 		return nil, false
 	}
+
 	return o.ObjectID, true
 }
 
@@ -75,6 +79,7 @@ func (o *PromoteConsequenceObject) HasObjectID() bool {
 // SetObjectID gets a reference to the given string and assigns it to the ObjectID field.
 func (o *PromoteConsequenceObject) SetObjectID(v string) *PromoteConsequenceObject {
 	o.ObjectID = &v
+
 	return o
 }
 
@@ -82,8 +87,10 @@ func (o *PromoteConsequenceObject) SetObjectID(v string) *PromoteConsequenceObje
 func (o *PromoteConsequenceObject) GetPosition() int32 {
 	if o == nil || o.Position == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Position
 }
 
@@ -93,6 +100,7 @@ func (o *PromoteConsequenceObject) GetPositionOk() (*int32, bool) {
 	if o == nil || o.Position == nil {
 		return nil, false
 	}
+
 	return o.Position, true
 }
 
@@ -108,6 +116,7 @@ func (o *PromoteConsequenceObject) HasPosition() bool {
 // SetPosition gets a reference to the given int32 and assigns it to the Position field.
 func (o *PromoteConsequenceObject) SetPosition(v int32) *PromoteConsequenceObject {
 	o.Position = &v
+
 	return o
 }
 
@@ -116,9 +125,11 @@ func (o PromoteConsequenceObject) MarshalJSON() ([]byte, error) {
 	if o.ObjectID != nil {
 		toSerialize["objectID"] = o.ObjectID
 	}
+
 	if o.Position != nil {
 		toSerialize["position"] = o.Position
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PromoteConsequenceObject: %w", err)
@@ -131,5 +142,6 @@ func (o PromoteConsequenceObject) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  position=%v\n", o.Position)
+
 	return fmt.Sprintf("PromoteConsequenceObject {\n%s}", out)
 }

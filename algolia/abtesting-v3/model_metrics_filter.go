@@ -39,10 +39,12 @@ func WithMetricsFilterIncludes(val bool) MetricsFilterOption {
 func NewMetricsFilter(domain string, name string, opts ...MetricsFilterOption) *MetricsFilter {
 	this := &MetricsFilter{}
 	this.Domain = domain
+
 	this.Name = name
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -55,6 +57,7 @@ func NewEmptyMetricsFilter() *MetricsFilter {
 func (o *MetricsFilter) GetDomain() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -67,12 +70,14 @@ func (o *MetricsFilter) GetDomainOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Domain, true
 }
 
 // SetDomain sets field value.
 func (o *MetricsFilter) SetDomain(v string) *MetricsFilter {
 	o.Domain = v
+
 	return o
 }
 
@@ -80,6 +85,7 @@ func (o *MetricsFilter) SetDomain(v string) *MetricsFilter {
 func (o *MetricsFilter) GetName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -92,12 +98,14 @@ func (o *MetricsFilter) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Name, true
 }
 
 // SetName sets field value.
 func (o *MetricsFilter) SetName(v string) *MetricsFilter {
 	o.Name = v
+
 	return o
 }
 
@@ -105,8 +113,10 @@ func (o *MetricsFilter) SetName(v string) *MetricsFilter {
 func (o *MetricsFilter) GetTrackEffects() bool {
 	if o == nil || o.TrackEffects == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.TrackEffects
 }
 
@@ -116,6 +126,7 @@ func (o *MetricsFilter) GetTrackEffectsOk() (*bool, bool) {
 	if o == nil || o.TrackEffects == nil {
 		return nil, false
 	}
+
 	return o.TrackEffects, true
 }
 
@@ -131,6 +142,7 @@ func (o *MetricsFilter) HasTrackEffects() bool {
 // SetTrackEffects gets a reference to the given bool and assigns it to the TrackEffects field.
 func (o *MetricsFilter) SetTrackEffects(v bool) *MetricsFilter {
 	o.TrackEffects = &v
+
 	return o
 }
 
@@ -138,8 +150,10 @@ func (o *MetricsFilter) SetTrackEffects(v bool) *MetricsFilter {
 func (o *MetricsFilter) GetIncludes() bool {
 	if o == nil || o.Includes == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Includes
 }
 
@@ -149,6 +163,7 @@ func (o *MetricsFilter) GetIncludesOk() (*bool, bool) {
 	if o == nil || o.Includes == nil {
 		return nil, false
 	}
+
 	return o.Includes, true
 }
 
@@ -164,19 +179,23 @@ func (o *MetricsFilter) HasIncludes() bool {
 // SetIncludes gets a reference to the given bool and assigns it to the Includes field.
 func (o *MetricsFilter) SetIncludes(v bool) *MetricsFilter {
 	o.Includes = &v
+
 	return o
 }
 
 func (o MetricsFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["domain"] = o.Domain
+
 	toSerialize["name"] = o.Name
 	if o.TrackEffects != nil {
 		toSerialize["trackEffects"] = o.TrackEffects
 	}
+
 	if o.Includes != nil {
 		toSerialize["includes"] = o.Includes
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MetricsFilter: %w", err)
@@ -191,5 +210,6 @@ func (o MetricsFilter) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  trackEffects=%v\n", o.TrackEffects)
 	out += fmt.Sprintf("  includes=%v\n", o.Includes)
+
 	return fmt.Sprintf("MetricsFilter {\n%s}", out)
 }

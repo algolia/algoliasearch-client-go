@@ -30,6 +30,7 @@ func NewDailyClickThroughRates(rate utils.Nullable[float64], clickCount int32, t
 	this.ClickCount = clickCount
 	this.TrackedSearchCount = trackedSearchCount
 	this.Date = date
+
 	return this
 }
 
@@ -43,6 +44,7 @@ func NewEmptyDailyClickThroughRates() *DailyClickThroughRates {
 func (o *DailyClickThroughRates) GetRate() float64 {
 	if o == nil || o.Rate.Get() == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -56,12 +58,14 @@ func (o *DailyClickThroughRates) GetRateOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Rate.Get(), o.Rate.IsSet()
 }
 
 // SetRate sets field value.
 func (o *DailyClickThroughRates) SetRate(v float64) *DailyClickThroughRates {
 	o.Rate.Set(&v)
+
 	return o
 }
 
@@ -69,6 +73,7 @@ func (o *DailyClickThroughRates) SetRate(v float64) *DailyClickThroughRates {
 func (o *DailyClickThroughRates) GetClickCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -81,12 +86,14 @@ func (o *DailyClickThroughRates) GetClickCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ClickCount, true
 }
 
 // SetClickCount sets field value.
 func (o *DailyClickThroughRates) SetClickCount(v int32) *DailyClickThroughRates {
 	o.ClickCount = v
+
 	return o
 }
 
@@ -94,6 +101,7 @@ func (o *DailyClickThroughRates) SetClickCount(v int32) *DailyClickThroughRates 
 func (o *DailyClickThroughRates) GetTrackedSearchCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -106,12 +114,14 @@ func (o *DailyClickThroughRates) GetTrackedSearchCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TrackedSearchCount, true
 }
 
 // SetTrackedSearchCount sets field value.
 func (o *DailyClickThroughRates) SetTrackedSearchCount(v int32) *DailyClickThroughRates {
 	o.TrackedSearchCount = v
+
 	return o
 }
 
@@ -119,6 +129,7 @@ func (o *DailyClickThroughRates) SetTrackedSearchCount(v int32) *DailyClickThrou
 func (o *DailyClickThroughRates) GetDate() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -131,12 +142,14 @@ func (o *DailyClickThroughRates) GetDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Date, true
 }
 
 // SetDate sets field value.
 func (o *DailyClickThroughRates) SetDate(v string) *DailyClickThroughRates {
 	o.Date = v
+
 	return o
 }
 
@@ -146,6 +159,7 @@ func (o DailyClickThroughRates) MarshalJSON() ([]byte, error) {
 	toSerialize["clickCount"] = o.ClickCount
 	toSerialize["trackedSearchCount"] = o.TrackedSearchCount
 	toSerialize["date"] = o.Date
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DailyClickThroughRates: %w", err)
@@ -160,5 +174,6 @@ func (o DailyClickThroughRates) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 	out += fmt.Sprintf("  trackedSearchCount=%v\n", o.TrackedSearchCount)
 	out += fmt.Sprintf("  date=%v\n", o.Date)
+
 	return fmt.Sprintf("DailyClickThroughRates {\n%s}", out)
 }

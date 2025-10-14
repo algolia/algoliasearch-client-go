@@ -45,6 +45,7 @@ func NewMatchedGeoLocation(opts ...MatchedGeoLocationOption) *MatchedGeoLocation
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -57,8 +58,10 @@ func NewEmptyMatchedGeoLocation() *MatchedGeoLocation {
 func (o *MatchedGeoLocation) GetLat() float64 {
 	if o == nil || o.Lat == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Lat
 }
 
@@ -68,6 +71,7 @@ func (o *MatchedGeoLocation) GetLatOk() (*float64, bool) {
 	if o == nil || o.Lat == nil {
 		return nil, false
 	}
+
 	return o.Lat, true
 }
 
@@ -83,6 +87,7 @@ func (o *MatchedGeoLocation) HasLat() bool {
 // SetLat gets a reference to the given float64 and assigns it to the Lat field.
 func (o *MatchedGeoLocation) SetLat(v float64) *MatchedGeoLocation {
 	o.Lat = &v
+
 	return o
 }
 
@@ -90,8 +95,10 @@ func (o *MatchedGeoLocation) SetLat(v float64) *MatchedGeoLocation {
 func (o *MatchedGeoLocation) GetLng() float64 {
 	if o == nil || o.Lng == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Lng
 }
 
@@ -101,6 +108,7 @@ func (o *MatchedGeoLocation) GetLngOk() (*float64, bool) {
 	if o == nil || o.Lng == nil {
 		return nil, false
 	}
+
 	return o.Lng, true
 }
 
@@ -116,6 +124,7 @@ func (o *MatchedGeoLocation) HasLng() bool {
 // SetLng gets a reference to the given float64 and assigns it to the Lng field.
 func (o *MatchedGeoLocation) SetLng(v float64) *MatchedGeoLocation {
 	o.Lng = &v
+
 	return o
 }
 
@@ -123,8 +132,10 @@ func (o *MatchedGeoLocation) SetLng(v float64) *MatchedGeoLocation {
 func (o *MatchedGeoLocation) GetDistance() int32 {
 	if o == nil || o.Distance == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Distance
 }
 
@@ -134,6 +145,7 @@ func (o *MatchedGeoLocation) GetDistanceOk() (*int32, bool) {
 	if o == nil || o.Distance == nil {
 		return nil, false
 	}
+
 	return o.Distance, true
 }
 
@@ -149,6 +161,7 @@ func (o *MatchedGeoLocation) HasDistance() bool {
 // SetDistance gets a reference to the given int32 and assigns it to the Distance field.
 func (o *MatchedGeoLocation) SetDistance(v int32) *MatchedGeoLocation {
 	o.Distance = &v
+
 	return o
 }
 
@@ -157,12 +170,15 @@ func (o MatchedGeoLocation) MarshalJSON() ([]byte, error) {
 	if o.Lat != nil {
 		toSerialize["lat"] = o.Lat
 	}
+
 	if o.Lng != nil {
 		toSerialize["lng"] = o.Lng
 	}
+
 	if o.Distance != nil {
 		toSerialize["distance"] = o.Distance
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MatchedGeoLocation: %w", err)
@@ -176,5 +192,6 @@ func (o MatchedGeoLocation) String() string {
 	out += fmt.Sprintf("  lat=%v\n", o.Lat)
 	out += fmt.Sprintf("  lng=%v\n", o.Lng)
 	out += fmt.Sprintf("  distance=%v\n", o.Distance)
+
 	return fmt.Sprintf("MatchedGeoLocation {\n%s}", out)
 }

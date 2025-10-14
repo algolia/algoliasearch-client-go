@@ -68,6 +68,7 @@ func NewSecuredApiKeyRestrictions(opts ...SecuredApiKeyRestrictionsOption) *Secu
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -80,8 +81,10 @@ func NewEmptySecuredApiKeyRestrictions() *SecuredApiKeyRestrictions {
 func (o *SecuredApiKeyRestrictions) GetSearchParams() SearchParamsObject {
 	if o == nil || o.SearchParams == nil {
 		var ret SearchParamsObject
+
 		return ret
 	}
+
 	return *o.SearchParams
 }
 
@@ -91,6 +94,7 @@ func (o *SecuredApiKeyRestrictions) GetSearchParamsOk() (*SearchParamsObject, bo
 	if o == nil || o.SearchParams == nil {
 		return nil, false
 	}
+
 	return o.SearchParams, true
 }
 
@@ -106,6 +110,7 @@ func (o *SecuredApiKeyRestrictions) HasSearchParams() bool {
 // SetSearchParams gets a reference to the given SearchParamsObject and assigns it to the SearchParams field.
 func (o *SecuredApiKeyRestrictions) SetSearchParams(v *SearchParamsObject) *SecuredApiKeyRestrictions {
 	o.SearchParams = v
+
 	return o
 }
 
@@ -113,8 +118,10 @@ func (o *SecuredApiKeyRestrictions) SetSearchParams(v *SearchParamsObject) *Secu
 func (o *SecuredApiKeyRestrictions) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -124,6 +131,7 @@ func (o *SecuredApiKeyRestrictions) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -139,6 +147,7 @@ func (o *SecuredApiKeyRestrictions) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *SecuredApiKeyRestrictions) SetFilters(v string) *SecuredApiKeyRestrictions {
 	o.Filters = &v
+
 	return o
 }
 
@@ -146,8 +155,10 @@ func (o *SecuredApiKeyRestrictions) SetFilters(v string) *SecuredApiKeyRestricti
 func (o *SecuredApiKeyRestrictions) GetValidUntil() int64 {
 	if o == nil || o.ValidUntil == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.ValidUntil
 }
 
@@ -157,6 +168,7 @@ func (o *SecuredApiKeyRestrictions) GetValidUntilOk() (*int64, bool) {
 	if o == nil || o.ValidUntil == nil {
 		return nil, false
 	}
+
 	return o.ValidUntil, true
 }
 
@@ -172,6 +184,7 @@ func (o *SecuredApiKeyRestrictions) HasValidUntil() bool {
 // SetValidUntil gets a reference to the given int64 and assigns it to the ValidUntil field.
 func (o *SecuredApiKeyRestrictions) SetValidUntil(v int64) *SecuredApiKeyRestrictions {
 	o.ValidUntil = &v
+
 	return o
 }
 
@@ -179,8 +192,10 @@ func (o *SecuredApiKeyRestrictions) SetValidUntil(v int64) *SecuredApiKeyRestric
 func (o *SecuredApiKeyRestrictions) GetRestrictIndices() []string {
 	if o == nil || o.RestrictIndices == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictIndices
 }
 
@@ -190,6 +205,7 @@ func (o *SecuredApiKeyRestrictions) GetRestrictIndicesOk() ([]string, bool) {
 	if o == nil || o.RestrictIndices == nil {
 		return nil, false
 	}
+
 	return o.RestrictIndices, true
 }
 
@@ -205,6 +221,7 @@ func (o *SecuredApiKeyRestrictions) HasRestrictIndices() bool {
 // SetRestrictIndices gets a reference to the given []string and assigns it to the RestrictIndices field.
 func (o *SecuredApiKeyRestrictions) SetRestrictIndices(v []string) *SecuredApiKeyRestrictions {
 	o.RestrictIndices = v
+
 	return o
 }
 
@@ -212,8 +229,10 @@ func (o *SecuredApiKeyRestrictions) SetRestrictIndices(v []string) *SecuredApiKe
 func (o *SecuredApiKeyRestrictions) GetRestrictSources() string {
 	if o == nil || o.RestrictSources == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.RestrictSources
 }
 
@@ -223,6 +242,7 @@ func (o *SecuredApiKeyRestrictions) GetRestrictSourcesOk() (*string, bool) {
 	if o == nil || o.RestrictSources == nil {
 		return nil, false
 	}
+
 	return o.RestrictSources, true
 }
 
@@ -238,6 +258,7 @@ func (o *SecuredApiKeyRestrictions) HasRestrictSources() bool {
 // SetRestrictSources gets a reference to the given string and assigns it to the RestrictSources field.
 func (o *SecuredApiKeyRestrictions) SetRestrictSources(v string) *SecuredApiKeyRestrictions {
 	o.RestrictSources = &v
+
 	return o
 }
 
@@ -245,8 +266,10 @@ func (o *SecuredApiKeyRestrictions) SetRestrictSources(v string) *SecuredApiKeyR
 func (o *SecuredApiKeyRestrictions) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -256,6 +279,7 @@ func (o *SecuredApiKeyRestrictions) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -271,6 +295,7 @@ func (o *SecuredApiKeyRestrictions) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *SecuredApiKeyRestrictions) SetUserToken(v string) *SecuredApiKeyRestrictions {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -279,21 +304,27 @@ func (o SecuredApiKeyRestrictions) MarshalJSON() ([]byte, error) {
 	if o.SearchParams != nil {
 		toSerialize["searchParams"] = o.SearchParams
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.ValidUntil != nil {
 		toSerialize["validUntil"] = o.ValidUntil
 	}
+
 	if o.RestrictIndices != nil {
 		toSerialize["restrictIndices"] = o.RestrictIndices
 	}
+
 	if o.RestrictSources != nil {
 		toSerialize["restrictSources"] = o.RestrictSources
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SecuredApiKeyRestrictions: %w", err)
@@ -310,5 +341,6 @@ func (o SecuredApiKeyRestrictions) String() string {
 	out += fmt.Sprintf("  restrictIndices=%v\n", o.RestrictIndices)
 	out += fmt.Sprintf("  restrictSources=%v\n", o.RestrictSources)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
+
 	return fmt.Sprintf("SecuredApiKeyRestrictions {\n%s}", out)
 }

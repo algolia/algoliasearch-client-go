@@ -81,6 +81,7 @@ func NewTaskUpdate(opts ...TaskUpdateOption) *TaskUpdate {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -93,8 +94,10 @@ func NewEmptyTaskUpdate() *TaskUpdate {
 func (o *TaskUpdate) GetDestinationID() string {
 	if o == nil || o.DestinationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.DestinationID
 }
 
@@ -104,6 +107,7 @@ func (o *TaskUpdate) GetDestinationIDOk() (*string, bool) {
 	if o == nil || o.DestinationID == nil {
 		return nil, false
 	}
+
 	return o.DestinationID, true
 }
 
@@ -119,6 +123,7 @@ func (o *TaskUpdate) HasDestinationID() bool {
 // SetDestinationID gets a reference to the given string and assigns it to the DestinationID field.
 func (o *TaskUpdate) SetDestinationID(v string) *TaskUpdate {
 	o.DestinationID = &v
+
 	return o
 }
 
@@ -126,8 +131,10 @@ func (o *TaskUpdate) SetDestinationID(v string) *TaskUpdate {
 func (o *TaskUpdate) GetCron() string {
 	if o == nil || o.Cron == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cron
 }
 
@@ -137,6 +144,7 @@ func (o *TaskUpdate) GetCronOk() (*string, bool) {
 	if o == nil || o.Cron == nil {
 		return nil, false
 	}
+
 	return o.Cron, true
 }
 
@@ -152,6 +160,7 @@ func (o *TaskUpdate) HasCron() bool {
 // SetCron gets a reference to the given string and assigns it to the Cron field.
 func (o *TaskUpdate) SetCron(v string) *TaskUpdate {
 	o.Cron = &v
+
 	return o
 }
 
@@ -159,8 +168,10 @@ func (o *TaskUpdate) SetCron(v string) *TaskUpdate {
 func (o *TaskUpdate) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -170,6 +181,7 @@ func (o *TaskUpdate) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -185,6 +197,7 @@ func (o *TaskUpdate) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskUpdate) SetInput(v *TaskInput) *TaskUpdate {
 	o.Input = v
+
 	return o
 }
 
@@ -192,8 +205,10 @@ func (o *TaskUpdate) SetInput(v *TaskInput) *TaskUpdate {
 func (o *TaskUpdate) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -203,6 +218,7 @@ func (o *TaskUpdate) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -218,6 +234,7 @@ func (o *TaskUpdate) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *TaskUpdate) SetEnabled(v bool) *TaskUpdate {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -225,8 +242,10 @@ func (o *TaskUpdate) SetEnabled(v bool) *TaskUpdate {
 func (o *TaskUpdate) GetSubscriptionAction() ActionType {
 	if o == nil || o.SubscriptionAction == nil {
 		var ret ActionType
+
 		return ret
 	}
+
 	return *o.SubscriptionAction
 }
 
@@ -236,6 +255,7 @@ func (o *TaskUpdate) GetSubscriptionActionOk() (*ActionType, bool) {
 	if o == nil || o.SubscriptionAction == nil {
 		return nil, false
 	}
+
 	return o.SubscriptionAction, true
 }
 
@@ -251,6 +271,7 @@ func (o *TaskUpdate) HasSubscriptionAction() bool {
 // SetSubscriptionAction gets a reference to the given ActionType and assigns it to the SubscriptionAction field.
 func (o *TaskUpdate) SetSubscriptionAction(v ActionType) *TaskUpdate {
 	o.SubscriptionAction = &v
+
 	return o
 }
 
@@ -258,8 +279,10 @@ func (o *TaskUpdate) SetSubscriptionAction(v ActionType) *TaskUpdate {
 func (o *TaskUpdate) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -269,6 +292,7 @@ func (o *TaskUpdate) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -284,6 +308,7 @@ func (o *TaskUpdate) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskUpdate) SetFailureThreshold(v int32) *TaskUpdate {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -291,8 +316,10 @@ func (o *TaskUpdate) SetFailureThreshold(v int32) *TaskUpdate {
 func (o *TaskUpdate) GetNotifications() Notifications {
 	if o == nil || o.Notifications == nil {
 		var ret Notifications
+
 		return ret
 	}
+
 	return *o.Notifications
 }
 
@@ -302,6 +329,7 @@ func (o *TaskUpdate) GetNotificationsOk() (*Notifications, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
+
 	return o.Notifications, true
 }
 
@@ -317,6 +345,7 @@ func (o *TaskUpdate) HasNotifications() bool {
 // SetNotifications gets a reference to the given Notifications and assigns it to the Notifications field.
 func (o *TaskUpdate) SetNotifications(v *Notifications) *TaskUpdate {
 	o.Notifications = v
+
 	return o
 }
 
@@ -324,8 +353,10 @@ func (o *TaskUpdate) SetNotifications(v *Notifications) *TaskUpdate {
 func (o *TaskUpdate) GetPolicies() Policies {
 	if o == nil || o.Policies == nil {
 		var ret Policies
+
 		return ret
 	}
+
 	return *o.Policies
 }
 
@@ -335,6 +366,7 @@ func (o *TaskUpdate) GetPoliciesOk() (*Policies, bool) {
 	if o == nil || o.Policies == nil {
 		return nil, false
 	}
+
 	return o.Policies, true
 }
 
@@ -350,6 +382,7 @@ func (o *TaskUpdate) HasPolicies() bool {
 // SetPolicies gets a reference to the given Policies and assigns it to the Policies field.
 func (o *TaskUpdate) SetPolicies(v *Policies) *TaskUpdate {
 	o.Policies = v
+
 	return o
 }
 
@@ -358,27 +391,35 @@ func (o TaskUpdate) MarshalJSON() ([]byte, error) {
 	if o.DestinationID != nil {
 		toSerialize["destinationID"] = o.DestinationID
 	}
+
 	if o.Cron != nil {
 		toSerialize["cron"] = o.Cron
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.SubscriptionAction != nil {
 		toSerialize["subscriptionAction"] = o.SubscriptionAction
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	if o.Notifications != nil {
 		toSerialize["notifications"] = o.Notifications
 	}
+
 	if o.Policies != nil {
 		toSerialize["policies"] = o.Policies
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskUpdate: %w", err)
@@ -397,5 +438,6 @@ func (o TaskUpdate) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 	out += fmt.Sprintf("  notifications=%v\n", o.Notifications)
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
+
 	return fmt.Sprintf("TaskUpdate {\n%s}", out)
 }

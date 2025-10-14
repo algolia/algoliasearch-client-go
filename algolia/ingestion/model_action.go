@@ -31,24 +31,7 @@ var AllowedActionEnumValues = []Action{
 	"clear",
 }
 
-func (v *Action) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Action': %w", string(src), err)
-	}
-	enumTypeValue := Action(value)
-	for _, existing := range AllowedActionEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Action", value)
-}
-
-// NewActionFromValue returns a pointer to a valid Action
+// NewActionFromValue returns a pointer to a valid Action.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewActionFromValue(v string) (*Action, error) {
 	ev := Action(v)
@@ -59,6 +42,26 @@ func NewActionFromValue(v string) (*Action, error) {
 	}
 }
 
+func (v *Action) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Action': %w", string(src), err)
+	}
+
+	enumTypeValue := Action(value)
+	for _, existing := range AllowedActionEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Action", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Action) IsValid() bool {
 	for _, existing := range AllowedActionEnumValues {
@@ -66,6 +69,7 @@ func (v Action) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

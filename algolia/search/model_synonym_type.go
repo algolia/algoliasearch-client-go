@@ -33,24 +33,7 @@ var AllowedSynonymTypeEnumValues = []SynonymType{
 	"altCorrection2",
 }
 
-func (v *SynonymType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SynonymType': %w", string(src), err)
-	}
-	enumTypeValue := SynonymType(value)
-	for _, existing := range AllowedSynonymTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SynonymType", value)
-}
-
-// NewSynonymTypeFromValue returns a pointer to a valid SynonymType
+// NewSynonymTypeFromValue returns a pointer to a valid SynonymType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSynonymTypeFromValue(v string) (*SynonymType, error) {
 	ev := SynonymType(v)
@@ -61,6 +44,26 @@ func NewSynonymTypeFromValue(v string) (*SynonymType, error) {
 	}
 }
 
+func (v *SynonymType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SynonymType': %w", string(src), err)
+	}
+
+	enumTypeValue := SynonymType(value)
+	for _, existing := range AllowedSynonymTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SynonymType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SynonymType) IsValid() bool {
 	for _, existing := range AllowedSynonymTypeEnumValues {
@@ -68,6 +71,7 @@ func (v SynonymType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

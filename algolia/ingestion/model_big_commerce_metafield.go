@@ -22,6 +22,7 @@ func NewBigCommerceMetafield(namespace string, key string) *BigCommerceMetafield
 	this := &BigCommerceMetafield{}
 	this.Namespace = namespace
 	this.Key = key
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyBigCommerceMetafield() *BigCommerceMetafield {
 func (o *BigCommerceMetafield) GetNamespace() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *BigCommerceMetafield) GetNamespaceOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Namespace, true
 }
 
 // SetNamespace sets field value.
 func (o *BigCommerceMetafield) SetNamespace(v string) *BigCommerceMetafield {
 	o.Namespace = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *BigCommerceMetafield) SetNamespace(v string) *BigCommerceMetafield {
 func (o *BigCommerceMetafield) GetKey() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *BigCommerceMetafield) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Key, true
 }
 
 // SetKey sets field value.
 func (o *BigCommerceMetafield) SetKey(v string) *BigCommerceMetafield {
 	o.Key = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o BigCommerceMetafield) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["namespace"] = o.Namespace
 	toSerialize["key"] = o.Key
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BigCommerceMetafield: %w", err)
@@ -96,5 +104,6 @@ func (o BigCommerceMetafield) String() string {
 	out := ""
 	out += fmt.Sprintf("  namespace=%v\n", o.Namespace)
 	out += fmt.Sprintf("  key=%v\n", o.Key)
+
 	return fmt.Sprintf("BigCommerceMetafield {\n%s}", out)
 }

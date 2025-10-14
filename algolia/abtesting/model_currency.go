@@ -61,6 +61,7 @@ func NewCurrency(opts ...CurrencyOption) *Currency {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -73,8 +74,10 @@ func NewEmptyCurrency() *Currency {
 func (o *Currency) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Currency
 }
 
@@ -84,6 +87,7 @@ func (o *Currency) GetCurrencyOk() (*string, bool) {
 	if o == nil || o.Currency == nil {
 		return nil, false
 	}
+
 	return o.Currency, true
 }
 
@@ -99,6 +103,7 @@ func (o *Currency) HasCurrency() bool {
 // SetCurrency gets a reference to the given string and assigns it to the Currency field.
 func (o *Currency) SetCurrency(v string) *Currency {
 	o.Currency = &v
+
 	return o
 }
 
@@ -106,8 +111,10 @@ func (o *Currency) SetCurrency(v string) *Currency {
 func (o *Currency) GetRevenue() float64 {
 	if o == nil || o.Revenue == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Revenue
 }
 
@@ -117,6 +124,7 @@ func (o *Currency) GetRevenueOk() (*float64, bool) {
 	if o == nil || o.Revenue == nil {
 		return nil, false
 	}
+
 	return o.Revenue, true
 }
 
@@ -132,6 +140,7 @@ func (o *Currency) HasRevenue() bool {
 // SetRevenue gets a reference to the given float64 and assigns it to the Revenue field.
 func (o *Currency) SetRevenue(v float64) *Currency {
 	o.Revenue = &v
+
 	return o
 }
 
@@ -139,8 +148,10 @@ func (o *Currency) SetRevenue(v float64) *Currency {
 func (o *Currency) GetMean() float64 {
 	if o == nil || o.Mean == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.Mean
 }
 
@@ -150,6 +161,7 @@ func (o *Currency) GetMeanOk() (*float64, bool) {
 	if o == nil || o.Mean == nil {
 		return nil, false
 	}
+
 	return o.Mean, true
 }
 
@@ -165,6 +177,7 @@ func (o *Currency) HasMean() bool {
 // SetMean gets a reference to the given float64 and assigns it to the Mean field.
 func (o *Currency) SetMean(v float64) *Currency {
 	o.Mean = &v
+
 	return o
 }
 
@@ -172,8 +185,10 @@ func (o *Currency) SetMean(v float64) *Currency {
 func (o *Currency) GetStandardDeviation() float64 {
 	if o == nil || o.StandardDeviation == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.StandardDeviation
 }
 
@@ -183,6 +198,7 @@ func (o *Currency) GetStandardDeviationOk() (*float64, bool) {
 	if o == nil || o.StandardDeviation == nil {
 		return nil, false
 	}
+
 	return o.StandardDeviation, true
 }
 
@@ -198,6 +214,7 @@ func (o *Currency) HasStandardDeviation() bool {
 // SetStandardDeviation gets a reference to the given float64 and assigns it to the StandardDeviation field.
 func (o *Currency) SetStandardDeviation(v float64) *Currency {
 	o.StandardDeviation = &v
+
 	return o
 }
 
@@ -205,8 +222,10 @@ func (o *Currency) SetStandardDeviation(v float64) *Currency {
 func (o *Currency) GetWinsorizedAmount() float64 {
 	if o == nil || o.WinsorizedAmount == nil {
 		var ret float64
+
 		return ret
 	}
+
 	return *o.WinsorizedAmount
 }
 
@@ -216,6 +235,7 @@ func (o *Currency) GetWinsorizedAmountOk() (*float64, bool) {
 	if o == nil || o.WinsorizedAmount == nil {
 		return nil, false
 	}
+
 	return o.WinsorizedAmount, true
 }
 
@@ -231,6 +251,7 @@ func (o *Currency) HasWinsorizedAmount() bool {
 // SetWinsorizedAmount gets a reference to the given float64 and assigns it to the WinsorizedAmount field.
 func (o *Currency) SetWinsorizedAmount(v float64) *Currency {
 	o.WinsorizedAmount = &v
+
 	return o
 }
 
@@ -239,18 +260,23 @@ func (o Currency) MarshalJSON() ([]byte, error) {
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
+
 	if o.Revenue != nil {
 		toSerialize["revenue"] = o.Revenue
 	}
+
 	if o.Mean != nil {
 		toSerialize["mean"] = o.Mean
 	}
+
 	if o.StandardDeviation != nil {
 		toSerialize["standardDeviation"] = o.StandardDeviation
 	}
+
 	if o.WinsorizedAmount != nil {
 		toSerialize["winsorizedAmount"] = o.WinsorizedAmount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Currency: %w", err)
@@ -266,5 +292,6 @@ func (o Currency) String() string {
 	out += fmt.Sprintf("  mean=%v\n", o.Mean)
 	out += fmt.Sprintf("  standardDeviation=%v\n", o.StandardDeviation)
 	out += fmt.Sprintf("  winsorizedAmount=%v\n", o.WinsorizedAmount)
+
 	return fmt.Sprintf("Currency {\n%s}", out)
 }

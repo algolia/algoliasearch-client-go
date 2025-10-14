@@ -18,6 +18,7 @@ type DestinationSearch struct {
 func NewDestinationSearch(destinationIDs []string) *DestinationSearch {
 	this := &DestinationSearch{}
 	this.DestinationIDs = destinationIDs
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyDestinationSearch() *DestinationSearch {
 func (o *DestinationSearch) GetDestinationIDs() []string {
 	if o == nil {
 		var ret []string
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *DestinationSearch) GetDestinationIDsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.DestinationIDs, true
 }
 
 // SetDestinationIDs sets field value.
 func (o *DestinationSearch) SetDestinationIDs(v []string) *DestinationSearch {
 	o.DestinationIDs = v
+
 	return o
 }
 
 func (o DestinationSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["destinationIDs"] = o.DestinationIDs
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DestinationSearch: %w", err)
@@ -65,5 +70,6 @@ func (o DestinationSearch) MarshalJSON() ([]byte, error) {
 func (o DestinationSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  destinationIDs=%v\n", o.DestinationIDs)
+
 	return fmt.Sprintf("DestinationSearch {\n%s}", out)
 }

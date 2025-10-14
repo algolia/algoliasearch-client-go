@@ -596,6 +596,7 @@ func NewBrowseParamsObject(opts ...BrowseParamsObjectOption) *BrowseParamsObject
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -608,8 +609,10 @@ func NewEmptyBrowseParamsObject() *BrowseParamsObject {
 func (o *BrowseParamsObject) GetQuery() string {
 	if o == nil || o.Query == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Query
 }
 
@@ -619,6 +622,7 @@ func (o *BrowseParamsObject) GetQueryOk() (*string, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
+
 	return o.Query, true
 }
 
@@ -634,6 +638,7 @@ func (o *BrowseParamsObject) HasQuery() bool {
 // SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *BrowseParamsObject) SetQuery(v string) *BrowseParamsObject {
 	o.Query = &v
+
 	return o
 }
 
@@ -641,8 +646,10 @@ func (o *BrowseParamsObject) SetQuery(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSimilarQuery() string {
 	if o == nil || o.SimilarQuery == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SimilarQuery
 }
 
@@ -652,6 +659,7 @@ func (o *BrowseParamsObject) GetSimilarQueryOk() (*string, bool) {
 	if o == nil || o.SimilarQuery == nil {
 		return nil, false
 	}
+
 	return o.SimilarQuery, true
 }
 
@@ -667,6 +675,7 @@ func (o *BrowseParamsObject) HasSimilarQuery() bool {
 // SetSimilarQuery gets a reference to the given string and assigns it to the SimilarQuery field.
 func (o *BrowseParamsObject) SetSimilarQuery(v string) *BrowseParamsObject {
 	o.SimilarQuery = &v
+
 	return o
 }
 
@@ -674,8 +683,10 @@ func (o *BrowseParamsObject) SetSimilarQuery(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetFilters() string {
 	if o == nil || o.Filters == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -685,6 +696,7 @@ func (o *BrowseParamsObject) GetFiltersOk() (*string, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -700,6 +712,7 @@ func (o *BrowseParamsObject) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *BrowseParamsObject) SetFilters(v string) *BrowseParamsObject {
 	o.Filters = &v
+
 	return o
 }
 
@@ -707,8 +720,10 @@ func (o *BrowseParamsObject) SetFilters(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
 		var ret FacetFilters
+
 		return ret
 	}
+
 	return *o.FacetFilters
 }
 
@@ -718,6 +733,7 @@ func (o *BrowseParamsObject) GetFacetFiltersOk() (*FacetFilters, bool) {
 	if o == nil || o.FacetFilters == nil {
 		return nil, false
 	}
+
 	return o.FacetFilters, true
 }
 
@@ -733,6 +749,7 @@ func (o *BrowseParamsObject) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *BrowseParamsObject) SetFacetFilters(v *FacetFilters) *BrowseParamsObject {
 	o.FacetFilters = v
+
 	return o
 }
 
@@ -740,8 +757,10 @@ func (o *BrowseParamsObject) SetFacetFilters(v *FacetFilters) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetOptionalFilters() OptionalFilters {
 	if o == nil || o.OptionalFilters == nil {
 		var ret OptionalFilters
+
 		return ret
 	}
+
 	return *o.OptionalFilters
 }
 
@@ -751,6 +770,7 @@ func (o *BrowseParamsObject) GetOptionalFiltersOk() (*OptionalFilters, bool) {
 	if o == nil || o.OptionalFilters == nil {
 		return nil, false
 	}
+
 	return o.OptionalFilters, true
 }
 
@@ -766,6 +786,7 @@ func (o *BrowseParamsObject) HasOptionalFilters() bool {
 // SetOptionalFilters gets a reference to the given OptionalFilters and assigns it to the OptionalFilters field.
 func (o *BrowseParamsObject) SetOptionalFilters(v *OptionalFilters) *BrowseParamsObject {
 	o.OptionalFilters = v
+
 	return o
 }
 
@@ -773,8 +794,10 @@ func (o *BrowseParamsObject) SetOptionalFilters(v *OptionalFilters) *BrowseParam
 func (o *BrowseParamsObject) GetNumericFilters() NumericFilters {
 	if o == nil || o.NumericFilters == nil {
 		var ret NumericFilters
+
 		return ret
 	}
+
 	return *o.NumericFilters
 }
 
@@ -784,6 +807,7 @@ func (o *BrowseParamsObject) GetNumericFiltersOk() (*NumericFilters, bool) {
 	if o == nil || o.NumericFilters == nil {
 		return nil, false
 	}
+
 	return o.NumericFilters, true
 }
 
@@ -799,6 +823,7 @@ func (o *BrowseParamsObject) HasNumericFilters() bool {
 // SetNumericFilters gets a reference to the given NumericFilters and assigns it to the NumericFilters field.
 func (o *BrowseParamsObject) SetNumericFilters(v *NumericFilters) *BrowseParamsObject {
 	o.NumericFilters = v
+
 	return o
 }
 
@@ -806,8 +831,10 @@ func (o *BrowseParamsObject) SetNumericFilters(v *NumericFilters) *BrowseParamsO
 func (o *BrowseParamsObject) GetTagFilters() TagFilters {
 	if o == nil || o.TagFilters == nil {
 		var ret TagFilters
+
 		return ret
 	}
+
 	return *o.TagFilters
 }
 
@@ -817,6 +844,7 @@ func (o *BrowseParamsObject) GetTagFiltersOk() (*TagFilters, bool) {
 	if o == nil || o.TagFilters == nil {
 		return nil, false
 	}
+
 	return o.TagFilters, true
 }
 
@@ -832,6 +860,7 @@ func (o *BrowseParamsObject) HasTagFilters() bool {
 // SetTagFilters gets a reference to the given TagFilters and assigns it to the TagFilters field.
 func (o *BrowseParamsObject) SetTagFilters(v *TagFilters) *BrowseParamsObject {
 	o.TagFilters = v
+
 	return o
 }
 
@@ -839,8 +868,10 @@ func (o *BrowseParamsObject) SetTagFilters(v *TagFilters) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSumOrFiltersScores() bool {
 	if o == nil || o.SumOrFiltersScores == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.SumOrFiltersScores
 }
 
@@ -850,6 +881,7 @@ func (o *BrowseParamsObject) GetSumOrFiltersScoresOk() (*bool, bool) {
 	if o == nil || o.SumOrFiltersScores == nil {
 		return nil, false
 	}
+
 	return o.SumOrFiltersScores, true
 }
 
@@ -865,6 +897,7 @@ func (o *BrowseParamsObject) HasSumOrFiltersScores() bool {
 // SetSumOrFiltersScores gets a reference to the given bool and assigns it to the SumOrFiltersScores field.
 func (o *BrowseParamsObject) SetSumOrFiltersScores(v bool) *BrowseParamsObject {
 	o.SumOrFiltersScores = &v
+
 	return o
 }
 
@@ -872,8 +905,10 @@ func (o *BrowseParamsObject) SetSumOrFiltersScores(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetRestrictSearchableAttributes() []string {
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RestrictSearchableAttributes
 }
 
@@ -883,6 +918,7 @@ func (o *BrowseParamsObject) GetRestrictSearchableAttributesOk() ([]string, bool
 	if o == nil || o.RestrictSearchableAttributes == nil {
 		return nil, false
 	}
+
 	return o.RestrictSearchableAttributes, true
 }
 
@@ -898,6 +934,7 @@ func (o *BrowseParamsObject) HasRestrictSearchableAttributes() bool {
 // SetRestrictSearchableAttributes gets a reference to the given []string and assigns it to the RestrictSearchableAttributes field.
 func (o *BrowseParamsObject) SetRestrictSearchableAttributes(v []string) *BrowseParamsObject {
 	o.RestrictSearchableAttributes = v
+
 	return o
 }
 
@@ -905,8 +942,10 @@ func (o *BrowseParamsObject) SetRestrictSearchableAttributes(v []string) *Browse
 func (o *BrowseParamsObject) GetFacets() []string {
 	if o == nil || o.Facets == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Facets
 }
 
@@ -916,6 +955,7 @@ func (o *BrowseParamsObject) GetFacetsOk() ([]string, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
+
 	return o.Facets, true
 }
 
@@ -931,6 +971,7 @@ func (o *BrowseParamsObject) HasFacets() bool {
 // SetFacets gets a reference to the given []string and assigns it to the Facets field.
 func (o *BrowseParamsObject) SetFacets(v []string) *BrowseParamsObject {
 	o.Facets = v
+
 	return o
 }
 
@@ -938,8 +979,10 @@ func (o *BrowseParamsObject) SetFacets(v []string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetFacetingAfterDistinct() bool {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.FacetingAfterDistinct
 }
 
@@ -949,6 +992,7 @@ func (o *BrowseParamsObject) GetFacetingAfterDistinctOk() (*bool, bool) {
 	if o == nil || o.FacetingAfterDistinct == nil {
 		return nil, false
 	}
+
 	return o.FacetingAfterDistinct, true
 }
 
@@ -964,6 +1008,7 @@ func (o *BrowseParamsObject) HasFacetingAfterDistinct() bool {
 // SetFacetingAfterDistinct gets a reference to the given bool and assigns it to the FacetingAfterDistinct field.
 func (o *BrowseParamsObject) SetFacetingAfterDistinct(v bool) *BrowseParamsObject {
 	o.FacetingAfterDistinct = &v
+
 	return o
 }
 
@@ -971,8 +1016,10 @@ func (o *BrowseParamsObject) SetFacetingAfterDistinct(v bool) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetPage() int32 {
 	if o == nil || o.Page == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Page
 }
 
@@ -982,6 +1029,7 @@ func (o *BrowseParamsObject) GetPageOk() (*int32, bool) {
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
+
 	return o.Page, true
 }
 
@@ -997,6 +1045,7 @@ func (o *BrowseParamsObject) HasPage() bool {
 // SetPage gets a reference to the given int32 and assigns it to the Page field.
 func (o *BrowseParamsObject) SetPage(v int32) *BrowseParamsObject {
 	o.Page = &v
+
 	return o
 }
 
@@ -1004,8 +1053,10 @@ func (o *BrowseParamsObject) SetPage(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetOffset() int32 {
 	if o == nil || o.Offset == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Offset
 }
 
@@ -1015,6 +1066,7 @@ func (o *BrowseParamsObject) GetOffsetOk() (*int32, bool) {
 	if o == nil || o.Offset == nil {
 		return nil, false
 	}
+
 	return o.Offset, true
 }
 
@@ -1030,6 +1082,7 @@ func (o *BrowseParamsObject) HasOffset() bool {
 // SetOffset gets a reference to the given int32 and assigns it to the Offset field.
 func (o *BrowseParamsObject) SetOffset(v int32) *BrowseParamsObject {
 	o.Offset = &v
+
 	return o
 }
 
@@ -1037,8 +1090,10 @@ func (o *BrowseParamsObject) SetOffset(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetLength() int32 {
 	if o == nil || o.Length == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Length
 }
 
@@ -1048,6 +1103,7 @@ func (o *BrowseParamsObject) GetLengthOk() (*int32, bool) {
 	if o == nil || o.Length == nil {
 		return nil, false
 	}
+
 	return o.Length, true
 }
 
@@ -1063,6 +1119,7 @@ func (o *BrowseParamsObject) HasLength() bool {
 // SetLength gets a reference to the given int32 and assigns it to the Length field.
 func (o *BrowseParamsObject) SetLength(v int32) *BrowseParamsObject {
 	o.Length = &v
+
 	return o
 }
 
@@ -1070,8 +1127,10 @@ func (o *BrowseParamsObject) SetLength(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AroundLatLng
 }
 
@@ -1081,6 +1140,7 @@ func (o *BrowseParamsObject) GetAroundLatLngOk() (*string, bool) {
 	if o == nil || o.AroundLatLng == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLng, true
 }
 
@@ -1096,6 +1156,7 @@ func (o *BrowseParamsObject) HasAroundLatLng() bool {
 // SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
 func (o *BrowseParamsObject) SetAroundLatLng(v string) *BrowseParamsObject {
 	o.AroundLatLng = &v
+
 	return o
 }
 
@@ -1103,8 +1164,10 @@ func (o *BrowseParamsObject) SetAroundLatLng(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAroundLatLngViaIP() bool {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AroundLatLngViaIP
 }
 
@@ -1114,6 +1177,7 @@ func (o *BrowseParamsObject) GetAroundLatLngViaIPOk() (*bool, bool) {
 	if o == nil || o.AroundLatLngViaIP == nil {
 		return nil, false
 	}
+
 	return o.AroundLatLngViaIP, true
 }
 
@@ -1129,6 +1193,7 @@ func (o *BrowseParamsObject) HasAroundLatLngViaIP() bool {
 // SetAroundLatLngViaIP gets a reference to the given bool and assigns it to the AroundLatLngViaIP field.
 func (o *BrowseParamsObject) SetAroundLatLngViaIP(v bool) *BrowseParamsObject {
 	o.AroundLatLngViaIP = &v
+
 	return o
 }
 
@@ -1136,8 +1201,10 @@ func (o *BrowseParamsObject) SetAroundLatLngViaIP(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAroundRadius() AroundRadius {
 	if o == nil || o.AroundRadius == nil {
 		var ret AroundRadius
+
 		return ret
 	}
+
 	return *o.AroundRadius
 }
 
@@ -1147,6 +1214,7 @@ func (o *BrowseParamsObject) GetAroundRadiusOk() (*AroundRadius, bool) {
 	if o == nil || o.AroundRadius == nil {
 		return nil, false
 	}
+
 	return o.AroundRadius, true
 }
 
@@ -1162,6 +1230,7 @@ func (o *BrowseParamsObject) HasAroundRadius() bool {
 // SetAroundRadius gets a reference to the given AroundRadius and assigns it to the AroundRadius field.
 func (o *BrowseParamsObject) SetAroundRadius(v *AroundRadius) *BrowseParamsObject {
 	o.AroundRadius = v
+
 	return o
 }
 
@@ -1169,8 +1238,10 @@ func (o *BrowseParamsObject) SetAroundRadius(v *AroundRadius) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetAroundPrecision() AroundPrecision {
 	if o == nil || o.AroundPrecision == nil {
 		var ret AroundPrecision
+
 		return ret
 	}
+
 	return *o.AroundPrecision
 }
 
@@ -1180,6 +1251,7 @@ func (o *BrowseParamsObject) GetAroundPrecisionOk() (*AroundPrecision, bool) {
 	if o == nil || o.AroundPrecision == nil {
 		return nil, false
 	}
+
 	return o.AroundPrecision, true
 }
 
@@ -1195,6 +1267,7 @@ func (o *BrowseParamsObject) HasAroundPrecision() bool {
 // SetAroundPrecision gets a reference to the given AroundPrecision and assigns it to the AroundPrecision field.
 func (o *BrowseParamsObject) SetAroundPrecision(v *AroundPrecision) *BrowseParamsObject {
 	o.AroundPrecision = v
+
 	return o
 }
 
@@ -1202,8 +1275,10 @@ func (o *BrowseParamsObject) SetAroundPrecision(v *AroundPrecision) *BrowseParam
 func (o *BrowseParamsObject) GetMinimumAroundRadius() int32 {
 	if o == nil || o.MinimumAroundRadius == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinimumAroundRadius
 }
 
@@ -1213,6 +1288,7 @@ func (o *BrowseParamsObject) GetMinimumAroundRadiusOk() (*int32, bool) {
 	if o == nil || o.MinimumAroundRadius == nil {
 		return nil, false
 	}
+
 	return o.MinimumAroundRadius, true
 }
 
@@ -1228,6 +1304,7 @@ func (o *BrowseParamsObject) HasMinimumAroundRadius() bool {
 // SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
 func (o *BrowseParamsObject) SetMinimumAroundRadius(v int32) *BrowseParamsObject {
 	o.MinimumAroundRadius = &v
+
 	return o
 }
 
@@ -1235,8 +1312,10 @@ func (o *BrowseParamsObject) SetMinimumAroundRadius(v int32) *BrowseParamsObject
 func (o *BrowseParamsObject) GetInsideBoundingBox() InsideBoundingBox {
 	if o == nil || o.InsideBoundingBox.Get() == nil {
 		var ret InsideBoundingBox
+
 		return ret
 	}
+
 	return *o.InsideBoundingBox.Get()
 }
 
@@ -1247,6 +1326,7 @@ func (o *BrowseParamsObject) GetInsideBoundingBoxOk() (*InsideBoundingBox, bool)
 	if o == nil {
 		return nil, false
 	}
+
 	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
 }
 
@@ -1262,6 +1342,7 @@ func (o *BrowseParamsObject) HasInsideBoundingBox() bool {
 // SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBox] and assigns it to the InsideBoundingBox field.
 func (o *BrowseParamsObject) SetInsideBoundingBox(v *InsideBoundingBox) *BrowseParamsObject {
 	o.InsideBoundingBox.Set(v)
+
 	return o
 }
 
@@ -1279,8 +1360,10 @@ func (o *BrowseParamsObject) UnsetInsideBoundingBox() {
 func (o *BrowseParamsObject) GetInsidePolygon() [][]float64 {
 	if o == nil || o.InsidePolygon == nil {
 		var ret [][]float64
+
 		return ret
 	}
+
 	return o.InsidePolygon
 }
 
@@ -1290,6 +1373,7 @@ func (o *BrowseParamsObject) GetInsidePolygonOk() ([][]float64, bool) {
 	if o == nil || o.InsidePolygon == nil {
 		return nil, false
 	}
+
 	return o.InsidePolygon, true
 }
 
@@ -1305,6 +1389,7 @@ func (o *BrowseParamsObject) HasInsidePolygon() bool {
 // SetInsidePolygon gets a reference to the given [][]float64 and assigns it to the InsidePolygon field.
 func (o *BrowseParamsObject) SetInsidePolygon(v [][]float64) *BrowseParamsObject {
 	o.InsidePolygon = v
+
 	return o
 }
 
@@ -1312,8 +1397,10 @@ func (o *BrowseParamsObject) SetInsidePolygon(v [][]float64) *BrowseParamsObject
 func (o *BrowseParamsObject) GetNaturalLanguages() []SupportedLanguage {
 	if o == nil || o.NaturalLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.NaturalLanguages
 }
 
@@ -1323,6 +1410,7 @@ func (o *BrowseParamsObject) GetNaturalLanguagesOk() ([]SupportedLanguage, bool)
 	if o == nil || o.NaturalLanguages == nil {
 		return nil, false
 	}
+
 	return o.NaturalLanguages, true
 }
 
@@ -1338,6 +1426,7 @@ func (o *BrowseParamsObject) HasNaturalLanguages() bool {
 // SetNaturalLanguages gets a reference to the given []SupportedLanguage and assigns it to the NaturalLanguages field.
 func (o *BrowseParamsObject) SetNaturalLanguages(v []SupportedLanguage) *BrowseParamsObject {
 	o.NaturalLanguages = v
+
 	return o
 }
 
@@ -1345,8 +1434,10 @@ func (o *BrowseParamsObject) SetNaturalLanguages(v []SupportedLanguage) *BrowseP
 func (o *BrowseParamsObject) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.RuleContexts
 }
 
@@ -1356,6 +1447,7 @@ func (o *BrowseParamsObject) GetRuleContextsOk() ([]string, bool) {
 	if o == nil || o.RuleContexts == nil {
 		return nil, false
 	}
+
 	return o.RuleContexts, true
 }
 
@@ -1371,6 +1463,7 @@ func (o *BrowseParamsObject) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *BrowseParamsObject) SetRuleContexts(v []string) *BrowseParamsObject {
 	o.RuleContexts = v
+
 	return o
 }
 
@@ -1378,8 +1471,10 @@ func (o *BrowseParamsObject) SetRuleContexts(v []string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetPersonalizationImpact() int32 {
 	if o == nil || o.PersonalizationImpact == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.PersonalizationImpact
 }
 
@@ -1389,6 +1484,7 @@ func (o *BrowseParamsObject) GetPersonalizationImpactOk() (*int32, bool) {
 	if o == nil || o.PersonalizationImpact == nil {
 		return nil, false
 	}
+
 	return o.PersonalizationImpact, true
 }
 
@@ -1404,6 +1500,7 @@ func (o *BrowseParamsObject) HasPersonalizationImpact() bool {
 // SetPersonalizationImpact gets a reference to the given int32 and assigns it to the PersonalizationImpact field.
 func (o *BrowseParamsObject) SetPersonalizationImpact(v int32) *BrowseParamsObject {
 	o.PersonalizationImpact = &v
+
 	return o
 }
 
@@ -1411,8 +1508,10 @@ func (o *BrowseParamsObject) SetPersonalizationImpact(v int32) *BrowseParamsObje
 func (o *BrowseParamsObject) GetUserToken() string {
 	if o == nil || o.UserToken == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.UserToken
 }
 
@@ -1422,6 +1521,7 @@ func (o *BrowseParamsObject) GetUserTokenOk() (*string, bool) {
 	if o == nil || o.UserToken == nil {
 		return nil, false
 	}
+
 	return o.UserToken, true
 }
 
@@ -1437,6 +1537,7 @@ func (o *BrowseParamsObject) HasUserToken() bool {
 // SetUserToken gets a reference to the given string and assigns it to the UserToken field.
 func (o *BrowseParamsObject) SetUserToken(v string) *BrowseParamsObject {
 	o.UserToken = &v
+
 	return o
 }
 
@@ -1444,8 +1545,10 @@ func (o *BrowseParamsObject) SetUserToken(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetGetRankingInfo() bool {
 	if o == nil || o.GetRankingInfo == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.GetRankingInfo
 }
 
@@ -1455,6 +1558,7 @@ func (o *BrowseParamsObject) GetGetRankingInfoOk() (*bool, bool) {
 	if o == nil || o.GetRankingInfo == nil {
 		return nil, false
 	}
+
 	return o.GetRankingInfo, true
 }
 
@@ -1470,6 +1574,7 @@ func (o *BrowseParamsObject) HasGetRankingInfo() bool {
 // SetGetRankingInfo gets a reference to the given bool and assigns it to the GetRankingInfo field.
 func (o *BrowseParamsObject) SetGetRankingInfo(v bool) *BrowseParamsObject {
 	o.GetRankingInfo = &v
+
 	return o
 }
 
@@ -1477,8 +1582,10 @@ func (o *BrowseParamsObject) SetGetRankingInfo(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSynonyms() bool {
 	if o == nil || o.Synonyms == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Synonyms
 }
 
@@ -1488,6 +1595,7 @@ func (o *BrowseParamsObject) GetSynonymsOk() (*bool, bool) {
 	if o == nil || o.Synonyms == nil {
 		return nil, false
 	}
+
 	return o.Synonyms, true
 }
 
@@ -1503,6 +1611,7 @@ func (o *BrowseParamsObject) HasSynonyms() bool {
 // SetSynonyms gets a reference to the given bool and assigns it to the Synonyms field.
 func (o *BrowseParamsObject) SetSynonyms(v bool) *BrowseParamsObject {
 	o.Synonyms = &v
+
 	return o
 }
 
@@ -1510,8 +1619,10 @@ func (o *BrowseParamsObject) SetSynonyms(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetClickAnalytics() bool {
 	if o == nil || o.ClickAnalytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ClickAnalytics
 }
 
@@ -1521,6 +1632,7 @@ func (o *BrowseParamsObject) GetClickAnalyticsOk() (*bool, bool) {
 	if o == nil || o.ClickAnalytics == nil {
 		return nil, false
 	}
+
 	return o.ClickAnalytics, true
 }
 
@@ -1536,6 +1648,7 @@ func (o *BrowseParamsObject) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *BrowseParamsObject) SetClickAnalytics(v bool) *BrowseParamsObject {
 	o.ClickAnalytics = &v
+
 	return o
 }
 
@@ -1543,8 +1656,10 @@ func (o *BrowseParamsObject) SetClickAnalytics(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAnalytics() bool {
 	if o == nil || o.Analytics == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Analytics
 }
 
@@ -1554,6 +1669,7 @@ func (o *BrowseParamsObject) GetAnalyticsOk() (*bool, bool) {
 	if o == nil || o.Analytics == nil {
 		return nil, false
 	}
+
 	return o.Analytics, true
 }
 
@@ -1569,6 +1685,7 @@ func (o *BrowseParamsObject) HasAnalytics() bool {
 // SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
 func (o *BrowseParamsObject) SetAnalytics(v bool) *BrowseParamsObject {
 	o.Analytics = &v
+
 	return o
 }
 
@@ -1576,8 +1693,10 @@ func (o *BrowseParamsObject) SetAnalytics(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAnalyticsTags() []string {
 	if o == nil || o.AnalyticsTags == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AnalyticsTags
 }
 
@@ -1587,6 +1706,7 @@ func (o *BrowseParamsObject) GetAnalyticsTagsOk() ([]string, bool) {
 	if o == nil || o.AnalyticsTags == nil {
 		return nil, false
 	}
+
 	return o.AnalyticsTags, true
 }
 
@@ -1602,6 +1722,7 @@ func (o *BrowseParamsObject) HasAnalyticsTags() bool {
 // SetAnalyticsTags gets a reference to the given []string and assigns it to the AnalyticsTags field.
 func (o *BrowseParamsObject) SetAnalyticsTags(v []string) *BrowseParamsObject {
 	o.AnalyticsTags = v
+
 	return o
 }
 
@@ -1609,8 +1730,10 @@ func (o *BrowseParamsObject) SetAnalyticsTags(v []string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetPercentileComputation() bool {
 	if o == nil || o.PercentileComputation == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PercentileComputation
 }
 
@@ -1620,6 +1743,7 @@ func (o *BrowseParamsObject) GetPercentileComputationOk() (*bool, bool) {
 	if o == nil || o.PercentileComputation == nil {
 		return nil, false
 	}
+
 	return o.PercentileComputation, true
 }
 
@@ -1635,6 +1759,7 @@ func (o *BrowseParamsObject) HasPercentileComputation() bool {
 // SetPercentileComputation gets a reference to the given bool and assigns it to the PercentileComputation field.
 func (o *BrowseParamsObject) SetPercentileComputation(v bool) *BrowseParamsObject {
 	o.PercentileComputation = &v
+
 	return o
 }
 
@@ -1642,8 +1767,10 @@ func (o *BrowseParamsObject) SetPercentileComputation(v bool) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetEnableABTest() bool {
 	if o == nil || o.EnableABTest == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableABTest
 }
 
@@ -1653,6 +1780,7 @@ func (o *BrowseParamsObject) GetEnableABTestOk() (*bool, bool) {
 	if o == nil || o.EnableABTest == nil {
 		return nil, false
 	}
+
 	return o.EnableABTest, true
 }
 
@@ -1668,6 +1796,7 @@ func (o *BrowseParamsObject) HasEnableABTest() bool {
 // SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
 func (o *BrowseParamsObject) SetEnableABTest(v bool) *BrowseParamsObject {
 	o.EnableABTest = &v
+
 	return o
 }
 
@@ -1675,8 +1804,10 @@ func (o *BrowseParamsObject) SetEnableABTest(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetAttributesToRetrieve() []string {
 	if o == nil || o.AttributesToRetrieve == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToRetrieve
 }
 
@@ -1686,6 +1817,7 @@ func (o *BrowseParamsObject) GetAttributesToRetrieveOk() ([]string, bool) {
 	if o == nil || o.AttributesToRetrieve == nil {
 		return nil, false
 	}
+
 	return o.AttributesToRetrieve, true
 }
 
@@ -1701,6 +1833,7 @@ func (o *BrowseParamsObject) HasAttributesToRetrieve() bool {
 // SetAttributesToRetrieve gets a reference to the given []string and assigns it to the AttributesToRetrieve field.
 func (o *BrowseParamsObject) SetAttributesToRetrieve(v []string) *BrowseParamsObject {
 	o.AttributesToRetrieve = v
+
 	return o
 }
 
@@ -1708,8 +1841,10 @@ func (o *BrowseParamsObject) SetAttributesToRetrieve(v []string) *BrowseParamsOb
 func (o *BrowseParamsObject) GetRanking() []string {
 	if o == nil || o.Ranking == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.Ranking
 }
 
@@ -1719,6 +1854,7 @@ func (o *BrowseParamsObject) GetRankingOk() ([]string, bool) {
 	if o == nil || o.Ranking == nil {
 		return nil, false
 	}
+
 	return o.Ranking, true
 }
 
@@ -1734,6 +1870,7 @@ func (o *BrowseParamsObject) HasRanking() bool {
 // SetRanking gets a reference to the given []string and assigns it to the Ranking field.
 func (o *BrowseParamsObject) SetRanking(v []string) *BrowseParamsObject {
 	o.Ranking = v
+
 	return o
 }
 
@@ -1741,8 +1878,10 @@ func (o *BrowseParamsObject) SetRanking(v []string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.RelevancyStrictness
 }
 
@@ -1752,6 +1891,7 @@ func (o *BrowseParamsObject) GetRelevancyStrictnessOk() (*int32, bool) {
 	if o == nil || o.RelevancyStrictness == nil {
 		return nil, false
 	}
+
 	return o.RelevancyStrictness, true
 }
 
@@ -1767,6 +1907,7 @@ func (o *BrowseParamsObject) HasRelevancyStrictness() bool {
 // SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
 func (o *BrowseParamsObject) SetRelevancyStrictness(v int32) *BrowseParamsObject {
 	o.RelevancyStrictness = &v
+
 	return o
 }
 
@@ -1774,8 +1915,10 @@ func (o *BrowseParamsObject) SetRelevancyStrictness(v int32) *BrowseParamsObject
 func (o *BrowseParamsObject) GetAttributesToHighlight() []string {
 	if o == nil || o.AttributesToHighlight == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToHighlight
 }
 
@@ -1785,6 +1928,7 @@ func (o *BrowseParamsObject) GetAttributesToHighlightOk() ([]string, bool) {
 	if o == nil || o.AttributesToHighlight == nil {
 		return nil, false
 	}
+
 	return o.AttributesToHighlight, true
 }
 
@@ -1800,6 +1944,7 @@ func (o *BrowseParamsObject) HasAttributesToHighlight() bool {
 // SetAttributesToHighlight gets a reference to the given []string and assigns it to the AttributesToHighlight field.
 func (o *BrowseParamsObject) SetAttributesToHighlight(v []string) *BrowseParamsObject {
 	o.AttributesToHighlight = v
+
 	return o
 }
 
@@ -1807,8 +1952,10 @@ func (o *BrowseParamsObject) SetAttributesToHighlight(v []string) *BrowseParamsO
 func (o *BrowseParamsObject) GetAttributesToSnippet() []string {
 	if o == nil || o.AttributesToSnippet == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.AttributesToSnippet
 }
 
@@ -1818,6 +1965,7 @@ func (o *BrowseParamsObject) GetAttributesToSnippetOk() ([]string, bool) {
 	if o == nil || o.AttributesToSnippet == nil {
 		return nil, false
 	}
+
 	return o.AttributesToSnippet, true
 }
 
@@ -1833,6 +1981,7 @@ func (o *BrowseParamsObject) HasAttributesToSnippet() bool {
 // SetAttributesToSnippet gets a reference to the given []string and assigns it to the AttributesToSnippet field.
 func (o *BrowseParamsObject) SetAttributesToSnippet(v []string) *BrowseParamsObject {
 	o.AttributesToSnippet = v
+
 	return o
 }
 
@@ -1840,8 +1989,10 @@ func (o *BrowseParamsObject) SetAttributesToSnippet(v []string) *BrowseParamsObj
 func (o *BrowseParamsObject) GetHighlightPreTag() string {
 	if o == nil || o.HighlightPreTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPreTag
 }
 
@@ -1851,6 +2002,7 @@ func (o *BrowseParamsObject) GetHighlightPreTagOk() (*string, bool) {
 	if o == nil || o.HighlightPreTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPreTag, true
 }
 
@@ -1866,6 +2018,7 @@ func (o *BrowseParamsObject) HasHighlightPreTag() bool {
 // SetHighlightPreTag gets a reference to the given string and assigns it to the HighlightPreTag field.
 func (o *BrowseParamsObject) SetHighlightPreTag(v string) *BrowseParamsObject {
 	o.HighlightPreTag = &v
+
 	return o
 }
 
@@ -1873,8 +2026,10 @@ func (o *BrowseParamsObject) SetHighlightPreTag(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetHighlightPostTag() string {
 	if o == nil || o.HighlightPostTag == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.HighlightPostTag
 }
 
@@ -1884,6 +2039,7 @@ func (o *BrowseParamsObject) GetHighlightPostTagOk() (*string, bool) {
 	if o == nil || o.HighlightPostTag == nil {
 		return nil, false
 	}
+
 	return o.HighlightPostTag, true
 }
 
@@ -1899,6 +2055,7 @@ func (o *BrowseParamsObject) HasHighlightPostTag() bool {
 // SetHighlightPostTag gets a reference to the given string and assigns it to the HighlightPostTag field.
 func (o *BrowseParamsObject) SetHighlightPostTag(v string) *BrowseParamsObject {
 	o.HighlightPostTag = &v
+
 	return o
 }
 
@@ -1906,8 +2063,10 @@ func (o *BrowseParamsObject) SetHighlightPostTag(v string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSnippetEllipsisText() string {
 	if o == nil || o.SnippetEllipsisText == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SnippetEllipsisText
 }
 
@@ -1917,6 +2076,7 @@ func (o *BrowseParamsObject) GetSnippetEllipsisTextOk() (*string, bool) {
 	if o == nil || o.SnippetEllipsisText == nil {
 		return nil, false
 	}
+
 	return o.SnippetEllipsisText, true
 }
 
@@ -1932,6 +2092,7 @@ func (o *BrowseParamsObject) HasSnippetEllipsisText() bool {
 // SetSnippetEllipsisText gets a reference to the given string and assigns it to the SnippetEllipsisText field.
 func (o *BrowseParamsObject) SetSnippetEllipsisText(v string) *BrowseParamsObject {
 	o.SnippetEllipsisText = &v
+
 	return o
 }
 
@@ -1939,8 +2100,10 @@ func (o *BrowseParamsObject) SetSnippetEllipsisText(v string) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetRestrictHighlightAndSnippetArrays() bool {
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.RestrictHighlightAndSnippetArrays
 }
 
@@ -1950,6 +2113,7 @@ func (o *BrowseParamsObject) GetRestrictHighlightAndSnippetArraysOk() (*bool, bo
 	if o == nil || o.RestrictHighlightAndSnippetArrays == nil {
 		return nil, false
 	}
+
 	return o.RestrictHighlightAndSnippetArrays, true
 }
 
@@ -1965,6 +2129,7 @@ func (o *BrowseParamsObject) HasRestrictHighlightAndSnippetArrays() bool {
 // SetRestrictHighlightAndSnippetArrays gets a reference to the given bool and assigns it to the RestrictHighlightAndSnippetArrays field.
 func (o *BrowseParamsObject) SetRestrictHighlightAndSnippetArrays(v bool) *BrowseParamsObject {
 	o.RestrictHighlightAndSnippetArrays = &v
+
 	return o
 }
 
@@ -1972,8 +2137,10 @@ func (o *BrowseParamsObject) SetRestrictHighlightAndSnippetArrays(v bool) *Brows
 func (o *BrowseParamsObject) GetHitsPerPage() int32 {
 	if o == nil || o.HitsPerPage == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.HitsPerPage
 }
 
@@ -1983,6 +2150,7 @@ func (o *BrowseParamsObject) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil || o.HitsPerPage == nil {
 		return nil, false
 	}
+
 	return o.HitsPerPage, true
 }
 
@@ -1998,6 +2166,7 @@ func (o *BrowseParamsObject) HasHitsPerPage() bool {
 // SetHitsPerPage gets a reference to the given int32 and assigns it to the HitsPerPage field.
 func (o *BrowseParamsObject) SetHitsPerPage(v int32) *BrowseParamsObject {
 	o.HitsPerPage = &v
+
 	return o
 }
 
@@ -2005,8 +2174,10 @@ func (o *BrowseParamsObject) SetHitsPerPage(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetMinWordSizefor1Typo() int32 {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor1Typo
 }
 
@@ -2016,6 +2187,7 @@ func (o *BrowseParamsObject) GetMinWordSizefor1TypoOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor1Typo == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor1Typo, true
 }
 
@@ -2031,6 +2203,7 @@ func (o *BrowseParamsObject) HasMinWordSizefor1Typo() bool {
 // SetMinWordSizefor1Typo gets a reference to the given int32 and assigns it to the MinWordSizefor1Typo field.
 func (o *BrowseParamsObject) SetMinWordSizefor1Typo(v int32) *BrowseParamsObject {
 	o.MinWordSizefor1Typo = &v
+
 	return o
 }
 
@@ -2038,8 +2211,10 @@ func (o *BrowseParamsObject) SetMinWordSizefor1Typo(v int32) *BrowseParamsObject
 func (o *BrowseParamsObject) GetMinWordSizefor2Typos() int32 {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinWordSizefor2Typos
 }
 
@@ -2049,6 +2224,7 @@ func (o *BrowseParamsObject) GetMinWordSizefor2TyposOk() (*int32, bool) {
 	if o == nil || o.MinWordSizefor2Typos == nil {
 		return nil, false
 	}
+
 	return o.MinWordSizefor2Typos, true
 }
 
@@ -2064,6 +2240,7 @@ func (o *BrowseParamsObject) HasMinWordSizefor2Typos() bool {
 // SetMinWordSizefor2Typos gets a reference to the given int32 and assigns it to the MinWordSizefor2Typos field.
 func (o *BrowseParamsObject) SetMinWordSizefor2Typos(v int32) *BrowseParamsObject {
 	o.MinWordSizefor2Typos = &v
+
 	return o
 }
 
@@ -2071,8 +2248,10 @@ func (o *BrowseParamsObject) SetMinWordSizefor2Typos(v int32) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetTypoTolerance() TypoTolerance {
 	if o == nil || o.TypoTolerance == nil {
 		var ret TypoTolerance
+
 		return ret
 	}
+
 	return *o.TypoTolerance
 }
 
@@ -2082,6 +2261,7 @@ func (o *BrowseParamsObject) GetTypoToleranceOk() (*TypoTolerance, bool) {
 	if o == nil || o.TypoTolerance == nil {
 		return nil, false
 	}
+
 	return o.TypoTolerance, true
 }
 
@@ -2097,6 +2277,7 @@ func (o *BrowseParamsObject) HasTypoTolerance() bool {
 // SetTypoTolerance gets a reference to the given TypoTolerance and assigns it to the TypoTolerance field.
 func (o *BrowseParamsObject) SetTypoTolerance(v *TypoTolerance) *BrowseParamsObject {
 	o.TypoTolerance = v
+
 	return o
 }
 
@@ -2104,8 +2285,10 @@ func (o *BrowseParamsObject) SetTypoTolerance(v *TypoTolerance) *BrowseParamsObj
 func (o *BrowseParamsObject) GetAllowTyposOnNumericTokens() bool {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AllowTyposOnNumericTokens
 }
 
@@ -2115,6 +2298,7 @@ func (o *BrowseParamsObject) GetAllowTyposOnNumericTokensOk() (*bool, bool) {
 	if o == nil || o.AllowTyposOnNumericTokens == nil {
 		return nil, false
 	}
+
 	return o.AllowTyposOnNumericTokens, true
 }
 
@@ -2130,6 +2314,7 @@ func (o *BrowseParamsObject) HasAllowTyposOnNumericTokens() bool {
 // SetAllowTyposOnNumericTokens gets a reference to the given bool and assigns it to the AllowTyposOnNumericTokens field.
 func (o *BrowseParamsObject) SetAllowTyposOnNumericTokens(v bool) *BrowseParamsObject {
 	o.AllowTyposOnNumericTokens = &v
+
 	return o
 }
 
@@ -2137,8 +2322,10 @@ func (o *BrowseParamsObject) SetAllowTyposOnNumericTokens(v bool) *BrowseParamsO
 func (o *BrowseParamsObject) GetDisableTypoToleranceOnAttributes() []string {
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableTypoToleranceOnAttributes
 }
 
@@ -2148,6 +2335,7 @@ func (o *BrowseParamsObject) GetDisableTypoToleranceOnAttributesOk() ([]string, 
 	if o == nil || o.DisableTypoToleranceOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableTypoToleranceOnAttributes, true
 }
 
@@ -2163,6 +2351,7 @@ func (o *BrowseParamsObject) HasDisableTypoToleranceOnAttributes() bool {
 // SetDisableTypoToleranceOnAttributes gets a reference to the given []string and assigns it to the DisableTypoToleranceOnAttributes field.
 func (o *BrowseParamsObject) SetDisableTypoToleranceOnAttributes(v []string) *BrowseParamsObject {
 	o.DisableTypoToleranceOnAttributes = v
+
 	return o
 }
 
@@ -2170,8 +2359,10 @@ func (o *BrowseParamsObject) SetDisableTypoToleranceOnAttributes(v []string) *Br
 func (o *BrowseParamsObject) GetIgnorePlurals() IgnorePlurals {
 	if o == nil || o.IgnorePlurals == nil {
 		var ret IgnorePlurals
+
 		return ret
 	}
+
 	return *o.IgnorePlurals
 }
 
@@ -2181,6 +2372,7 @@ func (o *BrowseParamsObject) GetIgnorePluralsOk() (*IgnorePlurals, bool) {
 	if o == nil || o.IgnorePlurals == nil {
 		return nil, false
 	}
+
 	return o.IgnorePlurals, true
 }
 
@@ -2196,6 +2388,7 @@ func (o *BrowseParamsObject) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *BrowseParamsObject) SetIgnorePlurals(v *IgnorePlurals) *BrowseParamsObject {
 	o.IgnorePlurals = v
+
 	return o
 }
 
@@ -2203,8 +2396,10 @@ func (o *BrowseParamsObject) SetIgnorePlurals(v *IgnorePlurals) *BrowseParamsObj
 func (o *BrowseParamsObject) GetRemoveStopWords() RemoveStopWords {
 	if o == nil || o.RemoveStopWords == nil {
 		var ret RemoveStopWords
+
 		return ret
 	}
+
 	return *o.RemoveStopWords
 }
 
@@ -2214,6 +2409,7 @@ func (o *BrowseParamsObject) GetRemoveStopWordsOk() (*RemoveStopWords, bool) {
 	if o == nil || o.RemoveStopWords == nil {
 		return nil, false
 	}
+
 	return o.RemoveStopWords, true
 }
 
@@ -2229,6 +2425,7 @@ func (o *BrowseParamsObject) HasRemoveStopWords() bool {
 // SetRemoveStopWords gets a reference to the given RemoveStopWords and assigns it to the RemoveStopWords field.
 func (o *BrowseParamsObject) SetRemoveStopWords(v *RemoveStopWords) *BrowseParamsObject {
 	o.RemoveStopWords = v
+
 	return o
 }
 
@@ -2236,8 +2433,10 @@ func (o *BrowseParamsObject) SetRemoveStopWords(v *RemoveStopWords) *BrowseParam
 func (o *BrowseParamsObject) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
 		var ret []SupportedLanguage
+
 		return ret
 	}
+
 	return o.QueryLanguages
 }
 
@@ -2247,6 +2446,7 @@ func (o *BrowseParamsObject) GetQueryLanguagesOk() ([]SupportedLanguage, bool) {
 	if o == nil || o.QueryLanguages == nil {
 		return nil, false
 	}
+
 	return o.QueryLanguages, true
 }
 
@@ -2262,6 +2462,7 @@ func (o *BrowseParamsObject) HasQueryLanguages() bool {
 // SetQueryLanguages gets a reference to the given []SupportedLanguage and assigns it to the QueryLanguages field.
 func (o *BrowseParamsObject) SetQueryLanguages(v []SupportedLanguage) *BrowseParamsObject {
 	o.QueryLanguages = v
+
 	return o
 }
 
@@ -2269,8 +2470,10 @@ func (o *BrowseParamsObject) SetQueryLanguages(v []SupportedLanguage) *BrowsePar
 func (o *BrowseParamsObject) GetDecompoundQuery() bool {
 	if o == nil || o.DecompoundQuery == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.DecompoundQuery
 }
 
@@ -2280,6 +2483,7 @@ func (o *BrowseParamsObject) GetDecompoundQueryOk() (*bool, bool) {
 	if o == nil || o.DecompoundQuery == nil {
 		return nil, false
 	}
+
 	return o.DecompoundQuery, true
 }
 
@@ -2295,6 +2499,7 @@ func (o *BrowseParamsObject) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *BrowseParamsObject) SetDecompoundQuery(v bool) *BrowseParamsObject {
 	o.DecompoundQuery = &v
+
 	return o
 }
 
@@ -2302,8 +2507,10 @@ func (o *BrowseParamsObject) SetDecompoundQuery(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetEnableRules() bool {
 	if o == nil || o.EnableRules == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableRules
 }
 
@@ -2313,6 +2520,7 @@ func (o *BrowseParamsObject) GetEnableRulesOk() (*bool, bool) {
 	if o == nil || o.EnableRules == nil {
 		return nil, false
 	}
+
 	return o.EnableRules, true
 }
 
@@ -2328,6 +2536,7 @@ func (o *BrowseParamsObject) HasEnableRules() bool {
 // SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
 func (o *BrowseParamsObject) SetEnableRules(v bool) *BrowseParamsObject {
 	o.EnableRules = &v
+
 	return o
 }
 
@@ -2335,8 +2544,10 @@ func (o *BrowseParamsObject) SetEnableRules(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetEnablePersonalization() bool {
 	if o == nil || o.EnablePersonalization == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnablePersonalization
 }
 
@@ -2346,6 +2557,7 @@ func (o *BrowseParamsObject) GetEnablePersonalizationOk() (*bool, bool) {
 	if o == nil || o.EnablePersonalization == nil {
 		return nil, false
 	}
+
 	return o.EnablePersonalization, true
 }
 
@@ -2361,6 +2573,7 @@ func (o *BrowseParamsObject) HasEnablePersonalization() bool {
 // SetEnablePersonalization gets a reference to the given bool and assigns it to the EnablePersonalization field.
 func (o *BrowseParamsObject) SetEnablePersonalization(v bool) *BrowseParamsObject {
 	o.EnablePersonalization = &v
+
 	return o
 }
 
@@ -2368,8 +2581,10 @@ func (o *BrowseParamsObject) SetEnablePersonalization(v bool) *BrowseParamsObjec
 func (o *BrowseParamsObject) GetQueryType() QueryType {
 	if o == nil || o.QueryType == nil {
 		var ret QueryType
+
 		return ret
 	}
+
 	return *o.QueryType
 }
 
@@ -2379,6 +2594,7 @@ func (o *BrowseParamsObject) GetQueryTypeOk() (*QueryType, bool) {
 	if o == nil || o.QueryType == nil {
 		return nil, false
 	}
+
 	return o.QueryType, true
 }
 
@@ -2394,6 +2610,7 @@ func (o *BrowseParamsObject) HasQueryType() bool {
 // SetQueryType gets a reference to the given QueryType and assigns it to the QueryType field.
 func (o *BrowseParamsObject) SetQueryType(v QueryType) *BrowseParamsObject {
 	o.QueryType = &v
+
 	return o
 }
 
@@ -2401,8 +2618,10 @@ func (o *BrowseParamsObject) SetQueryType(v QueryType) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetRemoveWordsIfNoResults() RemoveWordsIfNoResults {
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		var ret RemoveWordsIfNoResults
+
 		return ret
 	}
+
 	return *o.RemoveWordsIfNoResults
 }
 
@@ -2412,6 +2631,7 @@ func (o *BrowseParamsObject) GetRemoveWordsIfNoResultsOk() (*RemoveWordsIfNoResu
 	if o == nil || o.RemoveWordsIfNoResults == nil {
 		return nil, false
 	}
+
 	return o.RemoveWordsIfNoResults, true
 }
 
@@ -2427,6 +2647,7 @@ func (o *BrowseParamsObject) HasRemoveWordsIfNoResults() bool {
 // SetRemoveWordsIfNoResults gets a reference to the given RemoveWordsIfNoResults and assigns it to the RemoveWordsIfNoResults field.
 func (o *BrowseParamsObject) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults) *BrowseParamsObject {
 	o.RemoveWordsIfNoResults = &v
+
 	return o
 }
 
@@ -2434,8 +2655,10 @@ func (o *BrowseParamsObject) SetRemoveWordsIfNoResults(v RemoveWordsIfNoResults)
 func (o *BrowseParamsObject) GetMode() Mode {
 	if o == nil || o.Mode == nil {
 		var ret Mode
+
 		return ret
 	}
+
 	return *o.Mode
 }
 
@@ -2445,6 +2668,7 @@ func (o *BrowseParamsObject) GetModeOk() (*Mode, bool) {
 	if o == nil || o.Mode == nil {
 		return nil, false
 	}
+
 	return o.Mode, true
 }
 
@@ -2460,6 +2684,7 @@ func (o *BrowseParamsObject) HasMode() bool {
 // SetMode gets a reference to the given Mode and assigns it to the Mode field.
 func (o *BrowseParamsObject) SetMode(v Mode) *BrowseParamsObject {
 	o.Mode = &v
+
 	return o
 }
 
@@ -2467,8 +2692,10 @@ func (o *BrowseParamsObject) SetMode(v Mode) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSemanticSearch() SemanticSearch {
 	if o == nil || o.SemanticSearch == nil {
 		var ret SemanticSearch
+
 		return ret
 	}
+
 	return *o.SemanticSearch
 }
 
@@ -2478,6 +2705,7 @@ func (o *BrowseParamsObject) GetSemanticSearchOk() (*SemanticSearch, bool) {
 	if o == nil || o.SemanticSearch == nil {
 		return nil, false
 	}
+
 	return o.SemanticSearch, true
 }
 
@@ -2493,6 +2721,7 @@ func (o *BrowseParamsObject) HasSemanticSearch() bool {
 // SetSemanticSearch gets a reference to the given SemanticSearch and assigns it to the SemanticSearch field.
 func (o *BrowseParamsObject) SetSemanticSearch(v *SemanticSearch) *BrowseParamsObject {
 	o.SemanticSearch = v
+
 	return o
 }
 
@@ -2500,8 +2729,10 @@ func (o *BrowseParamsObject) SetSemanticSearch(v *SemanticSearch) *BrowseParamsO
 func (o *BrowseParamsObject) GetAdvancedSyntax() bool {
 	if o == nil || o.AdvancedSyntax == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AdvancedSyntax
 }
 
@@ -2511,6 +2742,7 @@ func (o *BrowseParamsObject) GetAdvancedSyntaxOk() (*bool, bool) {
 	if o == nil || o.AdvancedSyntax == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntax, true
 }
 
@@ -2526,6 +2758,7 @@ func (o *BrowseParamsObject) HasAdvancedSyntax() bool {
 // SetAdvancedSyntax gets a reference to the given bool and assigns it to the AdvancedSyntax field.
 func (o *BrowseParamsObject) SetAdvancedSyntax(v bool) *BrowseParamsObject {
 	o.AdvancedSyntax = &v
+
 	return o
 }
 
@@ -2533,8 +2766,10 @@ func (o *BrowseParamsObject) SetAdvancedSyntax(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetOptionalWords() OptionalWords {
 	if o == nil || o.OptionalWords.Get() == nil {
 		var ret OptionalWords
+
 		return ret
 	}
+
 	return *o.OptionalWords.Get()
 }
 
@@ -2545,6 +2780,7 @@ func (o *BrowseParamsObject) GetOptionalWordsOk() (*OptionalWords, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.OptionalWords.Get(), o.OptionalWords.IsSet()
 }
 
@@ -2560,6 +2796,7 @@ func (o *BrowseParamsObject) HasOptionalWords() bool {
 // SetOptionalWords gets a reference to the given utils.Nullable[OptionalWords] and assigns it to the OptionalWords field.
 func (o *BrowseParamsObject) SetOptionalWords(v *OptionalWords) *BrowseParamsObject {
 	o.OptionalWords.Set(v)
+
 	return o
 }
 
@@ -2577,8 +2814,10 @@ func (o *BrowseParamsObject) UnsetOptionalWords() {
 func (o *BrowseParamsObject) GetDisableExactOnAttributes() []string {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.DisableExactOnAttributes
 }
 
@@ -2588,6 +2827,7 @@ func (o *BrowseParamsObject) GetDisableExactOnAttributesOk() ([]string, bool) {
 	if o == nil || o.DisableExactOnAttributes == nil {
 		return nil, false
 	}
+
 	return o.DisableExactOnAttributes, true
 }
 
@@ -2603,6 +2843,7 @@ func (o *BrowseParamsObject) HasDisableExactOnAttributes() bool {
 // SetDisableExactOnAttributes gets a reference to the given []string and assigns it to the DisableExactOnAttributes field.
 func (o *BrowseParamsObject) SetDisableExactOnAttributes(v []string) *BrowseParamsObject {
 	o.DisableExactOnAttributes = v
+
 	return o
 }
 
@@ -2610,8 +2851,10 @@ func (o *BrowseParamsObject) SetDisableExactOnAttributes(v []string) *BrowsePara
 func (o *BrowseParamsObject) GetExactOnSingleWordQuery() ExactOnSingleWordQuery {
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		var ret ExactOnSingleWordQuery
+
 		return ret
 	}
+
 	return *o.ExactOnSingleWordQuery
 }
 
@@ -2621,6 +2864,7 @@ func (o *BrowseParamsObject) GetExactOnSingleWordQueryOk() (*ExactOnSingleWordQu
 	if o == nil || o.ExactOnSingleWordQuery == nil {
 		return nil, false
 	}
+
 	return o.ExactOnSingleWordQuery, true
 }
 
@@ -2636,6 +2880,7 @@ func (o *BrowseParamsObject) HasExactOnSingleWordQuery() bool {
 // SetExactOnSingleWordQuery gets a reference to the given ExactOnSingleWordQuery and assigns it to the ExactOnSingleWordQuery field.
 func (o *BrowseParamsObject) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery) *BrowseParamsObject {
 	o.ExactOnSingleWordQuery = &v
+
 	return o
 }
 
@@ -2643,8 +2888,10 @@ func (o *BrowseParamsObject) SetExactOnSingleWordQuery(v ExactOnSingleWordQuery)
 func (o *BrowseParamsObject) GetAlternativesAsExact() []AlternativesAsExact {
 	if o == nil || o.AlternativesAsExact == nil {
 		var ret []AlternativesAsExact
+
 		return ret
 	}
+
 	return o.AlternativesAsExact
 }
 
@@ -2654,6 +2901,7 @@ func (o *BrowseParamsObject) GetAlternativesAsExactOk() ([]AlternativesAsExact, 
 	if o == nil || o.AlternativesAsExact == nil {
 		return nil, false
 	}
+
 	return o.AlternativesAsExact, true
 }
 
@@ -2669,6 +2917,7 @@ func (o *BrowseParamsObject) HasAlternativesAsExact() bool {
 // SetAlternativesAsExact gets a reference to the given []AlternativesAsExact and assigns it to the AlternativesAsExact field.
 func (o *BrowseParamsObject) SetAlternativesAsExact(v []AlternativesAsExact) *BrowseParamsObject {
 	o.AlternativesAsExact = v
+
 	return o
 }
 
@@ -2676,8 +2925,10 @@ func (o *BrowseParamsObject) SetAlternativesAsExact(v []AlternativesAsExact) *Br
 func (o *BrowseParamsObject) GetAdvancedSyntaxFeatures() []AdvancedSyntaxFeatures {
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		var ret []AdvancedSyntaxFeatures
+
 		return ret
 	}
+
 	return o.AdvancedSyntaxFeatures
 }
 
@@ -2687,6 +2938,7 @@ func (o *BrowseParamsObject) GetAdvancedSyntaxFeaturesOk() ([]AdvancedSyntaxFeat
 	if o == nil || o.AdvancedSyntaxFeatures == nil {
 		return nil, false
 	}
+
 	return o.AdvancedSyntaxFeatures, true
 }
 
@@ -2702,6 +2954,7 @@ func (o *BrowseParamsObject) HasAdvancedSyntaxFeatures() bool {
 // SetAdvancedSyntaxFeatures gets a reference to the given []AdvancedSyntaxFeatures and assigns it to the AdvancedSyntaxFeatures field.
 func (o *BrowseParamsObject) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeatures) *BrowseParamsObject {
 	o.AdvancedSyntaxFeatures = v
+
 	return o
 }
 
@@ -2709,8 +2962,10 @@ func (o *BrowseParamsObject) SetAdvancedSyntaxFeatures(v []AdvancedSyntaxFeature
 func (o *BrowseParamsObject) GetDistinct() Distinct {
 	if o == nil || o.Distinct == nil {
 		var ret Distinct
+
 		return ret
 	}
+
 	return *o.Distinct
 }
 
@@ -2720,6 +2975,7 @@ func (o *BrowseParamsObject) GetDistinctOk() (*Distinct, bool) {
 	if o == nil || o.Distinct == nil {
 		return nil, false
 	}
+
 	return o.Distinct, true
 }
 
@@ -2735,6 +2991,7 @@ func (o *BrowseParamsObject) HasDistinct() bool {
 // SetDistinct gets a reference to the given Distinct and assigns it to the Distinct field.
 func (o *BrowseParamsObject) SetDistinct(v *Distinct) *BrowseParamsObject {
 	o.Distinct = v
+
 	return o
 }
 
@@ -2742,8 +2999,10 @@ func (o *BrowseParamsObject) SetDistinct(v *Distinct) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetReplaceSynonymsInHighlight() bool {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.ReplaceSynonymsInHighlight
 }
 
@@ -2753,6 +3012,7 @@ func (o *BrowseParamsObject) GetReplaceSynonymsInHighlightOk() (*bool, bool) {
 	if o == nil || o.ReplaceSynonymsInHighlight == nil {
 		return nil, false
 	}
+
 	return o.ReplaceSynonymsInHighlight, true
 }
 
@@ -2768,6 +3028,7 @@ func (o *BrowseParamsObject) HasReplaceSynonymsInHighlight() bool {
 // SetReplaceSynonymsInHighlight gets a reference to the given bool and assigns it to the ReplaceSynonymsInHighlight field.
 func (o *BrowseParamsObject) SetReplaceSynonymsInHighlight(v bool) *BrowseParamsObject {
 	o.ReplaceSynonymsInHighlight = &v
+
 	return o
 }
 
@@ -2775,8 +3036,10 @@ func (o *BrowseParamsObject) SetReplaceSynonymsInHighlight(v bool) *BrowseParams
 func (o *BrowseParamsObject) GetMinProximity() int32 {
 	if o == nil || o.MinProximity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MinProximity
 }
 
@@ -2786,6 +3049,7 @@ func (o *BrowseParamsObject) GetMinProximityOk() (*int32, bool) {
 	if o == nil || o.MinProximity == nil {
 		return nil, false
 	}
+
 	return o.MinProximity, true
 }
 
@@ -2801,6 +3065,7 @@ func (o *BrowseParamsObject) HasMinProximity() bool {
 // SetMinProximity gets a reference to the given int32 and assigns it to the MinProximity field.
 func (o *BrowseParamsObject) SetMinProximity(v int32) *BrowseParamsObject {
 	o.MinProximity = &v
+
 	return o
 }
 
@@ -2808,8 +3073,10 @@ func (o *BrowseParamsObject) SetMinProximity(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetResponseFields() []string {
 	if o == nil || o.ResponseFields == nil {
 		var ret []string
+
 		return ret
 	}
+
 	return o.ResponseFields
 }
 
@@ -2819,6 +3086,7 @@ func (o *BrowseParamsObject) GetResponseFieldsOk() ([]string, bool) {
 	if o == nil || o.ResponseFields == nil {
 		return nil, false
 	}
+
 	return o.ResponseFields, true
 }
 
@@ -2834,6 +3102,7 @@ func (o *BrowseParamsObject) HasResponseFields() bool {
 // SetResponseFields gets a reference to the given []string and assigns it to the ResponseFields field.
 func (o *BrowseParamsObject) SetResponseFields(v []string) *BrowseParamsObject {
 	o.ResponseFields = v
+
 	return o
 }
 
@@ -2841,8 +3110,10 @@ func (o *BrowseParamsObject) SetResponseFields(v []string) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetMaxValuesPerFacet() int32 {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxValuesPerFacet
 }
 
@@ -2852,6 +3123,7 @@ func (o *BrowseParamsObject) GetMaxValuesPerFacetOk() (*int32, bool) {
 	if o == nil || o.MaxValuesPerFacet == nil {
 		return nil, false
 	}
+
 	return o.MaxValuesPerFacet, true
 }
 
@@ -2867,6 +3139,7 @@ func (o *BrowseParamsObject) HasMaxValuesPerFacet() bool {
 // SetMaxValuesPerFacet gets a reference to the given int32 and assigns it to the MaxValuesPerFacet field.
 func (o *BrowseParamsObject) SetMaxValuesPerFacet(v int32) *BrowseParamsObject {
 	o.MaxValuesPerFacet = &v
+
 	return o
 }
 
@@ -2874,8 +3147,10 @@ func (o *BrowseParamsObject) SetMaxValuesPerFacet(v int32) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.SortFacetValuesBy
 }
 
@@ -2885,6 +3160,7 @@ func (o *BrowseParamsObject) GetSortFacetValuesByOk() (*string, bool) {
 	if o == nil || o.SortFacetValuesBy == nil {
 		return nil, false
 	}
+
 	return o.SortFacetValuesBy, true
 }
 
@@ -2900,6 +3176,7 @@ func (o *BrowseParamsObject) HasSortFacetValuesBy() bool {
 // SetSortFacetValuesBy gets a reference to the given string and assigns it to the SortFacetValuesBy field.
 func (o *BrowseParamsObject) SetSortFacetValuesBy(v string) *BrowseParamsObject {
 	o.SortFacetValuesBy = &v
+
 	return o
 }
 
@@ -2907,8 +3184,10 @@ func (o *BrowseParamsObject) SetSortFacetValuesBy(v string) *BrowseParamsObject 
 func (o *BrowseParamsObject) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.AttributeCriteriaComputedByMinProximity
 }
 
@@ -2918,6 +3197,7 @@ func (o *BrowseParamsObject) GetAttributeCriteriaComputedByMinProximityOk() (*bo
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
 		return nil, false
 	}
+
 	return o.AttributeCriteriaComputedByMinProximity, true
 }
 
@@ -2933,6 +3213,7 @@ func (o *BrowseParamsObject) HasAttributeCriteriaComputedByMinProximity() bool {
 // SetAttributeCriteriaComputedByMinProximity gets a reference to the given bool and assigns it to the AttributeCriteriaComputedByMinProximity field.
 func (o *BrowseParamsObject) SetAttributeCriteriaComputedByMinProximity(v bool) *BrowseParamsObject {
 	o.AttributeCriteriaComputedByMinProximity = &v
+
 	return o
 }
 
@@ -2940,8 +3221,10 @@ func (o *BrowseParamsObject) SetAttributeCriteriaComputedByMinProximity(v bool) 
 func (o *BrowseParamsObject) GetRenderingContent() RenderingContent {
 	if o == nil || o.RenderingContent == nil {
 		var ret RenderingContent
+
 		return ret
 	}
+
 	return *o.RenderingContent
 }
 
@@ -2951,6 +3234,7 @@ func (o *BrowseParamsObject) GetRenderingContentOk() (*RenderingContent, bool) {
 	if o == nil || o.RenderingContent == nil {
 		return nil, false
 	}
+
 	return o.RenderingContent, true
 }
 
@@ -2966,6 +3250,7 @@ func (o *BrowseParamsObject) HasRenderingContent() bool {
 // SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
 func (o *BrowseParamsObject) SetRenderingContent(v *RenderingContent) *BrowseParamsObject {
 	o.RenderingContent = v
+
 	return o
 }
 
@@ -2973,8 +3258,10 @@ func (o *BrowseParamsObject) SetRenderingContent(v *RenderingContent) *BrowsePar
 func (o *BrowseParamsObject) GetEnableReRanking() bool {
 	if o == nil || o.EnableReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.EnableReRanking
 }
 
@@ -2984,6 +3271,7 @@ func (o *BrowseParamsObject) GetEnableReRankingOk() (*bool, bool) {
 	if o == nil || o.EnableReRanking == nil {
 		return nil, false
 	}
+
 	return o.EnableReRanking, true
 }
 
@@ -2999,6 +3287,7 @@ func (o *BrowseParamsObject) HasEnableReRanking() bool {
 // SetEnableReRanking gets a reference to the given bool and assigns it to the EnableReRanking field.
 func (o *BrowseParamsObject) SetEnableReRanking(v bool) *BrowseParamsObject {
 	o.EnableReRanking = &v
+
 	return o
 }
 
@@ -3006,8 +3295,10 @@ func (o *BrowseParamsObject) SetEnableReRanking(v bool) *BrowseParamsObject {
 func (o *BrowseParamsObject) GetReRankingApplyFilter() ReRankingApplyFilter {
 	if o == nil || o.ReRankingApplyFilter == nil {
 		var ret ReRankingApplyFilter
+
 		return ret
 	}
+
 	return *o.ReRankingApplyFilter
 }
 
@@ -3017,6 +3308,7 @@ func (o *BrowseParamsObject) GetReRankingApplyFilterOk() (*ReRankingApplyFilter,
 	if o == nil || o.ReRankingApplyFilter == nil {
 		return nil, false
 	}
+
 	return o.ReRankingApplyFilter, true
 }
 
@@ -3032,6 +3324,7 @@ func (o *BrowseParamsObject) HasReRankingApplyFilter() bool {
 // SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
 func (o *BrowseParamsObject) SetReRankingApplyFilter(v *ReRankingApplyFilter) *BrowseParamsObject {
 	o.ReRankingApplyFilter = v
+
 	return o
 }
 
@@ -3039,8 +3332,10 @@ func (o *BrowseParamsObject) SetReRankingApplyFilter(v *ReRankingApplyFilter) *B
 func (o *BrowseParamsObject) GetCursor() string {
 	if o == nil || o.Cursor == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Cursor
 }
 
@@ -3050,6 +3345,7 @@ func (o *BrowseParamsObject) GetCursorOk() (*string, bool) {
 	if o == nil || o.Cursor == nil {
 		return nil, false
 	}
+
 	return o.Cursor, true
 }
 
@@ -3065,6 +3361,7 @@ func (o *BrowseParamsObject) HasCursor() bool {
 // SetCursor gets a reference to the given string and assigns it to the Cursor field.
 func (o *BrowseParamsObject) SetCursor(v string) *BrowseParamsObject {
 	o.Cursor = &v
+
 	return o
 }
 
@@ -3073,225 +3370,299 @@ func (o BrowseParamsObject) MarshalJSON() ([]byte, error) {
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
+
 	if o.SimilarQuery != nil {
 		toSerialize["similarQuery"] = o.SimilarQuery
 	}
+
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
 	}
+
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
+
 	if o.NumericFilters != nil {
 		toSerialize["numericFilters"] = o.NumericFilters
 	}
+
 	if o.TagFilters != nil {
 		toSerialize["tagFilters"] = o.TagFilters
 	}
+
 	if o.SumOrFiltersScores != nil {
 		toSerialize["sumOrFiltersScores"] = o.SumOrFiltersScores
 	}
+
 	if o.RestrictSearchableAttributes != nil {
 		toSerialize["restrictSearchableAttributes"] = o.RestrictSearchableAttributes
 	}
+
 	if o.Facets != nil {
 		toSerialize["facets"] = o.Facets
 	}
+
 	if o.FacetingAfterDistinct != nil {
 		toSerialize["facetingAfterDistinct"] = o.FacetingAfterDistinct
 	}
+
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
 	}
+
 	if o.Offset != nil {
 		toSerialize["offset"] = o.Offset
 	}
+
 	if o.Length != nil {
 		toSerialize["length"] = o.Length
 	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
+
 	if o.AroundLatLngViaIP != nil {
 		toSerialize["aroundLatLngViaIP"] = o.AroundLatLngViaIP
 	}
+
 	if o.AroundRadius != nil {
 		toSerialize["aroundRadius"] = o.AroundRadius
 	}
+
 	if o.AroundPrecision != nil {
 		toSerialize["aroundPrecision"] = o.AroundPrecision
 	}
+
 	if o.MinimumAroundRadius != nil {
 		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
 	}
+
 	if o.InsideBoundingBox.IsSet() {
 		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
 	}
+
 	if o.InsidePolygon != nil {
 		toSerialize["insidePolygon"] = o.InsidePolygon
 	}
+
 	if o.NaturalLanguages != nil {
 		toSerialize["naturalLanguages"] = o.NaturalLanguages
 	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
 	}
+
 	if o.PersonalizationImpact != nil {
 		toSerialize["personalizationImpact"] = o.PersonalizationImpact
 	}
+
 	if o.UserToken != nil {
 		toSerialize["userToken"] = o.UserToken
 	}
+
 	if o.GetRankingInfo != nil {
 		toSerialize["getRankingInfo"] = o.GetRankingInfo
 	}
+
 	if o.Synonyms != nil {
 		toSerialize["synonyms"] = o.Synonyms
 	}
+
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
 	}
+
 	if o.Analytics != nil {
 		toSerialize["analytics"] = o.Analytics
 	}
+
 	if o.AnalyticsTags != nil {
 		toSerialize["analyticsTags"] = o.AnalyticsTags
 	}
+
 	if o.PercentileComputation != nil {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
+
 	if o.EnableABTest != nil {
 		toSerialize["enableABTest"] = o.EnableABTest
 	}
+
 	if o.AttributesToRetrieve != nil {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
+
 	if o.Ranking != nil {
 		toSerialize["ranking"] = o.Ranking
 	}
+
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
+
 	if o.AttributesToHighlight != nil {
 		toSerialize["attributesToHighlight"] = o.AttributesToHighlight
 	}
+
 	if o.AttributesToSnippet != nil {
 		toSerialize["attributesToSnippet"] = o.AttributesToSnippet
 	}
+
 	if o.HighlightPreTag != nil {
 		toSerialize["highlightPreTag"] = o.HighlightPreTag
 	}
+
 	if o.HighlightPostTag != nil {
 		toSerialize["highlightPostTag"] = o.HighlightPostTag
 	}
+
 	if o.SnippetEllipsisText != nil {
 		toSerialize["snippetEllipsisText"] = o.SnippetEllipsisText
 	}
+
 	if o.RestrictHighlightAndSnippetArrays != nil {
 		toSerialize["restrictHighlightAndSnippetArrays"] = o.RestrictHighlightAndSnippetArrays
 	}
+
 	if o.HitsPerPage != nil {
 		toSerialize["hitsPerPage"] = o.HitsPerPage
 	}
+
 	if o.MinWordSizefor1Typo != nil {
 		toSerialize["minWordSizefor1Typo"] = o.MinWordSizefor1Typo
 	}
+
 	if o.MinWordSizefor2Typos != nil {
 		toSerialize["minWordSizefor2Typos"] = o.MinWordSizefor2Typos
 	}
+
 	if o.TypoTolerance != nil {
 		toSerialize["typoTolerance"] = o.TypoTolerance
 	}
+
 	if o.AllowTyposOnNumericTokens != nil {
 		toSerialize["allowTyposOnNumericTokens"] = o.AllowTyposOnNumericTokens
 	}
+
 	if o.DisableTypoToleranceOnAttributes != nil {
 		toSerialize["disableTypoToleranceOnAttributes"] = o.DisableTypoToleranceOnAttributes
 	}
+
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
 	}
+
 	if o.RemoveStopWords != nil {
 		toSerialize["removeStopWords"] = o.RemoveStopWords
 	}
+
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
+
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
+
 	if o.EnableRules != nil {
 		toSerialize["enableRules"] = o.EnableRules
 	}
+
 	if o.EnablePersonalization != nil {
 		toSerialize["enablePersonalization"] = o.EnablePersonalization
 	}
+
 	if o.QueryType != nil {
 		toSerialize["queryType"] = o.QueryType
 	}
+
 	if o.RemoveWordsIfNoResults != nil {
 		toSerialize["removeWordsIfNoResults"] = o.RemoveWordsIfNoResults
 	}
+
 	if o.Mode != nil {
 		toSerialize["mode"] = o.Mode
 	}
+
 	if o.SemanticSearch != nil {
 		toSerialize["semanticSearch"] = o.SemanticSearch
 	}
+
 	if o.AdvancedSyntax != nil {
 		toSerialize["advancedSyntax"] = o.AdvancedSyntax
 	}
+
 	if o.OptionalWords.IsSet() {
 		toSerialize["optionalWords"] = o.OptionalWords.Get()
 	}
+
 	if o.DisableExactOnAttributes != nil {
 		toSerialize["disableExactOnAttributes"] = o.DisableExactOnAttributes
 	}
+
 	if o.ExactOnSingleWordQuery != nil {
 		toSerialize["exactOnSingleWordQuery"] = o.ExactOnSingleWordQuery
 	}
+
 	if o.AlternativesAsExact != nil {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
+
 	if o.AdvancedSyntaxFeatures != nil {
 		toSerialize["advancedSyntaxFeatures"] = o.AdvancedSyntaxFeatures
 	}
+
 	if o.Distinct != nil {
 		toSerialize["distinct"] = o.Distinct
 	}
+
 	if o.ReplaceSynonymsInHighlight != nil {
 		toSerialize["replaceSynonymsInHighlight"] = o.ReplaceSynonymsInHighlight
 	}
+
 	if o.MinProximity != nil {
 		toSerialize["minProximity"] = o.MinProximity
 	}
+
 	if o.ResponseFields != nil {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
+
 	if o.MaxValuesPerFacet != nil {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
+
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
+
 	if o.RenderingContent != nil {
 		toSerialize["renderingContent"] = o.RenderingContent
 	}
+
 	if o.EnableReRanking != nil {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
+
 	if o.ReRankingApplyFilter != nil {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
 	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal BrowseParamsObject: %w", err)
@@ -3376,5 +3747,6 @@ func (o BrowseParamsObject) String() string {
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
+
 	return fmt.Sprintf("BrowseParamsObject {\n%s}", out)
 }

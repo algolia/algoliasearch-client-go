@@ -22,6 +22,7 @@ func NewPromoteObjectID(objectID string, position int32) *PromoteObjectID {
 	this := &PromoteObjectID{}
 	this.ObjectID = objectID
 	this.Position = position
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyPromoteObjectID() *PromoteObjectID {
 func (o *PromoteObjectID) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *PromoteObjectID) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *PromoteObjectID) SetObjectID(v string) *PromoteObjectID {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *PromoteObjectID) SetObjectID(v string) *PromoteObjectID {
 func (o *PromoteObjectID) GetPosition() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *PromoteObjectID) GetPositionOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Position, true
 }
 
 // SetPosition sets field value.
 func (o *PromoteObjectID) SetPosition(v int32) *PromoteObjectID {
 	o.Position = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o PromoteObjectID) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
 	toSerialize["position"] = o.Position
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal PromoteObjectID: %w", err)
@@ -96,5 +104,6 @@ func (o PromoteObjectID) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  position=%v\n", o.Position)
+
 	return fmt.Sprintf("PromoteObjectID {\n%s}", out)
 }

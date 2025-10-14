@@ -36,6 +36,7 @@ func NewIncidentEntry(opts ...IncidentEntryOption) *IncidentEntry {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -48,8 +49,10 @@ func NewEmptyIncidentEntry() *IncidentEntry {
 func (o *IncidentEntry) GetT() int64 {
 	if o == nil || o.T == nil {
 		var ret int64
+
 		return ret
 	}
+
 	return *o.T
 }
 
@@ -59,6 +62,7 @@ func (o *IncidentEntry) GetTOk() (*int64, bool) {
 	if o == nil || o.T == nil {
 		return nil, false
 	}
+
 	return o.T, true
 }
 
@@ -74,6 +78,7 @@ func (o *IncidentEntry) HasT() bool {
 // SetT gets a reference to the given int64 and assigns it to the T field.
 func (o *IncidentEntry) SetT(v int64) *IncidentEntry {
 	o.T = &v
+
 	return o
 }
 
@@ -81,8 +86,10 @@ func (o *IncidentEntry) SetT(v int64) *IncidentEntry {
 func (o *IncidentEntry) GetV() Incident {
 	if o == nil || o.V == nil {
 		var ret Incident
+
 		return ret
 	}
+
 	return *o.V
 }
 
@@ -92,6 +99,7 @@ func (o *IncidentEntry) GetVOk() (*Incident, bool) {
 	if o == nil || o.V == nil {
 		return nil, false
 	}
+
 	return o.V, true
 }
 
@@ -107,6 +115,7 @@ func (o *IncidentEntry) HasV() bool {
 // SetV gets a reference to the given Incident and assigns it to the V field.
 func (o *IncidentEntry) SetV(v *Incident) *IncidentEntry {
 	o.V = v
+
 	return o
 }
 
@@ -115,9 +124,11 @@ func (o IncidentEntry) MarshalJSON() ([]byte, error) {
 	if o.T != nil {
 		toSerialize["t"] = o.T
 	}
+
 	if o.V != nil {
 		toSerialize["v"] = o.V
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal IncidentEntry: %w", err)
@@ -130,5 +141,6 @@ func (o IncidentEntry) String() string {
 	out := ""
 	out += fmt.Sprintf("  t=%v\n", o.T)
 	out += fmt.Sprintf("  v=%v\n", o.V)
+
 	return fmt.Sprintf("IncidentEntry {\n%s}", out)
 }

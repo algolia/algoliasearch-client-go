@@ -19,6 +19,7 @@ type TaskIDResponse struct {
 func NewTaskIDResponse(taskID int64) *TaskIDResponse {
 	this := &TaskIDResponse{}
 	this.TaskID = taskID
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyTaskIDResponse() *TaskIDResponse {
 func (o *TaskIDResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *TaskIDResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *TaskIDResponse) SetTaskID(v int64) *TaskIDResponse {
 	o.TaskID = v
+
 	return o
 }
 
 func (o TaskIDResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskIDResponse: %w", err)
@@ -66,5 +71,6 @@ func (o TaskIDResponse) MarshalJSON() ([]byte, error) {
 func (o TaskIDResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
+
 	return fmt.Sprintf("TaskIDResponse {\n%s}", out)
 }

@@ -28,6 +28,7 @@ func NewRedirectURL(opts ...RedirectURLOption) *RedirectURL {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -40,8 +41,10 @@ func NewEmptyRedirectURL() *RedirectURL {
 func (o *RedirectURL) GetUrl() string {
 	if o == nil || o.Url == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Url
 }
 
@@ -51,6 +54,7 @@ func (o *RedirectURL) GetUrlOk() (*string, bool) {
 	if o == nil || o.Url == nil {
 		return nil, false
 	}
+
 	return o.Url, true
 }
 
@@ -66,6 +70,7 @@ func (o *RedirectURL) HasUrl() bool {
 // SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *RedirectURL) SetUrl(v string) *RedirectURL {
 	o.Url = &v
+
 	return o
 }
 
@@ -74,6 +79,7 @@ func (o RedirectURL) MarshalJSON() ([]byte, error) {
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RedirectURL: %w", err)
@@ -85,5 +91,6 @@ func (o RedirectURL) MarshalJSON() ([]byte, error) {
 func (o RedirectURL) String() string {
 	out := ""
 	out += fmt.Sprintf("  url=%v\n", o.Url)
+
 	return fmt.Sprintf("RedirectURL {\n%s}", out)
 }

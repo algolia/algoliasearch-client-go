@@ -29,6 +29,7 @@ func NewEmailNotifications(opts ...EmailNotificationsOption) *EmailNotifications
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyEmailNotifications() *EmailNotifications {
 func (o *EmailNotifications) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -52,6 +55,7 @@ func (o *EmailNotifications) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -67,6 +71,7 @@ func (o *EmailNotifications) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *EmailNotifications) SetEnabled(v bool) *EmailNotifications {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o EmailNotifications) MarshalJSON() ([]byte, error) {
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal EmailNotifications: %w", err)
@@ -86,5 +92,6 @@ func (o EmailNotifications) MarshalJSON() ([]byte, error) {
 func (o EmailNotifications) String() string {
 	out := ""
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
+
 	return fmt.Sprintf("EmailNotifications {\n%s}", out)
 }

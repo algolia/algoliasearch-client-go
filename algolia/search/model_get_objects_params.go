@@ -18,6 +18,7 @@ type GetObjectsParams struct {
 func NewGetObjectsParams(requests []GetObjectsRequest) *GetObjectsParams {
 	this := &GetObjectsParams{}
 	this.Requests = requests
+
 	return this
 }
 
@@ -30,6 +31,7 @@ func NewEmptyGetObjectsParams() *GetObjectsParams {
 func (o *GetObjectsParams) GetRequests() []GetObjectsRequest {
 	if o == nil {
 		var ret []GetObjectsRequest
+
 		return ret
 	}
 
@@ -42,18 +44,21 @@ func (o *GetObjectsParams) GetRequestsOk() ([]GetObjectsRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Requests, true
 }
 
 // SetRequests sets field value.
 func (o *GetObjectsParams) SetRequests(v []GetObjectsRequest) *GetObjectsParams {
 	o.Requests = v
+
 	return o
 }
 
 func (o GetObjectsParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["requests"] = o.Requests
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetObjectsParams: %w", err)
@@ -65,5 +70,6 @@ func (o GetObjectsParams) MarshalJSON() ([]byte, error) {
 func (o GetObjectsParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  requests=%v\n", o.Requests)
+
 	return fmt.Sprintf("GetObjectsParams {\n%s}", out)
 }

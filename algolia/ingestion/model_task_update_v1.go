@@ -59,6 +59,7 @@ func NewTaskUpdateV1(opts ...TaskUpdateV1Option) *TaskUpdateV1 {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -71,8 +72,10 @@ func NewEmptyTaskUpdateV1() *TaskUpdateV1 {
 func (o *TaskUpdateV1) GetDestinationID() string {
 	if o == nil || o.DestinationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.DestinationID
 }
 
@@ -82,6 +85,7 @@ func (o *TaskUpdateV1) GetDestinationIDOk() (*string, bool) {
 	if o == nil || o.DestinationID == nil {
 		return nil, false
 	}
+
 	return o.DestinationID, true
 }
 
@@ -97,6 +101,7 @@ func (o *TaskUpdateV1) HasDestinationID() bool {
 // SetDestinationID gets a reference to the given string and assigns it to the DestinationID field.
 func (o *TaskUpdateV1) SetDestinationID(v string) *TaskUpdateV1 {
 	o.DestinationID = &v
+
 	return o
 }
 
@@ -104,8 +109,10 @@ func (o *TaskUpdateV1) SetDestinationID(v string) *TaskUpdateV1 {
 func (o *TaskUpdateV1) GetTrigger() TriggerUpdateInput {
 	if o == nil || o.Trigger == nil {
 		var ret TriggerUpdateInput
+
 		return ret
 	}
+
 	return *o.Trigger
 }
 
@@ -115,6 +122,7 @@ func (o *TaskUpdateV1) GetTriggerOk() (*TriggerUpdateInput, bool) {
 	if o == nil || o.Trigger == nil {
 		return nil, false
 	}
+
 	return o.Trigger, true
 }
 
@@ -130,6 +138,7 @@ func (o *TaskUpdateV1) HasTrigger() bool {
 // SetTrigger gets a reference to the given TriggerUpdateInput and assigns it to the Trigger field.
 func (o *TaskUpdateV1) SetTrigger(v *TriggerUpdateInput) *TaskUpdateV1 {
 	o.Trigger = v
+
 	return o
 }
 
@@ -137,8 +146,10 @@ func (o *TaskUpdateV1) SetTrigger(v *TriggerUpdateInput) *TaskUpdateV1 {
 func (o *TaskUpdateV1) GetInput() TaskInput {
 	if o == nil || o.Input == nil {
 		var ret TaskInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -148,6 +159,7 @@ func (o *TaskUpdateV1) GetInputOk() (*TaskInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -163,6 +175,7 @@ func (o *TaskUpdateV1) HasInput() bool {
 // SetInput gets a reference to the given TaskInput and assigns it to the Input field.
 func (o *TaskUpdateV1) SetInput(v *TaskInput) *TaskUpdateV1 {
 	o.Input = v
+
 	return o
 }
 
@@ -170,8 +183,10 @@ func (o *TaskUpdateV1) SetInput(v *TaskInput) *TaskUpdateV1 {
 func (o *TaskUpdateV1) GetEnabled() bool {
 	if o == nil || o.Enabled == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Enabled
 }
 
@@ -181,6 +196,7 @@ func (o *TaskUpdateV1) GetEnabledOk() (*bool, bool) {
 	if o == nil || o.Enabled == nil {
 		return nil, false
 	}
+
 	return o.Enabled, true
 }
 
@@ -196,6 +212,7 @@ func (o *TaskUpdateV1) HasEnabled() bool {
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
 func (o *TaskUpdateV1) SetEnabled(v bool) *TaskUpdateV1 {
 	o.Enabled = &v
+
 	return o
 }
 
@@ -203,8 +220,10 @@ func (o *TaskUpdateV1) SetEnabled(v bool) *TaskUpdateV1 {
 func (o *TaskUpdateV1) GetFailureThreshold() int32 {
 	if o == nil || o.FailureThreshold == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.FailureThreshold
 }
 
@@ -214,6 +233,7 @@ func (o *TaskUpdateV1) GetFailureThresholdOk() (*int32, bool) {
 	if o == nil || o.FailureThreshold == nil {
 		return nil, false
 	}
+
 	return o.FailureThreshold, true
 }
 
@@ -229,6 +249,7 @@ func (o *TaskUpdateV1) HasFailureThreshold() bool {
 // SetFailureThreshold gets a reference to the given int32 and assigns it to the FailureThreshold field.
 func (o *TaskUpdateV1) SetFailureThreshold(v int32) *TaskUpdateV1 {
 	o.FailureThreshold = &v
+
 	return o
 }
 
@@ -237,18 +258,23 @@ func (o TaskUpdateV1) MarshalJSON() ([]byte, error) {
 	if o.DestinationID != nil {
 		toSerialize["destinationID"] = o.DestinationID
 	}
+
 	if o.Trigger != nil {
 		toSerialize["trigger"] = o.Trigger
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
 	}
+
 	if o.FailureThreshold != nil {
 		toSerialize["failureThreshold"] = o.FailureThreshold
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal TaskUpdateV1: %w", err)
@@ -264,5 +290,6 @@ func (o TaskUpdateV1) String() string {
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
+
 	return fmt.Sprintf("TaskUpdateV1 {\n%s}", out)
 }

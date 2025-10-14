@@ -22,6 +22,7 @@ func NewDeletedAtResponse(taskID int64, deletedAt string) *DeletedAtResponse {
 	this := &DeletedAtResponse{}
 	this.TaskID = taskID
 	this.DeletedAt = deletedAt
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyDeletedAtResponse() *DeletedAtResponse {
 func (o *DeletedAtResponse) GetTaskID() int64 {
 	if o == nil {
 		var ret int64
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *DeletedAtResponse) GetTaskIDOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.TaskID, true
 }
 
 // SetTaskID sets field value.
 func (o *DeletedAtResponse) SetTaskID(v int64) *DeletedAtResponse {
 	o.TaskID = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *DeletedAtResponse) SetTaskID(v int64) *DeletedAtResponse {
 func (o *DeletedAtResponse) GetDeletedAt() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *DeletedAtResponse) GetDeletedAtOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.DeletedAt, true
 }
 
 // SetDeletedAt sets field value.
 func (o *DeletedAtResponse) SetDeletedAt(v string) *DeletedAtResponse {
 	o.DeletedAt = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o DeletedAtResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["taskID"] = o.TaskID
 	toSerialize["deletedAt"] = o.DeletedAt
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal DeletedAtResponse: %w", err)
@@ -96,5 +104,6 @@ func (o DeletedAtResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
+
 	return fmt.Sprintf("DeletedAtResponse {\n%s}", out)
 }

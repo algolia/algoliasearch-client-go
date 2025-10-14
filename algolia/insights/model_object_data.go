@@ -43,6 +43,7 @@ func NewObjectData(opts ...ObjectDataOption) *ObjectData {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -55,8 +56,10 @@ func NewEmptyObjectData() *ObjectData {
 func (o *ObjectData) GetPrice() Price {
 	if o == nil || o.Price == nil {
 		var ret Price
+
 		return ret
 	}
+
 	return *o.Price
 }
 
@@ -66,6 +69,7 @@ func (o *ObjectData) GetPriceOk() (*Price, bool) {
 	if o == nil || o.Price == nil {
 		return nil, false
 	}
+
 	return o.Price, true
 }
 
@@ -81,6 +85,7 @@ func (o *ObjectData) HasPrice() bool {
 // SetPrice gets a reference to the given Price and assigns it to the Price field.
 func (o *ObjectData) SetPrice(v *Price) *ObjectData {
 	o.Price = v
+
 	return o
 }
 
@@ -88,8 +93,10 @@ func (o *ObjectData) SetPrice(v *Price) *ObjectData {
 func (o *ObjectData) GetQuantity() int32 {
 	if o == nil || o.Quantity == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Quantity
 }
 
@@ -99,6 +106,7 @@ func (o *ObjectData) GetQuantityOk() (*int32, bool) {
 	if o == nil || o.Quantity == nil {
 		return nil, false
 	}
+
 	return o.Quantity, true
 }
 
@@ -114,6 +122,7 @@ func (o *ObjectData) HasQuantity() bool {
 // SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
 func (o *ObjectData) SetQuantity(v int32) *ObjectData {
 	o.Quantity = &v
+
 	return o
 }
 
@@ -121,8 +130,10 @@ func (o *ObjectData) SetQuantity(v int32) *ObjectData {
 func (o *ObjectData) GetDiscount() Discount {
 	if o == nil || o.Discount == nil {
 		var ret Discount
+
 		return ret
 	}
+
 	return *o.Discount
 }
 
@@ -132,6 +143,7 @@ func (o *ObjectData) GetDiscountOk() (*Discount, bool) {
 	if o == nil || o.Discount == nil {
 		return nil, false
 	}
+
 	return o.Discount, true
 }
 
@@ -147,6 +159,7 @@ func (o *ObjectData) HasDiscount() bool {
 // SetDiscount gets a reference to the given Discount and assigns it to the Discount field.
 func (o *ObjectData) SetDiscount(v *Discount) *ObjectData {
 	o.Discount = v
+
 	return o
 }
 
@@ -155,12 +168,15 @@ func (o ObjectData) MarshalJSON() ([]byte, error) {
 	if o.Price != nil {
 		toSerialize["price"] = o.Price
 	}
+
 	if o.Quantity != nil {
 		toSerialize["quantity"] = o.Quantity
 	}
+
 	if o.Discount != nil {
 		toSerialize["discount"] = o.Discount
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ObjectData: %w", err)
@@ -174,5 +190,6 @@ func (o ObjectData) String() string {
 	out += fmt.Sprintf("  price=%v\n", o.Price)
 	out += fmt.Sprintf("  quantity=%v\n", o.Quantity)
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
+
 	return fmt.Sprintf("ObjectData {\n%s}", out)
 }

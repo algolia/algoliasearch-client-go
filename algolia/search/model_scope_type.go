@@ -23,24 +23,7 @@ var AllowedScopeTypeEnumValues = []ScopeType{
 	"rules",
 }
 
-func (v *ScopeType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ScopeType': %w", string(src), err)
-	}
-	enumTypeValue := ScopeType(value)
-	for _, existing := range AllowedScopeTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ScopeType", value)
-}
-
-// NewScopeTypeFromValue returns a pointer to a valid ScopeType
+// NewScopeTypeFromValue returns a pointer to a valid ScopeType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewScopeTypeFromValue(v string) (*ScopeType, error) {
 	ev := ScopeType(v)
@@ -51,6 +34,26 @@ func NewScopeTypeFromValue(v string) (*ScopeType, error) {
 	}
 }
 
+func (v *ScopeType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ScopeType': %w", string(src), err)
+	}
+
+	enumTypeValue := ScopeType(value)
+	for _, existing := range AllowedScopeTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ScopeType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ScopeType) IsValid() bool {
 	for _, existing := range AllowedScopeTypeEnumValues {
@@ -58,6 +61,7 @@ func (v ScopeType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

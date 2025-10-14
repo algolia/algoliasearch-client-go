@@ -31,24 +31,7 @@ var AllowedBuiltInOperationTypeEnumValues = []BuiltInOperationType{
 	"IncrementSet",
 }
 
-func (v *BuiltInOperationType) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BuiltInOperationType': %w", string(src), err)
-	}
-	enumTypeValue := BuiltInOperationType(value)
-	for _, existing := range AllowedBuiltInOperationTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid BuiltInOperationType", value)
-}
-
-// NewBuiltInOperationTypeFromValue returns a pointer to a valid BuiltInOperationType
+// NewBuiltInOperationTypeFromValue returns a pointer to a valid BuiltInOperationType.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewBuiltInOperationTypeFromValue(v string) (*BuiltInOperationType, error) {
 	ev := BuiltInOperationType(v)
@@ -59,6 +42,26 @@ func NewBuiltInOperationTypeFromValue(v string) (*BuiltInOperationType, error) {
 	}
 }
 
+func (v *BuiltInOperationType) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'BuiltInOperationType': %w", string(src), err)
+	}
+
+	enumTypeValue := BuiltInOperationType(value)
+	for _, existing := range AllowedBuiltInOperationTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid BuiltInOperationType", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v BuiltInOperationType) IsValid() bool {
 	for _, existing := range AllowedBuiltInOperationTypeEnumValues {
@@ -66,6 +69,7 @@ func (v BuiltInOperationType) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

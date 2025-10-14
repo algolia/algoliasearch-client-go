@@ -22,6 +22,7 @@ func NewGetTopFiltersNoResultsValues(count int32, values []GetTopFiltersNoResult
 	this := &GetTopFiltersNoResultsValues{}
 	this.Count = count
 	this.Values = values
+
 	return this
 }
 
@@ -34,6 +35,7 @@ func NewEmptyGetTopFiltersNoResultsValues() *GetTopFiltersNoResultsValues {
 func (o *GetTopFiltersNoResultsValues) GetCount() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -46,12 +48,14 @@ func (o *GetTopFiltersNoResultsValues) GetCountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Count, true
 }
 
 // SetCount sets field value.
 func (o *GetTopFiltersNoResultsValues) SetCount(v int32) *GetTopFiltersNoResultsValues {
 	o.Count = v
+
 	return o
 }
 
@@ -59,6 +63,7 @@ func (o *GetTopFiltersNoResultsValues) SetCount(v int32) *GetTopFiltersNoResults
 func (o *GetTopFiltersNoResultsValues) GetValues() []GetTopFiltersNoResultsValue {
 	if o == nil {
 		var ret []GetTopFiltersNoResultsValue
+
 		return ret
 	}
 
@@ -71,12 +76,14 @@ func (o *GetTopFiltersNoResultsValues) GetValuesOk() ([]GetTopFiltersNoResultsVa
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Values, true
 }
 
 // SetValues sets field value.
 func (o *GetTopFiltersNoResultsValues) SetValues(v []GetTopFiltersNoResultsValue) *GetTopFiltersNoResultsValues {
 	o.Values = v
+
 	return o
 }
 
@@ -84,6 +91,7 @@ func (o GetTopFiltersNoResultsValues) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["count"] = o.Count
 	toSerialize["values"] = o.Values
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFiltersNoResultsValues: %w", err)
@@ -96,5 +104,6 @@ func (o GetTopFiltersNoResultsValues) String() string {
 	out := ""
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 	out += fmt.Sprintf("  values=%v\n", o.Values)
+
 	return fmt.Sprintf("GetTopFiltersNoResultsValues {\n%s}", out)
 }

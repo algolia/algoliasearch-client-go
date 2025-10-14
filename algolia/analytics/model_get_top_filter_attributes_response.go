@@ -19,6 +19,7 @@ type GetTopFilterAttributesResponse struct {
 func NewGetTopFilterAttributesResponse(attributes []GetTopFilterAttribute) *GetTopFilterAttributesResponse {
 	this := &GetTopFilterAttributesResponse{}
 	this.Attributes = attributes
+
 	return this
 }
 
@@ -31,6 +32,7 @@ func NewEmptyGetTopFilterAttributesResponse() *GetTopFilterAttributesResponse {
 func (o *GetTopFilterAttributesResponse) GetAttributes() []GetTopFilterAttribute {
 	if o == nil {
 		var ret []GetTopFilterAttribute
+
 		return ret
 	}
 
@@ -43,18 +45,21 @@ func (o *GetTopFilterAttributesResponse) GetAttributesOk() ([]GetTopFilterAttrib
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Attributes, true
 }
 
 // SetAttributes sets field value.
 func (o *GetTopFilterAttributesResponse) SetAttributes(v []GetTopFilterAttribute) *GetTopFilterAttributesResponse {
 	o.Attributes = v
+
 	return o
 }
 
 func (o GetTopFilterAttributesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["attributes"] = o.Attributes
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal GetTopFilterAttributesResponse: %w", err)
@@ -66,5 +71,6 @@ func (o GetTopFilterAttributesResponse) MarshalJSON() ([]byte, error) {
 func (o GetTopFilterAttributesResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  attributes=%v\n", o.Attributes)
+
 	return fmt.Sprintf("GetTopFilterAttributesResponse {\n%s}", out)
 }

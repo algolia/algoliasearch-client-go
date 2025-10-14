@@ -29,6 +29,7 @@ func NewWidgets(opts ...WidgetsOption) *Widgets {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -41,8 +42,10 @@ func NewEmptyWidgets() *Widgets {
 func (o *Widgets) GetBanners() []Banner {
 	if o == nil || o.Banners == nil {
 		var ret []Banner
+
 		return ret
 	}
+
 	return o.Banners
 }
 
@@ -52,6 +55,7 @@ func (o *Widgets) GetBannersOk() ([]Banner, bool) {
 	if o == nil || o.Banners == nil {
 		return nil, false
 	}
+
 	return o.Banners, true
 }
 
@@ -67,6 +71,7 @@ func (o *Widgets) HasBanners() bool {
 // SetBanners gets a reference to the given []Banner and assigns it to the Banners field.
 func (o *Widgets) SetBanners(v []Banner) *Widgets {
 	o.Banners = v
+
 	return o
 }
 
@@ -75,6 +80,7 @@ func (o Widgets) MarshalJSON() ([]byte, error) {
 	if o.Banners != nil {
 		toSerialize["banners"] = o.Banners
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Widgets: %w", err)
@@ -86,5 +92,6 @@ func (o Widgets) MarshalJSON() ([]byte, error) {
 func (o Widgets) String() string {
 	out := ""
 	out += fmt.Sprintf("  banners=%v\n", o.Banners)
+
 	return fmt.Sprintf("Widgets {\n%s}", out)
 }

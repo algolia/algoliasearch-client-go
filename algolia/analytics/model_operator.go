@@ -31,24 +31,7 @@ var AllowedOperatorEnumValues = []Operator{
 	">=",
 }
 
-func (v *Operator) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Operator': %w", string(src), err)
-	}
-	enumTypeValue := Operator(value)
-	for _, existing := range AllowedOperatorEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Operator", value)
-}
-
-// NewOperatorFromValue returns a pointer to a valid Operator
+// NewOperatorFromValue returns a pointer to a valid Operator.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewOperatorFromValue(v string) (*Operator, error) {
 	ev := Operator(v)
@@ -59,6 +42,26 @@ func NewOperatorFromValue(v string) (*Operator, error) {
 	}
 }
 
+func (v *Operator) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Operator': %w", string(src), err)
+	}
+
+	enumTypeValue := Operator(value)
+	for _, existing := range AllowedOperatorEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Operator", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Operator) IsValid() bool {
 	for _, existing := range AllowedOperatorEnumValues {
@@ -66,6 +69,7 @@ func (v Operator) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

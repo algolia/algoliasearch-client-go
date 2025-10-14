@@ -73,6 +73,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
 	var jsonDict map[string]any
+
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") {
 		// try to unmarshal data into AuthOAuth
@@ -83,6 +84,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 			dst.AuthOAuth = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "clientEmail") && utils.HasKey(jsonDict, "privateKey") {
 		// try to unmarshal data into AuthGoogleServiceAccount
 		err = json.Unmarshal(data, &dst.AuthGoogleServiceAccount)
@@ -92,6 +94,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 			dst.AuthGoogleServiceAccount = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "username") && utils.HasKey(jsonDict, "password") {
 		// try to unmarshal data into AuthBasic
 		err = json.Unmarshal(data, &dst.AuthBasic)
@@ -101,6 +104,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 			dst.AuthBasic = nil
 		}
 	}
+
 	if utils.HasKey(jsonDict, "key") {
 		// try to unmarshal data into AuthAPIKey
 		err = json.Unmarshal(data, &dst.AuthAPIKey)
@@ -132,7 +136,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 		dst.MapmapOfStringstring = nil
 	}
 
-	return fmt.Errorf("Data failed to match schemas in oneOf(AuthInput)")
+	return fmt.Errorf("data failed to match schemas in oneOf(AuthInput)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.

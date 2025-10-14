@@ -44,6 +44,7 @@ func NewSourceUpdate(opts ...SourceUpdateOption) *SourceUpdate {
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -56,8 +57,10 @@ func NewEmptySourceUpdate() *SourceUpdate {
 func (o *SourceUpdate) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.Name
 }
 
@@ -67,6 +70,7 @@ func (o *SourceUpdate) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
+
 	return o.Name, true
 }
 
@@ -82,6 +86,7 @@ func (o *SourceUpdate) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *SourceUpdate) SetName(v string) *SourceUpdate {
 	o.Name = &v
+
 	return o
 }
 
@@ -89,8 +94,10 @@ func (o *SourceUpdate) SetName(v string) *SourceUpdate {
 func (o *SourceUpdate) GetInput() SourceUpdateInput {
 	if o == nil || o.Input == nil {
 		var ret SourceUpdateInput
+
 		return ret
 	}
+
 	return *o.Input
 }
 
@@ -100,6 +107,7 @@ func (o *SourceUpdate) GetInputOk() (*SourceUpdateInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
+
 	return o.Input, true
 }
 
@@ -115,6 +123,7 @@ func (o *SourceUpdate) HasInput() bool {
 // SetInput gets a reference to the given SourceUpdateInput and assigns it to the Input field.
 func (o *SourceUpdate) SetInput(v *SourceUpdateInput) *SourceUpdate {
 	o.Input = v
+
 	return o
 }
 
@@ -122,8 +131,10 @@ func (o *SourceUpdate) SetInput(v *SourceUpdateInput) *SourceUpdate {
 func (o *SourceUpdate) GetAuthenticationID() string {
 	if o == nil || o.AuthenticationID == nil {
 		var ret string
+
 		return ret
 	}
+
 	return *o.AuthenticationID
 }
 
@@ -133,6 +144,7 @@ func (o *SourceUpdate) GetAuthenticationIDOk() (*string, bool) {
 	if o == nil || o.AuthenticationID == nil {
 		return nil, false
 	}
+
 	return o.AuthenticationID, true
 }
 
@@ -148,6 +160,7 @@ func (o *SourceUpdate) HasAuthenticationID() bool {
 // SetAuthenticationID gets a reference to the given string and assigns it to the AuthenticationID field.
 func (o *SourceUpdate) SetAuthenticationID(v string) *SourceUpdate {
 	o.AuthenticationID = &v
+
 	return o
 }
 
@@ -156,12 +169,15 @@ func (o SourceUpdate) MarshalJSON() ([]byte, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
+
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
 	if o.AuthenticationID != nil {
 		toSerialize["authenticationID"] = o.AuthenticationID
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SourceUpdate: %w", err)
@@ -175,5 +191,6 @@ func (o SourceUpdate) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
+
 	return fmt.Sprintf("SourceUpdate {\n%s}", out)
 }

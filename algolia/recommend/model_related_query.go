@@ -50,10 +50,12 @@ func NewRelatedQuery(indexName string, threshold float64, model RelatedModel, ob
 	this.IndexName = indexName
 	this.Threshold = threshold
 	this.Model = model
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -66,6 +68,7 @@ func NewEmptyRelatedQuery() *RelatedQuery {
 func (o *RelatedQuery) GetIndexName() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -78,12 +81,14 @@ func (o *RelatedQuery) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.IndexName, true
 }
 
 // SetIndexName sets field value.
 func (o *RelatedQuery) SetIndexName(v string) *RelatedQuery {
 	o.IndexName = v
+
 	return o
 }
 
@@ -91,6 +96,7 @@ func (o *RelatedQuery) SetIndexName(v string) *RelatedQuery {
 func (o *RelatedQuery) GetThreshold() float64 {
 	if o == nil {
 		var ret float64
+
 		return ret
 	}
 
@@ -103,12 +109,14 @@ func (o *RelatedQuery) GetThresholdOk() (*float64, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Threshold, true
 }
 
 // SetThreshold sets field value.
 func (o *RelatedQuery) SetThreshold(v float64) *RelatedQuery {
 	o.Threshold = v
+
 	return o
 }
 
@@ -116,8 +124,10 @@ func (o *RelatedQuery) SetThreshold(v float64) *RelatedQuery {
 func (o *RelatedQuery) GetMaxRecommendations() int32 {
 	if o == nil || o.MaxRecommendations == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.MaxRecommendations
 }
 
@@ -127,6 +137,7 @@ func (o *RelatedQuery) GetMaxRecommendationsOk() (*int32, bool) {
 	if o == nil || o.MaxRecommendations == nil {
 		return nil, false
 	}
+
 	return o.MaxRecommendations, true
 }
 
@@ -142,6 +153,7 @@ func (o *RelatedQuery) HasMaxRecommendations() bool {
 // SetMaxRecommendations gets a reference to the given int32 and assigns it to the MaxRecommendations field.
 func (o *RelatedQuery) SetMaxRecommendations(v int32) *RelatedQuery {
 	o.MaxRecommendations = &v
+
 	return o
 }
 
@@ -149,8 +161,10 @@ func (o *RelatedQuery) SetMaxRecommendations(v int32) *RelatedQuery {
 func (o *RelatedQuery) GetQueryParameters() RecommendSearchParams {
 	if o == nil || o.QueryParameters == nil {
 		var ret RecommendSearchParams
+
 		return ret
 	}
+
 	return *o.QueryParameters
 }
 
@@ -160,6 +174,7 @@ func (o *RelatedQuery) GetQueryParametersOk() (*RecommendSearchParams, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
+
 	return o.QueryParameters, true
 }
 
@@ -175,6 +190,7 @@ func (o *RelatedQuery) HasQueryParameters() bool {
 // SetQueryParameters gets a reference to the given RecommendSearchParams and assigns it to the QueryParameters field.
 func (o *RelatedQuery) SetQueryParameters(v *RecommendSearchParams) *RelatedQuery {
 	o.QueryParameters = v
+
 	return o
 }
 
@@ -182,6 +198,7 @@ func (o *RelatedQuery) SetQueryParameters(v *RecommendSearchParams) *RelatedQuer
 func (o *RelatedQuery) GetModel() RelatedModel {
 	if o == nil {
 		var ret RelatedModel
+
 		return ret
 	}
 
@@ -194,12 +211,14 @@ func (o *RelatedQuery) GetModelOk() (*RelatedModel, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Model, true
 }
 
 // SetModel sets field value.
 func (o *RelatedQuery) SetModel(v RelatedModel) *RelatedQuery {
 	o.Model = v
+
 	return o
 }
 
@@ -207,6 +226,7 @@ func (o *RelatedQuery) SetModel(v RelatedModel) *RelatedQuery {
 func (o *RelatedQuery) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -219,12 +239,14 @@ func (o *RelatedQuery) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *RelatedQuery) SetObjectID(v string) *RelatedQuery {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -232,8 +254,10 @@ func (o *RelatedQuery) SetObjectID(v string) *RelatedQuery {
 func (o *RelatedQuery) GetFallbackParameters() FallbackParams {
 	if o == nil || o.FallbackParameters == nil {
 		var ret FallbackParams
+
 		return ret
 	}
+
 	return *o.FallbackParameters
 }
 
@@ -243,6 +267,7 @@ func (o *RelatedQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
+
 	return o.FallbackParameters, true
 }
 
@@ -258,24 +283,30 @@ func (o *RelatedQuery) HasFallbackParameters() bool {
 // SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
 func (o *RelatedQuery) SetFallbackParameters(v *FallbackParams) *RelatedQuery {
 	o.FallbackParameters = v
+
 	return o
 }
 
 func (o RelatedQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
+
 	toSerialize["threshold"] = o.Threshold
 	if o.MaxRecommendations != nil {
 		toSerialize["maxRecommendations"] = o.MaxRecommendations
 	}
+
 	if o.QueryParameters != nil {
 		toSerialize["queryParameters"] = o.QueryParameters
 	}
+
 	toSerialize["model"] = o.Model
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.FallbackParameters != nil {
 		toSerialize["fallbackParameters"] = o.FallbackParameters
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RelatedQuery: %w", err)
@@ -293,5 +324,6 @@ func (o RelatedQuery) String() string {
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
+
 	return fmt.Sprintf("RelatedQuery {\n%s}", out)
 }

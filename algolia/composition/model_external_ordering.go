@@ -21,24 +21,7 @@ var AllowedExternalOrderingEnumValues = []ExternalOrdering{
 	"userDefined",
 }
 
-func (v *ExternalOrdering) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ExternalOrdering': %w", string(src), err)
-	}
-	enumTypeValue := ExternalOrdering(value)
-	for _, existing := range AllowedExternalOrderingEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid ExternalOrdering", value)
-}
-
-// NewExternalOrderingFromValue returns a pointer to a valid ExternalOrdering
+// NewExternalOrderingFromValue returns a pointer to a valid ExternalOrdering.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewExternalOrderingFromValue(v string) (*ExternalOrdering, error) {
 	ev := ExternalOrdering(v)
@@ -49,6 +32,26 @@ func NewExternalOrderingFromValue(v string) (*ExternalOrdering, error) {
 	}
 }
 
+func (v *ExternalOrdering) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'ExternalOrdering': %w", string(src), err)
+	}
+
+	enumTypeValue := ExternalOrdering(value)
+	for _, existing := range AllowedExternalOrderingEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ExternalOrdering", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v ExternalOrdering) IsValid() bool {
 	for _, existing := range AllowedExternalOrderingEnumValues {
@@ -56,6 +59,7 @@ func (v ExternalOrdering) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

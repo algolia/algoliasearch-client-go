@@ -20,6 +20,7 @@ func NewListAuthenticationsResponse(authentications []Authentication, pagination
 	this := &ListAuthenticationsResponse{}
 	this.Authentications = authentications
 	this.Pagination = pagination
+
 	return this
 }
 
@@ -32,6 +33,7 @@ func NewEmptyListAuthenticationsResponse() *ListAuthenticationsResponse {
 func (o *ListAuthenticationsResponse) GetAuthentications() []Authentication {
 	if o == nil {
 		var ret []Authentication
+
 		return ret
 	}
 
@@ -44,12 +46,14 @@ func (o *ListAuthenticationsResponse) GetAuthenticationsOk() ([]Authentication, 
 	if o == nil {
 		return nil, false
 	}
+
 	return o.Authentications, true
 }
 
 // SetAuthentications sets field value.
 func (o *ListAuthenticationsResponse) SetAuthentications(v []Authentication) *ListAuthenticationsResponse {
 	o.Authentications = v
+
 	return o
 }
 
@@ -57,6 +61,7 @@ func (o *ListAuthenticationsResponse) SetAuthentications(v []Authentication) *Li
 func (o *ListAuthenticationsResponse) GetPagination() Pagination {
 	if o == nil {
 		var ret Pagination
+
 		return ret
 	}
 
@@ -69,12 +74,14 @@ func (o *ListAuthenticationsResponse) GetPaginationOk() (*Pagination, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.Pagination, true
 }
 
 // SetPagination sets field value.
 func (o *ListAuthenticationsResponse) SetPagination(v *Pagination) *ListAuthenticationsResponse {
 	o.Pagination = *v
+
 	return o
 }
 
@@ -82,6 +89,7 @@ func (o ListAuthenticationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["authentications"] = o.Authentications
 	toSerialize["pagination"] = o.Pagination
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ListAuthenticationsResponse: %w", err)
@@ -94,5 +102,6 @@ func (o ListAuthenticationsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  authentications=%v\n", o.Authentications)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
+
 	return fmt.Sprintf("ListAuthenticationsResponse {\n%s}", out)
 }

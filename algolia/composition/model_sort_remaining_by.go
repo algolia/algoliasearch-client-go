@@ -23,24 +23,7 @@ var AllowedSortRemainingByEnumValues = []SortRemainingBy{
 	"hidden",
 }
 
-func (v *SortRemainingBy) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SortRemainingBy': %w", string(src), err)
-	}
-	enumTypeValue := SortRemainingBy(value)
-	for _, existing := range AllowedSortRemainingByEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SortRemainingBy", value)
-}
-
-// NewSortRemainingByFromValue returns a pointer to a valid SortRemainingBy
+// NewSortRemainingByFromValue returns a pointer to a valid SortRemainingBy.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewSortRemainingByFromValue(v string) (*SortRemainingBy, error) {
 	ev := SortRemainingBy(v)
@@ -51,6 +34,26 @@ func NewSortRemainingByFromValue(v string) (*SortRemainingBy, error) {
 	}
 }
 
+func (v *SortRemainingBy) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'SortRemainingBy': %w", string(src), err)
+	}
+
+	enumTypeValue := SortRemainingBy(value)
+	for _, existing := range AllowedSortRemainingByEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid SortRemainingBy", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v SortRemainingBy) IsValid() bool {
 	for _, existing := range AllowedSortRemainingByEnumValues {
@@ -58,6 +61,7 @@ func (v SortRemainingBy) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 

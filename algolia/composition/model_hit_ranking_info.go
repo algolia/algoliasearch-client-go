@@ -95,16 +95,25 @@ func WithHitRankingInfoComposed(val map[string]CompositionIdRankingInfo) HitRank
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewHitRankingInfo(firstMatchedWord int32, geoDistance int32, nbExactWords int32, nbTypos int32, userScore int32, opts ...HitRankingInfoOption) *HitRankingInfo {
+func NewHitRankingInfo(
+	firstMatchedWord int32,
+	geoDistance int32,
+	nbExactWords int32,
+	nbTypos int32,
+	userScore int32,
+	opts ...HitRankingInfoOption,
+) *HitRankingInfo {
 	this := &HitRankingInfo{}
 	this.FirstMatchedWord = firstMatchedWord
 	this.GeoDistance = geoDistance
 	this.NbExactWords = nbExactWords
 	this.NbTypos = nbTypos
+
 	this.UserScore = userScore
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -117,8 +126,10 @@ func NewEmptyHitRankingInfo() *HitRankingInfo {
 func (o *HitRankingInfo) GetFilters() int32 {
 	if o == nil || o.Filters == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Filters
 }
 
@@ -128,6 +139,7 @@ func (o *HitRankingInfo) GetFiltersOk() (*int32, bool) {
 	if o == nil || o.Filters == nil {
 		return nil, false
 	}
+
 	return o.Filters, true
 }
 
@@ -143,6 +155,7 @@ func (o *HitRankingInfo) HasFilters() bool {
 // SetFilters gets a reference to the given int32 and assigns it to the Filters field.
 func (o *HitRankingInfo) SetFilters(v int32) *HitRankingInfo {
 	o.Filters = &v
+
 	return o
 }
 
@@ -150,6 +163,7 @@ func (o *HitRankingInfo) SetFilters(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetFirstMatchedWord() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -162,12 +176,14 @@ func (o *HitRankingInfo) GetFirstMatchedWordOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.FirstMatchedWord, true
 }
 
 // SetFirstMatchedWord sets field value.
 func (o *HitRankingInfo) SetFirstMatchedWord(v int32) *HitRankingInfo {
 	o.FirstMatchedWord = v
+
 	return o
 }
 
@@ -175,6 +191,7 @@ func (o *HitRankingInfo) SetFirstMatchedWord(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetGeoDistance() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -187,12 +204,14 @@ func (o *HitRankingInfo) GetGeoDistanceOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.GeoDistance, true
 }
 
 // SetGeoDistance sets field value.
 func (o *HitRankingInfo) SetGeoDistance(v int32) *HitRankingInfo {
 	o.GeoDistance = v
+
 	return o
 }
 
@@ -200,8 +219,10 @@ func (o *HitRankingInfo) SetGeoDistance(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetGeoPrecision() int32 {
 	if o == nil || o.GeoPrecision == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.GeoPrecision
 }
 
@@ -211,6 +232,7 @@ func (o *HitRankingInfo) GetGeoPrecisionOk() (*int32, bool) {
 	if o == nil || o.GeoPrecision == nil {
 		return nil, false
 	}
+
 	return o.GeoPrecision, true
 }
 
@@ -226,6 +248,7 @@ func (o *HitRankingInfo) HasGeoPrecision() bool {
 // SetGeoPrecision gets a reference to the given int32 and assigns it to the GeoPrecision field.
 func (o *HitRankingInfo) SetGeoPrecision(v int32) *HitRankingInfo {
 	o.GeoPrecision = &v
+
 	return o
 }
 
@@ -233,8 +256,10 @@ func (o *HitRankingInfo) SetGeoPrecision(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetMatchedGeoLocation() MatchedGeoLocation {
 	if o == nil || o.MatchedGeoLocation == nil {
 		var ret MatchedGeoLocation
+
 		return ret
 	}
+
 	return *o.MatchedGeoLocation
 }
 
@@ -244,6 +269,7 @@ func (o *HitRankingInfo) GetMatchedGeoLocationOk() (*MatchedGeoLocation, bool) {
 	if o == nil || o.MatchedGeoLocation == nil {
 		return nil, false
 	}
+
 	return o.MatchedGeoLocation, true
 }
 
@@ -259,6 +285,7 @@ func (o *HitRankingInfo) HasMatchedGeoLocation() bool {
 // SetMatchedGeoLocation gets a reference to the given MatchedGeoLocation and assigns it to the MatchedGeoLocation field.
 func (o *HitRankingInfo) SetMatchedGeoLocation(v *MatchedGeoLocation) *HitRankingInfo {
 	o.MatchedGeoLocation = v
+
 	return o
 }
 
@@ -266,8 +293,10 @@ func (o *HitRankingInfo) SetMatchedGeoLocation(v *MatchedGeoLocation) *HitRankin
 func (o *HitRankingInfo) GetPersonalization() Personalization {
 	if o == nil || o.Personalization == nil {
 		var ret Personalization
+
 		return ret
 	}
+
 	return *o.Personalization
 }
 
@@ -277,6 +306,7 @@ func (o *HitRankingInfo) GetPersonalizationOk() (*Personalization, bool) {
 	if o == nil || o.Personalization == nil {
 		return nil, false
 	}
+
 	return o.Personalization, true
 }
 
@@ -292,6 +322,7 @@ func (o *HitRankingInfo) HasPersonalization() bool {
 // SetPersonalization gets a reference to the given Personalization and assigns it to the Personalization field.
 func (o *HitRankingInfo) SetPersonalization(v *Personalization) *HitRankingInfo {
 	o.Personalization = v
+
 	return o
 }
 
@@ -299,6 +330,7 @@ func (o *HitRankingInfo) SetPersonalization(v *Personalization) *HitRankingInfo 
 func (o *HitRankingInfo) GetNbExactWords() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -311,12 +343,14 @@ func (o *HitRankingInfo) GetNbExactWordsOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbExactWords, true
 }
 
 // SetNbExactWords sets field value.
 func (o *HitRankingInfo) SetNbExactWords(v int32) *HitRankingInfo {
 	o.NbExactWords = v
+
 	return o
 }
 
@@ -324,6 +358,7 @@ func (o *HitRankingInfo) SetNbExactWords(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetNbTypos() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -336,12 +371,14 @@ func (o *HitRankingInfo) GetNbTyposOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.NbTypos, true
 }
 
 // SetNbTypos sets field value.
 func (o *HitRankingInfo) SetNbTypos(v int32) *HitRankingInfo {
 	o.NbTypos = v
+
 	return o
 }
 
@@ -349,8 +386,10 @@ func (o *HitRankingInfo) SetNbTypos(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetPromoted() bool {
 	if o == nil || o.Promoted == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.Promoted
 }
 
@@ -360,6 +399,7 @@ func (o *HitRankingInfo) GetPromotedOk() (*bool, bool) {
 	if o == nil || o.Promoted == nil {
 		return nil, false
 	}
+
 	return o.Promoted, true
 }
 
@@ -375,6 +415,7 @@ func (o *HitRankingInfo) HasPromoted() bool {
 // SetPromoted gets a reference to the given bool and assigns it to the Promoted field.
 func (o *HitRankingInfo) SetPromoted(v bool) *HitRankingInfo {
 	o.Promoted = &v
+
 	return o
 }
 
@@ -382,8 +423,10 @@ func (o *HitRankingInfo) SetPromoted(v bool) *HitRankingInfo {
 func (o *HitRankingInfo) GetProximityDistance() int32 {
 	if o == nil || o.ProximityDistance == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.ProximityDistance
 }
 
@@ -393,6 +436,7 @@ func (o *HitRankingInfo) GetProximityDistanceOk() (*int32, bool) {
 	if o == nil || o.ProximityDistance == nil {
 		return nil, false
 	}
+
 	return o.ProximityDistance, true
 }
 
@@ -408,6 +452,7 @@ func (o *HitRankingInfo) HasProximityDistance() bool {
 // SetProximityDistance gets a reference to the given int32 and assigns it to the ProximityDistance field.
 func (o *HitRankingInfo) SetProximityDistance(v int32) *HitRankingInfo {
 	o.ProximityDistance = &v
+
 	return o
 }
 
@@ -415,6 +460,7 @@ func (o *HitRankingInfo) SetProximityDistance(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetUserScore() int32 {
 	if o == nil {
 		var ret int32
+
 		return ret
 	}
 
@@ -427,12 +473,14 @@ func (o *HitRankingInfo) GetUserScoreOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.UserScore, true
 }
 
 // SetUserScore sets field value.
 func (o *HitRankingInfo) SetUserScore(v int32) *HitRankingInfo {
 	o.UserScore = v
+
 	return o
 }
 
@@ -440,8 +488,10 @@ func (o *HitRankingInfo) SetUserScore(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetWords() int32 {
 	if o == nil || o.Words == nil {
 		var ret int32
+
 		return ret
 	}
+
 	return *o.Words
 }
 
@@ -451,6 +501,7 @@ func (o *HitRankingInfo) GetWordsOk() (*int32, bool) {
 	if o == nil || o.Words == nil {
 		return nil, false
 	}
+
 	return o.Words, true
 }
 
@@ -466,6 +517,7 @@ func (o *HitRankingInfo) HasWords() bool {
 // SetWords gets a reference to the given int32 and assigns it to the Words field.
 func (o *HitRankingInfo) SetWords(v int32) *HitRankingInfo {
 	o.Words = &v
+
 	return o
 }
 
@@ -473,8 +525,10 @@ func (o *HitRankingInfo) SetWords(v int32) *HitRankingInfo {
 func (o *HitRankingInfo) GetPromotedByReRanking() bool {
 	if o == nil || o.PromotedByReRanking == nil {
 		var ret bool
+
 		return ret
 	}
+
 	return *o.PromotedByReRanking
 }
 
@@ -484,6 +538,7 @@ func (o *HitRankingInfo) GetPromotedByReRankingOk() (*bool, bool) {
 	if o == nil || o.PromotedByReRanking == nil {
 		return nil, false
 	}
+
 	return o.PromotedByReRanking, true
 }
 
@@ -499,6 +554,7 @@ func (o *HitRankingInfo) HasPromotedByReRanking() bool {
 // SetPromotedByReRanking gets a reference to the given bool and assigns it to the PromotedByReRanking field.
 func (o *HitRankingInfo) SetPromotedByReRanking(v bool) *HitRankingInfo {
 	o.PromotedByReRanking = &v
+
 	return o
 }
 
@@ -506,8 +562,10 @@ func (o *HitRankingInfo) SetPromotedByReRanking(v bool) *HitRankingInfo {
 func (o *HitRankingInfo) GetComposed() map[string]CompositionIdRankingInfo {
 	if o == nil || o.Composed == nil {
 		var ret map[string]CompositionIdRankingInfo
+
 		return ret
 	}
+
 	return *o.Composed
 }
 
@@ -517,6 +575,7 @@ func (o *HitRankingInfo) GetComposedOk() (*map[string]CompositionIdRankingInfo, 
 	if o == nil || o.Composed == nil {
 		return nil, false
 	}
+
 	return o.Composed, true
 }
 
@@ -532,6 +591,7 @@ func (o *HitRankingInfo) HasComposed() bool {
 // SetComposed gets a reference to the given map[string]CompositionIdRankingInfo and assigns it to the Composed field.
 func (o *HitRankingInfo) SetComposed(v map[string]CompositionIdRankingInfo) *HitRankingInfo {
 	o.Composed = &v
+
 	return o
 }
 
@@ -540,35 +600,46 @@ func (o HitRankingInfo) MarshalJSON() ([]byte, error) {
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
+
 	toSerialize["firstMatchedWord"] = o.FirstMatchedWord
+
 	toSerialize["geoDistance"] = o.GeoDistance
 	if o.GeoPrecision != nil {
 		toSerialize["geoPrecision"] = o.GeoPrecision
 	}
+
 	if o.MatchedGeoLocation != nil {
 		toSerialize["matchedGeoLocation"] = o.MatchedGeoLocation
 	}
+
 	if o.Personalization != nil {
 		toSerialize["personalization"] = o.Personalization
 	}
+
 	toSerialize["nbExactWords"] = o.NbExactWords
+
 	toSerialize["nbTypos"] = o.NbTypos
 	if o.Promoted != nil {
 		toSerialize["promoted"] = o.Promoted
 	}
+
 	if o.ProximityDistance != nil {
 		toSerialize["proximityDistance"] = o.ProximityDistance
 	}
+
 	toSerialize["userScore"] = o.UserScore
 	if o.Words != nil {
 		toSerialize["words"] = o.Words
 	}
+
 	if o.PromotedByReRanking != nil {
 		toSerialize["promotedByReRanking"] = o.PromotedByReRanking
 	}
+
 	if o.Composed != nil {
 		toSerialize["composed"] = o.Composed
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal HitRankingInfo: %w", err)
@@ -593,5 +664,6 @@ func (o HitRankingInfo) String() string {
 	out += fmt.Sprintf("  words=%v\n", o.Words)
 	out += fmt.Sprintf("  promotedByReRanking=%v\n", o.PromotedByReRanking)
 	out += fmt.Sprintf("  composed=%v\n", o.Composed)
+
 	return fmt.Sprintf("HitRankingInfo {\n%s}", out)
 }

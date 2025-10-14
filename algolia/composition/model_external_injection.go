@@ -28,10 +28,12 @@ func WithExternalInjectionMetadata(val map[string]any) ExternalInjectionOption {
 // will change when the set of required properties is changed.
 func NewExternalInjection(objectID string, opts ...ExternalInjectionOption) *ExternalInjection {
 	this := &ExternalInjection{}
+
 	this.ObjectID = objectID
 	for _, opt := range opts {
 		opt(this)
 	}
+
 	return this
 }
 
@@ -44,6 +46,7 @@ func NewEmptyExternalInjection() *ExternalInjection {
 func (o *ExternalInjection) GetObjectID() string {
 	if o == nil {
 		var ret string
+
 		return ret
 	}
 
@@ -56,12 +59,14 @@ func (o *ExternalInjection) GetObjectIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
+
 	return &o.ObjectID, true
 }
 
 // SetObjectID sets field value.
 func (o *ExternalInjection) SetObjectID(v string) *ExternalInjection {
 	o.ObjectID = v
+
 	return o
 }
 
@@ -69,8 +74,10 @@ func (o *ExternalInjection) SetObjectID(v string) *ExternalInjection {
 func (o *ExternalInjection) GetMetadata() map[string]any {
 	if o == nil || o.Metadata == nil {
 		var ret map[string]any
+
 		return ret
 	}
+
 	return o.Metadata
 }
 
@@ -80,6 +87,7 @@ func (o *ExternalInjection) GetMetadataOk() (map[string]any, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
+
 	return o.Metadata, true
 }
 
@@ -95,15 +103,18 @@ func (o *ExternalInjection) HasMetadata() bool {
 // SetMetadata gets a reference to the given map[string]any and assigns it to the Metadata field.
 func (o *ExternalInjection) SetMetadata(v map[string]any) *ExternalInjection {
 	o.Metadata = v
+
 	return o
 }
 
 func (o ExternalInjection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ExternalInjection: %w", err)
@@ -116,5 +127,6 @@ func (o ExternalInjection) String() string {
 	out := ""
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
+
 	return fmt.Sprintf("ExternalInjection {\n%s}", out)
 }

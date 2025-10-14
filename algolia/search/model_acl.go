@@ -47,24 +47,7 @@ var AllowedAclEnumValues = []Acl{
 	"usage",
 }
 
-func (v *Acl) UnmarshalJSON(src []byte) error {
-	var value string
-	err := json.Unmarshal(src, &value)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Acl': %w", string(src), err)
-	}
-	enumTypeValue := Acl(value)
-	for _, existing := range AllowedAclEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid Acl", value)
-}
-
-// NewAclFromValue returns a pointer to a valid Acl
+// NewAclFromValue returns a pointer to a valid Acl.
 // for the value passed as argument, or an error if the value passed is not allowed by the enum.
 func NewAclFromValue(v string) (*Acl, error) {
 	ev := Acl(v)
@@ -75,6 +58,26 @@ func NewAclFromValue(v string) (*Acl, error) {
 	}
 }
 
+func (v *Acl) UnmarshalJSON(src []byte) error {
+	var value string
+
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return fmt.Errorf("failed to unmarshal value '%s' for enum 'Acl': %w", string(src), err)
+	}
+
+	enumTypeValue := Acl(value)
+	for _, existing := range AllowedAclEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid Acl", value)
+}
+
 // IsValid return true if the value is valid for the enum, false otherwise.
 func (v Acl) IsValid() bool {
 	for _, existing := range AllowedAclEnumValues {
@@ -82,6 +85,7 @@ func (v Acl) IsValid() bool {
 			return true
 		}
 	}
+
 	return false
 }
 
