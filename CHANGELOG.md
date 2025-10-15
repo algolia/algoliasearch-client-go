@@ -1,3 +1,10 @@
+## [4.28.2](https://github.com/algolia/algoliasearch-client-go/compare/4.28.1...4.28.2)
+
+- [9a92b3269](https://github.com/algolia/api-clients-automation/commit/9a92b3269) chore(deps): dependencies 2025-10-13 ([#5453](https://github.com/algolia/api-clients-automation/pull/5453)) by [@algolia-bot](https://github.com/algolia-bot/)
+- [02b6a90ae](https://github.com/algolia/api-clients-automation/commit/02b6a90ae) fix(clients): upgrade linter ([#5476](https://github.com/algolia/api-clients-automation/pull/5476)) by [@millotp](https://github.com/millotp/)
+- [3fc252bec](https://github.com/algolia/api-clients-automation/commit/3fc252bec) chore: remove dead links ([#5472](https://github.com/algolia/api-clients-automation/pull/5472)) by [@millotp](https://github.com/millotp/)
+- [9eebe5113](https://github.com/algolia/api-clients-automation/commit/9eebe5113) docs: replace links for the new doc ([#5478](https://github.com/algolia/api-clients-automation/pull/5478)) by [@millotp](https://github.com/millotp/)
+
 ## [4.28.1](https://github.com/algolia/algoliasearch-client-go/compare/4.28.0...4.28.1)
 
 - [4d9286b50](https://github.com/algolia/api-clients-automation/commit/4d9286b50) fix(clients): use DefaultMaxIdleTimeout ([#5447](https://github.com/algolia/api-clients-automation/pull/5447)) by [@naonao2323](https://github.com/naonao2323/)
