@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceJSON struct for SourceJSON.
+// SourceJSON Specific configuration attributes of a `json` source.
 type SourceJSON struct {
 	// URL of the file.
 	Url string `json:"url"`

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceCSV struct for SourceCSV.
+// SourceCSV Specific configuration attributes of a `csv` source.
 type SourceCSV struct {
 	// URL of the file.
 	Url string `json:"url"`

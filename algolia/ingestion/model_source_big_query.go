@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceBigQuery struct for SourceBigQuery.
+// SourceBigQuery Specific configuration attributes of a `bigquery` source.
 type SourceBigQuery struct {
 	// Project ID of the BigQuery source.
 	ProjectID string `json:"projectID"`

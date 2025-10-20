@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceCommercetools struct for SourceCommercetools.
+// SourceCommercetools Specific configuration attributes of a `commercetools` source.
 type SourceCommercetools struct {
 	StoreKeys []string `json:"storeKeys,omitempty"`
 	// Locales for your commercetools stores.

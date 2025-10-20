@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceDocker struct for SourceDocker.
+// SourceDocker Specific configuration attributes of a `docker` source.
 type SourceDocker struct {
 	// Name of the connector.
 	Image string `json:"image"`

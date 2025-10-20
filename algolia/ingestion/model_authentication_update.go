@@ -4,17 +4,14 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AuthenticationUpdate Request body for updating an authentication resource.
 type AuthenticationUpdate struct {
 	Type *AuthenticationType `json:"type,omitempty"`
 	// Descriptive name for the resource.
-	Name     *string                  `json:"name,omitempty"`
-	Platform utils.Nullable[Platform] `json:"platform,omitempty"`
-	Input    *AuthInputPartial        `json:"input,omitempty"`
+	Name  *string           `json:"name,omitempty"`
+	Input *AuthInputPartial `json:"input,omitempty"`
 }
 
 type AuthenticationUpdateOption func(f *AuthenticationUpdate)
@@ -28,12 +25,6 @@ func WithAuthenticationUpdateType(val AuthenticationType) AuthenticationUpdateOp
 func WithAuthenticationUpdateName(val string) AuthenticationUpdateOption {
 	return func(f *AuthenticationUpdate) {
 		f.Name = &val
-	}
-}
-
-func WithAuthenticationUpdatePlatform(val utils.Nullable[Platform]) AuthenticationUpdateOption {
-	return func(f *AuthenticationUpdate) {
-		f.Platform = val
 	}
 }
 
@@ -135,54 +126,6 @@ func (o *AuthenticationUpdate) SetName(v string) *AuthenticationUpdate {
 	return o
 }
 
-// GetPlatform returns the Platform field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AuthenticationUpdate) GetPlatform() Platform {
-	if o == nil || o.Platform.Get() == nil {
-		var ret Platform
-
-		return ret
-	}
-
-	return *o.Platform.Get()
-}
-
-// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *AuthenticationUpdate) GetPlatformOk() (*Platform, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.Platform.Get(), o.Platform.IsSet()
-}
-
-// HasPlatform returns a boolean if a field has been set.
-func (o *AuthenticationUpdate) HasPlatform() bool {
-	if o != nil && o.Platform.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPlatform gets a reference to the given utils.Nullable[Platform] and assigns it to the Platform field.
-func (o *AuthenticationUpdate) SetPlatform(v Platform) *AuthenticationUpdate {
-	o.Platform.Set(&v)
-
-	return o
-}
-
-// SetPlatformNil sets the value for Platform to be an explicit nil.
-func (o *AuthenticationUpdate) SetPlatformNil() {
-	o.Platform.Set(nil)
-}
-
-// UnsetPlatform ensures that no value is present for Platform, not even an explicit nil.
-func (o *AuthenticationUpdate) UnsetPlatform() {
-	o.Platform.Unset()
-}
-
 // GetInput returns the Input field value if set, zero value otherwise.
 func (o *AuthenticationUpdate) GetInput() AuthInputPartial {
 	if o == nil || o.Input == nil {
@@ -230,10 +173,6 @@ func (o AuthenticationUpdate) MarshalJSON() ([]byte, error) {
 		toSerialize["name"] = o.Name
 	}
 
-	if o.Platform.IsSet() {
-		toSerialize["platform"] = o.Platform.Get()
-	}
-
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
@@ -250,7 +189,6 @@ func (o AuthenticationUpdate) String() string {
 	out := ""
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
-	out += fmt.Sprintf("  platform=%v\n", o.Platform)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 
 	return fmt.Sprintf("AuthenticationUpdate {\n%s}", out)

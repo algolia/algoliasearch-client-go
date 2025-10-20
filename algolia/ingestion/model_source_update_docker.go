@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceUpdateDocker struct for SourceUpdateDocker.
+// SourceUpdateDocker Specific configuration attributes of a `docker` source.
 type SourceUpdateDocker struct {
 	// Configuration of the spec.
 	Configuration map[string]any `json:"configuration"`

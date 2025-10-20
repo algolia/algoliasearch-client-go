@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceGA4BigQueryExport struct for SourceGA4BigQueryExport.
+// SourceGA4BigQueryExport Specific configuration attributes of a `ga4BigqueryExport` source.
 type SourceGA4BigQueryExport struct {
 	// GCP project ID that the BigQuery export writes to.
 	ProjectID string `json:"projectID"`

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceUpdateShopify struct for SourceUpdateShopify.
+// SourceUpdateShopify Specific configuration attributes of a `shopify` source.
 type SourceUpdateShopify struct {
 	// Feature flags for the Shopify source.
 	FeatureFlags map[string]any `json:"featureFlags,omitempty"`

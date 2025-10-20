@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SourceBigCommerce struct for SourceBigCommerce.
+// SourceBigCommerce Specific configuration attributes of a `bigcommerce` source.
 type SourceBigCommerce struct {
 	// Store hash identifying your BigCommerce store.
 	StoreHash         string                 `json:"storeHash"`
