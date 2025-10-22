@@ -8,14 +8,14 @@ import (
 
 // FacetOrdering Order of facet names and facet values in your UI.
 type FacetOrdering struct {
-	Facets *Facets `json:"facets,omitempty"`
+	Facets *IndexSettingsFacets `json:"facets,omitempty"`
 	// Order of facet values. One object for each facet.
 	Values *map[string]Value `json:"values,omitempty"`
 }
 
 type FacetOrderingOption func(f *FacetOrdering)
 
-func WithFacetOrderingFacets(val Facets) FacetOrderingOption {
+func WithFacetOrderingFacets(val IndexSettingsFacets) FacetOrderingOption {
 	return func(f *FacetOrdering) {
 		f.Facets = &val
 	}
@@ -46,9 +46,9 @@ func NewEmptyFacetOrdering() *FacetOrdering {
 }
 
 // GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *FacetOrdering) GetFacets() Facets {
+func (o *FacetOrdering) GetFacets() IndexSettingsFacets {
 	if o == nil || o.Facets == nil {
-		var ret Facets
+		var ret IndexSettingsFacets
 
 		return ret
 	}
@@ -58,7 +58,7 @@ func (o *FacetOrdering) GetFacets() Facets {
 
 // GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FacetOrdering) GetFacetsOk() (*Facets, bool) {
+func (o *FacetOrdering) GetFacetsOk() (*IndexSettingsFacets, bool) {
 	if o == nil || o.Facets == nil {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *FacetOrdering) HasFacets() bool {
 	return false
 }
 
-// SetFacets gets a reference to the given Facets and assigns it to the Facets field.
-func (o *FacetOrdering) SetFacets(v *Facets) *FacetOrdering {
+// SetFacets gets a reference to the given IndexSettingsFacets and assigns it to the Facets field.
+func (o *FacetOrdering) SetFacets(v *IndexSettingsFacets) *FacetOrdering {
 	o.Facets = v
 
 	return o
