@@ -1,3 +1,8 @@
+## [4.29.0](https://github.com/algolia/algoliasearch-client-go/compare/4.28.2...4.29.0)
+
+- [7f9de7cd9](https://github.com/algolia/api-clients-automation/commit/7f9de7cd9) fix(specs): ingestion small fix + added source input descriptions ([#5515](https://github.com/algolia/api-clients-automation/pull/5515)) by [@sbellone](https://github.com/sbellone/)
+- [7287faaa7](https://github.com/algolia/api-clients-automation/commit/7287faaa7) feat(specs): add `facets` query parameter available at run time ([#5486](https://github.com/algolia/api-clients-automation/pull/5486)) by [@ClaraMuller](https://github.com/ClaraMuller/)
+
 ## [4.28.2](https://github.com/algolia/algoliasearch-client-go/compare/4.28.1...4.28.2)
 
 - [9a92b3269](https://github.com/algolia/api-clients-automation/commit/9a92b3269) chore(deps): dependencies 2025-10-13 ([#5453](https://github.com/algolia/api-clients-automation/pull/5453)) by [@algolia-bot](https://github.com/algolia-bot/)
