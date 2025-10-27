@@ -95,7 +95,7 @@ type MainInjectionQueryParameters struct {
 	TypoTolerance *TypoTolerance `json:"typoTolerance,omitempty"`
 	// Whether faceting should be applied after deduplication with `distinct` This leads to accurate facet counts when using faceting in combination with `distinct`. It's usually better to use `afterDistinct` modifiers in the `attributesForFaceting` setting, as `facetingAfterDistinct` only computes correct facet counts if all records have the same facet values for the `attributeForDistinct`.
 	FacetingAfterDistinct *bool `json:"facetingAfterDistinct,omitempty"`
-	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values To retrieve all facets, use the wildcard character `*`. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts).
+	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values To retrieve all facets, use the wildcard character `*`. To retrieve disjunctive facets lists, annotate any facets with the `disjunctive` modifier. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts) and [disjunctive faceting for Smart Groups](https://www.algolia.com/doc/guides/managing-results/compositions/search-based-groups#facets-including-disjunctive-faceting).
 	Facets []string `json:"facets,omitempty"`
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`

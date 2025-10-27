@@ -19,10 +19,10 @@ type Params struct {
 	// Whether the run response should include detailed ranking information.
 	GetRankingInfo *bool `json:"getRankingInfo,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
-	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
-	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values To retrieve all facets, use the wildcard character `*`. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts).
+	RelevancyStrictness *int32        `json:"relevancyStrictness,omitempty"`
+	FacetFilters        *FacetFilters `json:"facetFilters,omitempty"`
+	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values To retrieve all facets, use the wildcard character `*`. To retrieve disjunctive facets lists, annotate any facets with the `disjunctive` modifier. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts) and [disjunctive faceting for Smart Groups](https://www.algolia.com/doc/guides/managing-results/compositions/search-based-groups#facets-including-disjunctive-faceting).
 	Facets          []string         `json:"facets,omitempty"`
-	FacetFilters    *FacetFilters    `json:"facetFilters,omitempty"`
 	OptionalFilters *OptionalFilters `json:"optionalFilters,omitempty"`
 	NumericFilters  *NumericFilters  `json:"numericFilters,omitempty"`
 	// Number of hits per page.
@@ -94,15 +94,15 @@ func WithParamsRelevancyStrictness(val int32) ParamsOption {
 	}
 }
 
-func WithParamsFacets(val []string) ParamsOption {
-	return func(f *Params) {
-		f.Facets = val
-	}
-}
-
 func WithParamsFacetFilters(val FacetFilters) ParamsOption {
 	return func(f *Params) {
 		f.FacetFilters = &val
+	}
+}
+
+func WithParamsFacets(val []string) ParamsOption {
+	return func(f *Params) {
+		f.Facets = val
 	}
 }
 
@@ -435,43 +435,6 @@ func (o *Params) SetRelevancyStrictness(v int32) *Params {
 	return o
 }
 
-// GetFacets returns the Facets field value if set, zero value otherwise.
-func (o *Params) GetFacets() []string {
-	if o == nil || o.Facets == nil {
-		var ret []string
-
-		return ret
-	}
-
-	return o.Facets
-}
-
-// GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Params) GetFacetsOk() ([]string, bool) {
-	if o == nil || o.Facets == nil {
-		return nil, false
-	}
-
-	return o.Facets, true
-}
-
-// HasFacets returns a boolean if a field has been set.
-func (o *Params) HasFacets() bool {
-	if o != nil && o.Facets != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFacets gets a reference to the given []string and assigns it to the Facets field.
-func (o *Params) SetFacets(v []string) *Params {
-	o.Facets = v
-
-	return o
-}
-
 // GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
 func (o *Params) GetFacetFilters() FacetFilters {
 	if o == nil || o.FacetFilters == nil {
@@ -505,6 +468,43 @@ func (o *Params) HasFacetFilters() bool {
 // SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
 func (o *Params) SetFacetFilters(v *FacetFilters) *Params {
 	o.FacetFilters = v
+
+	return o
+}
+
+// GetFacets returns the Facets field value if set, zero value otherwise.
+func (o *Params) GetFacets() []string {
+	if o == nil || o.Facets == nil {
+		var ret []string
+
+		return ret
+	}
+
+	return o.Facets
+}
+
+// GetFacetsOk returns a tuple with the Facets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Params) GetFacetsOk() ([]string, bool) {
+	if o == nil || o.Facets == nil {
+		return nil, false
+	}
+
+	return o.Facets, true
+}
+
+// HasFacets returns a boolean if a field has been set.
+func (o *Params) HasFacets() bool {
+	if o != nil && o.Facets != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacets gets a reference to the given []string and assigns it to the Facets field.
+func (o *Params) SetFacets(v []string) *Params {
+	o.Facets = v
 
 	return o
 }
@@ -1319,12 +1319,12 @@ func (o Params) MarshalJSON() ([]byte, error) {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
 
-	if o.Facets != nil {
-		toSerialize["facets"] = o.Facets
-	}
-
 	if o.FacetFilters != nil {
 		toSerialize["facetFilters"] = o.FacetFilters
+	}
+
+	if o.Facets != nil {
+		toSerialize["facets"] = o.Facets
 	}
 
 	if o.OptionalFilters != nil {
@@ -1426,8 +1426,8 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  getRankingInfo=%v\n", o.GetRankingInfo)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
-	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
+	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 	out += fmt.Sprintf("  numericFilters=%v\n", o.NumericFilters)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
