@@ -100,7 +100,8 @@ type MainInjectionQueryParameters struct {
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Maximum number of facet values to return for each facet.
-	MaxValuesPerFacet *int32 `json:"maxValuesPerFacet,omitempty"`
+	MaxValuesPerFacet *int32            `json:"maxValuesPerFacet,omitempty"`
+	RenderingContent  *RenderingContent `json:"renderingContent,omitempty"`
 	// Order in which to retrieve facet values - `count`.   Facet values are retrieved by decreasing count.   The count is the number of matching records containing this facet value - `alpha`.   Retrieve facet values alphabetically This setting doesn't influence how facet values are displayed in your UI (see `renderingContent`). For more information, see [facet value display](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/facet-display/js).
 	SortFacetValuesBy *string `json:"sortFacetValuesBy,omitempty"`
 	// Whether to sum all filter scores If true, all filter scores are summed. Otherwise, the maximum filter score is kept. For more information, see [filter scores](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering/in-depth/filter-scoring/#accumulating-scores-with-sumorfiltersscores).
@@ -412,6 +413,12 @@ func WithMainInjectionQueryParametersHitsPerPage(val int32) MainInjectionQueryPa
 func WithMainInjectionQueryParametersMaxValuesPerFacet(val int32) MainInjectionQueryParametersOption {
 	return func(f *MainInjectionQueryParameters) {
 		f.MaxValuesPerFacet = &val
+	}
+}
+
+func WithMainInjectionQueryParametersRenderingContent(val RenderingContent) MainInjectionQueryParametersOption {
+	return func(f *MainInjectionQueryParameters) {
+		f.RenderingContent = &val
 	}
 }
 
@@ -2343,6 +2350,43 @@ func (o *MainInjectionQueryParameters) SetMaxValuesPerFacet(v int32) *MainInject
 	return o
 }
 
+// GetRenderingContent returns the RenderingContent field value if set, zero value otherwise.
+func (o *MainInjectionQueryParameters) GetRenderingContent() RenderingContent {
+	if o == nil || o.RenderingContent == nil {
+		var ret RenderingContent
+
+		return ret
+	}
+
+	return *o.RenderingContent
+}
+
+// GetRenderingContentOk returns a tuple with the RenderingContent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MainInjectionQueryParameters) GetRenderingContentOk() (*RenderingContent, bool) {
+	if o == nil || o.RenderingContent == nil {
+		return nil, false
+	}
+
+	return o.RenderingContent, true
+}
+
+// HasRenderingContent returns a boolean if a field has been set.
+func (o *MainInjectionQueryParameters) HasRenderingContent() bool {
+	if o != nil && o.RenderingContent != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRenderingContent gets a reference to the given RenderingContent and assigns it to the RenderingContent field.
+func (o *MainInjectionQueryParameters) SetRenderingContent(v *RenderingContent) *MainInjectionQueryParameters {
+	o.RenderingContent = v
+
+	return o
+}
+
 // GetSortFacetValuesBy returns the SortFacetValuesBy field value if set, zero value otherwise.
 func (o *MainInjectionQueryParameters) GetSortFacetValuesBy() string {
 	if o == nil || o.SortFacetValuesBy == nil {
@@ -2623,6 +2667,10 @@ func (o MainInjectionQueryParameters) MarshalJSON() ([]byte, error) {
 		toSerialize["maxValuesPerFacet"] = o.MaxValuesPerFacet
 	}
 
+	if o.RenderingContent != nil {
+		toSerialize["renderingContent"] = o.RenderingContent
+	}
+
 	if o.SortFacetValuesBy != nil {
 		toSerialize["sortFacetValuesBy"] = o.SortFacetValuesBy
 	}
@@ -2692,6 +2740,7 @@ func (o MainInjectionQueryParameters) String() string {
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
+	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  sortFacetValuesBy=%v\n", o.SortFacetValuesBy)
 	out += fmt.Sprintf("  sumOrFiltersScores=%v\n", o.SumOrFiltersScores)
 
