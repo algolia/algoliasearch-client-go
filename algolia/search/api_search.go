@@ -920,6 +920,9 @@ Batching index updates reduces latency and increases data integrity.
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
+	    Required API Key ACLs:
+	    - addObject
+
 	Request can be constructed by NewApiBatchRequest with parameters below.
 	  @param indexName string - Name of the index on which to perform the operation.
 	  @param batchWriteParams BatchWriteParams
@@ -975,6 +978,9 @@ Batching index updates reduces latency and increases data integrity.
 - Actions are equivalent to the individual API requests of the same name.
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiBatchRequest with parameters below.
 
@@ -3513,6 +3519,9 @@ When authenticating with the admin API key, you can request information for any 
 When authenticating with other API keys, you can only retrieve information for that key,
 with the description replaced by `<redacted>`.
 
+	    Required API Key ACLs:
+	    - search
+
 	Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 	  @param key string - API key.
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -3557,6 +3566,9 @@ Gets the permissions and restrictions of an API key.
 When authenticating with the admin API key, you can request information for any of your application's keys.
 When authenticating with other API keys, you can only retrieve information for that key,
 with the description replaced by `<redacted>`.
+
+Required API Key ACLs:
+  - search
 
 Request can be constructed by NewApiGetApiKeyRequest with parameters below.
 
@@ -5817,6 +5829,9 @@ MultipleBatch calls the API and returns the raw response from it.
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
 
+	    Required API Key ACLs:
+	    - addObject
+
 	Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 	  @param batchParams BatchParams
 	@param opts ...RequestOption - Optional parameters for the API call
@@ -5864,6 +5879,9 @@ Adds, updates, or deletes records in multiple indices with a single API request.
 - Actions are equivalent to the individual API requests of the same name.
 
 This operation is subject to [indexing rate limits](https://support.algolia.com/hc/articles/4406975251089-Is-there-a-rate-limit-for-indexing-on-Algolia).
+
+Required API Key ACLs:
+  - addObject
 
 Request can be constructed by NewApiMultipleBatchRequest with parameters below.
 

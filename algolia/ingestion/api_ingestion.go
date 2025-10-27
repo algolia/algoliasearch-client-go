@@ -500,6 +500,10 @@ CreateTask calls the API and returns the raw response from it.
 
 	  Creates a new task.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiCreateTaskRequest with parameters below.
 	  @param taskCreate TaskCreate - Request body for creating a task.
@@ -543,6 +547,11 @@ func (c *APIClient) CreateTaskWithHTTPInfo(r ApiCreateTaskRequest, opts ...Reque
 CreateTask casts the HTTP response body to a defined struct.
 
 Creates a new task.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateTaskRequest with parameters below.
 
@@ -618,6 +627,10 @@ CreateTaskV1 calls the API and returns the raw response from it.
 
 	  Creates a new task using the v1 endpoint, please use `createTask` instead.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiCreateTaskV1Request with parameters below.
 	  @param taskCreate TaskCreateV1 - Request body for creating a task.
@@ -663,6 +676,11 @@ func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...R
 CreateTaskV1 casts the HTTP response body to a defined struct.
 
 Creates a new task using the v1 endpoint, please use `createTask` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateTaskV1Request with parameters below.
 
@@ -739,6 +757,10 @@ CreateTransformation calls the API and returns the raw response from it.
 
 	  Creates a new transformation.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiCreateTransformationRequest with parameters below.
 	  @param transformationCreate TransformationCreate - Request body for creating a transformation.
@@ -782,6 +804,11 @@ func (c *APIClient) CreateTransformationWithHTTPInfo(r ApiCreateTransformationRe
 CreateTransformation casts the HTTP response body to a defined struct.
 
 Creates a new transformation.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiCreateTransformationRequest with parameters below.
 
@@ -1806,6 +1833,10 @@ DeleteTask calls the API and returns the raw response from it.
 
 	  Deletes a task by its ID.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiDeleteTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
@@ -1847,6 +1878,11 @@ func (c *APIClient) DeleteTaskWithHTTPInfo(r ApiDeleteTaskRequest, opts ...Reque
 DeleteTask casts the HTTP response body to a defined struct.
 
 Deletes a task by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteTaskRequest with parameters below.
 
@@ -1917,6 +1953,10 @@ DeleteTaskV1 calls the API and returns the raw response from it.
 
 	  Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiDeleteTaskV1Request with parameters below.
 	  @param taskID string - Unique identifier of a task.
@@ -1960,6 +2000,11 @@ func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...R
 DeleteTaskV1 casts the HTTP response body to a defined struct.
 
 Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteTaskV1Request with parameters below.
 
@@ -2031,6 +2076,10 @@ DeleteTransformation calls the API and returns the raw response from it.
 
 	  Deletes a transformation by its ID.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiDeleteTransformationRequest with parameters below.
 	  @param transformationID string - Unique identifier of a transformation.
@@ -2072,6 +2121,11 @@ func (c *APIClient) DeleteTransformationWithHTTPInfo(r ApiDeleteTransformationRe
 DeleteTransformation casts the HTTP response body to a defined struct.
 
 Deletes a transformation by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiDeleteTransformationRequest with parameters below.
 
@@ -6299,6 +6353,10 @@ ReplaceTask calls the API and returns the raw response from it.
 
 	  Fully updates a task by its ID, use partialUpdateTask if you only want to update a subset of fields.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiReplaceTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
@@ -6348,6 +6406,11 @@ func (c *APIClient) ReplaceTaskWithHTTPInfo(r ApiReplaceTaskRequest, opts ...Req
 ReplaceTask casts the HTTP response body to a defined struct.
 
 Fully updates a task by its ID, use partialUpdateTask if you only want to update a subset of fields.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiReplaceTaskRequest with parameters below.
 
@@ -8487,6 +8550,10 @@ UpdateTask calls the API and returns the raw response from it.
 
 	  Partially updates a task by its ID.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiUpdateTaskRequest with parameters below.
 	  @param taskID string - Unique identifier of a task.
@@ -8536,6 +8603,11 @@ func (c *APIClient) UpdateTaskWithHTTPInfo(r ApiUpdateTaskRequest, opts ...Reque
 UpdateTask casts the HTTP response body to a defined struct.
 
 Partially updates a task by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateTaskRequest with parameters below.
 
@@ -8624,6 +8696,10 @@ UpdateTaskV1 calls the API and returns the raw response from it.
 
 	  Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiUpdateTaskV1Request with parameters below.
 	  @param taskID string - Unique identifier of a task.
@@ -8675,6 +8751,11 @@ func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...R
 UpdateTaskV1 casts the HTTP response body to a defined struct.
 
 Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateTaskV1Request with parameters below.
 
@@ -8767,6 +8848,10 @@ UpdateTransformation calls the API and returns the raw response from it.
 
 	  Updates a transformation by its ID.
 
+	    Required API Key ACLs:
+	    - addObject
+	    - deleteIndex
+	    - editSettings
 
 	Request can be constructed by NewApiUpdateTransformationRequest with parameters below.
 	  @param transformationID string - Unique identifier of a transformation.
@@ -8816,6 +8901,11 @@ func (c *APIClient) UpdateTransformationWithHTTPInfo(r ApiUpdateTransformationRe
 UpdateTransformation casts the HTTP response body to a defined struct.
 
 Updates a transformation by its ID.
+
+Required API Key ACLs:
+  - addObject
+  - deleteIndex
+  - editSettings
 
 Request can be constructed by NewApiUpdateTransformationRequest with parameters below.
 
