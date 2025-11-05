@@ -17,7 +17,8 @@ type BoughtTogetherQuery struct {
 	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	Model              FbtModel               `json:"model"`
 	// Unique record identifier.
-	ObjectID string `json:"objectID"`
+	ObjectID           string          `json:"objectID"`
+	FallbackParameters *FallbackParams `json:"fallbackParameters,omitempty"`
 }
 
 type BoughtTogetherQueryOption func(f *BoughtTogetherQuery)
@@ -31,6 +32,12 @@ func WithBoughtTogetherQueryMaxRecommendations(val int32) BoughtTogetherQueryOpt
 func WithBoughtTogetherQueryQueryParameters(val RecommendSearchParams) BoughtTogetherQueryOption {
 	return func(f *BoughtTogetherQuery) {
 		f.QueryParameters = &val
+	}
+}
+
+func WithBoughtTogetherQueryFallbackParameters(val FallbackParams) BoughtTogetherQueryOption {
+	return func(f *BoughtTogetherQuery) {
+		f.FallbackParameters = &val
 	}
 }
 
@@ -249,6 +256,43 @@ func (o *BoughtTogetherQuery) SetObjectID(v string) *BoughtTogetherQuery {
 	return o
 }
 
+// GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
+func (o *BoughtTogetherQuery) GetFallbackParameters() FallbackParams {
+	if o == nil || o.FallbackParameters == nil {
+		var ret FallbackParams
+
+		return ret
+	}
+
+	return *o.FallbackParameters
+}
+
+// GetFallbackParametersOk returns a tuple with the FallbackParameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BoughtTogetherQuery) GetFallbackParametersOk() (*FallbackParams, bool) {
+	if o == nil || o.FallbackParameters == nil {
+		return nil, false
+	}
+
+	return o.FallbackParameters, true
+}
+
+// HasFallbackParameters returns a boolean if a field has been set.
+func (o *BoughtTogetherQuery) HasFallbackParameters() bool {
+	if o != nil && o.FallbackParameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFallbackParameters gets a reference to the given FallbackParams and assigns it to the FallbackParameters field.
+func (o *BoughtTogetherQuery) SetFallbackParameters(v *FallbackParams) *BoughtTogetherQuery {
+	o.FallbackParameters = v
+
+	return o
+}
+
 func (o BoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
@@ -263,7 +307,11 @@ func (o BoughtTogetherQuery) MarshalJSON() ([]byte, error) {
 	}
 
 	toSerialize["model"] = o.Model
+
 	toSerialize["objectID"] = o.ObjectID
+	if o.FallbackParameters != nil {
+		toSerialize["fallbackParameters"] = o.FallbackParameters
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -281,6 +329,7 @@ func (o BoughtTogetherQuery) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
+	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
 	return fmt.Sprintf("BoughtTogetherQuery {\n%s}", out)
 }
