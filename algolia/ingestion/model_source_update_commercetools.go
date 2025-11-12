@@ -15,8 +15,10 @@ type SourceUpdateCommercetools struct {
 	// Whether a fallback value is stored in the Algolia record if there's no inventory information about the product.
 	FallbackIsInStockValue *bool `json:"fallbackIsInStockValue,omitempty"`
 	// Predicate to filter out specific products when indexing. For more information, see [Query Predicate](https://docs.commercetools.com/api/predicates/query).
-	ProductQueryPredicate *string                    `json:"productQueryPredicate,omitempty"`
-	CustomFields          *CommercetoolsCustomFields `json:"customFields,omitempty"`
+	ProductQueryPredicate *string `json:"productQueryPredicate,omitempty"`
+	// When set to true, the connector indexes objects with all images attributes instead of only the URLs.
+	UseImagesObjects *bool                      `json:"useImagesObjects,omitempty"`
+	CustomFields     *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceUpdateCommercetoolsOption func(f *SourceUpdateCommercetools)
@@ -48,6 +50,12 @@ func WithSourceUpdateCommercetoolsFallbackIsInStockValue(val bool) SourceUpdateC
 func WithSourceUpdateCommercetoolsProductQueryPredicate(val string) SourceUpdateCommercetoolsOption {
 	return func(f *SourceUpdateCommercetools) {
 		f.ProductQueryPredicate = &val
+	}
+}
+
+func WithSourceUpdateCommercetoolsUseImagesObjects(val bool) SourceUpdateCommercetoolsOption {
+	return func(f *SourceUpdateCommercetools) {
+		f.UseImagesObjects = &val
 	}
 }
 
@@ -260,6 +268,43 @@ func (o *SourceUpdateCommercetools) SetProductQueryPredicate(v string) *SourceUp
 	return o
 }
 
+// GetUseImagesObjects returns the UseImagesObjects field value if set, zero value otherwise.
+func (o *SourceUpdateCommercetools) GetUseImagesObjects() bool {
+	if o == nil || o.UseImagesObjects == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.UseImagesObjects
+}
+
+// GetUseImagesObjectsOk returns a tuple with the UseImagesObjects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceUpdateCommercetools) GetUseImagesObjectsOk() (*bool, bool) {
+	if o == nil || o.UseImagesObjects == nil {
+		return nil, false
+	}
+
+	return o.UseImagesObjects, true
+}
+
+// HasUseImagesObjects returns a boolean if a field has been set.
+func (o *SourceUpdateCommercetools) HasUseImagesObjects() bool {
+	if o != nil && o.UseImagesObjects != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUseImagesObjects gets a reference to the given bool and assigns it to the UseImagesObjects field.
+func (o *SourceUpdateCommercetools) SetUseImagesObjects(v bool) *SourceUpdateCommercetools {
+	o.UseImagesObjects = &v
+
+	return o
+}
+
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
 func (o *SourceUpdateCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
@@ -319,6 +364,10 @@ func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 		toSerialize["productQueryPredicate"] = o.ProductQueryPredicate
 	}
 
+	if o.UseImagesObjects != nil {
+		toSerialize["useImagesObjects"] = o.UseImagesObjects
+	}
+
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
@@ -338,6 +387,7 @@ func (o SourceUpdateCommercetools) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
 	out += fmt.Sprintf("  productQueryPredicate=%v\n", o.ProductQueryPredicate)
+	out += fmt.Sprintf("  useImagesObjects=%v\n", o.UseImagesObjects)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
