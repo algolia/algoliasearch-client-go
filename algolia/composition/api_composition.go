@@ -1636,7 +1636,7 @@ func (c *APIClient) NewApiPutCompositionRequest(compositionID string, compositio
 /*
 PutComposition calls the API and returns the raw response from it.
 
-	  Upsert a composition in the current Algolia application.
+	  Update and insert a composition in the current Algolia application.
 
 
 	    Required API Key ACLs:
@@ -1689,7 +1689,7 @@ func (c *APIClient) PutCompositionWithHTTPInfo(r ApiPutCompositionRequest, opts 
 /*
 PutComposition casts the HTTP response body to a defined struct.
 
-Upsert a composition in the current Algolia application.
+Update and insert a composition in the current Algolia application.
 
 Required API Key ACLs:
   - editSettings
