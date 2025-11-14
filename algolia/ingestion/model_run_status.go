@@ -13,7 +13,6 @@ type RunStatus string
 const (
 	RUN_STATUS_CREATED  RunStatus = "created"
 	RUN_STATUS_STARTED  RunStatus = "started"
-	RUN_STATUS_IDLED    RunStatus = "idled"
 	RUN_STATUS_FINISHED RunStatus = "finished"
 	RUN_STATUS_SKIPPED  RunStatus = "skipped"
 )
@@ -22,7 +21,6 @@ const (
 var AllowedRunStatusEnumValues = []RunStatus{
 	"created",
 	"started",
-	"idled",
 	"finished",
 	"skipped",
 }

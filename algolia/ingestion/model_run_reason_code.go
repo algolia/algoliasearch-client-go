@@ -12,23 +12,27 @@ type RunReasonCode string
 // List of RunReasonCode.
 const (
 	RUN_REASON_CODE_INTERNAL        RunReasonCode = "internal"
+	RUN_REASON_CODE_CANCELLED       RunReasonCode = "cancelled"
 	RUN_REASON_CODE_CRITICAL        RunReasonCode = "critical"
 	RUN_REASON_CODE_NO_EVENTS       RunReasonCode = "no_events"
 	RUN_REASON_CODE_TOO_MANY_ERRORS RunReasonCode = "too_many_errors"
+	RUN_REASON_CODE_LACKING_EVENTS  RunReasonCode = "lacking_events"
 	RUN_REASON_CODE_OK              RunReasonCode = "ok"
-	RUN_REASON_CODE_DISCARDED       RunReasonCode = "discarded"
 	RUN_REASON_CODE_BLOCKING        RunReasonCode = "blocking"
+	RUN_REASON_CODE_IDLE            RunReasonCode = "idle"
 )
 
 // All allowed values of RunReasonCode enum.
 var AllowedRunReasonCodeEnumValues = []RunReasonCode{
 	"internal",
+	"cancelled",
 	"critical",
 	"no_events",
 	"too_many_errors",
+	"lacking_events",
 	"ok",
-	"discarded",
 	"blocking",
+	"idle",
 }
 
 // NewRunReasonCodeFromValue returns a pointer to a valid RunReasonCode.
