@@ -19,6 +19,8 @@ type Rule struct {
 	Enabled *bool `json:"enabled,omitempty"`
 	// Time periods when the rule is active.
 	Validity []TimeRange `json:"validity,omitempty"`
+	Tags     []string    `json:"tags,omitempty"`
+	Scope    *string     `json:"scope,omitempty"`
 }
 
 type RuleOption func(f *Rule)
@@ -44,6 +46,18 @@ func WithRuleEnabled(val bool) RuleOption {
 func WithRuleValidity(val []TimeRange) RuleOption {
 	return func(f *Rule) {
 		f.Validity = val
+	}
+}
+
+func WithRuleTags(val []string) RuleOption {
+	return func(f *Rule) {
+		f.Tags = val
+	}
+}
+
+func WithRuleScope(val string) RuleOption {
+	return func(f *Rule) {
+		f.Scope = &val
 	}
 }
 
@@ -272,6 +286,80 @@ func (o *Rule) SetValidity(v []TimeRange) *Rule {
 	return o
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Rule) GetTags() []string {
+	if o == nil || o.Tags == nil {
+		var ret []string
+
+		return ret
+	}
+
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetTagsOk() ([]string, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Rule) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Rule) SetTags(v []string) *Rule {
+	o.Tags = v
+
+	return o
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *Rule) GetScope() string {
+	if o == nil || o.Scope == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetScopeOk() (*string, bool) {
+	if o == nil || o.Scope == nil {
+		return nil, false
+	}
+
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *Rule) HasScope() bool {
+	if o != nil && o.Scope != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *Rule) SetScope(v string) *Rule {
+	o.Scope = &v
+
+	return o
+}
+
 func (o Rule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
@@ -293,6 +381,14 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 		toSerialize["validity"] = o.Validity
 	}
 
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+
+	if o.Scope != nil {
+		toSerialize["scope"] = o.Scope
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Rule: %w", err)
@@ -309,6 +405,8 @@ func (o Rule) String() string {
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
+	out += fmt.Sprintf("  tags=%v\n", o.Tags)
+	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 
 	return fmt.Sprintf("Rule {\n%s}", out)
 }
