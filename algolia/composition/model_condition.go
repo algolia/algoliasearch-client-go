@@ -15,6 +15,8 @@ type Condition struct {
 	Context *string `json:"context,omitempty"`
 	// Filters that trigger the rule.  You can add add filters using the syntax `facet:value` so that the rule is triggered, when the specific filter is selected. You can use `filters` on its own or combine it with the `pattern` parameter.
 	Filters *string `json:"filters,omitempty"`
+	// Sort criteria that trigger the rule.  You can trigger composition rules based on the selected sorting strategy set by the parameter `sortBy`. The rule will trigger if the value passed to `sortBy` matches the one defined in the condition.
+	SortBy *string `json:"sortBy,omitempty"`
 }
 
 type ConditionOption func(f *Condition)
@@ -40,6 +42,12 @@ func WithConditionContext(val string) ConditionOption {
 func WithConditionFilters(val string) ConditionOption {
 	return func(f *Condition) {
 		f.Filters = &val
+	}
+}
+
+func WithConditionSortBy(val string) ConditionOption {
+	return func(f *Condition) {
+		f.SortBy = &val
 	}
 }
 
@@ -209,6 +217,43 @@ func (o *Condition) SetFilters(v string) *Condition {
 	return o
 }
 
+// GetSortBy returns the SortBy field value if set, zero value otherwise.
+func (o *Condition) GetSortBy() string {
+	if o == nil || o.SortBy == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.SortBy
+}
+
+// GetSortByOk returns a tuple with the SortBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Condition) GetSortByOk() (*string, bool) {
+	if o == nil || o.SortBy == nil {
+		return nil, false
+	}
+
+	return o.SortBy, true
+}
+
+// HasSortBy returns a boolean if a field has been set.
+func (o *Condition) HasSortBy() bool {
+	if o != nil && o.SortBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSortBy gets a reference to the given string and assigns it to the SortBy field.
+func (o *Condition) SetSortBy(v string) *Condition {
+	o.SortBy = &v
+
+	return o
+}
+
 func (o Condition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Pattern != nil {
@@ -227,6 +272,10 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 		toSerialize["filters"] = o.Filters
 	}
 
+	if o.SortBy != nil {
+		toSerialize["sortBy"] = o.SortBy
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Condition: %w", err)
@@ -241,6 +290,7 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  anchoring=%v\n", o.Anchoring)
 	out += fmt.Sprintf("  context=%v\n", o.Context)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
+	out += fmt.Sprintf("  sortBy=%v\n", o.SortBy)
 
 	return fmt.Sprintf("Condition {\n%s}", out)
 }
