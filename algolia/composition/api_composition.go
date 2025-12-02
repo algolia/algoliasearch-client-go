@@ -2495,3 +2495,171 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 
 	return returnValue, nil
 }
+
+func (r *ApiUpdateSortingStrategyCompositionRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["compositionID"]; ok {
+		err = json.Unmarshal(v, &r.compositionID)
+		if err != nil {
+			err = json.Unmarshal(b, &r.compositionID)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal compositionID: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["requestBody"]; ok {
+		err = json.Unmarshal(v, &r.requestBody)
+		if err != nil {
+			err = json.Unmarshal(b, &r.requestBody)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal requestBody: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.requestBody)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter requestBody: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiUpdateSortingStrategyCompositionRequest represents the request with all the parameters for the API call.
+type ApiUpdateSortingStrategyCompositionRequest struct {
+	compositionID string
+	requestBody   map[string]string
+}
+
+// NewApiUpdateSortingStrategyCompositionRequest creates an instance of the ApiUpdateSortingStrategyCompositionRequest to be used for the API call.
+func (c *APIClient) NewApiUpdateSortingStrategyCompositionRequest(
+	compositionID string,
+	requestBody map[string]string,
+) ApiUpdateSortingStrategyCompositionRequest {
+	return ApiUpdateSortingStrategyCompositionRequest{
+		compositionID: compositionID,
+		requestBody:   requestBody,
+	}
+}
+
+/*
+UpdateSortingStrategyComposition calls the API and returns the raw response from it.
+
+	Updates the "sortingStrategy" field of an existing composition.
+
+This endpoint allows you to create a new sorting strategy mapping or replace the currently configured one.
+The provided sorting indices MUST be associated indices or replicas of the main targeted index.
+
+WARNING: This endpoint cannot validate if the sort index is related to the composition's main index.
+
+	Validation will fail at runtime if the index you updated is not related!
+
+The update is applied to the specified composition within the current Algolia application and returns a taskID that can be used to track the operation’s completion.
+
+	    Required API Key ACLs:
+	    - editSettings
+
+	Request can be constructed by NewApiUpdateSortingStrategyCompositionRequest with parameters below.
+	  @param compositionID string - Unique Composition ObjectID.
+	  @param requestBody map[string]string
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) UpdateSortingStrategyCompositionWithHTTPInfo(
+	r ApiUpdateSortingStrategyCompositionRequest,
+	opts ...RequestOption,
+) (*http.Response, []byte, error) {
+	requestPath := "/1/compositions/{compositionID}/sortingStrategy"
+	requestPath = strings.ReplaceAll(requestPath, "{compositionID}", url.PathEscape(utils.ParameterToString(r.compositionID)))
+
+	if r.compositionID == "" {
+		return nil, nil, reportError("Parameter `compositionID` is required when calling `UpdateSortingStrategyComposition`.")
+	}
+
+	if len(r.requestBody) == 0 {
+		return nil, nil, reportError("Parameter `requestBody` is required when calling `UpdateSortingStrategyComposition`.")
+	}
+
+	if len(r.requestBody) == 0 {
+		return nil, nil, reportError("Parameter `requestBody` is required when calling `UpdateSortingStrategyComposition`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.requestBody
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+UpdateSortingStrategyComposition casts the HTTP response body to a defined struct.
+
+Updates the "sortingStrategy" field of an existing composition.
+This endpoint allows you to create a new sorting strategy mapping or replace the currently configured one.
+The provided sorting indices MUST be associated indices or replicas of the main targeted index.
+
+WARNING: This endpoint cannot validate if the sort index is related to the composition's main index.
+
+	Validation will fail at runtime if the index you updated is not related!
+
+The update is applied to the specified composition within the current Algolia application and returns a taskID that can be used to track the operation’s completion.
+
+Required API Key ACLs:
+  - editSettings
+
+Request can be constructed by NewApiUpdateSortingStrategyCompositionRequest with parameters below.
+
+	@param compositionID string - Unique Composition ObjectID.
+	@param requestBody map[string]string
+	@return TaskIDResponse
+*/
+func (c *APIClient) UpdateSortingStrategyComposition(r ApiUpdateSortingStrategyCompositionRequest, opts ...RequestOption) (*TaskIDResponse, error) {
+	var returnValue *TaskIDResponse
+
+	res, resBody, err := c.UpdateSortingStrategyCompositionWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, reportError("cannot decode result: %w", err)
+	}
+
+	return returnValue, nil
+}

@@ -15,6 +15,8 @@ type Composition struct {
 	// Composition description.
 	Description *string             `json:"description,omitempty"`
 	Behavior    CompositionBehavior `json:"behavior"`
+	// A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. The sorting indices MUST be related to the associated main targeted index in the composition. Each key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.  When a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced with the sorting strategy index it is mapped to.  Up to 20 sorting strategies can be defined.
+	SortingStrategy *map[string]string `json:"sortingStrategy,omitempty"`
 }
 
 type CompositionOption func(f *Composition)
@@ -22,6 +24,12 @@ type CompositionOption func(f *Composition)
 func WithCompositionDescription(val string) CompositionOption {
 	return func(f *Composition) {
 		f.Description = &val
+	}
+}
+
+func WithCompositionSortingStrategy(val map[string]string) CompositionOption {
+	return func(f *Composition) {
+		f.SortingStrategy = &val
 	}
 }
 
@@ -168,6 +176,43 @@ func (o *Composition) SetBehavior(v *CompositionBehavior) *Composition {
 	return o
 }
 
+// GetSortingStrategy returns the SortingStrategy field value if set, zero value otherwise.
+func (o *Composition) GetSortingStrategy() map[string]string {
+	if o == nil || o.SortingStrategy == nil {
+		var ret map[string]string
+
+		return ret
+	}
+
+	return *o.SortingStrategy
+}
+
+// GetSortingStrategyOk returns a tuple with the SortingStrategy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Composition) GetSortingStrategyOk() (*map[string]string, bool) {
+	if o == nil || o.SortingStrategy == nil {
+		return nil, false
+	}
+
+	return o.SortingStrategy, true
+}
+
+// HasSortingStrategy returns a boolean if a field has been set.
+func (o *Composition) HasSortingStrategy() bool {
+	if o != nil && o.SortingStrategy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSortingStrategy gets a reference to the given map[string]string and assigns it to the SortingStrategy field.
+func (o *Composition) SetSortingStrategy(v map[string]string) *Composition {
+	o.SortingStrategy = &v
+
+	return o
+}
+
 func (o Composition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["objectID"] = o.ObjectID
@@ -178,6 +223,9 @@ func (o Composition) MarshalJSON() ([]byte, error) {
 	}
 
 	toSerialize["behavior"] = o.Behavior
+	if o.SortingStrategy != nil {
+		toSerialize["sortingStrategy"] = o.SortingStrategy
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -193,6 +241,7 @@ func (o Composition) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  behavior=%v\n", o.Behavior)
+	out += fmt.Sprintf("  sortingStrategy=%v\n", o.SortingStrategy)
 
 	return fmt.Sprintf("Composition {\n%s}", out)
 }

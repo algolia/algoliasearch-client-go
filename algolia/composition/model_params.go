@@ -54,12 +54,14 @@ type Params struct {
 	Page *int32 `json:"page,omitempty"`
 	// Search query.
 	Query *string `json:"query,omitempty"`
-	// Relevancy threshold below which less relevant results aren't included in the results You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
-	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries  This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, you must place the CJK language **first**  **You should always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations).
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
+	// Relevancy threshold below which less relevant results aren't included in the results You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
+	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Assigns a rule context to the run query [Rule contexts](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#whats-a-context) are strings that you can use to trigger matching rules.
 	RuleContexts []string `json:"ruleContexts,omitempty"`
+	// Indicates which sorting strategy to apply for the request. The value must match one of the labels defined in the \"sortingStrategy\" mapping. For example, \"Price (asc)\", see Upsert Composition. At runtime, this label is used to look up the corresponding index or replica configured in \"sortingStrategy\", and the query is executed using that index instead of main's.  In addition to \"sortingStrategy\", this parameter is also used to apply a matching Composition Rule that contains a condition defined to trigger on \"sortBy\", see Composition Rules.  If no value is provided or an invalid value, no sorting strategy is applied.
+	SortBy *string `json:"sortBy,omitempty"`
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
 	UserToken *string `json:"userToken,omitempty"`
 }
@@ -216,21 +218,27 @@ func WithParamsQuery(val string) ParamsOption {
 	}
 }
 
-func WithParamsRelevancyStrictness(val int32) ParamsOption {
-	return func(f *Params) {
-		f.RelevancyStrictness = &val
-	}
-}
-
 func WithParamsQueryLanguages(val []SupportedLanguage) ParamsOption {
 	return func(f *Params) {
 		f.QueryLanguages = val
 	}
 }
 
+func WithParamsRelevancyStrictness(val int32) ParamsOption {
+	return func(f *Params) {
+		f.RelevancyStrictness = &val
+	}
+}
+
 func WithParamsRuleContexts(val []string) ParamsOption {
 	return func(f *Params) {
 		f.RuleContexts = val
+	}
+}
+
+func WithParamsSortBy(val string) ParamsOption {
+	return func(f *Params) {
+		f.SortBy = &val
 	}
 }
 
@@ -1194,43 +1202,6 @@ func (o *Params) SetQuery(v string) *Params {
 	return o
 }
 
-// GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
-func (o *Params) GetRelevancyStrictness() int32 {
-	if o == nil || o.RelevancyStrictness == nil {
-		var ret int32
-
-		return ret
-	}
-
-	return *o.RelevancyStrictness
-}
-
-// GetRelevancyStrictnessOk returns a tuple with the RelevancyStrictness field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Params) GetRelevancyStrictnessOk() (*int32, bool) {
-	if o == nil || o.RelevancyStrictness == nil {
-		return nil, false
-	}
-
-	return o.RelevancyStrictness, true
-}
-
-// HasRelevancyStrictness returns a boolean if a field has been set.
-func (o *Params) HasRelevancyStrictness() bool {
-	if o != nil && o.RelevancyStrictness != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
-func (o *Params) SetRelevancyStrictness(v int32) *Params {
-	o.RelevancyStrictness = &v
-
-	return o
-}
-
 // GetQueryLanguages returns the QueryLanguages field value if set, zero value otherwise.
 func (o *Params) GetQueryLanguages() []SupportedLanguage {
 	if o == nil || o.QueryLanguages == nil {
@@ -1268,6 +1239,43 @@ func (o *Params) SetQueryLanguages(v []SupportedLanguage) *Params {
 	return o
 }
 
+// GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
+func (o *Params) GetRelevancyStrictness() int32 {
+	if o == nil || o.RelevancyStrictness == nil {
+		var ret int32
+
+		return ret
+	}
+
+	return *o.RelevancyStrictness
+}
+
+// GetRelevancyStrictnessOk returns a tuple with the RelevancyStrictness field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Params) GetRelevancyStrictnessOk() (*int32, bool) {
+	if o == nil || o.RelevancyStrictness == nil {
+		return nil, false
+	}
+
+	return o.RelevancyStrictness, true
+}
+
+// HasRelevancyStrictness returns a boolean if a field has been set.
+func (o *Params) HasRelevancyStrictness() bool {
+	if o != nil && o.RelevancyStrictness != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRelevancyStrictness gets a reference to the given int32 and assigns it to the RelevancyStrictness field.
+func (o *Params) SetRelevancyStrictness(v int32) *Params {
+	o.RelevancyStrictness = &v
+
+	return o
+}
+
 // GetRuleContexts returns the RuleContexts field value if set, zero value otherwise.
 func (o *Params) GetRuleContexts() []string {
 	if o == nil || o.RuleContexts == nil {
@@ -1301,6 +1309,43 @@ func (o *Params) HasRuleContexts() bool {
 // SetRuleContexts gets a reference to the given []string and assigns it to the RuleContexts field.
 func (o *Params) SetRuleContexts(v []string) *Params {
 	o.RuleContexts = v
+
+	return o
+}
+
+// GetSortBy returns the SortBy field value if set, zero value otherwise.
+func (o *Params) GetSortBy() string {
+	if o == nil || o.SortBy == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.SortBy
+}
+
+// GetSortByOk returns a tuple with the SortBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Params) GetSortByOk() (*string, bool) {
+	if o == nil || o.SortBy == nil {
+		return nil, false
+	}
+
+	return o.SortBy, true
+}
+
+// HasSortBy returns a boolean if a field has been set.
+func (o *Params) HasSortBy() bool {
+	if o != nil && o.SortBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSortBy gets a reference to the given string and assigns it to the SortBy field.
+func (o *Params) SetSortBy(v string) *Params {
+	o.SortBy = &v
 
 	return o
 }
@@ -1444,16 +1489,20 @@ func (o Params) MarshalJSON() ([]byte, error) {
 		toSerialize["query"] = o.Query
 	}
 
-	if o.RelevancyStrictness != nil {
-		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
-	}
-
 	if o.QueryLanguages != nil {
 		toSerialize["queryLanguages"] = o.QueryLanguages
 	}
 
+	if o.RelevancyStrictness != nil {
+		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
+	}
+
 	if o.RuleContexts != nil {
 		toSerialize["ruleContexts"] = o.RuleContexts
+	}
+
+	if o.SortBy != nil {
+		toSerialize["sortBy"] = o.SortBy
 	}
 
 	if o.UserToken != nil {
@@ -1495,9 +1544,10 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
-	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  queryLanguages=%v\n", o.QueryLanguages)
+	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  ruleContexts=%v\n", o.RuleContexts)
+	out += fmt.Sprintf("  sortBy=%v\n", o.SortBy)
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 
 	return fmt.Sprintf("Params {\n%s}", out)
