@@ -8,12 +8,19 @@ import (
 
 // EstimateConfiguration A/B test configuration for estimating the sample size and duration using minimum detectable effect.
 type EstimateConfiguration struct {
+	FeatureFilters          *FeatureFilters         `json:"featureFilters,omitempty"`
 	Outliers                *Outliers               `json:"outliers,omitempty"`
 	EmptySearch             *EmptySearch            `json:"emptySearch,omitempty"`
 	MinimumDetectableEffect MinimumDetectableEffect `json:"minimumDetectableEffect"`
 }
 
 type EstimateConfigurationOption func(f *EstimateConfiguration)
+
+func WithEstimateConfigurationFeatureFilters(val FeatureFilters) EstimateConfigurationOption {
+	return func(f *EstimateConfiguration) {
+		f.FeatureFilters = &val
+	}
+}
 
 func WithEstimateConfigurationOutliers(val Outliers) EstimateConfigurationOption {
 	return func(f *EstimateConfiguration) {
@@ -45,6 +52,43 @@ func NewEstimateConfiguration(minimumDetectableEffect MinimumDetectableEffect, o
 // NewEmptyEstimateConfiguration return a pointer to an empty EstimateConfiguration object.
 func NewEmptyEstimateConfiguration() *EstimateConfiguration {
 	return &EstimateConfiguration{}
+}
+
+// GetFeatureFilters returns the FeatureFilters field value if set, zero value otherwise.
+func (o *EstimateConfiguration) GetFeatureFilters() FeatureFilters {
+	if o == nil || o.FeatureFilters == nil {
+		var ret FeatureFilters
+
+		return ret
+	}
+
+	return *o.FeatureFilters
+}
+
+// GetFeatureFiltersOk returns a tuple with the FeatureFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EstimateConfiguration) GetFeatureFiltersOk() (*FeatureFilters, bool) {
+	if o == nil || o.FeatureFilters == nil {
+		return nil, false
+	}
+
+	return o.FeatureFilters, true
+}
+
+// HasFeatureFilters returns a boolean if a field has been set.
+func (o *EstimateConfiguration) HasFeatureFilters() bool {
+	if o != nil && o.FeatureFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatureFilters gets a reference to the given FeatureFilters and assigns it to the FeatureFilters field.
+func (o *EstimateConfiguration) SetFeatureFilters(v *FeatureFilters) *EstimateConfiguration {
+	o.FeatureFilters = v
+
+	return o
 }
 
 // GetOutliers returns the Outliers field value if set, zero value otherwise.
@@ -151,6 +195,10 @@ func (o *EstimateConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableE
 
 func (o EstimateConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if o.FeatureFilters != nil {
+		toSerialize["featureFilters"] = o.FeatureFilters
+	}
+
 	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
@@ -171,6 +219,7 @@ func (o EstimateConfiguration) MarshalJSON() ([]byte, error) {
 
 func (o EstimateConfiguration) String() string {
 	out := ""
+	out += fmt.Sprintf("  featureFilters=%v\n", o.FeatureFilters)
 	out += fmt.Sprintf("  outliers=%v\n", o.Outliers)
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)

@@ -8,12 +8,19 @@ import (
 
 // ABTestConfiguration A/B test configuration.
 type ABTestConfiguration struct {
+	FeatureFilters          *FeatureFilters          `json:"featureFilters,omitempty"`
 	Outliers                *Outliers                `json:"outliers,omitempty"`
 	EmptySearch             *EmptySearch             `json:"emptySearch,omitempty"`
 	MinimumDetectableEffect *MinimumDetectableEffect `json:"minimumDetectableEffect,omitempty"`
 }
 
 type ABTestConfigurationOption func(f *ABTestConfiguration)
+
+func WithABTestConfigurationFeatureFilters(val FeatureFilters) ABTestConfigurationOption {
+	return func(f *ABTestConfiguration) {
+		f.FeatureFilters = &val
+	}
+}
 
 func WithABTestConfigurationOutliers(val Outliers) ABTestConfigurationOption {
 	return func(f *ABTestConfiguration) {
@@ -49,6 +56,43 @@ func NewABTestConfiguration(opts ...ABTestConfigurationOption) *ABTestConfigurat
 // NewEmptyABTestConfiguration return a pointer to an empty ABTestConfiguration object.
 func NewEmptyABTestConfiguration() *ABTestConfiguration {
 	return &ABTestConfiguration{}
+}
+
+// GetFeatureFilters returns the FeatureFilters field value if set, zero value otherwise.
+func (o *ABTestConfiguration) GetFeatureFilters() FeatureFilters {
+	if o == nil || o.FeatureFilters == nil {
+		var ret FeatureFilters
+
+		return ret
+	}
+
+	return *o.FeatureFilters
+}
+
+// GetFeatureFiltersOk returns a tuple with the FeatureFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ABTestConfiguration) GetFeatureFiltersOk() (*FeatureFilters, bool) {
+	if o == nil || o.FeatureFilters == nil {
+		return nil, false
+	}
+
+	return o.FeatureFilters, true
+}
+
+// HasFeatureFilters returns a boolean if a field has been set.
+func (o *ABTestConfiguration) HasFeatureFilters() bool {
+	if o != nil && o.FeatureFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatureFilters gets a reference to the given FeatureFilters and assigns it to the FeatureFilters field.
+func (o *ABTestConfiguration) SetFeatureFilters(v *FeatureFilters) *ABTestConfiguration {
+	o.FeatureFilters = v
+
+	return o
 }
 
 // GetOutliers returns the Outliers field value if set, zero value otherwise.
@@ -164,6 +208,10 @@ func (o *ABTestConfiguration) SetMinimumDetectableEffect(v *MinimumDetectableEff
 
 func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if o.FeatureFilters != nil {
+		toSerialize["featureFilters"] = o.FeatureFilters
+	}
+
 	if o.Outliers != nil {
 		toSerialize["outliers"] = o.Outliers
 	}
@@ -186,6 +234,7 @@ func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 
 func (o ABTestConfiguration) String() string {
 	out := ""
+	out += fmt.Sprintf("  featureFilters=%v\n", o.FeatureFilters)
 	out += fmt.Sprintf("  outliers=%v\n", o.Outliers)
 	out += fmt.Sprintf("  emptySearch=%v\n", o.EmptySearch)
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
