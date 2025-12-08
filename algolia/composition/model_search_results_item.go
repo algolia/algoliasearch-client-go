@@ -60,17 +60,17 @@ type SearchResultsItem struct {
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
 	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`
-	// Page of search results to retrieve.
+	// The current page of the results.
 	Page int32 `json:"page"`
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 	// Number of pages of results.
 	NbPages int32 `json:"nbPages"`
-	// Number of hits per page.
+	// Number of hits returned per page.
 	HitsPerPage int32 `json:"hitsPerPage"`
 	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
 	Hits []Hit `json:"hits"`
-	// Search query.
+	// The search query string.
 	Query string `json:"query"`
 	// URL-encoded string of all search parameters.
 	Params       string                                    `json:"params"`
