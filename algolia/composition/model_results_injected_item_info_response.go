@@ -8,6 +8,7 @@ import (
 
 // ResultsInjectedItemInfoResponse struct for ResultsInjectedItemInfoResponse.
 type ResultsInjectedItemInfoResponse struct {
+	// The key of the injected group.
 	Key                  string                                        `json:"key"`
 	AppliedRules         []ResultsInjectedItemAppliedRulesInfoResponse `json:"appliedRules,omitempty"`
 	AdditionalProperties map[string]any                                `json:"-"`

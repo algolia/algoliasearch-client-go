@@ -8,7 +8,7 @@ import (
 
 // CompositionRunAppliedRules struct for CompositionRunAppliedRules.
 type CompositionRunAppliedRules struct {
-	// Unique record identifier.
+	// The objectID of the applied composition rule on this query.
 	ObjectID string `json:"objectID"`
 }
 

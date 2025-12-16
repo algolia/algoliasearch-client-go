@@ -60,20 +60,20 @@ type SearchResultsItem struct {
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
 	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`
-	// The current page of the results.
-	Page int32 `json:"page"`
+	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
+	Hits []Hit `json:"hits"`
+	// Number of hits returned per page.
+	HitsPerPage int32 `json:"hitsPerPage"`
 	// Number of results (hits).
 	NbHits int32 `json:"nbHits"`
 	// Number of pages of results.
 	NbPages int32 `json:"nbPages"`
-	// Number of hits returned per page.
-	HitsPerPage int32 `json:"hitsPerPage"`
-	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
-	Hits []Hit `json:"hits"`
-	// The search query string.
-	Query string `json:"query"`
+	// The current page of the results.
+	Page int32 `json:"page"`
 	// URL-encoded string of all search parameters.
-	Params       string                                    `json:"params"`
+	Params string `json:"params"`
+	// The search query string.
+	Query        string                                    `json:"query"`
 	Compositions map[string]ResultsCompositionInfoResponse `json:"compositions"`
 }
 
@@ -240,24 +240,24 @@ func WithSearchResultsItemAutomaticInsights(val bool) SearchResultsItemOption {
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
 func NewSearchResultsItem(
-	page int32,
+	hits []Hit,
+	hitsPerPage int32,
 	nbHits int32,
 	nbPages int32,
-	hitsPerPage int32,
-	hits []Hit,
-	query string,
+	page int32,
 	params string,
+	query string,
 	compositions map[string]ResultsCompositionInfoResponse,
 	opts ...SearchResultsItemOption,
 ) *SearchResultsItem {
 	this := &SearchResultsItem{}
-	this.Page = page
+	this.Hits = hits
+	this.HitsPerPage = hitsPerPage
 	this.NbHits = nbHits
 	this.NbPages = nbPages
-	this.HitsPerPage = hitsPerPage
-	this.Hits = hits
-	this.Query = query
+	this.Page = page
 	this.Params = params
+	this.Query = query
 
 	this.Compositions = compositions
 	for _, opt := range opts {
@@ -1244,30 +1244,58 @@ func (o *SearchResultsItem) SetAutomaticInsights(v bool) *SearchResultsItem {
 	return o
 }
 
-// GetPage returns the Page field value.
-func (o *SearchResultsItem) GetPage() int32 {
+// GetHits returns the Hits field value.
+func (o *SearchResultsItem) GetHits() []Hit {
+	if o == nil {
+		var ret []Hit
+
+		return ret
+	}
+
+	return o.Hits
+}
+
+// GetHitsOk returns a tuple with the Hits field value
+// and a boolean to check if the value has been set.
+func (o *SearchResultsItem) GetHitsOk() ([]Hit, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.Hits, true
+}
+
+// SetHits sets field value.
+func (o *SearchResultsItem) SetHits(v []Hit) *SearchResultsItem {
+	o.Hits = v
+
+	return o
+}
+
+// GetHitsPerPage returns the HitsPerPage field value.
+func (o *SearchResultsItem) GetHitsPerPage() int32 {
 	if o == nil {
 		var ret int32
 
 		return ret
 	}
 
-	return o.Page
+	return o.HitsPerPage
 }
 
-// GetPageOk returns a tuple with the Page field value
+// GetHitsPerPageOk returns a tuple with the HitsPerPage field value
 // and a boolean to check if the value has been set.
-func (o *SearchResultsItem) GetPageOk() (*int32, bool) {
+func (o *SearchResultsItem) GetHitsPerPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
 
-	return &o.Page, true
+	return &o.HitsPerPage, true
 }
 
-// SetPage sets field value.
-func (o *SearchResultsItem) SetPage(v int32) *SearchResultsItem {
-	o.Page = v
+// SetHitsPerPage sets field value.
+func (o *SearchResultsItem) SetHitsPerPage(v int32) *SearchResultsItem {
+	o.HitsPerPage = v
 
 	return o
 }
@@ -1328,86 +1356,30 @@ func (o *SearchResultsItem) SetNbPages(v int32) *SearchResultsItem {
 	return o
 }
 
-// GetHitsPerPage returns the HitsPerPage field value.
-func (o *SearchResultsItem) GetHitsPerPage() int32 {
+// GetPage returns the Page field value.
+func (o *SearchResultsItem) GetPage() int32 {
 	if o == nil {
 		var ret int32
 
 		return ret
 	}
 
-	return o.HitsPerPage
+	return o.Page
 }
 
-// GetHitsPerPageOk returns a tuple with the HitsPerPage field value
+// GetPageOk returns a tuple with the Page field value
 // and a boolean to check if the value has been set.
-func (o *SearchResultsItem) GetHitsPerPageOk() (*int32, bool) {
+func (o *SearchResultsItem) GetPageOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
 
-	return &o.HitsPerPage, true
+	return &o.Page, true
 }
 
-// SetHitsPerPage sets field value.
-func (o *SearchResultsItem) SetHitsPerPage(v int32) *SearchResultsItem {
-	o.HitsPerPage = v
-
-	return o
-}
-
-// GetHits returns the Hits field value.
-func (o *SearchResultsItem) GetHits() []Hit {
-	if o == nil {
-		var ret []Hit
-
-		return ret
-	}
-
-	return o.Hits
-}
-
-// GetHitsOk returns a tuple with the Hits field value
-// and a boolean to check if the value has been set.
-func (o *SearchResultsItem) GetHitsOk() ([]Hit, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return o.Hits, true
-}
-
-// SetHits sets field value.
-func (o *SearchResultsItem) SetHits(v []Hit) *SearchResultsItem {
-	o.Hits = v
-
-	return o
-}
-
-// GetQuery returns the Query field value.
-func (o *SearchResultsItem) GetQuery() string {
-	if o == nil {
-		var ret string
-
-		return ret
-	}
-
-	return o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value
-// and a boolean to check if the value has been set.
-func (o *SearchResultsItem) GetQueryOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-
-	return &o.Query, true
-}
-
-// SetQuery sets field value.
-func (o *SearchResultsItem) SetQuery(v string) *SearchResultsItem {
-	o.Query = v
+// SetPage sets field value.
+func (o *SearchResultsItem) SetPage(v int32) *SearchResultsItem {
+	o.Page = v
 
 	return o
 }
@@ -1436,6 +1408,34 @@ func (o *SearchResultsItem) GetParamsOk() (*string, bool) {
 // SetParams sets field value.
 func (o *SearchResultsItem) SetParams(v string) *SearchResultsItem {
 	o.Params = v
+
+	return o
+}
+
+// GetQuery returns the Query field value.
+func (o *SearchResultsItem) GetQuery() string {
+	if o == nil {
+		var ret string
+
+		return ret
+	}
+
+	return o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value
+// and a boolean to check if the value has been set.
+func (o *SearchResultsItem) GetQueryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return &o.Query, true
+}
+
+// SetQuery sets field value.
+func (o *SearchResultsItem) SetQuery(v string) *SearchResultsItem {
+	o.Query = v
 
 	return o
 }
@@ -1574,13 +1574,13 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 		toSerialize["_automaticInsights"] = o.AutomaticInsights
 	}
 
-	toSerialize["page"] = o.Page
+	toSerialize["hits"] = o.Hits
+	toSerialize["hitsPerPage"] = o.HitsPerPage
 	toSerialize["nbHits"] = o.NbHits
 	toSerialize["nbPages"] = o.NbPages
-	toSerialize["hitsPerPage"] = o.HitsPerPage
-	toSerialize["hits"] = o.Hits
-	toSerialize["query"] = o.Query
+	toSerialize["page"] = o.Page
 	toSerialize["params"] = o.Params
+	toSerialize["query"] = o.Query
 	toSerialize["compositions"] = o.Compositions
 
 	serialized, err := json.Marshal(toSerialize)
@@ -1619,13 +1619,13 @@ func (o SearchResultsItem) String() string {
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 	out += fmt.Sprintf("  queryID=%v\n", o.QueryID)
 	out += fmt.Sprintf("  _automaticInsights=%v\n", o.AutomaticInsights)
-	out += fmt.Sprintf("  page=%v\n", o.Page)
+	out += fmt.Sprintf("  hits=%v\n", o.Hits)
+	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
-	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
-	out += fmt.Sprintf("  hits=%v\n", o.Hits)
-	out += fmt.Sprintf("  query=%v\n", o.Query)
+	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
 
 	return fmt.Sprintf("SearchResultsItem {\n%s}", out)

@@ -8,7 +8,7 @@ import (
 
 // CompositionRunSearchResponse struct for CompositionRunSearchResponse.
 type CompositionRunSearchResponse struct {
-	// Unique record identifier.
+	// The objectID of the composition which generated this result set.
 	ObjectID             string                       `json:"objectID"`
 	AppliedRules         []CompositionRunAppliedRules `json:"appliedRules,omitempty"`
 	AdditionalProperties map[string]any               `json:"-"`
