@@ -26,6 +26,14 @@ const (
 	ACL_SEE_UNRETRIEVABLE_ATTRIBUTES Acl = "seeUnretrievableAttributes"
 	ACL_SETTINGS                     Acl = "settings"
 	ACL_USAGE                        Acl = "usage"
+	ACL_NLU_WRITE_PROJECT            Acl = "nluWriteProject"
+	ACL_NLU_READ_PROJECT             Acl = "nluReadProject"
+	ACL_NLU_WRITE_ENTITY             Acl = "nluWriteEntity"
+	ACL_NLU_READ_ENTITY              Acl = "nluReadEntity"
+	ACL_NLU_WRITE_INTENT             Acl = "nluWriteIntent"
+	ACL_NLU_READ_INTENT              Acl = "nluReadIntent"
+	ACL_NLU_PREDICTION               Acl = "nluPrediction"
+	ACL_NLU_READ_ANSWERS             Acl = "nluReadAnswers"
 )
 
 // All allowed values of Acl enum.
@@ -45,6 +53,14 @@ var AllowedAclEnumValues = []Acl{
 	"seeUnretrievableAttributes",
 	"settings",
 	"usage",
+	"nluWriteProject",
+	"nluReadProject",
+	"nluWriteEntity",
+	"nluReadEntity",
+	"nluWriteIntent",
+	"nluReadIntent",
+	"nluPrediction",
+	"nluReadAnswers",
 }
 
 // NewAclFromValue returns a pointer to a valid Acl.
