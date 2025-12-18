@@ -272,7 +272,11 @@ func buildRequest(
 	if body == nil {
 		req, err = buildRequestWithoutBody(method, urlStr)
 	} else {
-		req, err = buildRequestWithBody(method, urlStr, body, c)
+		if isCompressionEnabled {
+			req, err = buildRequestWithBody(method, urlStr, body, c)
+		} else {
+			req, err = buildRequestWithBody(method, urlStr, body, compression.None)
+		}
 	}
 
 	if err != nil {
