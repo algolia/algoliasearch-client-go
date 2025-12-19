@@ -2,7 +2,10 @@ package transport
 
 import (
 	"bytes"
+	"compress/gzip"
+	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"runtime"
@@ -10,6 +13,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/algolia/algoliasearch-client-go/v3/algolia/call"
@@ -193,4 +197,130 @@ func TestShouldSupportCaseSensitiveHeader(t *testing.T) {
 	var res string
 	err := transporter.Request(&res, http.MethodGet, "/1/test", nil, call.Read, opts...)
 	require.NoError(t, err)
+}
+
+func TestCompression(t *testing.T) {
+	type Tc struct {
+		compression       compression.Compression
+		method            string
+		body              []byte
+		expectCompression bool
+		expectBody        bool
+	}
+
+	for name, tc := range map[string]Tc{
+		"GET no compression": {
+			compression:       compression.None,
+			method:            http.MethodPost,
+			body:              []byte(`{"a": "b"}`),
+			expectCompression: false,
+			expectBody:        true,
+		},
+		"GET gzip compression": {
+			compression:       compression.GZIP,
+			method:            http.MethodPost,
+			body:              []byte(`{"a": "b"}`),
+			expectCompression: true,
+			expectBody:        true,
+		},
+		"DELETE no compression nil body": {
+			compression:       compression.None,
+			method:            http.MethodDelete,
+			body:              nil,
+			expectCompression: false,
+			expectBody:        false,
+		},
+		"DELETE gzip compression nil body": {
+			compression:       compression.GZIP,
+			method:            http.MethodDelete,
+			body:              nil,
+			expectCompression: false,
+			expectBody:        false,
+		},
+		"DELETE gzip compression server-side body": {
+			compression:       compression.GZIP,
+			method:            http.MethodDelete,
+			body:              bytes.NewBuffer(make([]byte, 0)).Bytes(),
+			expectCompression: false,
+			expectBody:        false,
+		},
+	} {
+		t.Run(name, func(t *testing.T) {
+			hosts := []*StatefulHost{NewStatefulHost("", call.IsReadWrite)}
+			requester := &MockRequester{validator: func(req *http.Request) {
+				if tc.expectCompression {
+					require.NotEmpty(t, req.Header.Get("Content-Encoding"))
+				} else {
+					require.Empty(t, req.Header.Get("Content-Encoding"))
+				}
+
+				if !tc.expectBody {
+					require.Equal(t, int64(0), req.ContentLength)
+				}
+
+				if req.Body == nil {
+					require.False(t, tc.expectBody)
+					return
+				}
+
+				body := bytes.NewBuffer(make([]byte, 0, req.ContentLength))
+				_, err := io.Copy(body, req.Body)
+				req.Body.Close() // nolint: errcheck
+				require.NoError(t, err)
+
+				if !tc.expectBody {
+					// Check the body size prior to de-compressing it, as de-compression would decode a newline as an empty body
+					require.Equal(t, 0, len(string(body.Bytes())))
+					return
+				}
+
+				bodyContent := string(body.Bytes())
+
+				switch tc.compression {
+				case compression.None:
+					// Nothing to do
+
+				case compression.GZIP:
+					gzipReader, err := gzip.NewReader(strings.NewReader(bodyContent))
+					require.NoError(t, err)
+					defer func() {
+						if closeErr := gzipReader.Close(); closeErr != nil {
+							t.Errorf("Failed to close gzip reader: %v", closeErr)
+						}
+					}()
+					decompressed, err := io.ReadAll(gzipReader)
+					require.NoError(t, err)
+					bodyContent = string(decompressed)
+
+				default:
+					t.Errorf("unknown compression type: %v", tc.compression)
+				}
+
+				if len(bodyContent) != 0 {
+					assert.JSONEq(t, string(tc.body), bodyContent)
+				} else {
+					assert.False(t, tc.expectBody)
+				}
+			}}
+			transporter := New(
+				hosts,
+				requester,
+				"appID",
+				"apiKey",
+				time.Second,
+				time.Second,
+				nil,
+				"",
+				tc.compression,
+			)
+			var res string
+			var err error
+			if tc.body == nil {
+				err = transporter.Request(&res, tc.method, "", nil, call.Read)
+			} else {
+				err = transporter.Request(&res, tc.method, "", json.RawMessage(tc.body), call.Read)
+			}
+			require.NoError(t, err)
+		})
+	}
 }
