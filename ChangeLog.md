@@ -1,5 +1,11 @@
 # ChangeLog
 
+## [3.32.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.4...v3.32.0) (2025-12-19)
+
+## Fix
+
+- fix(transport): only compress request bodies if compression is enabled (#778) ([a13c960](https://github.com/algolia/algoliasearch-client-go/commit/a13c960))
+
 ## [3.31.4](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.3...v3.31.4) (2024-11-14)
 
 ## Fix
