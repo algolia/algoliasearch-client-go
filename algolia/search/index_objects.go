@@ -304,7 +304,7 @@ func (i *Index) SearchForFacetValues(facet, query string, opts ...interface{}) (
 	body := map[string]string{
 		"params": transport.URLEncode(params),
 	}
-	path := i.path("/facets/%s/query", facet)
+	path := i.path("/facets/%s/query", url.QueryEscape(facet))
 	err = i.transport.Request(&res, http.MethodPost, path, body, call.Read, opts...)
 	return
 }
