@@ -32,7 +32,7 @@ type Event struct {
 	Positions              []int        `json:"positions,omitempty"`
 	QueryID                string       `json:"queryID,omitempty"`
 	UserToken              string       `json:"userToken"`
-	AuthenticatedUserToken *string      `json:"authenticatedUserToken"`
+	AuthenticatedUserToken *string      `json:"authenticatedUserToken,omitempty"`
 	Currency               *string      `json:"currency,omitempty"`
 	ObjectData             []ObjectData `json:"objectData,omitempty"`
 	Timestamp              time.Time    `json:"-"`
