@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - v3
+  pull_request:
+    branches:
+      - main
+      - v3
+
+jobs:
+  format:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.14'
+          cache: true
+
+      - name: Install golangci-lint
+        run: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.25.0
+
+      - name: Check formatting
+        run: make lint
+
+  unit-tests:
+    name: Unit Tests (Go ${{ matrix.go-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ['1.16', '1.17', '1.18', '1.19', '1.20']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+
+      - name: Generate code
+        run: go generate ./...
+
+      - name: Run unit tests
+        run: make unit-tests
+
+  integration-tests:
+    name: Integration Tests (Go ${{ matrix.go-version }})
+    runs-on: ubuntu-latest
+    # Only run on push events (not on PRs) to prevent running on fork PRs
+    # Fork PRs don't have access to secrets anyway
+    if: github.event_name == 'push'
+    strategy:
+      matrix:
+        go-version: ['1.16', '1.17', '1.18', '1.19', '1.20']
+    env:
+      ALGOLIA_APPLICATION_ID_1: ${{ secrets.ALGOLIA_APPLICATION_ID_1 }}
+      ALGOLIA_ADMIN_KEY_1: ${{ secrets.ALGOLIA_ADMIN_KEY_1 }}
+      ALGOLIA_SEARCH_KEY_1: ${{ secrets.ALGOLIA_SEARCH_KEY_1 }}
+      ALGOLIA_APPLICATION_ID_2: ${{ secrets.ALGOLIA_APPLICATION_ID_2 }}
+      ALGOLIA_ADMIN_KEY_2: ${{ secrets.ALGOLIA_ADMIN_KEY_2 }}
+      ALGOLIA_APPLICATION_ID_MCM: ${{ secrets.ALGOLIA_APPLICATION_ID_MCM }}
+      ALGOLIA_ADMIN_KEY_MCM: ${{ secrets.ALGOLIA_ADMIN_KEY_MCM }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache: true
+
+      - name: Generate code
+        run: go generate ./...
+
+      - name: Run integration tests
+        run: |
+          if [ -z "$ALGOLIA_ADMIN_KEY_MCM" ]; then
+            make integration-tests-community
+          else
+            make integration-tests
+          fi
