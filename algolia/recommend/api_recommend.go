@@ -19,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	bodyParams   map[string]any
 	timeouts     transport.RequestConfiguration
 }
 
@@ -65,6 +66,37 @@ func WithWriteTimeout(timeout time.Duration) requestOption {
 func WithConnectTimeout(timeout time.Duration) requestOption {
 	return requestOption(func(c *config) {
 		c.timeouts.ConnectTimeout = &timeout
+	})
+}
+
+// WithBodyParam adds a single custom parameter to the request body.
+// For write requests (POST, PUT, PATCH, DELETE), the param is merged into the body.
+// For read requests (GET), the param is converted to a query parameter.
+// Custom values override typed values when keys conflict.
+func WithBodyParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		c.bodyParams[key] = value
+	})
+}
+
+// WithBodyParams adds multiple custom parameters to the request body.
+// Parameters are deep-merged into the typed request body.
+// For write requests, params are merged into the body.
+// For read requests, params are converted to query parameters.
+// Custom values override typed values when keys conflict.
+func WithBodyParams(params map[string]any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		for k, v := range params {
+			c.bodyParams[k] = v
+		}
 	})
 }
 
@@ -187,7 +219,7 @@ func (c *APIClient) BatchRecommendRulesWithHTTPInfo(r ApiBatchRecommendRulesRequ
 		postBody = r.recommendRule
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -337,7 +369,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -473,7 +505,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -635,7 +667,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -798,7 +830,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -944,7 +976,7 @@ func (c *APIClient) DeleteRecommendRuleWithHTTPInfo(r ApiDeleteRecommendRuleRequ
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1093,7 +1125,7 @@ func (c *APIClient) GetRecommendRuleWithHTTPInfo(r ApiGetRecommendRuleRequest, o
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1242,7 +1274,7 @@ func (c *APIClient) GetRecommendStatusWithHTTPInfo(r ApiGetRecommendStatusReques
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1371,7 +1403,7 @@ func (c *APIClient) GetRecommendationsWithHTTPInfo(r ApiGetRecommendationsReques
 	// body params
 	postBody = r.getRecommendationsParams
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1530,7 +1562,7 @@ func (c *APIClient) SearchRecommendRulesWithHTTPInfo(r ApiSearchRecommendRulesRe
 		postBody = r.searchRecommendRulesParams
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}

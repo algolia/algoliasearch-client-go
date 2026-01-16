@@ -70,13 +70,28 @@ func IsNilOrEmpty(i any) bool {
 }
 
 // QueryParameterToString convert any query parameters to string.
+// For complex types (maps, slices of non-primitives), it JSON-encodes them.
 func QueryParameterToString(obj any) string {
 	return strings.ReplaceAll(url.QueryEscape(ParameterToString(obj)), "+", "%20")
 }
 
 // ParameterToString convert any parameters to string.
 func ParameterToString(obj any) string {
+	if obj == nil {
+		return ""
+	}
+
 	objKind := reflect.TypeOf(obj).Kind()
+
+	if objKind == reflect.Ptr {
+		val := reflect.ValueOf(obj)
+		if val.IsNil() {
+			return ""
+		}
+
+		return ParameterToString(val.Elem().Interface())
+	}
+
 	if objKind == reflect.Slice {
 		var result []string
 
@@ -87,6 +102,15 @@ func ParameterToString(obj any) string {
 		}
 
 		return strings.Join(result, ",")
+	}
+
+	if objKind == reflect.Map {
+		data, err := json.Marshal(obj)
+		if err != nil {
+			return fmt.Sprintf("%v", obj)
+		}
+
+		return string(data)
 	}
 
 	if t, ok := obj.(time.Time); ok {

@@ -21,6 +21,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	bodyParams   map[string]any
 	timeouts     transport.RequestConfiguration
 
 	// -- ChunkedPush options
@@ -76,6 +77,37 @@ func WithWriteTimeout(timeout time.Duration) requestOption {
 func WithConnectTimeout(timeout time.Duration) requestOption {
 	return requestOption(func(c *config) {
 		c.timeouts.ConnectTimeout = &timeout
+	})
+}
+
+// WithBodyParam adds a single custom parameter to the request body.
+// For write requests (POST, PUT, PATCH, DELETE), the param is merged into the body.
+// For read requests (GET), the param is converted to a query parameter.
+// Custom values override typed values when keys conflict.
+func WithBodyParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		c.bodyParams[key] = value
+	})
+}
+
+// WithBodyParams adds multiple custom parameters to the request body.
+// Parameters are deep-merged into the typed request body.
+// For write requests, params are merged into the body.
+// For read requests, params are converted to query parameters.
+// Custom values override typed values when keys conflict.
+func WithBodyParams(params map[string]any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		for k, v := range params {
+			c.bodyParams[k] = v
+		}
 	})
 }
 
@@ -157,7 +189,7 @@ func (c *APIClient) CreateAuthenticationWithHTTPInfo(r ApiCreateAuthenticationRe
 	// body params
 	postBody = r.authenticationCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -283,7 +315,7 @@ func (c *APIClient) CreateDestinationWithHTTPInfo(r ApiCreateDestinationRequest,
 	// body params
 	postBody = r.destinationCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -409,7 +441,7 @@ func (c *APIClient) CreateSourceWithHTTPInfo(r ApiCreateSourceRequest, opts ...R
 	// body params
 	postBody = r.sourceCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -535,7 +567,7 @@ func (c *APIClient) CreateTaskWithHTTPInfo(r ApiCreateTaskRequest, opts ...Reque
 	// body params
 	postBody = r.taskCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -664,7 +696,7 @@ func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...R
 	// body params
 	postBody = r.taskCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -792,7 +824,7 @@ func (c *APIClient) CreateTransformationWithHTTPInfo(r ApiCreateTransformationRe
 	// body params
 	postBody = r.transformationCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -932,7 +964,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1068,7 +1100,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1230,7 +1262,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1393,7 +1425,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1509,7 +1541,7 @@ func (c *APIClient) DeleteAuthenticationWithHTTPInfo(r ApiDeleteAuthenticationRe
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1628,7 +1660,7 @@ func (c *APIClient) DeleteDestinationWithHTTPInfo(r ApiDeleteDestinationRequest,
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1747,7 +1779,7 @@ func (c *APIClient) DeleteSourceWithHTTPInfo(r ApiDeleteSourceRequest, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1866,7 +1898,7 @@ func (c *APIClient) DeleteTaskWithHTTPInfo(r ApiDeleteTaskRequest, opts ...Reque
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1988,7 +2020,7 @@ func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2109,7 +2141,7 @@ func (c *APIClient) DeleteTransformationWithHTTPInfo(r ApiDeleteTransformationRe
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2228,7 +2260,7 @@ func (c *APIClient) DisableTaskWithHTTPInfo(r ApiDisableTaskRequest, opts ...Req
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2350,7 +2382,7 @@ func (c *APIClient) DisableTaskV1WithHTTPInfo(r ApiDisableTaskV1Request, opts ..
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2471,7 +2503,7 @@ func (c *APIClient) EnableTaskWithHTTPInfo(r ApiEnableTaskRequest, opts ...Reque
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2593,7 +2625,7 @@ func (c *APIClient) EnableTaskV1WithHTTPInfo(r ApiEnableTaskV1Request, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2714,7 +2746,7 @@ func (c *APIClient) GetAuthenticationWithHTTPInfo(r ApiGetAuthenticationRequest,
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2833,7 +2865,7 @@ func (c *APIClient) GetDestinationWithHTTPInfo(r ApiGetDestinationRequest, opts 
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2970,7 +3002,7 @@ func (c *APIClient) GetEventWithHTTPInfo(r ApiGetEventRequest, opts ...RequestOp
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3090,7 +3122,7 @@ func (c *APIClient) GetRunWithHTTPInfo(r ApiGetRunRequest, opts ...RequestOption
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3209,7 +3241,7 @@ func (c *APIClient) GetSourceWithHTTPInfo(r ApiGetSourceRequest, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3328,7 +3360,7 @@ func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOpti
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3450,7 +3482,7 @@ func (c *APIClient) GetTaskV1WithHTTPInfo(r ApiGetTaskV1Request, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3571,7 +3603,7 @@ func (c *APIClient) GetTransformationWithHTTPInfo(r ApiGetTransformationRequest,
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -3809,7 +3841,7 @@ func (c *APIClient) ListAuthenticationsWithHTTPInfo(r ApiListAuthenticationsRequ
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4075,7 +4107,7 @@ func (c *APIClient) ListDestinationsWithHTTPInfo(r ApiListDestinationsRequest, o
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4386,7 +4418,7 @@ func (c *APIClient) ListEventsWithHTTPInfo(r ApiListEventsRequest, opts ...Reque
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4703,7 +4735,7 @@ func (c *APIClient) ListRunsWithHTTPInfo(r ApiListRunsRequest, opts ...RequestOp
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -4949,7 +4981,7 @@ func (c *APIClient) ListSourcesWithHTTPInfo(r ApiListSourcesRequest, opts ...Req
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5307,7 +5339,7 @@ func (c *APIClient) ListTasksWithHTTPInfo(r ApiListTasksRequest, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5627,7 +5659,7 @@ func (c *APIClient) ListTasksV1WithHTTPInfo(r ApiListTasksV1Request, opts ...Req
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -5852,7 +5884,7 @@ func (c *APIClient) ListTransformationsWithHTTPInfo(r ApiListTransformationsRequ
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6058,7 +6090,7 @@ func (c *APIClient) PushWithHTTPInfo(r ApiPushRequest, opts ...RequestOption) (*
 	// body params
 	postBody = r.pushTaskPayload
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6244,7 +6276,7 @@ func (c *APIClient) PushTaskWithHTTPInfo(r ApiPushTaskRequest, opts ...RequestOp
 	// body params
 	postBody = r.pushTaskPayload
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6394,7 +6426,7 @@ func (c *APIClient) ReplaceTaskWithHTTPInfo(r ApiReplaceTaskRequest, opts ...Req
 	// body params
 	postBody = r.taskReplace
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6540,7 +6572,7 @@ func (c *APIClient) RunSourceWithHTTPInfo(r ApiRunSourceRequest, opts ...Request
 		postBody = r.runSourcePayload
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6686,7 +6718,7 @@ func (c *APIClient) RunTaskWithHTTPInfo(r ApiRunTaskRequest, opts ...RequestOpti
 		postBody = r.runTaskPayload
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6835,7 +6867,7 @@ func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...Request
 		postBody = r.runTaskPayload
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -6964,7 +6996,7 @@ func (c *APIClient) SearchAuthenticationsWithHTTPInfo(r ApiSearchAuthentications
 	// body params
 	postBody = r.authenticationSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7090,7 +7122,7 @@ func (c *APIClient) SearchDestinationsWithHTTPInfo(r ApiSearchDestinationsReques
 	// body params
 	postBody = r.destinationSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7216,7 +7248,7 @@ func (c *APIClient) SearchSourcesWithHTTPInfo(r ApiSearchSourcesRequest, opts ..
 	// body params
 	postBody = r.sourceSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7342,7 +7374,7 @@ func (c *APIClient) SearchTasksWithHTTPInfo(r ApiSearchTasksRequest, opts ...Req
 	// body params
 	postBody = r.taskSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7471,7 +7503,7 @@ func (c *APIClient) SearchTasksV1WithHTTPInfo(r ApiSearchTasksV1Request, opts ..
 	// body params
 	postBody = r.taskSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7599,7 +7631,7 @@ func (c *APIClient) SearchTransformationsWithHTTPInfo(r ApiSearchTransformations
 	// body params
 	postBody = r.transformationSearch
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7728,7 +7760,7 @@ func (c *APIClient) TriggerDockerSourceDiscoverWithHTTPInfo(
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -7855,7 +7887,7 @@ func (c *APIClient) TryTransformationWithHTTPInfo(r ApiTryTransformationRequest,
 	// body params
 	postBody = r.transformationTry
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8005,7 +8037,7 @@ func (c *APIClient) TryTransformationBeforeUpdateWithHTTPInfo(
 	// body params
 	postBody = r.transformationTry
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8156,7 +8188,7 @@ func (c *APIClient) UpdateAuthenticationWithHTTPInfo(r ApiUpdateAuthenticationRe
 	// body params
 	postBody = r.authenticationUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8301,7 +8333,7 @@ func (c *APIClient) UpdateDestinationWithHTTPInfo(r ApiUpdateDestinationRequest,
 	// body params
 	postBody = r.destinationUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8446,7 +8478,7 @@ func (c *APIClient) UpdateSourceWithHTTPInfo(r ApiUpdateSourceRequest, opts ...R
 	// body params
 	postBody = r.sourceUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8591,7 +8623,7 @@ func (c *APIClient) UpdateTaskWithHTTPInfo(r ApiUpdateTaskRequest, opts ...Reque
 	// body params
 	postBody = r.taskUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8739,7 +8771,7 @@ func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...R
 	// body params
 	postBody = r.taskUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -8889,7 +8921,7 @@ func (c *APIClient) UpdateTransformationWithHTTPInfo(r ApiUpdateTransformationRe
 	// body params
 	postBody = r.transformationCreate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -9022,7 +9054,7 @@ func (c *APIClient) ValidateSourceWithHTTPInfo(r ApiValidateSourceRequest, opts 
 		postBody = r.sourceCreate
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -9175,7 +9207,7 @@ func (c *APIClient) ValidateSourceBeforeUpdateWithHTTPInfo(
 	// body params
 	postBody = r.sourceUpdate
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}

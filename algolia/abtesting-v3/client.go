@@ -19,6 +19,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/call"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/compression"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // APIClient manages communication with the A/B Testing API API v3.0.0
@@ -148,10 +149,30 @@ func (c *APIClient) prepareRequest(
 	ctx context.Context,
 	path string, method string,
 	postBody any,
+	bodyParams map[string]any,
 	headerParams map[string]string,
 	queryParams url.Values,
 ) (req *http.Request, err error) {
-	body, err := setBody(postBody, c.cfg.Compression)
+	var finalBody any
+
+	if method == http.MethodGet {
+		finalBody = nil
+
+		for k, v := range bodyParams {
+			queryParams.Set(k, utils.QueryParameterToString(v))
+		}
+	} else {
+		if len(bodyParams) > 0 {
+			finalBody, err = utils.MergeBodyParams(postBody, bodyParams)
+			if err != nil {
+				return nil, fmt.Errorf("failed to merge body params: %w", err)
+			}
+		} else {
+			finalBody = postBody
+		}
+	}
+
+	body, err := setBody(finalBody, c.cfg.Compression)
 	if err != nil {
 		return nil, fmt.Errorf("failed to set the body: %w", err)
 	}

@@ -19,6 +19,7 @@ type config struct {
 	context      context.Context
 	queryParams  url.Values
 	headerParams map[string]string
+	bodyParams   map[string]any
 	timeouts     transport.RequestConfiguration
 }
 
@@ -65,6 +66,37 @@ func WithWriteTimeout(timeout time.Duration) requestOption {
 func WithConnectTimeout(timeout time.Duration) requestOption {
 	return requestOption(func(c *config) {
 		c.timeouts.ConnectTimeout = &timeout
+	})
+}
+
+// WithBodyParam adds a single custom parameter to the request body.
+// For write requests (POST, PUT, PATCH, DELETE), the param is merged into the body.
+// For read requests (GET), the param is converted to a query parameter.
+// Custom values override typed values when keys conflict.
+func WithBodyParam(key string, value any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		c.bodyParams[key] = value
+	})
+}
+
+// WithBodyParams adds multiple custom parameters to the request body.
+// Parameters are deep-merged into the typed request body.
+// For write requests, params are merged into the body.
+// For read requests, params are converted to query parameters.
+// Custom values override typed values when keys conflict.
+func WithBodyParams(params map[string]any) requestOption {
+	return requestOption(func(c *config) {
+		if c.bodyParams == nil {
+			c.bodyParams = make(map[string]any)
+		}
+
+		for k, v := range params {
+			c.bodyParams[k] = v
+		}
 	})
 }
 
@@ -160,7 +192,7 @@ func (c *APIClient) CustomDeleteWithHTTPInfo(r ApiCustomDeleteRequest, opts ...R
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -296,7 +328,7 @@ func (c *APIClient) CustomGetWithHTTPInfo(r ApiCustomGetRequest, opts ...Request
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -458,7 +490,7 @@ func (c *APIClient) CustomPostWithHTTPInfo(r ApiCustomPostRequest, opts ...Reque
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -621,7 +653,7 @@ func (c *APIClient) CustomPutWithHTTPInfo(r ApiCustomPutRequest, opts ...Request
 		postBody = r.body
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -736,7 +768,7 @@ func (c *APIClient) DeleteCompositionWithHTTPInfo(r ApiDeleteCompositionRequest,
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -870,7 +902,7 @@ func (c *APIClient) DeleteCompositionRuleWithHTTPInfo(r ApiDeleteCompositionRule
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodDelete, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -988,7 +1020,7 @@ func (c *APIClient) GetCompositionWithHTTPInfo(r ApiGetCompositionRequest, opts 
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1125,7 +1157,7 @@ func (c *APIClient) GetRuleWithHTTPInfo(r ApiGetRuleRequest, opts ...RequestOpti
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1263,7 +1295,7 @@ func (c *APIClient) GetTaskWithHTTPInfo(r ApiGetTaskRequest, opts ...RequestOpti
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1412,7 +1444,7 @@ func (c *APIClient) ListCompositionsWithHTTPInfo(r ApiListCompositionsRequest, o
 
 	var postBody any
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1537,7 +1569,7 @@ func (c *APIClient) MultipleBatchWithHTTPInfo(r ApiMultipleBatchRequest, opts ..
 	// body params
 	postBody = r.batchParams
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1678,7 +1710,7 @@ func (c *APIClient) PutCompositionWithHTTPInfo(r ApiPutCompositionRequest, opts 
 	// body params
 	postBody = r.composition
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1843,7 +1875,7 @@ func (c *APIClient) PutCompositionRuleWithHTTPInfo(r ApiPutCompositionRuleReques
 	// body params
 	postBody = r.compositionRule
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPut, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1987,7 +2019,7 @@ func (c *APIClient) SaveRulesWithHTTPInfo(r ApiSaveRulesRequest, opts ...Request
 	// body params
 	postBody = r.rules
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2128,7 +2160,7 @@ func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption
 	// body params
 	postBody = r.requestBody
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2272,7 +2304,7 @@ func (c *APIClient) SearchCompositionRulesWithHTTPInfo(r ApiSearchCompositionRul
 		postBody = r.searchCompositionRulesParams
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2442,7 +2474,7 @@ func (c *APIClient) SearchForFacetValuesWithHTTPInfo(r ApiSearchForFacetValuesRe
 		postBody = r.searchForFacetValuesRequest
 	}
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2609,7 +2641,7 @@ func (c *APIClient) UpdateSortingStrategyCompositionWithHTTPInfo(
 	// body params
 	postBody = r.requestBody
 
-	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.headerParams, conf.queryParams)
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
 	if err != nil {
 		return nil, nil, err
 	}
