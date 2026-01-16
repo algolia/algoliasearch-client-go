@@ -195,10 +195,11 @@ func (i *Index) batch(objects interface{}, action BatchAction, opts ...interface
 }
 
 func shouldSendBatch(maxBatchSize int, batch []interface{}, object interface{}) bool {
+	hasBatch := len(batch) > 0
 	isMaxBatchSizePositive := maxBatchSize > 0
 	isBatchBigEnough := len(batch) >= maxBatchSize
 	isLastBatch := object == nil
-	return isMaxBatchSizePositive && (isBatchBigEnough || isLastBatch)
+	return hasBatch && isMaxBatchSizePositive && (isBatchBigEnough || isLastBatch)
 }
 
 // Batch sends all the given indexing operations with a single call.
