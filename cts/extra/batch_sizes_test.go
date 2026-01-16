@@ -46,7 +46,11 @@ func TestBatchSizes(t *testing.T) {
 			batch                    []map[string]string
 		)
 
-		if c.batchSize <= c.maxBatchSize {
+		if c.batchSize == 0 {
+			expectedNbBatches = 0
+			expectedRecordsPerBatch = 0
+			expectedRecordsLastBatch = 0
+		} else if c.batchSize <= c.maxBatchSize {
 			expectedNbBatches = 1
 			expectedRecordsPerBatch = 0
 			expectedRecordsLastBatch = c.batchSize
@@ -76,6 +80,8 @@ func TestBatchSizes(t *testing.T) {
 		for i := 0; i < expectedNbBatches-1; i++ {
 			require.Len(t, res.Responses[i].ObjectIDs, expectedRecordsPerBatch, name)
 		}
-		require.Len(t, res.Responses[expectedNbBatches-1].ObjectIDs, expectedRecordsLastBatch, name)
+		if expectedNbBatches > 0 {
+			require.Len(t, res.Responses[expectedNbBatches-1].ObjectIDs, expectedRecordsLastBatch, name)
+		}
 	}
 }
