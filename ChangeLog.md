@@ -1,5 +1,15 @@
 # ChangeLog
 
+## [3.32.1](https://github.com/algolia/algoliasearch-client-go/compare/v3.32.0...v3.32.1) (2026-01-16)
+
+## Fix
+
+- fix(index): sffv: encode facet name (#779) ([4afc39bb](https://github.com/algolia/algoliasearch-client-go/commit/4afc39bb))
+- ci: migrate from CircleCI to GitHub Actions (#780) ([76a81e54](https://github.com/algolia/algoliasearch-client-go/commit/76a81e54))
+- ci: update integration tests to run on all events
+- fix(index): ensure batch is not empty before sending
+- fix(tests): handle zero batch size in batch_sizes_test
+
 ## [3.32.0](https://github.com/algolia/algoliasearch-client-go/compare/v3.31.4...v3.32.0) (2025-12-19)
 
 ## Fix
