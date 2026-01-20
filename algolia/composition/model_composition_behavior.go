@@ -6,18 +6,35 @@ import (
 	"fmt"
 )
 
-// CompositionBehavior struct for CompositionBehavior.
+// CompositionBehavior An object containing either an `injection` or `multifeed` behavior schema, but not both.
 type CompositionBehavior struct {
-	Injection Injection `json:"injection"`
+	Injection *Injection `json:"injection,omitempty"`
+	Multifeed *Multifeed `json:"multifeed,omitempty"`
+}
+
+type CompositionBehaviorOption func(f *CompositionBehavior)
+
+func WithCompositionBehaviorInjection(val Injection) CompositionBehaviorOption {
+	return func(f *CompositionBehavior) {
+		f.Injection = &val
+	}
+}
+
+func WithCompositionBehaviorMultifeed(val Multifeed) CompositionBehaviorOption {
+	return func(f *CompositionBehavior) {
+		f.Multifeed = &val
+	}
 }
 
 // NewCompositionBehavior instantiates a new CompositionBehavior object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCompositionBehavior(injection Injection) *CompositionBehavior {
+func NewCompositionBehavior(opts ...CompositionBehaviorOption) *CompositionBehavior {
 	this := &CompositionBehavior{}
-	this.Injection = injection
+	for _, opt := range opts {
+		opt(this)
+	}
 
 	return this
 }
@@ -27,37 +44,89 @@ func NewEmptyCompositionBehavior() *CompositionBehavior {
 	return &CompositionBehavior{}
 }
 
-// GetInjection returns the Injection field value.
+// GetInjection returns the Injection field value if set, zero value otherwise.
 func (o *CompositionBehavior) GetInjection() Injection {
-	if o == nil {
+	if o == nil || o.Injection == nil {
 		var ret Injection
 
 		return ret
 	}
 
-	return o.Injection
+	return *o.Injection
 }
 
-// GetInjectionOk returns a tuple with the Injection field value
+// GetInjectionOk returns a tuple with the Injection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompositionBehavior) GetInjectionOk() (*Injection, bool) {
-	if o == nil {
+	if o == nil || o.Injection == nil {
 		return nil, false
 	}
 
-	return &o.Injection, true
+	return o.Injection, true
 }
 
-// SetInjection sets field value.
+// HasInjection returns a boolean if a field has been set.
+func (o *CompositionBehavior) HasInjection() bool {
+	if o != nil && o.Injection != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInjection gets a reference to the given Injection and assigns it to the Injection field.
 func (o *CompositionBehavior) SetInjection(v *Injection) *CompositionBehavior {
-	o.Injection = *v
+	o.Injection = v
+
+	return o
+}
+
+// GetMultifeed returns the Multifeed field value if set, zero value otherwise.
+func (o *CompositionBehavior) GetMultifeed() Multifeed {
+	if o == nil || o.Multifeed == nil {
+		var ret Multifeed
+
+		return ret
+	}
+
+	return *o.Multifeed
+}
+
+// GetMultifeedOk returns a tuple with the Multifeed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CompositionBehavior) GetMultifeedOk() (*Multifeed, bool) {
+	if o == nil || o.Multifeed == nil {
+		return nil, false
+	}
+
+	return o.Multifeed, true
+}
+
+// HasMultifeed returns a boolean if a field has been set.
+func (o *CompositionBehavior) HasMultifeed() bool {
+	if o != nil && o.Multifeed != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMultifeed gets a reference to the given Multifeed and assigns it to the Multifeed field.
+func (o *CompositionBehavior) SetMultifeed(v *Multifeed) *CompositionBehavior {
+	o.Multifeed = v
 
 	return o
 }
 
 func (o CompositionBehavior) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	toSerialize["injection"] = o.Injection
+	if o.Injection != nil {
+		toSerialize["injection"] = o.Injection
+	}
+
+	if o.Multifeed != nil {
+		toSerialize["multifeed"] = o.Multifeed
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -70,6 +139,7 @@ func (o CompositionBehavior) MarshalJSON() ([]byte, error) {
 func (o CompositionBehavior) String() string {
 	out := ""
 	out += fmt.Sprintf("  injection=%v\n", o.Injection)
+	out += fmt.Sprintf("  multifeed=%v\n", o.Multifeed)
 
 	return fmt.Sprintf("CompositionBehavior {\n%s}", out)
 }
