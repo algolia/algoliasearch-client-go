@@ -11,7 +11,7 @@ type CompositionRule struct {
 	// Composition rule unique identifier.
 	ObjectID string `json:"objectID"`
 	// Conditions that trigger a composition rule.
-	Conditions  []Condition                `json:"conditions"`
+	Conditions  []Condition                `json:"conditions,omitempty"`
 	Consequence CompositionRuleConsequence `json:"consequence"`
 	// Description of the rule's purpose to help you distinguish between different rules.
 	Description *string `json:"description,omitempty"`
@@ -24,6 +24,12 @@ type CompositionRule struct {
 }
 
 type CompositionRuleOption func(f *CompositionRule)
+
+func WithCompositionRuleConditions(val []Condition) CompositionRuleOption {
+	return func(f *CompositionRule) {
+		f.Conditions = val
+	}
+}
 
 func WithCompositionRuleDescription(val string) CompositionRuleOption {
 	return func(f *CompositionRule) {
@@ -53,15 +59,9 @@ func WithCompositionRuleTags(val []string) CompositionRuleOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCompositionRule(
-	objectID string,
-	conditions []Condition,
-	consequence CompositionRuleConsequence,
-	opts ...CompositionRuleOption,
-) *CompositionRule {
+func NewCompositionRule(objectID string, consequence CompositionRuleConsequence, opts ...CompositionRuleOption) *CompositionRule {
 	this := &CompositionRule{}
 	this.ObjectID = objectID
-	this.Conditions = conditions
 
 	this.Consequence = consequence
 	for _, opt := range opts {
@@ -104,9 +104,9 @@ func (o *CompositionRule) SetObjectID(v string) *CompositionRule {
 	return o
 }
 
-// GetConditions returns the Conditions field value.
+// GetConditions returns the Conditions field value if set, zero value otherwise.
 func (o *CompositionRule) GetConditions() []Condition {
-	if o == nil {
+	if o == nil || o.Conditions == nil {
 		var ret []Condition
 
 		return ret
@@ -115,17 +115,26 @@ func (o *CompositionRule) GetConditions() []Condition {
 	return o.Conditions
 }
 
-// GetConditionsOk returns a tuple with the Conditions field value
+// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompositionRule) GetConditionsOk() ([]Condition, bool) {
-	if o == nil {
+	if o == nil || o.Conditions == nil {
 		return nil, false
 	}
 
 	return o.Conditions, true
 }
 
-// SetConditions sets field value.
+// HasConditions returns a boolean if a field has been set.
+func (o *CompositionRule) HasConditions() bool {
+	if o != nil && o.Conditions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetConditions gets a reference to the given []Condition and assigns it to the Conditions field.
 func (o *CompositionRule) SetConditions(v []Condition) *CompositionRule {
 	o.Conditions = v
 
@@ -310,8 +319,11 @@ func (o *CompositionRule) SetTags(v []string) *CompositionRule {
 
 func (o CompositionRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["objectID"] = o.ObjectID
-	toSerialize["conditions"] = o.Conditions
+	if o.Conditions != nil {
+		toSerialize["conditions"] = o.Conditions
+	}
 
 	toSerialize["consequence"] = o.Consequence
 	if o.Description != nil {
