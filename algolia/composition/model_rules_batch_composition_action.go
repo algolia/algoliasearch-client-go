@@ -26,22 +26,27 @@ func DeleteCompositionRuleActionAsRulesBatchCompositionAction(v *DeleteCompositi
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *RulesBatchCompositionAction) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into CompositionRule
 	err = json.Unmarshal(data, &dst.CompositionRule)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.CompositionRule = nil
 	}
 	// try to unmarshal data into DeleteCompositionRuleAction
 	err = json.Unmarshal(data, &dst.DeleteCompositionRuleAction)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.DeleteCompositionRuleAction = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.CompositionRule != nil {
+		return nil
+	}
+
+	if dst.DeleteCompositionRuleAction != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(RulesBatchCompositionAction)")

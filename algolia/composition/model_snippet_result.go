@@ -36,7 +36,7 @@ func ArrayOfSnippetResultAsSnippetResult(v []SnippetResult) *SnippetResult {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -46,25 +46,32 @@ func (dst *SnippetResult) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "matchLevel") {
 		// try to unmarshal data into SnippetResultOption
 		err = json.Unmarshal(data, &dst.SnippetResultOption)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SnippetResultOption = nil
 		}
 	}
 	// try to unmarshal data into MapmapOfStringSnippetResult
 	err = json.Unmarshal(data, &dst.MapmapOfStringSnippetResult)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.MapmapOfStringSnippetResult = nil
 	}
 	// try to unmarshal data into ArrayOfSnippetResult
 	err = json.Unmarshal(data, &dst.ArrayOfSnippetResult)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfSnippetResult = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.SnippetResultOption != nil {
+		return nil
+	}
+
+	if dst.ArrayOfSnippetResult != nil {
+		return nil
+	}
+
+	if dst.MapmapOfStringSnippetResult != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(SnippetResult)")

@@ -26,22 +26,27 @@ func StringAsTagFilters(v string) *TagFilters {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *TagFilters) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfTagFilters
 	err = json.Unmarshal(data, &dst.ArrayOfTagFilters)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfTagFilters = nil
 	}
 	// try to unmarshal data into String
 	err = json.Unmarshal(data, &dst.String)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.String = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.ArrayOfTagFilters != nil {
+		return nil
+	}
+
+	if dst.String != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(TagFilters)")

@@ -26,22 +26,27 @@ func TransformationNoCodeAsTransformationInput(v *TransformationNoCode) *Transfo
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *TransformationInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into TransformationCode
 	err = json.Unmarshal(data, &dst.TransformationCode)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TransformationCode = nil
 	}
 	// try to unmarshal data into TransformationNoCode
 	err = json.Unmarshal(data, &dst.TransformationNoCode)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TransformationNoCode = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.TransformationCode != nil {
+		return nil
+	}
+
+	if dst.TransformationNoCode != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(TransformationInput)")

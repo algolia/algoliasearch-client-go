@@ -108,7 +108,7 @@ func ViewedFiltersAsEventsItems(v *ViewedFilters) *EventsItems {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -119,9 +119,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 		utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into AddedToCartObjectIDsAfterSearch
 		err = json.Unmarshal(data, &dst.AddedToCartObjectIDsAfterSearch)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AddedToCartObjectIDsAfterSearch = nil
 		}
 	}
@@ -130,9 +128,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 		utils.HasKey(jsonDict, "objectData") {
 		// try to unmarshal data into PurchasedObjectIDsAfterSearch
 		err = json.Unmarshal(data, &dst.PurchasedObjectIDsAfterSearch)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.PurchasedObjectIDsAfterSearch = nil
 		}
 	}
@@ -140,9 +136,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "positions") && utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ClickedObjectIDsAfterSearch
 		err = json.Unmarshal(data, &dst.ClickedObjectIDsAfterSearch)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ClickedObjectIDsAfterSearch = nil
 		}
 	}
@@ -150,9 +144,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PurchasedObjectIDs
 		err = json.Unmarshal(data, &dst.PurchasedObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.PurchasedObjectIDs = nil
 		}
 	}
@@ -160,9 +152,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "eventSubtype") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into AddedToCartObjectIDs
 		err = json.Unmarshal(data, &dst.AddedToCartObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AddedToCartObjectIDs = nil
 		}
 	}
@@ -170,9 +160,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "queryID") && utils.HasKey(jsonDict, "eventType") {
 		// try to unmarshal data into ConvertedObjectIDsAfterSearch
 		err = json.Unmarshal(data, &dst.ConvertedObjectIDsAfterSearch)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ConvertedObjectIDsAfterSearch = nil
 		}
 	}
@@ -180,9 +168,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ClickedObjectIDs
 		err = json.Unmarshal(data, &dst.ClickedObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ClickedObjectIDs = nil
 		}
 	}
@@ -190,9 +176,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ConvertedObjectIDs
 		err = json.Unmarshal(data, &dst.ConvertedObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ConvertedObjectIDs = nil
 		}
 	}
@@ -200,9 +184,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ClickedFilters
 		err = json.Unmarshal(data, &dst.ClickedFilters)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ClickedFilters = nil
 		}
 	}
@@ -210,9 +192,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ConvertedFilters
 		err = json.Unmarshal(data, &dst.ConvertedFilters)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ConvertedFilters = nil
 		}
 	}
@@ -220,9 +200,7 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into ViewedObjectIDs
 		err = json.Unmarshal(data, &dst.ViewedObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ViewedObjectIDs = nil
 		}
 	}
@@ -230,11 +208,58 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "eventType") && utils.HasKey(jsonDict, "filters") {
 		// try to unmarshal data into ViewedFilters
 		err = json.Unmarshal(data, &dst.ViewedFilters)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ViewedFilters = nil
 		}
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.AddedToCartObjectIDs != nil {
+		return nil
+	}
+
+	if dst.AddedToCartObjectIDsAfterSearch != nil {
+		return nil
+	}
+
+	if dst.ClickedFilters != nil {
+		return nil
+	}
+
+	if dst.ClickedObjectIDs != nil {
+		return nil
+	}
+
+	if dst.ClickedObjectIDsAfterSearch != nil {
+		return nil
+	}
+
+	if dst.ConvertedFilters != nil {
+		return nil
+	}
+
+	if dst.ConvertedObjectIDs != nil {
+		return nil
+	}
+
+	if dst.ConvertedObjectIDsAfterSearch != nil {
+		return nil
+	}
+
+	if dst.PurchasedObjectIDs != nil {
+		return nil
+	}
+
+	if dst.PurchasedObjectIDsAfterSearch != nil {
+		return nil
+	}
+
+	if dst.ViewedFilters != nil {
+		return nil
+	}
+
+	if dst.ViewedObjectIDs != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(EventsItems)")

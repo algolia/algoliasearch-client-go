@@ -28,7 +28,7 @@ func PromoteObjectIDAsPromote(v *PromoteObjectID) *Promote {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *Promote) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -38,9 +38,7 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "objectIDs") {
 		// try to unmarshal data into PromoteObjectIDs
 		err = json.Unmarshal(data, &dst.PromoteObjectIDs)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.PromoteObjectIDs = nil
 		}
 	}
@@ -48,11 +46,18 @@ func (dst *Promote) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "objectID") {
 		// try to unmarshal data into PromoteObjectID
 		err = json.Unmarshal(data, &dst.PromoteObjectID)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.PromoteObjectID = nil
 		}
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.PromoteObjectID != nil {
+		return nil
+	}
+
+	if dst.PromoteObjectIDs != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(Promote)")

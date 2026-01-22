@@ -34,29 +34,36 @@ func BoolAsIgnorePlurals(v bool) *IgnorePlurals {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *IgnorePlurals) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfSupportedLanguage
 	err = json.Unmarshal(data, &dst.ArrayOfSupportedLanguage)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfSupportedLanguage = nil
 	}
 	// try to unmarshal data into BooleanString
 	err = json.Unmarshal(data, &dst.BooleanString)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.BooleanString = nil
 	}
 	// try to unmarshal data into Bool
 	err = json.Unmarshal(data, &dst.Bool)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.Bool = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.BooleanString != nil {
+		return nil
+	}
+
+	if dst.ArrayOfSupportedLanguage != nil {
+		return nil
+	}
+
+	if dst.Bool != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(IgnorePlurals)")

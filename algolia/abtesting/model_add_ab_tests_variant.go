@@ -28,7 +28,7 @@ func AbTestsVariantAsAddABTestsVariant(v *AbTestsVariant) *AddABTestsVariant {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *AddABTestsVariant) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -38,18 +38,23 @@ func (dst *AddABTestsVariant) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "customSearchParameters") {
 		// try to unmarshal data into AbTestsVariantSearchParams
 		err = json.Unmarshal(data, &dst.AbTestsVariantSearchParams)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AbTestsVariantSearchParams = nil
 		}
 	}
 	// try to unmarshal data into AbTestsVariant
 	err = json.Unmarshal(data, &dst.AbTestsVariant)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.AbTestsVariant = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.AbTestsVariant != nil {
+		return nil
+	}
+
+	if dst.AbTestsVariantSearchParams != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(AddABTestsVariant)")

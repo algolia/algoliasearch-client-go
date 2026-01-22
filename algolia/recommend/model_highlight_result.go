@@ -36,7 +36,7 @@ func ArrayOfHighlightResultAsHighlightResult(v []HighlightResult) *HighlightResu
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -46,25 +46,32 @@ func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "matchLevel") && utils.HasKey(jsonDict, "matchedWords") {
 		// try to unmarshal data into HighlightResultOption
 		err = json.Unmarshal(data, &dst.HighlightResultOption)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.HighlightResultOption = nil
 		}
 	}
 	// try to unmarshal data into MapmapOfStringHighlightResult
 	err = json.Unmarshal(data, &dst.MapmapOfStringHighlightResult)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.MapmapOfStringHighlightResult = nil
 	}
 	// try to unmarshal data into ArrayOfHighlightResult
 	err = json.Unmarshal(data, &dst.ArrayOfHighlightResult)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfHighlightResult = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.HighlightResultOption != nil {
+		return nil
+	}
+
+	if dst.ArrayOfHighlightResult != nil {
+		return nil
+	}
+
+	if dst.MapmapOfStringHighlightResult != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(HighlightResult)")

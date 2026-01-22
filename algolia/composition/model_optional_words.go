@@ -26,7 +26,7 @@ func ArrayOfStringAsOptionalWords(v []string) *OptionalWords {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *OptionalWords) UnmarshalJSON(data []byte) error {
 	var err error
 	// this object is nullable so check if the payload is null or empty string
@@ -36,17 +36,22 @@ func (dst *OptionalWords) UnmarshalJSON(data []byte) error {
 
 	// try to unmarshal data into String
 	err = json.Unmarshal(data, &dst.String)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.String = nil
 	}
 	// try to unmarshal data into ArrayOfString
 	err = json.Unmarshal(data, &dst.ArrayOfString)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfString = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.ArrayOfString != nil {
+		return nil
+	}
+
+	if dst.String != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(OptionalWords)")

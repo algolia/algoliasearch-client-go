@@ -26,22 +26,27 @@ func BuiltInOperationAsAttributeToUpdate(v *BuiltInOperation) *AttributeToUpdate
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *AttributeToUpdate) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into String
 	err = json.Unmarshal(data, &dst.String)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.String = nil
 	}
 	// try to unmarshal data into BuiltInOperation
 	err = json.Unmarshal(data, &dst.BuiltInOperation)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.BuiltInOperation = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.BuiltInOperation != nil {
+		return nil
+	}
+
+	if dst.String != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(AttributeToUpdate)")

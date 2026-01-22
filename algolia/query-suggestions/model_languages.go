@@ -26,22 +26,27 @@ func BoolAsLanguages(v bool) *Languages {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *Languages) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into ArrayOfString
 	err = json.Unmarshal(data, &dst.ArrayOfString)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfString = nil
 	}
 	// try to unmarshal data into Bool
 	err = json.Unmarshal(data, &dst.Bool)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.Bool = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.ArrayOfString != nil {
+		return nil
+	}
+
+	if dst.Bool != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(Languages)")

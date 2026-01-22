@@ -76,7 +76,7 @@ func SourceCSVAsSourceInput(v *SourceCSV) *SourceInput {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -86,9 +86,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
 		err = json.Unmarshal(data, &dst.SourceGA4BigQueryExport)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceGA4BigQueryExport = nil
 		}
 	}
@@ -96,9 +94,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "image") && utils.HasKey(jsonDict, "configuration") {
 		// try to unmarshal data into SourceDocker
 		err = json.Unmarshal(data, &dst.SourceDocker)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceDocker = nil
 		}
 	}
@@ -106,9 +102,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "projectKey") {
 		// try to unmarshal data into SourceCommercetools
 		err = json.Unmarshal(data, &dst.SourceCommercetools)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceCommercetools = nil
 		}
 	}
@@ -116,9 +110,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "storeHash") {
 		// try to unmarshal data into SourceBigCommerce
 		err = json.Unmarshal(data, &dst.SourceBigCommerce)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceBigCommerce = nil
 		}
 	}
@@ -126,9 +118,7 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
 		err = json.Unmarshal(data, &dst.SourceBigQuery)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceBigQuery = nil
 		}
 	}
@@ -136,25 +126,52 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "shopURL") {
 		// try to unmarshal data into SourceShopify
 		err = json.Unmarshal(data, &dst.SourceShopify)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceShopify = nil
 		}
 	}
 	// try to unmarshal data into SourceJSON
 	err = json.Unmarshal(data, &dst.SourceJSON)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceJSON = nil
 	}
 	// try to unmarshal data into SourceCSV
 	err = json.Unmarshal(data, &dst.SourceCSV)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceCSV = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.SourceBigCommerce != nil {
+		return nil
+	}
+
+	if dst.SourceBigQuery != nil {
+		return nil
+	}
+
+	if dst.SourceCSV != nil {
+		return nil
+	}
+
+	if dst.SourceCommercetools != nil {
+		return nil
+	}
+
+	if dst.SourceDocker != nil {
+		return nil
+	}
+
+	if dst.SourceGA4BigQueryExport != nil {
+		return nil
+	}
+
+	if dst.SourceJSON != nil {
+		return nil
+	}
+
+	if dst.SourceShopify != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(SourceInput)")

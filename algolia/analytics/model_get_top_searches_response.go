@@ -34,29 +34,36 @@ func TopSearchesResponseWithRevenueAnalyticsAsGetTopSearchesResponse(v *TopSearc
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *GetTopSearchesResponse) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into TopSearchesResponse
 	err = json.Unmarshal(data, &dst.TopSearchesResponse)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TopSearchesResponse = nil
 	}
 	// try to unmarshal data into TopSearchesResponseWithAnalytics
 	err = json.Unmarshal(data, &dst.TopSearchesResponseWithAnalytics)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TopSearchesResponseWithAnalytics = nil
 	}
 	// try to unmarshal data into TopSearchesResponseWithRevenueAnalytics
 	err = json.Unmarshal(data, &dst.TopSearchesResponseWithRevenueAnalytics)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TopSearchesResponseWithRevenueAnalytics = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.TopSearchesResponse != nil {
+		return nil
+	}
+
+	if dst.TopSearchesResponseWithAnalytics != nil {
+		return nil
+	}
+
+	if dst.TopSearchesResponseWithRevenueAnalytics != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(GetTopSearchesResponse)")

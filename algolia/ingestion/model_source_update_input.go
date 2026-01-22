@@ -68,7 +68,7 @@ func SourceUpdateShopifyAsSourceUpdateInput(v *SourceUpdateShopify) *SourceUpdat
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -78,9 +78,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {
 		// try to unmarshal data into SourceGA4BigQueryExport
 		err = json.Unmarshal(data, &dst.SourceGA4BigQueryExport)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceGA4BigQueryExport = nil
 		}
 	}
@@ -88,9 +86,7 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "projectID") {
 		// try to unmarshal data into SourceBigQuery
 		err = json.Unmarshal(data, &dst.SourceBigQuery)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceBigQuery = nil
 		}
 	}
@@ -98,39 +94,58 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "configuration") {
 		// try to unmarshal data into SourceUpdateDocker
 		err = json.Unmarshal(data, &dst.SourceUpdateDocker)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SourceUpdateDocker = nil
 		}
 	}
 	// try to unmarshal data into SourceUpdateCommercetools
 	err = json.Unmarshal(data, &dst.SourceUpdateCommercetools)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceUpdateCommercetools = nil
 	}
 	// try to unmarshal data into SourceJSON
 	err = json.Unmarshal(data, &dst.SourceJSON)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceJSON = nil
 	}
 	// try to unmarshal data into SourceCSV
 	err = json.Unmarshal(data, &dst.SourceCSV)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceCSV = nil
 	}
 	// try to unmarshal data into SourceUpdateShopify
 	err = json.Unmarshal(data, &dst.SourceUpdateShopify)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SourceUpdateShopify = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.SourceBigQuery != nil {
+		return nil
+	}
+
+	if dst.SourceCSV != nil {
+		return nil
+	}
+
+	if dst.SourceGA4BigQueryExport != nil {
+		return nil
+	}
+
+	if dst.SourceJSON != nil {
+		return nil
+	}
+
+	if dst.SourceUpdateCommercetools != nil {
+		return nil
+	}
+
+	if dst.SourceUpdateDocker != nil {
+		return nil
+	}
+
+	if dst.SourceUpdateShopify != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(SourceUpdateInput)")

@@ -26,22 +26,27 @@ func PlatformNoneAsPlatformWithNone(v PlatformNone) *PlatformWithNone {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *PlatformWithNone) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into Platform
 	err = json.Unmarshal(data, &dst.Platform)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.Platform = nil
 	}
 	// try to unmarshal data into PlatformNone
 	err = json.Unmarshal(data, &dst.PlatformNone)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.PlatformNone = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.Platform != nil {
+		return nil
+	}
+
+	if dst.PlatformNone != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(PlatformWithNone)")

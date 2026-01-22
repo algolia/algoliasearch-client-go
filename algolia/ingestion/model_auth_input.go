@@ -68,7 +68,7 @@ func MapmapOfStringstringAsAuthInput(v map[string]string) *AuthInput {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -78,9 +78,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") {
 		// try to unmarshal data into AuthOAuth
 		err = json.Unmarshal(data, &dst.AuthOAuth)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AuthOAuth = nil
 		}
 	}
@@ -88,9 +86,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "clientEmail") && utils.HasKey(jsonDict, "privateKey") {
 		// try to unmarshal data into AuthGoogleServiceAccount
 		err = json.Unmarshal(data, &dst.AuthGoogleServiceAccount)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AuthGoogleServiceAccount = nil
 		}
 	}
@@ -98,9 +94,7 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "username") && utils.HasKey(jsonDict, "password") {
 		// try to unmarshal data into AuthBasic
 		err = json.Unmarshal(data, &dst.AuthBasic)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AuthBasic = nil
 		}
 	}
@@ -108,32 +102,53 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "key") {
 		// try to unmarshal data into AuthAPIKey
 		err = json.Unmarshal(data, &dst.AuthAPIKey)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.AuthAPIKey = nil
 		}
 	}
 	// try to unmarshal data into AuthAlgolia
 	err = json.Unmarshal(data, &dst.AuthAlgolia)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.AuthAlgolia = nil
 	}
 	// try to unmarshal data into AuthAlgoliaInsights
 	err = json.Unmarshal(data, &dst.AuthAlgoliaInsights)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.AuthAlgoliaInsights = nil
 	}
 	// try to unmarshal data into MapmapOfStringstring
 	err = json.Unmarshal(data, &dst.MapmapOfStringstring)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.MapmapOfStringstring = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.AuthAPIKey != nil {
+		return nil
+	}
+
+	if dst.AuthAlgolia != nil {
+		return nil
+	}
+
+	if dst.AuthAlgoliaInsights != nil {
+		return nil
+	}
+
+	if dst.AuthBasic != nil {
+		return nil
+	}
+
+	if dst.AuthGoogleServiceAccount != nil {
+		return nil
+	}
+
+	if dst.AuthOAuth != nil {
+		return nil
+	}
+
+	if dst.MapmapOfStringstring != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(AuthInput)")

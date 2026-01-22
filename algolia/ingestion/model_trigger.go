@@ -42,36 +42,45 @@ func StreamingTriggerAsTrigger(v *StreamingTrigger) *Trigger {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *Trigger) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into OnDemandTrigger
 	err = json.Unmarshal(data, &dst.OnDemandTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.OnDemandTrigger = nil
 	}
 	// try to unmarshal data into ScheduleTrigger
 	err = json.Unmarshal(data, &dst.ScheduleTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ScheduleTrigger = nil
 	}
 	// try to unmarshal data into SubscriptionTrigger
 	err = json.Unmarshal(data, &dst.SubscriptionTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SubscriptionTrigger = nil
 	}
 	// try to unmarshal data into StreamingTrigger
 	err = json.Unmarshal(data, &dst.StreamingTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.StreamingTrigger = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.OnDemandTrigger != nil {
+		return nil
+	}
+
+	if dst.ScheduleTrigger != nil {
+		return nil
+	}
+
+	if dst.StreamingTrigger != nil {
+		return nil
+	}
+
+	if dst.SubscriptionTrigger != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(Trigger)")

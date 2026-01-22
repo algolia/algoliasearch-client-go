@@ -44,7 +44,7 @@ func StreamingTriggerAsTaskCreateTrigger(v *StreamingTrigger) *TaskCreateTrigger
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -54,32 +54,41 @@ func (dst *TaskCreateTrigger) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "cron") {
 		// try to unmarshal data into ScheduleTriggerInput
 		err = json.Unmarshal(data, &dst.ScheduleTriggerInput)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.ScheduleTriggerInput = nil
 		}
 	}
 	// try to unmarshal data into OnDemandTriggerInput
 	err = json.Unmarshal(data, &dst.OnDemandTriggerInput)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.OnDemandTriggerInput = nil
 	}
 	// try to unmarshal data into SubscriptionTrigger
 	err = json.Unmarshal(data, &dst.SubscriptionTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SubscriptionTrigger = nil
 	}
 	// try to unmarshal data into StreamingTrigger
 	err = json.Unmarshal(data, &dst.StreamingTrigger)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.StreamingTrigger = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.OnDemandTriggerInput != nil {
+		return nil
+	}
+
+	if dst.ScheduleTriggerInput != nil {
+		return nil
+	}
+
+	if dst.StreamingTrigger != nil {
+		return nil
+	}
+
+	if dst.SubscriptionTrigger != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(TaskCreateTrigger)")

@@ -26,7 +26,7 @@ func ArrayOfArrayOfFloat64AsInsideBoundingBox(v [][]float64) *InsideBoundingBox 
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *InsideBoundingBox) UnmarshalJSON(data []byte) error {
 	var err error
 	// this object is nullable so check if the payload is null or empty string
@@ -36,17 +36,22 @@ func (dst *InsideBoundingBox) UnmarshalJSON(data []byte) error {
 
 	// try to unmarshal data into String
 	err = json.Unmarshal(data, &dst.String)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.String = nil
 	}
 	// try to unmarshal data into ArrayOfArrayOfFloat64
 	err = json.Unmarshal(data, &dst.ArrayOfArrayOfFloat64)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.ArrayOfArrayOfFloat64 = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.ArrayOfArrayOfFloat64 != nil {
+		return nil
+	}
+
+	if dst.String != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(InsideBoundingBox)")

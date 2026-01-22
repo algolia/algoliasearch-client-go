@@ -50,43 +50,54 @@ func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *Recomm
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into BoughtTogetherQuery
 	err = json.Unmarshal(data, &dst.BoughtTogetherQuery)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.BoughtTogetherQuery = nil
 	}
 	// try to unmarshal data into RelatedQuery
 	err = json.Unmarshal(data, &dst.RelatedQuery)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.RelatedQuery = nil
 	}
 	// try to unmarshal data into TrendingItemsQuery
 	err = json.Unmarshal(data, &dst.TrendingItemsQuery)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TrendingItemsQuery = nil
 	}
 	// try to unmarshal data into TrendingFacetsQuery
 	err = json.Unmarshal(data, &dst.TrendingFacetsQuery)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.TrendingFacetsQuery = nil
 	}
 	// try to unmarshal data into LookingSimilarQuery
 	err = json.Unmarshal(data, &dst.LookingSimilarQuery)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.LookingSimilarQuery = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.BoughtTogetherQuery != nil {
+		return nil
+	}
+
+	if dst.LookingSimilarQuery != nil {
+		return nil
+	}
+
+	if dst.RelatedQuery != nil {
+		return nil
+	}
+
+	if dst.TrendingFacetsQuery != nil {
+		return nil
+	}
+
+	if dst.TrendingItemsQuery != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(RecommendationsRequest)")

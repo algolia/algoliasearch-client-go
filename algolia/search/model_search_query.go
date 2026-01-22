@@ -28,7 +28,7 @@ func SearchForHitsAsSearchQuery(v *SearchForHits) *SearchQuery {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SearchQuery) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -38,18 +38,23 @@ func (dst *SearchQuery) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "facet") && utils.HasKey(jsonDict, "type") {
 		// try to unmarshal data into SearchForFacets
 		err = json.Unmarshal(data, &dst.SearchForFacets)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.SearchForFacets = nil
 		}
 	}
 	// try to unmarshal data into SearchForHits
 	err = json.Unmarshal(data, &dst.SearchForHits)
-	if err == nil {
-		return nil // found the correct type
-	} else {
+	if err != nil {
 		dst.SearchForHits = nil
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.SearchForFacets != nil {
+		return nil
+	}
+
+	if dst.SearchForHits != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(SearchQuery)")

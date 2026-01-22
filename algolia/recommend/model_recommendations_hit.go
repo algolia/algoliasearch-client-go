@@ -28,7 +28,7 @@ func RecommendHitAsRecommendationsHit(v RecommendHit) *RecommendationsHit {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct.
+// Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
@@ -38,9 +38,7 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "facetName") && utils.HasKey(jsonDict, "facetValue") {
 		// try to unmarshal data into TrendingFacetHit
 		err = json.Unmarshal(data, &dst.TrendingFacetHit)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.TrendingFacetHit = nil
 		}
 	}
@@ -48,11 +46,18 @@ func (dst *RecommendationsHit) UnmarshalJSON(data []byte) error {
 	if utils.HasKey(jsonDict, "objectID") {
 		// try to unmarshal data into RecommendHit
 		err = json.Unmarshal(data, &dst.RecommendHit)
-		if err == nil {
-			return nil // found the correct type
-		} else {
+		if err != nil {
 			dst.RecommendHit = nil
 		}
+	}
+
+	// check if at least one type was successfully unmarshaled
+	if dst.RecommendHit != nil {
+		return nil
+	}
+
+	if dst.TrendingFacetHit != nil {
+		return nil
 	}
 
 	return fmt.Errorf("data failed to match schemas in oneOf(RecommendationsHit)")
