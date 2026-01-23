@@ -8,19 +8,12 @@ import (
 
 // AuthenticationUpdate Request body for updating an authentication resource.
 type AuthenticationUpdate struct {
-	Type *AuthenticationType `json:"type,omitempty"`
 	// Descriptive name for the resource.
 	Name  *string           `json:"name,omitempty"`
 	Input *AuthInputPartial `json:"input,omitempty"`
 }
 
 type AuthenticationUpdateOption func(f *AuthenticationUpdate)
-
-func WithAuthenticationUpdateType(val AuthenticationType) AuthenticationUpdateOption {
-	return func(f *AuthenticationUpdate) {
-		f.Type = &val
-	}
-}
 
 func WithAuthenticationUpdateName(val string) AuthenticationUpdateOption {
 	return func(f *AuthenticationUpdate) {
@@ -50,43 +43,6 @@ func NewAuthenticationUpdate(opts ...AuthenticationUpdateOption) *Authentication
 // NewEmptyAuthenticationUpdate return a pointer to an empty AuthenticationUpdate object.
 func NewEmptyAuthenticationUpdate() *AuthenticationUpdate {
 	return &AuthenticationUpdate{}
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *AuthenticationUpdate) GetType() AuthenticationType {
-	if o == nil || o.Type == nil {
-		var ret AuthenticationType
-
-		return ret
-	}
-
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticationUpdate) GetTypeOk() (*AuthenticationType, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *AuthenticationUpdate) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given AuthenticationType and assigns it to the Type field.
-func (o *AuthenticationUpdate) SetType(v AuthenticationType) *AuthenticationUpdate {
-	o.Type = &v
-
-	return o
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -165,10 +121,6 @@ func (o *AuthenticationUpdate) SetInput(v *AuthInputPartial) *AuthenticationUpda
 
 func (o AuthenticationUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
@@ -187,7 +139,6 @@ func (o AuthenticationUpdate) MarshalJSON() ([]byte, error) {
 
 func (o AuthenticationUpdate) String() string {
 	out := ""
-	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 
