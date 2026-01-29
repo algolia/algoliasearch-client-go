@@ -6,140 +6,85 @@ import (
 	"fmt"
 )
 
-// CompositionBehavior An object containing either an `injection` or `multifeed` behavior schema, but not both.
+// CompositionBehavior - An object containing either an `injection` or `multifeed` behavior schema, but not both.
 type CompositionBehavior struct {
-	Injection *Injection `json:"injection,omitempty"`
-	Multifeed *Multifeed `json:"multifeed,omitempty"`
+	CompositionInjectionBehavior *CompositionInjectionBehavior
+	CompositionMultifeedBehavior *CompositionMultifeedBehavior
 }
 
-type CompositionBehaviorOption func(f *CompositionBehavior)
-
-func WithCompositionBehaviorInjection(val Injection) CompositionBehaviorOption {
-	return func(f *CompositionBehavior) {
-		f.Injection = &val
+// CompositionInjectionBehaviorAsCompositionBehavior is a convenience function that returns CompositionInjectionBehavior wrapped in CompositionBehavior.
+func CompositionInjectionBehaviorAsCompositionBehavior(v *CompositionInjectionBehavior) *CompositionBehavior {
+	return &CompositionBehavior{
+		CompositionInjectionBehavior: v,
 	}
 }
 
-func WithCompositionBehaviorMultifeed(val Multifeed) CompositionBehaviorOption {
-	return func(f *CompositionBehavior) {
-		f.Multifeed = &val
+// CompositionMultifeedBehaviorAsCompositionBehavior is a convenience function that returns CompositionMultifeedBehavior wrapped in CompositionBehavior.
+func CompositionMultifeedBehaviorAsCompositionBehavior(v *CompositionMultifeedBehavior) *CompositionBehavior {
+	return &CompositionBehavior{
+		CompositionMultifeedBehavior: v,
 	}
 }
 
-// NewCompositionBehavior instantiates a new CompositionBehavior object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed.
-func NewCompositionBehavior(opts ...CompositionBehaviorOption) *CompositionBehavior {
-	this := &CompositionBehavior{}
-	for _, opt := range opts {
-		opt(this)
-	}
-
-	return this
-}
-
-// NewEmptyCompositionBehavior return a pointer to an empty CompositionBehavior object.
-func NewEmptyCompositionBehavior() *CompositionBehavior {
-	return &CompositionBehavior{}
-}
-
-// GetInjection returns the Injection field value if set, zero value otherwise.
-func (o *CompositionBehavior) GetInjection() Injection {
-	if o == nil || o.Injection == nil {
-		var ret Injection
-
-		return ret
-	}
-
-	return *o.Injection
-}
-
-// GetInjectionOk returns a tuple with the Injection field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CompositionBehavior) GetInjectionOk() (*Injection, bool) {
-	if o == nil || o.Injection == nil {
-		return nil, false
-	}
-
-	return o.Injection, true
-}
-
-// HasInjection returns a boolean if a field has been set.
-func (o *CompositionBehavior) HasInjection() bool {
-	if o != nil && o.Injection != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInjection gets a reference to the given Injection and assigns it to the Injection field.
-func (o *CompositionBehavior) SetInjection(v *Injection) *CompositionBehavior {
-	o.Injection = v
-
-	return o
-}
-
-// GetMultifeed returns the Multifeed field value if set, zero value otherwise.
-func (o *CompositionBehavior) GetMultifeed() Multifeed {
-	if o == nil || o.Multifeed == nil {
-		var ret Multifeed
-
-		return ret
-	}
-
-	return *o.Multifeed
-}
-
-// GetMultifeedOk returns a tuple with the Multifeed field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CompositionBehavior) GetMultifeedOk() (*Multifeed, bool) {
-	if o == nil || o.Multifeed == nil {
-		return nil, false
-	}
-
-	return o.Multifeed, true
-}
-
-// HasMultifeed returns a boolean if a field has been set.
-func (o *CompositionBehavior) HasMultifeed() bool {
-	if o != nil && o.Multifeed != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMultifeed gets a reference to the given Multifeed and assigns it to the Multifeed field.
-func (o *CompositionBehavior) SetMultifeed(v *Multifeed) *CompositionBehavior {
-	o.Multifeed = v
-
-	return o
-}
-
-func (o CompositionBehavior) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]any{}
-	if o.Injection != nil {
-		toSerialize["injection"] = o.Injection
-	}
-
-	if o.Multifeed != nil {
-		toSerialize["multifeed"] = o.Multifeed
-	}
-
-	serialized, err := json.Marshal(toSerialize)
+// Unmarshal JSON data into one or more of the pointers in the struct.
+func (dst *CompositionBehavior) UnmarshalJSON(data []byte) error {
+	var err error
+	// try to unmarshal data into CompositionInjectionBehavior
+	err = json.Unmarshal(data, &dst.CompositionInjectionBehavior)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal CompositionBehavior: %w", err)
+		dst.CompositionInjectionBehavior = nil
+	}
+	// try to unmarshal data into CompositionMultifeedBehavior
+	err = json.Unmarshal(data, &dst.CompositionMultifeedBehavior)
+	if err != nil {
+		dst.CompositionMultifeedBehavior = nil
 	}
 
-	return serialized, nil
+	// check if at least one type was successfully unmarshaled
+	if dst.CompositionInjectionBehavior != nil {
+		return nil
+	}
+
+	if dst.CompositionMultifeedBehavior != nil {
+		return nil
+	}
+
+	return fmt.Errorf("data failed to match schemas in oneOf(CompositionBehavior)")
 }
 
-func (o CompositionBehavior) String() string {
-	out := ""
-	out += fmt.Sprintf("  injection=%v\n", o.Injection)
-	out += fmt.Sprintf("  multifeed=%v\n", o.Multifeed)
+// Marshal data from the first non-nil pointers in the struct to JSON.
+func (src CompositionBehavior) MarshalJSON() ([]byte, error) {
+	if src.CompositionInjectionBehavior != nil {
+		serialized, err := json.Marshal(&src.CompositionInjectionBehavior)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of CompositionInjectionBehavior of CompositionBehavior: %w", err)
+		}
 
-	return fmt.Sprintf("CompositionBehavior {\n%s}", out)
+		return serialized, nil
+	}
+
+	if src.CompositionMultifeedBehavior != nil {
+		serialized, err := json.Marshal(&src.CompositionMultifeedBehavior)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of CompositionMultifeedBehavior of CompositionBehavior: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance.
+func (obj CompositionBehavior) GetActualInstance() any {
+	if obj.CompositionInjectionBehavior != nil {
+		return *obj.CompositionInjectionBehavior
+	}
+
+	if obj.CompositionMultifeedBehavior != nil {
+		return *obj.CompositionMultifeedBehavior
+	}
+
+	// all schemas are nil
+	return nil
 }
