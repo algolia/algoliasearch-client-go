@@ -14,6 +14,8 @@ type AuthOAuthPartial struct {
 	ClientId *string `json:"client_id,omitempty"`
 	// Client secret. This field is `null` in the API response.
 	ClientSecret *string `json:"client_secret,omitempty"`
+	// Authorization code. Used during an `authorization_code` grant type flow, to request an access_token when creating/updating the authentication. This field is not returned in the API response.
+	Code *string `json:"code,omitempty"`
 	// OAuth scope.
 	Scope *string `json:"scope,omitempty"`
 }
@@ -35,6 +37,12 @@ func WithAuthOAuthPartialClientId(val string) AuthOAuthPartialOption {
 func WithAuthOAuthPartialClientSecret(val string) AuthOAuthPartialOption {
 	return func(f *AuthOAuthPartial) {
 		f.ClientSecret = &val
+	}
+}
+
+func WithAuthOAuthPartialCode(val string) AuthOAuthPartialOption {
+	return func(f *AuthOAuthPartial) {
+		f.Code = &val
 	}
 }
 
@@ -173,6 +181,43 @@ func (o *AuthOAuthPartial) SetClientSecret(v string) *AuthOAuthPartial {
 	return o
 }
 
+// GetCode returns the Code field value if set, zero value otherwise.
+func (o *AuthOAuthPartial) GetCode() string {
+	if o == nil || o.Code == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthOAuthPartial) GetCodeOk() (*string, bool) {
+	if o == nil || o.Code == nil {
+		return nil, false
+	}
+
+	return o.Code, true
+}
+
+// HasCode returns a boolean if a field has been set.
+func (o *AuthOAuthPartial) HasCode() bool {
+	if o != nil && o.Code != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *AuthOAuthPartial) SetCode(v string) *AuthOAuthPartial {
+	o.Code = &v
+
+	return o
+}
+
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *AuthOAuthPartial) GetScope() string {
 	if o == nil || o.Scope == nil {
@@ -224,6 +269,10 @@ func (o AuthOAuthPartial) MarshalJSON() ([]byte, error) {
 		toSerialize["client_secret"] = o.ClientSecret
 	}
 
+	if o.Code != nil {
+		toSerialize["code"] = o.Code
+	}
+
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
@@ -241,6 +290,7 @@ func (o AuthOAuthPartial) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
+	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 
 	return fmt.Sprintf("AuthOAuthPartial {\n%s}", out)

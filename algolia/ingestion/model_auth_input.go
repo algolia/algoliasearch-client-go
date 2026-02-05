@@ -75,7 +75,8 @@ func (dst *AuthInput) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]any
 
 	_ = json.Unmarshal(data, &jsonDict)
-	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") {
+	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") &&
+		utils.HasKey(jsonDict, "code") {
 		// try to unmarshal data into AuthOAuth
 		err = json.Unmarshal(data, &dst.AuthOAuth)
 		if err != nil {

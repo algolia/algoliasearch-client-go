@@ -11,14 +11,34 @@ type AuthOAuth struct {
 	// URL for the OAuth endpoint.
 	Url string `json:"url"`
 	// Client ID.
-	ClientId string `json:"client_id"`
+	ClientId *string `json:"client_id,omitempty"`
 	// Client secret. This field is `null` in the API response.
-	ClientSecret string `json:"client_secret"`
+	ClientSecret *string `json:"client_secret,omitempty"`
+	// Authorization code. Used during an `authorization_code` grant type flow, to request an access_token when creating/updating the authentication. This field is not returned in the API response.
+	Code *string `json:"code,omitempty"`
 	// OAuth scope.
 	Scope *string `json:"scope,omitempty"`
 }
 
 type AuthOAuthOption func(f *AuthOAuth)
+
+func WithAuthOAuthClientId(val string) AuthOAuthOption {
+	return func(f *AuthOAuth) {
+		f.ClientId = &val
+	}
+}
+
+func WithAuthOAuthClientSecret(val string) AuthOAuthOption {
+	return func(f *AuthOAuth) {
+		f.ClientSecret = &val
+	}
+}
+
+func WithAuthOAuthCode(val string) AuthOAuthOption {
+	return func(f *AuthOAuth) {
+		f.Code = &val
+	}
+}
 
 func WithAuthOAuthScope(val string) AuthOAuthOption {
 	return func(f *AuthOAuth) {
@@ -30,12 +50,10 @@ func WithAuthOAuthScope(val string) AuthOAuthOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAuthOAuth(url string, clientId string, clientSecret string, opts ...AuthOAuthOption) *AuthOAuth {
+func NewAuthOAuth(url string, opts ...AuthOAuthOption) *AuthOAuth {
 	this := &AuthOAuth{}
-	this.Url = url
-	this.ClientId = clientId
 
-	this.ClientSecret = clientSecret
+	this.Url = url
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -76,58 +94,113 @@ func (o *AuthOAuth) SetUrl(v string) *AuthOAuth {
 	return o
 }
 
-// GetClientId returns the ClientId field value.
+// GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *AuthOAuth) GetClientId() string {
-	if o == nil {
+	if o == nil || o.ClientId == nil {
 		var ret string
 
 		return ret
 	}
 
-	return o.ClientId
+	return *o.ClientId
 }
 
-// GetClientIdOk returns a tuple with the ClientId field value
+// GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthOAuth) GetClientIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.ClientId == nil {
 		return nil, false
 	}
 
-	return &o.ClientId, true
+	return o.ClientId, true
 }
 
-// SetClientId sets field value.
+// HasClientId returns a boolean if a field has been set.
+func (o *AuthOAuth) HasClientId() bool {
+	if o != nil && o.ClientId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientId gets a reference to the given string and assigns it to the ClientId field.
 func (o *AuthOAuth) SetClientId(v string) *AuthOAuth {
-	o.ClientId = v
+	o.ClientId = &v
 
 	return o
 }
 
-// GetClientSecret returns the ClientSecret field value.
+// GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *AuthOAuth) GetClientSecret() string {
-	if o == nil {
+	if o == nil || o.ClientSecret == nil {
 		var ret string
 
 		return ret
 	}
 
-	return o.ClientSecret
+	return *o.ClientSecret
 }
 
-// GetClientSecretOk returns a tuple with the ClientSecret field value
+// GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthOAuth) GetClientSecretOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.ClientSecret == nil {
 		return nil, false
 	}
 
-	return &o.ClientSecret, true
+	return o.ClientSecret, true
 }
 
-// SetClientSecret sets field value.
+// HasClientSecret returns a boolean if a field has been set.
+func (o *AuthOAuth) HasClientSecret() bool {
+	if o != nil && o.ClientSecret != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientSecret gets a reference to the given string and assigns it to the ClientSecret field.
 func (o *AuthOAuth) SetClientSecret(v string) *AuthOAuth {
-	o.ClientSecret = v
+	o.ClientSecret = &v
+
+	return o
+}
+
+// GetCode returns the Code field value if set, zero value otherwise.
+func (o *AuthOAuth) GetCode() string {
+	if o == nil || o.Code == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthOAuth) GetCodeOk() (*string, bool) {
+	if o == nil || o.Code == nil {
+		return nil, false
+	}
+
+	return o.Code, true
+}
+
+// HasCode returns a boolean if a field has been set.
+func (o *AuthOAuth) HasCode() bool {
+	if o != nil && o.Code != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCode gets a reference to the given string and assigns it to the Code field.
+func (o *AuthOAuth) SetCode(v string) *AuthOAuth {
+	o.Code = &v
 
 	return o
 }
@@ -171,10 +244,20 @@ func (o *AuthOAuth) SetScope(v string) *AuthOAuth {
 
 func (o AuthOAuth) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	toSerialize["url"] = o.Url
-	toSerialize["client_id"] = o.ClientId
 
-	toSerialize["client_secret"] = o.ClientSecret
+	toSerialize["url"] = o.Url
+	if o.ClientId != nil {
+		toSerialize["client_id"] = o.ClientId
+	}
+
+	if o.ClientSecret != nil {
+		toSerialize["client_secret"] = o.ClientSecret
+	}
+
+	if o.Code != nil {
+		toSerialize["code"] = o.Code
+	}
+
 	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
@@ -192,6 +275,7 @@ func (o AuthOAuth) String() string {
 	out += fmt.Sprintf("  url=%v\n", o.Url)
 	out += fmt.Sprintf("  client_id=%v\n", o.ClientId)
 	out += fmt.Sprintf("  client_secret=%v\n", o.ClientSecret)
+	out += fmt.Sprintf("  code=%v\n", o.Code)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 
 	return fmt.Sprintf("AuthOAuth {\n%s}", out)
