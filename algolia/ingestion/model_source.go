@@ -19,9 +19,9 @@ type Source struct {
 	Input *SourceInput           `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID *string `json:"authenticationID,omitempty"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update in RFC 3339 format.
+	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

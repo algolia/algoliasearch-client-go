@@ -2220,16 +2220,16 @@ GetPurchaseRate calls the API and returns the raw response from it.
 
 	Retrieves the purchase rate for all your searches with at least one purchase event, including a daily breakdown.
 
-By default, the analyzed period includes the last eight days including the current day.
+By default, the analyzed period includes the last eight days, including the current day.
 
-The rate is the number of purchase conversion events divided by the number of tracked searches.
+The rate is purchase conversion events divided by tracked searches.
 A search is tracked if it returns a query ID (`clickAnalytics` is `true`).
-This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
+This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
 
 **There's a difference between a 0 and null purchase rate when `clickAnalytics` is enabled:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the purchase rate is null.
-- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so the purchase rate is null.
+- **0** means there were queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -2293,16 +2293,16 @@ GetPurchaseRate casts the HTTP response body to a defined struct.
 
 Retrieves the purchase rate for all your searches with at least one purchase event, including a daily breakdown.
 
-By default, the analyzed period includes the last eight days including the current day.
+By default, the analyzed period includes the last eight days, including the current day.
 
-The rate is the number of purchase conversion events divided by the number of tracked searches.
+The rate is purchase conversion events divided by tracked searches.
 A search is tracked if it returns a query ID (`clickAnalytics` is `true`).
-This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
+This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
 
 **There's a difference between a 0 and null purchase rate when `clickAnalytics` is enabled:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the purchase rate is null.
-- **0** mean there _were_ queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so the purchase rate is null.
+- **0** means there were queries but no [purchase conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -4598,14 +4598,16 @@ GetTopHits calls the API and returns the raw response from it.
 
 	Retrieves the object IDs of the 1,000 most frequent search results.
 
-If you set the `clickAnalytics` query parameter to true, the response also includes:
+If you set the `clickAnalytics` query parameter to `true`, the response also includes:
 
-- Tracked searches count. Tracked searches are Search API requests with the `clickAnalytics` parameter set to `true`. This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
-- Click count
-- Click-through rate (CTR)
-- Conversion count
-- Conversion rate (CR)
-- Average click position
+  - Tracked searches count.
+    Tracked searches are Search API requests with `clickAnalytics` set to `true`.
+    This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
+  - Click count
+  - Click-through rate (CTR)
+  - Conversion count
+  - Conversion rate (CR)
+  - Average click position
 
 If you set the `revenueAnalytics` parameter to `true`, the response also includes:
 
@@ -4617,8 +4619,8 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 
 **There's a difference between 0% rates and null rates:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so rates are null.
+- **0% rates** mean there were queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -4707,14 +4709,16 @@ GetTopHits casts the HTTP response body to a defined struct.
 
 Retrieves the object IDs of the 1,000 most frequent search results.
 
-If you set the `clickAnalytics` query parameter to true, the response also includes:
+If you set the `clickAnalytics` query parameter to `true`, the response also includes:
 
-- Tracked searches count. Tracked searches are Search API requests with the `clickAnalytics` parameter set to `true`. This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
-- Click count
-- Click-through rate (CTR)
-- Conversion count
-- Conversion rate (CR)
-- Average click position
+  - Tracked searches count.
+    Tracked searches are Search API requests with `clickAnalytics` set to `true`.
+    This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
+  - Click count
+  - Click-through rate (CTR)
+  - Conversion count
+  - Conversion rate (CR)
+  - Average click position
 
 If you set the `revenueAnalytics` parameter to `true`, the response also includes:
 
@@ -4726,8 +4730,8 @@ If you set the `revenueAnalytics` parameter to `true`, the response also include
 
 **There's a difference between 0% rates and null rates:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so rates are null.
+- **0% rates** mean there were queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics
@@ -4972,14 +4976,16 @@ GetTopSearches calls the API and returns the raw response from it.
 
 	Returns the most popular searches. For each search, it also includes the average number of hits.
 
-# If you set the `clickAnalytics` query parameter to `true`, the response also includes
+If you set the `clickAnalytics` query parameter to `true`, the response also includes:
 
-- Tracked searches count. Tracked searches are Search API requests with the `clickAnalytics` parameter set to `true`. This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
-- Click count
-- Click-through rate (CTR)
-- Conversion count
-- Conversion rate (CR)
-- Average click position
+  - Tracked searches count
+    Tracked searches are Search API requests with `clickAnalytics` set to `true`.
+    This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
+  - Click count
+  - Click-through rate (CTR)
+  - Conversion count
+  - Conversion rate (CR)
+  - Average click position
 
 If you set the `revenueAnalytics` query parameter to `true`, the response also includes:
 
@@ -4991,8 +4997,8 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 
 **There's a difference between 0% rates and null rates:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so rates are null.
+- **0% rates** mean there were queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -5088,14 +5094,16 @@ GetTopSearches casts the HTTP response body to a defined struct.
 
 Returns the most popular searches. For each search, it also includes the average number of hits.
 
-# If you set the `clickAnalytics` query parameter to `true`, the response also includes
+If you set the `clickAnalytics` query parameter to `true`, the response also includes:
 
-- Tracked searches count. Tracked searches are Search API requests with the `clickAnalytics` parameter set to `true`. This differs from the response's `count`, which shows the overall number of searches, including those where `clickAnalytics` is `false`.
-- Click count
-- Click-through rate (CTR)
-- Conversion count
-- Conversion rate (CR)
-- Average click position
+  - Tracked searches count
+    Tracked searches are Search API requests with `clickAnalytics` set to `true`.
+    This differs from the response's `count`, which includes searches where `clickAnalytics` is `false`.
+  - Click count
+  - Click-through rate (CTR)
+  - Conversion count
+  - Conversion rate (CR)
+  - Average click position
 
 If you set the `revenueAnalytics` query parameter to `true`, the response also includes:
 
@@ -5107,8 +5115,8 @@ If you set the `revenueAnalytics` query parameter to `true`, the response also i
 
 **There's a difference between 0% rates and null rates:**
 
-- **Null** means there were no queries: since Algolia didn't receive any events, the rates (CTR, CR, ATCR, purchase rate) are null.
-- **0% rates** mean there _were_ queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
+- **Null** means there were no queries. Algolia didn't receive any events, so rates are null.
+- **0% rates** mean there were queries but no [click or conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started) were received.
 
 Required API Key ACLs:
   - analytics

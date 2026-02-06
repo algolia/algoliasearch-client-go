@@ -21,7 +21,7 @@ type TaskCreate struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Input            *TaskInput `json:"input,omitempty"`
-	// Date of the last cursor in RFC 3339 format.
+	// Date and time when the last cursor was created, in RFC 3339 format.
 	Cursor        *string        `json:"cursor,omitempty"`
 	Notifications *Notifications `json:"notifications,omitempty"`
 	Policies      *Policies      `json:"policies,omitempty"`

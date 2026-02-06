@@ -22,11 +22,11 @@ type Run struct {
 	Reason     *string        `json:"reason,omitempty"`
 	ReasonCode *RunReasonCode `json:"reasonCode,omitempty"`
 	Type       RunType        `json:"type"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of start in RFC 3339 format.
+	// Date and time when the task started, in RFC 3339 format.
 	StartedAt *string `json:"startedAt,omitempty"`
-	// Date of finish in RFC 3339 format.
+	// Date and time when the task finished, in RFC 3339 format.
 	FinishedAt *string `json:"finishedAt,omitempty"`
 }
 

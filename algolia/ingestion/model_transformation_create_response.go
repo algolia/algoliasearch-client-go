@@ -10,7 +10,7 @@ import (
 type TransformationCreateResponse struct {
 	// Universally unique identifier (UUID) of a transformation.
 	TransformationID string `json:"transformationID"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

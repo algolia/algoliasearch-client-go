@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// IgnorePlurals - Treat singular, plurals, and other forms of declensions as equivalent. You should only use this feature for the languages used in your index.
+// IgnorePlurals - Treat singular, plurals, and other forms of declensions as equivalent. Only use this feature for the languages used in your index.
 type IgnorePlurals struct {
 	BooleanString            *BooleanString
 	ArrayOfSupportedLanguage *[]SupportedLanguage

@@ -657,7 +657,7 @@ func (c *APIClient) NewApiCreateTaskV1Request(taskCreate *TaskCreateV1) ApiCreat
 /*
 CreateTaskV1 calls the API and returns the raw response from it.
 
-	  Creates a new task using the v1 endpoint, please use `createTask` instead.
+	  Creates a new task using the v1 endpoint. Use `createTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -707,7 +707,7 @@ func (c *APIClient) CreateTaskV1WithHTTPInfo(r ApiCreateTaskV1Request, opts ...R
 /*
 CreateTaskV1 casts the HTTP response body to a defined struct.
 
-Creates a new task using the v1 endpoint, please use `createTask` instead.
+Creates a new task using the v1 endpoint. Use `createTask` instead.
 
 Required API Key ACLs:
   - addObject
@@ -1983,7 +1983,7 @@ func (c *APIClient) NewApiDeleteTaskV1Request(taskID string) ApiDeleteTaskV1Requ
 /*
 DeleteTaskV1 calls the API and returns the raw response from it.
 
-	  Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
+	  Deletes a task by its ID using the v1 endpoint. Use `deleteTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -2031,7 +2031,7 @@ func (c *APIClient) DeleteTaskV1WithHTTPInfo(r ApiDeleteTaskV1Request, opts ...R
 /*
 DeleteTaskV1 casts the HTTP response body to a defined struct.
 
-Deletes a task by its ID using the v1 endpoint, please use `deleteTask` instead.
+Deletes a task by its ID using the v1 endpoint. Use `deleteTask` instead.
 
 Required API Key ACLs:
   - addObject
@@ -2345,7 +2345,7 @@ func (c *APIClient) NewApiDisableTaskV1Request(taskID string) ApiDisableTaskV1Re
 /*
 DisableTaskV1 calls the API and returns the raw response from it.
 
-	  Disables a task using the v1 endpoint, please use `disableTask` instead.
+	  Disables a task using the v1 endpoint. Use `disableTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -2393,7 +2393,7 @@ func (c *APIClient) DisableTaskV1WithHTTPInfo(r ApiDisableTaskV1Request, opts ..
 /*
 DisableTaskV1 casts the HTTP response body to a defined struct.
 
-Disables a task using the v1 endpoint, please use `disableTask` instead.
+Disables a task using the v1 endpoint. Use `disableTask` instead.
 
 Required API Key ACLs:
   - addObject
@@ -2588,7 +2588,7 @@ func (c *APIClient) NewApiEnableTaskV1Request(taskID string) ApiEnableTaskV1Requ
 /*
 EnableTaskV1 calls the API and returns the raw response from it.
 
-	  Enables a task using the v1 endpoint, please use `enableTask` instead.
+	  Enables a task using the v1 endpoint. Use `enableTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -2636,7 +2636,7 @@ func (c *APIClient) EnableTaskV1WithHTTPInfo(r ApiEnableTaskV1Request, opts ...R
 /*
 EnableTaskV1 casts the HTTP response body to a defined struct.
 
-Enables a task using the v1 endpoint, please use `enableTask` instead.
+Enables a task using the v1 endpoint. Use `enableTask` instead.
 
 Required API Key ACLs:
   - addObject
@@ -3445,7 +3445,7 @@ func (c *APIClient) NewApiGetTaskV1Request(taskID string) ApiGetTaskV1Request {
 /*
 GetTaskV1 calls the API and returns the raw response from it.
 
-	  Retrieves a task by its ID using the v1 endpoint, please use `getTask` instead.
+	  Retrieves a task by its ID using the v1 endpoint. Use `getTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -3493,7 +3493,7 @@ func (c *APIClient) GetTaskV1WithHTTPInfo(r ApiGetTaskV1Request, opts ...Request
 /*
 GetTaskV1 casts the HTTP response body to a defined struct.
 
-Retrieves a task by its ID using the v1 endpoint, please use `getTask` instead.
+Retrieves a task by its ID using the v1 endpoint. Use `getTask` instead.
 
 Required API Key ACLs:
   - addObject
@@ -4676,8 +4676,10 @@ ListRuns calls the API and returns the raw response from it.
 	  @param taskID string - Task ID for filtering the list of task runs.
 	  @param sort RunSortKeys - Property by which to sort the list of task runs.
 	  @param order OrderKeys - Sort order of the response, ascending or descending.
-	  @param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	  @param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
+
+
+	  @param startDate string - Date and time for the earliest run to retrieve, in RFC 3339 format. By default, the current day minus seven days is used.
+	  @param endDate string - Date and time for the latest run to retrieve, in RFC 3339 format. By default, the current day is used.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -4762,8 +4764,10 @@ Request can be constructed by NewApiListRunsRequest with parameters below.
 	@param taskID string - Task ID for filtering the list of task runs.
 	@param sort RunSortKeys - Property by which to sort the list of task runs.
 	@param order OrderKeys - Sort order of the response, ascending or descending.
-	@param startDate string - Date in RFC 3339 format for the earliest run to retrieve. By default, the current day minus seven days is used.
-	@param endDate string - Date in RFC 3339 format for the latest run to retrieve. By default, the current day is used.
+
+
+	@param startDate string - Date and time for the earliest run to retrieve, in RFC 3339 format. By default, the current day minus seven days is used.
+	@param endDate string - Date and time for the latest run to retrieve, in RFC 3339 format. By default, the current day is used.
 	@return RunListResponse
 */
 func (c *APIClient) ListRuns(r ApiListRunsRequest, opts ...RequestOption) (*RunListResponse, error) {
@@ -5583,7 +5587,7 @@ func (r ApiListTasksV1Request) WithOrder(order OrderKeys) ApiListTasksV1Request 
 /*
 ListTasksV1 calls the API and returns the raw response from it.
 
-	  Retrieves a list of tasks using the v1 endpoint, please use `getTasks` instead.
+	  Retrieves a list of tasks using the v1 endpoint. Use `getTasks` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -5670,7 +5674,7 @@ func (c *APIClient) ListTasksV1WithHTTPInfo(r ApiListTasksV1Request, opts ...Req
 /*
 ListTasksV1 casts the HTTP response body to a defined struct.
 
-Retrieves a list of tasks using the v1 endpoint, please use `getTasks` instead.
+Retrieves a list of tasks using the v1 endpoint. Use `getTasks` instead.
 
 Required API Key ACLs:
   - addObject
@@ -6822,7 +6826,7 @@ func (r ApiRunTaskV1Request) WithRunTaskPayload(runTaskPayload *RunTaskPayload) 
 /*
 RunTaskV1 calls the API and returns the raw response from it.
 
-	  Runs a task using the v1 endpoint, please use `runTask` instead. You can check the status of task runs with the observability endpoints.
+	  Runs a task using the v1 endpoint. Use `runTask` instead. You can check the status of task runs with the observability endpoints.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -6878,7 +6882,7 @@ func (c *APIClient) RunTaskV1WithHTTPInfo(r ApiRunTaskV1Request, opts ...Request
 /*
 RunTaskV1 casts the HTTP response body to a defined struct.
 
-Runs a task using the v1 endpoint, please use `runTask` instead. You can check the status of task runs with the observability endpoints.
+Runs a task using the v1 endpoint. Use `runTask` instead. You can check the status of task runs with the observability endpoints.
 
 Required API Key ACLs:
   - addObject
@@ -7464,7 +7468,7 @@ func (c *APIClient) NewApiSearchTasksV1Request(taskSearch *TaskSearch) ApiSearch
 /*
 SearchTasksV1 calls the API and returns the raw response from it.
 
-	  Searches for tasks using the v1 endpoint, please use `searchTasks` instead.
+	  Searches for tasks using the v1 endpoint. Use `searchTasks` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -7514,7 +7518,7 @@ func (c *APIClient) SearchTasksV1WithHTTPInfo(r ApiSearchTasksV1Request, opts ..
 /*
 SearchTasksV1 casts the HTTP response body to a defined struct.
 
-Searches for tasks using the v1 endpoint, please use `searchTasks` instead.
+Searches for tasks using the v1 endpoint. Use `searchTasks` instead.
 
 Required API Key ACLs:
   - addObject
@@ -8726,7 +8730,7 @@ func (c *APIClient) NewApiUpdateTaskV1Request(taskID string, taskUpdate *TaskUpd
 /*
 UpdateTaskV1 calls the API and returns the raw response from it.
 
-	  Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
+	  Updates a task by its ID using the v1 endpoint. Use `updateTask` instead.
 
 	    Required API Key ACLs:
 	    - addObject
@@ -8782,7 +8786,7 @@ func (c *APIClient) UpdateTaskV1WithHTTPInfo(r ApiUpdateTaskV1Request, opts ...R
 /*
 UpdateTaskV1 casts the HTTP response body to a defined struct.
 
-Updates a task by its ID using the v1 endpoint, please use `updateTask` instead.
+Updates a task by its ID using the v1 endpoint. Use `updateTask` instead.
 
 Required API Key ACLs:
   - addObject

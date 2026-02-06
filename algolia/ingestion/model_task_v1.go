@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskV1 The V1 task object, please use methods and types that don't contain the V1 suffix.
+// TaskV1 The V1 task object. Use methods and types that don't contain the V1 suffix.
 type TaskV1 struct {
 	// Universally unique identifier (UUID) of a task.
 	TaskID string `json:"taskID"`
@@ -21,13 +21,13 @@ type TaskV1 struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32      `json:"failureThreshold,omitempty"`
 	Action           *ActionType `json:"action,omitempty"`
-	// Date of the last cursor in RFC 3339 format.
+	// Date and time when the last cursor was created, in RFC 3339 format.
 	Cursor        *string        `json:"cursor,omitempty"`
 	Notifications *Notifications `json:"notifications,omitempty"`
 	Policies      *Policies      `json:"policies,omitempty"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
-	// Date of last update in RFC 3339 format.
+	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskCreateV1 API request body for creating a task using the V1 shape, please use methods and types that don't contain the V1 suffix.
+// TaskCreateV1 API request body for creating a task using the V1 shape. Use methods and types that don't contain the V1 suffix.
 type TaskCreateV1 struct {
 	// Universally uniqud identifier (UUID) of a source.
 	SourceID string `json:"sourceID"`
@@ -19,7 +19,7 @@ type TaskCreateV1 struct {
 	// Maximum accepted percentage of failures for a task run to finish successfully.
 	FailureThreshold *int32     `json:"failureThreshold,omitempty"`
 	Input            *TaskInput `json:"input,omitempty"`
-	// Date of the last cursor in RFC 3339 format.
+	// Date and time when the last cursor was created, in RFC 3339 format.
 	Cursor *string `json:"cursor,omitempty"`
 }
 

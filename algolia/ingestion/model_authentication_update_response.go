@@ -12,7 +12,7 @@ type AuthenticationUpdateResponse struct {
 	AuthenticationID string `json:"authenticationID"`
 	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of last update in RFC 3339 format.
+	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

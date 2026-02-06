@@ -10,7 +10,7 @@ import (
 type RunSourceResponse struct {
 	// Map of taskID sent for reindex with the corresponding runID.
 	TaskWithRunID map[string]string `json:"taskWithRunID"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

@@ -12,7 +12,7 @@ type SourceUpdateResponse struct {
 	SourceID string `json:"sourceID"`
 	// Descriptive name of the source.
 	Name string `json:"name"`
-	// Date of last update in RFC 3339 format.
+	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

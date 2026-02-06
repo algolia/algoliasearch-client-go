@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// TaskUpdateV1 API request body for updating a task using the V1 shape, please use methods and types that don't contain the V1 suffix.
+// TaskUpdateV1 API request body for updating a task using the V1 shape. Use methods and types that don't contain the V1 suffix.
 type TaskUpdateV1 struct {
 	// Universally unique identifier (UUID) of a destination resource.
 	DestinationID *string             `json:"destinationID,omitempty"`

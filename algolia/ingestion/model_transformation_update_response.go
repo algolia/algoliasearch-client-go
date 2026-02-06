@@ -10,7 +10,7 @@ import (
 type TransformationUpdateResponse struct {
 	// Universally unique identifier (UUID) of a transformation.
 	TransformationID string `json:"transformationID"`
-	// Date of last update in RFC 3339 format.
+	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 }
 

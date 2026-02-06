@@ -13,7 +13,7 @@ type SecuredApiKeyRestrictions struct {
 	Filters *string `json:"filters,omitempty"`
 	// Timestamp when the secured API key expires, measured in seconds since the Unix epoch.
 	ValidUntil *int64 `json:"validUntil,omitempty"`
-	// Index names or patterns that this API key can access. By default, an API key can access all indices in the same application.  You can use leading and trailing wildcard characters (`*`):  - `dev_*` matches all indices starting with \"dev_\". - `*_dev` matches all indices ending with \"_dev\". - `*_products_*` matches all indices containing \"_products_\".
+	// Index names or patterns that this API key can access. By default, an API key can access all indices in the same application.  You can use leading and trailing wildcard characters (`*`):  - `dev_*` matches all indices starting with \"dev_\" - `*_dev` matches all indices ending with \"_dev\" - `*_products_*` matches all indices containing \"_products_\".
 	RestrictIndices []string `json:"restrictIndices,omitempty"`
 	// IP network that are allowed to use this key.  You can only add a single source, but you can provide a range of IP addresses. Use this to protect against API key leaking and reuse.
 	RestrictSources *string `json:"restrictSources,omitempty"`

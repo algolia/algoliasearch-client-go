@@ -12,7 +12,7 @@ type DestinationCreateResponse struct {
 	DestinationID string `json:"destinationID"`
 	// Descriptive name for the resource.
 	Name string `json:"name"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
 }
 

@@ -18,7 +18,7 @@ type WatchResponse struct {
 	Events []Event `json:"events,omitempty"`
 	// a message describing the outcome of the operation that has been ran (push, discover or validate) run.
 	Message *string `json:"message,omitempty"`
-	// Date of creation in RFC 3339 format.
+	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt *string `json:"createdAt,omitempty"`
 }
 

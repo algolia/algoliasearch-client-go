@@ -8,7 +8,7 @@ import (
 
 // DeleteResponse struct for DeleteResponse.
 type DeleteResponse struct {
-	// Date of deletion in RFC 3339 format.
+	// Date and time when the resource was deleted, in RFC 3339 format.
 	DeletedAt string `json:"deletedAt"`
 }
 
