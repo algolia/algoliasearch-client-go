@@ -71,9 +71,9 @@ type SearchResponse struct {
 	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
 	Hits []Hit `json:"hits"`
 	// Search query.
-	Query string `json:"query"`
+	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
-	Params               string         `json:"params"`
+	Params               *string        `json:"params,omitempty"`
 	AdditionalProperties map[string]any `json:"-"`
 }
 
@@ -261,16 +261,26 @@ func WithSearchResponseHitsPerPage(val int32) SearchResponseOption {
 	}
 }
 
+func WithSearchResponseQuery(val string) SearchResponseOption {
+	return func(f *SearchResponse) {
+		f.Query = &val
+	}
+}
+
+func WithSearchResponseParams(val string) SearchResponseOption {
+	return func(f *SearchResponse) {
+		f.Params = &val
+	}
+}
+
 // NewSearchResponse instantiates a new SearchResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearchResponse(hits []Hit, query string, params string, opts ...SearchResponseOption) *SearchResponse {
+func NewSearchResponse(hits []Hit, opts ...SearchResponseOption) *SearchResponse {
 	this := &SearchResponse{}
-	this.Hits = hits
-	this.Query = query
 
-	this.Params = params
+	this.Hits = hits
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -1431,58 +1441,76 @@ func (o *SearchResponse) SetHits(v []Hit) *SearchResponse {
 	return o
 }
 
-// GetQuery returns the Query field value.
+// GetQuery returns the Query field value if set, zero value otherwise.
 func (o *SearchResponse) GetQuery() string {
-	if o == nil {
+	if o == nil || o.Query == nil {
 		var ret string
 
 		return ret
 	}
 
-	return o.Query
+	return *o.Query
 }
 
-// GetQueryOk returns a tuple with the Query field value
+// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SearchResponse) GetQueryOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Query == nil {
 		return nil, false
 	}
 
-	return &o.Query, true
+	return o.Query, true
 }
 
-// SetQuery sets field value.
+// HasQuery returns a boolean if a field has been set.
+func (o *SearchResponse) HasQuery() bool {
+	if o != nil && o.Query != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQuery gets a reference to the given string and assigns it to the Query field.
 func (o *SearchResponse) SetQuery(v string) *SearchResponse {
-	o.Query = v
+	o.Query = &v
 
 	return o
 }
 
-// GetParams returns the Params field value.
+// GetParams returns the Params field value if set, zero value otherwise.
 func (o *SearchResponse) GetParams() string {
-	if o == nil {
+	if o == nil || o.Params == nil {
 		var ret string
 
 		return ret
 	}
 
-	return o.Params
+	return *o.Params
 }
 
-// GetParamsOk returns a tuple with the Params field value
+// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SearchResponse) GetParamsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Params == nil {
 		return nil, false
 	}
 
-	return &o.Params, true
+	return o.Params, true
 }
 
-// SetParams sets field value.
+// HasParams returns a boolean if a field has been set.
+func (o *SearchResponse) HasParams() bool {
+	if o != nil && o.Params != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParams gets a reference to the given string and assigns it to the Params field.
 func (o *SearchResponse) SetParams(v string) *SearchResponse {
-	o.Params = v
+	o.Params = &v
 
 	return o
 }
@@ -1620,8 +1648,13 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	}
 
 	toSerialize["hits"] = o.Hits
-	toSerialize["query"] = o.Query
-	toSerialize["params"] = o.Params
+	if o.Query != nil {
+		toSerialize["query"] = o.Query
+	}
+
+	if o.Params != nil {
+		toSerialize["params"] = o.Params
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
