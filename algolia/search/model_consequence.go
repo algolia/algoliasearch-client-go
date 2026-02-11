@@ -14,7 +14,8 @@ type Consequence struct {
 	// Determines whether promoted records must also match active filters for the consequence to apply.  This ensures user-applied filters take priority and irrelevant matches aren't shown. For example, if you promote a record with `color: red` but the user filters for `color: blue`, the \"red\" record won't be shown.  > In the Algolia dashboard, when you use the **Pin an item** consequence, `filterPromotes` appears as the checkbox: **Pinned items must match active filters to be displayed.** For examples, see [Promote results with rules](https://www.algolia.com/doc/guides/managing-results/rules/merchandising-and-promoting/how-to/promote-hits/#promote-results-matching-active-filters).
 	FilterPromotes *bool `json:"filterPromotes,omitempty"`
 	// Records you want to hide from the search results.
-	Hide []ConsequenceHide `json:"hide,omitempty"`
+	Hide     []ConsequenceHide    `json:"hide,omitempty"`
+	Redirect *ConsequenceRedirect `json:"redirect,omitempty"`
 	// A JSON object with custom data that will be appended to the `userData` array in the response. This object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.
 	UserData map[string]any `json:"userData,omitempty"`
 }
@@ -42,6 +43,12 @@ func WithConsequenceFilterPromotes(val bool) ConsequenceOption {
 func WithConsequenceHide(val []ConsequenceHide) ConsequenceOption {
 	return func(f *Consequence) {
 		f.Hide = val
+	}
+}
+
+func WithConsequenceRedirect(val ConsequenceRedirect) ConsequenceOption {
+	return func(f *Consequence) {
+		f.Redirect = &val
 	}
 }
 
@@ -217,6 +224,43 @@ func (o *Consequence) SetHide(v []ConsequenceHide) *Consequence {
 	return o
 }
 
+// GetRedirect returns the Redirect field value if set, zero value otherwise.
+func (o *Consequence) GetRedirect() ConsequenceRedirect {
+	if o == nil || o.Redirect == nil {
+		var ret ConsequenceRedirect
+
+		return ret
+	}
+
+	return *o.Redirect
+}
+
+// GetRedirectOk returns a tuple with the Redirect field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Consequence) GetRedirectOk() (*ConsequenceRedirect, bool) {
+	if o == nil || o.Redirect == nil {
+		return nil, false
+	}
+
+	return o.Redirect, true
+}
+
+// HasRedirect returns a boolean if a field has been set.
+func (o *Consequence) HasRedirect() bool {
+	if o != nil && o.Redirect != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirect gets a reference to the given ConsequenceRedirect and assigns it to the Redirect field.
+func (o *Consequence) SetRedirect(v *ConsequenceRedirect) *Consequence {
+	o.Redirect = v
+
+	return o
+}
+
 // GetUserData returns the UserData field value if set, zero value otherwise.
 func (o *Consequence) GetUserData() map[string]any {
 	if o == nil || o.UserData == nil {
@@ -272,6 +316,10 @@ func (o Consequence) MarshalJSON() ([]byte, error) {
 		toSerialize["hide"] = o.Hide
 	}
 
+	if o.Redirect != nil {
+		toSerialize["redirect"] = o.Redirect
+	}
+
 	if o.UserData != nil {
 		toSerialize["userData"] = o.UserData
 	}
@@ -290,6 +338,7 @@ func (o Consequence) String() string {
 	out += fmt.Sprintf("  promote=%v\n", o.Promote)
 	out += fmt.Sprintf("  filterPromotes=%v\n", o.FilterPromotes)
 	out += fmt.Sprintf("  hide=%v\n", o.Hide)
+	out += fmt.Sprintf("  redirect=%v\n", o.Redirect)
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 
 	return fmt.Sprintf("Consequence {\n%s}", out)
