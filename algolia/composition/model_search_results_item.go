@@ -73,7 +73,9 @@ type SearchResultsItem struct {
 	// URL-encoded string of all search parameters.
 	Params *string `json:"params,omitempty"`
 	// The search query string.
-	Query        *string                                   `json:"query,omitempty"`
+	Query *string `json:"query,omitempty"`
+	// The ID of the feed.
+	FeedID       *string                                   `json:"feedID,omitempty"`
 	Compositions map[string]ResultsCompositionInfoResponse `json:"compositions"`
 }
 
@@ -274,6 +276,12 @@ func WithSearchResultsItemParams(val string) SearchResultsItemOption {
 func WithSearchResultsItemQuery(val string) SearchResultsItemOption {
 	return func(f *SearchResultsItem) {
 		f.Query = &val
+	}
+}
+
+func WithSearchResultsItemFeedID(val string) SearchResultsItemOption {
+	return func(f *SearchResultsItem) {
+		f.FeedID = &val
 	}
 }
 
@@ -1528,6 +1536,43 @@ func (o *SearchResultsItem) SetQuery(v string) *SearchResultsItem {
 	return o
 }
 
+// GetFeedID returns the FeedID field value if set, zero value otherwise.
+func (o *SearchResultsItem) GetFeedID() string {
+	if o == nil || o.FeedID == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.FeedID
+}
+
+// GetFeedIDOk returns a tuple with the FeedID field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchResultsItem) GetFeedIDOk() (*string, bool) {
+	if o == nil || o.FeedID == nil {
+		return nil, false
+	}
+
+	return o.FeedID, true
+}
+
+// HasFeedID returns a boolean if a field has been set.
+func (o *SearchResultsItem) HasFeedID() bool {
+	if o != nil && o.FeedID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeedID gets a reference to the given string and assigns it to the FeedID field.
+func (o *SearchResultsItem) SetFeedID(v string) *SearchResultsItem {
+	o.FeedID = &v
+
+	return o
+}
+
 // GetCompositions returns the Compositions field value.
 func (o *SearchResultsItem) GetCompositions() map[string]ResultsCompositionInfoResponse {
 	if o == nil {
@@ -1690,6 +1735,10 @@ func (o SearchResultsItem) MarshalJSON() ([]byte, error) {
 		toSerialize["query"] = o.Query
 	}
 
+	if o.FeedID != nil {
+		toSerialize["feedID"] = o.FeedID
+	}
+
 	toSerialize["compositions"] = o.Compositions
 
 	serialized, err := json.Marshal(toSerialize)
@@ -1735,6 +1784,7 @@ func (o SearchResultsItem) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
+	out += fmt.Sprintf("  feedID=%v\n", o.FeedID)
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
 
 	return fmt.Sprintf("SearchResultsItem {\n%s}", out)
