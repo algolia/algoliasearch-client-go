@@ -9,7 +9,7 @@ import (
 // Multifeed struct for Multifeed.
 type Multifeed struct {
 	// A key-value store of Feed ID to Feed. Currently, the only supported Feed type is an Injection.
-	Feeds map[string]Injection `json:"feeds"`
+	Feeds map[string]FeedInjection `json:"feeds"`
 	// A list of Feed IDs that specifies the order in which to order the results in the response. The IDs should be a subset of those in the Feeds object, and only those specified will be processed. When this field is not set, all Feeds are processed and returned with a default ordering.
 	FeedsOrder []string `json:"feedsOrder,omitempty"`
 }
@@ -26,7 +26,7 @@ func WithMultifeedFeedsOrder(val []string) MultifeedOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMultifeed(feeds map[string]Injection, opts ...MultifeedOption) *Multifeed {
+func NewMultifeed(feeds map[string]FeedInjection, opts ...MultifeedOption) *Multifeed {
 	this := &Multifeed{}
 
 	this.Feeds = feeds
@@ -43,9 +43,9 @@ func NewEmptyMultifeed() *Multifeed {
 }
 
 // GetFeeds returns the Feeds field value.
-func (o *Multifeed) GetFeeds() map[string]Injection {
+func (o *Multifeed) GetFeeds() map[string]FeedInjection {
 	if o == nil {
-		var ret map[string]Injection
+		var ret map[string]FeedInjection
 
 		return ret
 	}
@@ -55,7 +55,7 @@ func (o *Multifeed) GetFeeds() map[string]Injection {
 
 // GetFeedsOk returns a tuple with the Feeds field value
 // and a boolean to check if the value has been set.
-func (o *Multifeed) GetFeedsOk() (*map[string]Injection, bool) {
+func (o *Multifeed) GetFeedsOk() (*map[string]FeedInjection, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *Multifeed) GetFeedsOk() (*map[string]Injection, bool) {
 }
 
 // SetFeeds sets field value.
-func (o *Multifeed) SetFeeds(v map[string]Injection) *Multifeed {
+func (o *Multifeed) SetFeeds(v map[string]FeedInjection) *Multifeed {
 	o.Feeds = v
 
 	return o
