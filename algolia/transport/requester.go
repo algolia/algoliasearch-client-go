@@ -59,5 +59,5 @@ func NewDefaultRequester(connectTimeout *time.Duration) *defaultRequester {
 }
 
 func (r *defaultRequester) Request(req *http.Request, _, _ time.Duration) (*http.Response, error) {
-	return r.client.Do(req) //nolint:wrapcheck
+	return r.client.Do(req) //nolint:wrapcheck,gosec
 }

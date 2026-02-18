@@ -84,10 +84,11 @@ func NewClientWithConfig(cfg CompositionConfiguration) (*APIClient, error) {
 }
 
 func getDefaultHosts(appID string) []transport.StatefulHost {
-	hosts := []transport.StatefulHost{
+	hosts := make([]transport.StatefulHost, 0, 5)
+	hosts = append(hosts,
 		transport.NewStatefulHost("https", appID+"-dsn.algolia.net", call.IsRead),
 		transport.NewStatefulHost("https", appID+".algolia.net", call.IsWrite),
-	}
+	)
 	hosts = append(hosts, transport.Shuffle(
 		[]transport.StatefulHost{
 			transport.NewStatefulHost("https", fmt.Sprintf("%s-1.algolianet.com", appID), call.IsReadWrite),

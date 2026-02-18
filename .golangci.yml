@@ -1,4 +1,4 @@
-version: "2"
+version: '2'
 run:
   concurrency: 2
 linters:
@@ -35,6 +35,12 @@ linters:
     - varnamelen
     - wsl
   settings:
+    modernize:
+      disable:
+        - stringsbuilder
+    gosec:
+      excludes:
+        - G117
     govet:
       enable-all: true
       disable:
@@ -44,7 +50,7 @@ linters:
         - name: var-naming
           disabled: true
     staticcheck:
-      checks: ["all", "-ST1005", "-ST1016"]
+      checks: ['all', '-ST1005', '-ST1016']
   exclusions:
     generated: disable
     presets:
