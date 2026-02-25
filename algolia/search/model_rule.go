@@ -18,9 +18,10 @@ type Rule struct {
 	// Whether the rule is active.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Time periods when the rule is active.
-	Validity []TimeRange `json:"validity,omitempty"`
-	Tags     []string    `json:"tags,omitempty"`
-	Scope    *string     `json:"scope,omitempty"`
+	Validity  []TimeRange `json:"validity,omitempty"`
+	Tags      []string    `json:"tags,omitempty"`
+	Scope     *string     `json:"scope,omitempty"`
+	Condition *Condition  `json:"condition,omitempty"`
 }
 
 type RuleOption func(f *Rule)
@@ -58,6 +59,12 @@ func WithRuleTags(val []string) RuleOption {
 func WithRuleScope(val string) RuleOption {
 	return func(f *Rule) {
 		f.Scope = &val
+	}
+}
+
+func WithRuleCondition(val Condition) RuleOption {
+	return func(f *Rule) {
+		f.Condition = &val
 	}
 }
 
@@ -360,6 +367,43 @@ func (o *Rule) SetScope(v string) *Rule {
 	return o
 }
 
+// GetCondition returns the Condition field value if set, zero value otherwise.
+func (o *Rule) GetCondition() Condition {
+	if o == nil || o.Condition == nil {
+		var ret Condition
+
+		return ret
+	}
+
+	return *o.Condition
+}
+
+// GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetConditionOk() (*Condition, bool) {
+	if o == nil || o.Condition == nil {
+		return nil, false
+	}
+
+	return o.Condition, true
+}
+
+// HasCondition returns a boolean if a field has been set.
+func (o *Rule) HasCondition() bool {
+	if o != nil && o.Condition != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCondition gets a reference to the given Condition and assigns it to the Condition field.
+func (o *Rule) SetCondition(v *Condition) *Rule {
+	o.Condition = v
+
+	return o
+}
+
 func (o Rule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
@@ -389,6 +433,10 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 		toSerialize["scope"] = o.Scope
 	}
 
+	if o.Condition != nil {
+		toSerialize["condition"] = o.Condition
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal Rule: %w", err)
@@ -407,6 +455,7 @@ func (o Rule) String() string {
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 	out += fmt.Sprintf("  tags=%v\n", o.Tags)
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
+	out += fmt.Sprintf("  condition=%v\n", o.Condition)
 
 	return fmt.Sprintf("Rule {\n%s}", out)
 }
