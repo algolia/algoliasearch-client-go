@@ -18,8 +18,6 @@ type BaseInjectionQueryParameters struct {
 	AllowTyposOnNumericTokens *bool `json:"allowTyposOnNumericTokens,omitempty"`
 	// Determine which plurals and synonyms should be considered an exact matches By default, Algolia treats singular and plural forms of a word, and single-word synonyms, as [exact](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#exact) matches when searching. For example - \"swimsuit\" and \"swimsuits\" are treated the same - \"swimsuit\" and \"swimwear\" are treated the same (if they are [synonyms](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/#regular-synonyms)) - `ignorePlurals`.   Plurals and similar declensions added by the `ignorePlurals` setting are considered exact matches - `singleWordSynonym`.   Single-word synonyms, such as \"NY\" = \"NYC\", are considered exact matches - `multiWordsSynonym`.   Multi-word synonyms, such as \"NY\" = \"New York\", are considered exact matches.
 	AlternativesAsExact []AlternativesAsExact `json:"alternativesAsExact,omitempty"`
-	// Whether this search will be included in Analytics.
-	Analytics *bool `json:"analytics,omitempty"`
 	// Whether the best matching attribute should be determined by minimum proximity This setting only affects ranking if the Attribute ranking criterion comes before Proximity in the `ranking` setting. If true, the best matching attribute is selected based on the minimum proximity of multiple matches. Otherwise, the best matching attribute is determined by the order in the `searchableAttributes` setting.
 	AttributeCriteriaComputedByMinProximity *bool `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	// Attributes to highlight By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js).
@@ -30,8 +28,6 @@ type BaseInjectionQueryParameters struct {
 	AttributesToSnippet []string `json:"attributesToSnippet,omitempty"`
 	// Whether to include a `queryID` attribute in the response The query ID is a unique identifier for a search query and is required for tracking [click and conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started).
 	ClickAnalytics *bool `json:"clickAnalytics,omitempty"`
-	// Whether to split compound words in the query into their building blocks For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian. Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
-	DecompoundQuery *bool `json:"decompoundQuery,omitempty"`
 	// Searchable attributes for which you want to [turn off the Exact ranking criterion](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/override-search-engine-defaults/in-depth/adjust-exact-settings/#turn-off-exact-for-some-attributes). Attribute names are case-sensitive This can be useful for attributes with long values, where the likelihood of an exact match is high, such as product descriptions. Turning off the Exact ranking criterion for these attributes favors exact matching on other attributes. This reduces the impact of individual attributes with a lot of content on ranking.
 	DisableExactOnAttributes []string `json:"disableExactOnAttributes,omitempty"`
 	// Attributes for which you want to turn off [typo tolerance](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance). Attribute names are case-sensitive Returning only exact matches can help when - [Searching in hyphenated attributes](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/how-to/how-to-search-in-hyphenated-attributes). - Reducing the number of matches when you have too many.   This can happen with attributes that are long blocks of text, such as product descriptions Consider alternatives such as `disableTypoToleranceOnWords` or adding synonyms if your attributes have intentional unusual spellings that might look like typos.
@@ -56,8 +52,6 @@ type BaseInjectionQueryParameters struct {
 	// HTML tag to insert before the highlighted parts in all highlighted results and snippets.
 	HighlightPreTag *string        `json:"highlightPreTag,omitempty"`
 	IgnorePlurals   *IgnorePlurals `json:"ignorePlurals,omitempty"`
-	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
-	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
 	// Minimum proximity score for two matching words This adjusts the [Proximity ranking criterion](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria/#proximity) by equally scoring matches that are farther apart For example, if `minProximity` is 2, neighboring matches and matches with one word between them would have the same score.
 	MinProximity *int32 `json:"minProximity,omitempty"`
 	// Minimum number of characters a word in the search query must contain to accept matches with [one typo](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/typo-tolerance/in-depth/configuring-typo-tolerance/#configuring-word-length-for-typos).
@@ -121,12 +115,6 @@ func WithBaseInjectionQueryParametersAlternativesAsExact(val []AlternativesAsExa
 	}
 }
 
-func WithBaseInjectionQueryParametersAnalytics(val bool) BaseInjectionQueryParametersOption {
-	return func(f *BaseInjectionQueryParameters) {
-		f.Analytics = &val
-	}
-}
-
 func WithBaseInjectionQueryParametersAttributeCriteriaComputedByMinProximity(val bool) BaseInjectionQueryParametersOption {
 	return func(f *BaseInjectionQueryParameters) {
 		f.AttributeCriteriaComputedByMinProximity = &val
@@ -154,12 +142,6 @@ func WithBaseInjectionQueryParametersAttributesToSnippet(val []string) BaseInjec
 func WithBaseInjectionQueryParametersClickAnalytics(val bool) BaseInjectionQueryParametersOption {
 	return func(f *BaseInjectionQueryParameters) {
 		f.ClickAnalytics = &val
-	}
-}
-
-func WithBaseInjectionQueryParametersDecompoundQuery(val bool) BaseInjectionQueryParametersOption {
-	return func(f *BaseInjectionQueryParameters) {
-		f.DecompoundQuery = &val
 	}
 }
 
@@ -244,12 +226,6 @@ func WithBaseInjectionQueryParametersHighlightPreTag(val string) BaseInjectionQu
 func WithBaseInjectionQueryParametersIgnorePlurals(val IgnorePlurals) BaseInjectionQueryParametersOption {
 	return func(f *BaseInjectionQueryParameters) {
 		f.IgnorePlurals = &val
-	}
-}
-
-func WithBaseInjectionQueryParametersMaxFacetHits(val int32) BaseInjectionQueryParametersOption {
-	return func(f *BaseInjectionQueryParameters) {
-		f.MaxFacetHits = &val
 	}
 }
 
@@ -545,43 +521,6 @@ func (o *BaseInjectionQueryParameters) SetAlternativesAsExact(v []AlternativesAs
 	return o
 }
 
-// GetAnalytics returns the Analytics field value if set, zero value otherwise.
-func (o *BaseInjectionQueryParameters) GetAnalytics() bool {
-	if o == nil || o.Analytics == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.Analytics
-}
-
-// GetAnalyticsOk returns a tuple with the Analytics field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseInjectionQueryParameters) GetAnalyticsOk() (*bool, bool) {
-	if o == nil || o.Analytics == nil {
-		return nil, false
-	}
-
-	return o.Analytics, true
-}
-
-// HasAnalytics returns a boolean if a field has been set.
-func (o *BaseInjectionQueryParameters) HasAnalytics() bool {
-	if o != nil && o.Analytics != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
-func (o *BaseInjectionQueryParameters) SetAnalytics(v bool) *BaseInjectionQueryParameters {
-	o.Analytics = &v
-
-	return o
-}
-
 // GetAttributeCriteriaComputedByMinProximity returns the AttributeCriteriaComputedByMinProximity field value if set, zero value otherwise.
 func (o *BaseInjectionQueryParameters) GetAttributeCriteriaComputedByMinProximity() bool {
 	if o == nil || o.AttributeCriteriaComputedByMinProximity == nil {
@@ -763,43 +702,6 @@ func (o *BaseInjectionQueryParameters) HasClickAnalytics() bool {
 // SetClickAnalytics gets a reference to the given bool and assigns it to the ClickAnalytics field.
 func (o *BaseInjectionQueryParameters) SetClickAnalytics(v bool) *BaseInjectionQueryParameters {
 	o.ClickAnalytics = &v
-
-	return o
-}
-
-// GetDecompoundQuery returns the DecompoundQuery field value if set, zero value otherwise.
-func (o *BaseInjectionQueryParameters) GetDecompoundQuery() bool {
-	if o == nil || o.DecompoundQuery == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.DecompoundQuery
-}
-
-// GetDecompoundQueryOk returns a tuple with the DecompoundQuery field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseInjectionQueryParameters) GetDecompoundQueryOk() (*bool, bool) {
-	if o == nil || o.DecompoundQuery == nil {
-		return nil, false
-	}
-
-	return o.DecompoundQuery, true
-}
-
-// HasDecompoundQuery returns a boolean if a field has been set.
-func (o *BaseInjectionQueryParameters) HasDecompoundQuery() bool {
-	if o != nil && o.DecompoundQuery != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
-func (o *BaseInjectionQueryParameters) SetDecompoundQuery(v bool) *BaseInjectionQueryParameters {
-	o.DecompoundQuery = &v
 
 	return o
 }
@@ -1318,43 +1220,6 @@ func (o *BaseInjectionQueryParameters) HasIgnorePlurals() bool {
 // SetIgnorePlurals gets a reference to the given IgnorePlurals and assigns it to the IgnorePlurals field.
 func (o *BaseInjectionQueryParameters) SetIgnorePlurals(v *IgnorePlurals) *BaseInjectionQueryParameters {
 	o.IgnorePlurals = v
-
-	return o
-}
-
-// GetMaxFacetHits returns the MaxFacetHits field value if set, zero value otherwise.
-func (o *BaseInjectionQueryParameters) GetMaxFacetHits() int32 {
-	if o == nil || o.MaxFacetHits == nil {
-		var ret int32
-
-		return ret
-	}
-
-	return *o.MaxFacetHits
-}
-
-// GetMaxFacetHitsOk returns a tuple with the MaxFacetHits field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *BaseInjectionQueryParameters) GetMaxFacetHitsOk() (*int32, bool) {
-	if o == nil || o.MaxFacetHits == nil {
-		return nil, false
-	}
-
-	return o.MaxFacetHits, true
-}
-
-// HasMaxFacetHits returns a boolean if a field has been set.
-func (o *BaseInjectionQueryParameters) HasMaxFacetHits() bool {
-	if o != nil && o.MaxFacetHits != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxFacetHits gets a reference to the given int32 and assigns it to the MaxFacetHits field.
-func (o *BaseInjectionQueryParameters) SetMaxFacetHits(v int32) *BaseInjectionQueryParameters {
-	o.MaxFacetHits = &v
 
 	return o
 }
@@ -2165,10 +2030,6 @@ func (o BaseInjectionQueryParameters) MarshalJSON() ([]byte, error) {
 		toSerialize["alternativesAsExact"] = o.AlternativesAsExact
 	}
 
-	if o.Analytics != nil {
-		toSerialize["analytics"] = o.Analytics
-	}
-
 	if o.AttributeCriteriaComputedByMinProximity != nil {
 		toSerialize["attributeCriteriaComputedByMinProximity"] = o.AttributeCriteriaComputedByMinProximity
 	}
@@ -2187,10 +2048,6 @@ func (o BaseInjectionQueryParameters) MarshalJSON() ([]byte, error) {
 
 	if o.ClickAnalytics != nil {
 		toSerialize["clickAnalytics"] = o.ClickAnalytics
-	}
-
-	if o.DecompoundQuery != nil {
-		toSerialize["decompoundQuery"] = o.DecompoundQuery
 	}
 
 	if o.DisableExactOnAttributes != nil {
@@ -2247,10 +2104,6 @@ func (o BaseInjectionQueryParameters) MarshalJSON() ([]byte, error) {
 
 	if o.IgnorePlurals != nil {
 		toSerialize["ignorePlurals"] = o.IgnorePlurals
-	}
-
-	if o.MaxFacetHits != nil {
-		toSerialize["maxFacetHits"] = o.MaxFacetHits
 	}
 
 	if o.MinProximity != nil {
@@ -2351,13 +2204,11 @@ func (o BaseInjectionQueryParameters) String() string {
 	out += fmt.Sprintf("  advancedSyntaxFeatures=%v\n", o.AdvancedSyntaxFeatures)
 	out += fmt.Sprintf("  allowTyposOnNumericTokens=%v\n", o.AllowTyposOnNumericTokens)
 	out += fmt.Sprintf("  alternativesAsExact=%v\n", o.AlternativesAsExact)
-	out += fmt.Sprintf("  analytics=%v\n", o.Analytics)
 	out += fmt.Sprintf("  attributeCriteriaComputedByMinProximity=%v\n", o.AttributeCriteriaComputedByMinProximity)
 	out += fmt.Sprintf("  attributesToHighlight=%v\n", o.AttributesToHighlight)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  attributesToSnippet=%v\n", o.AttributesToSnippet)
 	out += fmt.Sprintf("  clickAnalytics=%v\n", o.ClickAnalytics)
-	out += fmt.Sprintf("  decompoundQuery=%v\n", o.DecompoundQuery)
 	out += fmt.Sprintf("  disableExactOnAttributes=%v\n", o.DisableExactOnAttributes)
 	out += fmt.Sprintf("  disableTypoToleranceOnAttributes=%v\n", o.DisableTypoToleranceOnAttributes)
 	out += fmt.Sprintf("  distinct=%v\n", o.Distinct)
@@ -2372,7 +2223,6 @@ func (o BaseInjectionQueryParameters) String() string {
 	out += fmt.Sprintf("  highlightPostTag=%v\n", o.HighlightPostTag)
 	out += fmt.Sprintf("  highlightPreTag=%v\n", o.HighlightPreTag)
 	out += fmt.Sprintf("  ignorePlurals=%v\n", o.IgnorePlurals)
-	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 	out += fmt.Sprintf("  minProximity=%v\n", o.MinProximity)
 	out += fmt.Sprintf("  minWordSizefor1Typo=%v\n", o.MinWordSizefor1Typo)
 	out += fmt.Sprintf("  minWordSizefor2Typos=%v\n", o.MinWordSizefor2Typos)
