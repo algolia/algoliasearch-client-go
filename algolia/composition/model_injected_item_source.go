@@ -4,6 +4,8 @@ package composition
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // InjectedItemSource - struct for InjectedItemSource.
@@ -29,15 +31,24 @@ func ExternalSourceAsInjectedItemSource(v *ExternalSource) *InjectedItemSource {
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into SearchSource
-	err = json.Unmarshal(data, &dst.SearchSource)
-	if err != nil {
-		dst.SearchSource = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "search") {
+		// try to unmarshal data into SearchSource
+		err = json.Unmarshal(data, &dst.SearchSource)
+		if err != nil {
+			dst.SearchSource = nil
+		}
 	}
-	// try to unmarshal data into ExternalSource
-	err = json.Unmarshal(data, &dst.ExternalSource)
-	if err != nil {
-		dst.ExternalSource = nil
+
+	if utils.HasKey(jsonDict, "external") {
+		// try to unmarshal data into ExternalSource
+		err = json.Unmarshal(data, &dst.ExternalSource)
+		if err != nil {
+			dst.ExternalSource = nil
+		}
 	}
 
 	// check if at least one type was successfully unmarshaled
