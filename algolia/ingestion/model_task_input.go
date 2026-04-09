@@ -15,6 +15,13 @@ type TaskInput struct {
 	StreamingInput     *StreamingInput
 }
 
+// ShopifyInputAsTaskInput is a convenience function that returns ShopifyInput wrapped in TaskInput.
+func ShopifyInputAsTaskInput(v *ShopifyInput) *TaskInput {
+	return &TaskInput{
+		ShopifyInput: v,
+	}
+}
+
 // StreamingInputAsTaskInput is a convenience function that returns StreamingInput wrapped in TaskInput.
 func StreamingInputAsTaskInput(v *StreamingInput) *TaskInput {
 	return &TaskInput{
@@ -29,13 +36,6 @@ func DockerStreamsInputAsTaskInput(v *DockerStreamsInput) *TaskInput {
 	}
 }
 
-// ShopifyInputAsTaskInput is a convenience function that returns ShopifyInput wrapped in TaskInput.
-func ShopifyInputAsTaskInput(v *ShopifyInput) *TaskInput {
-	return &TaskInput{
-		ShopifyInput: v,
-	}
-}
-
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var err error
@@ -43,6 +43,14 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]any
 
 	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "market") && utils.HasKey(jsonDict, "metafields") {
+		// try to unmarshal data into ShopifyInput
+		err = json.Unmarshal(data, &dst.ShopifyInput)
+		if err != nil {
+			dst.ShopifyInput = nil
+		}
+	}
+
 	if utils.HasKey(jsonDict, "mapping") {
 		// try to unmarshal data into StreamingInput
 		err = json.Unmarshal(data, &dst.StreamingInput)
@@ -57,11 +65,6 @@ func (dst *TaskInput) UnmarshalJSON(data []byte) error {
 		if err != nil {
 			dst.DockerStreamsInput = nil
 		}
-	}
-	// try to unmarshal data into ShopifyInput
-	err = json.Unmarshal(data, &dst.ShopifyInput)
-	if err != nil {
-		dst.ShopifyInput = nil
 	}
 
 	// check if at least one type was successfully unmarshaled

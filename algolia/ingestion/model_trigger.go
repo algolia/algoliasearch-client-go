@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // Trigger - Trigger that runs the task.
@@ -14,17 +16,17 @@ type Trigger struct {
 	SubscriptionTrigger *SubscriptionTrigger
 }
 
-// OnDemandTriggerAsTrigger is a convenience function that returns OnDemandTrigger wrapped in Trigger.
-func OnDemandTriggerAsTrigger(v *OnDemandTrigger) *Trigger {
-	return &Trigger{
-		OnDemandTrigger: v,
-	}
-}
-
 // ScheduleTriggerAsTrigger is a convenience function that returns ScheduleTrigger wrapped in Trigger.
 func ScheduleTriggerAsTrigger(v *ScheduleTrigger) *Trigger {
 	return &Trigger{
 		ScheduleTrigger: v,
+	}
+}
+
+// OnDemandTriggerAsTrigger is a convenience function that returns OnDemandTrigger wrapped in Trigger.
+func OnDemandTriggerAsTrigger(v *OnDemandTrigger) *Trigger {
+	return &Trigger{
+		OnDemandTrigger: v,
 	}
 }
 
@@ -45,15 +47,21 @@ func StreamingTriggerAsTrigger(v *StreamingTrigger) *Trigger {
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *Trigger) UnmarshalJSON(data []byte) error {
 	var err error
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "cron") && utils.HasKey(jsonDict, "nextRun") {
+		// try to unmarshal data into ScheduleTrigger
+		err = json.Unmarshal(data, &dst.ScheduleTrigger)
+		if err != nil {
+			dst.ScheduleTrigger = nil
+		}
+	}
 	// try to unmarshal data into OnDemandTrigger
 	err = json.Unmarshal(data, &dst.OnDemandTrigger)
 	if err != nil {
 		dst.OnDemandTrigger = nil
-	}
-	// try to unmarshal data into ScheduleTrigger
-	err = json.Unmarshal(data, &dst.ScheduleTrigger)
-	if err != nil {
-		dst.ScheduleTrigger = nil
 	}
 	// try to unmarshal data into SubscriptionTrigger
 	err = json.Unmarshal(data, &dst.SubscriptionTrigger)

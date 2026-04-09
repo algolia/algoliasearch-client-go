@@ -14,17 +14,17 @@ type SearchResult struct {
 	SearchResponse               *SearchResponse
 }
 
-// SearchForFacetValuesResponseAsSearchResult is a convenience function that returns SearchForFacetValuesResponse wrapped in SearchResult.
-func SearchForFacetValuesResponseAsSearchResult(v *SearchForFacetValuesResponse) *SearchResult {
-	return &SearchResult{
-		SearchForFacetValuesResponse: v,
-	}
-}
-
 // SearchResponseAsSearchResult is a convenience function that returns SearchResponse wrapped in SearchResult.
 func SearchResponseAsSearchResult(v *SearchResponse) *SearchResult {
 	return &SearchResult{
 		SearchResponse: v,
+	}
+}
+
+// SearchForFacetValuesResponseAsSearchResult is a convenience function that returns SearchForFacetValuesResponse wrapped in SearchResult.
+func SearchForFacetValuesResponseAsSearchResult(v *SearchForFacetValuesResponse) *SearchResult {
+	return &SearchResult{
+		SearchForFacetValuesResponse: v,
 	}
 }
 
@@ -35,17 +35,20 @@ func (dst *SearchResult) UnmarshalJSON(data []byte) error {
 	var jsonDict map[string]any
 
 	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "hits") {
+		// try to unmarshal data into SearchResponse
+		err = json.Unmarshal(data, &dst.SearchResponse)
+		if err != nil {
+			dst.SearchResponse = nil
+		}
+	}
+
 	if utils.HasKey(jsonDict, "facetHits") {
 		// try to unmarshal data into SearchForFacetValuesResponse
 		err = json.Unmarshal(data, &dst.SearchForFacetValuesResponse)
 		if err != nil {
 			dst.SearchForFacetValuesResponse = nil
 		}
-	}
-	// try to unmarshal data into SearchResponse
-	err = json.Unmarshal(data, &dst.SearchResponse)
-	if err != nil {
-		dst.SearchResponse = nil
 	}
 
 	// check if at least one type was successfully unmarshaled

@@ -4,6 +4,8 @@ package ingestion
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // TransformationInput - The input for the transformation, which can be either code or a no-code configuration.
@@ -29,15 +31,24 @@ func TransformationNoCodeAsTransformationInput(v *TransformationNoCode) *Transfo
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *TransformationInput) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into TransformationCode
-	err = json.Unmarshal(data, &dst.TransformationCode)
-	if err != nil {
-		dst.TransformationCode = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "code") {
+		// try to unmarshal data into TransformationCode
+		err = json.Unmarshal(data, &dst.TransformationCode)
+		if err != nil {
+			dst.TransformationCode = nil
+		}
 	}
-	// try to unmarshal data into TransformationNoCode
-	err = json.Unmarshal(data, &dst.TransformationNoCode)
-	if err != nil {
-		dst.TransformationNoCode = nil
+
+	if utils.HasKey(jsonDict, "steps") {
+		// try to unmarshal data into TransformationNoCode
+		err = json.Unmarshal(data, &dst.TransformationNoCode)
+		if err != nil {
+			dst.TransformationNoCode = nil
+		}
 	}
 
 	// check if at least one type was successfully unmarshaled

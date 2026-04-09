@@ -4,6 +4,8 @@ package recommend
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // RecommendationsRequest - struct for RecommendationsRequest.
@@ -13,6 +15,13 @@ type RecommendationsRequest struct {
 	RelatedQuery        *RelatedQuery
 	TrendingFacetsQuery *TrendingFacetsQuery
 	TrendingItemsQuery  *TrendingItemsQuery
+}
+
+// TrendingFacetsQueryAsRecommendationsRequest is a convenience function that returns TrendingFacetsQuery wrapped in RecommendationsRequest.
+func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) *RecommendationsRequest {
+	return &RecommendationsRequest{
+		TrendingFacetsQuery: v,
+	}
 }
 
 // BoughtTogetherQueryAsRecommendationsRequest is a convenience function that returns BoughtTogetherQuery wrapped in RecommendationsRequest.
@@ -36,13 +45,6 @@ func TrendingItemsQueryAsRecommendationsRequest(v *TrendingItemsQuery) *Recommen
 	}
 }
 
-// TrendingFacetsQueryAsRecommendationsRequest is a convenience function that returns TrendingFacetsQuery wrapped in RecommendationsRequest.
-func TrendingFacetsQueryAsRecommendationsRequest(v *TrendingFacetsQuery) *RecommendationsRequest {
-	return &RecommendationsRequest{
-		TrendingFacetsQuery: v,
-	}
-}
-
 // LookingSimilarQueryAsRecommendationsRequest is a convenience function that returns LookingSimilarQuery wrapped in RecommendationsRequest.
 func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *RecommendationsRequest {
 	return &RecommendationsRequest{
@@ -53,6 +55,17 @@ func LookingSimilarQueryAsRecommendationsRequest(v *LookingSimilarQuery) *Recomm
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	var err error
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "facetName") {
+		// try to unmarshal data into TrendingFacetsQuery
+		err = json.Unmarshal(data, &dst.TrendingFacetsQuery)
+		if err != nil {
+			dst.TrendingFacetsQuery = nil
+		}
+	}
 	// try to unmarshal data into BoughtTogetherQuery
 	err = json.Unmarshal(data, &dst.BoughtTogetherQuery)
 	if err != nil {
@@ -67,11 +80,6 @@ func (dst *RecommendationsRequest) UnmarshalJSON(data []byte) error {
 	err = json.Unmarshal(data, &dst.TrendingItemsQuery)
 	if err != nil {
 		dst.TrendingItemsQuery = nil
-	}
-	// try to unmarshal data into TrendingFacetsQuery
-	err = json.Unmarshal(data, &dst.TrendingFacetsQuery)
-	if err != nil {
-		dst.TrendingFacetsQuery = nil
 	}
 	// try to unmarshal data into LookingSimilarQuery
 	err = json.Unmarshal(data, &dst.LookingSimilarQuery)

@@ -4,6 +4,8 @@ package composition
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // CompositionBehavior - An object containing either an `injection` or `multifeed` behavior schema, but not both.
@@ -29,15 +31,24 @@ func CompositionMultifeedBehaviorAsCompositionBehavior(v *CompositionMultifeedBe
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *CompositionBehavior) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into CompositionInjectionBehavior
-	err = json.Unmarshal(data, &dst.CompositionInjectionBehavior)
-	if err != nil {
-		dst.CompositionInjectionBehavior = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "injection") {
+		// try to unmarshal data into CompositionInjectionBehavior
+		err = json.Unmarshal(data, &dst.CompositionInjectionBehavior)
+		if err != nil {
+			dst.CompositionInjectionBehavior = nil
+		}
 	}
-	// try to unmarshal data into CompositionMultifeedBehavior
-	err = json.Unmarshal(data, &dst.CompositionMultifeedBehavior)
-	if err != nil {
-		dst.CompositionMultifeedBehavior = nil
+
+	if utils.HasKey(jsonDict, "multifeed") {
+		// try to unmarshal data into CompositionMultifeedBehavior
+		err = json.Unmarshal(data, &dst.CompositionMultifeedBehavior)
+		if err != nil {
+			dst.CompositionMultifeedBehavior = nil
+		}
 	}
 
 	// check if at least one type was successfully unmarshaled

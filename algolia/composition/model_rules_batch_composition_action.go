@@ -4,6 +4,8 @@ package composition
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // RulesBatchCompositionAction - struct for RulesBatchCompositionAction.
@@ -29,10 +31,16 @@ func DeleteCompositionRuleActionAsRulesBatchCompositionAction(v *DeleteCompositi
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *RulesBatchCompositionAction) UnmarshalJSON(data []byte) error {
 	var err error
-	// try to unmarshal data into CompositionRule
-	err = json.Unmarshal(data, &dst.CompositionRule)
-	if err != nil {
-		dst.CompositionRule = nil
+	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
+	var jsonDict map[string]any
+
+	_ = json.Unmarshal(data, &jsonDict)
+	if utils.HasKey(jsonDict, "consequence") {
+		// try to unmarshal data into CompositionRule
+		err = json.Unmarshal(data, &dst.CompositionRule)
+		if err != nil {
+			dst.CompositionRule = nil
+		}
 	}
 	// try to unmarshal data into DeleteCompositionRuleAction
 	err = json.Unmarshal(data, &dst.DeleteCompositionRuleAction)
