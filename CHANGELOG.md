@@ -1,3 +1,9 @@
+## [4.37.3](https://github.com/algolia/algoliasearch-client-go/compare/4.37.2...4.37.3)
+
+- [16b17eea7b](https://github.com/algolia/api-clients-automation/commit/16b17eea7b) fix(clients): add discriminator fields for InjectedItemSource oneOf ([#6170](https://github.com/algolia/api-clients-automation/pull/6170)) by [@eric-zaharia](https://github.com/eric-zaharia/)
+- [e8df706a83](https://github.com/algolia/api-clients-automation/commit/e8df706a83) fix(generators): auto-infer discriminator fields from unique required properties ([#6199](https://github.com/algolia/api-clients-automation/pull/6199)) by [@Fluf22](https://github.com/Fluf22/)
+- [d86a5438e2](https://github.com/algolia/api-clients-automation/commit/d86a5438e2) chore(deps): dependencies 2026-04-06 ([#6200](https://github.com/algolia/api-clients-automation/pull/6200)) by [@algolia-bot](https://github.com/algolia-bot/)
+
 ## [4.37.2](https://github.com/algolia/algoliasearch-client-go/compare/4.37.1...4.37.2)
 
 - [600f157a13](https://github.com/algolia/api-clients-automation/commit/600f157a13) fix(specs): remove query parameter that are not accepted by the Composition API ([#6128](https://github.com/algolia/api-clients-automation/pull/6128)) by [@ClaraMuller](https://github.com/ClaraMuller/)
