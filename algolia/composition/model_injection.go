@@ -8,15 +8,15 @@ import (
 
 // Injection struct for Injection.
 type Injection struct {
-	Main Main `json:"main"`
+	Main InjectionMain `json:"main"`
 	// list of injected items of the current Composition.
-	InjectedItems []InjectedItem `json:"injectedItems,omitempty"`
-	Deduplication *Deduplication `json:"deduplication,omitempty"`
+	InjectedItems []InjectionInjectedItem `json:"injectedItems,omitempty"`
+	Deduplication *Deduplication          `json:"deduplication,omitempty"`
 }
 
 type InjectionOption func(f *Injection)
 
-func WithInjectionInjectedItems(val []InjectedItem) InjectionOption {
+func WithInjectionInjectedItems(val []InjectionInjectedItem) InjectionOption {
 	return func(f *Injection) {
 		f.InjectedItems = val
 	}
@@ -32,7 +32,7 @@ func WithInjectionDeduplication(val Deduplication) InjectionOption {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjection(main Main, opts ...InjectionOption) *Injection {
+func NewInjection(main InjectionMain, opts ...InjectionOption) *Injection {
 	this := &Injection{}
 
 	this.Main = main
@@ -49,9 +49,9 @@ func NewEmptyInjection() *Injection {
 }
 
 // GetMain returns the Main field value.
-func (o *Injection) GetMain() Main {
+func (o *Injection) GetMain() InjectionMain {
 	if o == nil {
-		var ret Main
+		var ret InjectionMain
 
 		return ret
 	}
@@ -61,7 +61,7 @@ func (o *Injection) GetMain() Main {
 
 // GetMainOk returns a tuple with the Main field value
 // and a boolean to check if the value has been set.
-func (o *Injection) GetMainOk() (*Main, bool) {
+func (o *Injection) GetMainOk() (*InjectionMain, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -70,16 +70,16 @@ func (o *Injection) GetMainOk() (*Main, bool) {
 }
 
 // SetMain sets field value.
-func (o *Injection) SetMain(v *Main) *Injection {
+func (o *Injection) SetMain(v *InjectionMain) *Injection {
 	o.Main = *v
 
 	return o
 }
 
 // GetInjectedItems returns the InjectedItems field value if set, zero value otherwise.
-func (o *Injection) GetInjectedItems() []InjectedItem {
+func (o *Injection) GetInjectedItems() []InjectionInjectedItem {
 	if o == nil || o.InjectedItems == nil {
-		var ret []InjectedItem
+		var ret []InjectionInjectedItem
 
 		return ret
 	}
@@ -89,7 +89,7 @@ func (o *Injection) GetInjectedItems() []InjectedItem {
 
 // GetInjectedItemsOk returns a tuple with the InjectedItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Injection) GetInjectedItemsOk() ([]InjectedItem, bool) {
+func (o *Injection) GetInjectedItemsOk() ([]InjectionInjectedItem, bool) {
 	if o == nil || o.InjectedItems == nil {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *Injection) HasInjectedItems() bool {
 	return false
 }
 
-// SetInjectedItems gets a reference to the given []InjectedItem and assigns it to the InjectedItems field.
-func (o *Injection) SetInjectedItems(v []InjectedItem) *Injection {
+// SetInjectedItems gets a reference to the given []InjectionInjectedItem and assigns it to the InjectedItems field.
+func (o *Injection) SetInjectedItems(v []InjectionInjectedItem) *Injection {
 	o.InjectedItems = v
 
 	return o

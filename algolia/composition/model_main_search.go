@@ -6,27 +6,27 @@ import (
 	"fmt"
 )
 
-// Search struct for Search.
-type Search struct {
-	// Composition Index name.
+// MainSearch struct for MainSearch.
+type MainSearch struct {
+	// Targeted index name.
 	Index  string                        `json:"index"`
-	Params *BaseInjectionQueryParameters `json:"params,omitempty"`
+	Params *MainInjectionQueryParameters `json:"params,omitempty"`
 }
 
-type SearchOption func(f *Search)
+type MainSearchOption func(f *MainSearch)
 
-func WithSearchParams(val BaseInjectionQueryParameters) SearchOption {
-	return func(f *Search) {
+func WithMainSearchParams(val MainInjectionQueryParameters) MainSearchOption {
+	return func(f *MainSearch) {
 		f.Params = &val
 	}
 }
 
-// NewSearch instantiates a new Search object
+// NewMainSearch instantiates a new MainSearch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewSearch(index string, opts ...SearchOption) *Search {
-	this := &Search{}
+func NewMainSearch(index string, opts ...MainSearchOption) *MainSearch {
+	this := &MainSearch{}
 
 	this.Index = index
 	for _, opt := range opts {
@@ -36,13 +36,13 @@ func NewSearch(index string, opts ...SearchOption) *Search {
 	return this
 }
 
-// NewEmptySearch return a pointer to an empty Search object.
-func NewEmptySearch() *Search {
-	return &Search{}
+// NewEmptyMainSearch return a pointer to an empty MainSearch object.
+func NewEmptyMainSearch() *MainSearch {
+	return &MainSearch{}
 }
 
 // GetIndex returns the Index field value.
-func (o *Search) GetIndex() string {
+func (o *MainSearch) GetIndex() string {
 	if o == nil {
 		var ret string
 
@@ -54,7 +54,7 @@ func (o *Search) GetIndex() string {
 
 // GetIndexOk returns a tuple with the Index field value
 // and a boolean to check if the value has been set.
-func (o *Search) GetIndexOk() (*string, bool) {
+func (o *MainSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -63,16 +63,16 @@ func (o *Search) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *Search) SetIndex(v string) *Search {
+func (o *MainSearch) SetIndex(v string) *MainSearch {
 	o.Index = v
 
 	return o
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
-func (o *Search) GetParams() BaseInjectionQueryParameters {
+func (o *MainSearch) GetParams() MainInjectionQueryParameters {
 	if o == nil || o.Params == nil {
-		var ret BaseInjectionQueryParameters
+		var ret MainInjectionQueryParameters
 
 		return ret
 	}
@@ -82,7 +82,7 @@ func (o *Search) GetParams() BaseInjectionQueryParameters {
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Search) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
+func (o *MainSearch) GetParamsOk() (*MainInjectionQueryParameters, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *Search) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
 }
 
 // HasParams returns a boolean if a field has been set.
-func (o *Search) HasParams() bool {
+func (o *MainSearch) HasParams() bool {
 	if o != nil && o.Params != nil {
 		return true
 	}
@@ -99,14 +99,14 @@ func (o *Search) HasParams() bool {
 	return false
 }
 
-// SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
-func (o *Search) SetParams(v *BaseInjectionQueryParameters) *Search {
+// SetParams gets a reference to the given MainInjectionQueryParameters and assigns it to the Params field.
+func (o *MainSearch) SetParams(v *MainInjectionQueryParameters) *MainSearch {
 	o.Params = v
 
 	return o
 }
 
-func (o Search) MarshalJSON() ([]byte, error) {
+func (o MainSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
 	toSerialize["index"] = o.Index
@@ -116,16 +116,16 @@ func (o Search) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal Search: %w", err)
+		return nil, fmt.Errorf("failed to marshal MainSearch: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o Search) String() string {
+func (o MainSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
-	return fmt.Sprintf("Search {\n%s}", out)
+	return fmt.Sprintf("MainSearch {\n%s}", out)
 }

@@ -6,27 +6,27 @@ import (
 	"fmt"
 )
 
-// CompositionSourceSearch struct for CompositionSourceSearch.
-type CompositionSourceSearch struct {
-	// Composition Main Index name.
+// InjectedItemSearch struct for InjectedItemSearch.
+type InjectedItemSearch struct {
+	// Composition Index name.
 	Index  string                        `json:"index"`
-	Params *MainInjectionQueryParameters `json:"params,omitempty"`
+	Params *BaseInjectionQueryParameters `json:"params,omitempty"`
 }
 
-type CompositionSourceSearchOption func(f *CompositionSourceSearch)
+type InjectedItemSearchOption func(f *InjectedItemSearch)
 
-func WithCompositionSourceSearchParams(val MainInjectionQueryParameters) CompositionSourceSearchOption {
-	return func(f *CompositionSourceSearch) {
+func WithInjectedItemSearchParams(val BaseInjectionQueryParameters) InjectedItemSearchOption {
+	return func(f *InjectedItemSearch) {
 		f.Params = &val
 	}
 }
 
-// NewCompositionSourceSearch instantiates a new CompositionSourceSearch object
+// NewInjectedItemSearch instantiates a new InjectedItemSearch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewCompositionSourceSearch(index string, opts ...CompositionSourceSearchOption) *CompositionSourceSearch {
-	this := &CompositionSourceSearch{}
+func NewInjectedItemSearch(index string, opts ...InjectedItemSearchOption) *InjectedItemSearch {
+	this := &InjectedItemSearch{}
 
 	this.Index = index
 	for _, opt := range opts {
@@ -36,13 +36,13 @@ func NewCompositionSourceSearch(index string, opts ...CompositionSourceSearchOpt
 	return this
 }
 
-// NewEmptyCompositionSourceSearch return a pointer to an empty CompositionSourceSearch object.
-func NewEmptyCompositionSourceSearch() *CompositionSourceSearch {
-	return &CompositionSourceSearch{}
+// NewEmptyInjectedItemSearch return a pointer to an empty InjectedItemSearch object.
+func NewEmptyInjectedItemSearch() *InjectedItemSearch {
+	return &InjectedItemSearch{}
 }
 
 // GetIndex returns the Index field value.
-func (o *CompositionSourceSearch) GetIndex() string {
+func (o *InjectedItemSearch) GetIndex() string {
 	if o == nil {
 		var ret string
 
@@ -54,7 +54,7 @@ func (o *CompositionSourceSearch) GetIndex() string {
 
 // GetIndexOk returns a tuple with the Index field value
 // and a boolean to check if the value has been set.
-func (o *CompositionSourceSearch) GetIndexOk() (*string, bool) {
+func (o *InjectedItemSearch) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -63,16 +63,16 @@ func (o *CompositionSourceSearch) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *CompositionSourceSearch) SetIndex(v string) *CompositionSourceSearch {
+func (o *InjectedItemSearch) SetIndex(v string) *InjectedItemSearch {
 	o.Index = v
 
 	return o
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
-func (o *CompositionSourceSearch) GetParams() MainInjectionQueryParameters {
+func (o *InjectedItemSearch) GetParams() BaseInjectionQueryParameters {
 	if o == nil || o.Params == nil {
-		var ret MainInjectionQueryParameters
+		var ret BaseInjectionQueryParameters
 
 		return ret
 	}
@@ -82,7 +82,7 @@ func (o *CompositionSourceSearch) GetParams() MainInjectionQueryParameters {
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CompositionSourceSearch) GetParamsOk() (*MainInjectionQueryParameters, bool) {
+func (o *InjectedItemSearch) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *CompositionSourceSearch) GetParamsOk() (*MainInjectionQueryParameters, 
 }
 
 // HasParams returns a boolean if a field has been set.
-func (o *CompositionSourceSearch) HasParams() bool {
+func (o *InjectedItemSearch) HasParams() bool {
 	if o != nil && o.Params != nil {
 		return true
 	}
@@ -99,14 +99,14 @@ func (o *CompositionSourceSearch) HasParams() bool {
 	return false
 }
 
-// SetParams gets a reference to the given MainInjectionQueryParameters and assigns it to the Params field.
-func (o *CompositionSourceSearch) SetParams(v *MainInjectionQueryParameters) *CompositionSourceSearch {
+// SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
+func (o *InjectedItemSearch) SetParams(v *BaseInjectionQueryParameters) *InjectedItemSearch {
 	o.Params = v
 
 	return o
 }
 
-func (o CompositionSourceSearch) MarshalJSON() ([]byte, error) {
+func (o InjectedItemSearch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
 	toSerialize["index"] = o.Index
@@ -116,16 +116,16 @@ func (o CompositionSourceSearch) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal CompositionSourceSearch: %w", err)
+		return nil, fmt.Errorf("failed to marshal InjectedItemSearch: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o CompositionSourceSearch) String() string {
+func (o InjectedItemSearch) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
-	return fmt.Sprintf("CompositionSourceSearch {\n%s}", out)
+	return fmt.Sprintf("InjectedItemSearch {\n%s}", out)
 }

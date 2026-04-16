@@ -10,21 +10,21 @@ import (
 
 // InjectedItemSource - struct for InjectedItemSource.
 type InjectedItemSource struct {
-	ExternalSource *ExternalSource
-	SearchSource   *SearchSource
+	InjectedItemExternalSource *InjectedItemExternalSource
+	InjectedItemSearchSource   *InjectedItemSearchSource
 }
 
-// SearchSourceAsInjectedItemSource is a convenience function that returns SearchSource wrapped in InjectedItemSource.
-func SearchSourceAsInjectedItemSource(v *SearchSource) *InjectedItemSource {
+// InjectedItemSearchSourceAsInjectedItemSource is a convenience function that returns InjectedItemSearchSource wrapped in InjectedItemSource.
+func InjectedItemSearchSourceAsInjectedItemSource(v *InjectedItemSearchSource) *InjectedItemSource {
 	return &InjectedItemSource{
-		SearchSource: v,
+		InjectedItemSearchSource: v,
 	}
 }
 
-// ExternalSourceAsInjectedItemSource is a convenience function that returns ExternalSource wrapped in InjectedItemSource.
-func ExternalSourceAsInjectedItemSource(v *ExternalSource) *InjectedItemSource {
+// InjectedItemExternalSourceAsInjectedItemSource is a convenience function that returns InjectedItemExternalSource wrapped in InjectedItemSource.
+func InjectedItemExternalSourceAsInjectedItemSource(v *InjectedItemExternalSource) *InjectedItemSource {
 	return &InjectedItemSource{
-		ExternalSource: v,
+		InjectedItemExternalSource: v,
 	}
 }
 
@@ -36,27 +36,27 @@ func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "search") {
-		// try to unmarshal data into SearchSource
-		err = json.Unmarshal(data, &dst.SearchSource)
+		// try to unmarshal data into InjectedItemSearchSource
+		err = json.Unmarshal(data, &dst.InjectedItemSearchSource)
 		if err != nil {
-			dst.SearchSource = nil
+			dst.InjectedItemSearchSource = nil
 		}
 	}
 
 	if utils.HasKey(jsonDict, "external") {
-		// try to unmarshal data into ExternalSource
-		err = json.Unmarshal(data, &dst.ExternalSource)
+		// try to unmarshal data into InjectedItemExternalSource
+		err = json.Unmarshal(data, &dst.InjectedItemExternalSource)
 		if err != nil {
-			dst.ExternalSource = nil
+			dst.InjectedItemExternalSource = nil
 		}
 	}
 
 	// check if at least one type was successfully unmarshaled
-	if dst.ExternalSource != nil {
+	if dst.InjectedItemExternalSource != nil {
 		return nil
 	}
 
-	if dst.SearchSource != nil {
+	if dst.InjectedItemSearchSource != nil {
 		return nil
 	}
 
@@ -65,19 +65,19 @@ func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
-	if src.ExternalSource != nil {
-		serialized, err := json.Marshal(&src.ExternalSource)
+	if src.InjectedItemExternalSource != nil {
+		serialized, err := json.Marshal(&src.InjectedItemExternalSource)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ExternalSource of InjectedItemSource: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of InjectedItemExternalSource of InjectedItemSource: %w", err)
 		}
 
 		return serialized, nil
 	}
 
-	if src.SearchSource != nil {
-		serialized, err := json.Marshal(&src.SearchSource)
+	if src.InjectedItemSearchSource != nil {
+		serialized, err := json.Marshal(&src.InjectedItemSearchSource)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of SearchSource of InjectedItemSource: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of InjectedItemSearchSource of InjectedItemSource: %w", err)
 		}
 
 		return serialized, nil
@@ -88,12 +88,12 @@ func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj InjectedItemSource) GetActualInstance() any {
-	if obj.ExternalSource != nil {
-		return *obj.ExternalSource
+	if obj.InjectedItemExternalSource != nil {
+		return *obj.InjectedItemExternalSource
 	}
 
-	if obj.SearchSource != nil {
-		return *obj.SearchSource
+	if obj.InjectedItemSearchSource != nil {
+		return *obj.InjectedItemSearchSource
 	}
 
 	// all schemas are nil

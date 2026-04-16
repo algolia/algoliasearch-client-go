@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// InjectedItem struct for InjectedItem.
-type InjectedItem struct {
+// InjectionInjectedItem struct for InjectionInjectedItem.
+type InjectionInjectedItem struct {
 	// injected Item unique identifier.
 	Key      string                `json:"key"`
 	Source   InjectedItemSource    `json:"source"`
@@ -16,20 +16,26 @@ type InjectedItem struct {
 	Metadata *InjectedItemMetadata `json:"metadata,omitempty"`
 }
 
-type InjectedItemOption func(f *InjectedItem)
+type InjectionInjectedItemOption func(f *InjectionInjectedItem)
 
-func WithInjectedItemMetadata(val InjectedItemMetadata) InjectedItemOption {
-	return func(f *InjectedItem) {
+func WithInjectionInjectedItemMetadata(val InjectedItemMetadata) InjectionInjectedItemOption {
+	return func(f *InjectionInjectedItem) {
 		f.Metadata = &val
 	}
 }
 
-// NewInjectedItem instantiates a new InjectedItem object
+// NewInjectionInjectedItem instantiates a new InjectionInjectedItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectedItem(key string, source InjectedItemSource, position int32, length int32, opts ...InjectedItemOption) *InjectedItem {
-	this := &InjectedItem{}
+func NewInjectionInjectedItem(
+	key string,
+	source InjectedItemSource,
+	position int32,
+	length int32,
+	opts ...InjectionInjectedItemOption,
+) *InjectionInjectedItem {
+	this := &InjectionInjectedItem{}
 	this.Key = key
 	this.Source = source
 	this.Position = position
@@ -42,13 +48,13 @@ func NewInjectedItem(key string, source InjectedItemSource, position int32, leng
 	return this
 }
 
-// NewEmptyInjectedItem return a pointer to an empty InjectedItem object.
-func NewEmptyInjectedItem() *InjectedItem {
-	return &InjectedItem{}
+// NewEmptyInjectionInjectedItem return a pointer to an empty InjectionInjectedItem object.
+func NewEmptyInjectionInjectedItem() *InjectionInjectedItem {
+	return &InjectionInjectedItem{}
 }
 
 // GetKey returns the Key field value.
-func (o *InjectedItem) GetKey() string {
+func (o *InjectionInjectedItem) GetKey() string {
 	if o == nil {
 		var ret string
 
@@ -60,7 +66,7 @@ func (o *InjectedItem) GetKey() string {
 
 // GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItem) GetKeyOk() (*string, bool) {
+func (o *InjectionInjectedItem) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,14 +75,14 @@ func (o *InjectedItem) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value.
-func (o *InjectedItem) SetKey(v string) *InjectedItem {
+func (o *InjectionInjectedItem) SetKey(v string) *InjectionInjectedItem {
 	o.Key = v
 
 	return o
 }
 
 // GetSource returns the Source field value.
-func (o *InjectedItem) GetSource() InjectedItemSource {
+func (o *InjectionInjectedItem) GetSource() InjectedItemSource {
 	if o == nil {
 		var ret InjectedItemSource
 
@@ -88,7 +94,7 @@ func (o *InjectedItem) GetSource() InjectedItemSource {
 
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItem) GetSourceOk() (*InjectedItemSource, bool) {
+func (o *InjectionInjectedItem) GetSourceOk() (*InjectedItemSource, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,14 +103,14 @@ func (o *InjectedItem) GetSourceOk() (*InjectedItemSource, bool) {
 }
 
 // SetSource sets field value.
-func (o *InjectedItem) SetSource(v *InjectedItemSource) *InjectedItem {
+func (o *InjectionInjectedItem) SetSource(v *InjectedItemSource) *InjectionInjectedItem {
 	o.Source = *v
 
 	return o
 }
 
 // GetPosition returns the Position field value.
-func (o *InjectedItem) GetPosition() int32 {
+func (o *InjectionInjectedItem) GetPosition() int32 {
 	if o == nil {
 		var ret int32
 
@@ -116,7 +122,7 @@ func (o *InjectedItem) GetPosition() int32 {
 
 // GetPositionOk returns a tuple with the Position field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItem) GetPositionOk() (*int32, bool) {
+func (o *InjectionInjectedItem) GetPositionOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,14 +131,14 @@ func (o *InjectedItem) GetPositionOk() (*int32, bool) {
 }
 
 // SetPosition sets field value.
-func (o *InjectedItem) SetPosition(v int32) *InjectedItem {
+func (o *InjectionInjectedItem) SetPosition(v int32) *InjectionInjectedItem {
 	o.Position = v
 
 	return o
 }
 
 // GetLength returns the Length field value.
-func (o *InjectedItem) GetLength() int32 {
+func (o *InjectionInjectedItem) GetLength() int32 {
 	if o == nil {
 		var ret int32
 
@@ -144,7 +150,7 @@ func (o *InjectedItem) GetLength() int32 {
 
 // GetLengthOk returns a tuple with the Length field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItem) GetLengthOk() (*int32, bool) {
+func (o *InjectionInjectedItem) GetLengthOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -153,14 +159,14 @@ func (o *InjectedItem) GetLengthOk() (*int32, bool) {
 }
 
 // SetLength sets field value.
-func (o *InjectedItem) SetLength(v int32) *InjectedItem {
+func (o *InjectionInjectedItem) SetLength(v int32) *InjectionInjectedItem {
 	o.Length = v
 
 	return o
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *InjectedItem) GetMetadata() InjectedItemMetadata {
+func (o *InjectionInjectedItem) GetMetadata() InjectedItemMetadata {
 	if o == nil || o.Metadata == nil {
 		var ret InjectedItemMetadata
 
@@ -172,7 +178,7 @@ func (o *InjectedItem) GetMetadata() InjectedItemMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InjectedItem) GetMetadataOk() (*InjectedItemMetadata, bool) {
+func (o *InjectionInjectedItem) GetMetadataOk() (*InjectedItemMetadata, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -181,7 +187,7 @@ func (o *InjectedItem) GetMetadataOk() (*InjectedItemMetadata, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *InjectedItem) HasMetadata() bool {
+func (o *InjectionInjectedItem) HasMetadata() bool {
 	if o != nil && o.Metadata != nil {
 		return true
 	}
@@ -190,13 +196,13 @@ func (o *InjectedItem) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given InjectedItemMetadata and assigns it to the Metadata field.
-func (o *InjectedItem) SetMetadata(v *InjectedItemMetadata) *InjectedItem {
+func (o *InjectionInjectedItem) SetMetadata(v *InjectedItemMetadata) *InjectionInjectedItem {
 	o.Metadata = v
 
 	return o
 }
 
-func (o InjectedItem) MarshalJSON() ([]byte, error) {
+func (o InjectionInjectedItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["key"] = o.Key
 	toSerialize["source"] = o.Source
@@ -209,13 +215,13 @@ func (o InjectedItem) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal InjectedItem: %w", err)
+		return nil, fmt.Errorf("failed to marshal InjectionInjectedItem: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o InjectedItem) String() string {
+func (o InjectionInjectedItem) String() string {
 	out := ""
 	out += fmt.Sprintf("  key=%v\n", o.Key)
 	out += fmt.Sprintf("  source=%v\n", o.Source)
@@ -223,5 +229,5 @@ func (o InjectedItem) String() string {
 	out += fmt.Sprintf("  length=%v\n", o.Length)
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 
-	return fmt.Sprintf("InjectedItem {\n%s}", out)
+	return fmt.Sprintf("InjectionInjectedItem {\n%s}", out)
 }
