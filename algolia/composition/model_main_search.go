@@ -8,7 +8,7 @@ import (
 
 // MainSearch struct for MainSearch.
 type MainSearch struct {
-	// Targeted index name.
+	// Index to retrieve search results from.
 	Index  string                        `json:"index"`
 	Params *MainInjectionQueryParameters `json:"params,omitempty"`
 }

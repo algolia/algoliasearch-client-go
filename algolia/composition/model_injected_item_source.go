@@ -10,8 +10,9 @@ import (
 
 // InjectedItemSource - struct for InjectedItemSource.
 type InjectedItemSource struct {
-	InjectedItemExternalSource *InjectedItemExternalSource
-	InjectedItemSearchSource   *InjectedItemSearchSource
+	InjectedItemExternalSource  *InjectedItemExternalSource
+	InjectedItemRecommendSource *InjectedItemRecommendSource
+	InjectedItemSearchSource    *InjectedItemSearchSource
 }
 
 // InjectedItemSearchSourceAsInjectedItemSource is a convenience function that returns InjectedItemSearchSource wrapped in InjectedItemSource.
@@ -25,6 +26,13 @@ func InjectedItemSearchSourceAsInjectedItemSource(v *InjectedItemSearchSource) *
 func InjectedItemExternalSourceAsInjectedItemSource(v *InjectedItemExternalSource) *InjectedItemSource {
 	return &InjectedItemSource{
 		InjectedItemExternalSource: v,
+	}
+}
+
+// InjectedItemRecommendSourceAsInjectedItemSource is a convenience function that returns InjectedItemRecommendSource wrapped in InjectedItemSource.
+func InjectedItemRecommendSourceAsInjectedItemSource(v *InjectedItemRecommendSource) *InjectedItemSource {
+	return &InjectedItemSource{
+		InjectedItemRecommendSource: v,
 	}
 }
 
@@ -51,8 +59,20 @@ func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	if utils.HasKey(jsonDict, "recommend") {
+		// try to unmarshal data into InjectedItemRecommendSource
+		err = json.Unmarshal(data, &dst.InjectedItemRecommendSource)
+		if err != nil {
+			dst.InjectedItemRecommendSource = nil
+		}
+	}
+
 	// check if at least one type was successfully unmarshaled
 	if dst.InjectedItemExternalSource != nil {
+		return nil
+	}
+
+	if dst.InjectedItemRecommendSource != nil {
 		return nil
 	}
 
@@ -74,6 +94,15 @@ func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.InjectedItemRecommendSource != nil {
+		serialized, err := json.Marshal(&src.InjectedItemRecommendSource)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of InjectedItemRecommendSource of InjectedItemSource: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.InjectedItemSearchSource != nil {
 		serialized, err := json.Marshal(&src.InjectedItemSearchSource)
 		if err != nil {
@@ -90,6 +119,10 @@ func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
 func (obj InjectedItemSource) GetActualInstance() any {
 	if obj.InjectedItemExternalSource != nil {
 		return *obj.InjectedItemExternalSource
+	}
+
+	if obj.InjectedItemRecommendSource != nil {
+		return *obj.InjectedItemRecommendSource
 	}
 
 	if obj.InjectedItemSearchSource != nil {
