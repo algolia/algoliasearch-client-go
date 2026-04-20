@@ -1024,8 +1024,15 @@ func (c *APIClient) NewApiGetIndexingTimeRequest(clusters string) ApiGetIndexing
 /*
 GetIndexingTime calls the API and returns the raw response from it.
 
-	  Retrieves average times for indexing operations for selected clusters.
+	Retrieves indexing latency metrics for selected clusters.
 
+This endpoint is intended for infrastructure-level monitoring and availability checks.
+The returned value reflects latency measured on Algolia's internal monitoring index
+and is reported in milliseconds.
+
+This metric isn't intended to represent the indexing performance of an individual
+application or index. To measure when an indexing operation has completed for your
+application, use the `waitTask` method.
 
 	Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 	  @param clusters string - Subset of clusters, separated by commas.
@@ -1066,7 +1073,15 @@ func (c *APIClient) GetIndexingTimeWithHTTPInfo(r ApiGetIndexingTimeRequest, opt
 /*
 GetIndexingTime casts the HTTP response body to a defined struct.
 
-Retrieves average times for indexing operations for selected clusters.
+Retrieves indexing latency metrics for selected clusters.
+
+This endpoint is intended for infrastructure-level monitoring and availability checks.
+The returned value reflects latency measured on Algolia's internal monitoring index
+and is reported in milliseconds.
+
+This metric isn't intended to represent the indexing performance of an individual
+application or index. To measure when an indexing operation has completed for your
+application, use the `waitTask` method.
 
 Request can be constructed by NewApiGetIndexingTimeRequest with parameters below.
 
