@@ -73,7 +73,8 @@ type BrowseResponse struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
-	Params *string `json:"params,omitempty"`
+	Params     *string             `json:"params,omitempty"`
+	Extensions *ResponseExtensions `json:"extensions,omitempty"`
 	// Cursor to get the next page of the response.  The parameter must match the value returned in the response of a previous request. The last page of the response does not return a `cursor` attribute.
 	Cursor *string `json:"cursor,omitempty"`
 }
@@ -269,6 +270,12 @@ func WithBrowseResponseQuery(val string) BrowseResponseOption {
 func WithBrowseResponseParams(val string) BrowseResponseOption {
 	return func(f *BrowseResponse) {
 		f.Params = &val
+	}
+}
+
+func WithBrowseResponseExtensions(val ResponseExtensions) BrowseResponseOption {
+	return func(f *BrowseResponse) {
+		f.Extensions = &val
 	}
 }
 
@@ -1520,6 +1527,43 @@ func (o *BrowseResponse) SetParams(v string) *BrowseResponse {
 	return o
 }
 
+// GetExtensions returns the Extensions field value if set, zero value otherwise.
+func (o *BrowseResponse) GetExtensions() ResponseExtensions {
+	if o == nil || o.Extensions == nil {
+		var ret ResponseExtensions
+
+		return ret
+	}
+
+	return *o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BrowseResponse) GetExtensionsOk() (*ResponseExtensions, bool) {
+	if o == nil || o.Extensions == nil {
+		return nil, false
+	}
+
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *BrowseResponse) HasExtensions() bool {
+	if o != nil && o.Extensions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given ResponseExtensions and assigns it to the Extensions field.
+func (o *BrowseResponse) SetExtensions(v *ResponseExtensions) *BrowseResponse {
+	o.Extensions = v
+
+	return o
+}
+
 // GetCursor returns the Cursor field value if set, zero value otherwise.
 func (o *BrowseResponse) GetCursor() string {
 	if o == nil || o.Cursor == nil {
@@ -1688,6 +1732,10 @@ func (o BrowseResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["params"] = o.Params
 	}
 
+	if o.Extensions != nil {
+		toSerialize["extensions"] = o.Extensions
+	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
@@ -1735,6 +1783,7 @@ func (o BrowseResponse) String() string {
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+	out += fmt.Sprintf("  extensions=%v\n", o.Extensions)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 
 	return fmt.Sprintf("BrowseResponse {\n%s}", out)

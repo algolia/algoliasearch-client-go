@@ -73,8 +73,9 @@ type SearchResponse struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// URL-encoded string of all search parameters.
-	Params               *string        `json:"params,omitempty"`
-	AdditionalProperties map[string]any `json:"-"`
+	Params               *string             `json:"params,omitempty"`
+	Extensions           *ResponseExtensions `json:"extensions,omitempty"`
+	AdditionalProperties map[string]any      `json:"-"`
 }
 
 type _SearchResponse SearchResponse
@@ -270,6 +271,12 @@ func WithSearchResponseQuery(val string) SearchResponseOption {
 func WithSearchResponseParams(val string) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.Params = &val
+	}
+}
+
+func WithSearchResponseExtensions(val ResponseExtensions) SearchResponseOption {
+	return func(f *SearchResponse) {
+		f.Extensions = &val
 	}
 }
 
@@ -1515,6 +1522,43 @@ func (o *SearchResponse) SetParams(v string) *SearchResponse {
 	return o
 }
 
+// GetExtensions returns the Extensions field value if set, zero value otherwise.
+func (o *SearchResponse) GetExtensions() ResponseExtensions {
+	if o == nil || o.Extensions == nil {
+		var ret ResponseExtensions
+
+		return ret
+	}
+
+	return *o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchResponse) GetExtensionsOk() (*ResponseExtensions, bool) {
+	if o == nil || o.Extensions == nil {
+		return nil, false
+	}
+
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *SearchResponse) HasExtensions() bool {
+	if o != nil && o.Extensions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given ResponseExtensions and assigns it to the Extensions field.
+func (o *SearchResponse) SetExtensions(v *ResponseExtensions) *SearchResponse {
+	o.Extensions = v
+
+	return o
+}
+
 func (o *SearchResponse) SetAdditionalProperty(key string, value any) *SearchResponse {
 	if o.AdditionalProperties == nil {
 		o.AdditionalProperties = make(map[string]any)
@@ -1656,6 +1700,10 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["params"] = o.Params
 	}
 
+	if o.Extensions != nil {
+		toSerialize["extensions"] = o.Extensions
+	}
+
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
@@ -1718,6 +1766,7 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
 	delete(additionalProperties, "hits")
 	delete(additionalProperties, "query")
 	delete(additionalProperties, "params")
+	delete(additionalProperties, "extensions")
 	o.AdditionalProperties = additionalProperties
 
 	return nil
@@ -1757,8 +1806,9 @@ func (o SearchResponse) String() string {
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 	out += fmt.Sprintf("  hits=%v\n", o.Hits)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
-
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+
+	out += fmt.Sprintf("  extensions=%v\n", o.Extensions)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}

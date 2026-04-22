@@ -140,8 +140,9 @@ type SearchForHits struct {
 	EnableReRanking      *bool                 `json:"enableReRanking,omitempty"`
 	ReRankingApplyFilter *ReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
 	// Index name (case-sensitive).
-	IndexName string             `json:"indexName"`
-	Type      *SearchTypeDefault `json:"type,omitempty"`
+	IndexName  string             `json:"indexName"`
+	Type       *SearchTypeDefault `json:"type,omitempty"`
+	Extensions *SearchExtensions  `json:"extensions,omitempty"`
 }
 
 type SearchForHitsOption func(f *SearchForHits)
@@ -593,6 +594,12 @@ func WithSearchForHitsReRankingApplyFilter(val ReRankingApplyFilter) SearchForHi
 func WithSearchForHitsType(val SearchTypeDefault) SearchForHitsOption {
 	return func(f *SearchForHits) {
 		f.Type = &val
+	}
+}
+
+func WithSearchForHitsExtensions(val SearchExtensions) SearchForHitsOption {
+	return func(f *SearchForHits) {
+		f.Extensions = &val
 	}
 }
 
@@ -3441,6 +3448,43 @@ func (o *SearchForHits) SetType(v SearchTypeDefault) *SearchForHits {
 	return o
 }
 
+// GetExtensions returns the Extensions field value if set, zero value otherwise.
+func (o *SearchForHits) GetExtensions() SearchExtensions {
+	if o == nil || o.Extensions == nil {
+		var ret SearchExtensions
+
+		return ret
+	}
+
+	return *o.Extensions
+}
+
+// GetExtensionsOk returns a tuple with the Extensions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchForHits) GetExtensionsOk() (*SearchExtensions, bool) {
+	if o == nil || o.Extensions == nil {
+		return nil, false
+	}
+
+	return o.Extensions, true
+}
+
+// HasExtensions returns a boolean if a field has been set.
+func (o *SearchForHits) HasExtensions() bool {
+	if o != nil && o.Extensions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExtensions gets a reference to the given SearchExtensions and assigns it to the Extensions field.
+func (o *SearchForHits) SetExtensions(v *SearchExtensions) *SearchForHits {
+	o.Extensions = v
+
+	return o
+}
+
 func (o SearchForHits) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Params != nil {
@@ -3744,6 +3788,10 @@ func (o SearchForHits) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 
+	if o.Extensions != nil {
+		toSerialize["extensions"] = o.Extensions
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchForHits: %w", err)
@@ -3830,6 +3878,7 @@ func (o SearchForHits) String() string {
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
+	out += fmt.Sprintf("  extensions=%v\n", o.Extensions)
 
 	return fmt.Sprintf("SearchForHits {\n%s}", out)
 }
