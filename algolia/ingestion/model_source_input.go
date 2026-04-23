@@ -10,6 +10,7 @@ import (
 
 // SourceInput - struct for SourceInput.
 type SourceInput struct {
+	SourceAlgoliaIndex      *SourceAlgoliaIndex
 	SourceBigCommerce       *SourceBigCommerce
 	SourceBigQuery          *SourceBigQuery
 	SourceCSV               *SourceCSV
@@ -59,6 +60,13 @@ func SourceBigQueryAsSourceInput(v *SourceBigQuery) *SourceInput {
 func SourceShopifyAsSourceInput(v *SourceShopify) *SourceInput {
 	return &SourceInput{
 		SourceShopify: v,
+	}
+}
+
+// SourceAlgoliaIndexAsSourceInput is a convenience function that returns SourceAlgoliaIndex wrapped in SourceInput.
+func SourceAlgoliaIndexAsSourceInput(v *SourceAlgoliaIndex) *SourceInput {
+	return &SourceInput{
+		SourceAlgoliaIndex: v,
 	}
 }
 
@@ -130,6 +138,14 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 			dst.SourceShopify = nil
 		}
 	}
+
+	if utils.HasKey(jsonDict, "indexName") {
+		// try to unmarshal data into SourceAlgoliaIndex
+		err = json.Unmarshal(data, &dst.SourceAlgoliaIndex)
+		if err != nil {
+			dst.SourceAlgoliaIndex = nil
+		}
+	}
 	// try to unmarshal data into SourceJSON
 	err = json.Unmarshal(data, &dst.SourceJSON)
 	if err != nil {
@@ -142,6 +158,10 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if at least one type was successfully unmarshaled
+	if dst.SourceAlgoliaIndex != nil {
+		return nil
+	}
+
 	if dst.SourceBigCommerce != nil {
 		return nil
 	}
@@ -179,6 +199,15 @@ func (dst *SourceInput) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src SourceInput) MarshalJSON() ([]byte, error) {
+	if src.SourceAlgoliaIndex != nil {
+		serialized, err := json.Marshal(&src.SourceAlgoliaIndex)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceAlgoliaIndex of SourceInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.SourceBigCommerce != nil {
 		serialized, err := json.Marshal(&src.SourceBigCommerce)
 		if err != nil {
@@ -256,6 +285,10 @@ func (src SourceInput) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj SourceInput) GetActualInstance() any {
+	if obj.SourceAlgoliaIndex != nil {
+		return *obj.SourceAlgoliaIndex
+	}
+
 	if obj.SourceBigCommerce != nil {
 		return *obj.SourceBigCommerce
 	}

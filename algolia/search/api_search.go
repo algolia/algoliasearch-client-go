@@ -7744,20 +7744,20 @@ func (c *APIClient) NewApiSearchRequest(searchMethodParams *SearchMethodParams) 
 /*
 Search calls the API and returns the raw response from it.
 
-	Sends multiple search requests to one or more indices.
+	Runs multiple search queries against one or more indices in a single API request.
 
-This can be useful in these cases:
+Use cases include:
 
-- Different indices for different purposes, such as, one index for products, another one for marketing content.
-- Multiple searches to the same index—for example, with different filters.
+- Searching different indices, such as products and marketing content.
+- Run multiple queries on the same index with different parameters or filters.
 
-Use the helper `searchForHits` or `searchForFacets` to get the results in a more convenient format, if you already know the return type you want.
+If you know the expected result type, use the `searchForHits` or `searchForFacets` helper to simplify the response format.
 
 	    Required API Key ACLs:
 	    - search
 
 	Request can be constructed by NewApiSearchRequest with parameters below.
-	  @param searchMethodParams SearchMethodParams - Muli-search request body. Results are returned in the same order as the requests.
+	  @param searchMethodParams SearchMethodParams - Multi-query search request body. Results are returned in the same order as the requests.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -7797,21 +7797,21 @@ func (c *APIClient) SearchWithHTTPInfo(r ApiSearchRequest, opts ...RequestOption
 /*
 Search casts the HTTP response body to a defined struct.
 
-Sends multiple search requests to one or more indices.
+Runs multiple search queries against one or more indices in a single API request.
 
-This can be useful in these cases:
+Use cases include:
 
-- Different indices for different purposes, such as, one index for products, another one for marketing content.
-- Multiple searches to the same index—for example, with different filters.
+- Searching different indices, such as products and marketing content.
+- Run multiple queries on the same index with different parameters or filters.
 
-Use the helper `searchForHits` or `searchForFacets` to get the results in a more convenient format, if you already know the return type you want.
+If you know the expected result type, use the `searchForHits` or `searchForFacets` helper to simplify the response format.
 
 Required API Key ACLs:
   - search
 
 Request can be constructed by NewApiSearchRequest with parameters below.
 
-	@param searchMethodParams SearchMethodParams - Muli-search request body. Results are returned in the same order as the requests.
+	@param searchMethodParams SearchMethodParams - Multi-query search request body. Results are returned in the same order as the requests.
 	@return SearchResponses
 */
 func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchResponses, error) {

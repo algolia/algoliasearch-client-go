@@ -14,6 +14,7 @@ type SourceUpdateInput struct {
 	SourceCSV                 *SourceCSV
 	SourceGA4BigQueryExport   *SourceGA4BigQueryExport
 	SourceJSON                *SourceJSON
+	SourceUpdateAlgoliaIndex  *SourceUpdateAlgoliaIndex
 	SourceUpdateCommercetools *SourceUpdateCommercetools
 	SourceUpdateDocker        *SourceUpdateDocker
 	SourceUpdateShopify       *SourceUpdateShopify
@@ -68,6 +69,13 @@ func SourceUpdateShopifyAsSourceUpdateInput(v *SourceUpdateShopify) *SourceUpdat
 	}
 }
 
+// SourceUpdateAlgoliaIndexAsSourceUpdateInput is a convenience function that returns SourceUpdateAlgoliaIndex wrapped in SourceUpdateInput.
+func SourceUpdateAlgoliaIndexAsSourceUpdateInput(v *SourceUpdateAlgoliaIndex) *SourceUpdateInput {
+	return &SourceUpdateInput{
+		SourceUpdateAlgoliaIndex: v,
+	}
+}
+
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	var err error
@@ -118,6 +126,11 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.SourceUpdateShopify = nil
 	}
+	// try to unmarshal data into SourceUpdateAlgoliaIndex
+	err = json.Unmarshal(data, &dst.SourceUpdateAlgoliaIndex)
+	if err != nil {
+		dst.SourceUpdateAlgoliaIndex = nil
+	}
 
 	// check if at least one type was successfully unmarshaled
 	if dst.SourceBigQuery != nil {
@@ -133,6 +146,10 @@ func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
 	}
 
 	if dst.SourceJSON != nil {
+		return nil
+	}
+
+	if dst.SourceUpdateAlgoliaIndex != nil {
 		return nil
 	}
 
@@ -189,6 +206,15 @@ func (src SourceUpdateInput) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.SourceUpdateAlgoliaIndex != nil {
+		serialized, err := json.Marshal(&src.SourceUpdateAlgoliaIndex)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of SourceUpdateAlgoliaIndex of SourceUpdateInput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.SourceUpdateCommercetools != nil {
 		serialized, err := json.Marshal(&src.SourceUpdateCommercetools)
 		if err != nil {
@@ -235,6 +261,10 @@ func (obj SourceUpdateInput) GetActualInstance() any {
 
 	if obj.SourceJSON != nil {
 		return *obj.SourceJSON
+	}
+
+	if obj.SourceUpdateAlgoliaIndex != nil {
+		return *obj.SourceUpdateAlgoliaIndex
 	}
 
 	if obj.SourceUpdateCommercetools != nil {

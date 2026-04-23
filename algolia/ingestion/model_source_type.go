@@ -11,6 +11,7 @@ type SourceType string
 
 // List of SourceType.
 const (
+	SOURCE_TYPE_ALGOLIA_INDEX       SourceType = "algoliaIndex"
 	SOURCE_TYPE_BIGCOMMERCE         SourceType = "bigcommerce"
 	SOURCE_TYPE_BIGQUERY            SourceType = "bigquery"
 	SOURCE_TYPE_COMMERCETOOLS       SourceType = "commercetools"
@@ -24,6 +25,7 @@ const (
 
 // All allowed values of SourceType enum.
 var AllowedSourceTypeEnumValues = []SourceType{
+	"algoliaIndex",
 	"bigcommerce",
 	"bigquery",
 	"commercetools",
