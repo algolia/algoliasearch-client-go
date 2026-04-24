@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// ExternalInjectedItem struct for ExternalInjectedItem.
+// ExternalInjectedItem Contains a list of objects to inject from an external source.
 type ExternalInjectedItem struct {
 	Items []ExternalInjection `json:"items"`
 }

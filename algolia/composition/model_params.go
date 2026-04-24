@@ -39,7 +39,7 @@ type Params struct {
 	GetRankingInfo *bool `json:"getRankingInfo,omitempty"`
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
-	// A list of extenrally injected objectID groups into from an external source.
+	// An object containing keys corresponding to the `key`s from an injection's `injectedItems` and values containing a list of hits to inject.
 	InjectedItems     *map[string]ExternalInjectedItem  `json:"injectedItems,omitempty"`
 	InsideBoundingBox utils.Nullable[InsideBoundingBox] `json:"insideBoundingBox,omitempty"`
 	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
