@@ -9408,15 +9408,15 @@ func (c *APIClient) ChunkedPush(
 		batchSize:    1000,
 	}
 
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
 	offset := 0
 
 	waitBatchSize := conf.batchSize / 10
 	if waitBatchSize < 1 {
 		waitBatchSize = conf.batchSize
-	}
-
-	for _, opt := range opts {
-		opt.apply(&conf)
 	}
 
 	records := make([]map[string]any, 0, len(objects)%conf.batchSize)
@@ -9462,7 +9462,7 @@ func (c *APIClient) ChunkedPush(
 			var waitableResponses []WatchResponse
 
 			if len(responses) > offset+waitBatchSize {
-				waitableResponses = responses[offset:waitBatchSize]
+				waitableResponses = responses[offset : offset+waitBatchSize]
 			} else {
 				waitableResponses = responses[offset:]
 			}
@@ -9484,7 +9484,7 @@ func (c *APIClient) ChunkedPush(
 
 						return true, err
 					},
-					WithTimeout(func(count int) time.Duration { return time.Duration(min(500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
+					WithTimeout(func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
 				)
 				if err != nil {
 					return nil, err
