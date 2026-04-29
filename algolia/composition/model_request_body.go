@@ -9,6 +9,8 @@ import (
 // RequestBody struct for RequestBody.
 type RequestBody struct {
 	Params *Params `json:"params,omitempty"`
+	// A list of Feed IDs that specifies the order in which to order the results in the response.  The IDs should be a subset of those in the `feeds` object of the targeted `multifeed` Composition / Composition Rule, and only those specified will be processed.   The value overrides the value in the defined behavior, and when unspecified, the value defined in the behavior is used. When neither value is present, all feeds are processed.
+	FeedsOrder []string `json:"feedsOrder,omitempty"`
 }
 
 type RequestBodyOption func(f *RequestBody)
@@ -16,6 +18,12 @@ type RequestBodyOption func(f *RequestBody)
 func WithRequestBodyParams(val Params) RequestBodyOption {
 	return func(f *RequestBody) {
 		f.Params = &val
+	}
+}
+
+func WithRequestBodyFeedsOrder(val []string) RequestBodyOption {
+	return func(f *RequestBody) {
+		f.FeedsOrder = val
 	}
 }
 
@@ -74,10 +82,51 @@ func (o *RequestBody) SetParams(v *Params) *RequestBody {
 	return o
 }
 
+// GetFeedsOrder returns the FeedsOrder field value if set, zero value otherwise.
+func (o *RequestBody) GetFeedsOrder() []string {
+	if o == nil || o.FeedsOrder == nil {
+		var ret []string
+
+		return ret
+	}
+
+	return o.FeedsOrder
+}
+
+// GetFeedsOrderOk returns a tuple with the FeedsOrder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestBody) GetFeedsOrderOk() ([]string, bool) {
+	if o == nil || o.FeedsOrder == nil {
+		return nil, false
+	}
+
+	return o.FeedsOrder, true
+}
+
+// HasFeedsOrder returns a boolean if a field has been set.
+func (o *RequestBody) HasFeedsOrder() bool {
+	if o != nil && o.FeedsOrder != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeedsOrder gets a reference to the given []string and assigns it to the FeedsOrder field.
+func (o *RequestBody) SetFeedsOrder(v []string) *RequestBody {
+	o.FeedsOrder = v
+
+	return o
+}
+
 func (o RequestBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
+	}
+
+	if o.FeedsOrder != nil {
+		toSerialize["feedsOrder"] = o.FeedsOrder
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -91,6 +140,7 @@ func (o RequestBody) MarshalJSON() ([]byte, error) {
 func (o RequestBody) String() string {
 	out := ""
 	out += fmt.Sprintf("  params=%v\n", o.Params)
+	out += fmt.Sprintf("  feedsOrder=%v\n", o.FeedsOrder)
 
 	return fmt.Sprintf("RequestBody {\n%s}", out)
 }
