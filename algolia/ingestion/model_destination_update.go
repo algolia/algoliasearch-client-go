@@ -8,10 +8,9 @@ import (
 
 // DestinationUpdate API request body for updating a destination.
 type DestinationUpdate struct {
-	Type *DestinationType `json:"type,omitempty"`
 	// Descriptive name for the resource.
-	Name  *string           `json:"name,omitempty"`
-	Input *DestinationInput `json:"input,omitempty"`
+	Name  *string                 `json:"name,omitempty"`
+	Input *DestinationUpdateInput `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
 	AuthenticationID  *string  `json:"authenticationID,omitempty"`
 	TransformationIDs []string `json:"transformationIDs,omitempty"`
@@ -19,19 +18,13 @@ type DestinationUpdate struct {
 
 type DestinationUpdateOption func(f *DestinationUpdate)
 
-func WithDestinationUpdateType(val DestinationType) DestinationUpdateOption {
-	return func(f *DestinationUpdate) {
-		f.Type = &val
-	}
-}
-
 func WithDestinationUpdateName(val string) DestinationUpdateOption {
 	return func(f *DestinationUpdate) {
 		f.Name = &val
 	}
 }
 
-func WithDestinationUpdateInput(val DestinationInput) DestinationUpdateOption {
+func WithDestinationUpdateInput(val DestinationUpdateInput) DestinationUpdateOption {
 	return func(f *DestinationUpdate) {
 		f.Input = &val
 	}
@@ -65,43 +58,6 @@ func NewDestinationUpdate(opts ...DestinationUpdateOption) *DestinationUpdate {
 // NewEmptyDestinationUpdate return a pointer to an empty DestinationUpdate object.
 func NewEmptyDestinationUpdate() *DestinationUpdate {
 	return &DestinationUpdate{}
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *DestinationUpdate) GetType() DestinationType {
-	if o == nil || o.Type == nil {
-		var ret DestinationType
-
-		return ret
-	}
-
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DestinationUpdate) GetTypeOk() (*DestinationType, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *DestinationUpdate) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given DestinationType and assigns it to the Type field.
-func (o *DestinationUpdate) SetType(v DestinationType) *DestinationUpdate {
-	o.Type = &v
-
-	return o
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -142,9 +98,9 @@ func (o *DestinationUpdate) SetName(v string) *DestinationUpdate {
 }
 
 // GetInput returns the Input field value if set, zero value otherwise.
-func (o *DestinationUpdate) GetInput() DestinationInput {
+func (o *DestinationUpdate) GetInput() DestinationUpdateInput {
 	if o == nil || o.Input == nil {
-		var ret DestinationInput
+		var ret DestinationUpdateInput
 
 		return ret
 	}
@@ -154,7 +110,7 @@ func (o *DestinationUpdate) GetInput() DestinationInput {
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DestinationUpdate) GetInputOk() (*DestinationInput, bool) {
+func (o *DestinationUpdate) GetInputOk() (*DestinationUpdateInput, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
@@ -171,8 +127,8 @@ func (o *DestinationUpdate) HasInput() bool {
 	return false
 }
 
-// SetInput gets a reference to the given DestinationInput and assigns it to the Input field.
-func (o *DestinationUpdate) SetInput(v *DestinationInput) *DestinationUpdate {
+// SetInput gets a reference to the given DestinationUpdateInput and assigns it to the Input field.
+func (o *DestinationUpdate) SetInput(v *DestinationUpdateInput) *DestinationUpdate {
 	o.Input = v
 
 	return o
@@ -254,10 +210,6 @@ func (o *DestinationUpdate) SetTransformationIDs(v []string) *DestinationUpdate 
 
 func (o DestinationUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
@@ -284,7 +236,6 @@ func (o DestinationUpdate) MarshalJSON() ([]byte, error) {
 
 func (o DestinationUpdate) String() string {
 	out := ""
-	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
