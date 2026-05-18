@@ -9318,9 +9318,29 @@ func (r requestOption) iterable() {}
 
 func (i iterableOption) iterable() {}
 
-// WithMaxRetries the maximum number of retry. Default to 50.
-func WithMaxRetries(maxRetries int) iterableOption {
-	return iterableOption(func(c *config) {
+// --------- Chunked helper options ---------
+//
+// chunkedHelperOption is the shared option type for chunked helpers
+// (ChunkedBatch, SaveObjects, ...) and the polling layer (WaitForTask, CreateIterable).
+
+type chunkedHelperOption func(*config)
+
+var (
+	_ ChunkedBatchOption = (*chunkedHelperOption)(nil)
+	_ IterableOption     = (*chunkedHelperOption)(nil)
+)
+
+func (c chunkedHelperOption) apply(conf *config) {
+	c(conf)
+}
+
+func (c chunkedHelperOption) chunkedBatch() {}
+
+func (c chunkedHelperOption) iterable() {}
+
+// WithMaxRetries the maximum number of retries when polling for task completion. Defaults to 100 in chunked helpers.
+func WithMaxRetries(maxRetries int) chunkedHelperOption {
+	return chunkedHelperOption(func(c *config) {
 		c.maxRetries = maxRetries
 	})
 }
@@ -9371,7 +9391,12 @@ func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T
 		}
 
 		if conf.maxRetries >= 0 && retryCount >= conf.maxRetries {
-			return nil, errs.NewWaitError(fmt.Sprintf("The maximum number of retries exceeded. (%d/%d)", retryCount, conf.maxRetries))
+			return nil, errs.NewWaitError(
+				fmt.Sprintf(
+					"Stopped waiting for the task after %d retries. This does not mean the operation failed; it may still complete. If you need to keep polling, retry with a higher maxRetries.",
+					conf.maxRetries,
+				),
+			)
 		}
 
 		time.Sleep(conf.timeout(retryCount))
@@ -9406,6 +9431,7 @@ func (c *APIClient) ChunkedPush(
 		headerParams: map[string]string{},
 		waitForTasks: false,
 		batchSize:    1000,
+		maxRetries:   100,
 	}
 
 	for _, opt := range opts {
@@ -9484,7 +9510,10 @@ func (c *APIClient) ChunkedPush(
 
 						return true, err
 					},
-					WithTimeout(func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond }), WithMaxRetries(50),
+					WithTimeout(
+						func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond },
+					),
+					WithMaxRetries(conf.maxRetries),
 				)
 				if err != nil {
 					return nil, err

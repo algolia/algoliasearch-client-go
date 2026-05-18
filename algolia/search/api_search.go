@@ -143,6 +143,7 @@ type partialUpdateObjectsOption func(*config)
 var (
 	_ PartialUpdateObjectsOption = (*partialUpdateObjectsOption)(nil)
 	_ PartialUpdateObjectsOption = (*chunkedBatchOption)(nil)
+	_ PartialUpdateObjectsOption = (*chunkedHelperOption)(nil)
 	_ PartialUpdateObjectsOption = (*requestOption)(nil)
 )
 
@@ -155,6 +156,8 @@ func (p partialUpdateObjectsOption) partialUpdateObjects() {}
 func (p partialUpdateObjectsOption) chunkedBatch() {}
 
 func (c chunkedBatchOption) partialUpdateObjects() {}
+
+func (c chunkedHelperOption) partialUpdateObjects() {}
 
 func (r requestOption) partialUpdateObjects() {}
 
@@ -177,6 +180,7 @@ type replaceAllObjectsOption func(*config)
 var (
 	_ ReplaceAllObjectsOption = (*replaceAllObjectsOption)(nil)
 	_ ReplaceAllObjectsOption = (*chunkedBatchOption)(nil)
+	_ ReplaceAllObjectsOption = (*chunkedHelperOption)(nil)
 	_ ReplaceAllObjectsOption = (*requestOption)(nil)
 )
 
@@ -189,6 +193,8 @@ func (p replaceAllObjectsOption) replaceAllObjects() {}
 func (p replaceAllObjectsOption) chunkedBatch() {}
 
 func (c chunkedBatchOption) replaceAllObjects() {}
+
+func (c chunkedHelperOption) replaceAllObjects() {}
 
 func (r requestOption) replaceAllObjects() {}
 
@@ -211,6 +217,7 @@ type waitForApiKeyOption func(*config)
 var (
 	_ WaitForApiKeyOption = (*waitForApiKeyOption)(nil)
 	_ WaitForApiKeyOption = (*iterableOption)(nil)
+	_ WaitForApiKeyOption = (*chunkedHelperOption)(nil)
 	_ WaitForApiKeyOption = (*requestOption)(nil)
 )
 
@@ -225,6 +232,8 @@ func (w waitForApiKeyOption) iterable() {}
 func (r requestOption) waitForApiKey() {}
 
 func (i iterableOption) waitForApiKey() {}
+
+func (c chunkedHelperOption) waitForApiKey() {}
 
 // WithApiKey necessary to know if an `update` operation has been processed, compare fields of the response with it. (optional - mandatory if operation is UPDATE).
 func WithApiKey(apiKey *ApiKey) waitForApiKeyOption {
@@ -257,6 +266,10 @@ func toIngestionChunkedBatchOptions(opts []ChunkedBatchOption) []ingestion.Chunk
 
 	if conf.batchSize > 0 {
 		ingestionOpts = append(ingestionOpts, ingestion.WithBatchSize(conf.batchSize))
+	}
+
+	if conf.maxRetries > 0 {
+		ingestionOpts = append(ingestionOpts, ingestion.WithMaxRetries(conf.maxRetries))
 	}
 
 	ingestionOpts = append(ingestionOpts, ingestion.WithWaitForTasks(conf.waitForTasks))
@@ -9222,9 +9235,29 @@ func (r requestOption) iterable() {}
 
 func (i iterableOption) iterable() {}
 
-// WithMaxRetries the maximum number of retry. Default to 50.
-func WithMaxRetries(maxRetries int) iterableOption {
-	return iterableOption(func(c *config) {
+// --------- Chunked helper options ---------
+//
+// chunkedHelperOption is the shared option type for chunked helpers
+// (ChunkedBatch, SaveObjects, ...) and the polling layer (WaitForTask, CreateIterable).
+
+type chunkedHelperOption func(*config)
+
+var (
+	_ ChunkedBatchOption = (*chunkedHelperOption)(nil)
+	_ IterableOption     = (*chunkedHelperOption)(nil)
+)
+
+func (c chunkedHelperOption) apply(conf *config) {
+	c(conf)
+}
+
+func (c chunkedHelperOption) chunkedBatch() {}
+
+func (c chunkedHelperOption) iterable() {}
+
+// WithMaxRetries the maximum number of retries when polling for task completion. Defaults to 100 in chunked helpers.
+func WithMaxRetries(maxRetries int) chunkedHelperOption {
+	return chunkedHelperOption(func(c *config) {
 		c.maxRetries = maxRetries
 	})
 }
@@ -9275,7 +9308,12 @@ func CreateIterable[T any](execute func(*T, error) (*T, error), validate func(*T
 		}
 
 		if conf.maxRetries >= 0 && retryCount >= conf.maxRetries {
-			return nil, errs.NewWaitError(fmt.Sprintf("The maximum number of retries exceeded. (%d/%d)", retryCount, conf.maxRetries))
+			return nil, errs.NewWaitError(
+				fmt.Sprintf(
+					"Stopped waiting for the task after %d retries. This does not mean the operation failed; it may still complete. If you need to keep polling, retry with a higher maxRetries.",
+					conf.maxRetries,
+				),
+			)
 		}
 
 		time.Sleep(conf.timeout(retryCount))
@@ -9357,7 +9395,7 @@ func (c *APIClient) WaitForTask(
 	// provide a default timeout function
 	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
-	}), WithMaxRetries(50)}, opts...)
+	}), WithMaxRetries(100)}, opts...)
 
 	return CreateIterable(
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
@@ -9391,7 +9429,7 @@ func (c *APIClient) WaitForAppTask(
 	// provide a default timeout function
 	opts = append([]IterableOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
-	}), WithMaxRetries(50)}, opts...)
+	}), WithMaxRetries(100)}, opts...)
 
 	return CreateIterable(
 		func(*GetTaskResponse, error) (*GetTaskResponse, error) {
@@ -9524,7 +9562,7 @@ func (c *APIClient) WaitForApiKey(
 	// provide a default timeout function
 	opts = append([]WaitForApiKeyOption{WithTimeout(func(count int) time.Duration {
 		return time.Duration(min(200*count, 5000)) * time.Millisecond
-	}), WithMaxRetries(50)}, opts...)
+	}), WithMaxRetries(100)}, opts...)
 
 	return CreateIterable(
 		func(*GetApiKeyResponse, error) (*GetApiKeyResponse, error) {
