@@ -31,7 +31,7 @@ type APIClient struct {
 
 // NewClient creates a new API client with appID and apiKey.
 func NewClient(appID, apiKey string) (*APIClient, error) {
-	return NewClientWithConfig(RecommendConfiguration{
+	cfg := RecommendConfiguration{
 		Configuration: transport.Configuration{
 			AppID:         appID,
 			ApiKey:        apiKey,
@@ -39,7 +39,9 @@ func NewClient(appID, apiKey string) (*APIClient, error) {
 			UserAgent:     getUserAgent(),
 			Requester:     transport.NewDefaultRequester(nil),
 		},
-	})
+	}
+
+	return NewClientWithConfig(cfg)
 }
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.

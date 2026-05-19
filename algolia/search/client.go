@@ -32,8 +32,8 @@ type APIClient struct {
 }
 
 // NewClient creates a new API client with appID and apiKey.
-func NewClient(appID, apiKey string) (*APIClient, error) {
-	return NewClientWithConfig(SearchConfiguration{
+func NewClient(appID, apiKey string, opts ...ClientOption) (*APIClient, error) {
+	cfg := SearchConfiguration{
 		Configuration: transport.Configuration{
 			AppID:         appID,
 			ApiKey:        apiKey,
@@ -41,7 +41,12 @@ func NewClient(appID, apiKey string) (*APIClient, error) {
 			UserAgent:     getUserAgent(),
 			Requester:     transport.NewDefaultRequester(nil),
 		},
-	})
+	}
+	for _, opt := range opts {
+		opt(&cfg)
+	}
+
+	return NewClientWithConfig(cfg)
 }
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.
@@ -82,25 +87,11 @@ func NewClientWithConfig(cfg SearchConfiguration) (*APIClient, error) {
 		),
 	}
 
-	if cfg.Transformation != nil && cfg.Transformation.Region != "" {
-		ingestionConfig := ingestion.IngestionConfiguration{
-			Configuration: transport.Configuration{
-				AppID:  cfg.AppID,
-				ApiKey: cfg.ApiKey,
-			},
-			Region: cfg.Transformation.Region,
-		}
-
-		if len(cfg.Hosts) > 0 {
-			ingestionConfig.Hosts = cfg.Hosts
-		}
-
-		ingestionClient, err := ingestion.NewClientWithConfig(ingestionConfig)
+	if cfg.TransformationOptions != nil {
+		err := apiClient.SetTransformationOptions(*cfg.TransformationOptions)
 		if err != nil {
-			return nil, err //nolint:wrapcheck
+			return nil, err
 		}
-
-		apiClient.ingestionTransporter = ingestionClient
 	}
 
 	return &apiClient, nil
@@ -145,6 +136,57 @@ func (c *APIClient) SetClientApiKey(apiKey string) error {
 	}
 
 	c.cfg.ApiKey = apiKey
+
+	return nil
+}
+
+// SetTransformationOptions sets (or replaces) the ingestion transporter used by *WithTransformation helpers.
+// The transporter uses Ingestion API defaults (25s timeouts); only fields set in opts override those defaults.
+// See https://www.algolia.com/doc/libraries/sdk/methods/ingestion
+func (c *APIClient) SetTransformationOptions(opts TransformationOptions) error {
+	err := opts.validate()
+	if err != nil {
+		return err
+	}
+
+	ingestionConfig := ingestion.IngestionConfiguration{
+		Configuration: transport.Configuration{
+			AppID:  c.cfg.AppID,
+			ApiKey: c.cfg.ApiKey,
+		},
+		Region: opts.Region,
+	}
+	if opts.ReadTimeout != 0 {
+		ingestionConfig.ReadTimeout = opts.ReadTimeout
+	}
+
+	if opts.WriteTimeout != 0 {
+		ingestionConfig.WriteTimeout = opts.WriteTimeout
+	}
+
+	if opts.ConnectTimeout != 0 {
+		ingestionConfig.ConnectTimeout = opts.ConnectTimeout
+	}
+
+	if opts.Compression != 0 {
+		ingestionConfig.Compression = opts.Compression
+	}
+
+	if len(opts.Hosts) > 0 {
+		ingestionConfig.Hosts = opts.Hosts
+	}
+
+	if opts.DefaultHeader != nil {
+		ingestionConfig.DefaultHeader = opts.DefaultHeader
+	}
+
+	ingestionClient, err := ingestion.NewClientWithConfig(ingestionConfig)
+	if err != nil {
+		return err //nolint:wrapcheck
+	}
+
+	c.ingestionTransporter = ingestionClient
+	c.cfg.TransformationOptions = &opts
 
 	return nil
 }

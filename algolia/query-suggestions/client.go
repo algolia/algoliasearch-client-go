@@ -32,7 +32,7 @@ type APIClient struct {
 
 // NewClient creates a new API client with appID, apiKey and region.
 func NewClient(appID, apiKey string, region Region) (*APIClient, error) {
-	return NewClientWithConfig(QuerySuggestionsConfiguration{
+	cfg := QuerySuggestionsConfiguration{
 		Configuration: transport.Configuration{
 			AppID:         appID,
 			ApiKey:        apiKey,
@@ -41,7 +41,9 @@ func NewClient(appID, apiKey string, region Region) (*APIClient, error) {
 			Requester:     transport.NewDefaultRequester(nil),
 		},
 		Region: region,
-	})
+	}
+
+	return NewClientWithConfig(cfg)
 }
 
 // NewClientWithConfig creates a new API client with the given configuration to fully customize the client behaviour.

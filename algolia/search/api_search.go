@@ -9931,7 +9931,7 @@ func (c *APIClient) ChunkedBatch(indexName string, objects []map[string]any, act
 }
 
 /*
-ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must have been passed to the client instantiation method.
+ReplaceAllObjectsWithTransformation is similar to the `replaceAllObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. TransformationOptions must have been passed to the client constructor or set via SetTransformationOptions.
 See https://api-clients-automation.netlify.app/docs/custom-helpers/#replaceallobjects for implementation details.
 
 	@param indexName string - the index name to replace objects into.
@@ -9946,7 +9946,9 @@ func (c *APIClient) ReplaceAllObjectsWithTransformation(
 	opts ...ReplaceAllObjectsOption,
 ) (*ReplaceAllObjectsWithTransformationResponse, error) {
 	if c.ingestionTransporter == nil {
-		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
+		return nil, reportError(
+			"TransformationOptions must be set in the client config before calling this method. It defaults to the Ingestion API defaults. See https://www.algolia.com/doc/libraries/sdk/methods/ingestion",
+		)
 	}
 
 	tmpIndexName := fmt.Sprintf("%s_tmp_%d", indexName, time.Now().UnixNano())
@@ -10157,7 +10159,7 @@ func (c *APIClient) IndexExists(indexName string) (bool, error) {
 }
 
 /*
-Helper: Similar to the `SaveObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must've been passed to the client's config at instantiation.
+Helper: Similar to the `SaveObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. TransformationOptions must have been passed to the client constructor or set via SetTransformationOptions.
 
 	@param indexName string - the index name to save objects into.
 	@param objects []map[string]any - List of objects to save.
@@ -10171,7 +10173,9 @@ func (c *APIClient) SaveObjectsWithTransformation(
 	opts ...ChunkedBatchOption,
 ) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
-		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
+		return nil, reportError(
+			"TransformationOptions must be set in the client config before calling this method. It defaults to the Ingestion API defaults. See https://www.algolia.com/doc/libraries/sdk/methods/ingestion",
+		)
 	}
 
 	return c.ingestionTransporter.ChunkedPush(
@@ -10183,7 +10187,7 @@ func (c *APIClient) SaveObjectsWithTransformation(
 }
 
 /*
-Helper: Similar to the `PartialUpdateObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. The `region` must've been passed to the client instantiation method.
+Helper: Similar to the `PartialUpdateObjects` method but requires a Push connector (https://www.algolia.com/doc/guides/sending-and-managing-data/send-and-update-your-data/connectors/push/) to be created first, in order to transform records before indexing them to Algolia. TransformationOptions must have been passed to the client constructor or set via SetTransformationOptions.
 
 	@param indexName string - the index name to save objects into.
 	@param objects []map[string]any - List of objects to save.
@@ -10197,7 +10201,9 @@ func (c *APIClient) PartialUpdateObjectsWithTransformation(
 	opts ...PartialUpdateObjectsOption,
 ) ([]ingestion.WatchResponse, error) {
 	if c.ingestionTransporter == nil {
-		return nil, reportError("`region` must be provided at client instantiation before calling this method.")
+		return nil, reportError(
+			"TransformationOptions must be set in the client config before calling this method. It defaults to the Ingestion API defaults. See https://www.algolia.com/doc/libraries/sdk/methods/ingestion",
+		)
 	}
 
 	conf := config{
