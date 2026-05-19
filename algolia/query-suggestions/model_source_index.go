@@ -11,15 +11,19 @@ type SourceIndex struct {
 	// Name of the Algolia index (case-sensitive) to use as source for query suggestions.
 	IndexName string `json:"indexName"`
 	// If true, Query Suggestions uses all replica indices to find popular searches. If false, only the primary index is used.
-	Replicas      *bool    `json:"replicas,omitempty"`
+	Replicas *bool `json:"replicas,omitempty"`
+	// Analytics tags for filtering the popular searches. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
-	Facets        []Facet  `json:"facets,omitempty"`
+	// Facets to use as top categories with your suggestions.  If provided, Query Suggestions adds the top facet values to each suggestion.
+	Facets []Facet `json:"facets,omitempty"`
 	// Minimum number of hits required to be included as a suggestion.  A search query must at least generate `minHits` search results to be included in the Query Suggestions index.
 	MinHits *int32 `json:"minHits,omitempty"`
 	// Minimum letters required to be included as a suggestion.  A search query must be at least `minLetters` long to be included in the Query Suggestions index.
-	MinLetters *int32     `json:"minLetters,omitempty"`
-	Generate   [][]string `json:"generate,omitempty"`
-	External   []string   `json:"external,omitempty"`
+	MinLetters *int32 `json:"minLetters,omitempty"`
+	// Facets used for generating query suggestions from facet values.  For example, if you set `generate: [\"color\", \"brand\"]`, combinations from the facet values are added as query suggestions, such as \"blue adidas\", \"red adidas\", \"blue nike\", \"red nike\", etc.  You can include nested lists.
+	Generate [][]string `json:"generate,omitempty"`
+	// Algolia indices with popular searches to use as query suggestions.  Records of these indices must have these attributes:  - `query`: search query which will be added as a suggestion - `count`: measure of popularity of that search query  For example, you can export popular searches from an external analytics provider, such as Google Analytics or Adobe Analytics, and feed this data into an Algolia index. You can use this index to generate query suggestions until your Algolia Analytics has collected enough data.
+	External []string `json:"external,omitempty"`
 }
 
 type SourceIndexOption func(f *SourceIndex)

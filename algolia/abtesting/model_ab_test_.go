@@ -11,12 +11,17 @@ import (
 // ABTest struct for ABTest.
 type ABTest struct {
 	// Unique A/B test identifier.
-	AbTestID               int32                   `json:"abTestID"`
-	ClickSignificance      utils.Nullable[float64] `json:"clickSignificance,omitempty"`
+	AbTestID int32 `json:"abTestID"`
+	// A/B test significance calculated from click events.  Values of 0.95 or higher can be considered significant, that is, the difference between A and B variants is _not_ due to random variations. Lower values have a.
+	ClickSignificance utils.Nullable[float64] `json:"clickSignificance,omitempty"`
+	// A/B test significance calculated from conversion events.  Values of 0.95 or higher can be considered significant, that is, the difference between A and B variants is _not_ due to random variations.
 	ConversionSignificance utils.Nullable[float64] `json:"conversionSignificance,omitempty"`
-	AddToCartSignificance  utils.Nullable[float64] `json:"addToCartSignificance,omitempty"`
-	PurchaseSignificance   utils.Nullable[float64] `json:"purchaseSignificance,omitempty"`
-	RevenueSignificance    map[string]float64      `json:"revenueSignificance,omitempty"`
+	// A/B test significance calculated from add-to-cart events.  Values of 0.95 or higher can be considered significant, that is, the difference between A and B variants is _not_ due to random variations.
+	AddToCartSignificance utils.Nullable[float64] `json:"addToCartSignificance,omitempty"`
+	// A/B test significance calculated from purchase events.  Values of 0.95 or higher can be considered significant, that is, the difference between A and B variants is _not_ due to random variations.
+	PurchaseSignificance utils.Nullable[float64] `json:"purchaseSignificance,omitempty"`
+	// A/B test significance calculated from revenue data.  Values of 0.95 or higher can be considered significant, that is, the difference between A and B variants is _not_ due to random variations.
+	RevenueSignificance map[string]float64 `json:"revenueSignificance,omitempty"`
 	// Date and time when the A/B test was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 	// Date and time when the A/B test was created, in RFC 3339 format.

@@ -11,7 +11,8 @@ type ConfigurationWithIndex struct {
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`
 	Languages     *Languages    `json:"languages,omitempty"`
-	Exclude       []string      `json:"exclude,omitempty"`
+	// Words or regular expressions to exclude from the suggestions.
+	Exclude []string `json:"exclude,omitempty"`
 	// Whether to turn on personalized query suggestions.
 	EnablePersonalization *bool `json:"enablePersonalization,omitempty"`
 	// Whether to include suggestions with special characters.

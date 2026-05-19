@@ -165,8 +165,8 @@ type RecommendSearchParams struct {
 	AttributeCriteriaComputedByMinProximity *bool             `json:"attributeCriteriaComputedByMinProximity,omitempty"`
 	RenderingContent                        *RenderingContent `json:"renderingContent,omitempty"`
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
-	EnableReRanking      *bool                 `json:"enableReRanking,omitempty"`
-	ReRankingApplyFilter *ReRankingApplyFilter `json:"reRankingApplyFilter,omitempty"`
+	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
+	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
 }
 
 type RecommendSearchParamsOption func(f *RecommendSearchParams)
@@ -687,9 +687,9 @@ func WithRecommendSearchParamsEnableReRanking(val bool) RecommendSearchParamsOpt
 	}
 }
 
-func WithRecommendSearchParamsReRankingApplyFilter(val ReRankingApplyFilter) RecommendSearchParamsOption {
+func WithRecommendSearchParamsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
-		f.ReRankingApplyFilter = &val
+		f.ReRankingApplyFilter = val
 	}
 }
 
@@ -3916,41 +3916,52 @@ func (o *RecommendSearchParams) SetEnableReRanking(v bool) *RecommendSearchParam
 	return o
 }
 
-// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise.
+// GetReRankingApplyFilter returns the ReRankingApplyFilter field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RecommendSearchParams) GetReRankingApplyFilter() ReRankingApplyFilter {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil || o.ReRankingApplyFilter.Get() == nil {
 		var ret ReRankingApplyFilter
 
 		return ret
 	}
 
-	return *o.ReRankingApplyFilter
+	return *o.ReRankingApplyFilter.Get()
 }
 
 // GetReRankingApplyFilterOk returns a tuple with the ReRankingApplyFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *RecommendSearchParams) GetReRankingApplyFilterOk() (*ReRankingApplyFilter, bool) {
-	if o == nil || o.ReRankingApplyFilter == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.ReRankingApplyFilter, true
+	return o.ReRankingApplyFilter.Get(), o.ReRankingApplyFilter.IsSet()
 }
 
 // HasReRankingApplyFilter returns a boolean if a field has been set.
 func (o *RecommendSearchParams) HasReRankingApplyFilter() bool {
-	if o != nil && o.ReRankingApplyFilter != nil {
+	if o != nil && o.ReRankingApplyFilter.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetReRankingApplyFilter gets a reference to the given ReRankingApplyFilter and assigns it to the ReRankingApplyFilter field.
+// SetReRankingApplyFilter gets a reference to the given utils.Nullable[ReRankingApplyFilter] and assigns it to the ReRankingApplyFilter field.
 func (o *RecommendSearchParams) SetReRankingApplyFilter(v *ReRankingApplyFilter) *RecommendSearchParams {
-	o.ReRankingApplyFilter = v
+	o.ReRankingApplyFilter.Set(v)
 
 	return o
+}
+
+// SetReRankingApplyFilterNil sets the value for ReRankingApplyFilter to be an explicit nil.
+func (o *RecommendSearchParams) SetReRankingApplyFilterNil() {
+	o.ReRankingApplyFilter.Set(nil)
+}
+
+// UnsetReRankingApplyFilter ensures that no value is present for ReRankingApplyFilter, not even an explicit nil.
+func (o *RecommendSearchParams) UnsetReRankingApplyFilter() {
+	o.ReRankingApplyFilter.Unset()
 }
 
 func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
@@ -4299,8 +4310,8 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 		toSerialize["enableReRanking"] = o.EnableReRanking
 	}
 
-	if o.ReRankingApplyFilter != nil {
-		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter
+	if o.ReRankingApplyFilter.IsSet() {
+		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)
