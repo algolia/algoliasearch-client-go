@@ -10,8 +10,6 @@ import (
 type FetchedIndexAbTest struct {
 	// A/B test ID.
 	Id int32 `json:"id"`
-	// Whether the A/B test is a dark test (server-side measured, not user-facing). Only present when true.
-	IsDark *bool `json:"isDark,omitempty"`
 	// A/B test schema version. Only present for v2 and later tests.
 	Version *int32 `json:"version,omitempty"`
 	// A/B test type. Only present for v2 and later tests. Currently always `index-configuration`.
@@ -22,12 +20,6 @@ type FetchedIndexAbTest struct {
 }
 
 type FetchedIndexAbTestOption func(f *FetchedIndexAbTest)
-
-func WithFetchedIndexAbTestIsDark(val bool) FetchedIndexAbTestOption {
-	return func(f *FetchedIndexAbTest) {
-		f.IsDark = &val
-	}
-}
 
 func WithFetchedIndexAbTestVersion(val int32) FetchedIndexAbTestOption {
 	return func(f *FetchedIndexAbTest) {
@@ -92,43 +84,6 @@ func (o *FetchedIndexAbTest) GetIdOk() (*int32, bool) {
 // SetId sets field value.
 func (o *FetchedIndexAbTest) SetId(v int32) *FetchedIndexAbTest {
 	o.Id = v
-
-	return o
-}
-
-// GetIsDark returns the IsDark field value if set, zero value otherwise.
-func (o *FetchedIndexAbTest) GetIsDark() bool {
-	if o == nil || o.IsDark == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.IsDark
-}
-
-// GetIsDarkOk returns a tuple with the IsDark field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FetchedIndexAbTest) GetIsDarkOk() (*bool, bool) {
-	if o == nil || o.IsDark == nil {
-		return nil, false
-	}
-
-	return o.IsDark, true
-}
-
-// HasIsDark returns a boolean if a field has been set.
-func (o *FetchedIndexAbTest) HasIsDark() bool {
-	if o != nil && o.IsDark != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIsDark gets a reference to the given bool and assigns it to the IsDark field.
-func (o *FetchedIndexAbTest) SetIsDark(v bool) *FetchedIndexAbTest {
-	o.IsDark = &v
 
 	return o
 }
@@ -276,10 +231,6 @@ func (o FetchedIndexAbTest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
 	toSerialize["id"] = o.Id
-	if o.IsDark != nil {
-		toSerialize["isDark"] = o.IsDark
-	}
-
 	if o.Version != nil {
 		toSerialize["version"] = o.Version
 	}
@@ -305,7 +256,6 @@ func (o FetchedIndexAbTest) MarshalJSON() ([]byte, error) {
 func (o FetchedIndexAbTest) String() string {
 	out := ""
 	out += fmt.Sprintf("  id=%v\n", o.Id)
-	out += fmt.Sprintf("  isDark=%v\n", o.IsDark)
 	out += fmt.Sprintf("  version=%v\n", o.Version)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  target=%v\n", o.Target)
