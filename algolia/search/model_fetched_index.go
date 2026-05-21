@@ -31,7 +31,10 @@ type FetchedIndex struct {
 	// Only present if the index is a primary index with replicas. Contains the names of all linked replicas.
 	Replicas []string `json:"replicas,omitempty"`
 	// Only present if the index is a [virtual replica](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-alphabetically/#virtual-replicas).
-	Virtual *bool `json:"virtual,omitempty"`
+	Virtual *bool               `json:"virtual,omitempty"`
+	AbTest  *FetchedIndexAbTest `json:"abTest,omitempty"`
+	// Name of the index that owns the A/B test configuration. Only present when this index participates in an A/B test configured on another index.
+	SourceABTest *string `json:"sourceABTest,omitempty"`
 }
 
 type FetchedIndexOption func(f *FetchedIndex)
@@ -51,6 +54,18 @@ func WithFetchedIndexReplicas(val []string) FetchedIndexOption {
 func WithFetchedIndexVirtual(val bool) FetchedIndexOption {
 	return func(f *FetchedIndex) {
 		f.Virtual = &val
+	}
+}
+
+func WithFetchedIndexAbTest(val FetchedIndexAbTest) FetchedIndexOption {
+	return func(f *FetchedIndex) {
+		f.AbTest = &val
+	}
+}
+
+func WithFetchedIndexSourceABTest(val string) FetchedIndexOption {
+	return func(f *FetchedIndex) {
+		f.SourceABTest = &val
 	}
 }
 
@@ -456,6 +471,80 @@ func (o *FetchedIndex) SetVirtual(v bool) *FetchedIndex {
 	return o
 }
 
+// GetAbTest returns the AbTest field value if set, zero value otherwise.
+func (o *FetchedIndex) GetAbTest() FetchedIndexAbTest {
+	if o == nil || o.AbTest == nil {
+		var ret FetchedIndexAbTest
+
+		return ret
+	}
+
+	return *o.AbTest
+}
+
+// GetAbTestOk returns a tuple with the AbTest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FetchedIndex) GetAbTestOk() (*FetchedIndexAbTest, bool) {
+	if o == nil || o.AbTest == nil {
+		return nil, false
+	}
+
+	return o.AbTest, true
+}
+
+// HasAbTest returns a boolean if a field has been set.
+func (o *FetchedIndex) HasAbTest() bool {
+	if o != nil && o.AbTest != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAbTest gets a reference to the given FetchedIndexAbTest and assigns it to the AbTest field.
+func (o *FetchedIndex) SetAbTest(v *FetchedIndexAbTest) *FetchedIndex {
+	o.AbTest = v
+
+	return o
+}
+
+// GetSourceABTest returns the SourceABTest field value if set, zero value otherwise.
+func (o *FetchedIndex) GetSourceABTest() string {
+	if o == nil || o.SourceABTest == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.SourceABTest
+}
+
+// GetSourceABTestOk returns a tuple with the SourceABTest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FetchedIndex) GetSourceABTestOk() (*string, bool) {
+	if o == nil || o.SourceABTest == nil {
+		return nil, false
+	}
+
+	return o.SourceABTest, true
+}
+
+// HasSourceABTest returns a boolean if a field has been set.
+func (o *FetchedIndex) HasSourceABTest() bool {
+	if o != nil && o.SourceABTest != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceABTest gets a reference to the given string and assigns it to the SourceABTest field.
+func (o *FetchedIndex) SetSourceABTest(v string) *FetchedIndex {
+	o.SourceABTest = &v
+
+	return o
+}
+
 func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
@@ -480,6 +569,14 @@ func (o FetchedIndex) MarshalJSON() ([]byte, error) {
 		toSerialize["virtual"] = o.Virtual
 	}
 
+	if o.AbTest != nil {
+		toSerialize["abTest"] = o.AbTest
+	}
+
+	if o.SourceABTest != nil {
+		toSerialize["sourceABTest"] = o.SourceABTest
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FetchedIndex: %w", err)
@@ -502,6 +599,8 @@ func (o FetchedIndex) String() string {
 	out += fmt.Sprintf("  primary=%v\n", o.Primary)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
 	out += fmt.Sprintf("  virtual=%v\n", o.Virtual)
+	out += fmt.Sprintf("  abTest=%v\n", o.AbTest)
+	out += fmt.Sprintf("  sourceABTest=%v\n", o.SourceABTest)
 
 	return fmt.Sprintf("FetchedIndex {\n%s}", out)
 }
