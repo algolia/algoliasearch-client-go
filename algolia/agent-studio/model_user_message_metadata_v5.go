@@ -12,8 +12,6 @@ type UserMessageMetadataV5 struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _UserMessageMetadataV5 UserMessageMetadataV5
-
 type UserMessageMetadataV5Option func(f *UserMessageMetadataV5)
 
 func WithUserMessageMetadataV5TurnContext(val map[string]any) UserMessageMetadataV5Option {
@@ -106,24 +104,32 @@ func (o UserMessageMetadataV5) MarshalJSON() ([]byte, error) {
 }
 
 func (o *UserMessageMetadataV5) UnmarshalJSON(bytes []byte) error {
-	varUserMessageMetadataV5 := _UserMessageMetadataV5{}
-
-	err := json.Unmarshal(bytes, &varUserMessageMetadataV5)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal UserMessageMetadataV5: %w", err)
 	}
 
-	*o = UserMessageMetadataV5(varUserMessageMetadataV5)
+	if v, ok := raw["turnContext"]; ok {
+		err := json.Unmarshal(v, &o.TurnContext)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field turnContext of UserMessageMetadataV5: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in UserMessageMetadataV5: %w", err)
+		delete(raw, "turnContext")
 	}
 
-	delete(additionalProperties, "turnContext")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of UserMessageMetadataV5: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

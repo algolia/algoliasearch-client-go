@@ -20,8 +20,6 @@ type Hit struct {
 	AdditionalProperties map[string]any            `json:"-"`
 }
 
-type _Hit Hit
-
 type HitOption func(f *Hit)
 
 func WithHitHighlightResult(val map[string]HighlightResult) HitOption {
@@ -334,29 +332,77 @@ func (o Hit) MarshalJSON() ([]byte, error) {
 }
 
 func (o *Hit) UnmarshalJSON(bytes []byte) error {
-	varHit := _Hit{}
-
-	err := json.Unmarshal(bytes, &varHit)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal Hit: %w", err)
 	}
 
-	*o = Hit(varHit)
+	if v, ok := raw["objectID"]; ok {
+		err := json.Unmarshal(v, &o.ObjectID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field objectID of Hit: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in Hit: %w", err)
+		delete(raw, "objectID")
 	}
 
-	delete(additionalProperties, "objectID")
-	delete(additionalProperties, "_highlightResult")
-	delete(additionalProperties, "_snippetResult")
-	delete(additionalProperties, "_rankingInfo")
-	delete(additionalProperties, "_distinctSeqID")
-	delete(additionalProperties, "_extra")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["_highlightResult"]; ok {
+		err := json.Unmarshal(v, &o.HighlightResult)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _highlightResult of Hit: %w", err)
+		}
+
+		delete(raw, "_highlightResult")
+	}
+
+	if v, ok := raw["_snippetResult"]; ok {
+		err := json.Unmarshal(v, &o.SnippetResult)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _snippetResult of Hit: %w", err)
+		}
+
+		delete(raw, "_snippetResult")
+	}
+
+	if v, ok := raw["_rankingInfo"]; ok {
+		err := json.Unmarshal(v, &o.RankingInfo)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _rankingInfo of Hit: %w", err)
+		}
+
+		delete(raw, "_rankingInfo")
+	}
+
+	if v, ok := raw["_distinctSeqID"]; ok {
+		err := json.Unmarshal(v, &o.DistinctSeqID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _distinctSeqID of Hit: %w", err)
+		}
+
+		delete(raw, "_distinctSeqID")
+	}
+
+	if v, ok := raw["_extra"]; ok {
+		err := json.Unmarshal(v, &o.Extra)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _extra of Hit: %w", err)
+		}
+
+		delete(raw, "_extra")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of Hit: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

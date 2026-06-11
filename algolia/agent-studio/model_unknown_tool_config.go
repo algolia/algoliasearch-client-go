@@ -13,8 +13,6 @@ type UnknownToolConfig struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _UnknownToolConfig UnknownToolConfig
-
 // NewUnknownToolConfig instantiates a new UnknownToolConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -116,25 +114,41 @@ func (o UnknownToolConfig) MarshalJSON() ([]byte, error) {
 }
 
 func (o *UnknownToolConfig) UnmarshalJSON(bytes []byte) error {
-	varUnknownToolConfig := _UnknownToolConfig{}
-
-	err := json.Unmarshal(bytes, &varUnknownToolConfig)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal UnknownToolConfig: %w", err)
 	}
 
-	*o = UnknownToolConfig(varUnknownToolConfig)
+	if v, ok := raw["name"]; ok {
+		err := json.Unmarshal(v, &o.Name)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field name of UnknownToolConfig: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in UnknownToolConfig: %w", err)
+		delete(raw, "name")
 	}
 
-	delete(additionalProperties, "name")
-	delete(additionalProperties, "type")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["type"]; ok {
+		err := json.Unmarshal(v, &o.Type)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field type of UnknownToolConfig: %w", err)
+		}
+
+		delete(raw, "type")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of UnknownToolConfig: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

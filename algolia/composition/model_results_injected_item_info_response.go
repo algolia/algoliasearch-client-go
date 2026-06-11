@@ -14,8 +14,6 @@ type ResultsInjectedItemInfoResponse struct {
 	AdditionalProperties map[string]any                                `json:"-"`
 }
 
-type _ResultsInjectedItemInfoResponse ResultsInjectedItemInfoResponse
-
 type ResultsInjectedItemInfoResponseOption func(f *ResultsInjectedItemInfoResponse)
 
 func WithResultsInjectedItemInfoResponseAppliedRules(val []ResultsInjectedItemAppliedRulesInfoResponse) ResultsInjectedItemInfoResponseOption {
@@ -140,25 +138,41 @@ func (o ResultsInjectedItemInfoResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *ResultsInjectedItemInfoResponse) UnmarshalJSON(bytes []byte) error {
-	varResultsInjectedItemInfoResponse := _ResultsInjectedItemInfoResponse{}
-
-	err := json.Unmarshal(bytes, &varResultsInjectedItemInfoResponse)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal ResultsInjectedItemInfoResponse: %w", err)
 	}
 
-	*o = ResultsInjectedItemInfoResponse(varResultsInjectedItemInfoResponse)
+	if v, ok := raw["key"]; ok {
+		err := json.Unmarshal(v, &o.Key)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field key of ResultsInjectedItemInfoResponse: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in ResultsInjectedItemInfoResponse: %w", err)
+		delete(raw, "key")
 	}
 
-	delete(additionalProperties, "key")
-	delete(additionalProperties, "appliedRules")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["appliedRules"]; ok {
+		err := json.Unmarshal(v, &o.AppliedRules)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field appliedRules of ResultsInjectedItemInfoResponse: %w", err)
+		}
+
+		delete(raw, "appliedRules")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of ResultsInjectedItemInfoResponse: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

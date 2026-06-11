@@ -13,8 +13,6 @@ type PushTaskRecords struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _PushTaskRecords PushTaskRecords
-
 // NewPushTaskRecords instantiates a new PushTaskRecords object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -86,24 +84,32 @@ func (o PushTaskRecords) MarshalJSON() ([]byte, error) {
 }
 
 func (o *PushTaskRecords) UnmarshalJSON(bytes []byte) error {
-	varPushTaskRecords := _PushTaskRecords{}
-
-	err := json.Unmarshal(bytes, &varPushTaskRecords)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal PushTaskRecords: %w", err)
 	}
 
-	*o = PushTaskRecords(varPushTaskRecords)
+	if v, ok := raw["objectID"]; ok {
+		err := json.Unmarshal(v, &o.ObjectID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field objectID of PushTaskRecords: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in PushTaskRecords: %w", err)
+		delete(raw, "objectID")
 	}
 
-	delete(additionalProperties, "objectID")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of PushTaskRecords: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

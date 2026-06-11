@@ -15,8 +15,6 @@ type SearchSynonymsResponse struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _SearchSynonymsResponse SearchSynonymsResponse
-
 // NewSearchSynonymsResponse instantiates a new SearchSynonymsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -118,25 +116,41 @@ func (o SearchSynonymsResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *SearchSynonymsResponse) UnmarshalJSON(bytes []byte) error {
-	varSearchSynonymsResponse := _SearchSynonymsResponse{}
-
-	err := json.Unmarshal(bytes, &varSearchSynonymsResponse)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal SearchSynonymsResponse: %w", err)
 	}
 
-	*o = SearchSynonymsResponse(varSearchSynonymsResponse)
+	if v, ok := raw["hits"]; ok {
+		err := json.Unmarshal(v, &o.Hits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field hits of SearchSynonymsResponse: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in SearchSynonymsResponse: %w", err)
+		delete(raw, "hits")
 	}
 
-	delete(additionalProperties, "hits")
-	delete(additionalProperties, "nbHits")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["nbHits"]; ok {
+		err := json.Unmarshal(v, &o.NbHits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field nbHits of SearchSynonymsResponse: %w", err)
+		}
+
+		delete(raw, "nbHits")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of SearchSynonymsResponse: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

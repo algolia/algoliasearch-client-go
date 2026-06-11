@@ -13,8 +13,6 @@ type HitMetadata struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _HitMetadata HitMetadata
-
 type HitMetadataOption func(f *HitMetadata)
 
 func WithHitMetadataInjectedItemKey(val string) HitMetadataOption {
@@ -107,24 +105,32 @@ func (o HitMetadata) MarshalJSON() ([]byte, error) {
 }
 
 func (o *HitMetadata) UnmarshalJSON(bytes []byte) error {
-	varHitMetadata := _HitMetadata{}
-
-	err := json.Unmarshal(bytes, &varHitMetadata)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal HitMetadata: %w", err)
 	}
 
-	*o = HitMetadata(varHitMetadata)
+	if v, ok := raw["_injectedItemKey"]; ok {
+		err := json.Unmarshal(v, &o.InjectedItemKey)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _injectedItemKey of HitMetadata: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in HitMetadata: %w", err)
+		delete(raw, "_injectedItemKey")
 	}
 
-	delete(additionalProperties, "_injectedItemKey")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of HitMetadata: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

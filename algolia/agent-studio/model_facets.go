@@ -12,8 +12,6 @@ type Facets struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _Facets Facets
-
 type FacetsOption func(f *Facets)
 
 func WithFacetsOrder(val []string) FacetsOption {
@@ -107,24 +105,32 @@ func (o Facets) MarshalJSON() ([]byte, error) {
 }
 
 func (o *Facets) UnmarshalJSON(bytes []byte) error {
-	varFacets := _Facets{}
-
-	err := json.Unmarshal(bytes, &varFacets)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal Facets: %w", err)
 	}
 
-	*o = Facets(varFacets)
+	if v, ok := raw["order"]; ok {
+		err := json.Unmarshal(v, &o.Order)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field order of Facets: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in Facets: %w", err)
+		delete(raw, "order")
 	}
 
-	delete(additionalProperties, "order")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of Facets: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

@@ -22,8 +22,6 @@ type DictionaryEntry struct {
 	AdditionalProperties map[string]any        `json:"-"`
 }
 
-type _DictionaryEntry DictionaryEntry
-
 type DictionaryEntryOption func(f *DictionaryEntry)
 
 func WithDictionaryEntryLanguage(val SupportedLanguage) DictionaryEntryOption {
@@ -383,30 +381,86 @@ func (o DictionaryEntry) MarshalJSON() ([]byte, error) {
 }
 
 func (o *DictionaryEntry) UnmarshalJSON(bytes []byte) error {
-	varDictionaryEntry := _DictionaryEntry{}
-
-	err := json.Unmarshal(bytes, &varDictionaryEntry)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal DictionaryEntry: %w", err)
 	}
 
-	*o = DictionaryEntry(varDictionaryEntry)
+	if v, ok := raw["objectID"]; ok {
+		err := json.Unmarshal(v, &o.ObjectID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field objectID of DictionaryEntry: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in DictionaryEntry: %w", err)
+		delete(raw, "objectID")
 	}
 
-	delete(additionalProperties, "objectID")
-	delete(additionalProperties, "language")
-	delete(additionalProperties, "word")
-	delete(additionalProperties, "words")
-	delete(additionalProperties, "decomposition")
-	delete(additionalProperties, "state")
-	delete(additionalProperties, "type")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["language"]; ok {
+		err := json.Unmarshal(v, &o.Language)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field language of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "language")
+	}
+
+	if v, ok := raw["word"]; ok {
+		err := json.Unmarshal(v, &o.Word)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field word of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "word")
+	}
+
+	if v, ok := raw["words"]; ok {
+		err := json.Unmarshal(v, &o.Words)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field words of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "words")
+	}
+
+	if v, ok := raw["decomposition"]; ok {
+		err := json.Unmarshal(v, &o.Decomposition)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field decomposition of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "decomposition")
+	}
+
+	if v, ok := raw["state"]; ok {
+		err := json.Unmarshal(v, &o.State)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field state of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "state")
+	}
+
+	if v, ok := raw["type"]; ok {
+		err := json.Unmarshal(v, &o.Type)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field type of DictionaryEntry: %w", err)
+		}
+
+		delete(raw, "type")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of DictionaryEntry: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

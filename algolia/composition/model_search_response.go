@@ -14,8 +14,6 @@ type SearchResponse struct {
 	AdditionalProperties map[string]any      `json:"-"`
 }
 
-type _SearchResponse SearchResponse
-
 type SearchResponseOption func(f *SearchResponse)
 
 func WithSearchResponseCompositions(val CompositionsSearchResponse) SearchResponseOption {
@@ -140,25 +138,41 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
-	varSearchResponse := _SearchResponse{}
-
-	err := json.Unmarshal(bytes, &varSearchResponse)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal SearchResponse: %w", err)
 	}
 
-	*o = SearchResponse(varSearchResponse)
+	if v, ok := raw["compositions"]; ok {
+		err := json.Unmarshal(v, &o.Compositions)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field compositions of SearchResponse: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in SearchResponse: %w", err)
+		delete(raw, "compositions")
 	}
 
-	delete(additionalProperties, "compositions")
-	delete(additionalProperties, "results")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["results"]; ok {
+		err := json.Unmarshal(v, &o.Results)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field results of SearchResponse: %w", err)
+		}
+
+		delete(raw, "results")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of SearchResponse: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

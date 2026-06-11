@@ -21,8 +21,6 @@ type RecommendHit struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _RecommendHit RecommendHit
-
 type RecommendHitOption func(f *RecommendHit)
 
 func WithRecommendHitHighlightResult(val map[string]HighlightResult) RecommendHitOption {
@@ -335,29 +333,77 @@ func (o RecommendHit) MarshalJSON() ([]byte, error) {
 }
 
 func (o *RecommendHit) UnmarshalJSON(bytes []byte) error {
-	varRecommendHit := _RecommendHit{}
-
-	err := json.Unmarshal(bytes, &varRecommendHit)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal RecommendHit: %w", err)
 	}
 
-	*o = RecommendHit(varRecommendHit)
+	if v, ok := raw["objectID"]; ok {
+		err := json.Unmarshal(v, &o.ObjectID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field objectID of RecommendHit: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in RecommendHit: %w", err)
+		delete(raw, "objectID")
 	}
 
-	delete(additionalProperties, "objectID")
-	delete(additionalProperties, "_highlightResult")
-	delete(additionalProperties, "_snippetResult")
-	delete(additionalProperties, "_rankingInfo")
-	delete(additionalProperties, "_distinctSeqID")
-	delete(additionalProperties, "_score")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["_highlightResult"]; ok {
+		err := json.Unmarshal(v, &o.HighlightResult)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _highlightResult of RecommendHit: %w", err)
+		}
+
+		delete(raw, "_highlightResult")
+	}
+
+	if v, ok := raw["_snippetResult"]; ok {
+		err := json.Unmarshal(v, &o.SnippetResult)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _snippetResult of RecommendHit: %w", err)
+		}
+
+		delete(raw, "_snippetResult")
+	}
+
+	if v, ok := raw["_rankingInfo"]; ok {
+		err := json.Unmarshal(v, &o.RankingInfo)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _rankingInfo of RecommendHit: %w", err)
+		}
+
+		delete(raw, "_rankingInfo")
+	}
+
+	if v, ok := raw["_distinctSeqID"]; ok {
+		err := json.Unmarshal(v, &o.DistinctSeqID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _distinctSeqID of RecommendHit: %w", err)
+		}
+
+		delete(raw, "_distinctSeqID")
+	}
+
+	if v, ok := raw["_score"]; ok {
+		err := json.Unmarshal(v, &o.Score)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _score of RecommendHit: %w", err)
+		}
+
+		delete(raw, "_score")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of RecommendHit: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

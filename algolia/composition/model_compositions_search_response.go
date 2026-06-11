@@ -12,8 +12,6 @@ type CompositionsSearchResponse struct {
 	AdditionalProperties map[string]any                 `json:"-"`
 }
 
-type _CompositionsSearchResponse CompositionsSearchResponse
-
 // NewCompositionsSearchResponse instantiates a new CompositionsSearchResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -85,24 +83,32 @@ func (o CompositionsSearchResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *CompositionsSearchResponse) UnmarshalJSON(bytes []byte) error {
-	varCompositionsSearchResponse := _CompositionsSearchResponse{}
-
-	err := json.Unmarshal(bytes, &varCompositionsSearchResponse)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal CompositionsSearchResponse: %w", err)
 	}
 
-	*o = CompositionsSearchResponse(varCompositionsSearchResponse)
+	if v, ok := raw["run"]; ok {
+		err := json.Unmarshal(v, &o.Run)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field run of CompositionsSearchResponse: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in CompositionsSearchResponse: %w", err)
+		delete(raw, "run")
 	}
 
-	delete(additionalProperties, "run")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of CompositionsSearchResponse: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

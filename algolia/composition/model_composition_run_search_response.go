@@ -14,8 +14,6 @@ type CompositionRunSearchResponse struct {
 	AdditionalProperties map[string]any               `json:"-"`
 }
 
-type _CompositionRunSearchResponse CompositionRunSearchResponse
-
 type CompositionRunSearchResponseOption func(f *CompositionRunSearchResponse)
 
 func WithCompositionRunSearchResponseAppliedRules(val []CompositionRunAppliedRules) CompositionRunSearchResponseOption {
@@ -140,25 +138,41 @@ func (o CompositionRunSearchResponse) MarshalJSON() ([]byte, error) {
 }
 
 func (o *CompositionRunSearchResponse) UnmarshalJSON(bytes []byte) error {
-	varCompositionRunSearchResponse := _CompositionRunSearchResponse{}
-
-	err := json.Unmarshal(bytes, &varCompositionRunSearchResponse)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal CompositionRunSearchResponse: %w", err)
 	}
 
-	*o = CompositionRunSearchResponse(varCompositionRunSearchResponse)
+	if v, ok := raw["objectID"]; ok {
+		err := json.Unmarshal(v, &o.ObjectID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field objectID of CompositionRunSearchResponse: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in CompositionRunSearchResponse: %w", err)
+		delete(raw, "objectID")
 	}
 
-	delete(additionalProperties, "objectID")
-	delete(additionalProperties, "appliedRules")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["appliedRules"]; ok {
+		err := json.Unmarshal(v, &o.AppliedRules)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field appliedRules of CompositionRunSearchResponse: %w", err)
+		}
+
+		delete(raw, "appliedRules")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of CompositionRunSearchResponse: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

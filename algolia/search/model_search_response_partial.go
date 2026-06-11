@@ -78,8 +78,6 @@ type SearchResponsePartial struct {
 	AdditionalProperties map[string]any      `json:"-"`
 }
 
-type _SearchResponsePartial SearchResponsePartial
-
 type SearchResponsePartialOption func(f *SearchResponsePartial)
 
 func WithSearchResponsePartialAbTestID(val int32) SearchResponsePartialOption {
@@ -1733,57 +1731,329 @@ func (o SearchResponsePartial) MarshalJSON() ([]byte, error) {
 }
 
 func (o *SearchResponsePartial) UnmarshalJSON(bytes []byte) error {
-	varSearchResponsePartial := _SearchResponsePartial{}
-
-	err := json.Unmarshal(bytes, &varSearchResponsePartial)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal SearchResponsePartial: %w", err)
 	}
 
-	*o = SearchResponsePartial(varSearchResponsePartial)
+	if v, ok := raw["abTestID"]; ok {
+		err := json.Unmarshal(v, &o.AbTestID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field abTestID of SearchResponsePartial: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in SearchResponsePartial: %w", err)
+		delete(raw, "abTestID")
 	}
 
-	delete(additionalProperties, "abTestID")
-	delete(additionalProperties, "abTestVariantID")
-	delete(additionalProperties, "aroundLatLng")
-	delete(additionalProperties, "automaticRadius")
-	delete(additionalProperties, "exhaustive")
-	delete(additionalProperties, "appliedRules")
-	delete(additionalProperties, "exhaustiveFacetsCount")
-	delete(additionalProperties, "exhaustiveNbHits")
-	delete(additionalProperties, "exhaustiveTypo")
-	delete(additionalProperties, "facets")
-	delete(additionalProperties, "facets_stats")
-	delete(additionalProperties, "index")
-	delete(additionalProperties, "indexUsed")
-	delete(additionalProperties, "message")
-	delete(additionalProperties, "nbSortedHits")
-	delete(additionalProperties, "parsedQuery")
-	delete(additionalProperties, "processingTimeMS")
-	delete(additionalProperties, "processingTimingsMS")
-	delete(additionalProperties, "queryAfterRemoval")
-	delete(additionalProperties, "redirect")
-	delete(additionalProperties, "renderingContent")
-	delete(additionalProperties, "serverTimeMS")
-	delete(additionalProperties, "serverUsed")
-	delete(additionalProperties, "userData")
-	delete(additionalProperties, "queryID")
-	delete(additionalProperties, "_automaticInsights")
-	delete(additionalProperties, "page")
-	delete(additionalProperties, "nbHits")
-	delete(additionalProperties, "nbPages")
-	delete(additionalProperties, "hitsPerPage")
-	delete(additionalProperties, "hits")
-	delete(additionalProperties, "query")
-	delete(additionalProperties, "params")
-	delete(additionalProperties, "extensions")
-	o.AdditionalProperties = additionalProperties
+	if v, ok := raw["abTestVariantID"]; ok {
+		err := json.Unmarshal(v, &o.AbTestVariantID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field abTestVariantID of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "abTestVariantID")
+	}
+
+	if v, ok := raw["aroundLatLng"]; ok {
+		err := json.Unmarshal(v, &o.AroundLatLng)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field aroundLatLng of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "aroundLatLng")
+	}
+
+	if v, ok := raw["automaticRadius"]; ok {
+		err := json.Unmarshal(v, &o.AutomaticRadius)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field automaticRadius of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "automaticRadius")
+	}
+
+	if v, ok := raw["exhaustive"]; ok {
+		err := json.Unmarshal(v, &o.Exhaustive)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field exhaustive of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "exhaustive")
+	}
+
+	if v, ok := raw["appliedRules"]; ok {
+		err := json.Unmarshal(v, &o.AppliedRules)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field appliedRules of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "appliedRules")
+	}
+
+	if v, ok := raw["exhaustiveFacetsCount"]; ok {
+		err := json.Unmarshal(v, &o.ExhaustiveFacetsCount)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field exhaustiveFacetsCount of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "exhaustiveFacetsCount")
+	}
+
+	if v, ok := raw["exhaustiveNbHits"]; ok {
+		err := json.Unmarshal(v, &o.ExhaustiveNbHits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field exhaustiveNbHits of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "exhaustiveNbHits")
+	}
+
+	if v, ok := raw["exhaustiveTypo"]; ok {
+		err := json.Unmarshal(v, &o.ExhaustiveTypo)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field exhaustiveTypo of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "exhaustiveTypo")
+	}
+
+	if v, ok := raw["facets"]; ok {
+		err := json.Unmarshal(v, &o.Facets)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field facets of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "facets")
+	}
+
+	if v, ok := raw["facets_stats"]; ok {
+		err := json.Unmarshal(v, &o.FacetsStats)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field facets_stats of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "facets_stats")
+	}
+
+	if v, ok := raw["index"]; ok {
+		err := json.Unmarshal(v, &o.Index)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field index of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "index")
+	}
+
+	if v, ok := raw["indexUsed"]; ok {
+		err := json.Unmarshal(v, &o.IndexUsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field indexUsed of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "indexUsed")
+	}
+
+	if v, ok := raw["message"]; ok {
+		err := json.Unmarshal(v, &o.Message)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field message of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "message")
+	}
+
+	if v, ok := raw["nbSortedHits"]; ok {
+		err := json.Unmarshal(v, &o.NbSortedHits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field nbSortedHits of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "nbSortedHits")
+	}
+
+	if v, ok := raw["parsedQuery"]; ok {
+		err := json.Unmarshal(v, &o.ParsedQuery)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field parsedQuery of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "parsedQuery")
+	}
+
+	if v, ok := raw["processingTimeMS"]; ok {
+		err := json.Unmarshal(v, &o.ProcessingTimeMS)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field processingTimeMS of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "processingTimeMS")
+	}
+
+	if v, ok := raw["processingTimingsMS"]; ok {
+		err := json.Unmarshal(v, &o.ProcessingTimingsMS)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field processingTimingsMS of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "processingTimingsMS")
+	}
+
+	if v, ok := raw["queryAfterRemoval"]; ok {
+		err := json.Unmarshal(v, &o.QueryAfterRemoval)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field queryAfterRemoval of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "queryAfterRemoval")
+	}
+
+	if v, ok := raw["redirect"]; ok {
+		err := json.Unmarshal(v, &o.Redirect)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field redirect of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "redirect")
+	}
+
+	if v, ok := raw["renderingContent"]; ok {
+		err := json.Unmarshal(v, &o.RenderingContent)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field renderingContent of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "renderingContent")
+	}
+
+	if v, ok := raw["serverTimeMS"]; ok {
+		err := json.Unmarshal(v, &o.ServerTimeMS)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field serverTimeMS of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "serverTimeMS")
+	}
+
+	if v, ok := raw["serverUsed"]; ok {
+		err := json.Unmarshal(v, &o.ServerUsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field serverUsed of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "serverUsed")
+	}
+
+	if v, ok := raw["userData"]; ok {
+		err := json.Unmarshal(v, &o.UserData)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field userData of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "userData")
+	}
+
+	if v, ok := raw["queryID"]; ok {
+		err := json.Unmarshal(v, &o.QueryID)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field queryID of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "queryID")
+	}
+
+	if v, ok := raw["_automaticInsights"]; ok {
+		err := json.Unmarshal(v, &o.AutomaticInsights)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field _automaticInsights of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "_automaticInsights")
+	}
+
+	if v, ok := raw["page"]; ok {
+		err := json.Unmarshal(v, &o.Page)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field page of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "page")
+	}
+
+	if v, ok := raw["nbHits"]; ok {
+		err := json.Unmarshal(v, &o.NbHits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field nbHits of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "nbHits")
+	}
+
+	if v, ok := raw["nbPages"]; ok {
+		err := json.Unmarshal(v, &o.NbPages)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field nbPages of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "nbPages")
+	}
+
+	if v, ok := raw["hitsPerPage"]; ok {
+		err := json.Unmarshal(v, &o.HitsPerPage)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field hitsPerPage of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "hitsPerPage")
+	}
+
+	if v, ok := raw["hits"]; ok {
+		err := json.Unmarshal(v, &o.Hits)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field hits of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "hits")
+	}
+
+	if v, ok := raw["query"]; ok {
+		err := json.Unmarshal(v, &o.Query)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field query of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "query")
+	}
+
+	if v, ok := raw["params"]; ok {
+		err := json.Unmarshal(v, &o.Params)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field params of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "params")
+	}
+
+	if v, ok := raw["extensions"]; ok {
+		err := json.Unmarshal(v, &o.Extensions)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field extensions of SearchResponsePartial: %w", err)
+		}
+
+		delete(raw, "extensions")
+	}
+
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of SearchResponsePartial: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }

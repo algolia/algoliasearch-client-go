@@ -12,8 +12,6 @@ type ErrorBase struct {
 	AdditionalProperties map[string]any `json:"-"`
 }
 
-type _ErrorBase ErrorBase
-
 type ErrorBaseOption func(f *ErrorBase)
 
 func WithErrorBaseMessage(val string) ErrorBaseOption {
@@ -106,24 +104,32 @@ func (o ErrorBase) MarshalJSON() ([]byte, error) {
 }
 
 func (o *ErrorBase) UnmarshalJSON(bytes []byte) error {
-	varErrorBase := _ErrorBase{}
-
-	err := json.Unmarshal(bytes, &varErrorBase)
+	raw := make(map[string]json.RawMessage)
+	err := json.Unmarshal(bytes, &raw)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal ErrorBase: %w", err)
 	}
 
-	*o = ErrorBase(varErrorBase)
+	if v, ok := raw["message"]; ok {
+		err := json.Unmarshal(v, &o.Message)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field message of ErrorBase: %w", err)
+		}
 
-	additionalProperties := make(map[string]any)
-
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal additionalProperties in ErrorBase: %w", err)
+		delete(raw, "message")
 	}
 
-	delete(additionalProperties, "message")
-	o.AdditionalProperties = additionalProperties
+	o.AdditionalProperties = make(map[string]any)
+
+	for key, val := range raw {
+		var parsed any
+		err := json.Unmarshal(val, &parsed)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal additionalProperties of ErrorBase: %w", err)
+		}
+
+		o.AdditionalProperties[key] = parsed
+	}
 
 	return nil
 }
