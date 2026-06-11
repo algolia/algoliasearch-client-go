@@ -38,9 +38,10 @@ func ArrayOfHighlightResultAsHighlightResult(v []HighlightResult) *HighlightResu
 
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *HighlightResult) UnmarshalJSON(data []byte) error {
-	var err error
-	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
-	var jsonDict map[string]any
+	var (
+		err      error
+		jsonDict map[string]any
+	)
 
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "matchLevel") && utils.HasKey(jsonDict, "matchedWords") {

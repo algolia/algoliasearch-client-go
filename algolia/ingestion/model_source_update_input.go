@@ -78,9 +78,10 @@ func SourceUpdateAlgoliaIndexAsSourceUpdateInput(v *SourceUpdateAlgoliaIndex) *S
 
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *SourceUpdateInput) UnmarshalJSON(data []byte) error {
-	var err error
-	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
-	var jsonDict map[string]any
+	var (
+		err      error
+		jsonDict map[string]any
+	)
 
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "projectID") && utils.HasKey(jsonDict, "datasetID") && utils.HasKey(jsonDict, "tablePrefix") {

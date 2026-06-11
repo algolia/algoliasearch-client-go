@@ -70,9 +70,10 @@ func MapmapOfStringstringAsAuthInput(v map[string]string) *AuthInput {
 
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *AuthInput) UnmarshalJSON(data []byte) error {
-	var err error
-	// use discriminator value to speed up the lookup if possible, if not we will try every possibility
-	var jsonDict map[string]any
+	var (
+		err      error
+		jsonDict map[string]any
+	)
 
 	_ = json.Unmarshal(data, &jsonDict)
 	if utils.HasKey(jsonDict, "url") && utils.HasKey(jsonDict, "client_id") && utils.HasKey(jsonDict, "client_secret") &&
