@@ -41,12 +41,20 @@ func WithContext(ctx context.Context) requestOption {
 
 func WithHeaderParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
+		if c.headerParams == nil {
+			c.headerParams = make(map[string]string)
+		}
+
 		c.headerParams[key] = utils.ParameterToString(value)
 	})
 }
 
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
+		if c.queryParams == nil {
+			c.queryParams = make(url.Values)
+		}
+
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
 	})
 }

@@ -52,12 +52,20 @@ func WithContext(ctx context.Context) requestOption {
 
 func WithHeaderParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
+		if c.headerParams == nil {
+			c.headerParams = make(map[string]string)
+		}
+
 		c.headerParams[key] = utils.ParameterToString(value)
 	})
 }
 
 func WithQueryParam(key string, value any) requestOption {
 	return requestOption(func(c *config) {
+		if c.queryParams == nil {
+			c.queryParams = make(url.Values)
+		}
+
 		c.queryParams.Set(utils.QueryParameterToString(key), utils.QueryParameterToString(value))
 	})
 }
@@ -9448,6 +9456,37 @@ func (c *APIClient) ChunkedPush(
 	records := make([]map[string]any, 0, len(objects)%conf.batchSize)
 	responses := make([]WatchResponse, 0, len(objects)%conf.batchSize)
 
+	waitForEvents := func(start, end int) error {
+		for _, resp := range responses[start:end] {
+			_, err := CreateIterable(
+				func(*Event, error) (*Event, error) {
+					if resp.EventID == nil {
+						return nil, reportError("received unexpected response from the push endpoint, eventID must not be undefined")
+					}
+
+					return c.GetEvent(c.NewApiGetEventRequest(resp.RunID, *resp.EventID))
+				},
+				func(response *Event, err error) (bool, error) {
+					var apiErr *APIError
+					if errors.As(err, &apiErr) {
+						return apiErr.Status != 404, nil
+					}
+
+					return true, err
+				},
+				WithTimeout(
+					func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond },
+				),
+				WithMaxRetries(conf.maxRetries),
+			)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+
 	for i, obj := range objects {
 		records = append(records, obj)
 
@@ -9482,45 +9521,22 @@ func (c *APIClient) ChunkedPush(
 
 			responses = append(responses, *resp)
 			records = make([]map[string]any, 0, len(objects)%conf.batchSize)
-		}
 
-		if conf.waitForTasks && len(responses) > 0 && (len(responses)%waitBatchSize == 0 || i == len(objects)-1) {
-			var waitableResponses []WatchResponse
-
-			if len(responses) > offset+waitBatchSize {
-				waitableResponses = responses[offset : offset+waitBatchSize]
-			} else {
-				waitableResponses = responses[offset:]
-			}
-
-			for _, resp := range waitableResponses {
-				_, err := CreateIterable(
-					func(*Event, error) (*Event, error) {
-						if resp.EventID == nil {
-							return nil, reportError("received unexpected response from the push endpoint, eventID must not be undefined")
-						}
-
-						return c.GetEvent(c.NewApiGetEventRequest(resp.RunID, *resp.EventID))
-					},
-					func(response *Event, err error) (bool, error) {
-						var apiErr *APIError
-						if errors.As(err, &apiErr) {
-							return apiErr.Status != 404, nil
-						}
-
-						return true, err
-					},
-					WithTimeout(
-						func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond },
-					),
-					WithMaxRetries(conf.maxRetries),
-				)
+			if conf.waitForTasks && len(responses)-offset >= waitBatchSize {
+				err := waitForEvents(offset, offset+waitBatchSize)
 				if err != nil {
 					return nil, err
 				}
-			}
 
-			offset += waitBatchSize
+				offset += waitBatchSize
+			}
+		}
+	}
+
+	if conf.waitForTasks {
+		err := waitForEvents(offset, len(responses))
+		if err != nil {
+			return nil, err
 		}
 	}
 
