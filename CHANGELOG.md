@@ -1,3 +1,8 @@
+## [4.42.0](https://github.com/algolia/algoliasearch-client-go/compare/4.41.0...4.42.0)
+
+- [a40136a5b7](https://github.com/algolia/api-clients-automation/commit/a40136a5b7) fix(go): case-sensitive JSON key matching in UnmarshalJSON for models with additionalProperties ([#6494](https://github.com/algolia/api-clients-automation/pull/6494)) by [@Fluf22](https://github.com/Fluf22/)
+- [84c1374b82](https://github.com/algolia/api-clients-automation/commit/84c1374b82) feat(clients): expose maximum number of retries ([#6460](https://github.com/algolia/api-clients-automation/pull/6460)) by [@eric-zaharia](https://github.com/eric-zaharia/)
+
 ## [4.41.0](https://github.com/algolia/algoliasearch-client-go/compare/4.40.0...4.41.0)
 
 - [7f2ce8cd3a](https://github.com/algolia/api-clients-automation/commit/7f2ce8cd3a) feat(clients): Agent Studio v1 ([#6097](https://github.com/algolia/api-clients-automation/pull/6097)) by [@Fluf22](https://github.com/Fluf22/)
