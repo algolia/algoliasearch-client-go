@@ -98,7 +98,7 @@ func getDefaultHosts(r Region) []transport.StatefulHost {
 }
 
 func getUserAgent() string {
-	return fmt.Sprintf("Algolia for Go (4.42.0); Go (%s); QuerySuggestions (4.42.0)", runtime.Version())
+	return fmt.Sprintf("Algolia for Go (4.43.0); Go (%s); QuerySuggestions (4.43.0)", runtime.Version())
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request.

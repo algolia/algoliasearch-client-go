@@ -1,3 +1,7 @@
+## [4.43.0](https://github.com/algolia/algoliasearch-client-go/compare/4.42.0...4.43.0)
+
+- [52ebd28f58](https://github.com/algolia/api-clients-automation/commit/52ebd28f58) feat(clients): release Agent Studio package updates ([#6573](https://github.com/algolia/api-clients-automation/pull/6573)) by [@Fluf22](https://github.com/Fluf22/)
+
 ## [4.42.0](https://github.com/algolia/algoliasearch-client-go/compare/4.41.0...4.42.0)
 
 - [a40136a5b7](https://github.com/algolia/api-clients-automation/commit/a40136a5b7) fix(go): case-sensitive JSON key matching in UnmarshalJSON for models with additionalProperties ([#6494](https://github.com/algolia/api-clients-automation/pull/6494)) by [@Fluf22](https://github.com/Fluf22/)
