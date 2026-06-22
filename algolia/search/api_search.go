@@ -309,8 +309,10 @@ func waitForApiKeyToIterableOptions(opts []WaitForApiKeyOption) []IterableOption
 	return iterableOpts
 }
 
+const defaultReplaceAllObjectsMaxRetries = 800
+
 func replaceAllObjectsToIterableOptions(opts []ReplaceAllObjectsOption) []IterableOption {
-	iterableOpts := make([]IterableOption, 0, len(opts))
+	iterableOpts := []IterableOption{WithMaxRetries(defaultReplaceAllObjectsMaxRetries)}
 
 	for _, opt := range opts {
 		if opt, ok := opt.(IterableOption); ok {
@@ -334,7 +336,7 @@ func partialUpdateObjectsToChunkedBatchOptions(opts []PartialUpdateObjectsOption
 }
 
 func replaceAllObjectsToChunkBatchOptions(opts []ReplaceAllObjectsOption) []ChunkedBatchOption {
-	chunkedBatchOpts := make([]ChunkedBatchOption, 0, len(opts))
+	chunkedBatchOpts := []ChunkedBatchOption{WithMaxRetries(defaultReplaceAllObjectsMaxRetries)}
 
 	for _, opt := range opts {
 		if opt, ok := opt.(ChunkedBatchOption); ok {
