@@ -8,13 +8,12 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// FallbackParams struct for FallbackParams.
+// FallbackParams Search parameters to use for a fallback request if there aren't enough recommendations.
 type FallbackParams struct {
 	// Keywords to be used instead of the search query to conduct a more broader search Using the `similarQuery` parameter changes other settings - `queryType` is set to `prefixNone`. - `removeStopWords` is set to true. - `words` is set as the first ranking criterion. - All remaining words are treated as `optionalWords` Since the `similarQuery` is supposed to do a broad search, they usually return many results. Combine it with `filters` to narrow down the list of results.
 	SimilarQuery *string `json:"similarQuery,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
 	Filters         *string          `json:"filters,omitempty"`
-	FacetFilters    *FacetFilters    `json:"facetFilters,omitempty"`
 	OptionalFilters *OptionalFilters `json:"optionalFilters,omitempty"`
 	NumericFilters  *NumericFilters  `json:"numericFilters,omitempty"`
 	TagFilters      *TagFilters      `json:"tagFilters,omitempty"`
@@ -57,8 +56,6 @@ type FallbackParams struct {
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
 	// Whether to include this search when calculating processing-time percentiles.
 	PercentileComputation *bool `json:"percentileComputation,omitempty"`
-	// Whether to enable A/B testing for this search.
-	EnableABTest *bool `json:"enableABTest,omitempty"`
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Attributes used for [faceting](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting).  Facets are attributes that let you categorize search results. They can be used for filtering search results. By default, no attribute is used for faceting. Attribute names are case-sensitive.  **Modifiers**  - `filterOnly(\"ATTRIBUTE\")`.   Allows the attribute to be used as a filter but doesn't evaluate the facet values.  - `searchable(\"ATTRIBUTE\")`.   Allows searching for facet values.  - `afterDistinct(\"ATTRIBUTE\")`.   Evaluates the facet count _after_ deduplication with `distinct`.   This ensures accurate facet counts.   You can apply this modifier to searchable facets: `afterDistinct(searchable(ATTRIBUTE))`.
@@ -103,8 +100,6 @@ type FallbackParams struct {
 	CustomRanking []string `json:"customRanking,omitempty"`
 	// Attributes to include in the API response To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
-	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing).
-	Ranking []string `json:"ranking,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Attributes to highlight By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js).
@@ -134,8 +129,6 @@ type FallbackParams struct {
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Whether to split compound words in the query into their building blocks For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian. Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
 	DecompoundQuery *bool `json:"decompoundQuery,omitempty"`
-	// Whether to enable rules.
-	EnableRules *bool `json:"enableRules,omitempty"`
 	// Whether to enable Personalization.
 	EnablePersonalization  *bool                   `json:"enablePersonalization,omitempty"`
 	QueryType              *QueryType              `json:"queryType,omitempty"`
@@ -180,12 +173,6 @@ func WithFallbackParamsSimilarQuery(val string) FallbackParamsOption {
 func WithFallbackParamsFilters(val string) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.Filters = &val
-	}
-}
-
-func WithFallbackParamsFacetFilters(val FacetFilters) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.FacetFilters = &val
 	}
 }
 
@@ -333,12 +320,6 @@ func WithFallbackParamsPercentileComputation(val bool) FallbackParamsOption {
 	}
 }
 
-func WithFallbackParamsEnableABTest(val bool) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.EnableABTest = &val
-	}
-}
-
 func WithFallbackParamsQuery(val string) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.Query = &val
@@ -471,12 +452,6 @@ func WithFallbackParamsAttributesToRetrieve(val []string) FallbackParamsOption {
 	}
 }
 
-func WithFallbackParamsRanking(val []string) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.Ranking = val
-	}
-}
-
 func WithFallbackParamsRelevancyStrictness(val int32) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.RelevancyStrictness = &val
@@ -570,12 +545,6 @@ func WithFallbackParamsQueryLanguages(val []SupportedLanguage) FallbackParamsOpt
 func WithFallbackParamsDecompoundQuery(val bool) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.DecompoundQuery = &val
-	}
-}
-
-func WithFallbackParamsEnableRules(val bool) FallbackParamsOption {
-	return func(f *FallbackParams) {
-		f.EnableRules = &val
 	}
 }
 
@@ -781,43 +750,6 @@ func (o *FallbackParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *FallbackParams) SetFilters(v string) *FallbackParams {
 	o.Filters = &v
-
-	return o
-}
-
-// GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
-func (o *FallbackParams) GetFacetFilters() FacetFilters {
-	if o == nil || o.FacetFilters == nil {
-		var ret FacetFilters
-
-		return ret
-	}
-
-	return *o.FacetFilters
-}
-
-// GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetFacetFiltersOk() (*FacetFilters, bool) {
-	if o == nil || o.FacetFilters == nil {
-		return nil, false
-	}
-
-	return o.FacetFilters, true
-}
-
-// HasFacetFilters returns a boolean if a field has been set.
-func (o *FallbackParams) HasFacetFilters() bool {
-	if o != nil && o.FacetFilters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *FallbackParams) SetFacetFilters(v *FacetFilters) *FallbackParams {
-	o.FacetFilters = v
 
 	return o
 }
@@ -1721,43 +1653,6 @@ func (o *FallbackParams) SetPercentileComputation(v bool) *FallbackParams {
 	return o
 }
 
-// GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
-func (o *FallbackParams) GetEnableABTest() bool {
-	if o == nil || o.EnableABTest == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.EnableABTest
-}
-
-// GetEnableABTestOk returns a tuple with the EnableABTest field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetEnableABTestOk() (*bool, bool) {
-	if o == nil || o.EnableABTest == nil {
-		return nil, false
-	}
-
-	return o.EnableABTest, true
-}
-
-// HasEnableABTest returns a boolean if a field has been set.
-func (o *FallbackParams) HasEnableABTest() bool {
-	if o != nil && o.EnableABTest != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *FallbackParams) SetEnableABTest(v bool) *FallbackParams {
-	o.EnableABTest = &v
-
-	return o
-}
-
 // GetQuery returns the Query field value if set, zero value otherwise.
 func (o *FallbackParams) GetQuery() string {
 	if o == nil || o.Query == nil {
@@ -2573,43 +2468,6 @@ func (o *FallbackParams) SetAttributesToRetrieve(v []string) *FallbackParams {
 	return o
 }
 
-// GetRanking returns the Ranking field value if set, zero value otherwise.
-func (o *FallbackParams) GetRanking() []string {
-	if o == nil || o.Ranking == nil {
-		var ret []string
-
-		return ret
-	}
-
-	return o.Ranking
-}
-
-// GetRankingOk returns a tuple with the Ranking field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetRankingOk() ([]string, bool) {
-	if o == nil || o.Ranking == nil {
-		return nil, false
-	}
-
-	return o.Ranking, true
-}
-
-// HasRanking returns a boolean if a field has been set.
-func (o *FallbackParams) HasRanking() bool {
-	if o != nil && o.Ranking != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *FallbackParams) SetRanking(v []string) *FallbackParams {
-	o.Ranking = v
-
-	return o
-}
-
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
 func (o *FallbackParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
@@ -3198,43 +3056,6 @@ func (o *FallbackParams) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *FallbackParams) SetDecompoundQuery(v bool) *FallbackParams {
 	o.DecompoundQuery = &v
-
-	return o
-}
-
-// GetEnableRules returns the EnableRules field value if set, zero value otherwise.
-func (o *FallbackParams) GetEnableRules() bool {
-	if o == nil || o.EnableRules == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.EnableRules
-}
-
-// GetEnableRulesOk returns a tuple with the EnableRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FallbackParams) GetEnableRulesOk() (*bool, bool) {
-	if o == nil || o.EnableRules == nil {
-		return nil, false
-	}
-
-	return o.EnableRules, true
-}
-
-// HasEnableRules returns a boolean if a field has been set.
-func (o *FallbackParams) HasEnableRules() bool {
-	if o != nil && o.EnableRules != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *FallbackParams) SetEnableRules(v bool) *FallbackParams {
-	o.EnableRules = &v
 
 	return o
 }
@@ -3974,10 +3795,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 		toSerialize["filters"] = o.Filters
 	}
 
-	if o.FacetFilters != nil {
-		toSerialize["facetFilters"] = o.FacetFilters
-	}
-
 	if o.OptionalFilters != nil {
 		toSerialize["optionalFilters"] = o.OptionalFilters
 	}
@@ -4074,10 +3891,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
 
-	if o.EnableABTest != nil {
-		toSerialize["enableABTest"] = o.EnableABTest
-	}
-
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
@@ -4166,10 +3979,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
 
-	if o.Ranking != nil {
-		toSerialize["ranking"] = o.Ranking
-	}
-
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
@@ -4232,10 +4041,6 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
-	}
-
-	if o.EnableRules != nil {
-		toSerialize["enableRules"] = o.EnableRules
 	}
 
 	if o.EnablePersonalization != nil {
@@ -4326,7 +4131,6 @@ func (o FallbackParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  similarQuery=%v\n", o.SimilarQuery)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
-	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 	out += fmt.Sprintf("  numericFilters=%v\n", o.NumericFilters)
 	out += fmt.Sprintf("  tagFilters=%v\n", o.TagFilters)
@@ -4351,7 +4155,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  analytics=%v\n", o.Analytics)
 	out += fmt.Sprintf("  analyticsTags=%v\n", o.AnalyticsTags)
 	out += fmt.Sprintf("  percentileComputation=%v\n", o.PercentileComputation)
-	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  attributesForFaceting=%v\n", o.AttributesForFaceting)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
@@ -4374,7 +4177,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  keepDiacriticsOnCharacters=%v\n", o.KeepDiacriticsOnCharacters)
 	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
-	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  attributesToHighlight=%v\n", o.AttributesToHighlight)
 	out += fmt.Sprintf("  attributesToSnippet=%v\n", o.AttributesToSnippet)
@@ -4391,7 +4193,6 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  removeStopWords=%v\n", o.RemoveStopWords)
 	out += fmt.Sprintf("  queryLanguages=%v\n", o.QueryLanguages)
 	out += fmt.Sprintf("  decompoundQuery=%v\n", o.DecompoundQuery)
-	out += fmt.Sprintf("  enableRules=%v\n", o.EnableRules)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  queryType=%v\n", o.QueryType)
 	out += fmt.Sprintf("  removeWordsIfNoResults=%v\n", o.RemoveWordsIfNoResults)

@@ -14,7 +14,6 @@ type RecommendSearchParams struct {
 	SimilarQuery *string `json:"similarQuery,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
 	Filters         *string          `json:"filters,omitempty"`
-	FacetFilters    *FacetFilters    `json:"facetFilters,omitempty"`
 	OptionalFilters *OptionalFilters `json:"optionalFilters,omitempty"`
 	NumericFilters  *NumericFilters  `json:"numericFilters,omitempty"`
 	TagFilters      *TagFilters      `json:"tagFilters,omitempty"`
@@ -57,8 +56,6 @@ type RecommendSearchParams struct {
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
 	// Whether to include this search when calculating processing-time percentiles.
 	PercentileComputation *bool `json:"percentileComputation,omitempty"`
-	// Whether to enable A/B testing for this search.
-	EnableABTest *bool `json:"enableABTest,omitempty"`
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Attributes used for [faceting](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting).  Facets are attributes that let you categorize search results. They can be used for filtering search results. By default, no attribute is used for faceting. Attribute names are case-sensitive.  **Modifiers**  - `filterOnly(\"ATTRIBUTE\")`.   Allows the attribute to be used as a filter but doesn't evaluate the facet values.  - `searchable(\"ATTRIBUTE\")`.   Allows searching for facet values.  - `afterDistinct(\"ATTRIBUTE\")`.   Evaluates the facet count _after_ deduplication with `distinct`.   This ensures accurate facet counts.   You can apply this modifier to searchable facets: `afterDistinct(searchable(ATTRIBUTE))`.
@@ -103,8 +100,6 @@ type RecommendSearchParams struct {
 	CustomRanking []string `json:"customRanking,omitempty"`
 	// Attributes to include in the API response To reduce the size of your response, you can retrieve only some of the attributes. Attribute names are case-sensitive - `*` retrieves all attributes, except attributes included in the `customRanking` and `unretrievableAttributes` settings. - To retrieve all attributes except a specific one, prefix the attribute with a dash and combine it with the `*`: `[\"*\", \"-ATTRIBUTE\"]`. - The `objectID` attribute is always included.
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
-	// Determines the order in which Algolia returns your results.  By default, each entry corresponds to a [ranking criteria](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria). The tie-breaking algorithm sequentially applies each criterion in the order they're specified. If you configure a replica index for [sorting by an attribute](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-by-attribute), you put the sorting attribute at the top of the list.  **Modifiers**  - `asc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in ascending order. - `desc(\"ATTRIBUTE\")`.   Sort the index by the values of an attribute, in descending order.  Before you modify the default setting, test your changes in the dashboard, and by [A/B testing](https://www.algolia.com/doc/guides/ab-testing/what-is-ab-testing).
-	Ranking []string `json:"ranking,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#what-are-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Attributes to highlight By default, all searchable attributes are highlighted. Use `*` to highlight all attributes or use an empty array `[]` to turn off highlighting. Attribute names are case-sensitive With highlighting, strings that match the search query are surrounded by HTML tags defined by `highlightPreTag` and `highlightPostTag`. You can use this to visually highlight matching parts of a search query in your UI For more information, see [Highlighting and snippeting](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/highlighting-snippeting/js).
@@ -134,8 +129,6 @@ type RecommendSearchParams struct {
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Whether to split compound words in the query into their building blocks For more information, see [Word segmentation](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations/#splitting-compound-words). Word segmentation is supported for these languages: German, Dutch, Finnish, Swedish, and Norwegian. Decompounding doesn't work for words with [non-spacing mark Unicode characters](https://www.charactercodes.net/category/non-spacing_mark). For example, `Gartenstühle` won't be decompounded if the `ü` consists of `u` (U+0075) and `◌̈` (U+0308).
 	DecompoundQuery *bool `json:"decompoundQuery,omitempty"`
-	// Whether to enable rules.
-	EnableRules *bool `json:"enableRules,omitempty"`
 	// Whether to enable Personalization.
 	EnablePersonalization  *bool                   `json:"enablePersonalization,omitempty"`
 	QueryType              *QueryType              `json:"queryType,omitempty"`
@@ -167,6 +160,8 @@ type RecommendSearchParams struct {
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
 	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
 	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
+	// Whether to enable rules.
+	EnableRules *bool `json:"enableRules,omitempty"`
 }
 
 type RecommendSearchParamsOption func(f *RecommendSearchParams)
@@ -180,12 +175,6 @@ func WithRecommendSearchParamsSimilarQuery(val string) RecommendSearchParamsOpti
 func WithRecommendSearchParamsFilters(val string) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.Filters = &val
-	}
-}
-
-func WithRecommendSearchParamsFacetFilters(val FacetFilters) RecommendSearchParamsOption {
-	return func(f *RecommendSearchParams) {
-		f.FacetFilters = &val
 	}
 }
 
@@ -333,12 +322,6 @@ func WithRecommendSearchParamsPercentileComputation(val bool) RecommendSearchPar
 	}
 }
 
-func WithRecommendSearchParamsEnableABTest(val bool) RecommendSearchParamsOption {
-	return func(f *RecommendSearchParams) {
-		f.EnableABTest = &val
-	}
-}
-
 func WithRecommendSearchParamsQuery(val string) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.Query = &val
@@ -471,12 +454,6 @@ func WithRecommendSearchParamsAttributesToRetrieve(val []string) RecommendSearch
 	}
 }
 
-func WithRecommendSearchParamsRanking(val []string) RecommendSearchParamsOption {
-	return func(f *RecommendSearchParams) {
-		f.Ranking = val
-	}
-}
-
 func WithRecommendSearchParamsRelevancyStrictness(val int32) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.RelevancyStrictness = &val
@@ -570,12 +547,6 @@ func WithRecommendSearchParamsQueryLanguages(val []SupportedLanguage) RecommendS
 func WithRecommendSearchParamsDecompoundQuery(val bool) RecommendSearchParamsOption {
 	return func(f *RecommendSearchParams) {
 		f.DecompoundQuery = &val
-	}
-}
-
-func WithRecommendSearchParamsEnableRules(val bool) RecommendSearchParamsOption {
-	return func(f *RecommendSearchParams) {
-		f.EnableRules = &val
 	}
 }
 
@@ -693,6 +664,12 @@ func WithRecommendSearchParamsReRankingApplyFilter(val utils.Nullable[ReRankingA
 	}
 }
 
+func WithRecommendSearchParamsEnableRules(val bool) RecommendSearchParamsOption {
+	return func(f *RecommendSearchParams) {
+		f.EnableRules = &val
+	}
+}
+
 // NewRecommendSearchParams instantiates a new RecommendSearchParams object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -781,43 +758,6 @@ func (o *RecommendSearchParams) HasFilters() bool {
 // SetFilters gets a reference to the given string and assigns it to the Filters field.
 func (o *RecommendSearchParams) SetFilters(v string) *RecommendSearchParams {
 	o.Filters = &v
-
-	return o
-}
-
-// GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
-func (o *RecommendSearchParams) GetFacetFilters() FacetFilters {
-	if o == nil || o.FacetFilters == nil {
-		var ret FacetFilters
-
-		return ret
-	}
-
-	return *o.FacetFilters
-}
-
-// GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendSearchParams) GetFacetFiltersOk() (*FacetFilters, bool) {
-	if o == nil || o.FacetFilters == nil {
-		return nil, false
-	}
-
-	return o.FacetFilters, true
-}
-
-// HasFacetFilters returns a boolean if a field has been set.
-func (o *RecommendSearchParams) HasFacetFilters() bool {
-	if o != nil && o.FacetFilters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
-func (o *RecommendSearchParams) SetFacetFilters(v *FacetFilters) *RecommendSearchParams {
-	o.FacetFilters = v
 
 	return o
 }
@@ -1721,43 +1661,6 @@ func (o *RecommendSearchParams) SetPercentileComputation(v bool) *RecommendSearc
 	return o
 }
 
-// GetEnableABTest returns the EnableABTest field value if set, zero value otherwise.
-func (o *RecommendSearchParams) GetEnableABTest() bool {
-	if o == nil || o.EnableABTest == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.EnableABTest
-}
-
-// GetEnableABTestOk returns a tuple with the EnableABTest field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendSearchParams) GetEnableABTestOk() (*bool, bool) {
-	if o == nil || o.EnableABTest == nil {
-		return nil, false
-	}
-
-	return o.EnableABTest, true
-}
-
-// HasEnableABTest returns a boolean if a field has been set.
-func (o *RecommendSearchParams) HasEnableABTest() bool {
-	if o != nil && o.EnableABTest != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableABTest gets a reference to the given bool and assigns it to the EnableABTest field.
-func (o *RecommendSearchParams) SetEnableABTest(v bool) *RecommendSearchParams {
-	o.EnableABTest = &v
-
-	return o
-}
-
 // GetQuery returns the Query field value if set, zero value otherwise.
 func (o *RecommendSearchParams) GetQuery() string {
 	if o == nil || o.Query == nil {
@@ -2573,43 +2476,6 @@ func (o *RecommendSearchParams) SetAttributesToRetrieve(v []string) *RecommendSe
 	return o
 }
 
-// GetRanking returns the Ranking field value if set, zero value otherwise.
-func (o *RecommendSearchParams) GetRanking() []string {
-	if o == nil || o.Ranking == nil {
-		var ret []string
-
-		return ret
-	}
-
-	return o.Ranking
-}
-
-// GetRankingOk returns a tuple with the Ranking field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendSearchParams) GetRankingOk() ([]string, bool) {
-	if o == nil || o.Ranking == nil {
-		return nil, false
-	}
-
-	return o.Ranking, true
-}
-
-// HasRanking returns a boolean if a field has been set.
-func (o *RecommendSearchParams) HasRanking() bool {
-	if o != nil && o.Ranking != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRanking gets a reference to the given []string and assigns it to the Ranking field.
-func (o *RecommendSearchParams) SetRanking(v []string) *RecommendSearchParams {
-	o.Ranking = v
-
-	return o
-}
-
 // GetRelevancyStrictness returns the RelevancyStrictness field value if set, zero value otherwise.
 func (o *RecommendSearchParams) GetRelevancyStrictness() int32 {
 	if o == nil || o.RelevancyStrictness == nil {
@@ -3198,43 +3064,6 @@ func (o *RecommendSearchParams) HasDecompoundQuery() bool {
 // SetDecompoundQuery gets a reference to the given bool and assigns it to the DecompoundQuery field.
 func (o *RecommendSearchParams) SetDecompoundQuery(v bool) *RecommendSearchParams {
 	o.DecompoundQuery = &v
-
-	return o
-}
-
-// GetEnableRules returns the EnableRules field value if set, zero value otherwise.
-func (o *RecommendSearchParams) GetEnableRules() bool {
-	if o == nil || o.EnableRules == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.EnableRules
-}
-
-// GetEnableRulesOk returns a tuple with the EnableRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecommendSearchParams) GetEnableRulesOk() (*bool, bool) {
-	if o == nil || o.EnableRules == nil {
-		return nil, false
-	}
-
-	return o.EnableRules, true
-}
-
-// HasEnableRules returns a boolean if a field has been set.
-func (o *RecommendSearchParams) HasEnableRules() bool {
-	if o != nil && o.EnableRules != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
-func (o *RecommendSearchParams) SetEnableRules(v bool) *RecommendSearchParams {
-	o.EnableRules = &v
 
 	return o
 }
@@ -3964,6 +3793,43 @@ func (o *RecommendSearchParams) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
+// GetEnableRules returns the EnableRules field value if set, zero value otherwise.
+func (o *RecommendSearchParams) GetEnableRules() bool {
+	if o == nil || o.EnableRules == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.EnableRules
+}
+
+// GetEnableRulesOk returns a tuple with the EnableRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendSearchParams) GetEnableRulesOk() (*bool, bool) {
+	if o == nil || o.EnableRules == nil {
+		return nil, false
+	}
+
+	return o.EnableRules, true
+}
+
+// HasEnableRules returns a boolean if a field has been set.
+func (o *RecommendSearchParams) HasEnableRules() bool {
+	if o != nil && o.EnableRules != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnableRules gets a reference to the given bool and assigns it to the EnableRules field.
+func (o *RecommendSearchParams) SetEnableRules(v bool) *RecommendSearchParams {
+	o.EnableRules = &v
+
+	return o
+}
+
 func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.SimilarQuery != nil {
@@ -3972,10 +3838,6 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 
 	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
-	}
-
-	if o.FacetFilters != nil {
-		toSerialize["facetFilters"] = o.FacetFilters
 	}
 
 	if o.OptionalFilters != nil {
@@ -4074,10 +3936,6 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 		toSerialize["percentileComputation"] = o.PercentileComputation
 	}
 
-	if o.EnableABTest != nil {
-		toSerialize["enableABTest"] = o.EnableABTest
-	}
-
 	if o.Query != nil {
 		toSerialize["query"] = o.Query
 	}
@@ -4166,10 +4024,6 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 		toSerialize["attributesToRetrieve"] = o.AttributesToRetrieve
 	}
 
-	if o.Ranking != nil {
-		toSerialize["ranking"] = o.Ranking
-	}
-
 	if o.RelevancyStrictness != nil {
 		toSerialize["relevancyStrictness"] = o.RelevancyStrictness
 	}
@@ -4232,10 +4086,6 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 
 	if o.DecompoundQuery != nil {
 		toSerialize["decompoundQuery"] = o.DecompoundQuery
-	}
-
-	if o.EnableRules != nil {
-		toSerialize["enableRules"] = o.EnableRules
 	}
 
 	if o.EnablePersonalization != nil {
@@ -4314,6 +4164,10 @@ func (o RecommendSearchParams) MarshalJSON() ([]byte, error) {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 
+	if o.EnableRules != nil {
+		toSerialize["enableRules"] = o.EnableRules
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal RecommendSearchParams: %w", err)
@@ -4326,7 +4180,6 @@ func (o RecommendSearchParams) String() string {
 	out := ""
 	out += fmt.Sprintf("  similarQuery=%v\n", o.SimilarQuery)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
-	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 	out += fmt.Sprintf("  numericFilters=%v\n", o.NumericFilters)
 	out += fmt.Sprintf("  tagFilters=%v\n", o.TagFilters)
@@ -4351,7 +4204,6 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  analytics=%v\n", o.Analytics)
 	out += fmt.Sprintf("  analyticsTags=%v\n", o.AnalyticsTags)
 	out += fmt.Sprintf("  percentileComputation=%v\n", o.PercentileComputation)
-	out += fmt.Sprintf("  enableABTest=%v\n", o.EnableABTest)
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  attributesForFaceting=%v\n", o.AttributesForFaceting)
 	out += fmt.Sprintf("  replicas=%v\n", o.Replicas)
@@ -4374,7 +4226,6 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  keepDiacriticsOnCharacters=%v\n", o.KeepDiacriticsOnCharacters)
 	out += fmt.Sprintf("  customRanking=%v\n", o.CustomRanking)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
-	out += fmt.Sprintf("  ranking=%v\n", o.Ranking)
 	out += fmt.Sprintf("  relevancyStrictness=%v\n", o.RelevancyStrictness)
 	out += fmt.Sprintf("  attributesToHighlight=%v\n", o.AttributesToHighlight)
 	out += fmt.Sprintf("  attributesToSnippet=%v\n", o.AttributesToSnippet)
@@ -4391,7 +4242,6 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  removeStopWords=%v\n", o.RemoveStopWords)
 	out += fmt.Sprintf("  queryLanguages=%v\n", o.QueryLanguages)
 	out += fmt.Sprintf("  decompoundQuery=%v\n", o.DecompoundQuery)
-	out += fmt.Sprintf("  enableRules=%v\n", o.EnableRules)
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  queryType=%v\n", o.QueryType)
 	out += fmt.Sprintf("  removeWordsIfNoResults=%v\n", o.RemoveWordsIfNoResults)
@@ -4411,6 +4261,7 @@ func (o RecommendSearchParams) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+	out += fmt.Sprintf("  enableRules=%v\n", o.EnableRules)
 
 	return fmt.Sprintf("RecommendSearchParams {\n%s}", out)
 }
