@@ -81,3 +81,8 @@ func (v RunReasonCode) IsValid() bool {
 func (v RunReasonCode) Ptr() *RunReasonCode {
 	return &v
 }
+
+// Values returns the list of allowed values of RunReasonCode.
+func (v RunReasonCode) Values() []RunReasonCode {
+	return AllowedRunReasonCodeEnumValues
+}

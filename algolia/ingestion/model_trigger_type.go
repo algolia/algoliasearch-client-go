@@ -71,3 +71,8 @@ func (v TriggerType) IsValid() bool {
 func (v TriggerType) Ptr() *TriggerType {
 	return &v
 }
+
+// Values returns the list of allowed values of TriggerType.
+func (v TriggerType) Values() []TriggerType {
+	return AllowedTriggerTypeEnumValues
+}

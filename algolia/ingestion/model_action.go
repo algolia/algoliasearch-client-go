@@ -77,3 +77,8 @@ func (v Action) IsValid() bool {
 func (v Action) Ptr() *Action {
 	return &v
 }
+
+// Values returns the list of allowed values of Action.
+func (v Action) Values() []Action {
+	return AllowedActionEnumValues
+}

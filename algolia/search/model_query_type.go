@@ -69,3 +69,8 @@ func (v QueryType) IsValid() bool {
 func (v QueryType) Ptr() *QueryType {
 	return &v
 }
+
+// Values returns the list of allowed values of QueryType.
+func (v QueryType) Values() []QueryType {
+	return AllowedQueryTypeEnumValues
+}

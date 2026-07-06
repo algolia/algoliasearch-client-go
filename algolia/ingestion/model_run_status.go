@@ -71,3 +71,8 @@ func (v RunStatus) IsValid() bool {
 func (v RunStatus) Ptr() *RunStatus {
 	return &v
 }
+
+// Values returns the list of allowed values of RunStatus.
+func (v RunStatus) Values() []RunStatus {
+	return AllowedRunStatusEnumValues
+}

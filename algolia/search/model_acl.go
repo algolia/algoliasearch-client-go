@@ -109,3 +109,8 @@ func (v Acl) IsValid() bool {
 func (v Acl) Ptr() *Acl {
 	return &v
 }
+
+// Values returns the list of allowed values of Acl.
+func (v Acl) Values() []Acl {
+	return AllowedAclEnumValues
+}

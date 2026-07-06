@@ -67,3 +67,8 @@ func (v BigQueryDataType) IsValid() bool {
 func (v BigQueryDataType) Ptr() *BigQueryDataType {
 	return &v
 }
+
+// Values returns the list of allowed values of BigQueryDataType.
+func (v BigQueryDataType) Values() []BigQueryDataType {
+	return AllowedBigQueryDataTypeEnumValues
+}

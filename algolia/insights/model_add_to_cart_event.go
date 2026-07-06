@@ -65,3 +65,8 @@ func (v AddToCartEvent) IsValid() bool {
 func (v AddToCartEvent) Ptr() *AddToCartEvent {
 	return &v
 }
+
+// Values returns the list of allowed values of AddToCartEvent.
+func (v AddToCartEvent) Values() []AddToCartEvent {
+	return AllowedAddToCartEventEnumValues
+}

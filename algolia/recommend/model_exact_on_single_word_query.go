@@ -69,3 +69,8 @@ func (v ExactOnSingleWordQuery) IsValid() bool {
 func (v ExactOnSingleWordQuery) Ptr() *ExactOnSingleWordQuery {
 	return &v
 }
+
+// Values returns the list of allowed values of ExactOnSingleWordQuery.
+func (v ExactOnSingleWordQuery) Values() []ExactOnSingleWordQuery {
+	return AllowedExactOnSingleWordQueryEnumValues
+}

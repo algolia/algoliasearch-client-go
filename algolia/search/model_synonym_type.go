@@ -79,3 +79,8 @@ func (v SynonymType) IsValid() bool {
 func (v SynonymType) Ptr() *SynonymType {
 	return &v
 }
+
+// Values returns the list of allowed values of SynonymType.
+func (v SynonymType) Values() []SynonymType {
+	return AllowedSynonymTypeEnumValues
+}

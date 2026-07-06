@@ -93,3 +93,8 @@ func (v MetricName) IsValid() bool {
 func (v MetricName) Ptr() *MetricName {
 	return &v
 }
+
+// Values returns the list of allowed values of MetricName.
+func (v MetricName) Values() []MetricName {
+	return AllowedMetricNameEnumValues
+}

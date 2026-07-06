@@ -71,3 +71,8 @@ func (v Status) IsValid() bool {
 func (v Status) Ptr() *Status {
 	return &v
 }
+
+// Values returns the list of allowed values of Status.
+func (v Status) Values() []Status {
+	return AllowedStatusEnumValues
+}

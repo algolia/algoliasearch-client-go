@@ -67,3 +67,8 @@ func (v DestinationType) IsValid() bool {
 func (v DestinationType) Ptr() *DestinationType {
 	return &v
 }
+
+// Values returns the list of allowed values of DestinationType.
+func (v DestinationType) Values() []DestinationType {
+	return AllowedDestinationTypeEnumValues
+}

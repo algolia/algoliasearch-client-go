@@ -71,3 +71,8 @@ func (v EffectMetric) IsValid() bool {
 func (v EffectMetric) Ptr() *EffectMetric {
 	return &v
 }
+
+// Values returns the list of allowed values of EffectMetric.
+func (v EffectMetric) Values() []EffectMetric {
+	return AllowedEffectMetricEnumValues
+}

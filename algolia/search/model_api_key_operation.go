@@ -69,3 +69,8 @@ func (v ApiKeyOperation) IsValid() bool {
 func (v ApiKeyOperation) Ptr() *ApiKeyOperation {
 	return &v
 }
+
+// Values returns the list of allowed values of ApiKeyOperation.
+func (v ApiKeyOperation) Values() []ApiKeyOperation {
+	return AllowedApiKeyOperationEnumValues
+}

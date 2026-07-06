@@ -67,3 +67,8 @@ func (v BooleanString) IsValid() bool {
 func (v BooleanString) Ptr() *BooleanString {
 	return &v
 }
+
+// Values returns the list of allowed values of BooleanString.
+func (v BooleanString) Values() []BooleanString {
+	return AllowedBooleanStringEnumValues
+}

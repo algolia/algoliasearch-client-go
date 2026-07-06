@@ -65,3 +65,8 @@ func (v AroundRadiusAll) IsValid() bool {
 func (v AroundRadiusAll) Ptr() *AroundRadiusAll {
 	return &v
 }
+
+// Values returns the list of allowed values of AroundRadiusAll.
+func (v AroundRadiusAll) Values() []AroundRadiusAll {
+	return AllowedAroundRadiusAllEnumValues
+}

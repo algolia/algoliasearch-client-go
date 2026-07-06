@@ -71,3 +71,8 @@ func (v OrderBy) IsValid() bool {
 func (v OrderBy) Ptr() *OrderBy {
 	return &v
 }
+
+// Values returns the list of allowed values of OrderBy.
+func (v OrderBy) Values() []OrderBy {
+	return AllowedOrderByEnumValues
+}

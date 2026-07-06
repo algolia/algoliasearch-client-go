@@ -69,3 +69,8 @@ func (v LogLevel) IsValid() bool {
 func (v LogLevel) Ptr() *LogLevel {
 	return &v
 }
+
+// Values returns the list of allowed values of LogLevel.
+func (v LogLevel) Values() []LogLevel {
+	return AllowedLogLevelEnumValues
+}

@@ -65,3 +65,8 @@ func (v PlatformNone) IsValid() bool {
 func (v PlatformNone) Ptr() *PlatformNone {
 	return &v
 }
+
+// Values returns the list of allowed values of PlatformNone.
+func (v PlatformNone) Values() []PlatformNone {
+	return AllowedPlatformNoneEnumValues
+}

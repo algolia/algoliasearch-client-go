@@ -75,3 +75,8 @@ func (v EventStatus) IsValid() bool {
 func (v EventStatus) Ptr() *EventStatus {
 	return &v
 }
+
+// Values returns the list of allowed values of EventStatus.
+func (v EventStatus) Values() []EventStatus {
+	return AllowedEventStatusEnumValues
+}

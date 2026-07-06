@@ -67,3 +67,8 @@ func (v DictionaryAction) IsValid() bool {
 func (v DictionaryAction) Ptr() *DictionaryAction {
 	return &v
 }
+
+// Values returns the list of allowed values of DictionaryAction.
+func (v DictionaryAction) Values() []DictionaryAction {
+	return AllowedDictionaryActionEnumValues
+}

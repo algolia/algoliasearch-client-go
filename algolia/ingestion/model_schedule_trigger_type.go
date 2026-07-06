@@ -65,3 +65,8 @@ func (v ScheduleTriggerType) IsValid() bool {
 func (v ScheduleTriggerType) Ptr() *ScheduleTriggerType {
 	return &v
 }
+
+// Values returns the list of allowed values of ScheduleTriggerType.
+func (v ScheduleTriggerType) Values() []ScheduleTriggerType {
+	return AllowedScheduleTriggerTypeEnumValues
+}

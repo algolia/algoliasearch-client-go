@@ -69,3 +69,8 @@ func (v SortRemainingBy) IsValid() bool {
 func (v SortRemainingBy) Ptr() *SortRemainingBy {
 	return &v
 }
+
+// Values returns the list of allowed values of SortRemainingBy.
+func (v SortRemainingBy) Values() []SortRemainingBy {
+	return AllowedSortRemainingByEnumValues
+}

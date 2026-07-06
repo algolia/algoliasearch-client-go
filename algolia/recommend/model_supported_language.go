@@ -199,3 +199,8 @@ func (v SupportedLanguage) IsValid() bool {
 func (v SupportedLanguage) Ptr() *SupportedLanguage {
 	return &v
 }
+
+// Values returns the list of allowed values of SupportedLanguage.
+func (v SupportedLanguage) Values() []SupportedLanguage {
+	return AllowedSupportedLanguageEnumValues
+}

@@ -65,3 +65,8 @@ func (v ClickEvent) IsValid() bool {
 func (v ClickEvent) Ptr() *ClickEvent {
 	return &v
 }
+
+// Values returns the list of allowed values of ClickEvent.
+func (v ClickEvent) Values() []ClickEvent {
+	return AllowedClickEventEnumValues
+}

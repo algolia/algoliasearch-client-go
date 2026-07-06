@@ -71,3 +71,8 @@ func (v SourceSortKeys) IsValid() bool {
 func (v SourceSortKeys) Ptr() *SourceSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of SourceSortKeys.
+func (v SourceSortKeys) Values() []SourceSortKeys {
+	return AllowedSourceSortKeysEnumValues
+}

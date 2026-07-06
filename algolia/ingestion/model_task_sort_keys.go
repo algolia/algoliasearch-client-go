@@ -73,3 +73,8 @@ func (v TaskSortKeys) IsValid() bool {
 func (v TaskSortKeys) Ptr() *TaskSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of TaskSortKeys.
+func (v TaskSortKeys) Values() []TaskSortKeys {
+	return AllowedTaskSortKeysEnumValues
+}

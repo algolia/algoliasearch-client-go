@@ -67,3 +67,8 @@ func (v AdvancedSyntaxFeatures) IsValid() bool {
 func (v AdvancedSyntaxFeatures) Ptr() *AdvancedSyntaxFeatures {
 	return &v
 }
+
+// Values returns the list of allowed values of AdvancedSyntaxFeatures.
+func (v AdvancedSyntaxFeatures) Values() []AdvancedSyntaxFeatures {
+	return AllowedAdvancedSyntaxFeaturesEnumValues
+}

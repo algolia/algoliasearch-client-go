@@ -67,3 +67,8 @@ func (v SearchStrategy) IsValid() bool {
 func (v SearchStrategy) Ptr() *SearchStrategy {
 	return &v
 }
+
+// Values returns the list of allowed values of SearchStrategy.
+func (v SearchStrategy) Values() []SearchStrategy {
+	return AllowedSearchStrategyEnumValues
+}

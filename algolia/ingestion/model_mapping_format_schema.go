@@ -65,3 +65,8 @@ func (v MappingFormatSchema) IsValid() bool {
 func (v MappingFormatSchema) Ptr() *MappingFormatSchema {
 	return &v
 }
+
+// Values returns the list of allowed values of MappingFormatSchema.
+func (v MappingFormatSchema) Values() []MappingFormatSchema {
+	return AllowedMappingFormatSchemaEnumValues
+}

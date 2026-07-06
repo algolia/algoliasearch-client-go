@@ -65,3 +65,8 @@ func (v PurchaseEvent) IsValid() bool {
 func (v PurchaseEvent) Ptr() *PurchaseEvent {
 	return &v
 }
+
+// Values returns the list of allowed values of PurchaseEvent.
+func (v PurchaseEvent) Values() []PurchaseEvent {
+	return AllowedPurchaseEventEnumValues
+}

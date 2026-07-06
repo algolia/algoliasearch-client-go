@@ -67,3 +67,8 @@ func (v MethodType) IsValid() bool {
 func (v MethodType) Ptr() *MethodType {
 	return &v
 }
+
+// Values returns the list of allowed values of MethodType.
+func (v MethodType) Values() []MethodType {
+	return AllowedMethodTypeEnumValues
+}

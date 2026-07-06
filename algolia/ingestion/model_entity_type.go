@@ -67,3 +67,8 @@ func (v EntityType) IsValid() bool {
 func (v EntityType) Ptr() *EntityType {
 	return &v
 }
+
+// Values returns the list of allowed values of EntityType.
+func (v EntityType) Values() []EntityType {
+	return AllowedEntityTypeEnumValues
+}

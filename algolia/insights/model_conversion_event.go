@@ -65,3 +65,8 @@ func (v ConversionEvent) IsValid() bool {
 func (v ConversionEvent) Ptr() *ConversionEvent {
 	return &v
 }
+
+// Values returns the list of allowed values of ConversionEvent.
+func (v ConversionEvent) Values() []ConversionEvent {
+	return AllowedConversionEventEnumValues
+}

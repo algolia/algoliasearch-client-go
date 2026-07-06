@@ -65,3 +65,8 @@ func (v ServerStatus) IsValid() bool {
 func (v ServerStatus) Ptr() *ServerStatus {
 	return &v
 }
+
+// Values returns the list of allowed values of ServerStatus.
+func (v ServerStatus) Values() []ServerStatus {
+	return AllowedServerStatusEnumValues
+}

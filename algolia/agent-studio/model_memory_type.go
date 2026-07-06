@@ -67,3 +67,8 @@ func (v MemoryType) IsValid() bool {
 func (v MemoryType) Ptr() *MemoryType {
 	return &v
 }
+
+// Values returns the list of allowed values of MemoryType.
+func (v MemoryType) Values() []MemoryType {
+	return AllowedMemoryTypeEnumValues
+}

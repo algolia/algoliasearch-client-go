@@ -67,3 +67,8 @@ func (v CompatibilityMode) IsValid() bool {
 func (v CompatibilityMode) Ptr() *CompatibilityMode {
 	return &v
 }
+
+// Values returns the list of allowed values of CompatibilityMode.
+func (v CompatibilityMode) Values() []CompatibilityMode {
+	return AllowedCompatibilityModeEnumValues
+}

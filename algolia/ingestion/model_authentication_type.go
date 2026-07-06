@@ -77,3 +77,8 @@ func (v AuthenticationType) IsValid() bool {
 func (v AuthenticationType) Ptr() *AuthenticationType {
 	return &v
 }
+
+// Values returns the list of allowed values of AuthenticationType.
+func (v AuthenticationType) Values() []AuthenticationType {
+	return AllowedAuthenticationTypeEnumValues
+}

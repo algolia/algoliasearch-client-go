@@ -69,3 +69,8 @@ func (v EventSortKeys) IsValid() bool {
 func (v EventSortKeys) Ptr() *EventSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of EventSortKeys.
+func (v EventSortKeys) Values() []EventSortKeys {
+	return AllowedEventSortKeysEnumValues
+}

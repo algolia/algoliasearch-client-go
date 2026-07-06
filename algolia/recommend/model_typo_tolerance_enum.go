@@ -71,3 +71,8 @@ func (v TypoToleranceEnum) IsValid() bool {
 func (v TypoToleranceEnum) Ptr() *TypoToleranceEnum {
 	return &v
 }
+
+// Values returns the list of allowed values of TypoToleranceEnum.
+func (v TypoToleranceEnum) Values() []TypoToleranceEnum {
+	return AllowedTypoToleranceEnumEnumValues
+}

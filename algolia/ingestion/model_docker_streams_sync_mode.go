@@ -67,3 +67,8 @@ func (v DockerStreamsSyncMode) IsValid() bool {
 func (v DockerStreamsSyncMode) Ptr() *DockerStreamsSyncMode {
 	return &v
 }
+
+// Values returns the list of allowed values of DockerStreamsSyncMode.
+func (v DockerStreamsSyncMode) Values() []DockerStreamsSyncMode {
+	return AllowedDockerStreamsSyncModeEnumValues
+}

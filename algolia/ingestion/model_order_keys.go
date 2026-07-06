@@ -67,3 +67,8 @@ func (v OrderKeys) IsValid() bool {
 func (v OrderKeys) Ptr() *OrderKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of OrderKeys.
+func (v OrderKeys) Values() []OrderKeys {
+	return AllowedOrderKeysEnumValues
+}

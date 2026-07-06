@@ -65,3 +65,8 @@ func (v LookingSimilarModel) IsValid() bool {
 func (v LookingSimilarModel) Ptr() *LookingSimilarModel {
 	return &v
 }
+
+// Values returns the list of allowed values of LookingSimilarModel.
+func (v LookingSimilarModel) Values() []LookingSimilarModel {
+	return AllowedLookingSimilarModelEnumValues
+}

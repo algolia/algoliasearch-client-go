@@ -71,3 +71,8 @@ func (v AlternativesAsExact) IsValid() bool {
 func (v AlternativesAsExact) Ptr() *AlternativesAsExact {
 	return &v
 }
+
+// Values returns the list of allowed values of AlternativesAsExact.
+func (v AlternativesAsExact) Values() []AlternativesAsExact {
+	return AllowedAlternativesAsExactEnumValues
+}

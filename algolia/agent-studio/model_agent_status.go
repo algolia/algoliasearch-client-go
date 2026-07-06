@@ -67,3 +67,8 @@ func (v AgentStatus) IsValid() bool {
 func (v AgentStatus) Ptr() *AgentStatus {
 	return &v
 }
+
+// Values returns the list of allowed values of AgentStatus.
+func (v AgentStatus) Values() []AgentStatus {
+	return AllowedAgentStatusEnumValues
+}

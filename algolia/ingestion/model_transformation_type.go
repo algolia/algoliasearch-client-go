@@ -67,3 +67,8 @@ func (v TransformationType) IsValid() bool {
 func (v TransformationType) Ptr() *TransformationType {
 	return &v
 }
+
+// Values returns the list of allowed values of TransformationType.
+func (v TransformationType) Values() []TransformationType {
+	return AllowedTransformationTypeEnumValues
+}

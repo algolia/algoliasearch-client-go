@@ -73,3 +73,8 @@ func (v Period) IsValid() bool {
 func (v Period) Ptr() *Period {
 	return &v
 }
+
+// Values returns the list of allowed values of Period.
+func (v Period) Values() []Period {
+	return AllowedPeriodEnumValues
+}

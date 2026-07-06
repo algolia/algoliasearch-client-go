@@ -67,3 +67,8 @@ func (v RunOutcome) IsValid() bool {
 func (v RunOutcome) Ptr() *RunOutcome {
 	return &v
 }
+
+// Values returns the list of allowed values of RunOutcome.
+func (v RunOutcome) Values() []RunOutcome {
+	return AllowedRunOutcomeEnumValues
+}

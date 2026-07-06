@@ -65,3 +65,8 @@ func (v ViewEvent) IsValid() bool {
 func (v ViewEvent) Ptr() *ViewEvent {
 	return &v
 }
+
+// Values returns the list of allowed values of ViewEvent.
+func (v ViewEvent) Values() []ViewEvent {
+	return AllowedViewEventEnumValues
+}

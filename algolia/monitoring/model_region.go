@@ -93,3 +93,8 @@ func (v Region) IsValid() bool {
 func (v Region) Ptr() *Region {
 	return &v
 }
+
+// Values returns the list of allowed values of Region.
+func (v Region) Values() []Region {
+	return AllowedRegionEnumValues
+}

@@ -67,3 +67,8 @@ func (v DedupPositioning) IsValid() bool {
 func (v DedupPositioning) Ptr() *DedupPositioning {
 	return &v
 }
+
+// Values returns the list of allowed values of DedupPositioning.
+func (v DedupPositioning) Values() []DedupPositioning {
+	return AllowedDedupPositioningEnumValues
+}

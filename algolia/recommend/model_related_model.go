@@ -65,3 +65,8 @@ func (v RelatedModel) IsValid() bool {
 func (v RelatedModel) Ptr() *RelatedModel {
 	return &v
 }
+
+// Values returns the list of allowed values of RelatedModel.
+func (v RelatedModel) Values() []RelatedModel {
+	return AllowedRelatedModelEnumValues
+}

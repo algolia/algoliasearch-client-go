@@ -67,3 +67,8 @@ func (v DictionaryEntryState) IsValid() bool {
 func (v DictionaryEntryState) Ptr() *DictionaryEntryState {
 	return &v
 }
+
+// Values returns the list of allowed values of DictionaryEntryState.
+func (v DictionaryEntryState) Values() []DictionaryEntryState {
+	return AllowedDictionaryEntryStateEnumValues
+}

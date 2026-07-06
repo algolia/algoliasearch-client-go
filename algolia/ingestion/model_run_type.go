@@ -73,3 +73,8 @@ func (v RunType) IsValid() bool {
 func (v RunType) Ptr() *RunType {
 	return &v
 }
+
+// Values returns the list of allowed values of RunType.
+func (v RunType) Values() []RunType {
+	return AllowedRunTypeEnumValues
+}

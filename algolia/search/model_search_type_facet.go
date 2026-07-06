@@ -65,3 +65,8 @@ func (v SearchTypeFacet) IsValid() bool {
 func (v SearchTypeFacet) Ptr() *SearchTypeFacet {
 	return &v
 }
+
+// Values returns the list of allowed values of SearchTypeFacet.
+func (v SearchTypeFacet) Values() []SearchTypeFacet {
+	return AllowedSearchTypeFacetEnumValues
+}

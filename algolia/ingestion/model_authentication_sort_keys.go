@@ -73,3 +73,8 @@ func (v AuthenticationSortKeys) IsValid() bool {
 func (v AuthenticationSortKeys) Ptr() *AuthenticationSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of AuthenticationSortKeys.
+func (v AuthenticationSortKeys) Values() []AuthenticationSortKeys {
+	return AllowedAuthenticationSortKeysEnumValues
+}

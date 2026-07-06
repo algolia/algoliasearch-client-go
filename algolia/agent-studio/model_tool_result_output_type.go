@@ -73,3 +73,8 @@ func (v ToolResultOutputType) IsValid() bool {
 func (v ToolResultOutputType) Ptr() *ToolResultOutputType {
 	return &v
 }
+
+// Values returns the list of allowed values of ToolResultOutputType.
+func (v ToolResultOutputType) Values() []ToolResultOutputType {
+	return AllowedToolResultOutputTypeEnumValues
+}

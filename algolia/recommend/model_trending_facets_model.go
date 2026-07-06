@@ -65,3 +65,8 @@ func (v TrendingFacetsModel) IsValid() bool {
 func (v TrendingFacetsModel) Ptr() *TrendingFacetsModel {
 	return &v
 }
+
+// Values returns the list of allowed values of TrendingFacetsModel.
+func (v TrendingFacetsModel) Values() []TrendingFacetsModel {
+	return AllowedTrendingFacetsModelEnumValues
+}

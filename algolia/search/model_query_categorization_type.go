@@ -71,3 +71,8 @@ func (v QueryCategorizationType) IsValid() bool {
 func (v QueryCategorizationType) Ptr() *QueryCategorizationType {
 	return &v
 }
+
+// Values returns the list of allowed values of QueryCategorizationType.
+func (v QueryCategorizationType) Values() []QueryCategorizationType {
+	return AllowedQueryCategorizationTypeEnumValues
+}

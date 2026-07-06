@@ -65,3 +65,8 @@ func (v Model) IsValid() bool {
 func (v Model) Ptr() *Model {
 	return &v
 }
+
+// Values returns the list of allowed values of Model.
+func (v Model) Values() []Model {
+	return AllowedModelEnumValues
+}

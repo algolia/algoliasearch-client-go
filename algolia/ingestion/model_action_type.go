@@ -73,3 +73,8 @@ func (v ActionType) IsValid() bool {
 func (v ActionType) Ptr() *ActionType {
 	return &v
 }
+
+// Values returns the list of allowed values of ActionType.
+func (v ActionType) Values() []ActionType {
+	return AllowedActionTypeEnumValues
+}

@@ -69,3 +69,8 @@ func (v ScopeType) IsValid() bool {
 func (v ScopeType) Ptr() *ScopeType {
 	return &v
 }
+
+// Values returns the list of allowed values of ScopeType.
+func (v ScopeType) Values() []ScopeType {
+	return AllowedScopeTypeEnumValues
+}

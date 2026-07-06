@@ -67,3 +67,8 @@ func (v ErrorCorrectionType) IsValid() bool {
 func (v ErrorCorrectionType) Ptr() *ErrorCorrectionType {
 	return &v
 }
+
+// Values returns the list of allowed values of ErrorCorrectionType.
+func (v ErrorCorrectionType) Values() []ErrorCorrectionType {
+	return AllowedErrorCorrectionTypeEnumValues
+}

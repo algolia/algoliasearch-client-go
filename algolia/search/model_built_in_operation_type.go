@@ -77,3 +77,8 @@ func (v BuiltInOperationType) IsValid() bool {
 func (v BuiltInOperationType) Ptr() *BuiltInOperationType {
 	return &v
 }
+
+// Values returns the list of allowed values of BuiltInOperationType.
+func (v BuiltInOperationType) Values() []BuiltInOperationType {
+	return AllowedBuiltInOperationTypeEnumValues
+}

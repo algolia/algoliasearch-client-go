@@ -65,3 +65,8 @@ func (v OnDemandTriggerType) IsValid() bool {
 func (v OnDemandTriggerType) Ptr() *OnDemandTriggerType {
 	return &v
 }
+
+// Values returns the list of allowed values of OnDemandTriggerType.
+func (v OnDemandTriggerType) Values() []OnDemandTriggerType {
+	return AllowedOnDemandTriggerTypeEnumValues
+}

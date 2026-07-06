@@ -67,3 +67,8 @@ func (v ExternalOrdering) IsValid() bool {
 func (v ExternalOrdering) Ptr() *ExternalOrdering {
 	return &v
 }
+
+// Values returns the list of allowed values of ExternalOrdering.
+func (v ExternalOrdering) Values() []ExternalOrdering {
+	return AllowedExternalOrderingEnumValues
+}

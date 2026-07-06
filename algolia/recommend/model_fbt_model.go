@@ -65,3 +65,8 @@ func (v FbtModel) IsValid() bool {
 func (v FbtModel) Ptr() *FbtModel {
 	return &v
 }
+
+// Values returns the list of allowed values of FbtModel.
+func (v FbtModel) Values() []FbtModel {
+	return AllowedFbtModelEnumValues
+}

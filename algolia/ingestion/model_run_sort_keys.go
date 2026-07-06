@@ -69,3 +69,8 @@ func (v RunSortKeys) IsValid() bool {
 func (v RunSortKeys) Ptr() *RunSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of RunSortKeys.
+func (v RunSortKeys) Values() []RunSortKeys {
+	return AllowedRunSortKeysEnumValues
+}

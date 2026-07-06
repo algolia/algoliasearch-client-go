@@ -71,3 +71,8 @@ func (v RemoveWordsIfNoResults) IsValid() bool {
 func (v RemoveWordsIfNoResults) Ptr() *RemoveWordsIfNoResults {
 	return &v
 }
+
+// Values returns the list of allowed values of RemoveWordsIfNoResults.
+func (v RemoveWordsIfNoResults) Values() []RemoveWordsIfNoResults {
+	return AllowedRemoveWordsIfNoResultsEnumValues
+}

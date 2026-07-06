@@ -69,3 +69,8 @@ func (v EventType) IsValid() bool {
 func (v EventType) Ptr() *EventType {
 	return &v
 }
+
+// Values returns the list of allowed values of EventType.
+func (v EventType) Values() []EventType {
+	return AllowedEventTypeEnumValues
+}

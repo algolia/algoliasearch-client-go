@@ -73,3 +73,8 @@ func (v CategoryPredictionBin) IsValid() bool {
 func (v CategoryPredictionBin) Ptr() *CategoryPredictionBin {
 	return &v
 }
+
+// Values returns the list of allowed values of CategoryPredictionBin.
+func (v CategoryPredictionBin) Values() []CategoryPredictionBin {
+	return AllowedCategoryPredictionBinEnumValues
+}

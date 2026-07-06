@@ -67,3 +67,8 @@ func (v DictionaryEntryType) IsValid() bool {
 func (v DictionaryEntryType) Ptr() *DictionaryEntryType {
 	return &v
 }
+
+// Values returns the list of allowed values of DictionaryEntryType.
+func (v DictionaryEntryType) Values() []DictionaryEntryType {
+	return AllowedDictionaryEntryTypeEnumValues
+}

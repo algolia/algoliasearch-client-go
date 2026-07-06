@@ -67,3 +67,8 @@ func (v TaskStatus) IsValid() bool {
 func (v TaskStatus) Ptr() *TaskStatus {
 	return &v
 }
+
+// Values returns the list of allowed values of TaskStatus.
+func (v TaskStatus) Values() []TaskStatus {
+	return AllowedTaskStatusEnumValues
+}

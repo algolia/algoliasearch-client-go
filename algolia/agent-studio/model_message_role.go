@@ -67,3 +67,8 @@ func (v MessageRole) IsValid() bool {
 func (v MessageRole) Ptr() *MessageRole {
 	return &v
 }
+
+// Values returns the list of allowed values of MessageRole.
+func (v MessageRole) Values() []MessageRole {
+	return AllowedMessageRoleEnumValues
+}

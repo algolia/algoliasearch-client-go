@@ -65,3 +65,8 @@ func (v SearchTypeDefault) IsValid() bool {
 func (v SearchTypeDefault) Ptr() *SearchTypeDefault {
 	return &v
 }
+
+// Values returns the list of allowed values of SearchTypeDefault.
+func (v SearchTypeDefault) Values() []SearchTypeDefault {
+	return AllowedSearchTypeDefaultEnumValues
+}

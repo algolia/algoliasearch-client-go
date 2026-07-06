@@ -75,3 +75,8 @@ func (v ProviderName) IsValid() bool {
 func (v ProviderName) Ptr() *ProviderName {
 	return &v
 }
+
+// Values returns the list of allowed values of ProviderName.
+func (v ProviderName) Values() []ProviderName {
+	return AllowedProviderNameEnumValues
+}

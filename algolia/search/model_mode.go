@@ -67,3 +67,8 @@ func (v Mode) IsValid() bool {
 func (v Mode) Ptr() *Mode {
 	return &v
 }
+
+// Values returns the list of allowed values of Mode.
+func (v Mode) Values() []Mode {
+	return AllowedModeEnumValues
+}

@@ -73,3 +73,8 @@ func (v MappingTypeCSV) IsValid() bool {
 func (v MappingTypeCSV) Ptr() *MappingTypeCSV {
 	return &v
 }
+
+// Values returns the list of allowed values of MappingTypeCSV.
+func (v MappingTypeCSV) Values() []MappingTypeCSV {
+	return AllowedMappingTypeCSVEnumValues
+}

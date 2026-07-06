@@ -69,3 +69,8 @@ func (v RecordType) IsValid() bool {
 func (v RecordType) Ptr() *RecordType {
 	return &v
 }
+
+// Values returns the list of allowed values of RecordType.
+func (v RecordType) Values() []RecordType {
+	return AllowedRecordTypeEnumValues
+}

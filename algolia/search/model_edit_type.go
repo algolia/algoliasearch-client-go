@@ -67,3 +67,8 @@ func (v EditType) IsValid() bool {
 func (v EditType) Ptr() *EditType {
 	return &v
 }
+
+// Values returns the list of allowed values of EditType.
+func (v EditType) Values() []EditType {
+	return AllowedEditTypeEnumValues
+}

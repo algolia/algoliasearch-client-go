@@ -77,3 +77,8 @@ func (v Operator) IsValid() bool {
 func (v Operator) Ptr() *Operator {
 	return &v
 }
+
+// Values returns the list of allowed values of Operator.
+func (v Operator) Values() []Operator {
+	return AllowedOperatorEnumValues
+}

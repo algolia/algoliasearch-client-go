@@ -71,3 +71,8 @@ func (v DestinationSortKeys) IsValid() bool {
 func (v DestinationSortKeys) Ptr() *DestinationSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of DestinationSortKeys.
+func (v DestinationSortKeys) Values() []DestinationSortKeys {
+	return AllowedDestinationSortKeysEnumValues
+}

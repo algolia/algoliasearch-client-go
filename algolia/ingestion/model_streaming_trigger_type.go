@@ -65,3 +65,8 @@ func (v StreamingTriggerType) IsValid() bool {
 func (v StreamingTriggerType) Ptr() *StreamingTriggerType {
 	return &v
 }
+
+// Values returns the list of allowed values of StreamingTriggerType.
+func (v StreamingTriggerType) Values() []StreamingTriggerType {
+	return AllowedStreamingTriggerTypeEnumValues
+}

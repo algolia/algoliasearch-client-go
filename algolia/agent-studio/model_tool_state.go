@@ -71,3 +71,8 @@ func (v ToolState) IsValid() bool {
 func (v ToolState) Ptr() *ToolState {
 	return &v
 }
+
+// Values returns the list of allowed values of ToolState.
+func (v ToolState) Values() []ToolState {
+	return AllowedToolStateEnumValues
+}

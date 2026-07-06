@@ -71,3 +71,8 @@ func (v RecommendModels) IsValid() bool {
 func (v RecommendModels) Ptr() *RecommendModels {
 	return &v
 }
+
+// Values returns the list of allowed values of RecommendModels.
+func (v RecommendModels) Values() []RecommendModels {
+	return AllowedRecommendModelsEnumValues
+}

@@ -67,3 +67,8 @@ func (v Direction) IsValid() bool {
 func (v Direction) Ptr() *Direction {
 	return &v
 }
+
+// Values returns the list of allowed values of Direction.
+func (v Direction) Values() []Direction {
+	return AllowedDirectionEnumValues
+}

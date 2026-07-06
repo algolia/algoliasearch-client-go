@@ -71,3 +71,8 @@ func (v LogType) IsValid() bool {
 func (v LogType) Ptr() *LogType {
 	return &v
 }
+
+// Values returns the list of allowed values of LogType.
+func (v LogType) Values() []LogType {
+	return AllowedLogTypeEnumValues
+}

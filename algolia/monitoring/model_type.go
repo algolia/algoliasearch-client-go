@@ -65,3 +65,8 @@ func (v Type) IsValid() bool {
 func (v Type) Ptr() *Type {
 	return &v
 }
+
+// Values returns the list of allowed values of Type.
+func (v Type) Values() []Type {
+	return AllowedTypeEnumValues
+}

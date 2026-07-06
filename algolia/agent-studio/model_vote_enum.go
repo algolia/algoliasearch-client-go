@@ -67,3 +67,8 @@ func (v VoteEnum) IsValid() bool {
 func (v VoteEnum) Ptr() *VoteEnum {
 	return &v
 }
+
+// Values returns the list of allowed values of VoteEnum.
+func (v VoteEnum) Values() []VoteEnum {
+	return AllowedVoteEnumEnumValues
+}

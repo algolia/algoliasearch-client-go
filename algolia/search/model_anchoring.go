@@ -71,3 +71,8 @@ func (v Anchoring) IsValid() bool {
 func (v Anchoring) Ptr() *Anchoring {
 	return &v
 }
+
+// Values returns the list of allowed values of Anchoring.
+func (v Anchoring) Values() []Anchoring {
+	return AllowedAnchoringEnumValues
+}

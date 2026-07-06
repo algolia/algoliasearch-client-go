@@ -65,3 +65,8 @@ func (v SubscriptionTriggerType) IsValid() bool {
 func (v SubscriptionTriggerType) Ptr() *SubscriptionTriggerType {
 	return &v
 }
+
+// Values returns the list of allowed values of SubscriptionTriggerType.
+func (v SubscriptionTriggerType) Values() []SubscriptionTriggerType {
+	return AllowedSubscriptionTriggerTypeEnumValues
+}

@@ -83,3 +83,8 @@ func (v SourceType) IsValid() bool {
 func (v SourceType) Ptr() *SourceType {
 	return &v
 }
+
+// Values returns the list of allowed values of SourceType.
+func (v SourceType) Values() []SourceType {
+	return AllowedSourceTypeEnumValues
+}

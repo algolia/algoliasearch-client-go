@@ -67,3 +67,8 @@ func (v OperationType) IsValid() bool {
 func (v OperationType) Ptr() *OperationType {
 	return &v
 }
+
+// Values returns the list of allowed values of OperationType.
+func (v OperationType) Values() []OperationType {
+	return AllowedOperationTypeEnumValues
+}

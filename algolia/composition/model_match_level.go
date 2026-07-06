@@ -69,3 +69,8 @@ func (v MatchLevel) IsValid() bool {
 func (v MatchLevel) Ptr() *MatchLevel {
 	return &v
 }
+
+// Values returns the list of allowed values of MatchLevel.
+func (v MatchLevel) Values() []MatchLevel {
+	return AllowedMatchLevelEnumValues
+}

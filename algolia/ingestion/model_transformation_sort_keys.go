@@ -69,3 +69,8 @@ func (v TransformationSortKeys) IsValid() bool {
 func (v TransformationSortKeys) Ptr() *TransformationSortKeys {
 	return &v
 }
+
+// Values returns the list of allowed values of TransformationSortKeys.
+func (v TransformationSortKeys) Values() []TransformationSortKeys {
+	return AllowedTransformationSortKeysEnumValues
+}
