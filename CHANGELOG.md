@@ -1,3 +1,10 @@
+## [4.44.0](https://github.com/algolia/algoliasearch-client-go/compare/4.43.1...4.44.0)
+
+- [035c03ecad](https://github.com/algolia/api-clients-automation/commit/035c03ecad) fix(specs): BREAKING CHANGE – remove recommend query params overridden by the API ([#6604](https://github.com/algolia/api-clients-automation/pull/6604)) by [@raed667](https://github.com/raed667/)
+  - The `ranking`, `facetFilters`, and `enableABTest` parameters have been removed from the Recommend request, and `enableRules` from its fallback parameters, as the Recommend API ignores them. API behavior is unchanged, but code setting these fields must be updated.
+- [5031c65633](https://github.com/algolia/api-clients-automation/commit/5031c65633) chore(deps): dependencies 2026-06-15 ([#6508](https://github.com/algolia/api-clients-automation/pull/6508)) by [@algolia-api-clients-automation-bot[bot]](https://github.com/apps/algolia-api-clients-automation-bot)
+- [0b7dd39ec2](https://github.com/algolia/api-clients-automation/commit/0b7dd39ec2) feat(go): add Values method for enum class ([#6683](https://github.com/algolia/api-clients-automation/pull/6683)) by [@LorrisSaintGenez](https://github.com/LorrisSaintGenez/)
+
 ## [4.43.1](https://github.com/algolia/algoliasearch-client-go/compare/4.43.0...4.43.1)
 
 - [a632f9fb75](https://github.com/algolia/api-clients-automation/commit/a632f9fb75) fix(specs): BREAKING CHANGE – allow null records in getObjects response ([#6582](https://github.com/algolia/api-clients-automation/pull/6582)) by [@Fluf22](https://github.com/Fluf22/)
