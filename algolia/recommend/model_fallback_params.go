@@ -160,6 +160,7 @@ type FallbackParams struct {
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
 	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
 	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
+	FacetFilters         *FacetFilters                        `json:"facetFilters,omitempty"`
 }
 
 type FallbackParamsOption func(f *FallbackParams)
@@ -659,6 +660,12 @@ func WithFallbackParamsEnableReRanking(val bool) FallbackParamsOption {
 func WithFallbackParamsReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) FallbackParamsOption {
 	return func(f *FallbackParams) {
 		f.ReRankingApplyFilter = val
+	}
+}
+
+func WithFallbackParamsFacetFilters(val FacetFilters) FallbackParamsOption {
+	return func(f *FallbackParams) {
+		f.FacetFilters = &val
 	}
 }
 
@@ -3785,6 +3792,43 @@ func (o *FallbackParams) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
+// GetFacetFilters returns the FacetFilters field value if set, zero value otherwise.
+func (o *FallbackParams) GetFacetFilters() FacetFilters {
+	if o == nil || o.FacetFilters == nil {
+		var ret FacetFilters
+
+		return ret
+	}
+
+	return *o.FacetFilters
+}
+
+// GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FallbackParams) GetFacetFiltersOk() (*FacetFilters, bool) {
+	if o == nil || o.FacetFilters == nil {
+		return nil, false
+	}
+
+	return o.FacetFilters, true
+}
+
+// HasFacetFilters returns a boolean if a field has been set.
+func (o *FallbackParams) HasFacetFilters() bool {
+	if o != nil && o.FacetFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFacetFilters gets a reference to the given FacetFilters and assigns it to the FacetFilters field.
+func (o *FallbackParams) SetFacetFilters(v *FacetFilters) *FallbackParams {
+	o.FacetFilters = v
+
+	return o
+}
+
 func (o FallbackParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.SimilarQuery != nil {
@@ -4119,6 +4163,10 @@ func (o FallbackParams) MarshalJSON() ([]byte, error) {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 
+	if o.FacetFilters != nil {
+		toSerialize["facetFilters"] = o.FacetFilters
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal FallbackParams: %w", err)
@@ -4212,6 +4260,7 @@ func (o FallbackParams) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
 
 	return fmt.Sprintf("FallbackParams {\n%s}", out)
 }
