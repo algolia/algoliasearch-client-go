@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/sse"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
@@ -975,6 +976,140 @@ func (c *APIClient) CreateAgentCompletion(r ApiCreateAgentCompletionRequest, opt
 	}
 
 	return returnValue, nil
+}
+
+/*
+CreateAgentCompletionStreamRaw calls the API and returns a raw sse.Decoder over the Server-Sent Events of the response (CreateAgentCompletion streaming version).
+
+    Create a completion for the specified agent.
+
+This endpoint handles two types of requests:
+1. Normal completion request: User message -> Agent response
+2. Tool approval response: User approval -> Execute tool -> Agent response
+
+Tool Approval Flow (for MCP tools with requiresApproval: true):
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 2: User approves -> Execute tool -> Agent continues with result.
+
+      Required API Key ACLs:
+      - search
+
+  Request can be constructed by NewApiCreateAgentCompletionRequest with parameters below.
+    @param agentId string - The agentId.
+    @param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
+    @param agentCompletionRequest AgentCompletionRequest
+    @param stream bool - Whether to stream the response or not.
+    @param cache bool - Use cached responses if available.
+    @param memory bool - Set to false to disable memory (enabled by default).
+    @param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
+    @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+  @param opts ...RequestOption - Optional parameters for the API call
+  @return sse.Decoder - A decoder over the raw events, each event's Data field contains a JSON-encoded map[string]any. The caller is responsible for closing it.
+  @return error - An error if the API call fails
+*/
+//nolint:ireturn // The interface is the API, the implementation is not exposed.
+func (c *APIClient) CreateAgentCompletionStreamRaw(r ApiCreateAgentCompletionRequest, opts ...RequestOption) (sse.Decoder, error) {
+	requestPath := "/agent-studio/1/agents/{agentId}/completions"
+	requestPath = strings.ReplaceAll(requestPath, "{agentId}", url.PathEscape(utils.ParameterToString(r.agentId)))
+
+	if r.agentId == "" {
+		return nil, reportError("Parameter `agentId` is required when calling `CreateAgentCompletion`.")
+	}
+
+	if r.agentCompletionRequest == nil {
+		return nil, reportError("Parameter `agentCompletionRequest` is required when calling `CreateAgentCompletion`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	conf.queryParams.Set("compatibilityMode", utils.QueryParameterToString(r.compatibilityMode))
+
+	if !utils.IsNilOrEmpty(r.stream) {
+		conf.queryParams.Set("stream", utils.QueryParameterToString(*r.stream))
+	}
+
+	if !utils.IsNilOrEmpty(r.cache) {
+		conf.queryParams.Set("cache", utils.QueryParameterToString(*r.cache))
+	}
+
+	if !utils.IsNilOrEmpty(r.memory) {
+		conf.queryParams.Set("memory", utils.QueryParameterToString(*r.memory))
+	}
+
+	if !utils.IsNilOrEmpty(r.analytics) {
+		conf.queryParams.Set("analytics", utils.QueryParameterToString(*r.analytics))
+	}
+
+	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
+		conf.headerParams["X-Algolia-Secure-User-Token"] = utils.ParameterToString(*r.xAlgoliaSecureUserToken)
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.agentCompletionRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, err
+	}
+
+	//nolint:bodyclose // The body is closed by the decoder.
+	res, err := c.callAPIStream(req, false, conf.timeouts)
+	if err != nil {
+		return nil, err
+	}
+
+	return sse.NewEventStreamDecoder(res.Body), nil
+}
+
+/*
+CreateAgentCompletionStream calls the API and returns a typed sse.Stream over the Server-Sent Events of the response (CreateAgentCompletion streaming version).
+
+	Create a completion for the specified agent.
+
+This endpoint handles two types of requests:
+1. Normal completion request: User message -> Agent response
+2. Tool approval response: User approval -> Execute tool -> Agent response
+
+Tool Approval Flow (for MCP tools with requiresApproval: true):
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 2: User approves -> Execute tool -> Agent continues with result.
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiCreateAgentCompletionRequest with parameters below.
+	  @param agentId string - The agentId.
+	  @param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
+	  @param agentCompletionRequest AgentCompletionRequest
+	  @param stream bool - Whether to stream the response or not.
+	  @param cache bool - Use cached responses if available.
+	  @param memory bool - Set to false to disable memory (enabled by default).
+
+
+	  @param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
+	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *sse.Stream[map[string]any] - A stream deserializing each event's payload. The caller is responsible for closing it.
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CreateAgentCompletionStream(r ApiCreateAgentCompletionRequest, opts ...RequestOption) (*sse.Stream[map[string]any], error) {
+	decoder, err := c.CreateAgentCompletionStreamRaw(r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	return sse.NewStream[map[string]any](decoder, nil), nil
 }
 
 func (r *ApiCreateFeedbackRequest) UnmarshalJSON(b []byte) error {

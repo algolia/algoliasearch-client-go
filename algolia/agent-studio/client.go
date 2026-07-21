@@ -147,6 +147,27 @@ func (c *APIClient) callAPI(
 	return resp, body, nil
 }
 
+// callAPIStream does the request and returns the raw response without reading
+// its body, so that the caller can consume it as a stream. A non-2xx response
+// is returned as an errs.HTTPStatusError.
+func (c *APIClient) callAPIStream(
+	request *http.Request,
+	useReadTransporter bool,
+	requestConfiguration transport.RequestConfiguration,
+) (*http.Response, error) {
+	callKind := call.Write
+	if useReadTransporter || request.Method == http.MethodGet {
+		callKind = call.Read
+	}
+
+	resp, err := c.transport.RequestStream(request.Context(), request, callKind, requestConfiguration)
+	if err != nil {
+		return nil, fmt.Errorf("failed to do request: %w", err)
+	}
+
+	return resp, nil
+}
+
 // prepareRequest build the request.
 func (c *APIClient) prepareRequest(
 	ctx context.Context,

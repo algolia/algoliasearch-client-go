@@ -87,11 +87,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 		// before the early returns, but when we do so, we do it **after**
 		// reading the body content of the response. Otherwise, a `context
 		// cancelled` error may happen when the body is read.
-		var (
-			ctxTimeout     time.Duration
-			connectTimeout time.Duration
-			err            error
-		)
+		var err error
 
 		// Reassign a fresh body for the retry
 		if i > 0 && req.GetBody != nil {
@@ -101,20 +97,7 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 			}
 		}
 
-		switch {
-		case k == call.Read && c.ReadTimeout != nil:
-			ctxTimeout = *c.ReadTimeout
-		case k == call.Write && c.WriteTimeout != nil:
-			ctxTimeout = *c.WriteTimeout
-		default:
-			ctxTimeout = h.timeout
-		}
-
-		if c.ConnectTimeout != nil {
-			connectTimeout = *c.ConnectTimeout
-		} else {
-			connectTimeout = t.connectTimeout
-		}
+		ctxTimeout, connectTimeout := t.resolveTimeouts(k, c, h)
 
 		perRequestCtx, cancel := context.WithTimeout(ctx, ctxTimeout)
 		req = req.WithContext(perRequestCtx)
@@ -180,6 +163,105 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 	return nil, nil, errs.ErrNoMoreHostToTry
 }
 
+// maxErrorBodySize bounds the error body read of a failed streaming request,
+// so that a server streaming an endless error body cannot stall the caller
+// forever.
+const maxErrorBodySize = 1 << 20
+
+// RequestStream performs the given request and returns the raw response
+// without reading its body, so that the caller can consume it as a stream.
+// Unlike Request, it does not retry: the request is only sent to the first
+// available host, and no read deadline is applied to the response body, as it
+// would abort the stream while it is being consumed. Cancellation is
+// controlled by the caller through ctx. The outcome does not update the host
+// health state used by the retry strategy, consistent with the JavaScript and
+// Python clients. The Accept header is always overwritten with
+// text/event-stream.
+//
+// The RequestConfiguration timeouts are forwarded to the [Requester], but the
+// default requester ignores them and no context deadline is applied here:
+// with the default requester, the time to the response headers is bounded
+// only by ctx. Use a custom [Requester] to enforce a time-to-first-byte
+// limit.
+//
+// A response with a non-2xx status code is consumed and returned as an
+// [errs.HTTPStatusError] carrying the status code and the error body,
+// consistent with the JavaScript and Python clients.
+//
+// The caller is responsible for closing the response body.
+func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call.Kind, c RequestConfiguration) (*http.Response, error) {
+	// Add Content-Encoding header, if needed
+	if t.compression == compression.GZIP && shouldCompress(t.compression, req.Method, req.Body) {
+		req.Header.Add("Content-Encoding", "gzip")
+	}
+
+	req.Header.Set("Accept", "text/event-stream")
+
+	hosts := t.retryStrategy.GetTryableHosts(k)
+	if len(hosts) == 0 {
+		return nil, errs.ErrNoMoreHostToTry
+	}
+
+	host := hosts[0]
+
+	timeout, connectTimeout := t.resolveTimeouts(k, c, host)
+
+	req = req.WithContext(ctx)
+	req.URL.Scheme = host.scheme
+	req.URL.Host = host.host
+
+	debug.Display(req)
+
+	// Unlike in request, the response is voluntarily not passed to
+	// debug.Display: displaying it would buffer the whole body in memory,
+	// defeating streaming.
+	res, err := t.requester.Request(req, timeout, connectTimeout)
+	if err != nil {
+		return nil, wrapRequestError(req, err)
+	}
+
+	if !is2xx(res.StatusCode) {
+		body, errBody := io.ReadAll(io.LimitReader(res.Body, maxErrorBodySize))
+		errClose := res.Body.Close()
+
+		if errBody != nil {
+			return nil, fmt.Errorf("cannot read error response body: %w: %w", errBody, errs.NewHTTPStatusError(res.StatusCode, nil))
+		}
+
+		if errClose != nil {
+			return nil, fmt.Errorf("cannot close error response body: %w: %w", errClose, errs.NewHTTPStatusError(res.StatusCode, body))
+		}
+
+		return nil, errs.NewHTTPStatusError(res.StatusCode, body)
+	}
+
+	return res, nil
+}
+
+// resolveTimeouts returns the request and connect timeouts applying to a call
+// of kind k against host h, honoring the overrides of c.
+func (t *Transport) resolveTimeouts(k call.Kind, c RequestConfiguration, h Host) (time.Duration, time.Duration) {
+	var timeout time.Duration
+
+	switch {
+	case k == call.Read && c.ReadTimeout != nil:
+		timeout = *c.ReadTimeout
+	case k == call.Write && c.WriteTimeout != nil:
+		timeout = *c.WriteTimeout
+	default:
+		timeout = h.timeout
+	}
+
+	var connectTimeout time.Duration
+	if c.ConnectTimeout != nil {
+		connectTimeout = *c.ConnectTimeout
+	} else {
+		connectTimeout = t.connectTimeout
+	}
+
+	return timeout, connectTimeout
+}
+
 func (t *Transport) request(req *http.Request, host Host, timeout time.Duration, connectTimeout time.Duration) (*http.Response, error) {
 	req.URL.Scheme = host.scheme
 	req.URL.Host = host.host
@@ -189,25 +271,27 @@ func (t *Transport) request(req *http.Request, host Host, timeout time.Duration,
 	debug.Display(res)
 
 	if err != nil {
-		msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
-
-		var nerr net.Error
-		if errors.As(err, &nerr) {
-			// Because net.Error and error have different meanings for the
-			// retry strategy, we cannot simply return a new error, which
-			// would make all net.Error simple errors instead. To keep this
-			// behaviour, we wrap the message into a custom netError that
-			// implements the net.Error interface if the original error was
-			// already a net.Error.
-			err = errs.NetError(nerr, msg)
-		} else {
-			err = errors.New(msg)
-		}
-
-		return nil, err
+		return nil, wrapRequestError(req, err)
 	}
 
 	return res, nil
+}
+
+func wrapRequestError(req *http.Request, err error) error {
+	msg := fmt.Sprintf("cannot perform request:\n\terror=%v\n\tmethod=%s\n\turl=%s", err, req.Method, req.URL)
+
+	var nerr net.Error
+	if errors.As(err, &nerr) {
+		// Because net.Error and error have different meanings for the
+		// retry strategy, we cannot simply return a new error, which
+		// would make all net.Error simple errors instead. To keep this
+		// behaviour, we wrap the message into a custom netError that
+		// implements the net.Error interface if the original error was
+		// already a net.Error.
+		return errs.NetError(nerr, msg)
+	}
+
+	return errors.New(msg)
 }
 
 func shouldCompress(c compression.Compression, method string, body any) bool {
