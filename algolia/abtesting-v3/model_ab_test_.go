@@ -27,7 +27,8 @@ type ABTest struct {
 	Variants      []Variant            `json:"variants"`
 	Configuration *ABTestConfiguration `json:"configuration,omitempty"`
 	// Unique migrated A/B test identifier.
-	MigratedAbTestID *int32 `json:"migratedAbTestID,omitempty"`
+	MigratedAbTestID *int32    `json:"migratedAbTestID,omitempty"`
+	Decision         *Decision `json:"decision,omitempty"`
 }
 
 type ABTestOption func(f *ABTest)
@@ -47,6 +48,12 @@ func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 func WithABTestMigratedAbTestID(val int32) ABTestOption {
 	return func(f *ABTest) {
 		f.MigratedAbTestID = &val
+	}
+}
+
+func WithABTestDecision(val Decision) ABTestOption {
+	return func(f *ABTest) {
+		f.Decision = &val
 	}
 }
 
@@ -403,6 +410,43 @@ func (o *ABTest) SetMigratedAbTestID(v int32) *ABTest {
 	return o
 }
 
+// GetDecision returns the Decision field value if set, zero value otherwise.
+func (o *ABTest) GetDecision() Decision {
+	if o == nil || o.Decision == nil {
+		var ret Decision
+
+		return ret
+	}
+
+	return *o.Decision
+}
+
+// GetDecisionOk returns a tuple with the Decision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ABTest) GetDecisionOk() (*Decision, bool) {
+	if o == nil || o.Decision == nil {
+		return nil, false
+	}
+
+	return o.Decision, true
+}
+
+// HasDecision returns a boolean if a field has been set.
+func (o *ABTest) HasDecision() bool {
+	if o != nil && o.Decision != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDecision gets a reference to the given Decision and assigns it to the Decision field.
+func (o *ABTest) SetDecision(v *Decision) *ABTest {
+	o.Decision = v
+
+	return o
+}
+
 func (o ABTest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["abTestID"] = o.AbTestID
@@ -426,6 +470,10 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 		toSerialize["migratedAbTestID"] = o.MigratedAbTestID
 	}
 
+	if o.Decision != nil {
+		toSerialize["decision"] = o.Decision
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ABTest: %w", err)
@@ -446,6 +494,7 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 	out += fmt.Sprintf("  migratedAbTestID=%v\n", o.MigratedAbTestID)
+	out += fmt.Sprintf("  decision=%v\n", o.Decision)
 
 	return fmt.Sprintf("ABTest {\n%s}", out)
 }
