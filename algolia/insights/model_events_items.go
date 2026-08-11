@@ -18,6 +18,7 @@ type EventsItems struct {
 	ConvertedFilters                *ConvertedFilters
 	ConvertedObjectIDs              *ConvertedObjectIDs
 	ConvertedObjectIDsAfterSearch   *ConvertedObjectIDsAfterSearch
+	Instantsearch                   *Instantsearch
 	PurchasedObjectIDs              *PurchasedObjectIDs
 	PurchasedObjectIDsAfterSearch   *PurchasedObjectIDsAfterSearch
 	ViewedFilters                   *ViewedFilters
@@ -105,6 +106,13 @@ func ViewedObjectIDsAsEventsItems(v *ViewedObjectIDs) *EventsItems {
 func ViewedFiltersAsEventsItems(v *ViewedFilters) *EventsItems {
 	return &EventsItems{
 		ViewedFilters: v,
+	}
+}
+
+// InstantsearchAsEventsItems is a convenience function that returns Instantsearch wrapped in EventsItems.
+func InstantsearchAsEventsItems(v *Instantsearch) *EventsItems {
+	return &EventsItems{
+		Instantsearch: v,
 	}
 }
 
@@ -214,6 +222,14 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	if utils.HasKey(jsonDict, "eventType") {
+		// try to unmarshal data into Instantsearch
+		err = json.Unmarshal(data, &dst.Instantsearch)
+		if err != nil {
+			dst.Instantsearch = nil
+		}
+	}
+
 	// check if at least one type was successfully unmarshaled
 	if dst.AddedToCartObjectIDs != nil {
 		return nil
@@ -244,6 +260,10 @@ func (dst *EventsItems) UnmarshalJSON(data []byte) error {
 	}
 
 	if dst.ConvertedObjectIDsAfterSearch != nil {
+		return nil
+	}
+
+	if dst.Instantsearch != nil {
 		return nil
 	}
 
@@ -340,6 +360,15 @@ func (src EventsItems) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.Instantsearch != nil {
+		serialized, err := json.Marshal(&src.Instantsearch)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of Instantsearch of EventsItems: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.PurchasedObjectIDs != nil {
 		serialized, err := json.Marshal(&src.PurchasedObjectIDs)
 		if err != nil {
@@ -411,6 +440,10 @@ func (obj EventsItems) GetActualInstance() any {
 
 	if obj.ConvertedObjectIDsAfterSearch != nil {
 		return *obj.ConvertedObjectIDsAfterSearch
+	}
+
+	if obj.Instantsearch != nil {
+		return *obj.Instantsearch
 	}
 
 	if obj.PurchasedObjectIDs != nil {
