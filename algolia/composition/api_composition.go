@@ -10,6 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
+
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
@@ -238,7 +240,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -374,7 +376,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -537,7 +539,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -700,7 +702,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -816,7 +818,7 @@ func (c *APIClient) DeleteComposition(r ApiDeleteCompositionRequest, opts ...Req
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -951,7 +953,7 @@ func (c *APIClient) DeleteCompositionRule(r ApiDeleteCompositionRuleRequest, opt
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1069,7 +1071,7 @@ func (c *APIClient) GetComposition(r ApiGetCompositionRequest, opts ...RequestOp
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1209,7 +1211,7 @@ func (c *APIClient) GetRule(r ApiGetRuleRequest, opts ...RequestOption) (*Compos
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1348,7 +1350,7 @@ func (c *APIClient) GetTask(r ApiGetTaskRequest, opts ...RequestOption) (*GetTas
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1494,7 +1496,7 @@ func (c *APIClient) ListCompositions(r ApiListCompositionsRequest, opts ...Reque
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1617,7 +1619,7 @@ func (c *APIClient) MultipleBatch(r ApiMultipleBatchRequest, opts ...RequestOpti
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1759,7 +1761,7 @@ func (c *APIClient) PutComposition(r ApiPutCompositionRequest, opts ...RequestOp
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -1926,7 +1928,7 @@ func (c *APIClient) PutCompositionRule(r ApiPutCompositionRuleRequest, opts ...R
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -2068,7 +2070,7 @@ func (c *APIClient) SaveRules(r ApiSaveRulesRequest, opts ...RequestOption) (*Ru
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -2209,7 +2211,7 @@ func (c *APIClient) Search(r ApiSearchRequest, opts ...RequestOption) (*SearchRe
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -2353,7 +2355,7 @@ func (c *APIClient) SearchCompositionRules(r ApiSearchCompositionRulesRequest, o
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -2530,7 +2532,7 @@ func (c *APIClient) SearchForFacetValues(r ApiSearchForFacetValuesRequest, opts 
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -2696,7 +2698,7 @@ func (c *APIClient) UpdateSortingStrategyComposition(r ApiUpdateSortingStrategyC
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil

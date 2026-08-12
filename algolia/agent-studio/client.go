@@ -74,6 +74,11 @@ func NewClientWithConfig(cfg AgentStudioConfiguration) (*APIClient, error) {
 		cfg.WriteTimeout = 25000 * time.Millisecond
 	}
 
+	// Request-ID tracing default for this API; a caller-supplied value always wins.
+	if cfg.RequestIDEnabled == nil {
+		cfg.RequestIDEnabled = utils.ToPtr(false)
+	}
+
 	apiClient := APIClient{
 		appID: cfg.AppID,
 		cfg:   &cfg,
@@ -292,6 +297,9 @@ func (c *APIClient) decodeError(res *http.Response, body []byte) error {
 	apiErr := &APIError{
 		Message: string(body), // default to the full body if we cannot guess the type of the error.
 		Status:  res.StatusCode,
+		// Correlation-ID comes from the search infrastructure; the unrelated
+		// X-Algolia-RequestID edge header must never be read instead.
+		CorrelationID: res.Header.Get("Correlation-ID"),
 	}
 
 	if strings.Contains(res.Header.Get("Content-Type"), "application/json") {
@@ -363,12 +371,19 @@ func setBody(body any, c compression.Compression) (*bytes.Buffer, error) {
 }
 
 type APIError struct {
-	Message              string         `json:"message"`
-	Status               int            `json:"status"`
+	Message string `json:"message"`
+	Status  int    `json:"status"`
+	// CorrelationID is the value of the Correlation-ID header of the failed
+	// response, when present. Quote it when contacting Algolia support.
+	CorrelationID        string         `json:"-"`
 	AdditionalProperties map[string]any `json:"-"`
 }
 
 func (e APIError) Error() string {
+	if e.CorrelationID != "" {
+		return fmt.Sprintf("API error [%d] %s (Correlation-ID: %s)", e.Status, e.Message, e.CorrelationID)
+	}
+
 	return fmt.Sprintf("API error [%d] %s", e.Status, e.Message)
 }
 

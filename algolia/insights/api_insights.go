@@ -10,6 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/errs"
+
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/transport"
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
@@ -238,7 +240,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -374,7 +376,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -537,7 +539,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -700,7 +702,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil
@@ -940,7 +942,7 @@ func (c *APIClient) PushEvents(r ApiPushEventsRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, reportError("cannot decode result: %w", err)
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
 	}
 
 	return returnValue, nil

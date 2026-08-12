@@ -22,6 +22,7 @@ type Transport struct {
 	compression                     compression.Compression
 	connectTimeout                  time.Duration
 	exposeIntermediateNetworkErrors bool
+	requestIDEnabled                bool
 }
 
 func New(cfg Configuration) *Transport {
@@ -31,6 +32,7 @@ func New(cfg Configuration) *Transport {
 		connectTimeout:                  cfg.ConnectTimeout,
 		compression:                     cfg.Compression,
 		exposeIntermediateNetworkErrors: cfg.ExposeIntermediateNetworkErrors,
+		requestIDEnabled:                cfg.RequestIDEnabled != nil && *cfg.RequestIDEnabled,
 	}
 
 	if transport.connectTimeout == 0 {
@@ -69,6 +71,10 @@ func prepareRetryableRequest(req *http.Request) (*http.Request, error) {
 func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind, c RequestConfiguration) (*http.Response, []byte, error) {
 	var intermediateNetworkErrors []error
 
+	// The Correlation-ID of the last retried attempt whose response carried
+	// one, surfaced on the exhaustion error for support tickets.
+	var lastCorrelationID string
+
 	// Add Content-Encoding header, if needed
 	if t.compression == compression.GZIP && shouldCompress(t.compression, req.Method, req.Body) {
 		req.Header.Add("Content-Encoding", "gzip")
@@ -79,6 +85,8 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 	if err != nil {
 		return nil, nil, err
 	}
+
+	t.injectRequestID(req)
 
 	for i, h := range t.retryStrategy.GetTryableHosts(k) {
 		// Handle per-request timeout by using a context with timeout.
@@ -136,6 +144,12 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 
 			return res, body, err
 		default:
+			if res != nil {
+				if correlationID := res.Header.Get("Correlation-ID"); correlationID != "" {
+					lastCorrelationID = correlationID
+				}
+			}
+
 			if err != nil {
 				intermediateNetworkErrors = append(intermediateNetworkErrors, err)
 			} else if res != nil {
@@ -157,10 +171,13 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 	}
 
 	if t.exposeIntermediateNetworkErrors {
-		return nil, nil, errs.NewNoMoreHostToTryError(intermediateNetworkErrors...)
+		return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID, intermediateNetworkErrors...)
 	}
 
-	return nil, nil, errs.ErrNoMoreHostToTry
+	// A fresh instance rather than the ErrNoMoreHostToTry singleton, so the
+	// Correlation-ID can ride along; errors.Is still matches the singleton
+	// through NoMoreHostToTryError.Is.
+	return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID)
 }
 
 // maxErrorBodySize bounds the error body read of a failed streaming request,
@@ -197,6 +214,8 @@ func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call
 
 	req.Header.Set("Accept", "text/event-stream")
 
+	t.injectRequestID(req)
+
 	hosts := t.retryStrategy.GetTryableHosts(k)
 	if len(hosts) == 0 {
 		return nil, errs.ErrNoMoreHostToTry
@@ -221,21 +240,55 @@ func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call
 	}
 
 	if !is2xx(res.StatusCode) {
+		correlationID := res.Header.Get("Correlation-ID")
+
 		body, errBody := io.ReadAll(io.LimitReader(res.Body, maxErrorBodySize))
 		errClose := res.Body.Close()
 
 		if errBody != nil {
-			return nil, fmt.Errorf("cannot read error response body: %w: %w", errBody, errs.NewHTTPStatusError(res.StatusCode, nil))
+			return nil, fmt.Errorf(
+				"cannot read error response body: %w: %w",
+				errBody,
+				errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, nil, correlationID),
+			)
 		}
 
 		if errClose != nil {
-			return nil, fmt.Errorf("cannot close error response body: %w: %w", errClose, errs.NewHTTPStatusError(res.StatusCode, body))
+			return nil, fmt.Errorf(
+				"cannot close error response body: %w: %w",
+				errClose,
+				errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID),
+			)
 		}
 
-		return nil, errs.NewHTTPStatusError(res.StatusCode, body)
+		return nil, errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID)
 	}
 
 	return res, nil
+}
+
+// injectRequestID mints the Request-ID once per execution, before host
+// selection, so that every retry attempt of one call shares the same value
+// and each subsequent call gets a fresh one. A caller-supplied ID always
+// wins, on either channel: every header set through the public API goes
+// through http.Header, whose keys are canonicalized, so the Get lookup is
+// case-insensitive; and because the server consults the x-algolia-request-id
+// query parameter only when the header is absent, a minted header would
+// shadow a caller-supplied parameter. The URL is final by the time the
+// transport runs: prepareRequest assembles the query string before building
+// the request, and only the scheme and host change per attempt.
+func (t *Transport) injectRequestID(req *http.Request) {
+	if !t.requestIDEnabled || req.Header.Get(RequestIDHeader) != "" {
+		return
+	}
+
+	// req.URL.Query() allocates a url.Values on every call, so the query
+	// string is only parsed when there is one to inspect.
+	if req.URL.RawQuery != "" && HasRequestIDQueryParam(req.URL.Query()) {
+		return
+	}
+
+	req.Header.Set(RequestIDHeader, NewRequestID())
 }
 
 // resolveTimeouts returns the request and connect timeouts applying to a call
