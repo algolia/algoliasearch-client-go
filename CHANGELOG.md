@@ -1,3 +1,13 @@
+## [4.45.0](https://github.com/algolia/algoliasearch-client-go/compare/4.44.1...4.45.0)
+
+- [6593f00cf0](https://github.com/algolia/api-clients-automation/commit/6593f00cf0) feat(go): add SSE package and streaming transport support ([#6724](https://github.com/algolia/api-clients-automation/pull/6724)) by [@MarioAlexandruDan](https://github.com/MarioAlexandruDan/)
+- [1aeb3d32e6](https://github.com/algolia/api-clients-automation/commit/1aeb3d32e6) feat(go): generate streaming methods for x-streaming operations ([#6726](https://github.com/algolia/api-clients-automation/pull/6726)) by [@MarioAlexandruDan](https://github.com/MarioAlexandruDan/)
+- [3bee6d1dee](https://github.com/algolia/api-clients-automation/commit/3bee6d1dee) chore(ci): pin all GitHub Action refs to commit SHAs (API-475) ([#6819](https://github.com/algolia/api-clients-automation/pull/6819)) by [@MarioAlexandruDan](https://github.com/MarioAlexandruDan/)
+- [1f389d1f7f](https://github.com/algolia/api-clients-automation/commit/1f389d1f7f) feat(specs): add agentic analytics support to insights spec ([#6876](https://github.com/algolia/api-clients-automation/pull/6876)) by [@sirockin](https://github.com/sirockin/)
+- [65cc642811](https://github.com/algolia/api-clients-automation/commit/65cc642811) feat(specs): add decision (declared winner) to abtesting-v3 ABTest ([#6732](https://github.com/algolia/api-clients-automation/pull/6732)) by [@cdhawke](https://github.com/cdhawke/)
+- [bb53494053](https://github.com/algolia/api-clients-automation/commit/bb53494053) feat(go): Request-ID and Correlation-ID support ([#6868](https://github.com/algolia/api-clients-automation/pull/6868)) by [@MarioAlexandruDan](https://github.com/MarioAlexandruDan/)
+- [637defc23a](https://github.com/algolia/api-clients-automation/commit/637defc23a) feat(specs): add analytics v3 pattern endpoints ([#6795](https://github.com/algolia/api-clients-automation/pull/6795)) by [@Niamsy](https://github.com/Niamsy/)
+
 ## [4.44.1](https://github.com/algolia/algoliasearch-client-go/compare/4.44.0...4.44.1)
 
 - [772f7055cc](https://github.com/algolia/api-clients-automation/commit/772f7055cc) fix(clients): add warning in replace_all_objects for empty objects ([#6610](https://github.com/algolia/api-clients-automation/pull/6610)) by [@eric-zaharia](https://github.com/eric-zaharia/)
