@@ -141,6 +141,7 @@ type ApiAddABTestsRequest struct {
 	addABTestsRequest *AddABTestsRequest
 }
 
+// Deprecated
 // NewApiAddABTestsRequest creates an instance of the ApiAddABTestsRequest to be used for the API call.
 func (c *APIClient) NewApiAddABTestsRequest(addABTestsRequest *AddABTestsRequest) ApiAddABTestsRequest {
 	return ApiAddABTestsRequest{
@@ -151,7 +152,11 @@ func (c *APIClient) NewApiAddABTestsRequest(addABTestsRequest *AddABTestsRequest
 /*
 AddABTests calls the API and returns the raw response from it.
 
-	  Creates a new A/B test.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests`.
+
+Creates a new A/B test.
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -162,6 +167,8 @@ AddABTests calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) AddABTestsWithHTTPInfo(r ApiAddABTestsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests"
@@ -197,6 +204,10 @@ func (c *APIClient) AddABTestsWithHTTPInfo(r ApiAddABTestsRequest, opts ...Reque
 /*
 AddABTests casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests`.
+
 Creates a new A/B test.
 
 Required API Key ACLs:
@@ -206,6 +217,8 @@ Request can be constructed by NewApiAddABTestsRequest with parameters below.
 
 	@param addABTestsRequest AddABTestsRequest
 	@return ABTestResponse
+
+Deprecated.
 */
 func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
@@ -856,6 +869,7 @@ type ApiDeleteABTestRequest struct {
 	id int32
 }
 
+// Deprecated
 // NewApiDeleteABTestRequest creates an instance of the ApiDeleteABTestRequest to be used for the API call.
 func (c *APIClient) NewApiDeleteABTestRequest(id int32) ApiDeleteABTestRequest {
 	return ApiDeleteABTestRequest{
@@ -866,7 +880,11 @@ func (c *APIClient) NewApiDeleteABTestRequest(id int32) ApiDeleteABTestRequest {
 /*
 DeleteABTest calls the API and returns the raw response from it.
 
-	  Deletes an A/B test by its ID.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `DELETE /3/abtests/{id}`.
+
+Deletes an A/B test by its ID.
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -877,6 +895,8 @@ DeleteABTest calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) DeleteABTestWithHTTPInfo(r ApiDeleteABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}"
@@ -906,6 +926,10 @@ func (c *APIClient) DeleteABTestWithHTTPInfo(r ApiDeleteABTestRequest, opts ...R
 /*
 DeleteABTest casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `DELETE /3/abtests/{id}`.
+
 Deletes an A/B test by its ID.
 
 Required API Key ACLs:
@@ -915,6 +939,8 @@ Request can be constructed by NewApiDeleteABTestRequest with parameters below.
 
 	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
+
+Deprecated.
 */
 func (c *APIClient) DeleteABTest(r ApiDeleteABTestRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
@@ -972,6 +998,7 @@ type ApiEstimateABTestRequest struct {
 	estimateABTestRequest *EstimateABTestRequest
 }
 
+// Deprecated
 // NewApiEstimateABTestRequest creates an instance of the ApiEstimateABTestRequest to be used for the API call.
 func (c *APIClient) NewApiEstimateABTestRequest(estimateABTestRequest *EstimateABTestRequest) ApiEstimateABTestRequest {
 	return ApiEstimateABTestRequest{
@@ -982,7 +1009,11 @@ func (c *APIClient) NewApiEstimateABTestRequest(estimateABTestRequest *EstimateA
 /*
 EstimateABTest calls the API and returns the raw response from it.
 
-	  Given the traffic percentage and the expected effect size, this endpoint estimates the sample size and duration of an A/B test based on historical traffic.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests/estimate`.
+
+Given the traffic percentage and the expected effect size, this endpoint estimates the sample size and duration of an A/B test based on historical traffic.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -993,6 +1024,8 @@ EstimateABTest calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) EstimateABTestWithHTTPInfo(r ApiEstimateABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/estimate"
@@ -1028,6 +1061,10 @@ func (c *APIClient) EstimateABTestWithHTTPInfo(r ApiEstimateABTestRequest, opts 
 /*
 EstimateABTest casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests/estimate`.
+
 Given the traffic percentage and the expected effect size, this endpoint estimates the sample size and duration of an A/B test based on historical traffic.
 
 Required API Key ACLs:
@@ -1037,6 +1074,8 @@ Request can be constructed by NewApiEstimateABTestRequest with parameters below.
 
 	@param estimateABTestRequest EstimateABTestRequest
 	@return EstimateABTestResponse
+
+Deprecated.
 */
 func (c *APIClient) EstimateABTest(r ApiEstimateABTestRequest, opts ...RequestOption) (*EstimateABTestResponse, error) {
 	var returnValue *EstimateABTestResponse
@@ -1089,6 +1128,7 @@ type ApiGetABTestRequest struct {
 	id int32
 }
 
+// Deprecated
 // NewApiGetABTestRequest creates an instance of the ApiGetABTestRequest to be used for the API call.
 func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 	return ApiGetABTestRequest{
@@ -1099,7 +1139,11 @@ func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 /*
 GetABTest calls the API and returns the raw response from it.
 
-	  Retrieves the details for an A/B test by its ID.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `GET /3/abtests/{id}`.
+
+Retrieves the details for an A/B test by its ID.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -1110,6 +1154,8 @@ GetABTest calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) GetABTestWithHTTPInfo(r ApiGetABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}"
@@ -1139,6 +1185,10 @@ func (c *APIClient) GetABTestWithHTTPInfo(r ApiGetABTestRequest, opts ...Request
 /*
 GetABTest casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `GET /3/abtests/{id}`.
+
 Retrieves the details for an A/B test by its ID.
 
 Required API Key ACLs:
@@ -1148,6 +1198,8 @@ Request can be constructed by NewApiGetABTestRequest with parameters below.
 
 	@param id int32 - Unique A/B test identifier.
 	@return ABTest
+
+Deprecated.
 */
 func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*ABTest, error) {
 	var returnValue *ABTest
@@ -1233,6 +1285,7 @@ type ApiListABTestsRequest struct {
 	indexSuffix *string
 }
 
+// Deprecated
 // NewApiListABTestsRequest creates an instance of the ApiListABTestsRequest to be used for the API call.
 func (c *APIClient) NewApiListABTestsRequest() ApiListABTestsRequest {
 	return ApiListABTestsRequest{}
@@ -1269,7 +1322,11 @@ func (r ApiListABTestsRequest) WithIndexSuffix(indexSuffix string) ApiListABTest
 /*
 ListABTests calls the API and returns the raw response from it.
 
-	  Lists all A/B tests you configured for this application.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `GET /3/abtests`.
+
+Lists all A/B tests you configured for this application.
 
 	    Required API Key ACLs:
 	    - analytics
@@ -1283,6 +1340,8 @@ ListABTests calls the API and returns the raw response from it.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests"
@@ -1327,6 +1386,10 @@ func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...Req
 /*
 ListABTests casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `GET /3/abtests`.
+
 Lists all A/B tests you configured for this application.
 
 Required API Key ACLs:
@@ -1339,6 +1402,8 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 	@param indexPrefix string - Index name prefix. Only A/B tests for indices starting with this string are included in the response.
 	@param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
 	@return ListABTestsResponse
+
+Deprecated.
 */
 func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) (*ListABTestsResponse, error) {
 	var returnValue *ListABTestsResponse
@@ -1391,6 +1456,7 @@ type ApiStopABTestRequest struct {
 	id int32
 }
 
+// Deprecated
 // NewApiStopABTestRequest creates an instance of the ApiStopABTestRequest to be used for the API call.
 func (c *APIClient) NewApiStopABTestRequest(id int32) ApiStopABTestRequest {
 	return ApiStopABTestRequest{
@@ -1401,7 +1467,11 @@ func (c *APIClient) NewApiStopABTestRequest(id int32) ApiStopABTestRequest {
 /*
 StopABTest calls the API and returns the raw response from it.
 
-	Stops an A/B test by its ID.
+	This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests/{id}/stop`.
+
+Stops an A/B test by its ID.
 
 You can't restart stopped A/B tests.
 
@@ -1414,6 +1484,8 @@ You can't restart stopped A/B tests.
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
 	@return error - An error if the API call fails
+
+	  Deprecated
 */
 func (c *APIClient) StopABTestWithHTTPInfo(r ApiStopABTestRequest, opts ...RequestOption) (*http.Response, []byte, error) {
 	requestPath := "/2/abtests/{id}/stop"
@@ -1443,6 +1515,10 @@ func (c *APIClient) StopABTestWithHTTPInfo(r ApiStopABTestRequest, opts ...Reque
 /*
 StopABTest casts the HTTP response body to a defined struct.
 
+This endpoint is deprecated. Use the A/B Testing API v3 instead.
+
+Replaced by `POST /3/abtests/{id}/stop`.
+
 Stops an A/B test by its ID.
 
 You can't restart stopped A/B tests.
@@ -1454,6 +1530,8 @@ Request can be constructed by NewApiStopABTestRequest with parameters below.
 
 	@param id int32 - Unique A/B test identifier.
 	@return ABTestResponse
+
+Deprecated.
 */
 func (c *APIClient) StopABTest(r ApiStopABTestRequest, opts ...RequestOption) (*ABTestResponse, error) {
 	var returnValue *ABTestResponse
