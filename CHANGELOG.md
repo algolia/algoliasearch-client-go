@@ -1,3 +1,8 @@
+## [4.46.0](https://github.com/algolia/algoliasearch-client-go/compare/4.45.0...4.46.0)
+
+- [e4a6ab510a](https://github.com/algolia/api-clients-automation/commit/e4a6ab510a) chore(ci): fail CI if a personal access token secret is referenced ([#6919](https://github.com/algolia/api-clients-automation/pull/6919)) by [@eric-zaharia](https://github.com/eric-zaharia/)
+- [085364de00](https://github.com/algolia/api-clients-automation/commit/085364de00) feat(specs): deprecates /2 abtests endpoints ([#6921](https://github.com/algolia/api-clients-automation/pull/6921)) by [@Niamsy](https://github.com/Niamsy/)
+
 ## [4.45.0](https://github.com/algolia/algoliasearch-client-go/compare/4.44.1...4.45.0)
 
 - [6593f00cf0](https://github.com/algolia/api-clients-automation/commit/6593f00cf0) feat(go): add SSE package and streaming transport support ([#6724](https://github.com/algolia/api-clients-automation/pull/6724)) by [@MarioAlexandruDan](https://github.com/MarioAlexandruDan/)
