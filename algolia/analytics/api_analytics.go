@@ -2141,9 +2141,8 @@ func (c *APIClient) GetNoResultsRate(r ApiGetNoResultsRateRequest, opts ...Reque
 /*
 GetPatternsFields calls the API and returns the raw response from it.
 
-	**Beta**: this endpoint is under active development and may change without notice.
+	Returns the static catalog of analytics fields, grouped by domain and usage (metrics, filters,
 
-Returns the static catalog of analytics fields, grouped by domain and usage (metrics, filters,
 groups, distributions). No authentication is required. Use it to discover valid `(domain, kind)`
 pairs before building the other `/3/patterns/*` queries; two fields are combinable in one query
 only when their `roots` intersect. Each entry's `requires` lists the ACLs needed when that field
@@ -2181,8 +2180,6 @@ func (c *APIClient) GetPatternsFieldsWithHTTPInfo(opts ...RequestOption) (*http.
 
 /*
 GetPatternsFields casts the HTTP response body to a defined struct.
-
-**Beta**: this endpoint is under active development and may change without notice.
 
 Returns the static catalog of analytics fields, grouped by domain and usage (metrics, filters,
 groups, distributions). No authentication is required. Use it to discover valid `(domain, kind)`
@@ -5520,9 +5517,8 @@ func (r ApiQueryPatternsDistributionRequest) WithIndex(index string) ApiQueryPat
 /*
 QueryPatternsDistribution calls the API and returns the raw response from it.
 
-	**Beta**: this endpoint is under active development and may change without notice.
+	Buckets one or more numeric fields into histograms and returns an object keyed by `histogram<Field>`,
 
-Buckets one or more numeric fields into histograms and returns an object keyed by `histogram<Field>`,
 each mapping a bin label to a count. `distributions` and `parameters` are required; `filters` is
 optional. Discover valid field kinds per domain with `/3/patterns/fields`.
 
@@ -5579,8 +5575,6 @@ func (c *APIClient) QueryPatternsDistributionWithHTTPInfo(
 
 /*
 QueryPatternsDistribution casts the HTTP response body to a defined struct.
-
-**Beta**: this endpoint is under active development and may change without notice.
 
 Buckets one or more numeric fields into histograms and returns an object keyed by `histogram<Field>`,
 each mapping a bin label to a count. `distributions` and `parameters` are required; `filters` is
@@ -5681,9 +5675,8 @@ func (r ApiQueryPatternsScalarRequest) WithIndex(index string) ApiQueryPatternsS
 /*
 QueryPatternsScalar calls the API and returns the raw response from it.
 
-	**Beta**: this endpoint is under active development and may change without notice.
+	Aggregates the requested `metrics` over the whole period and returns a single object keyed by metric
 
-Aggregates the requested `metrics` over the whole period and returns a single object keyed by metric
 kind. `metrics` and `parameters` are required; `filters` is optional. Discover valid field kinds per
 domain with `/3/patterns/fields`.
 
@@ -5737,8 +5730,6 @@ func (c *APIClient) QueryPatternsScalarWithHTTPInfo(r ApiQueryPatternsScalarRequ
 
 /*
 QueryPatternsScalar casts the HTTP response body to a defined struct.
-
-**Beta**: this endpoint is under active development and may change without notice.
 
 Aggregates the requested `metrics` over the whole period and returns a single object keyed by metric
 kind. `metrics` and `parameters` are required; `filters` is optional. Discover valid field kinds per
@@ -5839,9 +5830,8 @@ func (r ApiQueryPatternsTableRequest) WithIndex(index string) ApiQueryPatternsTa
 /*
 QueryPatternsTable calls the API and returns the raw response from it.
 
-	**Beta**: this endpoint is under active development and may change without notice.
+	Returns `rows`, each a flat object of the requested fields. `metrics` and `parameters` are required;
 
-Returns `rows`, each a flat object of the requested fields. `metrics` and `parameters` are required;
 `groupBy`, `filters`, and `orderBy` are optional, though `orderBy` is required when `groupBy` is set.
 Discover valid field kinds per domain with `/3/patterns/fields`.
 
@@ -5895,8 +5885,6 @@ func (c *APIClient) QueryPatternsTableWithHTTPInfo(r ApiQueryPatternsTableReques
 
 /*
 QueryPatternsTable casts the HTTP response body to a defined struct.
-
-**Beta**: this endpoint is under active development and may change without notice.
 
 Returns `rows`, each a flat object of the requested fields. `metrics` and `parameters` are required;
 `groupBy`, `filters`, and `orderBy` are optional, though `orderBy` is required when `groupBy` is set.
@@ -5997,9 +5985,8 @@ func (r ApiQueryPatternsTimeseriesRequest) WithIndex(index string) ApiQueryPatte
 /*
 QueryPatternsTimeseries calls the API and returns the raw response from it.
 
-	**Beta**: this endpoint is under active development and may change without notice.
+	Returns one time series per `groupBy` combination, each with period `totals` and a per-day metric
 
-Returns one time series per `groupBy` combination, each with period `totals` and a per-day metric
 breakdown. `metrics` and `parameters` are required; `groupBy` and `filters` are optional. Discover
 valid field kinds per domain with `/3/patterns/fields`.
 
@@ -6053,8 +6040,6 @@ func (c *APIClient) QueryPatternsTimeseriesWithHTTPInfo(r ApiQueryPatternsTimese
 
 /*
 QueryPatternsTimeseries casts the HTTP response body to a defined struct.
-
-**Beta**: this endpoint is under active development and may change without notice.
 
 Returns one time series per `groupBy` combination, each with period `totals` and a per-day metric
 breakdown. `metrics` and `parameters` are required; `groupBy` and `filters` are optional. Discover
