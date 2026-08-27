@@ -26,9 +26,7 @@ type ABTest struct {
 	// A/B test variants.  The first variant is your _control_ index, typically your production index. All of the additional variants are indexes with changed settings that you want to test against the control.
 	Variants      []Variant            `json:"variants"`
 	Configuration *ABTestConfiguration `json:"configuration,omitempty"`
-	// Unique migrated A/B test identifier.
-	MigratedAbTestID *int32    `json:"migratedAbTestID,omitempty"`
-	Decision         *Decision `json:"decision,omitempty"`
+	Decision      *Decision            `json:"decision,omitempty"`
 }
 
 type ABTestOption func(f *ABTest)
@@ -42,12 +40,6 @@ func WithABTestStoppedAt(val utils.Nullable[string]) ABTestOption {
 func WithABTestConfiguration(val ABTestConfiguration) ABTestOption {
 	return func(f *ABTest) {
 		f.Configuration = &val
-	}
-}
-
-func WithABTestMigratedAbTestID(val int32) ABTestOption {
-	return func(f *ABTest) {
-		f.MigratedAbTestID = &val
 	}
 }
 
@@ -373,43 +365,6 @@ func (o *ABTest) SetConfiguration(v *ABTestConfiguration) *ABTest {
 	return o
 }
 
-// GetMigratedAbTestID returns the MigratedAbTestID field value if set, zero value otherwise.
-func (o *ABTest) GetMigratedAbTestID() int32 {
-	if o == nil || o.MigratedAbTestID == nil {
-		var ret int32
-
-		return ret
-	}
-
-	return *o.MigratedAbTestID
-}
-
-// GetMigratedAbTestIDOk returns a tuple with the MigratedAbTestID field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ABTest) GetMigratedAbTestIDOk() (*int32, bool) {
-	if o == nil || o.MigratedAbTestID == nil {
-		return nil, false
-	}
-
-	return o.MigratedAbTestID, true
-}
-
-// HasMigratedAbTestID returns a boolean if a field has been set.
-func (o *ABTest) HasMigratedAbTestID() bool {
-	if o != nil && o.MigratedAbTestID != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMigratedAbTestID gets a reference to the given int32 and assigns it to the MigratedAbTestID field.
-func (o *ABTest) SetMigratedAbTestID(v int32) *ABTest {
-	o.MigratedAbTestID = &v
-
-	return o
-}
-
 // GetDecision returns the Decision field value if set, zero value otherwise.
 func (o *ABTest) GetDecision() Decision {
 	if o == nil || o.Decision == nil {
@@ -466,10 +421,6 @@ func (o ABTest) MarshalJSON() ([]byte, error) {
 		toSerialize["configuration"] = o.Configuration
 	}
 
-	if o.MigratedAbTestID != nil {
-		toSerialize["migratedAbTestID"] = o.MigratedAbTestID
-	}
-
 	if o.Decision != nil {
 		toSerialize["decision"] = o.Decision
 	}
@@ -493,7 +444,6 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  status=%v\n", o.Status)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
-	out += fmt.Sprintf("  migratedAbTestID=%v\n", o.MigratedAbTestID)
 	out += fmt.Sprintf("  decision=%v\n", o.Decision)
 
 	return fmt.Sprintf("ABTest {\n%s}", out)

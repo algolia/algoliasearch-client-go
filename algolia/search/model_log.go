@@ -8,6 +8,8 @@ import (
 
 // Log struct for Log.
 type Log struct {
+	// Correlation ID of the logged API request, also returned in that request's `Correlation-ID` response header.
+	Cid *string `json:"cid,omitempty"`
 	// Date and time of the API request, in RFC 3339 format.
 	Timestamp string `json:"timestamp"`
 	// HTTP method of the request.
@@ -41,6 +43,12 @@ type Log struct {
 }
 
 type LogOption func(f *Log)
+
+func WithLogCid(val string) LogOption {
+	return func(f *Log) {
+		f.Cid = &val
+	}
+}
 
 func WithLogNbApiCalls(val string) LogOption {
 	return func(f *Log) {
@@ -111,6 +119,43 @@ func NewLog(
 // NewEmptyLog return a pointer to an empty Log object.
 func NewEmptyLog() *Log {
 	return &Log{}
+}
+
+// GetCid returns the Cid field value if set, zero value otherwise.
+func (o *Log) GetCid() string {
+	if o == nil || o.Cid == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.Cid
+}
+
+// GetCidOk returns a tuple with the Cid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Log) GetCidOk() (*string, bool) {
+	if o == nil || o.Cid == nil {
+		return nil, false
+	}
+
+	return o.Cid, true
+}
+
+// HasCid returns a boolean if a field has been set.
+func (o *Log) HasCid() bool {
+	if o != nil && o.Cid != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCid gets a reference to the given string and assigns it to the Cid field.
+func (o *Log) SetCid(v string) *Log {
+	o.Cid = &v
+
+	return o
 }
 
 // GetTimestamp returns the Timestamp field value.
@@ -580,6 +625,10 @@ func (o *Log) SetInnerQueries(v []LogQuery) *Log {
 
 func (o Log) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+	if o.Cid != nil {
+		toSerialize["cid"] = o.Cid
+	}
+
 	toSerialize["timestamp"] = o.Timestamp
 	toSerialize["method"] = o.Method
 	toSerialize["answer_code"] = o.AnswerCode
@@ -621,6 +670,7 @@ func (o Log) MarshalJSON() ([]byte, error) {
 
 func (o Log) String() string {
 	out := ""
+	out += fmt.Sprintf("  cid=%v\n", o.Cid)
 	out += fmt.Sprintf("  timestamp=%v\n", o.Timestamp)
 	out += fmt.Sprintf("  method=%v\n", o.Method)
 	out += fmt.Sprintf("  answer_code=%v\n", o.AnswerCode)
