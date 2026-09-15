@@ -27,6 +27,11 @@ type Configuration struct {
 	// it); a non-nil value always wins, for any client. A Request-ID supplied
 	// through request options or DefaultHeader is never overwritten.
 	RequestIDEnabled *bool
+
+	// MaxRateLimitRetries limits how many times a 429 is waited out on the
+	// same host. nil means DefaultMaxRateLimitRetries (3); a non-nil 0 fails
+	// on the first 429.
+	MaxRateLimitRetries *int
 }
 
 type RequestConfiguration struct {

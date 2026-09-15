@@ -23,6 +23,8 @@ type Transport struct {
 	connectTimeout                  time.Duration
 	exposeIntermediateNetworkErrors bool
 	requestIDEnabled                bool
+	maxRateLimitRetries             int
+	sleep                           func(context.Context, time.Duration) error
 }
 
 func New(cfg Configuration) *Transport {
@@ -33,6 +35,8 @@ func New(cfg Configuration) *Transport {
 		compression:                     cfg.Compression,
 		exposeIntermediateNetworkErrors: cfg.ExposeIntermediateNetworkErrors,
 		requestIDEnabled:                cfg.RequestIDEnabled != nil && *cfg.RequestIDEnabled,
+		maxRateLimitRetries:             resolveMaxRateLimitRetries(cfg.MaxRateLimitRetries),
+		sleep:                           defaultSleep,
 	}
 
 	if transport.connectTimeout == 0 {
@@ -88,86 +92,119 @@ func (t *Transport) Request(ctx context.Context, req *http.Request, k call.Kind,
 
 	t.injectRequestID(req)
 
-	for i, h := range t.retryStrategy.GetTryableHosts(k) {
-		// Handle per-request timeout by using a context with timeout.
-		// Note that because we are in a loop, the cancel() callback cannot be
-		// deferred. Instead, we call it precisely after the end of each loop or
-		// before the early returns, but when we do so, we do it **after**
-		// reading the body content of the response. Otherwise, a `context
-		// cancelled` error may happen when the body is read.
-		var err error
+	sent := false
+	rateLimitRetriesLeft := t.maxRateLimitRetries
 
-		// Reassign a fresh body for the retry
-		if i > 0 && req.GetBody != nil {
-			req.Body, err = req.GetBody()
-			if err != nil {
-				break
-			}
-		}
-
+hostLoop:
+	for _, h := range t.retryStrategy.GetTryableHosts(k) {
+		// the timeouts only depend on the host, so they are resolved once per host; the
+		// per-attempt context below is what has to be recreated on every 429 retry
 		ctxTimeout, connectTimeout := t.resolveTimeouts(k, c, h)
 
-		perRequestCtx, cancel := context.WithTimeout(ctx, ctxTimeout)
-		req = req.WithContext(perRequestCtx)
-		res, err := t.request(req, h, ctxTimeout, connectTimeout)
+		for {
+			// Handle per-request timeout by using a context with timeout.
+			// Note that because we are in a loop, the cancel() callback cannot be
+			// deferred. Instead, we call it precisely after the end of each loop or
+			// before the early returns, but when we do so, we do it **after**
+			// reading the body content of the response. Otherwise, a `context
+			// cancelled` error may happen when the body is read.
+			var err error
 
-		code := 0
-		if res != nil {
-			code = res.StatusCode
-		}
-
-		// Context error only returns a non-nil error upon context
-		// cancellation, which is a signal we interpret as an early return.
-		// Indeed, we do not want to retry on other hosts if the context is
-		// already cancelled.
-		if ctx.Err() != nil {
-			cancel()
-
-			return res, nil, err
-		}
-
-		switch t.retryStrategy.Decide(h, code, err) {
-		case Success, Failure:
-			body, errBody := io.ReadAll(res.Body)
-			errClose := res.Body.Close()
-
-			cancel()
-
-			res.Body = io.NopCloser(bytes.NewBuffer(body))
-			if errBody != nil {
-				return res, nil, fmt.Errorf("cannot read body: %w", errBody)
+			// Reassign a fresh body for the retry (host failover or 429 wait).
+			if sent && req.GetBody != nil {
+				req.Body, err = req.GetBody()
+				if err != nil {
+					return nil, nil, fmt.Errorf("cannot recreate request body: %w", err)
+				}
 			}
 
-			if errClose != nil {
-				return res, nil, fmt.Errorf("cannot close response's body: %w", errClose)
+			sent = true
+
+			perRequestCtx, cancel := context.WithTimeout(ctx, ctxTimeout)
+			req = req.WithContext(perRequestCtx)
+			res, err := t.request(req, h, ctxTimeout, connectTimeout)
+
+			code := 0
+			if res != nil {
+				code = res.StatusCode
 			}
 
-			return res, body, err
-		default:
+			// captured before the 429 branch, like the Python transporter, so a rate-limited
+			// attempt that carried a Correlation-ID is not lost when the budget runs out
 			if res != nil {
 				if correlationID := res.Header.Get("Correlation-ID"); correlationID != "" {
 					lastCorrelationID = correlationID
 				}
 			}
 
-			if err != nil {
-				intermediateNetworkErrors = append(intermediateNetworkErrors, err)
-			} else if res != nil {
-				msg := fmt.Sprintf("cannot perform request:\n\tStatusCode=%d\n\tmethod=%s\n\turl=%s\n\t", res.StatusCode, req.Method, req.URL)
-				intermediateNetworkErrors = append(intermediateNetworkErrors, errors.New(msg))
+			// Context error only returns a non-nil error upon context
+			// cancellation, which is a signal we interpret as an early return.
+			// Indeed, we do not want to retry on other hosts if the context is
+			// already cancelled.
+			if ctx.Err() != nil {
+				cancel()
+
+				return res, nil, err
 			}
 
-			if res != nil && res.Body != nil {
-				err = res.Body.Close()
-				if err != nil {
-					cancel()
+			if isRateLimited(code) && rateLimitRetriesLeft > 0 {
+				rateLimitRetriesLeft--
+				wait := parseRetryAfter(res.Header)
+				debug.Printf("rate limited, waiting %s (%d retries left) host=%s\n", wait, rateLimitRetriesLeft, h.host)
 
-					return res, nil, fmt.Errorf("cannot close response's body before retry: %w", err)
+				if res.Body != nil {
+					_ = res.Body.Close()
 				}
+
+				cancel()
+
+				sleepErr := t.sleep(ctx, wait)
+				if sleepErr != nil {
+					return nil, nil, sleepErr
+				}
+
+				continue
+			}
+
+			switch t.retryStrategy.Decide(h, code, err) {
+			case Success, Failure:
+				body, errBody := io.ReadAll(res.Body)
+				errClose := res.Body.Close()
+
+				cancel()
+
+				res.Body = io.NopCloser(bytes.NewBuffer(body))
+				if errBody != nil {
+					return res, nil, fmt.Errorf("cannot read body: %w", errBody)
+				}
+
+				if errClose != nil {
+					return res, nil, fmt.Errorf("cannot close response's body: %w", errClose)
+				}
+
+				return res, body, err
+			default:
+				if err != nil {
+					intermediateNetworkErrors = append(intermediateNetworkErrors, err)
+				} else if res != nil {
+					msg := fmt.Sprintf("cannot perform request:\n\tStatusCode=%d\n\tmethod=%s\n\turl=%s\n\t", res.StatusCode, req.Method, req.URL)
+					intermediateNetworkErrors = append(intermediateNetworkErrors, errors.New(msg))
+				}
+
+				if res != nil && res.Body != nil {
+					err = res.Body.Close()
+					if err != nil {
+						cancel()
+
+						return res, nil, fmt.Errorf("cannot close response's body before retry: %w", err)
+					}
+				}
+
+				cancel()
+
+				continue hostLoop
 			}
 		}
-
-		cancel()
 	}
 
 	if t.exposeIntermediateNetworkErrors {
@@ -187,13 +224,14 @@ const maxErrorBodySize = 1 << 20
 
 // RequestStream performs the given request and returns the raw response
 // without reading its body, so that the caller can consume it as a stream.
-// Unlike Request, it does not retry: the request is only sent to the first
-// available host, and no read deadline is applied to the response body, as it
-// would abort the stream while it is being consumed. Cancellation is
-// controlled by the caller through ctx. The outcome does not update the host
-// health state used by the retry strategy, consistent with the JavaScript and
-// Python clients. The Accept header is always overwritten with
-// text/event-stream.
+// Unlike Request, it does not fail over to another host: the request is only
+// sent to the first available host. HTTP 429 is waited out on that same host
+// (Retry-After, or 1s) up to maxRateLimitRetries, consistent with Request.
+// No read deadline is applied to the response body, as it would abort the
+// stream while it is being consumed. Cancellation is controlled by the caller
+// through ctx. The outcome does not update the host health state used by the
+// retry strategy, consistent with the JavaScript and Python clients. The
+// Accept header is always overwritten with text/event-stream.
 //
 // The RequestConfiguration timeouts are forwarded to the [Requester], but the
 // default requester ignores them and no context deadline is applied here:
@@ -216,6 +254,11 @@ func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call
 
 	t.injectRequestID(req)
 
+	req, err := prepareRetryableRequest(req)
+	if err != nil {
+		return nil, err
+	}
+
 	hosts := t.retryStrategy.GetTryableHosts(k)
 	if len(hosts) == 0 {
 		return nil, errs.ErrNoMoreHostToTry
@@ -229,42 +272,75 @@ func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call
 	req.URL.Scheme = host.scheme
 	req.URL.Host = host.host
 
-	debug.Display(req)
+	rateLimitRetriesLeft := t.maxRateLimitRetries
+	sent := false
 
-	// Unlike in request, the response is voluntarily not passed to
-	// debug.Display: displaying it would buffer the whole body in memory,
-	// defeating streaming.
-	res, err := t.requester.Request(req, timeout, connectTimeout)
-	if err != nil {
-		return nil, wrapRequestError(req, err)
-	}
+	for {
+		if sent && req.GetBody != nil {
+			var err error
 
-	if !is2xx(res.StatusCode) {
-		correlationID := res.Header.Get("Correlation-ID")
-
-		body, errBody := io.ReadAll(io.LimitReader(res.Body, maxErrorBodySize))
-		errClose := res.Body.Close()
-
-		if errBody != nil {
-			return nil, fmt.Errorf(
-				"cannot read error response body: %w: %w",
-				errBody,
-				errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, nil, correlationID),
-			)
+			req.Body, err = req.GetBody()
+			if err != nil {
+				return nil, fmt.Errorf("cannot recreate request body: %w", err)
+			}
 		}
 
-		if errClose != nil {
-			return nil, fmt.Errorf(
-				"cannot close error response body: %w: %w",
-				errClose,
-				errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID),
-			)
+		sent = true
+
+		debug.Display(req)
+
+		// Unlike in request, the response is voluntarily not passed to
+		// debug.Display: displaying it would buffer the whole body in memory,
+		// defeating streaming.
+		res, err := t.requester.Request(req, timeout, connectTimeout)
+		if err != nil {
+			return nil, wrapRequestError(req, err)
 		}
 
-		return nil, errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID)
-	}
+		if isRateLimited(res.StatusCode) && rateLimitRetriesLeft > 0 {
+			rateLimitRetriesLeft--
+			wait := parseRetryAfter(res.Header)
+			debug.Printf("rate limited stream, waiting %s (%d retries left) host=%s\n", wait, rateLimitRetriesLeft, host.host)
 
-	return res, nil
+			if res.Body != nil {
+				_ = res.Body.Close()
+			}
+
+			sleepErr := t.sleep(ctx, wait)
+			if sleepErr != nil {
+				return nil, sleepErr
+			}
+
+			continue
+		}
+
+		if !is2xx(res.StatusCode) {
+			correlationID := res.Header.Get("Correlation-ID")
+
+			body, errBody := io.ReadAll(io.LimitReader(res.Body, maxErrorBodySize))
+			errClose := res.Body.Close()
+
+			if errBody != nil {
+				return nil, fmt.Errorf(
+					"cannot read error response body: %w: %w",
+					errBody,
+					errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, nil, correlationID),
+				)
+			}
+
+			if errClose != nil {
+				return nil, fmt.Errorf(
+					"cannot close error response body: %w: %w",
+					errClose,
+					errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID),
+				)
+			}
+
+			return nil, errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID)
+		}
+
+		return res, nil
+	}
 }
 
 // injectRequestID mints the Request-ID once per execution, before host

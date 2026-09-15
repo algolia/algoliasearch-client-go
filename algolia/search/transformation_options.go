@@ -23,6 +23,9 @@ type TransformationOptions struct {
 	Compression    compression.Compression
 	Hosts          []transport.StatefulHost
 	DefaultHeader  map[string]string
+	// MaxRateLimitRetries overrides how many times a 429 is waited out on the same host by the
+	// ingestion transporter. nil keeps the Ingestion default (3).
+	MaxRateLimitRetries *int
 }
 
 func (o TransformationOptions) validate() error {
