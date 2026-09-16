@@ -6,9 +6,9 @@ import (
 	"fmt"
 )
 
-// HitMetadata An object that contains the extra key-value pairs provided in the injectedItem definition.
+// HitMetadata An object that contains the extra key-value pairs provided in the injectedItem definition. Only present on hits inserted by an injectedItem that defines metadata, either in its `metadata` field or sent by an external source.
 type HitMetadata struct {
-	// The key of the injectedItem that inserted this metadata.
+	// The key of the injectedItem that inserted this metadata. Only present when the injectedItem's `metadata.hits.addItemKey` is `true`.
 	InjectedItemKey      *string        `json:"_injectedItemKey,omitempty"`
 	AdditionalProperties map[string]any `json:"-"`
 }
