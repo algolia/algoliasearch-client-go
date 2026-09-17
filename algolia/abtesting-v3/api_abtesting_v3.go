@@ -232,6 +232,142 @@ func (c *APIClient) AddABTests(r ApiAddABTestsRequest, opts ...RequestOption) (*
 	return returnValue, nil
 }
 
+func (r *ApiApplyVariantSettingsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["id"]; ok {
+		err = json.Unmarshal(v, &r.id)
+		if err != nil {
+			err = json.Unmarshal(b, &r.id)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal id: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["variantId"]; ok {
+		err = json.Unmarshal(v, &r.variantId)
+		if err != nil {
+			err = json.Unmarshal(b, &r.variantId)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal variantId: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiApplyVariantSettingsRequest represents the request with all the parameters for the API call.
+type ApiApplyVariantSettingsRequest struct {
+	id        int32
+	variantId int32
+}
+
+// NewApiApplyVariantSettingsRequest creates an instance of the ApiApplyVariantSettingsRequest to be used for the API call.
+func (c *APIClient) NewApiApplyVariantSettingsRequest(id int32, variantId int32) ApiApplyVariantSettingsRequest {
+	return ApiApplyVariantSettingsRequest{
+		id:        id,
+		variantId: variantId,
+	}
+}
+
+/*
+ApplyVariantSettings calls the API and returns the raw response from it.
+
+	Applies the captured settings of the given variant to the control index.
+
+The settings must first be captured with the `saveVariantSettings` operation. To revert previously applied settings on the control index, use this operation with the control variant (variant 1).
+
+Settings can be applied up to 14 days after the A/B test ends, and reverted up to 15 days after. Later requests return `400`.
+
+Each set of captured settings can only be applied once, and settings that were reverted can't be applied again. Both cases return `400`.
+
+The control index must not be in use by an active A/B test. Otherwise, the request returns `422`.
+
+	    Required API Key ACLs:
+	    - analytics
+	    - editSettings
+
+	Request can be constructed by NewApiApplyVariantSettingsRequest with parameters below.
+	  @param id int32 - Unique A/B test identifier.
+	  @param variantId int32 - One-based index of the A/B test variant. The control is variant 1.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ApplyVariantSettingsWithHTTPInfo(r ApiApplyVariantSettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/3/abtests/{id}/settings/{variantId}/apply"
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
+	requestPath = strings.ReplaceAll(requestPath, "{variantId}", url.PathEscape(utils.ParameterToString(r.variantId)))
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+ApplyVariantSettings casts the HTTP response body to a defined struct.
+
+Applies the captured settings of the given variant to the control index.
+
+The settings must first be captured with the `saveVariantSettings` operation. To revert previously applied settings on the control index, use this operation with the control variant (variant 1).
+
+Settings can be applied up to 14 days after the A/B test ends, and reverted up to 15 days after. Later requests return `400`.
+
+Each set of captured settings can only be applied once, and settings that were reverted can't be applied again. Both cases return `400`.
+
+The control index must not be in use by an active A/B test. Otherwise, the request returns `422`.
+
+Required API Key ACLs:
+  - analytics
+  - editSettings
+
+Request can be constructed by NewApiApplyVariantSettingsRequest with parameters below.
+
+	@param id int32 - Unique A/B test identifier.
+	@param variantId int32 - One-based index of the A/B test variant. The control is variant 1.
+*/
+func (c *APIClient) ApplyVariantSettings(r ApiApplyVariantSettingsRequest, opts ...RequestOption) error {
+	res, resBody, err := c.ApplyVariantSettingsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return err
+	}
+
+	if res == nil {
+		return reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return c.decodeError(res, resBody)
+	}
+
+	return nil
+}
+
 func (r *ApiCustomDeleteRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 
@@ -1174,6 +1310,125 @@ func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*AB
 	return returnValue, nil
 }
 
+func (r *ApiGetABTestSettingsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["id"]; ok {
+		err = json.Unmarshal(v, &r.id)
+		if err != nil {
+			err = json.Unmarshal(b, &r.id)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal id: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiGetABTestSettingsRequest represents the request with all the parameters for the API call.
+type ApiGetABTestSettingsRequest struct {
+	id int32
+}
+
+// NewApiGetABTestSettingsRequest creates an instance of the ApiGetABTestSettingsRequest to be used for the API call.
+func (c *APIClient) NewApiGetABTestSettingsRequest(id int32) ApiGetABTestSettingsRequest {
+	return ApiGetABTestSettingsRequest{
+		id: id,
+	}
+}
+
+/*
+GetABTestSettings calls the API and returns the raw response from it.
+
+	Retrieves the settings captured for each variant of an A/B test, and whether another active A/B test is using the control index.
+
+Settings are captured by the `saveVariantSettings` operation. The response includes an entry for the control (variant 1) alongside the captured variant, so the control's original configuration can be restored later.
+
+Returns `404` if the A/B test doesn't exist or no settings have been captured for it.
+
+	    Required API Key ACLs:
+	    - analytics
+
+	Request can be constructed by NewApiGetABTestSettingsRequest with parameters below.
+	  @param id int32 - Unique A/B test identifier.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) GetABTestSettingsWithHTTPInfo(r ApiGetABTestSettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/3/abtests/{id}/settings"
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+GetABTestSettings casts the HTTP response body to a defined struct.
+
+Retrieves the settings captured for each variant of an A/B test, and whether another active A/B test is using the control index.
+
+Settings are captured by the `saveVariantSettings` operation. The response includes an entry for the control (variant 1) alongside the captured variant, so the control's original configuration can be restored later.
+
+Returns `404` if the A/B test doesn't exist or no settings have been captured for it.
+
+Required API Key ACLs:
+  - analytics
+
+Request can be constructed by NewApiGetABTestSettingsRequest with parameters below.
+
+	@param id int32 - Unique A/B test identifier.
+	@return ABTestSettingsResponse
+*/
+func (c *APIClient) GetABTestSettings(r ApiGetABTestSettingsRequest, opts ...RequestOption) (*ABTestSettingsResponse, error) {
+	var returnValue *ABTestSettingsResponse
+
+	res, resBody, err := c.GetABTestSettingsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 
@@ -1574,6 +1829,172 @@ func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) 
 	}
 
 	return returnValue, nil
+}
+
+func (r *ApiSaveVariantSettingsRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["id"]; ok {
+		err = json.Unmarshal(v, &r.id)
+		if err != nil {
+			err = json.Unmarshal(b, &r.id)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal id: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["variantId"]; ok {
+		err = json.Unmarshal(v, &r.variantId)
+		if err != nil {
+			err = json.Unmarshal(b, &r.variantId)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal variantId: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["saveSettingsRequest"]; ok {
+		err = json.Unmarshal(v, &r.saveSettingsRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.saveSettingsRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal saveSettingsRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.saveSettingsRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter saveSettingsRequest: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiSaveVariantSettingsRequest represents the request with all the parameters for the API call.
+type ApiSaveVariantSettingsRequest struct {
+	id                  int32
+	variantId           int32
+	saveSettingsRequest *SaveSettingsRequest
+}
+
+// NewApiSaveVariantSettingsRequest creates an instance of the ApiSaveVariantSettingsRequest to be used for the API call.
+func (c *APIClient) NewApiSaveVariantSettingsRequest(
+	id int32,
+	variantId int32,
+	saveSettingsRequest *SaveSettingsRequest,
+) ApiSaveVariantSettingsRequest {
+	return ApiSaveVariantSettingsRequest{
+		id:                  id,
+		variantId:           variantId,
+		saveSettingsRequest: saveSettingsRequest,
+	}
+}
+
+/*
+SaveVariantSettings calls the API and returns the raw response from it.
+
+	Captures the settings of the given variant and of the control, then stops the A/B test.
+
+The captured settings can later be applied to the control index with the `applyVariantSettings` operation, and read back with the `getABTestSettings` operation.
+
+The A/B test must have reached 80% of its planned duration. Earlier requests return `400`.
+
+Settings can only be captured once per A/B test. A second request returns `409`.
+
+`synonyms` and `enableRules` are not captured, so applying the captured settings never changes them on the control index.
+
+	    Required API Key ACLs:
+	    - analytics
+	    - editSettings
+
+	Request can be constructed by NewApiSaveVariantSettingsRequest with parameters below.
+	  @param id int32 - Unique A/B test identifier.
+	  @param variantId int32 - One-based index of the A/B test variant. The control is variant 1.
+	  @param saveSettingsRequest SaveSettingsRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) SaveVariantSettingsWithHTTPInfo(r ApiSaveVariantSettingsRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/3/abtests/{id}/settings/{variantId}"
+	requestPath = strings.ReplaceAll(requestPath, "{id}", url.PathEscape(utils.ParameterToString(r.id)))
+	requestPath = strings.ReplaceAll(requestPath, "{variantId}", url.PathEscape(utils.ParameterToString(r.variantId)))
+
+	if r.saveSettingsRequest == nil {
+		return nil, nil, reportError("Parameter `saveSettingsRequest` is required when calling `SaveVariantSettings`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.saveSettingsRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+SaveVariantSettings casts the HTTP response body to a defined struct.
+
+Captures the settings of the given variant and of the control, then stops the A/B test.
+
+The captured settings can later be applied to the control index with the `applyVariantSettings` operation, and read back with the `getABTestSettings` operation.
+
+The A/B test must have reached 80% of its planned duration. Earlier requests return `400`.
+
+Settings can only be captured once per A/B test. A second request returns `409`.
+
+`synonyms` and `enableRules` are not captured, so applying the captured settings never changes them on the control index.
+
+Required API Key ACLs:
+  - analytics
+  - editSettings
+
+Request can be constructed by NewApiSaveVariantSettingsRequest with parameters below.
+
+	@param id int32 - Unique A/B test identifier.
+	@param variantId int32 - One-based index of the A/B test variant. The control is variant 1.
+	@param saveSettingsRequest SaveSettingsRequest
+*/
+func (c *APIClient) SaveVariantSettings(r ApiSaveVariantSettingsRequest, opts ...RequestOption) error {
+	res, resBody, err := c.SaveVariantSettingsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return err
+	}
+
+	if res == nil {
+		return reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return c.decodeError(res, resBody)
+	}
+
+	return nil
 }
 
 func (r *ApiStopABTestRequest) UnmarshalJSON(b []byte) error {
