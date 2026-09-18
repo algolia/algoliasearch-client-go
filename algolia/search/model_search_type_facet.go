@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// SearchTypeFacet - `default`: perform a search query - `facet` [searches for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
+// SearchTypeFacet - `default`: perform a search query. - `facet` [searches for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
 type SearchTypeFacet string
 
 // List of searchTypeFacet.

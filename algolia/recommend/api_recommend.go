@@ -176,7 +176,7 @@ func (r ApiBatchRecommendRulesRequest) WithRecommendRule(recommendRule []Recomme
 /*
 BatchRecommendRules calls the API and returns the raw response from it.
 
-	Create or update a batch of Recommend Rules
+	Create or update a batch of Recommend Rules.
 
 Each Recommend Rule is created or updated, depending on whether a Recommend Rule with the same `objectID` already exists.
 You may also specify `true` for `clearExistingRules`, in which case the batch will atomically replace all the existing Recommend Rules.
@@ -240,7 +240,7 @@ func (c *APIClient) BatchRecommendRulesWithHTTPInfo(r ApiBatchRecommendRulesRequ
 /*
 BatchRecommendRules casts the HTTP response body to a defined struct.
 
-# Create or update a batch of Recommend Rules
+Create or update a batch of Recommend Rules.
 
 Each Recommend Rule is created or updated, depending on whether a Recommend Rule with the same `objectID` already exists.
 You may also specify `true` for `clearExistingRules`, in which case the batch will atomically replace all the existing Recommend Rules.

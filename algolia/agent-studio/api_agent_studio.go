@@ -845,7 +845,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 1: User sends message -> Agent requests tool call -> Return approval request.
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 	    Required API Key ACLs:
@@ -935,7 +935,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 1: User sends message -> Agent requests tool call -> Return approval request.
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 Required API Key ACLs:
@@ -990,7 +990,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 1: User sends message -> Agent requests tool call -> Return approval request.
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
       Required API Key ACLs:
@@ -1084,7 +1084,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request
+- Request 1: User sends message -> Agent requests tool call -> Return approval request.
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 	    Required API Key ACLs:
