@@ -12,6 +12,8 @@ type ABTestConfiguration struct {
 	// List of metric filters applied to the test population.
 	Filters         []MetricsFilter      `json:"filters,omitempty"`
 	ErrorCorrection *ErrorCorrectionType `json:"errorCorrection,omitempty"`
+	Method          *AnalysisMethod      `json:"method,omitempty"`
+	PrimaryMetric   *PrimaryMetric       `json:"primaryMetric,omitempty"`
 }
 
 type ABTestConfigurationOption func(f *ABTestConfiguration)
@@ -31,6 +33,18 @@ func WithABTestConfigurationFilters(val []MetricsFilter) ABTestConfigurationOpti
 func WithABTestConfigurationErrorCorrection(val ErrorCorrectionType) ABTestConfigurationOption {
 	return func(f *ABTestConfiguration) {
 		f.ErrorCorrection = &val
+	}
+}
+
+func WithABTestConfigurationMethod(val AnalysisMethod) ABTestConfigurationOption {
+	return func(f *ABTestConfiguration) {
+		f.Method = &val
+	}
+}
+
+func WithABTestConfigurationPrimaryMetric(val PrimaryMetric) ABTestConfigurationOption {
+	return func(f *ABTestConfiguration) {
+		f.PrimaryMetric = &val
 	}
 }
 
@@ -163,6 +177,80 @@ func (o *ABTestConfiguration) SetErrorCorrection(v ErrorCorrectionType) *ABTestC
 	return o
 }
 
+// GetMethod returns the Method field value if set, zero value otherwise.
+func (o *ABTestConfiguration) GetMethod() AnalysisMethod {
+	if o == nil || o.Method == nil {
+		var ret AnalysisMethod
+
+		return ret
+	}
+
+	return *o.Method
+}
+
+// GetMethodOk returns a tuple with the Method field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ABTestConfiguration) GetMethodOk() (*AnalysisMethod, bool) {
+	if o == nil || o.Method == nil {
+		return nil, false
+	}
+
+	return o.Method, true
+}
+
+// HasMethod returns a boolean if a field has been set.
+func (o *ABTestConfiguration) HasMethod() bool {
+	if o != nil && o.Method != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMethod gets a reference to the given AnalysisMethod and assigns it to the Method field.
+func (o *ABTestConfiguration) SetMethod(v AnalysisMethod) *ABTestConfiguration {
+	o.Method = &v
+
+	return o
+}
+
+// GetPrimaryMetric returns the PrimaryMetric field value if set, zero value otherwise.
+func (o *ABTestConfiguration) GetPrimaryMetric() PrimaryMetric {
+	if o == nil || o.PrimaryMetric == nil {
+		var ret PrimaryMetric
+
+		return ret
+	}
+
+	return *o.PrimaryMetric
+}
+
+// GetPrimaryMetricOk returns a tuple with the PrimaryMetric field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ABTestConfiguration) GetPrimaryMetricOk() (*PrimaryMetric, bool) {
+	if o == nil || o.PrimaryMetric == nil {
+		return nil, false
+	}
+
+	return o.PrimaryMetric, true
+}
+
+// HasPrimaryMetric returns a boolean if a field has been set.
+func (o *ABTestConfiguration) HasPrimaryMetric() bool {
+	if o != nil && o.PrimaryMetric != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryMetric gets a reference to the given PrimaryMetric and assigns it to the PrimaryMetric field.
+func (o *ABTestConfiguration) SetPrimaryMetric(v PrimaryMetric) *ABTestConfiguration {
+	o.PrimaryMetric = &v
+
+	return o
+}
+
 func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.MinimumDetectableEffect != nil {
@@ -175,6 +263,14 @@ func (o ABTestConfiguration) MarshalJSON() ([]byte, error) {
 
 	if o.ErrorCorrection != nil {
 		toSerialize["errorCorrection"] = o.ErrorCorrection
+	}
+
+	if o.Method != nil {
+		toSerialize["method"] = o.Method
+	}
+
+	if o.PrimaryMetric != nil {
+		toSerialize["primaryMetric"] = o.PrimaryMetric
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -190,6 +286,8 @@ func (o ABTestConfiguration) String() string {
 	out += fmt.Sprintf("  minimumDetectableEffect=%v\n", o.MinimumDetectableEffect)
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  errorCorrection=%v\n", o.ErrorCorrection)
+	out += fmt.Sprintf("  method=%v\n", o.Method)
+	out += fmt.Sprintf("  primaryMetric=%v\n", o.PrimaryMetric)
 
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }

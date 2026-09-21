@@ -11,21 +11,24 @@ type MetricName string
 
 // List of MetricName.
 const (
-	METRIC_NAME_SEARCH_COUNT           MetricName = "search_count"
-	METRIC_NAME_TRACKED_SEARCH_COUNT   MetricName = "tracked_search_count"
-	METRIC_NAME_USER_COUNT             MetricName = "user_count"
-	METRIC_NAME_TRACKED_USER_COUNT     MetricName = "tracked_user_count"
-	METRIC_NAME_NO_RESULT_COUNT        MetricName = "no_result_count"
-	METRIC_NAME_ADD_TO_CART_COUNT      MetricName = "add_to_cart_count"
-	METRIC_NAME_PURCHASE_COUNT         MetricName = "purchase_count"
-	METRIC_NAME_CLICKED_SEARCH_COUNT   MetricName = "clicked_search_count"
-	METRIC_NAME_CONVERTED_SEARCH_COUNT MetricName = "converted_search_count"
-	METRIC_NAME_CLICK_THROUGH_RATE     MetricName = "click_through_rate"
-	METRIC_NAME_CONVERSION_RATE        MetricName = "conversion_rate"
-	METRIC_NAME_ADD_TO_CART_RATE       MetricName = "add_to_cart_rate"
-	METRIC_NAME_PURCHASE_RATE          MetricName = "purchase_rate"
-	METRIC_NAME_AVERAGE_CLICK_POSITION MetricName = "average_click_position"
-	METRIC_NAME_REVENUE                MetricName = "revenue"
+	METRIC_NAME_SEARCH_COUNT            MetricName = "search_count"
+	METRIC_NAME_TRACKED_SEARCH_COUNT    MetricName = "tracked_search_count"
+	METRIC_NAME_USER_COUNT              MetricName = "user_count"
+	METRIC_NAME_TRACKED_USER_COUNT      MetricName = "tracked_user_count"
+	METRIC_NAME_NO_RESULT_COUNT         MetricName = "no_result_count"
+	METRIC_NAME_TRACKED_NO_RESULT_COUNT MetricName = "tracked_no_result_count"
+	METRIC_NAME_ADD_TO_CART_COUNT       MetricName = "add_to_cart_count"
+	METRIC_NAME_PURCHASE_COUNT          MetricName = "purchase_count"
+	METRIC_NAME_CLICKED_SEARCH_COUNT    MetricName = "clicked_search_count"
+	METRIC_NAME_CONVERTED_SEARCH_COUNT  MetricName = "converted_search_count"
+	METRIC_NAME_CLICK_THROUGH_RATE      MetricName = "click_through_rate"
+	METRIC_NAME_CONVERSION_RATE         MetricName = "conversion_rate"
+	METRIC_NAME_ADD_TO_CART_RATE        MetricName = "add_to_cart_rate"
+	METRIC_NAME_PURCHASE_RATE           MetricName = "purchase_rate"
+	METRIC_NAME_AVERAGE_CLICK_POSITION  MetricName = "average_click_position"
+	METRIC_NAME_REVENUE                 MetricName = "revenue"
+	METRIC_NAME_REVENUE_PER_SEARCH      MetricName = "revenue_per_search"
+	METRIC_NAME_AVERAGE_ORDER_VALUE     MetricName = "average_order_value"
 )
 
 // All allowed values of MetricName enum.
@@ -35,6 +38,7 @@ var AllowedMetricNameEnumValues = []MetricName{
 	"user_count",
 	"tracked_user_count",
 	"no_result_count",
+	"tracked_no_result_count",
 	"add_to_cart_count",
 	"purchase_count",
 	"clicked_search_count",
@@ -45,6 +49,8 @@ var AllowedMetricNameEnumValues = []MetricName{
 	"purchase_rate",
 	"average_click_position",
 	"revenue",
+	"revenue_per_search",
+	"average_order_value",
 }
 
 // NewMetricNameFromValue returns a pointer to a valid MetricName.

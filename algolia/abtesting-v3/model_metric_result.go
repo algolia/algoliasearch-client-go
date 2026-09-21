@@ -8,23 +8,26 @@ import (
 
 // MetricResult struct for MetricResult.
 type MetricResult struct {
+	// Metric name. Revenue per search results use `revenue_per_search`.
 	Name string `json:"name"`
 	// Date and time when the metric was last updated, in RFC 3339 format.
-	UpdatedAt string  `json:"updatedAt"`
-	Value     float64 `json:"value"`
+	UpdatedAt string `json:"updatedAt"`
+	// Metric value. For `revenue_per_search`, this is the winsorized mean revenue per search in the specified currency.
+	Value float64 `json:"value"`
 	// The upper bound of the 95% confidence interval for the metric value. The confidence interval is calculated using either the relative ratio or relative difference between the metric values for the control and the variant. Relative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate), while relative difference is used for continuous metrics (e.g., revenue).
 	ValueCIHigh *float64 `json:"valueCIHigh,omitempty"`
 	// The lower bound of the 95% confidence interval for the metric value. The confidence interval is calculated using either the relative ratio or relative difference between the metric values for the control and the variant. Relative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate), while relative difference is used for continuous metrics (e.g., revenue).
 	ValueCILow *float64 `json:"valueCILow,omitempty"`
-	// PValue for the first variant (control) will always be 0. For the other variants, pValue is calculated for the current variant based on the control.
-	PValue float64 `json:"pValue"`
-	// Dimension defined during test creation.
+	// P-value for this variant compared to the control. Omitted when no p-value is available for this metric.
+	PValue *float64 `json:"pValue,omitempty"`
+	// Dimension defined during test creation. For revenue metrics, including `revenue_per_search`, this is the currency.
 	Dimension *string         `json:"dimension,omitempty"`
 	Metadata  *MetricMetadata `json:"metadata,omitempty"`
 	// The value that was computed during error correction. It is used to determine significance of the metric pValue. The critical value is calculated using Bonferroni or Benjamini-Hochberg corrections, based on the given configuration during the A/B test creation.
 	CriticalValue *float64 `json:"criticalValue,omitempty"`
 	// Whether the pValue is significant or not based on the critical value and the error correction algorithm used.
-	Significant *bool `json:"significant,omitempty"`
+	Significant *bool                 `json:"significant,omitempty"`
+	Bayesian    *BayesianMetricResult `json:"bayesian,omitempty"`
 }
 
 type MetricResultOption func(f *MetricResult)
@@ -38,6 +41,12 @@ func WithMetricResultValueCIHigh(val float64) MetricResultOption {
 func WithMetricResultValueCILow(val float64) MetricResultOption {
 	return func(f *MetricResult) {
 		f.ValueCILow = &val
+	}
+}
+
+func WithMetricResultPValue(val float64) MetricResultOption {
+	return func(f *MetricResult) {
+		f.PValue = &val
 	}
 }
 
@@ -65,17 +74,22 @@ func WithMetricResultSignificant(val bool) MetricResultOption {
 	}
 }
 
+func WithMetricResultBayesian(val BayesianMetricResult) MetricResultOption {
+	return func(f *MetricResult) {
+		f.Bayesian = &val
+	}
+}
+
 // NewMetricResult instantiates a new MetricResult object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMetricResult(name string, updatedAt string, value float64, pValue float64, opts ...MetricResultOption) *MetricResult {
+func NewMetricResult(name string, updatedAt string, value float64, opts ...MetricResultOption) *MetricResult {
 	this := &MetricResult{}
 	this.Name = name
 	this.UpdatedAt = updatedAt
-	this.Value = value
 
-	this.PValue = pValue
+	this.Value = value
 	for _, opt := range opts {
 		opt(this)
 	}
@@ -246,30 +260,39 @@ func (o *MetricResult) SetValueCILow(v float64) *MetricResult {
 	return o
 }
 
-// GetPValue returns the PValue field value.
+// GetPValue returns the PValue field value if set, zero value otherwise.
 func (o *MetricResult) GetPValue() float64 {
-	if o == nil {
+	if o == nil || o.PValue == nil {
 		var ret float64
 
 		return ret
 	}
 
-	return o.PValue
+	return *o.PValue
 }
 
-// GetPValueOk returns a tuple with the PValue field value
+// GetPValueOk returns a tuple with the PValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MetricResult) GetPValueOk() (*float64, bool) {
-	if o == nil {
+	if o == nil || o.PValue == nil {
 		return nil, false
 	}
 
-	return &o.PValue, true
+	return o.PValue, true
 }
 
-// SetPValue sets field value.
+// HasPValue returns a boolean if a field has been set.
+func (o *MetricResult) HasPValue() bool {
+	if o != nil && o.PValue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPValue gets a reference to the given float64 and assigns it to the PValue field.
 func (o *MetricResult) SetPValue(v float64) *MetricResult {
-	o.PValue = v
+	o.PValue = &v
 
 	return o
 }
@@ -422,6 +445,43 @@ func (o *MetricResult) SetSignificant(v bool) *MetricResult {
 	return o
 }
 
+// GetBayesian returns the Bayesian field value if set, zero value otherwise.
+func (o *MetricResult) GetBayesian() BayesianMetricResult {
+	if o == nil || o.Bayesian == nil {
+		var ret BayesianMetricResult
+
+		return ret
+	}
+
+	return *o.Bayesian
+}
+
+// GetBayesianOk returns a tuple with the Bayesian field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricResult) GetBayesianOk() (*BayesianMetricResult, bool) {
+	if o == nil || o.Bayesian == nil {
+		return nil, false
+	}
+
+	return o.Bayesian, true
+}
+
+// HasBayesian returns a boolean if a field has been set.
+func (o *MetricResult) HasBayesian() bool {
+	if o != nil && o.Bayesian != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBayesian gets a reference to the given BayesianMetricResult and assigns it to the Bayesian field.
+func (o *MetricResult) SetBayesian(v *BayesianMetricResult) *MetricResult {
+	o.Bayesian = v
+
+	return o
+}
+
 func (o MetricResult) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
@@ -436,7 +496,10 @@ func (o MetricResult) MarshalJSON() ([]byte, error) {
 		toSerialize["valueCILow"] = o.ValueCILow
 	}
 
-	toSerialize["pValue"] = o.PValue
+	if o.PValue != nil {
+		toSerialize["pValue"] = o.PValue
+	}
+
 	if o.Dimension != nil {
 		toSerialize["dimension"] = o.Dimension
 	}
@@ -451,6 +514,10 @@ func (o MetricResult) MarshalJSON() ([]byte, error) {
 
 	if o.Significant != nil {
 		toSerialize["significant"] = o.Significant
+	}
+
+	if o.Bayesian != nil {
+		toSerialize["bayesian"] = o.Bayesian
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -473,6 +540,7 @@ func (o MetricResult) String() string {
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 	out += fmt.Sprintf("  criticalValue=%v\n", o.CriticalValue)
 	out += fmt.Sprintf("  significant=%v\n", o.Significant)
+	out += fmt.Sprintf("  bayesian=%v\n", o.Bayesian)
 
 	return fmt.Sprintf("MetricResult {\n%s}", out)
 }

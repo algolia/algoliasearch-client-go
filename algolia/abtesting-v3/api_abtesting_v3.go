@@ -1217,12 +1217,23 @@ func (r *ApiGetABTestRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["methods"]; ok {
+		err = json.Unmarshal(v, &r.methods)
+		if err != nil {
+			err = json.Unmarshal(b, &r.methods)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal methods: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
 // ApiGetABTestRequest represents the request with all the parameters for the API call.
 type ApiGetABTestRequest struct {
-	id int32
+	id      int32
+	methods []AnalysisMethod
 }
 
 // NewApiGetABTestRequest creates an instance of the ApiGetABTestRequest to be used for the API call.
@@ -1230,6 +1241,13 @@ func (c *APIClient) NewApiGetABTestRequest(id int32) ApiGetABTestRequest {
 	return ApiGetABTestRequest{
 		id: id,
 	}
+}
+
+// WithMethods adds the methods to the ApiGetABTestRequest and returns the request for chaining.
+func (r ApiGetABTestRequest) WithMethods(methods []AnalysisMethod) ApiGetABTestRequest {
+	r.methods = methods
+
+	return r
 }
 
 /*
@@ -1242,6 +1260,9 @@ GetABTest calls the API and returns the raw response from it.
 
 	Request can be constructed by NewApiGetABTestRequest with parameters below.
 	  @param id int32 - Unique A/B test identifier.
+
+
+	  @param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1255,6 +1276,10 @@ func (c *APIClient) GetABTestWithHTTPInfo(r ApiGetABTestRequest, opts ...Request
 		context:      context.Background(),
 		queryParams:  url.Values{},
 		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.methods) {
+		conf.queryParams.Set("methods", utils.QueryParameterToString(r.methods))
 	}
 
 	// optional params if any
@@ -1283,6 +1308,9 @@ Required API Key ACLs:
 Request can be constructed by NewApiGetABTestRequest with parameters below.
 
 	@param id int32 - Unique A/B test identifier.
+
+
+	@param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@return ABTest
 */
 func (c *APIClient) GetABTest(r ApiGetABTestRequest, opts ...RequestOption) (*ABTest, error) {
@@ -1477,6 +1505,16 @@ func (r *ApiGetTimeseriesRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["methods"]; ok {
+		err = json.Unmarshal(v, &r.methods)
+		if err != nil {
+			err = json.Unmarshal(b, &r.methods)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal methods: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -1486,6 +1524,7 @@ type ApiGetTimeseriesRequest struct {
 	startDate *string
 	endDate   *string
 	metric    []MetricName
+	methods   []AnalysisMethod
 }
 
 // NewApiGetTimeseriesRequest creates an instance of the ApiGetTimeseriesRequest to be used for the API call.
@@ -1516,6 +1555,13 @@ func (r ApiGetTimeseriesRequest) WithMetric(metric []MetricName) ApiGetTimeserie
 	return r
 }
 
+// WithMethods adds the methods to the ApiGetTimeseriesRequest and returns the request for chaining.
+func (r ApiGetTimeseriesRequest) WithMethods(methods []AnalysisMethod) ApiGetTimeseriesRequest {
+	r.methods = methods
+
+	return r
+}
+
 /*
 GetTimeseries calls the API and returns the raw response from it.
 
@@ -1529,6 +1575,9 @@ GetTimeseries calls the API and returns the raw response from it.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param metric []MetricName - List of metrics to retrieve. If not specified, all metrics are returned.
+
+
+	  @param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1554,6 +1603,10 @@ func (c *APIClient) GetTimeseriesWithHTTPInfo(r ApiGetTimeseriesRequest, opts ..
 
 	if !utils.IsNilOrEmpty(r.metric) {
 		conf.queryParams.Set("metric", utils.QueryParameterToString(r.metric))
+	}
+
+	if !utils.IsNilOrEmpty(r.methods) {
+		conf.queryParams.Set("methods", utils.QueryParameterToString(r.methods))
 	}
 
 	// optional params if any
@@ -1585,6 +1638,9 @@ Request can be constructed by NewApiGetTimeseriesRequest with parameters below.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
 	@param metric []MetricName - List of metrics to retrieve. If not specified, all metrics are returned.
+
+
+	@param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@return Timeseries
 */
 func (c *APIClient) GetTimeseries(r ApiGetTimeseriesRequest, opts ...RequestOption) (*Timeseries, error) {
@@ -1670,6 +1726,16 @@ func (r *ApiListABTestsRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["methods"]; ok {
+		err = json.Unmarshal(v, &r.methods)
+		if err != nil {
+			err = json.Unmarshal(b, &r.methods)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal methods: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -1680,6 +1746,7 @@ type ApiListABTestsRequest struct {
 	indexPrefix *string
 	indexSuffix *string
 	direction   Direction
+	methods     []AnalysisMethod
 }
 
 // NewApiListABTestsRequest creates an instance of the ApiListABTestsRequest to be used for the API call.
@@ -1722,6 +1789,13 @@ func (r ApiListABTestsRequest) WithDirection(direction Direction) ApiListABTests
 	return r
 }
 
+// WithMethods adds the methods to the ApiListABTestsRequest and returns the request for chaining.
+func (r ApiListABTestsRequest) WithMethods(methods []AnalysisMethod) ApiListABTestsRequest {
+	r.methods = methods
+
+	return r
+}
+
 /*
 ListABTests calls the API and returns the raw response from it.
 
@@ -1737,7 +1811,10 @@ ListABTests calls the API and returns the raw response from it.
 	  @param indexSuffix string - Index name suffix. Only A/B tests for indices ending with this string are included in the response.
 
 
-	  @param direction Direction - Sort order for A/B tests by start date. Use 'asc' for ascending or 'desc' for descending. Active A/B tests are always listed first.
+	@param direction Direction - Sort order for A/B tests by start date. Use 'asc' for ascending or 'desc' for descending. Active A/B tests are always listed first.
+
+
+	  @param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1772,6 +1849,10 @@ func (c *APIClient) ListABTestsWithHTTPInfo(r ApiListABTestsRequest, opts ...Req
 		conf.queryParams.Set("direction", utils.QueryParameterToString(r.direction))
 	}
 
+	if !utils.IsNilOrEmpty(r.methods) {
+		conf.queryParams.Set("methods", utils.QueryParameterToString(r.methods))
+	}
+
 	// optional params if any
 	for _, opt := range opts {
 		opt.apply(&conf)
@@ -1804,6 +1885,9 @@ Request can be constructed by NewApiListABTestsRequest with parameters below.
 
 
 	@param direction Direction - Sort order for A/B tests by start date. Use 'asc' for ascending or 'desc' for descending. Active A/B tests are always listed first.
+
+
+	@param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
 	@return ListABTestsResponse
 */
 func (c *APIClient) ListABTests(r ApiListABTestsRequest, opts ...RequestOption) (*ListABTestsResponse, error) {

@@ -8,7 +8,7 @@ import (
 
 // MetricMetadata Metric specific metadata.
 type MetricMetadata struct {
-	// Only present in case the metric is 'revenue'. It is the amount exceeding the 95th percentile of global revenue transactions involved in the AB Test. This amount is not considered when calculating statistical significance. It is tied to a per revenue-currency pair contrary to other global filter effects (such as outliers and empty search count).
+	// Only present for `revenue` metrics. It is the amount exceeding the 95th percentile of global revenue transactions involved in the AB Test. This amount is not considered when calculating statistical significance. It is tied to a per revenue-currency pair contrary to other global filter effects (such as outliers and empty search count).
 	WinsorizedValue *float64 `json:"winsorizedValue,omitempty"`
 	// Mean value for this metric.
 	Mean *float64 `json:"mean,omitempty"`
