@@ -10,6 +10,8 @@ import (
 type AddABTestsRequest struct {
 	// A/B test name.
 	Name string `json:"name"`
+	// Expected outcome of the A/B test.
+	Hypothesis *string `json:"hypothesis,omitempty"`
 	// A/B test variants.
 	Variants []AddABTestsVariant `json:"variants"`
 	// A/B test metrics involved in the test. Only these metrics will be considered when calculating results.
@@ -20,6 +22,12 @@ type AddABTestsRequest struct {
 }
 
 type AddABTestsRequestOption func(f *AddABTestsRequest)
+
+func WithAddABTestsRequestHypothesis(val string) AddABTestsRequestOption {
+	return func(f *AddABTestsRequest) {
+		f.Hypothesis = &val
+	}
+}
 
 func WithAddABTestsRequestConfiguration(val ABTestConfiguration) AddABTestsRequestOption {
 	return func(f *AddABTestsRequest) {
@@ -80,6 +88,43 @@ func (o *AddABTestsRequest) GetNameOk() (*string, bool) {
 // SetName sets field value.
 func (o *AddABTestsRequest) SetName(v string) *AddABTestsRequest {
 	o.Name = v
+
+	return o
+}
+
+// GetHypothesis returns the Hypothesis field value if set, zero value otherwise.
+func (o *AddABTestsRequest) GetHypothesis() string {
+	if o == nil || o.Hypothesis == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.Hypothesis
+}
+
+// GetHypothesisOk returns a tuple with the Hypothesis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AddABTestsRequest) GetHypothesisOk() (*string, bool) {
+	if o == nil || o.Hypothesis == nil {
+		return nil, false
+	}
+
+	return o.Hypothesis, true
+}
+
+// HasHypothesis returns a boolean if a field has been set.
+func (o *AddABTestsRequest) HasHypothesis() bool {
+	if o != nil && o.Hypothesis != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHypothesis gets a reference to the given string and assigns it to the Hypothesis field.
+func (o *AddABTestsRequest) SetHypothesis(v string) *AddABTestsRequest {
+	o.Hypothesis = &v
 
 	return o
 }
@@ -207,7 +252,12 @@ func (o *AddABTestsRequest) SetEndAt(v string) *AddABTestsRequest {
 
 func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["name"] = o.Name
+	if o.Hypothesis != nil {
+		toSerialize["hypothesis"] = o.Hypothesis
+	}
+
 	toSerialize["variants"] = o.Variants
 
 	toSerialize["metrics"] = o.Metrics
@@ -228,6 +278,7 @@ func (o AddABTestsRequest) MarshalJSON() ([]byte, error) {
 func (o AddABTestsRequest) String() string {
 	out := ""
 	out += fmt.Sprintf("  name=%v\n", o.Name)
+	out += fmt.Sprintf("  hypothesis=%v\n", o.Hypothesis)
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
