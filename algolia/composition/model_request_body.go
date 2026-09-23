@@ -10,7 +10,8 @@ import (
 type RequestBody struct {
 	Params *Params `json:"params,omitempty"`
 	// A list of Feed IDs that specifies the order in which to order the results in the response.  The IDs should be a subset of those in the `feeds` object of the targeted `multifeed` Composition / Composition Rule, and only those specified will be processed.   The value overrides the value in the defined behavior, and when unspecified, the value defined in the behavior is used. When neither value is present, all feeds are processed.
-	FeedsOrder []string `json:"feedsOrder,omitempty"`
+	FeedsOrder       []string          `json:"feedsOrder,omitempty"`
+	ExternalProvider *ExternalProvider `json:"externalProvider,omitempty"`
 }
 
 type RequestBodyOption func(f *RequestBody)
@@ -24,6 +25,12 @@ func WithRequestBodyParams(val Params) RequestBodyOption {
 func WithRequestBodyFeedsOrder(val []string) RequestBodyOption {
 	return func(f *RequestBody) {
 		f.FeedsOrder = val
+	}
+}
+
+func WithRequestBodyExternalProvider(val ExternalProvider) RequestBodyOption {
+	return func(f *RequestBody) {
+		f.ExternalProvider = &val
 	}
 }
 
@@ -119,6 +126,43 @@ func (o *RequestBody) SetFeedsOrder(v []string) *RequestBody {
 	return o
 }
 
+// GetExternalProvider returns the ExternalProvider field value if set, zero value otherwise.
+func (o *RequestBody) GetExternalProvider() ExternalProvider {
+	if o == nil || o.ExternalProvider == nil {
+		var ret ExternalProvider
+
+		return ret
+	}
+
+	return *o.ExternalProvider
+}
+
+// GetExternalProviderOk returns a tuple with the ExternalProvider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestBody) GetExternalProviderOk() (*ExternalProvider, bool) {
+	if o == nil || o.ExternalProvider == nil {
+		return nil, false
+	}
+
+	return o.ExternalProvider, true
+}
+
+// HasExternalProvider returns a boolean if a field has been set.
+func (o *RequestBody) HasExternalProvider() bool {
+	if o != nil && o.ExternalProvider != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalProvider gets a reference to the given ExternalProvider and assigns it to the ExternalProvider field.
+func (o *RequestBody) SetExternalProvider(v *ExternalProvider) *RequestBody {
+	o.ExternalProvider = v
+
+	return o
+}
+
 func (o RequestBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Params != nil {
@@ -127,6 +171,10 @@ func (o RequestBody) MarshalJSON() ([]byte, error) {
 
 	if o.FeedsOrder != nil {
 		toSerialize["feedsOrder"] = o.FeedsOrder
+	}
+
+	if o.ExternalProvider != nil {
+		toSerialize["externalProvider"] = o.ExternalProvider
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -141,6 +189,7 @@ func (o RequestBody) String() string {
 	out := ""
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  feedsOrder=%v\n", o.FeedsOrder)
+	out += fmt.Sprintf("  externalProvider=%v\n", o.ExternalProvider)
 
 	return fmt.Sprintf("RequestBody {\n%s}", out)
 }

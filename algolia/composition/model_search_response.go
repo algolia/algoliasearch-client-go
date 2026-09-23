@@ -10,8 +10,10 @@ import (
 type SearchResponse struct {
 	Compositions *CompositionsSearchResponse `json:"compositions,omitempty"`
 	// Search results.
-	Results              []SearchResultsItem `json:"results"`
-	AdditionalProperties map[string]any      `json:"-"`
+	Results []SearchResultsItem `json:"results"`
+	// Non-critical errors encountered while processing the request that may have affected the returned results (for example, an external provider failure that fell back to another result set).
+	Errors               []ProcessingError `json:"errors,omitempty"`
+	AdditionalProperties map[string]any    `json:"-"`
 }
 
 type SearchResponseOption func(f *SearchResponse)
@@ -19,6 +21,12 @@ type SearchResponseOption func(f *SearchResponse)
 func WithSearchResponseCompositions(val CompositionsSearchResponse) SearchResponseOption {
 	return func(f *SearchResponse) {
 		f.Compositions = &val
+	}
+}
+
+func WithSearchResponseErrors(val []ProcessingError) SearchResponseOption {
+	return func(f *SearchResponse) {
+		f.Errors = val
 	}
 }
 
@@ -107,6 +115,43 @@ func (o *SearchResponse) SetResults(v []SearchResultsItem) *SearchResponse {
 	return o
 }
 
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *SearchResponse) GetErrors() []ProcessingError {
+	if o == nil || o.Errors == nil {
+		var ret []ProcessingError
+
+		return ret
+	}
+
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchResponse) GetErrorsOk() ([]ProcessingError, bool) {
+	if o == nil || o.Errors == nil {
+		return nil, false
+	}
+
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *SearchResponse) HasErrors() bool {
+	if o != nil && o.Errors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []ProcessingError and assigns it to the Errors field.
+func (o *SearchResponse) SetErrors(v []ProcessingError) *SearchResponse {
+	o.Errors = v
+
+	return o
+}
+
 func (o *SearchResponse) SetAdditionalProperty(key string, value any) *SearchResponse {
 	if o.AdditionalProperties == nil {
 		o.AdditionalProperties = make(map[string]any)
@@ -124,6 +169,9 @@ func (o SearchResponse) MarshalJSON() ([]byte, error) {
 	}
 
 	toSerialize["results"] = o.Results
+	if o.Errors != nil {
+		toSerialize["errors"] = o.Errors
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -162,6 +210,15 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
 		delete(raw, "results")
 	}
 
+	if v, ok := raw["errors"]; ok {
+		err := json.Unmarshal(v, &o.Errors)
+		if err != nil {
+			return fmt.Errorf("failed to unmarshal field errors of SearchResponse: %w", err)
+		}
+
+		delete(raw, "errors")
+	}
+
 	o.AdditionalProperties = make(map[string]any)
 
 	for key, val := range raw {
@@ -180,8 +237,9 @@ func (o *SearchResponse) UnmarshalJSON(bytes []byte) error {
 func (o SearchResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
-
 	out += fmt.Sprintf("  results=%v\n", o.Results)
+
+	out += fmt.Sprintf("  errors=%v\n", o.Errors)
 	for key, value := range o.AdditionalProperties {
 		out += fmt.Sprintf("  %s=%v\n", key, value)
 	}

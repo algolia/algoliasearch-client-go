@@ -10,9 +10,10 @@ import (
 
 // InjectedItemSource - struct for InjectedItemSource.
 type InjectedItemSource struct {
-	InjectedItemExternalSource  *InjectedItemExternalSource
-	InjectedItemRecommendSource *InjectedItemRecommendSource
-	InjectedItemSearchSource    *InjectedItemSearchSource
+	InjectedItemExternalProviderSource *InjectedItemExternalProviderSource
+	InjectedItemExternalSource         *InjectedItemExternalSource
+	InjectedItemRecommendSource        *InjectedItemRecommendSource
+	InjectedItemSearchSource           *InjectedItemSearchSource
 }
 
 // InjectedItemSearchSourceAsInjectedItemSource is a convenience function that returns InjectedItemSearchSource wrapped in InjectedItemSource.
@@ -33,6 +34,13 @@ func InjectedItemExternalSourceAsInjectedItemSource(v *InjectedItemExternalSourc
 func InjectedItemRecommendSourceAsInjectedItemSource(v *InjectedItemRecommendSource) *InjectedItemSource {
 	return &InjectedItemSource{
 		InjectedItemRecommendSource: v,
+	}
+}
+
+// InjectedItemExternalProviderSourceAsInjectedItemSource is a convenience function that returns InjectedItemExternalProviderSource wrapped in InjectedItemSource.
+func InjectedItemExternalProviderSourceAsInjectedItemSource(v *InjectedItemExternalProviderSource) *InjectedItemSource {
+	return &InjectedItemSource{
+		InjectedItemExternalProviderSource: v,
 	}
 }
 
@@ -68,7 +76,19 @@ func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	if utils.HasKey(jsonDict, "externalProvider") {
+		// try to unmarshal data into InjectedItemExternalProviderSource
+		err = json.Unmarshal(data, &dst.InjectedItemExternalProviderSource)
+		if err != nil {
+			dst.InjectedItemExternalProviderSource = nil
+		}
+	}
+
 	// check if at least one type was successfully unmarshaled
+	if dst.InjectedItemExternalProviderSource != nil {
+		return nil
+	}
+
 	if dst.InjectedItemExternalSource != nil {
 		return nil
 	}
@@ -86,6 +106,15 @@ func (dst *InjectedItemSource) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
+	if src.InjectedItemExternalProviderSource != nil {
+		serialized, err := json.Marshal(&src.InjectedItemExternalProviderSource)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of InjectedItemExternalProviderSource of InjectedItemSource: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.InjectedItemExternalSource != nil {
 		serialized, err := json.Marshal(&src.InjectedItemExternalSource)
 		if err != nil {
@@ -118,6 +147,10 @@ func (src InjectedItemSource) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj InjectedItemSource) GetActualInstance() any {
+	if obj.InjectedItemExternalProviderSource != nil {
+		return *obj.InjectedItemExternalProviderSource
+	}
+
 	if obj.InjectedItemExternalSource != nil {
 		return *obj.InjectedItemExternalSource
 	}

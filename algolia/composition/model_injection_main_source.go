@@ -10,8 +10,9 @@ import (
 
 // InjectionMainSource - Source to be used to retrieve organic result set.
 type InjectionMainSource struct {
-	InjectionMainRecommendSource *InjectionMainRecommendSource
-	InjectionMainSearchSource    *InjectionMainSearchSource
+	InjectionMainExternalProviderSource *InjectionMainExternalProviderSource
+	InjectionMainRecommendSource        *InjectionMainRecommendSource
+	InjectionMainSearchSource           *InjectionMainSearchSource
 }
 
 // InjectionMainSearchSourceAsInjectionMainSource is a convenience function that returns InjectionMainSearchSource wrapped in InjectionMainSource.
@@ -25,6 +26,13 @@ func InjectionMainSearchSourceAsInjectionMainSource(v *InjectionMainSearchSource
 func InjectionMainRecommendSourceAsInjectionMainSource(v *InjectionMainRecommendSource) *InjectionMainSource {
 	return &InjectionMainSource{
 		InjectionMainRecommendSource: v,
+	}
+}
+
+// InjectionMainExternalProviderSourceAsInjectionMainSource is a convenience function that returns InjectionMainExternalProviderSource wrapped in InjectionMainSource.
+func InjectionMainExternalProviderSourceAsInjectionMainSource(v *InjectionMainExternalProviderSource) *InjectionMainSource {
+	return &InjectionMainSource{
+		InjectionMainExternalProviderSource: v,
 	}
 }
 
@@ -52,7 +60,19 @@ func (dst *InjectionMainSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	if utils.HasKey(jsonDict, "externalProvider") {
+		// try to unmarshal data into InjectionMainExternalProviderSource
+		err = json.Unmarshal(data, &dst.InjectionMainExternalProviderSource)
+		if err != nil {
+			dst.InjectionMainExternalProviderSource = nil
+		}
+	}
+
 	// check if at least one type was successfully unmarshaled
+	if dst.InjectionMainExternalProviderSource != nil {
+		return nil
+	}
+
 	if dst.InjectionMainRecommendSource != nil {
 		return nil
 	}
@@ -66,6 +86,15 @@ func (dst *InjectionMainSource) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src InjectionMainSource) MarshalJSON() ([]byte, error) {
+	if src.InjectionMainExternalProviderSource != nil {
+		serialized, err := json.Marshal(&src.InjectionMainExternalProviderSource)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of InjectionMainExternalProviderSource of InjectionMainSource: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.InjectionMainRecommendSource != nil {
 		serialized, err := json.Marshal(&src.InjectionMainRecommendSource)
 		if err != nil {
@@ -89,6 +118,10 @@ func (src InjectionMainSource) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj InjectionMainSource) GetActualInstance() any {
+	if obj.InjectionMainExternalProviderSource != nil {
+		return *obj.InjectionMainExternalProviderSource
+	}
+
 	if obj.InjectionMainRecommendSource != nil {
 		return *obj.InjectionMainRecommendSource
 	}
