@@ -9,7 +9,8 @@ import (
 // Widgets Widgets returned from any rules that are applied to the current search.
 type Widgets struct {
 	// Banners defined in the Merchandising Studio for a given search.
-	Banners []Banner `json:"banners,omitempty"`
+	Banners    []Banner    `json:"banners,omitempty"`
+	ResultCard *ResultCard `json:"resultCard,omitempty"`
 }
 
 type WidgetsOption func(f *Widgets)
@@ -17,6 +18,12 @@ type WidgetsOption func(f *Widgets)
 func WithWidgetsBanners(val []Banner) WidgetsOption {
 	return func(f *Widgets) {
 		f.Banners = val
+	}
+}
+
+func WithWidgetsResultCard(val ResultCard) WidgetsOption {
+	return func(f *Widgets) {
+		f.ResultCard = &val
 	}
 }
 
@@ -75,10 +82,51 @@ func (o *Widgets) SetBanners(v []Banner) *Widgets {
 	return o
 }
 
+// GetResultCard returns the ResultCard field value if set, zero value otherwise.
+func (o *Widgets) GetResultCard() ResultCard {
+	if o == nil || o.ResultCard == nil {
+		var ret ResultCard
+
+		return ret
+	}
+
+	return *o.ResultCard
+}
+
+// GetResultCardOk returns a tuple with the ResultCard field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Widgets) GetResultCardOk() (*ResultCard, bool) {
+	if o == nil || o.ResultCard == nil {
+		return nil, false
+	}
+
+	return o.ResultCard, true
+}
+
+// HasResultCard returns a boolean if a field has been set.
+func (o *Widgets) HasResultCard() bool {
+	if o != nil && o.ResultCard != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResultCard gets a reference to the given ResultCard and assigns it to the ResultCard field.
+func (o *Widgets) SetResultCard(v *ResultCard) *Widgets {
+	o.ResultCard = v
+
+	return o
+}
+
 func (o Widgets) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Banners != nil {
 		toSerialize["banners"] = o.Banners
+	}
+
+	if o.ResultCard != nil {
+		toSerialize["resultCard"] = o.ResultCard
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -92,6 +140,7 @@ func (o Widgets) MarshalJSON() ([]byte, error) {
 func (o Widgets) String() string {
 	out := ""
 	out += fmt.Sprintf("  banners=%v\n", o.Banners)
+	out += fmt.Sprintf("  resultCard=%v\n", o.ResultCard)
 
 	return fmt.Sprintf("Widgets {\n%s}", out)
 }
