@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// InjectedItemExternalProvider struct for InjectedItemExternalProvider.
-type InjectedItemExternalProvider struct {
+// InjectionMainExternalProvider struct for InjectionMainExternalProvider.
+type InjectionMainExternalProvider struct {
 	// Algolia index used to fetch the records.
 	Index string `json:"index"`
 	// Identifier of the external provider configuration.
@@ -15,35 +15,39 @@ type InjectedItemExternalProvider struct {
 	// Default values for the configuration placeholders that are not reserved Composition placeholders.
 	ConfigurationParams map[string]any                `json:"configurationParams,omitempty"`
 	Ordering            *ExternalProviderOrdering     `json:"ordering,omitempty"`
-	Params              *BaseInjectionQueryParameters `json:"params,omitempty"`
+	Params              *MainInjectionQueryParameters `json:"params,omitempty"`
 }
 
-type InjectedItemExternalProviderOption func(f *InjectedItemExternalProvider)
+type InjectionMainExternalProviderOption func(f *InjectionMainExternalProvider)
 
-func WithInjectedItemExternalProviderConfigurationParams(val map[string]any) InjectedItemExternalProviderOption {
-	return func(f *InjectedItemExternalProvider) {
+func WithInjectionMainExternalProviderConfigurationParams(val map[string]any) InjectionMainExternalProviderOption {
+	return func(f *InjectionMainExternalProvider) {
 		f.ConfigurationParams = val
 	}
 }
 
-func WithInjectedItemExternalProviderOrdering(val ExternalProviderOrdering) InjectedItemExternalProviderOption {
-	return func(f *InjectedItemExternalProvider) {
+func WithInjectionMainExternalProviderOrdering(val ExternalProviderOrdering) InjectionMainExternalProviderOption {
+	return func(f *InjectionMainExternalProvider) {
 		f.Ordering = &val
 	}
 }
 
-func WithInjectedItemExternalProviderParams(val BaseInjectionQueryParameters) InjectedItemExternalProviderOption {
-	return func(f *InjectedItemExternalProvider) {
+func WithInjectionMainExternalProviderParams(val MainInjectionQueryParameters) InjectionMainExternalProviderOption {
+	return func(f *InjectionMainExternalProvider) {
 		f.Params = &val
 	}
 }
 
-// NewInjectedItemExternalProvider instantiates a new InjectedItemExternalProvider object
+// NewInjectionMainExternalProvider instantiates a new InjectionMainExternalProvider object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectedItemExternalProvider(index string, configurationID string, opts ...InjectedItemExternalProviderOption) *InjectedItemExternalProvider {
-	this := &InjectedItemExternalProvider{}
+func NewInjectionMainExternalProvider(
+	index string,
+	configurationID string,
+	opts ...InjectionMainExternalProviderOption,
+) *InjectionMainExternalProvider {
+	this := &InjectionMainExternalProvider{}
 	this.Index = index
 
 	this.ConfigurationID = configurationID
@@ -54,13 +58,13 @@ func NewInjectedItemExternalProvider(index string, configurationID string, opts 
 	return this
 }
 
-// NewEmptyInjectedItemExternalProvider return a pointer to an empty InjectedItemExternalProvider object.
-func NewEmptyInjectedItemExternalProvider() *InjectedItemExternalProvider {
-	return &InjectedItemExternalProvider{}
+// NewEmptyInjectionMainExternalProvider return a pointer to an empty InjectionMainExternalProvider object.
+func NewEmptyInjectionMainExternalProvider() *InjectionMainExternalProvider {
+	return &InjectionMainExternalProvider{}
 }
 
 // GetIndex returns the Index field value.
-func (o *InjectedItemExternalProvider) GetIndex() string {
+func (o *InjectionMainExternalProvider) GetIndex() string {
 	if o == nil {
 		var ret string
 
@@ -72,7 +76,7 @@ func (o *InjectedItemExternalProvider) GetIndex() string {
 
 // GetIndexOk returns a tuple with the Index field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItemExternalProvider) GetIndexOk() (*string, bool) {
+func (o *InjectionMainExternalProvider) GetIndexOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -81,14 +85,14 @@ func (o *InjectedItemExternalProvider) GetIndexOk() (*string, bool) {
 }
 
 // SetIndex sets field value.
-func (o *InjectedItemExternalProvider) SetIndex(v string) *InjectedItemExternalProvider {
+func (o *InjectionMainExternalProvider) SetIndex(v string) *InjectionMainExternalProvider {
 	o.Index = v
 
 	return o
 }
 
 // GetConfigurationID returns the ConfigurationID field value.
-func (o *InjectedItemExternalProvider) GetConfigurationID() string {
+func (o *InjectionMainExternalProvider) GetConfigurationID() string {
 	if o == nil {
 		var ret string
 
@@ -100,7 +104,7 @@ func (o *InjectedItemExternalProvider) GetConfigurationID() string {
 
 // GetConfigurationIDOk returns a tuple with the ConfigurationID field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItemExternalProvider) GetConfigurationIDOk() (*string, bool) {
+func (o *InjectionMainExternalProvider) GetConfigurationIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -109,14 +113,14 @@ func (o *InjectedItemExternalProvider) GetConfigurationIDOk() (*string, bool) {
 }
 
 // SetConfigurationID sets field value.
-func (o *InjectedItemExternalProvider) SetConfigurationID(v string) *InjectedItemExternalProvider {
+func (o *InjectionMainExternalProvider) SetConfigurationID(v string) *InjectionMainExternalProvider {
 	o.ConfigurationID = v
 
 	return o
 }
 
 // GetConfigurationParams returns the ConfigurationParams field value if set, zero value otherwise.
-func (o *InjectedItemExternalProvider) GetConfigurationParams() map[string]any {
+func (o *InjectionMainExternalProvider) GetConfigurationParams() map[string]any {
 	if o == nil || o.ConfigurationParams == nil {
 		var ret map[string]any
 
@@ -128,7 +132,7 @@ func (o *InjectedItemExternalProvider) GetConfigurationParams() map[string]any {
 
 // GetConfigurationParamsOk returns a tuple with the ConfigurationParams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InjectedItemExternalProvider) GetConfigurationParamsOk() (map[string]any, bool) {
+func (o *InjectionMainExternalProvider) GetConfigurationParamsOk() (map[string]any, bool) {
 	if o == nil || o.ConfigurationParams == nil {
 		return nil, false
 	}
@@ -137,7 +141,7 @@ func (o *InjectedItemExternalProvider) GetConfigurationParamsOk() (map[string]an
 }
 
 // HasConfigurationParams returns a boolean if a field has been set.
-func (o *InjectedItemExternalProvider) HasConfigurationParams() bool {
+func (o *InjectionMainExternalProvider) HasConfigurationParams() bool {
 	if o != nil && o.ConfigurationParams != nil {
 		return true
 	}
@@ -146,14 +150,14 @@ func (o *InjectedItemExternalProvider) HasConfigurationParams() bool {
 }
 
 // SetConfigurationParams gets a reference to the given map[string]any and assigns it to the ConfigurationParams field.
-func (o *InjectedItemExternalProvider) SetConfigurationParams(v map[string]any) *InjectedItemExternalProvider {
+func (o *InjectionMainExternalProvider) SetConfigurationParams(v map[string]any) *InjectionMainExternalProvider {
 	o.ConfigurationParams = v
 
 	return o
 }
 
 // GetOrdering returns the Ordering field value if set, zero value otherwise.
-func (o *InjectedItemExternalProvider) GetOrdering() ExternalProviderOrdering {
+func (o *InjectionMainExternalProvider) GetOrdering() ExternalProviderOrdering {
 	if o == nil || o.Ordering == nil {
 		var ret ExternalProviderOrdering
 
@@ -165,7 +169,7 @@ func (o *InjectedItemExternalProvider) GetOrdering() ExternalProviderOrdering {
 
 // GetOrderingOk returns a tuple with the Ordering field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InjectedItemExternalProvider) GetOrderingOk() (*ExternalProviderOrdering, bool) {
+func (o *InjectionMainExternalProvider) GetOrderingOk() (*ExternalProviderOrdering, bool) {
 	if o == nil || o.Ordering == nil {
 		return nil, false
 	}
@@ -174,7 +178,7 @@ func (o *InjectedItemExternalProvider) GetOrderingOk() (*ExternalProviderOrderin
 }
 
 // HasOrdering returns a boolean if a field has been set.
-func (o *InjectedItemExternalProvider) HasOrdering() bool {
+func (o *InjectionMainExternalProvider) HasOrdering() bool {
 	if o != nil && o.Ordering != nil {
 		return true
 	}
@@ -183,16 +187,16 @@ func (o *InjectedItemExternalProvider) HasOrdering() bool {
 }
 
 // SetOrdering gets a reference to the given ExternalProviderOrdering and assigns it to the Ordering field.
-func (o *InjectedItemExternalProvider) SetOrdering(v ExternalProviderOrdering) *InjectedItemExternalProvider {
+func (o *InjectionMainExternalProvider) SetOrdering(v ExternalProviderOrdering) *InjectionMainExternalProvider {
 	o.Ordering = &v
 
 	return o
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
-func (o *InjectedItemExternalProvider) GetParams() BaseInjectionQueryParameters {
+func (o *InjectionMainExternalProvider) GetParams() MainInjectionQueryParameters {
 	if o == nil || o.Params == nil {
-		var ret BaseInjectionQueryParameters
+		var ret MainInjectionQueryParameters
 
 		return ret
 	}
@@ -202,7 +206,7 @@ func (o *InjectedItemExternalProvider) GetParams() BaseInjectionQueryParameters 
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InjectedItemExternalProvider) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
+func (o *InjectionMainExternalProvider) GetParamsOk() (*MainInjectionQueryParameters, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -211,7 +215,7 @@ func (o *InjectedItemExternalProvider) GetParamsOk() (*BaseInjectionQueryParamet
 }
 
 // HasParams returns a boolean if a field has been set.
-func (o *InjectedItemExternalProvider) HasParams() bool {
+func (o *InjectionMainExternalProvider) HasParams() bool {
 	if o != nil && o.Params != nil {
 		return true
 	}
@@ -219,14 +223,14 @@ func (o *InjectedItemExternalProvider) HasParams() bool {
 	return false
 }
 
-// SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
-func (o *InjectedItemExternalProvider) SetParams(v *BaseInjectionQueryParameters) *InjectedItemExternalProvider {
+// SetParams gets a reference to the given MainInjectionQueryParameters and assigns it to the Params field.
+func (o *InjectionMainExternalProvider) SetParams(v *MainInjectionQueryParameters) *InjectionMainExternalProvider {
 	o.Params = v
 
 	return o
 }
 
-func (o InjectedItemExternalProvider) MarshalJSON() ([]byte, error) {
+func (o InjectionMainExternalProvider) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["index"] = o.Index
 
@@ -245,13 +249,13 @@ func (o InjectedItemExternalProvider) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal InjectedItemExternalProvider: %w", err)
+		return nil, fmt.Errorf("failed to marshal InjectionMainExternalProvider: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o InjectedItemExternalProvider) String() string {
+func (o InjectionMainExternalProvider) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
 	out += fmt.Sprintf("  configurationID=%v\n", o.ConfigurationID)
@@ -259,5 +263,5 @@ func (o InjectedItemExternalProvider) String() string {
 	out += fmt.Sprintf("  ordering=%v\n", o.Ordering)
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
-	return fmt.Sprintf("InjectedItemExternalProvider {\n%s}", out)
+	return fmt.Sprintf("InjectionMainExternalProvider {\n%s}", out)
 }

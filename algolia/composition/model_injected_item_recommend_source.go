@@ -8,14 +8,14 @@ import (
 
 // InjectedItemRecommendSource Injected items will originate from a recommendation request performed on the specified index.
 type InjectedItemRecommendSource struct {
-	Recommend Recommend `json:"recommend"`
+	Recommend InjectedItemRecommend `json:"recommend"`
 }
 
 // NewInjectedItemRecommendSource instantiates a new InjectedItemRecommendSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectedItemRecommendSource(recommend Recommend) *InjectedItemRecommendSource {
+func NewInjectedItemRecommendSource(recommend InjectedItemRecommend) *InjectedItemRecommendSource {
 	this := &InjectedItemRecommendSource{}
 	this.Recommend = recommend
 
@@ -28,9 +28,9 @@ func NewEmptyInjectedItemRecommendSource() *InjectedItemRecommendSource {
 }
 
 // GetRecommend returns the Recommend field value.
-func (o *InjectedItemRecommendSource) GetRecommend() Recommend {
+func (o *InjectedItemRecommendSource) GetRecommend() InjectedItemRecommend {
 	if o == nil {
-		var ret Recommend
+		var ret InjectedItemRecommend
 
 		return ret
 	}
@@ -40,7 +40,7 @@ func (o *InjectedItemRecommendSource) GetRecommend() Recommend {
 
 // GetRecommendOk returns a tuple with the Recommend field value
 // and a boolean to check if the value has been set.
-func (o *InjectedItemRecommendSource) GetRecommendOk() (*Recommend, bool) {
+func (o *InjectedItemRecommendSource) GetRecommendOk() (*InjectedItemRecommend, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -49,7 +49,7 @@ func (o *InjectedItemRecommendSource) GetRecommendOk() (*Recommend, bool) {
 }
 
 // SetRecommend sets field value.
-func (o *InjectedItemRecommendSource) SetRecommend(v *Recommend) *InjectedItemRecommendSource {
+func (o *InjectedItemRecommendSource) SetRecommend(v *InjectedItemRecommend) *InjectedItemRecommendSource {
 	o.Recommend = *v
 
 	return o

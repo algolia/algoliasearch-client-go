@@ -8,23 +8,23 @@ import (
 
 // InjectedItemExternal struct for InjectedItemExternal.
 type InjectedItemExternal struct {
-	// Composition Index name.
+	// Algolia index used to retrieve records.
 	Index    string                        `json:"index"`
-	Params   *BaseInjectionQueryParameters `json:"params,omitempty"`
 	Ordering *ExternalOrdering             `json:"ordering,omitempty"`
+	Params   *BaseInjectionQueryParameters `json:"params,omitempty"`
 }
 
 type InjectedItemExternalOption func(f *InjectedItemExternal)
 
-func WithInjectedItemExternalParams(val BaseInjectionQueryParameters) InjectedItemExternalOption {
-	return func(f *InjectedItemExternal) {
-		f.Params = &val
-	}
-}
-
 func WithInjectedItemExternalOrdering(val ExternalOrdering) InjectedItemExternalOption {
 	return func(f *InjectedItemExternal) {
 		f.Ordering = &val
+	}
+}
+
+func WithInjectedItemExternalParams(val BaseInjectionQueryParameters) InjectedItemExternalOption {
+	return func(f *InjectedItemExternal) {
+		f.Params = &val
 	}
 }
 
@@ -76,43 +76,6 @@ func (o *InjectedItemExternal) SetIndex(v string) *InjectedItemExternal {
 	return o
 }
 
-// GetParams returns the Params field value if set, zero value otherwise.
-func (o *InjectedItemExternal) GetParams() BaseInjectionQueryParameters {
-	if o == nil || o.Params == nil {
-		var ret BaseInjectionQueryParameters
-
-		return ret
-	}
-
-	return *o.Params
-}
-
-// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *InjectedItemExternal) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
-	if o == nil || o.Params == nil {
-		return nil, false
-	}
-
-	return o.Params, true
-}
-
-// HasParams returns a boolean if a field has been set.
-func (o *InjectedItemExternal) HasParams() bool {
-	if o != nil && o.Params != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
-func (o *InjectedItemExternal) SetParams(v *BaseInjectionQueryParameters) *InjectedItemExternal {
-	o.Params = v
-
-	return o
-}
-
 // GetOrdering returns the Ordering field value if set, zero value otherwise.
 func (o *InjectedItemExternal) GetOrdering() ExternalOrdering {
 	if o == nil || o.Ordering == nil {
@@ -150,16 +113,53 @@ func (o *InjectedItemExternal) SetOrdering(v ExternalOrdering) *InjectedItemExte
 	return o
 }
 
+// GetParams returns the Params field value if set, zero value otherwise.
+func (o *InjectedItemExternal) GetParams() BaseInjectionQueryParameters {
+	if o == nil || o.Params == nil {
+		var ret BaseInjectionQueryParameters
+
+		return ret
+	}
+
+	return *o.Params
+}
+
+// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InjectedItemExternal) GetParamsOk() (*BaseInjectionQueryParameters, bool) {
+	if o == nil || o.Params == nil {
+		return nil, false
+	}
+
+	return o.Params, true
+}
+
+// HasParams returns a boolean if a field has been set.
+func (o *InjectedItemExternal) HasParams() bool {
+	if o != nil && o.Params != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParams gets a reference to the given BaseInjectionQueryParameters and assigns it to the Params field.
+func (o *InjectedItemExternal) SetParams(v *BaseInjectionQueryParameters) *InjectedItemExternal {
+	o.Params = v
+
+	return o
+}
+
 func (o InjectedItemExternal) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
 	toSerialize["index"] = o.Index
-	if o.Params != nil {
-		toSerialize["params"] = o.Params
-	}
-
 	if o.Ordering != nil {
 		toSerialize["ordering"] = o.Ordering
+	}
+
+	if o.Params != nil {
+		toSerialize["params"] = o.Params
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -173,8 +173,8 @@ func (o InjectedItemExternal) MarshalJSON() ([]byte, error) {
 func (o InjectedItemExternal) String() string {
 	out := ""
 	out += fmt.Sprintf("  index=%v\n", o.Index)
-	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  ordering=%v\n", o.Ordering)
+	out += fmt.Sprintf("  params=%v\n", o.Params)
 
 	return fmt.Sprintf("InjectedItemExternal {\n%s}", out)
 }

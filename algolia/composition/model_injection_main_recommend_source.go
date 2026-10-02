@@ -8,14 +8,14 @@ import (
 
 // InjectionMainRecommendSource Organic result set will originate from a recommend request.
 type InjectionMainRecommendSource struct {
-	Recommend MainRecommend `json:"recommend"`
+	Recommend InjectionMainRecommend `json:"recommend"`
 }
 
 // NewInjectionMainRecommendSource instantiates a new InjectionMainRecommendSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectionMainRecommendSource(recommend MainRecommend) *InjectionMainRecommendSource {
+func NewInjectionMainRecommendSource(recommend InjectionMainRecommend) *InjectionMainRecommendSource {
 	this := &InjectionMainRecommendSource{}
 	this.Recommend = recommend
 
@@ -28,9 +28,9 @@ func NewEmptyInjectionMainRecommendSource() *InjectionMainRecommendSource {
 }
 
 // GetRecommend returns the Recommend field value.
-func (o *InjectionMainRecommendSource) GetRecommend() MainRecommend {
+func (o *InjectionMainRecommendSource) GetRecommend() InjectionMainRecommend {
 	if o == nil {
-		var ret MainRecommend
+		var ret InjectionMainRecommend
 
 		return ret
 	}
@@ -40,7 +40,7 @@ func (o *InjectionMainRecommendSource) GetRecommend() MainRecommend {
 
 // GetRecommendOk returns a tuple with the Recommend field value
 // and a boolean to check if the value has been set.
-func (o *InjectionMainRecommendSource) GetRecommendOk() (*MainRecommend, bool) {
+func (o *InjectionMainRecommendSource) GetRecommendOk() (*InjectionMainRecommend, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -49,7 +49,7 @@ func (o *InjectionMainRecommendSource) GetRecommendOk() (*MainRecommend, bool) {
 }
 
 // SetRecommend sets field value.
-func (o *InjectionMainRecommendSource) SetRecommend(v *MainRecommend) *InjectionMainRecommendSource {
+func (o *InjectionMainRecommendSource) SetRecommend(v *InjectionMainRecommend) *InjectionMainRecommendSource {
 	o.Recommend = *v
 
 	return o

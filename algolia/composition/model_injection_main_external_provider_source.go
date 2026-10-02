@@ -8,14 +8,14 @@ import (
 
 // InjectionMainExternalProviderSource Organic result set will originate from a request to an external provider configuration.
 type InjectionMainExternalProviderSource struct {
-	ExternalProvider MainExternalProvider `json:"externalProvider"`
+	ExternalProvider InjectionMainExternalProvider `json:"externalProvider"`
 }
 
 // NewInjectionMainExternalProviderSource instantiates a new InjectionMainExternalProviderSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectionMainExternalProviderSource(externalProvider MainExternalProvider) *InjectionMainExternalProviderSource {
+func NewInjectionMainExternalProviderSource(externalProvider InjectionMainExternalProvider) *InjectionMainExternalProviderSource {
 	this := &InjectionMainExternalProviderSource{}
 	this.ExternalProvider = externalProvider
 
@@ -28,9 +28,9 @@ func NewEmptyInjectionMainExternalProviderSource() *InjectionMainExternalProvide
 }
 
 // GetExternalProvider returns the ExternalProvider field value.
-func (o *InjectionMainExternalProviderSource) GetExternalProvider() MainExternalProvider {
+func (o *InjectionMainExternalProviderSource) GetExternalProvider() InjectionMainExternalProvider {
 	if o == nil {
-		var ret MainExternalProvider
+		var ret InjectionMainExternalProvider
 
 		return ret
 	}
@@ -40,7 +40,7 @@ func (o *InjectionMainExternalProviderSource) GetExternalProvider() MainExternal
 
 // GetExternalProviderOk returns a tuple with the ExternalProvider field value
 // and a boolean to check if the value has been set.
-func (o *InjectionMainExternalProviderSource) GetExternalProviderOk() (*MainExternalProvider, bool) {
+func (o *InjectionMainExternalProviderSource) GetExternalProviderOk() (*InjectionMainExternalProvider, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -49,7 +49,7 @@ func (o *InjectionMainExternalProviderSource) GetExternalProviderOk() (*MainExte
 }
 
 // SetExternalProvider sets field value.
-func (o *InjectionMainExternalProviderSource) SetExternalProvider(v *MainExternalProvider) *InjectionMainExternalProviderSource {
+func (o *InjectionMainExternalProviderSource) SetExternalProvider(v *InjectionMainExternalProvider) *InjectionMainExternalProviderSource {
 	o.ExternalProvider = *v
 
 	return o

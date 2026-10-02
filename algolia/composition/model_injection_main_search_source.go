@@ -8,14 +8,14 @@ import (
 
 // InjectionMainSearchSource Organic result set will originate from a search request performed on the specified index.
 type InjectionMainSearchSource struct {
-	Search MainSearch `json:"search"`
+	Search InjectionMainSearch `json:"search"`
 }
 
 // NewInjectionMainSearchSource instantiates a new InjectionMainSearchSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewInjectionMainSearchSource(search MainSearch) *InjectionMainSearchSource {
+func NewInjectionMainSearchSource(search InjectionMainSearch) *InjectionMainSearchSource {
 	this := &InjectionMainSearchSource{}
 	this.Search = search
 
@@ -28,9 +28,9 @@ func NewEmptyInjectionMainSearchSource() *InjectionMainSearchSource {
 }
 
 // GetSearch returns the Search field value.
-func (o *InjectionMainSearchSource) GetSearch() MainSearch {
+func (o *InjectionMainSearchSource) GetSearch() InjectionMainSearch {
 	if o == nil {
-		var ret MainSearch
+		var ret InjectionMainSearch
 
 		return ret
 	}
@@ -40,7 +40,7 @@ func (o *InjectionMainSearchSource) GetSearch() MainSearch {
 
 // GetSearchOk returns a tuple with the Search field value
 // and a boolean to check if the value has been set.
-func (o *InjectionMainSearchSource) GetSearchOk() (*MainSearch, bool) {
+func (o *InjectionMainSearchSource) GetSearchOk() (*InjectionMainSearch, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -49,7 +49,7 @@ func (o *InjectionMainSearchSource) GetSearchOk() (*MainSearch, bool) {
 }
 
 // SetSearch sets field value.
-func (o *InjectionMainSearchSource) SetSearch(v *MainSearch) *InjectionMainSearchSource {
+func (o *InjectionMainSearchSource) SetSearch(v *InjectionMainSearch) *InjectionMainSearchSource {
 	o.Search = *v
 
 	return o

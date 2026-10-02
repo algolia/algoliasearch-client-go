@@ -6,8 +6,8 @@ import (
 	"fmt"
 )
 
-// MainRecommend struct for MainRecommend.
-type MainRecommend struct {
+// InjectionMainRecommend struct for InjectionMainRecommend.
+type InjectionMainRecommend struct {
 	// Index to retrieve recommendations from.
 	IndexName string `json:"indexName"`
 	Model     Model  `json:"model"`
@@ -17,26 +17,26 @@ type MainRecommend struct {
 	FallbackParameters *MainInjectionQueryParameters `json:"fallbackParameters,omitempty"`
 }
 
-type MainRecommendOption func(f *MainRecommend)
+type InjectionMainRecommendOption func(f *InjectionMainRecommend)
 
-func WithMainRecommendQueryParameters(val MainInjectionQueryParameters) MainRecommendOption {
-	return func(f *MainRecommend) {
+func WithInjectionMainRecommendQueryParameters(val MainInjectionQueryParameters) InjectionMainRecommendOption {
+	return func(f *InjectionMainRecommend) {
 		f.QueryParameters = &val
 	}
 }
 
-func WithMainRecommendFallbackParameters(val MainInjectionQueryParameters) MainRecommendOption {
-	return func(f *MainRecommend) {
+func WithInjectionMainRecommendFallbackParameters(val MainInjectionQueryParameters) InjectionMainRecommendOption {
+	return func(f *InjectionMainRecommend) {
 		f.FallbackParameters = &val
 	}
 }
 
-// NewMainRecommend instantiates a new MainRecommend object
+// NewInjectionMainRecommend instantiates a new InjectionMainRecommend object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewMainRecommend(indexName string, model Model, threshold int32, opts ...MainRecommendOption) *MainRecommend {
-	this := &MainRecommend{}
+func NewInjectionMainRecommend(indexName string, model Model, threshold int32, opts ...InjectionMainRecommendOption) *InjectionMainRecommend {
+	this := &InjectionMainRecommend{}
 	this.IndexName = indexName
 	this.Model = model
 
@@ -48,13 +48,13 @@ func NewMainRecommend(indexName string, model Model, threshold int32, opts ...Ma
 	return this
 }
 
-// NewEmptyMainRecommend return a pointer to an empty MainRecommend object.
-func NewEmptyMainRecommend() *MainRecommend {
-	return &MainRecommend{}
+// NewEmptyInjectionMainRecommend return a pointer to an empty InjectionMainRecommend object.
+func NewEmptyInjectionMainRecommend() *InjectionMainRecommend {
+	return &InjectionMainRecommend{}
 }
 
 // GetIndexName returns the IndexName field value.
-func (o *MainRecommend) GetIndexName() string {
+func (o *InjectionMainRecommend) GetIndexName() string {
 	if o == nil {
 		var ret string
 
@@ -66,7 +66,7 @@ func (o *MainRecommend) GetIndexName() string {
 
 // GetIndexNameOk returns a tuple with the IndexName field value
 // and a boolean to check if the value has been set.
-func (o *MainRecommend) GetIndexNameOk() (*string, bool) {
+func (o *InjectionMainRecommend) GetIndexNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,14 +75,14 @@ func (o *MainRecommend) GetIndexNameOk() (*string, bool) {
 }
 
 // SetIndexName sets field value.
-func (o *MainRecommend) SetIndexName(v string) *MainRecommend {
+func (o *InjectionMainRecommend) SetIndexName(v string) *InjectionMainRecommend {
 	o.IndexName = v
 
 	return o
 }
 
 // GetModel returns the Model field value.
-func (o *MainRecommend) GetModel() Model {
+func (o *InjectionMainRecommend) GetModel() Model {
 	if o == nil {
 		var ret Model
 
@@ -94,7 +94,7 @@ func (o *MainRecommend) GetModel() Model {
 
 // GetModelOk returns a tuple with the Model field value
 // and a boolean to check if the value has been set.
-func (o *MainRecommend) GetModelOk() (*Model, bool) {
+func (o *InjectionMainRecommend) GetModelOk() (*Model, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -103,14 +103,14 @@ func (o *MainRecommend) GetModelOk() (*Model, bool) {
 }
 
 // SetModel sets field value.
-func (o *MainRecommend) SetModel(v Model) *MainRecommend {
+func (o *InjectionMainRecommend) SetModel(v Model) *InjectionMainRecommend {
 	o.Model = v
 
 	return o
 }
 
 // GetThreshold returns the Threshold field value.
-func (o *MainRecommend) GetThreshold() int32 {
+func (o *InjectionMainRecommend) GetThreshold() int32 {
 	if o == nil {
 		var ret int32
 
@@ -122,7 +122,7 @@ func (o *MainRecommend) GetThreshold() int32 {
 
 // GetThresholdOk returns a tuple with the Threshold field value
 // and a boolean to check if the value has been set.
-func (o *MainRecommend) GetThresholdOk() (*int32, bool) {
+func (o *InjectionMainRecommend) GetThresholdOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,14 +131,14 @@ func (o *MainRecommend) GetThresholdOk() (*int32, bool) {
 }
 
 // SetThreshold sets field value.
-func (o *MainRecommend) SetThreshold(v int32) *MainRecommend {
+func (o *InjectionMainRecommend) SetThreshold(v int32) *InjectionMainRecommend {
 	o.Threshold = v
 
 	return o
 }
 
 // GetQueryParameters returns the QueryParameters field value if set, zero value otherwise.
-func (o *MainRecommend) GetQueryParameters() MainInjectionQueryParameters {
+func (o *InjectionMainRecommend) GetQueryParameters() MainInjectionQueryParameters {
 	if o == nil || o.QueryParameters == nil {
 		var ret MainInjectionQueryParameters
 
@@ -150,7 +150,7 @@ func (o *MainRecommend) GetQueryParameters() MainInjectionQueryParameters {
 
 // GetQueryParametersOk returns a tuple with the QueryParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MainRecommend) GetQueryParametersOk() (*MainInjectionQueryParameters, bool) {
+func (o *InjectionMainRecommend) GetQueryParametersOk() (*MainInjectionQueryParameters, bool) {
 	if o == nil || o.QueryParameters == nil {
 		return nil, false
 	}
@@ -159,7 +159,7 @@ func (o *MainRecommend) GetQueryParametersOk() (*MainInjectionQueryParameters, b
 }
 
 // HasQueryParameters returns a boolean if a field has been set.
-func (o *MainRecommend) HasQueryParameters() bool {
+func (o *InjectionMainRecommend) HasQueryParameters() bool {
 	if o != nil && o.QueryParameters != nil {
 		return true
 	}
@@ -168,14 +168,14 @@ func (o *MainRecommend) HasQueryParameters() bool {
 }
 
 // SetQueryParameters gets a reference to the given MainInjectionQueryParameters and assigns it to the QueryParameters field.
-func (o *MainRecommend) SetQueryParameters(v *MainInjectionQueryParameters) *MainRecommend {
+func (o *InjectionMainRecommend) SetQueryParameters(v *MainInjectionQueryParameters) *InjectionMainRecommend {
 	o.QueryParameters = v
 
 	return o
 }
 
 // GetFallbackParameters returns the FallbackParameters field value if set, zero value otherwise.
-func (o *MainRecommend) GetFallbackParameters() MainInjectionQueryParameters {
+func (o *InjectionMainRecommend) GetFallbackParameters() MainInjectionQueryParameters {
 	if o == nil || o.FallbackParameters == nil {
 		var ret MainInjectionQueryParameters
 
@@ -187,7 +187,7 @@ func (o *MainRecommend) GetFallbackParameters() MainInjectionQueryParameters {
 
 // GetFallbackParametersOk returns a tuple with the FallbackParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MainRecommend) GetFallbackParametersOk() (*MainInjectionQueryParameters, bool) {
+func (o *InjectionMainRecommend) GetFallbackParametersOk() (*MainInjectionQueryParameters, bool) {
 	if o == nil || o.FallbackParameters == nil {
 		return nil, false
 	}
@@ -196,7 +196,7 @@ func (o *MainRecommend) GetFallbackParametersOk() (*MainInjectionQueryParameters
 }
 
 // HasFallbackParameters returns a boolean if a field has been set.
-func (o *MainRecommend) HasFallbackParameters() bool {
+func (o *InjectionMainRecommend) HasFallbackParameters() bool {
 	if o != nil && o.FallbackParameters != nil {
 		return true
 	}
@@ -205,13 +205,13 @@ func (o *MainRecommend) HasFallbackParameters() bool {
 }
 
 // SetFallbackParameters gets a reference to the given MainInjectionQueryParameters and assigns it to the FallbackParameters field.
-func (o *MainRecommend) SetFallbackParameters(v *MainInjectionQueryParameters) *MainRecommend {
+func (o *InjectionMainRecommend) SetFallbackParameters(v *MainInjectionQueryParameters) *InjectionMainRecommend {
 	o.FallbackParameters = v
 
 	return o
 }
 
-func (o MainRecommend) MarshalJSON() ([]byte, error) {
+func (o InjectionMainRecommend) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["indexName"] = o.IndexName
 	toSerialize["model"] = o.Model
@@ -227,13 +227,13 @@ func (o MainRecommend) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal MainRecommend: %w", err)
+		return nil, fmt.Errorf("failed to marshal InjectionMainRecommend: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o MainRecommend) String() string {
+func (o InjectionMainRecommend) String() string {
 	out := ""
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 	out += fmt.Sprintf("  model=%v\n", o.Model)
@@ -241,5 +241,5 @@ func (o MainRecommend) String() string {
 	out += fmt.Sprintf("  queryParameters=%v\n", o.QueryParameters)
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
-	return fmt.Sprintf("MainRecommend {\n%s}", out)
+	return fmt.Sprintf("InjectionMainRecommend {\n%s}", out)
 }

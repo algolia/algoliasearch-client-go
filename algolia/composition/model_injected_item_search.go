@@ -8,7 +8,7 @@ import (
 
 // InjectedItemSearch struct for InjectedItemSearch.
 type InjectedItemSearch struct {
-	// Composition Index name.
+	// Algolia index used to retrieve records.
 	Index  string                        `json:"index"`
 	Params *BaseInjectionQueryParameters `json:"params,omitempty"`
 }
