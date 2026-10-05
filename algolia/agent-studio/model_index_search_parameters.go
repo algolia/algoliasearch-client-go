@@ -10,13 +10,14 @@ import (
 
 // IndexSearchParameters Structured search parameters configuration for an Algolia index.  Each parameter controls whether it is exposed to the LLM, its default value, optional constraints, and merge behavior.
 type IndexSearchParameters struct {
-	Query                utils.Nullable[TextParam]   `json:"query,omitempty"`
-	HitsPerPage          *NumberParam                `json:"hitsPerPage,omitempty"`
-	Page                 *NumberParam                `json:"page,omitempty"`
-	AttributesToRetrieve *StringArrayParam           `json:"attributesToRetrieve,omitempty"`
-	ResponseFields       *StringArrayParam           `json:"responseFields,omitempty"`
-	Facets               utils.Nullable[FacetsParam] `json:"facets,omitempty"`
-	Custom               map[string]any              `json:"custom,omitempty"`
+	Query                utils.Nullable[TextParam]    `json:"query,omitempty"`
+	HitsPerPage          *NumberParam                 `json:"hitsPerPage,omitempty"`
+	Page                 *NumberParam                 `json:"page,omitempty"`
+	AttributesToRetrieve *StringArrayParam            `json:"attributesToRetrieve,omitempty"`
+	ResponseFields       *StringArrayParam            `json:"responseFields,omitempty"`
+	Distinct             utils.Nullable[BooleanParam] `json:"distinct,omitempty"`
+	Facets               utils.Nullable[FacetsParam]  `json:"facets,omitempty"`
+	Custom               map[string]any               `json:"custom,omitempty"`
 }
 
 type IndexSearchParametersOption func(f *IndexSearchParameters)
@@ -48,6 +49,12 @@ func WithIndexSearchParametersAttributesToRetrieve(val StringArrayParam) IndexSe
 func WithIndexSearchParametersResponseFields(val StringArrayParam) IndexSearchParametersOption {
 	return func(f *IndexSearchParameters) {
 		f.ResponseFields = &val
+	}
+}
+
+func WithIndexSearchParametersDistinct(val utils.Nullable[BooleanParam]) IndexSearchParametersOption {
+	return func(f *IndexSearchParameters) {
+		f.Distinct = val
 	}
 }
 
@@ -277,6 +284,54 @@ func (o *IndexSearchParameters) SetResponseFields(v *StringArrayParam) *IndexSea
 	return o
 }
 
+// GetDistinct returns the Distinct field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IndexSearchParameters) GetDistinct() BooleanParam {
+	if o == nil || o.Distinct.Get() == nil {
+		var ret BooleanParam
+
+		return ret
+	}
+
+	return *o.Distinct.Get()
+}
+
+// GetDistinctOk returns a tuple with the Distinct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *IndexSearchParameters) GetDistinctOk() (*BooleanParam, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.Distinct.Get(), o.Distinct.IsSet()
+}
+
+// HasDistinct returns a boolean if a field has been set.
+func (o *IndexSearchParameters) HasDistinct() bool {
+	if o != nil && o.Distinct.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDistinct gets a reference to the given utils.Nullable[BooleanParam] and assigns it to the Distinct field.
+func (o *IndexSearchParameters) SetDistinct(v *BooleanParam) *IndexSearchParameters {
+	o.Distinct.Set(v)
+
+	return o
+}
+
+// SetDistinctNil sets the value for Distinct to be an explicit nil.
+func (o *IndexSearchParameters) SetDistinctNil() {
+	o.Distinct.Set(nil)
+}
+
+// UnsetDistinct ensures that no value is present for Distinct, not even an explicit nil.
+func (o *IndexSearchParameters) UnsetDistinct() {
+	o.Distinct.Unset()
+}
+
 // GetFacets returns the Facets field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IndexSearchParameters) GetFacets() FacetsParam {
 	if o == nil || o.Facets.Get() == nil {
@@ -385,6 +440,10 @@ func (o IndexSearchParameters) MarshalJSON() ([]byte, error) {
 		toSerialize["responseFields"] = o.ResponseFields
 	}
 
+	if o.Distinct.IsSet() {
+		toSerialize["distinct"] = o.Distinct.Get()
+	}
+
 	if o.Facets.IsSet() {
 		toSerialize["facets"] = o.Facets.Get()
 	}
@@ -408,6 +467,7 @@ func (o IndexSearchParameters) String() string {
 	out += fmt.Sprintf("  page=%v\n", o.Page)
 	out += fmt.Sprintf("  attributesToRetrieve=%v\n", o.AttributesToRetrieve)
 	out += fmt.Sprintf("  responseFields=%v\n", o.ResponseFields)
+	out += fmt.Sprintf("  distinct=%v\n", o.Distinct)
 	out += fmt.Sprintf("  facets=%v\n", o.Facets)
 	out += fmt.Sprintf("  custom=%v\n", o.Custom)
 

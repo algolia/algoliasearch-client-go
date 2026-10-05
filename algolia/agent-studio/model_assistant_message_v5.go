@@ -4,20 +4,22 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AssistantMessageV5 struct for AssistantMessageV5.
 type AssistantMessageV5 struct {
-	Id    *string           `json:"id,omitempty"`
-	Role  string            `json:"role"`
-	Parts []AssistantPartV5 `json:"parts,omitempty"`
+	Id    utils.Nullable[string] `json:"id,omitempty"`
+	Role  string                 `json:"role"`
+	Parts []AssistantPartV5      `json:"parts,omitempty"`
 }
 
 type AssistantMessageV5Option func(f *AssistantMessageV5)
 
-func WithAssistantMessageV5Id(val string) AssistantMessageV5Option {
+func WithAssistantMessageV5Id(val utils.Nullable[string]) AssistantMessageV5Option {
 	return func(f *AssistantMessageV5) {
-		f.Id = &val
+		f.Id = val
 	}
 }
 
@@ -47,41 +49,52 @@ func NewEmptyAssistantMessageV5() *AssistantMessageV5 {
 	return &AssistantMessageV5{}
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AssistantMessageV5) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || o.Id.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.Id
+	return *o.Id.Get()
 }
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *AssistantMessageV5) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Id, true
+	return o.Id.Get(), o.Id.IsSet()
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *AssistantMessageV5) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && o.Id.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId gets a reference to the given utils.Nullable[string] and assigns it to the Id field.
 func (o *AssistantMessageV5) SetId(v string) *AssistantMessageV5 {
-	o.Id = &v
+	o.Id.Set(&v)
 
 	return o
+}
+
+// SetIdNil sets the value for Id to be an explicit nil.
+func (o *AssistantMessageV5) SetIdNil() {
+	o.Id.Set(nil)
+}
+
+// UnsetId ensures that no value is present for Id, not even an explicit nil.
+func (o *AssistantMessageV5) UnsetId() {
+	o.Id.Unset()
 }
 
 // GetRole returns the Role field value.
@@ -151,8 +164,8 @@ func (o *AssistantMessageV5) SetParts(v []AssistantPartV5) *AssistantMessageV5 {
 
 func (o AssistantMessageV5) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Id.IsSet() {
+		toSerialize["id"] = o.Id.Get()
 	}
 
 	toSerialize["role"] = o.Role

@@ -410,6 +410,162 @@ func (c *APIClient) BulkDeleteAllowedDomains(r ApiBulkDeleteAllowedDomainsReques
 	return nil
 }
 
+func (r *ApiCompactContextRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["contextCompactRequest"]; ok {
+		err = json.Unmarshal(v, &r.contextCompactRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.contextCompactRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal contextCompactRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.contextCompactRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter contextCompactRequest: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiCompactContextRequest represents the request with all the parameters for the API call.
+type ApiCompactContextRequest struct {
+	contextCompactRequest *ContextCompactRequest
+}
+
+// NewApiCompactContextRequest creates an instance of the ApiCompactContextRequest to be used for the API call.
+func (c *APIClient) NewApiCompactContextRequest(contextCompactRequest *ContextCompactRequest) ApiCompactContextRequest {
+	return ApiCompactContextRequest{
+		contextCompactRequest: contextCompactRequest,
+	}
+}
+
+/*
+CompactContext calls the API and returns the raw response from it.
+
+	Summarize the older part of a conversation into a single user message via the caller's LLM.
+
+Everything except the trailing `keepLastMessages` messages is summarized; the summary is
+returned as a user-role message followed by the kept tail verbatim. Your provider runs the
+summary, so the provider adds the cost to your account.
+
+A conversation too large for the summarizer's context window is split into chunks that each fit,
+summarized concurrently, then merged in a reduce pass - so payload size alone does not fail the
+request. When the conversation still cannot be summarized (it needs more chunks than the server
+allows, or the chunk summaries will not converge), the response is a `400`, not a `500`.
+
+Two optional controls shape the output. `instructions` adds caller guidance inside the
+server-owned prompt frame, so it steers the summary without the model echoing the wording back.
+`targetTokensEstimate` sets a desired summary size, translated into word-count guidance.
+
+The `compaction` block reports what happened: `compacted` is `false` when the payload passed
+through untouched (nothing older than the kept tail), alongside chunk/pass counts and the
+summarizer's own token usage.
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiCompactContextRequest with parameters below.
+	  @param contextCompactRequest ContextCompactRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CompactContextWithHTTPInfo(r ApiCompactContextRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/agent-studio/1/unstable/context/compact"
+
+	if r.contextCompactRequest == nil {
+		return nil, nil, reportError("Parameter `contextCompactRequest` is required when calling `CompactContext`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.contextCompactRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CompactContext casts the HTTP response body to a defined struct.
+
+Summarize the older part of a conversation into a single user message via the caller's LLM.
+
+Everything except the trailing `keepLastMessages` messages is summarized; the summary is
+returned as a user-role message followed by the kept tail verbatim. Your provider runs the
+summary, so the provider adds the cost to your account.
+
+A conversation too large for the summarizer's context window is split into chunks that each fit,
+summarized concurrently, then merged in a reduce pass - so payload size alone does not fail the
+request. When the conversation still cannot be summarized (it needs more chunks than the server
+allows, or the chunk summaries will not converge), the response is a `400`, not a `500`.
+
+Two optional controls shape the output. `instructions` adds caller guidance inside the
+server-owned prompt frame, so it steers the summary without the model echoing the wording back.
+`targetTokensEstimate` sets a desired summary size, translated into word-count guidance.
+
+The `compaction` block reports what happened: `compacted` is `false` when the payload passed
+through untouched (nothing older than the kept tail), alongside chunk/pass counts and the
+summarizer's own token usage.
+
+Required API Key ACLs:
+  - search
+
+Request can be constructed by NewApiCompactContextRequest with parameters below.
+
+	@param contextCompactRequest ContextCompactRequest
+	@return ContextResponse
+*/
+func (c *APIClient) CompactContext(r ApiCompactContextRequest, opts ...RequestOption) (*ContextResponse, error) {
+	var returnValue *ContextResponse
+
+	res, resBody, err := c.CompactContextWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiCreateAgentRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 
@@ -779,7 +935,7 @@ func (r *ApiCreateAgentCompletionRequest) UnmarshalJSON(b []byte) error {
 type ApiCreateAgentCompletionRequest struct {
 	agentId                 string
 	compatibilityMode       CompatibilityMode
-	agentCompletionRequest  *AgentCompletionRequest
+	agentCompletionRequest  *AgentCompletionRequestUnion
 	stream                  *bool
 	cache                   *bool
 	memory                  *bool
@@ -791,7 +947,7 @@ type ApiCreateAgentCompletionRequest struct {
 func (c *APIClient) NewApiCreateAgentCompletionRequest(
 	agentId string,
 	compatibilityMode CompatibilityMode,
-	agentCompletionRequest *AgentCompletionRequest,
+	agentCompletionRequest *AgentCompletionRequestUnion,
 ) ApiCreateAgentCompletionRequest {
 	return ApiCreateAgentCompletionRequest{
 		agentId:                agentId,
@@ -845,7 +1001,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request.
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 	    Required API Key ACLs:
@@ -854,7 +1010,7 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
 	Request can be constructed by NewApiCreateAgentCompletionRequest with parameters below.
 	  @param agentId string - The agentId.
 	  @param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
-	  @param agentCompletionRequest AgentCompletionRequest
+	  @param agentCompletionRequest AgentCompletionRequestUnion
 	  @param stream bool - Whether to stream the response or not.
 	  @param cache bool - Use cached responses if available.
 	  @param memory bool - Set to false to disable memory (enabled by default).
@@ -935,7 +1091,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request.
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 Required API Key ACLs:
@@ -945,7 +1101,7 @@ Request can be constructed by NewApiCreateAgentCompletionRequest with parameters
 
 	@param agentId string - The agentId.
 	@param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
-	@param agentCompletionRequest AgentCompletionRequest
+	@param agentCompletionRequest AgentCompletionRequestUnion
 	@param stream bool - Whether to stream the response or not.
 	@param cache bool - Use cached responses if available.
 	@param memory bool - Set to false to disable memory (enabled by default).
@@ -990,7 +1146,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request.
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
       Required API Key ACLs:
@@ -999,7 +1155,7 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
   Request can be constructed by NewApiCreateAgentCompletionRequest with parameters below.
     @param agentId string - The agentId.
     @param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
-    @param agentCompletionRequest AgentCompletionRequest
+    @param agentCompletionRequest AgentCompletionRequestUnion
     @param stream bool - Whether to stream the response or not.
     @param cache bool - Use cached responses if available.
     @param memory bool - Set to false to disable memory (enabled by default).
@@ -1084,7 +1240,7 @@ This endpoint handles two types of requests:
 2. Tool approval response: User approval -> Execute tool -> Agent response
 
 Tool Approval Flow (for MCP tools with requiresApproval: true):
-- Request 1: User sends message -> Agent requests tool call -> Return approval request.
+- Request 1: User sends message -> Agent requests tool call -> Return approval request
 - Request 2: User approves -> Execute tool -> Agent continues with result.
 
 	    Required API Key ACLs:
@@ -1093,7 +1249,7 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
 	Request can be constructed by NewApiCreateAgentCompletionRequest with parameters below.
 	  @param agentId string - The agentId.
 	  @param compatibilityMode CompatibilityMode - Compatibility mode for the completion API.
-	  @param agentCompletionRequest AgentCompletionRequest
+	  @param agentCompletionRequest AgentCompletionRequestUnion
 	  @param stream bool - Whether to stream the response or not.
 	  @param cache bool - Use cached responses if available.
 	  @param memory bool - Set to false to disable memory (enabled by default).
@@ -1112,6 +1268,337 @@ func (c *APIClient) CreateAgentCompletionStream(r ApiCreateAgentCompletionReques
 	}
 
 	return sse.NewStream[map[string]any](decoder, nil), nil
+}
+
+func (r *ApiCreateAgentTaskRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["agentId"]; ok {
+		err = json.Unmarshal(v, &r.agentId)
+		if err != nil {
+			err = json.Unmarshal(b, &r.agentId)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal agentId: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["taskRequest"]; ok {
+		err = json.Unmarshal(v, &r.taskRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.taskRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal taskRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.taskRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter taskRequest: %w", err)
+		}
+	}
+
+	if v, ok := req["stream"]; ok {
+		err = json.Unmarshal(v, &r.stream)
+		if err != nil {
+			err = json.Unmarshal(b, &r.stream)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal stream: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["cache"]; ok {
+		err = json.Unmarshal(v, &r.cache)
+		if err != nil {
+			err = json.Unmarshal(b, &r.cache)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal cache: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["analytics"]; ok {
+		err = json.Unmarshal(v, &r.analytics)
+		if err != nil {
+			err = json.Unmarshal(b, &r.analytics)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal analytics: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+// ApiCreateAgentTaskRequest represents the request with all the parameters for the API call.
+type ApiCreateAgentTaskRequest struct {
+	agentId     string
+	taskRequest *TaskRequest
+	stream      *bool
+	cache       *bool
+	analytics   *bool
+}
+
+// NewApiCreateAgentTaskRequest creates an instance of the ApiCreateAgentTaskRequest to be used for the API call.
+func (c *APIClient) NewApiCreateAgentTaskRequest(agentId string, taskRequest *TaskRequest) ApiCreateAgentTaskRequest {
+	return ApiCreateAgentTaskRequest{
+		agentId:     agentId,
+		taskRequest: taskRequest,
+	}
+}
+
+// WithStream adds the stream to the ApiCreateAgentTaskRequest and returns the request for chaining.
+func (r ApiCreateAgentTaskRequest) WithStream(stream bool) ApiCreateAgentTaskRequest {
+	r.stream = &stream
+
+	return r
+}
+
+// WithCache adds the cache to the ApiCreateAgentTaskRequest and returns the request for chaining.
+func (r ApiCreateAgentTaskRequest) WithCache(cache bool) ApiCreateAgentTaskRequest {
+	r.cache = &cache
+
+	return r
+}
+
+// WithAnalytics adds the analytics to the ApiCreateAgentTaskRequest and returns the request for chaining.
+func (r ApiCreateAgentTaskRequest) WithAnalytics(analytics bool) ApiCreateAgentTaskRequest {
+	r.analytics = &analytics
+
+	return r
+}
+
+/*
+CreateAgentTask calls the API and returns the raw response from it.
+
+	Run a configured task and return the generated object as ``{ output }``.
+
+With “?stream=true“, returns the raw partial JSON text stream expected by
+AI SDK v5 “useObject“. The streamed JSON is the task output itself.
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiCreateAgentTaskRequest with parameters below.
+	  @param agentId string - The agentId.
+	  @param taskRequest TaskRequest
+	  @param stream bool - Whether to stream the response or not.
+	  @param cache bool - Use cached responses if available.
+
+
+	  @param analytics bool - Set to false to skip endpoint-specific analytics for this task call (default: true). Disables the task analytics event; operational metrics and traces are always emitted.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CreateAgentTaskWithHTTPInfo(r ApiCreateAgentTaskRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/agent-studio/1/agents/{agentId}/tasks"
+	requestPath = strings.ReplaceAll(requestPath, "{agentId}", url.PathEscape(utils.ParameterToString(r.agentId)))
+
+	if r.agentId == "" {
+		return nil, nil, reportError("Parameter `agentId` is required when calling `CreateAgentTask`.")
+	}
+
+	if r.taskRequest == nil {
+		return nil, nil, reportError("Parameter `taskRequest` is required when calling `CreateAgentTask`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.stream) {
+		conf.queryParams.Set("stream", utils.QueryParameterToString(*r.stream))
+	}
+
+	if !utils.IsNilOrEmpty(r.cache) {
+		conf.queryParams.Set("cache", utils.QueryParameterToString(*r.cache))
+	}
+
+	if !utils.IsNilOrEmpty(r.analytics) {
+		conf.queryParams.Set("analytics", utils.QueryParameterToString(*r.analytics))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+CreateAgentTask casts the HTTP response body to a defined struct.
+
+Run a configured task and return the generated object as “{ output }“.
+
+With “?stream=true“, returns the raw partial JSON text stream expected by
+AI SDK v5 “useObject“. The streamed JSON is the task output itself.
+
+Required API Key ACLs:
+  - search
+
+Request can be constructed by NewApiCreateAgentTaskRequest with parameters below.
+
+	@param agentId string - The agentId.
+	@param taskRequest TaskRequest
+	@param stream bool - Whether to stream the response or not.
+	@param cache bool - Use cached responses if available.
+
+
+	@param analytics bool - Set to false to skip endpoint-specific analytics for this task call (default: true). Disables the task analytics event; operational metrics and traces are always emitted.
+	@return TaskResponse
+*/
+func (c *APIClient) CreateAgentTask(r ApiCreateAgentTaskRequest, opts ...RequestOption) (*TaskResponse, error) {
+	var returnValue *TaskResponse
+
+	res, resBody, err := c.CreateAgentTaskWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
+/*
+CreateAgentTaskStreamRaw calls the API and returns a raw sse.Decoder over the Server-Sent Events of the response (CreateAgentTask streaming version).
+
+    Run a configured task and return the generated object as ``{ output }``.
+
+With ``?stream=true``, returns the raw partial JSON text stream expected by
+AI SDK v5 ``useObject``. The streamed JSON is the task output itself.
+
+      Required API Key ACLs:
+      - search
+
+  Request can be constructed by NewApiCreateAgentTaskRequest with parameters below.
+    @param agentId string - The agentId.
+    @param taskRequest TaskRequest
+    @param stream bool - Whether to stream the response or not.
+    @param cache bool - Use cached responses if available.
+    @param analytics bool - Set to false to skip endpoint-specific analytics for this task call (default: true). Disables the task analytics event; operational metrics and traces are always emitted.
+  @param opts ...RequestOption - Optional parameters for the API call
+  @return sse.Decoder - A decoder over the raw events, each event's Data field contains a JSON-encoded TaskResponse. The caller is responsible for closing it.
+  @return error - An error if the API call fails
+*/
+//nolint:ireturn // The interface is the API, the implementation is not exposed.
+func (c *APIClient) CreateAgentTaskStreamRaw(r ApiCreateAgentTaskRequest, opts ...RequestOption) (sse.Decoder, error) {
+	requestPath := "/agent-studio/1/agents/{agentId}/tasks"
+	requestPath = strings.ReplaceAll(requestPath, "{agentId}", url.PathEscape(utils.ParameterToString(r.agentId)))
+
+	if r.agentId == "" {
+		return nil, reportError("Parameter `agentId` is required when calling `CreateAgentTask`.")
+	}
+
+	if r.taskRequest == nil {
+		return nil, reportError("Parameter `taskRequest` is required when calling `CreateAgentTask`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	if !utils.IsNilOrEmpty(r.stream) {
+		conf.queryParams.Set("stream", utils.QueryParameterToString(*r.stream))
+	}
+
+	if !utils.IsNilOrEmpty(r.cache) {
+		conf.queryParams.Set("cache", utils.QueryParameterToString(*r.cache))
+	}
+
+	if !utils.IsNilOrEmpty(r.analytics) {
+		conf.queryParams.Set("analytics", utils.QueryParameterToString(*r.analytics))
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.taskRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, err
+	}
+
+	//nolint:bodyclose // The body is closed by the decoder.
+	res, err := c.callAPIStream(req, false, conf.timeouts)
+	if err != nil {
+		return nil, err
+	}
+
+	return sse.NewEventStreamDecoder(res.Body), nil
+}
+
+/*
+CreateAgentTaskStream calls the API and returns a typed sse.Stream over the Server-Sent Events of the response (CreateAgentTask streaming version).
+
+	Run a configured task and return the generated object as ``{ output }``.
+
+With “?stream=true“, returns the raw partial JSON text stream expected by
+AI SDK v5 “useObject“. The streamed JSON is the task output itself.
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiCreateAgentTaskRequest with parameters below.
+	  @param agentId string - The agentId.
+	  @param taskRequest TaskRequest
+	  @param stream bool - Whether to stream the response or not.
+	  @param cache bool - Use cached responses if available.
+
+
+	  @param analytics bool - Set to false to skip endpoint-specific analytics for this task call (default: true). Disables the task analytics event; operational metrics and traces are always emitted.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *sse.Stream[TaskResponse] - A stream deserializing each event's payload. The caller is responsible for closing it.
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) CreateAgentTaskStream(r ApiCreateAgentTaskRequest, opts ...RequestOption) (*sse.Stream[TaskResponse], error) {
+	decoder, err := c.CreateAgentTaskStreamRaw(r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	return sse.NewStream[TaskResponse](decoder, nil), nil
 }
 
 func (r *ApiCreateFeedbackRequest) UnmarshalJSON(b []byte) error {
@@ -2257,7 +2744,7 @@ func (r ApiDeleteAgentConversationsRequest) WithEndDate(endDate string) ApiDelet
 /*
 DeleteAgentConversations calls the API and returns the raw response from it.
 
-	  Deletes the conversations matching the given filers.
+	  Deletes the conversations matching the given filters.
 
 	    Required API Key ACLs:
 	    - logs
@@ -2314,7 +2801,7 @@ func (c *APIClient) DeleteAgentConversationsWithHTTPInfo(
 /*
 DeleteAgentConversations casts the HTTP response body to a defined struct.
 
-Deletes the conversations matching the given filers.
+Deletes the conversations matching the given filters.
 
 Required API Key ACLs:
   - logs
@@ -3441,6 +3928,26 @@ func (r *ApiGetConversationRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["includeMessageEvents"]; ok {
+		err = json.Unmarshal(v, &r.includeMessageEvents)
+		if err != nil {
+			err = json.Unmarshal(b, &r.includeMessageEvents)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal includeMessageEvents: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["includeImpactAnalytics"]; ok {
+		err = json.Unmarshal(v, &r.includeImpactAnalytics)
+		if err != nil {
+			err = json.Unmarshal(b, &r.includeImpactAnalytics)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal includeImpactAnalytics: %w", err)
+			}
+		}
+	}
+
 	if v, ok := req["xAlgoliaSecureUserToken"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaSecureUserToken)
 		if err != nil {
@@ -3459,6 +3966,8 @@ type ApiGetConversationRequest struct {
 	conversationId          string
 	agentId                 string
 	includeFeedback         *bool
+	includeMessageEvents    *bool
+	includeImpactAnalytics  *bool
 	xAlgoliaSecureUserToken *string
 }
 
@@ -3473,6 +3982,20 @@ func (c *APIClient) NewApiGetConversationRequest(conversationId string, agentId 
 // WithIncludeFeedback adds the includeFeedback to the ApiGetConversationRequest and returns the request for chaining.
 func (r ApiGetConversationRequest) WithIncludeFeedback(includeFeedback bool) ApiGetConversationRequest {
 	r.includeFeedback = &includeFeedback
+
+	return r
+}
+
+// WithIncludeMessageEvents adds the includeMessageEvents to the ApiGetConversationRequest and returns the request for chaining.
+func (r ApiGetConversationRequest) WithIncludeMessageEvents(includeMessageEvents bool) ApiGetConversationRequest {
+	r.includeMessageEvents = &includeMessageEvents
+
+	return r
+}
+
+// WithIncludeImpactAnalytics adds the includeImpactAnalytics to the ApiGetConversationRequest and returns the request for chaining.
+func (r ApiGetConversationRequest) WithIncludeImpactAnalytics(includeImpactAnalytics bool) ApiGetConversationRequest {
+	r.includeImpactAnalytics = &includeImpactAnalytics
 
 	return r
 }
@@ -3496,6 +4019,8 @@ GetConversation calls the API and returns the raw response from it.
 	  @param conversationId string - The conversationId.
 	  @param agentId string - The agentId.
 	  @param includeFeedback bool - Include feedback for the conversation.
+	  @param includeMessageEvents bool - Include Insights events attributed to each assistant message.
+	  @param includeImpactAnalytics bool - Include outcome signals (hasView, hasClick, hasConversion) for the conversation.
 	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -3523,6 +4048,14 @@ func (c *APIClient) GetConversationWithHTTPInfo(r ApiGetConversationRequest, opt
 
 	if !utils.IsNilOrEmpty(r.includeFeedback) {
 		conf.queryParams.Set("includeFeedback", utils.QueryParameterToString(*r.includeFeedback))
+	}
+
+	if !utils.IsNilOrEmpty(r.includeMessageEvents) {
+		conf.queryParams.Set("includeMessageEvents", utils.QueryParameterToString(*r.includeMessageEvents))
+	}
+
+	if !utils.IsNilOrEmpty(r.includeImpactAnalytics) {
+		conf.queryParams.Set("includeImpactAnalytics", utils.QueryParameterToString(*r.includeImpactAnalytics))
 	}
 
 	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
@@ -3557,6 +4090,8 @@ Request can be constructed by NewApiGetConversationRequest with parameters below
 	@param conversationId string - The conversationId.
 	@param agentId string - The agentId.
 	@param includeFeedback bool - Include feedback for the conversation.
+	@param includeMessageEvents bool - Include Insights events attributed to each assistant message.
+	@param includeImpactAnalytics bool - Include outcome signals (hasView, hasClick, hasConversion) for the conversation.
 	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
 	@return ConversationFullResponse
 */
@@ -3984,7 +4519,7 @@ func (r ApiInvalidateAgentCacheRequest) WithBefore(before string) ApiInvalidateA
 /*
 InvalidateAgentCache calls the API and returns the raw response from it.
 
-	  Invalidate cached completions for this agent. Filter with `before` (exclusive).
+	  Invalidate cached completions and task outputs for this agent. Filter with `before` (exclusive).
 
 	    Required API Key ACLs:
 	    - editSettings
@@ -4033,7 +4568,7 @@ func (c *APIClient) InvalidateAgentCacheWithHTTPInfo(r ApiInvalidateAgentCacheRe
 /*
 InvalidateAgentCache casts the HTTP response body to a defined struct.
 
-Invalidate cached completions for this agent. Filter with `before` (exclusive).
+Invalidate cached completions and task outputs for this agent. Filter with `before` (exclusive).
 
 Required API Key ACLs:
   - editSettings
@@ -4254,6 +4789,46 @@ func (r *ApiListAgentConversationsRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["includeImpactAnalytics"]; ok {
+		err = json.Unmarshal(v, &r.includeImpactAnalytics)
+		if err != nil {
+			err = json.Unmarshal(b, &r.includeImpactAnalytics)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal includeImpactAnalytics: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["clicked"]; ok {
+		err = json.Unmarshal(v, &r.clicked)
+		if err != nil {
+			err = json.Unmarshal(b, &r.clicked)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal clicked: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["converted"]; ok {
+		err = json.Unmarshal(v, &r.converted)
+		if err != nil {
+			err = json.Unmarshal(b, &r.converted)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal converted: %w", err)
+			}
+		}
+	}
+
+	if v, ok := req["hasAlgoliaSearch"]; ok {
+		err = json.Unmarshal(v, &r.hasAlgoliaSearch)
+		if err != nil {
+			err = json.Unmarshal(b, &r.hasAlgoliaSearch)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal hasAlgoliaSearch: %w", err)
+			}
+		}
+	}
+
 	if v, ok := req["xAlgoliaSecureUserToken"]; ok {
 		err = json.Unmarshal(v, &r.xAlgoliaSecureUserToken)
 		if err != nil {
@@ -4276,6 +4851,10 @@ type ApiListAgentConversationsRequest struct {
 	feedbackVote            *int32
 	page                    *int32
 	limit                   *int32
+	includeImpactAnalytics  *bool
+	clicked                 *bool
+	converted               *bool
+	hasAlgoliaSearch        *bool
 	xAlgoliaSecureUserToken *string
 }
 
@@ -4328,6 +4907,34 @@ func (r ApiListAgentConversationsRequest) WithLimit(limit int32) ApiListAgentCon
 	return r
 }
 
+// WithIncludeImpactAnalytics adds the includeImpactAnalytics to the ApiListAgentConversationsRequest and returns the request for chaining.
+func (r ApiListAgentConversationsRequest) WithIncludeImpactAnalytics(includeImpactAnalytics bool) ApiListAgentConversationsRequest {
+	r.includeImpactAnalytics = &includeImpactAnalytics
+
+	return r
+}
+
+// WithClicked adds the clicked to the ApiListAgentConversationsRequest and returns the request for chaining.
+func (r ApiListAgentConversationsRequest) WithClicked(clicked bool) ApiListAgentConversationsRequest {
+	r.clicked = &clicked
+
+	return r
+}
+
+// WithConverted adds the converted to the ApiListAgentConversationsRequest and returns the request for chaining.
+func (r ApiListAgentConversationsRequest) WithConverted(converted bool) ApiListAgentConversationsRequest {
+	r.converted = &converted
+
+	return r
+}
+
+// WithHasAlgoliaSearch adds the hasAlgoliaSearch to the ApiListAgentConversationsRequest and returns the request for chaining.
+func (r ApiListAgentConversationsRequest) WithHasAlgoliaSearch(hasAlgoliaSearch bool) ApiListAgentConversationsRequest {
+	r.hasAlgoliaSearch = &hasAlgoliaSearch
+
+	return r
+}
+
 // WithXAlgoliaSecureUserToken adds the xAlgoliaSecureUserToken to the ApiListAgentConversationsRequest and returns the request for chaining.
 func (r ApiListAgentConversationsRequest) WithXAlgoliaSecureUserToken(xAlgoliaSecureUserToken string) ApiListAgentConversationsRequest {
 	r.xAlgoliaSecureUserToken = &xAlgoliaSecureUserToken
@@ -4351,6 +4958,10 @@ ListAgentConversations calls the API and returns the raw response from it.
 	  @param feedbackVote int32 - Filter by feedback value (requires includeFeedback=true).
 	  @param page int32 - Page number.
 	  @param limit int32 - Items per page.
+	  @param includeImpactAnalytics bool - Include impact analytics (hasView, hasClick, hasConversion) per conversation.
+	  @param clicked bool - Filter by conversations with at least one item click.
+	  @param converted bool - Filter by conversations with at least one conversion.
+	  @param hasAlgoliaSearch bool - Filter by conversations where the search tool was used.
 	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
@@ -4395,6 +5006,22 @@ func (c *APIClient) ListAgentConversationsWithHTTPInfo(r ApiListAgentConversatio
 		conf.queryParams.Set("limit", utils.QueryParameterToString(*r.limit))
 	}
 
+	if !utils.IsNilOrEmpty(r.includeImpactAnalytics) {
+		conf.queryParams.Set("includeImpactAnalytics", utils.QueryParameterToString(*r.includeImpactAnalytics))
+	}
+
+	if !utils.IsNilOrEmpty(r.clicked) {
+		conf.queryParams.Set("clicked", utils.QueryParameterToString(*r.clicked))
+	}
+
+	if !utils.IsNilOrEmpty(r.converted) {
+		conf.queryParams.Set("converted", utils.QueryParameterToString(*r.converted))
+	}
+
+	if !utils.IsNilOrEmpty(r.hasAlgoliaSearch) {
+		conf.queryParams.Set("hasAlgoliaSearch", utils.QueryParameterToString(*r.hasAlgoliaSearch))
+	}
+
 	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
 		conf.headerParams["X-Algolia-Secure-User-Token"] = utils.ParameterToString(*r.xAlgoliaSecureUserToken)
 	}
@@ -4431,6 +5058,10 @@ Request can be constructed by NewApiListAgentConversationsRequest with parameter
 	@param feedbackVote int32 - Filter by feedback value (requires includeFeedback=true).
 	@param page int32 - Page number.
 	@param limit int32 - Items per page.
+	@param includeImpactAnalytics bool - Include impact analytics (hasView, hasClick, hasConversion) per conversation.
+	@param clicked bool - Filter by conversations with at least one item click.
+	@param converted bool - Filter by conversations with at least one conversion.
+	@param hasAlgoliaSearch bool - Filter by conversations where the search tool was used.
 	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
 	@return PaginatedConversationsResponse
 */
@@ -5217,6 +5848,142 @@ func (c *APIClient) PublishAgent(r ApiPublishAgentRequest, opts ...RequestOption
 	return returnValue, nil
 }
 
+func (r *ApiTrimContextRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["contextTrimRequest"]; ok {
+		err = json.Unmarshal(v, &r.contextTrimRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.contextTrimRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal contextTrimRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.contextTrimRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter contextTrimRequest: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiTrimContextRequest represents the request with all the parameters for the API call.
+type ApiTrimContextRequest struct {
+	contextTrimRequest *ContextTrimRequest
+}
+
+// NewApiTrimContextRequest creates an instance of the ApiTrimContextRequest to be used for the API call.
+func (c *APIClient) NewApiTrimContextRequest(contextTrimRequest *ContextTrimRequest) ApiTrimContextRequest {
+	return ApiTrimContextRequest{
+		contextTrimRequest: contextTrimRequest,
+	}
+}
+
+/*
+TrimContext calls the API and returns the raw response from it.
+
+	Deterministically trim a conversation payload (no LLM calls).
+
+Keep the last N messages and/or fit a heuristic token budget, optionally dropping tool parts
+from what is kept (tool parts are stripped before the budget is applied). Returns the trimmed
+messages plus before/after stats.
+
+With no constraints set, the messages are returned unchanged and only the stats are computed -
+a deliberate, cheap "how big is my context?" probe (no LLM call, no mutation).
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiTrimContextRequest with parameters below.
+	  @param contextTrimRequest ContextTrimRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) TrimContextWithHTTPInfo(r ApiTrimContextRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/agent-studio/1/unstable/context/trim"
+
+	if r.contextTrimRequest == nil {
+		return nil, nil, reportError("Parameter `contextTrimRequest` is required when calling `TrimContext`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.contextTrimRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPost, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+TrimContext casts the HTTP response body to a defined struct.
+
+Deterministically trim a conversation payload (no LLM calls).
+
+Keep the last N messages and/or fit a heuristic token budget, optionally dropping tool parts
+from what is kept (tool parts are stripped before the budget is applied). Returns the trimmed
+messages plus before/after stats.
+
+With no constraints set, the messages are returned unchanged and only the stats are computed -
+a deliberate, cheap "how big is my context?" probe (no LLM call, no mutation).
+
+Required API Key ACLs:
+  - search
+
+Request can be constructed by NewApiTrimContextRequest with parameters below.
+
+	@param contextTrimRequest ContextTrimRequest
+	@return ContextResponse
+*/
+func (c *APIClient) TrimContext(r ApiTrimContextRequest, opts ...RequestOption) (*ContextResponse, error) {
+	var returnValue *ContextResponse
+
+	res, resBody, err := c.TrimContextWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
 func (r *ApiUnpublishAgentRequest) UnmarshalJSON(b []byte) error {
 	req := map[string]json.RawMessage{}
 
@@ -5574,6 +6341,128 @@ func (c *APIClient) UpdateConfiguration(r ApiUpdateConfigurationRequest, opts ..
 	var returnValue *ApplicationConfigResponse
 
 	res, resBody, err := c.UpdateConfigurationWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
+func (r *ApiUpdateFeedbackRequest) UnmarshalJSON(b []byte) error {
+	req := map[string]json.RawMessage{}
+
+	err := json.Unmarshal(b, &req)
+	if err != nil {
+		return fmt.Errorf("cannot unmarshal request: %w", err)
+	}
+
+	if v, ok := req["feedbackUpdateRequest"]; ok {
+		err = json.Unmarshal(v, &r.feedbackUpdateRequest)
+		if err != nil {
+			err = json.Unmarshal(b, &r.feedbackUpdateRequest)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal feedbackUpdateRequest: %w", err)
+			}
+		}
+	} else {
+		err = json.Unmarshal(b, &r.feedbackUpdateRequest)
+		if err != nil {
+			return fmt.Errorf("cannot unmarshal body parameter feedbackUpdateRequest: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// ApiUpdateFeedbackRequest represents the request with all the parameters for the API call.
+type ApiUpdateFeedbackRequest struct {
+	feedbackUpdateRequest *FeedbackUpdateRequest
+}
+
+// NewApiUpdateFeedbackRequest creates an instance of the ApiUpdateFeedbackRequest to be used for the API call.
+func (c *APIClient) NewApiUpdateFeedbackRequest(feedbackUpdateRequest *FeedbackUpdateRequest) ApiUpdateFeedbackRequest {
+	return ApiUpdateFeedbackRequest{
+		feedbackUpdateRequest: feedbackUpdateRequest,
+	}
+}
+
+/*
+UpdateFeedback calls the API and returns the raw response from it.
+
+	  Update an existing feedback entry.
+
+	    Required API Key ACLs:
+	    - search
+
+	Request can be constructed by NewApiUpdateFeedbackRequest with parameters below.
+	  @param feedbackUpdateRequest FeedbackUpdateRequest
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) UpdateFeedbackWithHTTPInfo(r ApiUpdateFeedbackRequest, opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/agent-studio/1/feedback"
+
+	if r.feedbackUpdateRequest == nil {
+		return nil, nil, reportError("Parameter `feedbackUpdateRequest` is required when calling `UpdateFeedback`.")
+	}
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	// body params
+	postBody = r.feedbackUpdateRequest
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodPatch, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+UpdateFeedback casts the HTTP response body to a defined struct.
+
+Update an existing feedback entry.
+
+Required API Key ACLs:
+  - search
+
+Request can be constructed by NewApiUpdateFeedbackRequest with parameters below.
+
+	@param feedbackUpdateRequest FeedbackUpdateRequest
+	@return FeedbackResponse
+*/
+func (c *APIClient) UpdateFeedback(r ApiUpdateFeedbackRequest, opts ...RequestOption) (*FeedbackResponse, error) {
+	var returnValue *FeedbackResponse
+
+	res, resBody, err := c.UpdateFeedbackWithHTTPInfo(r, opts...)
 	if err != nil {
 		return returnValue, err
 	}

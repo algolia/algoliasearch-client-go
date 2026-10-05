@@ -4,15 +4,21 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // ToolResultPart struct for ToolResultPart.
 type ToolResultPart struct {
-	Type            string           `json:"type"`
-	ToolCallId      string           `json:"toolCallId"`
-	ToolName        string           `json:"toolName"`
-	Output          ToolResultOutput `json:"output"`
-	ProviderOptions map[string]any   `json:"providerOptions,omitempty"`
+	Type            string                 `json:"type"`
+	ToolCallId      string                 `json:"toolCallId"`
+	ToolName        string                 `json:"toolName"`
+	Output          ToolResultOutput       `json:"output"`
+	ProviderOptions map[string]any         `json:"providerOptions,omitempty"`
+	McpConfigId     utils.Nullable[string] `json:"mcpConfigId,omitempty"`
+	McpConfigName   utils.Nullable[string] `json:"mcpConfigName,omitempty"`
+	IsTerminal      utils.Nullable[bool]   `json:"isTerminal,omitempty"`
+	OutputMetadata  map[string]any         `json:"outputMetadata,omitempty"`
 }
 
 type ToolResultPartOption func(f *ToolResultPart)
@@ -20,6 +26,30 @@ type ToolResultPartOption func(f *ToolResultPart)
 func WithToolResultPartProviderOptions(val map[string]any) ToolResultPartOption {
 	return func(f *ToolResultPart) {
 		f.ProviderOptions = val
+	}
+}
+
+func WithToolResultPartMcpConfigId(val utils.Nullable[string]) ToolResultPartOption {
+	return func(f *ToolResultPart) {
+		f.McpConfigId = val
+	}
+}
+
+func WithToolResultPartMcpConfigName(val utils.Nullable[string]) ToolResultPartOption {
+	return func(f *ToolResultPart) {
+		f.McpConfigName = val
+	}
+}
+
+func WithToolResultPartIsTerminal(val utils.Nullable[bool]) ToolResultPartOption {
+	return func(f *ToolResultPart) {
+		f.IsTerminal = val
+	}
+}
+
+func WithToolResultPartOutputMetadata(val map[string]any) ToolResultPartOption {
+	return func(f *ToolResultPart) {
+		f.OutputMetadata = val
 	}
 }
 
@@ -196,6 +226,188 @@ func (o *ToolResultPart) SetProviderOptions(v map[string]any) *ToolResultPart {
 	return o
 }
 
+// GetMcpConfigId returns the McpConfigId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolResultPart) GetMcpConfigId() string {
+	if o == nil || o.McpConfigId.Get() == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.McpConfigId.Get()
+}
+
+// GetMcpConfigIdOk returns a tuple with the McpConfigId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolResultPart) GetMcpConfigIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.McpConfigId.Get(), o.McpConfigId.IsSet()
+}
+
+// HasMcpConfigId returns a boolean if a field has been set.
+func (o *ToolResultPart) HasMcpConfigId() bool {
+	if o != nil && o.McpConfigId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMcpConfigId gets a reference to the given utils.Nullable[string] and assigns it to the McpConfigId field.
+func (o *ToolResultPart) SetMcpConfigId(v string) *ToolResultPart {
+	o.McpConfigId.Set(&v)
+
+	return o
+}
+
+// SetMcpConfigIdNil sets the value for McpConfigId to be an explicit nil.
+func (o *ToolResultPart) SetMcpConfigIdNil() {
+	o.McpConfigId.Set(nil)
+}
+
+// UnsetMcpConfigId ensures that no value is present for McpConfigId, not even an explicit nil.
+func (o *ToolResultPart) UnsetMcpConfigId() {
+	o.McpConfigId.Unset()
+}
+
+// GetMcpConfigName returns the McpConfigName field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolResultPart) GetMcpConfigName() string {
+	if o == nil || o.McpConfigName.Get() == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.McpConfigName.Get()
+}
+
+// GetMcpConfigNameOk returns a tuple with the McpConfigName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolResultPart) GetMcpConfigNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.McpConfigName.Get(), o.McpConfigName.IsSet()
+}
+
+// HasMcpConfigName returns a boolean if a field has been set.
+func (o *ToolResultPart) HasMcpConfigName() bool {
+	if o != nil && o.McpConfigName.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMcpConfigName gets a reference to the given utils.Nullable[string] and assigns it to the McpConfigName field.
+func (o *ToolResultPart) SetMcpConfigName(v string) *ToolResultPart {
+	o.McpConfigName.Set(&v)
+
+	return o
+}
+
+// SetMcpConfigNameNil sets the value for McpConfigName to be an explicit nil.
+func (o *ToolResultPart) SetMcpConfigNameNil() {
+	o.McpConfigName.Set(nil)
+}
+
+// UnsetMcpConfigName ensures that no value is present for McpConfigName, not even an explicit nil.
+func (o *ToolResultPart) UnsetMcpConfigName() {
+	o.McpConfigName.Unset()
+}
+
+// GetIsTerminal returns the IsTerminal field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolResultPart) GetIsTerminal() bool {
+	if o == nil || o.IsTerminal.Get() == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.IsTerminal.Get()
+}
+
+// GetIsTerminalOk returns a tuple with the IsTerminal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolResultPart) GetIsTerminalOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.IsTerminal.Get(), o.IsTerminal.IsSet()
+}
+
+// HasIsTerminal returns a boolean if a field has been set.
+func (o *ToolResultPart) HasIsTerminal() bool {
+	if o != nil && o.IsTerminal.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsTerminal gets a reference to the given utils.Nullable[bool] and assigns it to the IsTerminal field.
+func (o *ToolResultPart) SetIsTerminal(v bool) *ToolResultPart {
+	o.IsTerminal.Set(&v)
+
+	return o
+}
+
+// SetIsTerminalNil sets the value for IsTerminal to be an explicit nil.
+func (o *ToolResultPart) SetIsTerminalNil() {
+	o.IsTerminal.Set(nil)
+}
+
+// UnsetIsTerminal ensures that no value is present for IsTerminal, not even an explicit nil.
+func (o *ToolResultPart) UnsetIsTerminal() {
+	o.IsTerminal.Unset()
+}
+
+// GetOutputMetadata returns the OutputMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolResultPart) GetOutputMetadata() map[string]any {
+	if o == nil {
+		var ret map[string]any
+
+		return ret
+	}
+
+	return o.OutputMetadata
+}
+
+// GetOutputMetadataOk returns a tuple with the OutputMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolResultPart) GetOutputMetadataOk() (map[string]any, bool) {
+	if o == nil || o.OutputMetadata == nil {
+		return nil, false
+	}
+
+	return o.OutputMetadata, true
+}
+
+// HasOutputMetadata returns a boolean if a field has been set.
+func (o *ToolResultPart) HasOutputMetadata() bool {
+	if o != nil && o.OutputMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputMetadata gets a reference to the given map[string]any and assigns it to the OutputMetadata field.
+func (o *ToolResultPart) SetOutputMetadata(v map[string]any) *ToolResultPart {
+	o.OutputMetadata = v
+
+	return o
+}
+
 func (o ToolResultPart) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
@@ -205,6 +417,22 @@ func (o ToolResultPart) MarshalJSON() ([]byte, error) {
 	toSerialize["output"] = o.Output
 	if o.ProviderOptions != nil {
 		toSerialize["providerOptions"] = o.ProviderOptions
+	}
+
+	if o.McpConfigId.IsSet() {
+		toSerialize["mcpConfigId"] = o.McpConfigId.Get()
+	}
+
+	if o.McpConfigName.IsSet() {
+		toSerialize["mcpConfigName"] = o.McpConfigName.Get()
+	}
+
+	if o.IsTerminal.IsSet() {
+		toSerialize["isTerminal"] = o.IsTerminal.Get()
+	}
+
+	if o.OutputMetadata != nil {
+		toSerialize["outputMetadata"] = o.OutputMetadata
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -222,6 +450,10 @@ func (o ToolResultPart) String() string {
 	out += fmt.Sprintf("  toolName=%v\n", o.ToolName)
 	out += fmt.Sprintf("  output=%v\n", o.Output)
 	out += fmt.Sprintf("  providerOptions=%v\n", o.ProviderOptions)
+	out += fmt.Sprintf("  mcpConfigId=%v\n", o.McpConfigId)
+	out += fmt.Sprintf("  mcpConfigName=%v\n", o.McpConfigName)
+	out += fmt.Sprintf("  isTerminal=%v\n", o.IsTerminal)
+	out += fmt.Sprintf("  outputMetadata=%v\n", o.OutputMetadata)
 
 	return fmt.Sprintf("ToolResultPart {\n%s}", out)
 }

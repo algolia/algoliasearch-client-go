@@ -4,22 +4,24 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // UserMessageV4 struct for UserMessageV4.
 type UserMessageV4 struct {
-	Id          *string          `json:"id,omitempty"`
-	Role        string           `json:"role"`
-	Content     string           `json:"content"`
-	Parts       []TextPartV4     `json:"parts,omitempty"`
-	Annotations []map[string]any `json:"annotations,omitempty"`
+	Id          utils.Nullable[string] `json:"id,omitempty"`
+	Role        string                 `json:"role"`
+	Content     string                 `json:"content"`
+	Parts       []TextPartV4           `json:"parts,omitempty"`
+	Annotations []map[string]any       `json:"annotations,omitempty"`
 }
 
 type UserMessageV4Option func(f *UserMessageV4)
 
-func WithUserMessageV4Id(val string) UserMessageV4Option {
+func WithUserMessageV4Id(val utils.Nullable[string]) UserMessageV4Option {
 	return func(f *UserMessageV4) {
-		f.Id = &val
+		f.Id = val
 	}
 }
 
@@ -56,41 +58,52 @@ func NewEmptyUserMessageV4() *UserMessageV4 {
 	return &UserMessageV4{}
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserMessageV4) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || o.Id.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.Id
+	return *o.Id.Get()
 }
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UserMessageV4) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Id, true
+	return o.Id.Get(), o.Id.IsSet()
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *UserMessageV4) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && o.Id.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId gets a reference to the given utils.Nullable[string] and assigns it to the Id field.
 func (o *UserMessageV4) SetId(v string) *UserMessageV4 {
-	o.Id = &v
+	o.Id.Set(&v)
 
 	return o
+}
+
+// SetIdNil sets the value for Id to be an explicit nil.
+func (o *UserMessageV4) SetIdNil() {
+	o.Id.Set(nil)
+}
+
+// UnsetId ensures that no value is present for Id, not even an explicit nil.
+func (o *UserMessageV4) UnsetId() {
+	o.Id.Unset()
 }
 
 // GetRole returns the Role field value.
@@ -186,9 +199,9 @@ func (o *UserMessageV4) SetParts(v []TextPartV4) *UserMessageV4 {
 	return o
 }
 
-// GetAnnotations returns the Annotations field value if set, zero value otherwise.
+// GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserMessageV4) GetAnnotations() []map[string]any {
-	if o == nil || o.Annotations == nil {
+	if o == nil {
 		var ret []map[string]any
 
 		return ret
@@ -199,6 +212,7 @@ func (o *UserMessageV4) GetAnnotations() []map[string]any {
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UserMessageV4) GetAnnotationsOk() ([]map[string]any, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
@@ -225,8 +239,8 @@ func (o *UserMessageV4) SetAnnotations(v []map[string]any) *UserMessageV4 {
 
 func (o UserMessageV4) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Id.IsSet() {
+		toSerialize["id"] = o.Id.Get()
 	}
 
 	toSerialize["role"] = o.Role

@@ -8,13 +8,13 @@ import (
 
 // AgentTestConfiguration Dynamic configuration for testing agents.
 type AgentTestConfiguration struct {
-	Id           *string           `json:"id,omitempty"`
-	ProviderId   *string           `json:"providerId,omitempty"`
-	Model        *string           `json:"model,omitempty"`
-	Instructions string            `json:"instructions"`
-	SystemPrompt *string           `json:"systemPrompt,omitempty"`
-	Config       map[string]any    `json:"config"`
-	Tools        []ToolConfigInput `json:"tools"`
+	Id           *string        `json:"id,omitempty"`
+	ProviderId   *string        `json:"providerId,omitempty"`
+	Model        *string        `json:"model,omitempty"`
+	Instructions string         `json:"instructions"`
+	SystemPrompt *string        `json:"systemPrompt,omitempty"`
+	Config       map[string]any `json:"config"`
+	Tools        []ItemsUnion   `json:"tools"`
 }
 
 type AgentTestConfigurationOption func(f *AgentTestConfiguration)
@@ -50,7 +50,7 @@ func WithAgentTestConfigurationSystemPrompt(val string) AgentTestConfigurationOp
 func NewAgentTestConfiguration(
 	instructions string,
 	config map[string]any,
-	tools []ToolConfigInput,
+	tools []ItemsUnion,
 	opts ...AgentTestConfigurationOption,
 ) *AgentTestConfiguration {
 	this := &AgentTestConfiguration{}
@@ -275,9 +275,9 @@ func (o *AgentTestConfiguration) SetConfig(v map[string]any) *AgentTestConfigura
 }
 
 // GetTools returns the Tools field value.
-func (o *AgentTestConfiguration) GetTools() []ToolConfigInput {
+func (o *AgentTestConfiguration) GetTools() []ItemsUnion {
 	if o == nil {
-		var ret []ToolConfigInput
+		var ret []ItemsUnion
 
 		return ret
 	}
@@ -287,7 +287,7 @@ func (o *AgentTestConfiguration) GetTools() []ToolConfigInput {
 
 // GetToolsOk returns a tuple with the Tools field value
 // and a boolean to check if the value has been set.
-func (o *AgentTestConfiguration) GetToolsOk() ([]ToolConfigInput, bool) {
+func (o *AgentTestConfiguration) GetToolsOk() ([]ItemsUnion, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -296,7 +296,7 @@ func (o *AgentTestConfiguration) GetToolsOk() ([]ToolConfigInput, bool) {
 }
 
 // SetTools sets field value.
-func (o *AgentTestConfiguration) SetTools(v []ToolConfigInput) *AgentTestConfiguration {
+func (o *AgentTestConfiguration) SetTools(v []ItemsUnion) *AgentTestConfiguration {
 	o.Tools = v
 
 	return o

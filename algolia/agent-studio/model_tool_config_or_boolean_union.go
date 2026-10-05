@@ -6,28 +6,28 @@ import (
 	"fmt"
 )
 
-// ToolConfig - struct for ToolConfig.
-type ToolConfig struct {
+// ToolConfigOrBooleanUnion - struct for ToolConfigOrBooleanUnion.
+type ToolConfigOrBooleanUnion struct {
 	McpToolConfig *McpToolConfig
 	Bool          *bool
 }
 
-// McpToolConfigAsToolConfig is a convenience function that returns McpToolConfig wrapped in ToolConfig.
-func McpToolConfigAsToolConfig(v *McpToolConfig) *ToolConfig {
-	return &ToolConfig{
+// McpToolConfigAsToolConfigOrBooleanUnion is a convenience function that returns McpToolConfig wrapped in ToolConfigOrBooleanUnion.
+func McpToolConfigAsToolConfigOrBooleanUnion(v *McpToolConfig) *ToolConfigOrBooleanUnion {
+	return &ToolConfigOrBooleanUnion{
 		McpToolConfig: v,
 	}
 }
 
-// boolAsToolConfig is a convenience function that returns bool wrapped in ToolConfig.
-func BoolAsToolConfig(v bool) *ToolConfig {
-	return &ToolConfig{
+// boolAsToolConfigOrBooleanUnion is a convenience function that returns bool wrapped in ToolConfigOrBooleanUnion.
+func BoolAsToolConfigOrBooleanUnion(v bool) *ToolConfigOrBooleanUnion {
+	return &ToolConfigOrBooleanUnion{
 		Bool: &v,
 	}
 }
 
 // Unmarshal JSON data into one or more of the pointers in the struct.
-func (dst *ToolConfig) UnmarshalJSON(data []byte) error {
+func (dst *ToolConfigOrBooleanUnion) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal data into McpToolConfig
 	err = json.Unmarshal(data, &dst.McpToolConfig)
@@ -49,15 +49,15 @@ func (dst *ToolConfig) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in oneOf(ToolConfig)")
+	return fmt.Errorf("data failed to match schemas in oneOf(ToolConfigOrBooleanUnion)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
-func (src ToolConfig) MarshalJSON() ([]byte, error) {
+func (src ToolConfigOrBooleanUnion) MarshalJSON() ([]byte, error) {
 	if src.McpToolConfig != nil {
 		serialized, err := json.Marshal(&src.McpToolConfig)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of McpToolConfig of ToolConfig: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of McpToolConfig of ToolConfigOrBooleanUnion: %w", err)
 		}
 
 		return serialized, nil
@@ -66,7 +66,7 @@ func (src ToolConfig) MarshalJSON() ([]byte, error) {
 	if src.Bool != nil {
 		serialized, err := json.Marshal(&src.Bool)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of Bool of ToolConfig: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of Bool of ToolConfigOrBooleanUnion: %w", err)
 		}
 
 		return serialized, nil
@@ -76,7 +76,7 @@ func (src ToolConfig) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance.
-func (obj ToolConfig) GetActualInstance() any {
+func (obj ToolConfigOrBooleanUnion) GetActualInstance() any {
 	if obj.McpToolConfig != nil {
 		return *obj.McpToolConfig
 	}

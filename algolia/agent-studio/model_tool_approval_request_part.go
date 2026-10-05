@@ -18,6 +18,7 @@ type ToolApprovalRequestPart struct {
 	ProviderOptions map[string]any         `json:"providerOptions,omitempty"`
 	ArgsHash        utils.Nullable[string] `json:"argsHash,omitempty"`
 	AppId           utils.Nullable[string] `json:"appId,omitempty"`
+	ConversationId  utils.Nullable[string] `json:"conversationId,omitempty"`
 }
 
 type ToolApprovalRequestPartOption func(f *ToolApprovalRequestPart)
@@ -43,6 +44,12 @@ func WithToolApprovalRequestPartArgsHash(val utils.Nullable[string]) ToolApprova
 func WithToolApprovalRequestPartAppId(val utils.Nullable[string]) ToolApprovalRequestPartOption {
 	return func(f *ToolApprovalRequestPart) {
 		f.AppId = val
+	}
+}
+
+func WithToolApprovalRequestPartConversationId(val utils.Nullable[string]) ToolApprovalRequestPartOption {
+	return func(f *ToolApprovalRequestPart) {
+		f.ConversationId = val
 	}
 }
 
@@ -371,6 +378,54 @@ func (o *ToolApprovalRequestPart) UnsetAppId() {
 	o.AppId.Unset()
 }
 
+// GetConversationId returns the ConversationId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolApprovalRequestPart) GetConversationId() string {
+	if o == nil || o.ConversationId.Get() == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.ConversationId.Get()
+}
+
+// GetConversationIdOk returns a tuple with the ConversationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolApprovalRequestPart) GetConversationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.ConversationId.Get(), o.ConversationId.IsSet()
+}
+
+// HasConversationId returns a boolean if a field has been set.
+func (o *ToolApprovalRequestPart) HasConversationId() bool {
+	if o != nil && o.ConversationId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConversationId gets a reference to the given utils.Nullable[string] and assigns it to the ConversationId field.
+func (o *ToolApprovalRequestPart) SetConversationId(v string) *ToolApprovalRequestPart {
+	o.ConversationId.Set(&v)
+
+	return o
+}
+
+// SetConversationIdNil sets the value for ConversationId to be an explicit nil.
+func (o *ToolApprovalRequestPart) SetConversationIdNil() {
+	o.ConversationId.Set(nil)
+}
+
+// UnsetConversationId ensures that no value is present for ConversationId, not even an explicit nil.
+func (o *ToolApprovalRequestPart) UnsetConversationId() {
+	o.ConversationId.Unset()
+}
+
 func (o ToolApprovalRequestPart) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["type"] = o.Type
@@ -397,6 +452,10 @@ func (o ToolApprovalRequestPart) MarshalJSON() ([]byte, error) {
 		toSerialize["appId"] = o.AppId.Get()
 	}
 
+	if o.ConversationId.IsSet() {
+		toSerialize["conversationId"] = o.ConversationId.Get()
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ToolApprovalRequestPart: %w", err)
@@ -415,6 +474,7 @@ func (o ToolApprovalRequestPart) String() string {
 	out += fmt.Sprintf("  providerOptions=%v\n", o.ProviderOptions)
 	out += fmt.Sprintf("  argsHash=%v\n", o.ArgsHash)
 	out += fmt.Sprintf("  appId=%v\n", o.AppId)
+	out += fmt.Sprintf("  conversationId=%v\n", o.ConversationId)
 
 	return fmt.Sprintf("ToolApprovalRequestPart {\n%s}", out)
 }

@@ -19,7 +19,7 @@ type AgentWithVersionResponse struct {
 	Instructions string                 `json:"instructions"`
 	SystemPrompt utils.Nullable[string] `json:"systemPrompt,omitempty"`
 	Config       map[string]any         `json:"config"`
-	Tools        []ToolConfigInput      `json:"tools,omitempty"`
+	Tools        []ToolConfigOutput     `json:"tools,omitempty"`
 	TemplateType utils.Nullable[string] `json:"templateType,omitempty"`
 	CreatedAt    string                 `json:"createdAt"`
 	UpdatedAt    utils.Nullable[string] `json:"updatedAt"`
@@ -40,7 +40,7 @@ func WithAgentWithVersionResponseSystemPrompt(val utils.Nullable[string]) AgentW
 	}
 }
 
-func WithAgentWithVersionResponseTools(val []ToolConfigInput) AgentWithVersionResponseOption {
+func WithAgentWithVersionResponseTools(val []ToolConfigOutput) AgentWithVersionResponseOption {
 	return func(f *AgentWithVersionResponse) {
 		f.Tools = val
 	}
@@ -390,9 +390,9 @@ func (o *AgentWithVersionResponse) SetConfig(v map[string]any) *AgentWithVersion
 }
 
 // GetTools returns the Tools field value if set, zero value otherwise.
-func (o *AgentWithVersionResponse) GetTools() []ToolConfigInput {
+func (o *AgentWithVersionResponse) GetTools() []ToolConfigOutput {
 	if o == nil || o.Tools == nil {
-		var ret []ToolConfigInput
+		var ret []ToolConfigOutput
 
 		return ret
 	}
@@ -402,7 +402,7 @@ func (o *AgentWithVersionResponse) GetTools() []ToolConfigInput {
 
 // GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentWithVersionResponse) GetToolsOk() ([]ToolConfigInput, bool) {
+func (o *AgentWithVersionResponse) GetToolsOk() ([]ToolConfigOutput, bool) {
 	if o == nil || o.Tools == nil {
 		return nil, false
 	}
@@ -419,8 +419,8 @@ func (o *AgentWithVersionResponse) HasTools() bool {
 	return false
 }
 
-// SetTools gets a reference to the given []ToolConfigInput and assigns it to the Tools field.
-func (o *AgentWithVersionResponse) SetTools(v []ToolConfigInput) *AgentWithVersionResponse {
+// SetTools gets a reference to the given []ToolConfigOutput and assigns it to the Tools field.
+func (o *AgentWithVersionResponse) SetTools(v []ToolConfigOutput) *AgentWithVersionResponse {
 	o.Tools = v
 
 	return o

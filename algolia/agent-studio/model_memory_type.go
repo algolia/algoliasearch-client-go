@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// MemoryType Memory types implemented so far. Follows LangMem's ontology: https://langchain-ai.github.io/langmem/concepts/conceptual_guide/#memory-types.
+// MemoryType The type of the stored memory.
 type MemoryType string
 
 // List of MemoryType.

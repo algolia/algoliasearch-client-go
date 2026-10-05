@@ -15,6 +15,7 @@ type ProviderInputNullable struct {
 	BaseProviderInput             *BaseProviderInput
 	OpenAICompatibleProviderInput *OpenAICompatibleProviderInput
 	OpenAIProviderInput           *OpenAIProviderInput
+	XAIProviderInput              *XAIProviderInput
 }
 
 // AzureOpenAIProviderInputAsProviderInputNullable is a convenience function that returns AzureOpenAIProviderInput wrapped in ProviderInputNullable.
@@ -49,6 +50,13 @@ func BaseProviderInputAsProviderInputNullable(v *BaseProviderInput) *ProviderInp
 func AnthropicProviderInputAsProviderInputNullable(v *AnthropicProviderInput) *ProviderInputNullable {
 	return &ProviderInputNullable{
 		AnthropicProviderInput: v,
+	}
+}
+
+// XAIProviderInputAsProviderInputNullable is a convenience function that returns XAIProviderInput wrapped in ProviderInputNullable.
+func XAIProviderInputAsProviderInputNullable(v *XAIProviderInput) *ProviderInputNullable {
+	return &ProviderInputNullable{
+		XAIProviderInput: v,
 	}
 }
 
@@ -93,6 +101,11 @@ func (dst *ProviderInputNullable) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.AnthropicProviderInput = nil
 	}
+	// try to unmarshal data into XAIProviderInput
+	err = json.Unmarshal(data, &dst.XAIProviderInput)
+	if err != nil {
+		dst.XAIProviderInput = nil
+	}
 
 	// check if at least one type was successfully unmarshaled
 	if dst.AnthropicProviderInput != nil {
@@ -112,6 +125,10 @@ func (dst *ProviderInputNullable) UnmarshalJSON(data []byte) error {
 	}
 
 	if dst.OpenAIProviderInput != nil {
+		return nil
+	}
+
+	if dst.XAIProviderInput != nil {
 		return nil
 	}
 
@@ -165,6 +182,15 @@ func (src ProviderInputNullable) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.XAIProviderInput != nil {
+		serialized, err := json.Marshal(&src.XAIProviderInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of XAIProviderInput of ProviderInputNullable: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -188,6 +214,10 @@ func (obj ProviderInputNullable) GetActualInstance() any {
 
 	if obj.OpenAIProviderInput != nil {
 		return *obj.OpenAIProviderInput
+	}
+
+	if obj.XAIProviderInput != nil {
+		return *obj.XAIProviderInput
 	}
 
 	// all schemas are nil

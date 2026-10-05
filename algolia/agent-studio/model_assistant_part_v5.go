@@ -10,10 +10,19 @@ import (
 
 // AssistantPartV5 - struct for AssistantPartV5.
 type AssistantPartV5 struct {
-	ReasoningPartV5 *ReasoningPartV5
-	StepStartPartV5 *StepStartPartV5
-	TextPartV5      *TextPartV5
-	ToolPartV5      *ToolPartV5
+	DataGuardrailViolationPartV5 *DataGuardrailViolationPartV5
+	DataPartV5                   *DataPartV5
+	ReasoningPartV5              *ReasoningPartV5
+	StepStartPartV5              *StepStartPartV5
+	TextPartV5                   *TextPartV5
+	ToolPartV5                   *ToolPartV5
+}
+
+// DataGuardrailViolationPartV5AsAssistantPartV5 is a convenience function that returns DataGuardrailViolationPartV5 wrapped in AssistantPartV5.
+func DataGuardrailViolationPartV5AsAssistantPartV5(v *DataGuardrailViolationPartV5) *AssistantPartV5 {
+	return &AssistantPartV5{
+		DataGuardrailViolationPartV5: v,
+	}
 }
 
 // ToolPartV5AsAssistantPartV5 is a convenience function that returns ToolPartV5 wrapped in AssistantPartV5.
@@ -44,6 +53,13 @@ func ReasoningPartV5AsAssistantPartV5(v *ReasoningPartV5) *AssistantPartV5 {
 	}
 }
 
+// DataPartV5AsAssistantPartV5 is a convenience function that returns DataPartV5 wrapped in AssistantPartV5.
+func DataPartV5AsAssistantPartV5(v *DataPartV5) *AssistantPartV5 {
+	return &AssistantPartV5{
+		DataPartV5: v,
+	}
+}
+
 // Unmarshal JSON data into one or more of the pointers in the struct.
 func (dst *AssistantPartV5) UnmarshalJSON(data []byte) error {
 	var (
@@ -52,7 +68,15 @@ func (dst *AssistantPartV5) UnmarshalJSON(data []byte) error {
 	)
 
 	_ = json.Unmarshal(data, &jsonDict)
-	if utils.HasKey(jsonDict, "toolCallId") && utils.HasKey(jsonDict, "type") {
+	if utils.HasKey(jsonDict, "data") {
+		// try to unmarshal data into DataGuardrailViolationPartV5
+		err = json.Unmarshal(data, &dst.DataGuardrailViolationPartV5)
+		if err != nil {
+			dst.DataGuardrailViolationPartV5 = nil
+		}
+	}
+
+	if utils.HasKey(jsonDict, "toolCallId") {
 		// try to unmarshal data into ToolPartV5
 		err = json.Unmarshal(data, &dst.ToolPartV5)
 		if err != nil {
@@ -74,8 +98,21 @@ func (dst *AssistantPartV5) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.ReasoningPartV5 = nil
 	}
+	// try to unmarshal data into DataPartV5
+	err = json.Unmarshal(data, &dst.DataPartV5)
+	if err != nil {
+		dst.DataPartV5 = nil
+	}
 
 	// check if at least one type was successfully unmarshaled
+	if dst.DataGuardrailViolationPartV5 != nil {
+		return nil
+	}
+
+	if dst.DataPartV5 != nil {
+		return nil
+	}
+
 	if dst.ReasoningPartV5 != nil {
 		return nil
 	}
@@ -97,6 +134,24 @@ func (dst *AssistantPartV5) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src AssistantPartV5) MarshalJSON() ([]byte, error) {
+	if src.DataGuardrailViolationPartV5 != nil {
+		serialized, err := json.Marshal(&src.DataGuardrailViolationPartV5)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of DataGuardrailViolationPartV5 of AssistantPartV5: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	if src.DataPartV5 != nil {
+		serialized, err := json.Marshal(&src.DataPartV5)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of DataPartV5 of AssistantPartV5: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.ReasoningPartV5 != nil {
 		serialized, err := json.Marshal(&src.ReasoningPartV5)
 		if err != nil {
@@ -138,6 +193,14 @@ func (src AssistantPartV5) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj AssistantPartV5) GetActualInstance() any {
+	if obj.DataGuardrailViolationPartV5 != nil {
+		return *obj.DataGuardrailViolationPartV5
+	}
+
+	if obj.DataPartV5 != nil {
+		return *obj.DataPartV5
+	}
+
 	if obj.ReasoningPartV5 != nil {
 		return *obj.ReasoningPartV5
 	}

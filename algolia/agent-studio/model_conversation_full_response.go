@@ -24,7 +24,9 @@ type ConversationFullResponse struct {
 	TotalTokens          *int32                               `json:"totalTokens,omitempty"`
 	ConversationMetadata utils.Nullable[ConversationMetadata] `json:"conversationMetadata,omitempty"`
 	Feedback             []FeedbackResponse                   `json:"feedback,omitempty"`
+	ImpactAnalytics      utils.Nullable[ImpactAnalytics]      `json:"impactAnalytics,omitempty"`
 	Messages             []MessageResponse                    `json:"messages"`
+	AnalyticsDegraded    *bool                                `json:"analyticsDegraded,omitempty"`
 }
 
 type ConversationFullResponseOption func(f *ConversationFullResponse)
@@ -86,6 +88,18 @@ func WithConversationFullResponseConversationMetadata(val utils.Nullable[Convers
 func WithConversationFullResponseFeedback(val []FeedbackResponse) ConversationFullResponseOption {
 	return func(f *ConversationFullResponse) {
 		f.Feedback = val
+	}
+}
+
+func WithConversationFullResponseImpactAnalytics(val utils.Nullable[ImpactAnalytics]) ConversationFullResponseOption {
+	return func(f *ConversationFullResponse) {
+		f.ImpactAnalytics = val
+	}
+}
+
+func WithConversationFullResponseAnalyticsDegraded(val bool) ConversationFullResponseOption {
+	return func(f *ConversationFullResponse) {
+		f.AnalyticsDegraded = &val
 	}
 }
 
@@ -647,6 +661,54 @@ func (o *ConversationFullResponse) SetFeedback(v []FeedbackResponse) *Conversati
 	return o
 }
 
+// GetImpactAnalytics returns the ImpactAnalytics field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConversationFullResponse) GetImpactAnalytics() ImpactAnalytics {
+	if o == nil || o.ImpactAnalytics.Get() == nil {
+		var ret ImpactAnalytics
+
+		return ret
+	}
+
+	return *o.ImpactAnalytics.Get()
+}
+
+// GetImpactAnalyticsOk returns a tuple with the ImpactAnalytics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ConversationFullResponse) GetImpactAnalyticsOk() (*ImpactAnalytics, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.ImpactAnalytics.Get(), o.ImpactAnalytics.IsSet()
+}
+
+// HasImpactAnalytics returns a boolean if a field has been set.
+func (o *ConversationFullResponse) HasImpactAnalytics() bool {
+	if o != nil && o.ImpactAnalytics.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetImpactAnalytics gets a reference to the given utils.Nullable[ImpactAnalytics] and assigns it to the ImpactAnalytics field.
+func (o *ConversationFullResponse) SetImpactAnalytics(v *ImpactAnalytics) *ConversationFullResponse {
+	o.ImpactAnalytics.Set(v)
+
+	return o
+}
+
+// SetImpactAnalyticsNil sets the value for ImpactAnalytics to be an explicit nil.
+func (o *ConversationFullResponse) SetImpactAnalyticsNil() {
+	o.ImpactAnalytics.Set(nil)
+}
+
+// UnsetImpactAnalytics ensures that no value is present for ImpactAnalytics, not even an explicit nil.
+func (o *ConversationFullResponse) UnsetImpactAnalytics() {
+	o.ImpactAnalytics.Unset()
+}
+
 // GetMessages returns the Messages field value.
 func (o *ConversationFullResponse) GetMessages() []MessageResponse {
 	if o == nil {
@@ -671,6 +733,43 @@ func (o *ConversationFullResponse) GetMessagesOk() ([]MessageResponse, bool) {
 // SetMessages sets field value.
 func (o *ConversationFullResponse) SetMessages(v []MessageResponse) *ConversationFullResponse {
 	o.Messages = v
+
+	return o
+}
+
+// GetAnalyticsDegraded returns the AnalyticsDegraded field value if set, zero value otherwise.
+func (o *ConversationFullResponse) GetAnalyticsDegraded() bool {
+	if o == nil || o.AnalyticsDegraded == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AnalyticsDegraded
+}
+
+// GetAnalyticsDegradedOk returns a tuple with the AnalyticsDegraded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConversationFullResponse) GetAnalyticsDegradedOk() (*bool, bool) {
+	if o == nil || o.AnalyticsDegraded == nil {
+		return nil, false
+	}
+
+	return o.AnalyticsDegraded, true
+}
+
+// HasAnalyticsDegraded returns a boolean if a field has been set.
+func (o *ConversationFullResponse) HasAnalyticsDegraded() bool {
+	if o != nil && o.AnalyticsDegraded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalyticsDegraded gets a reference to the given bool and assigns it to the AnalyticsDegraded field.
+func (o *ConversationFullResponse) SetAnalyticsDegraded(v bool) *ConversationFullResponse {
+	o.AnalyticsDegraded = &v
 
 	return o
 }
@@ -723,7 +822,14 @@ func (o ConversationFullResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["feedback"] = o.Feedback
 	}
 
+	if o.ImpactAnalytics.IsSet() {
+		toSerialize["impactAnalytics"] = o.ImpactAnalytics.Get()
+	}
+
 	toSerialize["messages"] = o.Messages
+	if o.AnalyticsDegraded != nil {
+		toSerialize["analyticsDegraded"] = o.AnalyticsDegraded
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -749,7 +855,9 @@ func (o ConversationFullResponse) String() string {
 	out += fmt.Sprintf("  totalTokens=%v\n", o.TotalTokens)
 	out += fmt.Sprintf("  conversationMetadata=%v\n", o.ConversationMetadata)
 	out += fmt.Sprintf("  feedback=%v\n", o.Feedback)
+	out += fmt.Sprintf("  impactAnalytics=%v\n", o.ImpactAnalytics)
 	out += fmt.Sprintf("  messages=%v\n", o.Messages)
+	out += fmt.Sprintf("  analyticsDegraded=%v\n", o.AnalyticsDegraded)
 
 	return fmt.Sprintf("ConversationFullResponse {\n%s}", out)
 }

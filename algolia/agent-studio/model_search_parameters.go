@@ -8,7 +8,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// SearchParameters Algolia Search API parameters that can be predefined for the search tool. Reference: https://www.algolia.com/doc/api-reference/search-api-parameters/  The parameters that seemed irrelevant for the search tool have been commented out. Uses types from algoliasearch.search.models for better type safety.
+// SearchParameters Algolia Search API parameters that can be predefined for the search tool. Reference: https://www.algolia.com/doc/api-reference/search-api-parameters/  The search tool supports the relevant subset of search parameters in the context of agentic interactions.
 type SearchParameters struct {
 	QueryType                               utils.Nullable[QueryType]                 `json:"queryType,omitempty"`
 	SimilarQuery                            utils.Nullable[string]                    `json:"similarQuery,omitempty"`

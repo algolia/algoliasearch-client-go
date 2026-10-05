@@ -8,7 +8,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// MemoryRecord Universal storage model for all memory types (semantic, episodic).  This is the ONLY model that touches storage (Algolia). Domain models (SemanticMemory, EpisodicMemory) are used for LLM extraction and converted to MemoryRecord before saving.  See https://langchain-ai.github.io/langmem/concepts/conceptual_guide/#memory-types for memory type definitions.
+// MemoryRecord A stored memory record.
 type MemoryRecord struct {
 	MemoryType *MemoryType             `json:"memoryType,omitempty"`
 	Episode    utils.Nullable[Episode] `json:"episode,omitempty"`
@@ -16,13 +16,13 @@ type MemoryRecord struct {
 	Text string `json:"text"`
 	// Verbatim conversation extract, not paraphrased.
 	RawExtract string `json:"rawExtract"`
-	// 5-20 free-form keywords: entities, context, search terms (any words).
+	// Keywords for retrieval: entities, context, search terms.
 	Keywords []string `json:"keywords,omitempty"`
-	// 2-4 topics ONLY from this list: [complaints, entertainment, family, feedback, finance, food, goals, health, history, hobbies, learning, praise, preferences, schedule, shopping, technical, travel, work].
+	// Topics that classify the memory. Each must be one of: [complaints, entertainment, family, feedback, finance, food, goals, health, history, hobbies, learning, praise, preferences, schedule, shopping, technical, travel, work].
 	Topics []string `json:"topics,omitempty"`
 	// Arbitrary labels/themes for flexible categorization (e.g., 'Q1-goals', 'paris-trip', 'vip-customer').
 	Tags []string `json:"_tags,omitempty"`
-	// 3-5 natural phrases that should trigger this memory.
+	// Phrases that cause the API to recall this memory.
 	RecallTriggers []string `json:"recallTriggers,omitempty"`
 	// ObjectID of existing memory to update. Leave empty for new memory.
 	ObjectID utils.Nullable[string] `json:"objectID,omitempty"`

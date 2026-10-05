@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// OpenAICompatibleProviderInput OpenAI-compatible provider input. Contrary to the OpenAIProviderInput, the base_url is required. A model is required to verify connectivity and get saved as the default model. This can later be changed at the Agent level.
+// OpenAICompatibleProviderInput Input for a provider with an OpenAI-compatible API.
 type OpenAICompatibleProviderInput struct {
 	ApiKey  string `json:"apiKey"`
 	BaseUrl string `json:"baseUrl"`

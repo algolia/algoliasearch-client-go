@@ -6,34 +6,34 @@ import (
 	"fmt"
 )
 
-// AlgoliaRecommendToolConfigInput Configuration for the Algolia Recommend tool. Allows specifying recommend models and related parameters.
-type AlgoliaRecommendToolConfigInput struct {
+// AlgoliaRecommendToolConfig Configuration for the Algolia Recommend tool. Allows specifying recommend models and related parameters.
+type AlgoliaRecommendToolConfig struct {
 	Name                          string                            `json:"name"`
 	Type                          string                            `json:"type"`
 	AllowedConfigs                []AlgoliaRecommendToolIndexConfig `json:"allowedConfigs,omitempty"`
 	PredefinedRecommendParameters map[string]any                    `json:"predefinedRecommendParameters,omitempty"`
 }
 
-type AlgoliaRecommendToolConfigInputOption func(f *AlgoliaRecommendToolConfigInput)
+type AlgoliaRecommendToolConfigOption func(f *AlgoliaRecommendToolConfig)
 
-func WithAlgoliaRecommendToolConfigInputAllowedConfigs(val []AlgoliaRecommendToolIndexConfig) AlgoliaRecommendToolConfigInputOption {
-	return func(f *AlgoliaRecommendToolConfigInput) {
+func WithAlgoliaRecommendToolConfigAllowedConfigs(val []AlgoliaRecommendToolIndexConfig) AlgoliaRecommendToolConfigOption {
+	return func(f *AlgoliaRecommendToolConfig) {
 		f.AllowedConfigs = val
 	}
 }
 
-func WithAlgoliaRecommendToolConfigInputPredefinedRecommendParameters(val map[string]any) AlgoliaRecommendToolConfigInputOption {
-	return func(f *AlgoliaRecommendToolConfigInput) {
+func WithAlgoliaRecommendToolConfigPredefinedRecommendParameters(val map[string]any) AlgoliaRecommendToolConfigOption {
+	return func(f *AlgoliaRecommendToolConfig) {
 		f.PredefinedRecommendParameters = val
 	}
 }
 
-// NewAlgoliaRecommendToolConfigInput instantiates a new AlgoliaRecommendToolConfigInput object
+// NewAlgoliaRecommendToolConfig instantiates a new AlgoliaRecommendToolConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAlgoliaRecommendToolConfigInput(name string, type_ string, opts ...AlgoliaRecommendToolConfigInputOption) *AlgoliaRecommendToolConfigInput {
-	this := &AlgoliaRecommendToolConfigInput{}
+func NewAlgoliaRecommendToolConfig(name string, type_ string, opts ...AlgoliaRecommendToolConfigOption) *AlgoliaRecommendToolConfig {
+	this := &AlgoliaRecommendToolConfig{}
 	this.Name = name
 
 	this.Type = type_
@@ -44,13 +44,13 @@ func NewAlgoliaRecommendToolConfigInput(name string, type_ string, opts ...Algol
 	return this
 }
 
-// NewEmptyAlgoliaRecommendToolConfigInput return a pointer to an empty AlgoliaRecommendToolConfigInput object.
-func NewEmptyAlgoliaRecommendToolConfigInput() *AlgoliaRecommendToolConfigInput {
-	return &AlgoliaRecommendToolConfigInput{}
+// NewEmptyAlgoliaRecommendToolConfig return a pointer to an empty AlgoliaRecommendToolConfig object.
+func NewEmptyAlgoliaRecommendToolConfig() *AlgoliaRecommendToolConfig {
+	return &AlgoliaRecommendToolConfig{}
 }
 
 // GetName returns the Name field value.
-func (o *AlgoliaRecommendToolConfigInput) GetName() string {
+func (o *AlgoliaRecommendToolConfig) GetName() string {
 	if o == nil {
 		var ret string
 
@@ -62,7 +62,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *AlgoliaRecommendToolConfigInput) GetNameOk() (*string, bool) {
+func (o *AlgoliaRecommendToolConfig) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,14 +71,14 @@ func (o *AlgoliaRecommendToolConfigInput) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value.
-func (o *AlgoliaRecommendToolConfigInput) SetName(v string) *AlgoliaRecommendToolConfigInput {
+func (o *AlgoliaRecommendToolConfig) SetName(v string) *AlgoliaRecommendToolConfig {
 	o.Name = v
 
 	return o
 }
 
 // GetType returns the Type field value.
-func (o *AlgoliaRecommendToolConfigInput) GetType() string {
+func (o *AlgoliaRecommendToolConfig) GetType() string {
 	if o == nil {
 		var ret string
 
@@ -90,7 +90,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *AlgoliaRecommendToolConfigInput) GetTypeOk() (*string, bool) {
+func (o *AlgoliaRecommendToolConfig) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -99,14 +99,14 @@ func (o *AlgoliaRecommendToolConfigInput) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value.
-func (o *AlgoliaRecommendToolConfigInput) SetType(v string) *AlgoliaRecommendToolConfigInput {
+func (o *AlgoliaRecommendToolConfig) SetType(v string) *AlgoliaRecommendToolConfig {
 	o.Type = v
 
 	return o
 }
 
 // GetAllowedConfigs returns the AllowedConfigs field value if set, zero value otherwise.
-func (o *AlgoliaRecommendToolConfigInput) GetAllowedConfigs() []AlgoliaRecommendToolIndexConfig {
+func (o *AlgoliaRecommendToolConfig) GetAllowedConfigs() []AlgoliaRecommendToolIndexConfig {
 	if o == nil || o.AllowedConfigs == nil {
 		var ret []AlgoliaRecommendToolIndexConfig
 
@@ -118,7 +118,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetAllowedConfigs() []AlgoliaRecommend
 
 // GetAllowedConfigsOk returns a tuple with the AllowedConfigs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlgoliaRecommendToolConfigInput) GetAllowedConfigsOk() ([]AlgoliaRecommendToolIndexConfig, bool) {
+func (o *AlgoliaRecommendToolConfig) GetAllowedConfigsOk() ([]AlgoliaRecommendToolIndexConfig, bool) {
 	if o == nil || o.AllowedConfigs == nil {
 		return nil, false
 	}
@@ -127,7 +127,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetAllowedConfigsOk() ([]AlgoliaRecomm
 }
 
 // HasAllowedConfigs returns a boolean if a field has been set.
-func (o *AlgoliaRecommendToolConfigInput) HasAllowedConfigs() bool {
+func (o *AlgoliaRecommendToolConfig) HasAllowedConfigs() bool {
 	if o != nil && o.AllowedConfigs != nil {
 		return true
 	}
@@ -136,14 +136,14 @@ func (o *AlgoliaRecommendToolConfigInput) HasAllowedConfigs() bool {
 }
 
 // SetAllowedConfigs gets a reference to the given []AlgoliaRecommendToolIndexConfig and assigns it to the AllowedConfigs field.
-func (o *AlgoliaRecommendToolConfigInput) SetAllowedConfigs(v []AlgoliaRecommendToolIndexConfig) *AlgoliaRecommendToolConfigInput {
+func (o *AlgoliaRecommendToolConfig) SetAllowedConfigs(v []AlgoliaRecommendToolIndexConfig) *AlgoliaRecommendToolConfig {
 	o.AllowedConfigs = v
 
 	return o
 }
 
 // GetPredefinedRecommendParameters returns the PredefinedRecommendParameters field value if set, zero value otherwise.
-func (o *AlgoliaRecommendToolConfigInput) GetPredefinedRecommendParameters() map[string]any {
+func (o *AlgoliaRecommendToolConfig) GetPredefinedRecommendParameters() map[string]any {
 	if o == nil || o.PredefinedRecommendParameters == nil {
 		var ret map[string]any
 
@@ -155,7 +155,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetPredefinedRecommendParameters() map
 
 // GetPredefinedRecommendParametersOk returns a tuple with the PredefinedRecommendParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlgoliaRecommendToolConfigInput) GetPredefinedRecommendParametersOk() (map[string]any, bool) {
+func (o *AlgoliaRecommendToolConfig) GetPredefinedRecommendParametersOk() (map[string]any, bool) {
 	if o == nil || o.PredefinedRecommendParameters == nil {
 		return nil, false
 	}
@@ -164,7 +164,7 @@ func (o *AlgoliaRecommendToolConfigInput) GetPredefinedRecommendParametersOk() (
 }
 
 // HasPredefinedRecommendParameters returns a boolean if a field has been set.
-func (o *AlgoliaRecommendToolConfigInput) HasPredefinedRecommendParameters() bool {
+func (o *AlgoliaRecommendToolConfig) HasPredefinedRecommendParameters() bool {
 	if o != nil && o.PredefinedRecommendParameters != nil {
 		return true
 	}
@@ -173,13 +173,13 @@ func (o *AlgoliaRecommendToolConfigInput) HasPredefinedRecommendParameters() boo
 }
 
 // SetPredefinedRecommendParameters gets a reference to the given map[string]any and assigns it to the PredefinedRecommendParameters field.
-func (o *AlgoliaRecommendToolConfigInput) SetPredefinedRecommendParameters(v map[string]any) *AlgoliaRecommendToolConfigInput {
+func (o *AlgoliaRecommendToolConfig) SetPredefinedRecommendParameters(v map[string]any) *AlgoliaRecommendToolConfig {
 	o.PredefinedRecommendParameters = v
 
 	return o
 }
 
-func (o AlgoliaRecommendToolConfigInput) MarshalJSON() ([]byte, error) {
+func (o AlgoliaRecommendToolConfig) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 
@@ -194,18 +194,18 @@ func (o AlgoliaRecommendToolConfigInput) MarshalJSON() ([]byte, error) {
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
-		return nil, fmt.Errorf("failed to marshal AlgoliaRecommendToolConfigInput: %w", err)
+		return nil, fmt.Errorf("failed to marshal AlgoliaRecommendToolConfig: %w", err)
 	}
 
 	return serialized, nil
 }
 
-func (o AlgoliaRecommendToolConfigInput) String() string {
+func (o AlgoliaRecommendToolConfig) String() string {
 	out := ""
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  allowedConfigs=%v\n", o.AllowedConfigs)
 	out += fmt.Sprintf("  predefinedRecommendParameters=%v\n", o.PredefinedRecommendParameters)
 
-	return fmt.Sprintf("AlgoliaRecommendToolConfigInput {\n%s}", out)
+	return fmt.Sprintf("AlgoliaRecommendToolConfig {\n%s}", out)
 }

@@ -8,18 +8,35 @@ import (
 
 // PaginatedConversationsResponse struct for PaginatedConversationsResponse.
 type PaginatedConversationsResponse struct {
-	Data       []ConversationBaseResponse `json:"data"`
-	Pagination PaginationMetadata         `json:"pagination"`
+	Data              []ConversationBaseResponse `json:"data"`
+	Pagination        PaginationMetadata         `json:"pagination"`
+	AnalyticsDegraded *bool                      `json:"analyticsDegraded,omitempty"`
+}
+
+type PaginatedConversationsResponseOption func(f *PaginatedConversationsResponse)
+
+func WithPaginatedConversationsResponseAnalyticsDegraded(val bool) PaginatedConversationsResponseOption {
+	return func(f *PaginatedConversationsResponse) {
+		f.AnalyticsDegraded = &val
+	}
 }
 
 // NewPaginatedConversationsResponse instantiates a new PaginatedConversationsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewPaginatedConversationsResponse(data []ConversationBaseResponse, pagination PaginationMetadata) *PaginatedConversationsResponse {
+func NewPaginatedConversationsResponse(
+	data []ConversationBaseResponse,
+	pagination PaginationMetadata,
+	opts ...PaginatedConversationsResponseOption,
+) *PaginatedConversationsResponse {
 	this := &PaginatedConversationsResponse{}
 	this.Data = data
+
 	this.Pagination = pagination
+	for _, opt := range opts {
+		opt(this)
+	}
 
 	return this
 }
@@ -85,10 +102,51 @@ func (o *PaginatedConversationsResponse) SetPagination(v *PaginationMetadata) *P
 	return o
 }
 
+// GetAnalyticsDegraded returns the AnalyticsDegraded field value if set, zero value otherwise.
+func (o *PaginatedConversationsResponse) GetAnalyticsDegraded() bool {
+	if o == nil || o.AnalyticsDegraded == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AnalyticsDegraded
+}
+
+// GetAnalyticsDegradedOk returns a tuple with the AnalyticsDegraded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaginatedConversationsResponse) GetAnalyticsDegradedOk() (*bool, bool) {
+	if o == nil || o.AnalyticsDegraded == nil {
+		return nil, false
+	}
+
+	return o.AnalyticsDegraded, true
+}
+
+// HasAnalyticsDegraded returns a boolean if a field has been set.
+func (o *PaginatedConversationsResponse) HasAnalyticsDegraded() bool {
+	if o != nil && o.AnalyticsDegraded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalyticsDegraded gets a reference to the given bool and assigns it to the AnalyticsDegraded field.
+func (o *PaginatedConversationsResponse) SetAnalyticsDegraded(v bool) *PaginatedConversationsResponse {
+	o.AnalyticsDegraded = &v
+
+	return o
+}
+
 func (o PaginatedConversationsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["data"] = o.Data
+
 	toSerialize["pagination"] = o.Pagination
+	if o.AnalyticsDegraded != nil {
+		toSerialize["analyticsDegraded"] = o.AnalyticsDegraded
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -102,6 +160,7 @@ func (o PaginatedConversationsResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  data=%v\n", o.Data)
 	out += fmt.Sprintf("  pagination=%v\n", o.Pagination)
+	out += fmt.Sprintf("  analyticsDegraded=%v\n", o.AnalyticsDegraded)
 
 	return fmt.Sprintf("PaginatedConversationsResponse {\n%s}", out)
 }

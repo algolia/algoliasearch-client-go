@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// UnknownToolConfig Exists only to ensure that when you change branch from toolX to feat/toolY, your config stays valid.
+// UnknownToolConfig A tool configuration that this version of the API does not recognize.
 type UnknownToolConfig struct {
 	Name                 string         `json:"name"`
 	Type                 string         `json:"type"`

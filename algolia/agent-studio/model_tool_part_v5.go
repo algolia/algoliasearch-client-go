@@ -4,20 +4,24 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// ToolPartV5 Model for tool invocation in a Message.
+// ToolPartV5 A tool invocation in a message.
 type ToolPartV5 struct {
-	Type             string         `json:"type"`
-	ToolCallId       string         `json:"toolCallId"`
-	State            *ToolState     `json:"state,omitempty"`
-	Input            map[string]any `json:"input,omitempty"`
-	Output           map[string]any `json:"output,omitempty"`
-	ErrorText        *string        `json:"errorText,omitempty"`
-	ProviderOptions  map[string]any `json:"providerOptions,omitempty"`
-	RequiresApproval *bool          `json:"requiresApproval,omitempty"`
-	Description      *string        `json:"description,omitempty"`
-	ArgsHash         *string        `json:"argsHash,omitempty"`
+	Type             string                 `json:"type"`
+	ToolCallId       string                 `json:"toolCallId"`
+	State            *ToolState             `json:"state,omitempty"`
+	Input            map[string]any         `json:"input,omitempty"`
+	RawInput         map[string]any         `json:"rawInput,omitempty"`
+	Output           map[string]any         `json:"output,omitempty"`
+	OutputMetadata   map[string]any         `json:"outputMetadata,omitempty"`
+	ErrorText        utils.Nullable[string] `json:"errorText,omitempty"`
+	ProviderOptions  map[string]any         `json:"providerOptions,omitempty"`
+	RequiresApproval utils.Nullable[bool]   `json:"requiresApproval,omitempty"`
+	Description      utils.Nullable[string] `json:"description,omitempty"`
+	ArgsHash         utils.Nullable[string] `json:"argsHash,omitempty"`
 }
 
 type ToolPartV5Option func(f *ToolPartV5)
@@ -34,15 +38,27 @@ func WithToolPartV5Input(val map[string]any) ToolPartV5Option {
 	}
 }
 
+func WithToolPartV5RawInput(val map[string]any) ToolPartV5Option {
+	return func(f *ToolPartV5) {
+		f.RawInput = val
+	}
+}
+
 func WithToolPartV5Output(val map[string]any) ToolPartV5Option {
 	return func(f *ToolPartV5) {
 		f.Output = val
 	}
 }
 
-func WithToolPartV5ErrorText(val string) ToolPartV5Option {
+func WithToolPartV5OutputMetadata(val map[string]any) ToolPartV5Option {
 	return func(f *ToolPartV5) {
-		f.ErrorText = &val
+		f.OutputMetadata = val
+	}
+}
+
+func WithToolPartV5ErrorText(val utils.Nullable[string]) ToolPartV5Option {
+	return func(f *ToolPartV5) {
+		f.ErrorText = val
 	}
 }
 
@@ -52,21 +68,21 @@ func WithToolPartV5ProviderOptions(val map[string]any) ToolPartV5Option {
 	}
 }
 
-func WithToolPartV5RequiresApproval(val bool) ToolPartV5Option {
+func WithToolPartV5RequiresApproval(val utils.Nullable[bool]) ToolPartV5Option {
 	return func(f *ToolPartV5) {
-		f.RequiresApproval = &val
+		f.RequiresApproval = val
 	}
 }
 
-func WithToolPartV5Description(val string) ToolPartV5Option {
+func WithToolPartV5Description(val utils.Nullable[string]) ToolPartV5Option {
 	return func(f *ToolPartV5) {
-		f.Description = &val
+		f.Description = val
 	}
 }
 
-func WithToolPartV5ArgsHash(val string) ToolPartV5Option {
+func WithToolPartV5ArgsHash(val utils.Nullable[string]) ToolPartV5Option {
 	return func(f *ToolPartV5) {
-		f.ArgsHash = &val
+		f.ArgsHash = val
 	}
 }
 
@@ -184,9 +200,9 @@ func (o *ToolPartV5) SetState(v ToolState) *ToolPartV5 {
 	return o
 }
 
-// GetInput returns the Input field value if set, zero value otherwise.
+// GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetInput() map[string]any {
-	if o == nil || o.Input == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -197,6 +213,7 @@ func (o *ToolPartV5) GetInput() map[string]any {
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetInputOk() (map[string]any, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
@@ -221,9 +238,47 @@ func (o *ToolPartV5) SetInput(v map[string]any) *ToolPartV5 {
 	return o
 }
 
-// GetOutput returns the Output field value if set, zero value otherwise.
+// GetRawInput returns the RawInput field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolPartV5) GetRawInput() map[string]any {
+	if o == nil {
+		var ret map[string]any
+
+		return ret
+	}
+
+	return o.RawInput
+}
+
+// GetRawInputOk returns a tuple with the RawInput field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolPartV5) GetRawInputOk() (map[string]any, bool) {
+	if o == nil || o.RawInput == nil {
+		return nil, false
+	}
+
+	return o.RawInput, true
+}
+
+// HasRawInput returns a boolean if a field has been set.
+func (o *ToolPartV5) HasRawInput() bool {
+	if o != nil && o.RawInput != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRawInput gets a reference to the given map[string]any and assigns it to the RawInput field.
+func (o *ToolPartV5) SetRawInput(v map[string]any) *ToolPartV5 {
+	o.RawInput = v
+
+	return o
+}
+
+// GetOutput returns the Output field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetOutput() map[string]any {
-	if o == nil || o.Output == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -234,6 +289,7 @@ func (o *ToolPartV5) GetOutput() map[string]any {
 
 // GetOutputOk returns a tuple with the Output field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetOutputOk() (map[string]any, bool) {
 	if o == nil || o.Output == nil {
 		return nil, false
@@ -258,46 +314,95 @@ func (o *ToolPartV5) SetOutput(v map[string]any) *ToolPartV5 {
 	return o
 }
 
-// GetErrorText returns the ErrorText field value if set, zero value otherwise.
-func (o *ToolPartV5) GetErrorText() string {
-	if o == nil || o.ErrorText == nil {
-		var ret string
+// GetOutputMetadata returns the OutputMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolPartV5) GetOutputMetadata() map[string]any {
+	if o == nil {
+		var ret map[string]any
 
 		return ret
 	}
 
-	return *o.ErrorText
+	return o.OutputMetadata
 }
 
-// GetErrorTextOk returns a tuple with the ErrorText field value if set, nil otherwise
+// GetOutputMetadataOk returns a tuple with the OutputMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ToolPartV5) GetErrorTextOk() (*string, bool) {
-	if o == nil || o.ErrorText == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolPartV5) GetOutputMetadataOk() (map[string]any, bool) {
+	if o == nil || o.OutputMetadata == nil {
 		return nil, false
 	}
 
-	return o.ErrorText, true
+	return o.OutputMetadata, true
 }
 
-// HasErrorText returns a boolean if a field has been set.
-func (o *ToolPartV5) HasErrorText() bool {
-	if o != nil && o.ErrorText != nil {
+// HasOutputMetadata returns a boolean if a field has been set.
+func (o *ToolPartV5) HasOutputMetadata() bool {
+	if o != nil && o.OutputMetadata != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetErrorText gets a reference to the given string and assigns it to the ErrorText field.
-func (o *ToolPartV5) SetErrorText(v string) *ToolPartV5 {
-	o.ErrorText = &v
+// SetOutputMetadata gets a reference to the given map[string]any and assigns it to the OutputMetadata field.
+func (o *ToolPartV5) SetOutputMetadata(v map[string]any) *ToolPartV5 {
+	o.OutputMetadata = v
 
 	return o
 }
 
-// GetProviderOptions returns the ProviderOptions field value if set, zero value otherwise.
+// GetErrorText returns the ErrorText field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolPartV5) GetErrorText() string {
+	if o == nil || o.ErrorText.Get() == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.ErrorText.Get()
+}
+
+// GetErrorTextOk returns a tuple with the ErrorText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolPartV5) GetErrorTextOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.ErrorText.Get(), o.ErrorText.IsSet()
+}
+
+// HasErrorText returns a boolean if a field has been set.
+func (o *ToolPartV5) HasErrorText() bool {
+	if o != nil && o.ErrorText.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorText gets a reference to the given utils.Nullable[string] and assigns it to the ErrorText field.
+func (o *ToolPartV5) SetErrorText(v string) *ToolPartV5 {
+	o.ErrorText.Set(&v)
+
+	return o
+}
+
+// SetErrorTextNil sets the value for ErrorText to be an explicit nil.
+func (o *ToolPartV5) SetErrorTextNil() {
+	o.ErrorText.Set(nil)
+}
+
+// UnsetErrorText ensures that no value is present for ErrorText, not even an explicit nil.
+func (o *ToolPartV5) UnsetErrorText() {
+	o.ErrorText.Unset()
+}
+
+// GetProviderOptions returns the ProviderOptions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetProviderOptions() map[string]any {
-	if o == nil || o.ProviderOptions == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -308,6 +413,7 @@ func (o *ToolPartV5) GetProviderOptions() map[string]any {
 
 // GetProviderOptionsOk returns a tuple with the ProviderOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetProviderOptionsOk() (map[string]any, bool) {
 	if o == nil || o.ProviderOptions == nil {
 		return nil, false
@@ -332,115 +438,148 @@ func (o *ToolPartV5) SetProviderOptions(v map[string]any) *ToolPartV5 {
 	return o
 }
 
-// GetRequiresApproval returns the RequiresApproval field value if set, zero value otherwise.
+// GetRequiresApproval returns the RequiresApproval field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetRequiresApproval() bool {
-	if o == nil || o.RequiresApproval == nil {
+	if o == nil || o.RequiresApproval.Get() == nil {
 		var ret bool
 
 		return ret
 	}
 
-	return *o.RequiresApproval
+	return *o.RequiresApproval.Get()
 }
 
 // GetRequiresApprovalOk returns a tuple with the RequiresApproval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetRequiresApprovalOk() (*bool, bool) {
-	if o == nil || o.RequiresApproval == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.RequiresApproval, true
+	return o.RequiresApproval.Get(), o.RequiresApproval.IsSet()
 }
 
 // HasRequiresApproval returns a boolean if a field has been set.
 func (o *ToolPartV5) HasRequiresApproval() bool {
-	if o != nil && o.RequiresApproval != nil {
+	if o != nil && o.RequiresApproval.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRequiresApproval gets a reference to the given bool and assigns it to the RequiresApproval field.
+// SetRequiresApproval gets a reference to the given utils.Nullable[bool] and assigns it to the RequiresApproval field.
 func (o *ToolPartV5) SetRequiresApproval(v bool) *ToolPartV5 {
-	o.RequiresApproval = &v
+	o.RequiresApproval.Set(&v)
 
 	return o
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// SetRequiresApprovalNil sets the value for RequiresApproval to be an explicit nil.
+func (o *ToolPartV5) SetRequiresApprovalNil() {
+	o.RequiresApproval.Set(nil)
+}
+
+// UnsetRequiresApproval ensures that no value is present for RequiresApproval, not even an explicit nil.
+func (o *ToolPartV5) UnsetRequiresApproval() {
+	o.RequiresApproval.Unset()
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || o.Description.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ToolPartV5) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given utils.Nullable[string] and assigns it to the Description field.
 func (o *ToolPartV5) SetDescription(v string) *ToolPartV5 {
-	o.Description = &v
+	o.Description.Set(&v)
 
 	return o
 }
 
-// GetArgsHash returns the ArgsHash field value if set, zero value otherwise.
+// SetDescriptionNil sets the value for Description to be an explicit nil.
+func (o *ToolPartV5) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil.
+func (o *ToolPartV5) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetArgsHash returns the ArgsHash field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetArgsHash() string {
-	if o == nil || o.ArgsHash == nil {
+	if o == nil || o.ArgsHash.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.ArgsHash
+	return *o.ArgsHash.Get()
 }
 
 // GetArgsHashOk returns a tuple with the ArgsHash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolPartV5) GetArgsHashOk() (*string, bool) {
-	if o == nil || o.ArgsHash == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.ArgsHash, true
+	return o.ArgsHash.Get(), o.ArgsHash.IsSet()
 }
 
 // HasArgsHash returns a boolean if a field has been set.
 func (o *ToolPartV5) HasArgsHash() bool {
-	if o != nil && o.ArgsHash != nil {
+	if o != nil && o.ArgsHash.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetArgsHash gets a reference to the given string and assigns it to the ArgsHash field.
+// SetArgsHash gets a reference to the given utils.Nullable[string] and assigns it to the ArgsHash field.
 func (o *ToolPartV5) SetArgsHash(v string) *ToolPartV5 {
-	o.ArgsHash = &v
+	o.ArgsHash.Set(&v)
 
 	return o
+}
+
+// SetArgsHashNil sets the value for ArgsHash to be an explicit nil.
+func (o *ToolPartV5) SetArgsHashNil() {
+	o.ArgsHash.Set(nil)
+}
+
+// UnsetArgsHash ensures that no value is present for ArgsHash, not even an explicit nil.
+func (o *ToolPartV5) UnsetArgsHash() {
+	o.ArgsHash.Unset()
 }
 
 func (o ToolPartV5) MarshalJSON() ([]byte, error) {
@@ -456,28 +595,36 @@ func (o ToolPartV5) MarshalJSON() ([]byte, error) {
 		toSerialize["input"] = o.Input
 	}
 
+	if o.RawInput != nil {
+		toSerialize["rawInput"] = o.RawInput
+	}
+
 	if o.Output != nil {
 		toSerialize["output"] = o.Output
 	}
 
-	if o.ErrorText != nil {
-		toSerialize["errorText"] = o.ErrorText
+	if o.OutputMetadata != nil {
+		toSerialize["outputMetadata"] = o.OutputMetadata
+	}
+
+	if o.ErrorText.IsSet() {
+		toSerialize["errorText"] = o.ErrorText.Get()
 	}
 
 	if o.ProviderOptions != nil {
 		toSerialize["providerOptions"] = o.ProviderOptions
 	}
 
-	if o.RequiresApproval != nil {
-		toSerialize["requiresApproval"] = o.RequiresApproval
+	if o.RequiresApproval.IsSet() {
+		toSerialize["requiresApproval"] = o.RequiresApproval.Get()
 	}
 
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 
-	if o.ArgsHash != nil {
-		toSerialize["argsHash"] = o.ArgsHash
+	if o.ArgsHash.IsSet() {
+		toSerialize["argsHash"] = o.ArgsHash.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -494,7 +641,9 @@ func (o ToolPartV5) String() string {
 	out += fmt.Sprintf("  toolCallId=%v\n", o.ToolCallId)
 	out += fmt.Sprintf("  state=%v\n", o.State)
 	out += fmt.Sprintf("  input=%v\n", o.Input)
+	out += fmt.Sprintf("  rawInput=%v\n", o.RawInput)
 	out += fmt.Sprintf("  output=%v\n", o.Output)
+	out += fmt.Sprintf("  outputMetadata=%v\n", o.OutputMetadata)
 	out += fmt.Sprintf("  errorText=%v\n", o.ErrorText)
 	out += fmt.Sprintf("  providerOptions=%v\n", o.ProviderOptions)
 	out += fmt.Sprintf("  requiresApproval=%v\n", o.RequiresApproval)

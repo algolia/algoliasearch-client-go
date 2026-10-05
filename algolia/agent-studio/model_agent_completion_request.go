@@ -4,14 +4,12 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // AgentCompletionRequest Request model for creating a completion for an assistant.
 type AgentCompletionRequest struct {
-	Configuration *AgentTestConfiguration       `json:"configuration,omitempty"`
-	Messages      utils.Nullable[MessagesUnion] `json:"messages,omitempty"`
+	Configuration *AgentTestConfiguration `json:"configuration,omitempty"`
+	Messages      *MessagesUnion          `json:"messages,omitempty"`
 	// Optional conversation id.
 	Id      *string                       `json:"id,omitempty"`
 	Algolia *AgentCompletionAlgoliaParams `json:"algolia,omitempty"`
@@ -27,9 +25,9 @@ func WithAgentCompletionRequestConfiguration(val AgentTestConfiguration) AgentCo
 	}
 }
 
-func WithAgentCompletionRequestMessages(val utils.Nullable[MessagesUnion]) AgentCompletionRequestOption {
+func WithAgentCompletionRequestMessages(val MessagesUnion) AgentCompletionRequestOption {
 	return func(f *AgentCompletionRequest) {
-		f.Messages = val
+		f.Messages = &val
 	}
 }
 
@@ -106,52 +104,41 @@ func (o *AgentCompletionRequest) SetConfiguration(v *AgentTestConfiguration) *Ag
 	return o
 }
 
-// GetMessages returns the Messages field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetMessages returns the Messages field value if set, zero value otherwise.
 func (o *AgentCompletionRequest) GetMessages() MessagesUnion {
-	if o == nil || o.Messages.Get() == nil {
+	if o == nil || o.Messages == nil {
 		var ret MessagesUnion
 
 		return ret
 	}
 
-	return *o.Messages.Get()
+	return *o.Messages
 }
 
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *AgentCompletionRequest) GetMessagesOk() (*MessagesUnion, bool) {
-	if o == nil {
+	if o == nil || o.Messages == nil {
 		return nil, false
 	}
 
-	return o.Messages.Get(), o.Messages.IsSet()
+	return o.Messages, true
 }
 
 // HasMessages returns a boolean if a field has been set.
 func (o *AgentCompletionRequest) HasMessages() bool {
-	if o != nil && o.Messages.IsSet() {
+	if o != nil && o.Messages != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMessages gets a reference to the given utils.Nullable[MessagesUnion] and assigns it to the Messages field.
+// SetMessages gets a reference to the given MessagesUnion and assigns it to the Messages field.
 func (o *AgentCompletionRequest) SetMessages(v *MessagesUnion) *AgentCompletionRequest {
-	o.Messages.Set(v)
+	o.Messages = v
 
 	return o
-}
-
-// SetMessagesNil sets the value for Messages to be an explicit nil.
-func (o *AgentCompletionRequest) SetMessagesNil() {
-	o.Messages.Set(nil)
-}
-
-// UnsetMessages ensures that no value is present for Messages, not even an explicit nil.
-func (o *AgentCompletionRequest) UnsetMessages() {
-	o.Messages.Unset()
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -271,8 +258,8 @@ func (o AgentCompletionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize["configuration"] = o.Configuration
 	}
 
-	if o.Messages.IsSet() {
-		toSerialize["messages"] = o.Messages.Get()
+	if o.Messages != nil {
+		toSerialize["messages"] = o.Messages
 	}
 
 	if o.Id != nil {

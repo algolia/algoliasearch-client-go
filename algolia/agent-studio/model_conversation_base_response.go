@@ -24,6 +24,7 @@ type ConversationBaseResponse struct {
 	TotalTokens          *int32                               `json:"totalTokens,omitempty"`
 	ConversationMetadata utils.Nullable[ConversationMetadata] `json:"conversationMetadata,omitempty"`
 	Feedback             []FeedbackResponse                   `json:"feedback,omitempty"`
+	ImpactAnalytics      utils.Nullable[ImpactAnalytics]      `json:"impactAnalytics,omitempty"`
 }
 
 type ConversationBaseResponseOption func(f *ConversationBaseResponse)
@@ -85,6 +86,12 @@ func WithConversationBaseResponseConversationMetadata(val utils.Nullable[Convers
 func WithConversationBaseResponseFeedback(val []FeedbackResponse) ConversationBaseResponseOption {
 	return func(f *ConversationBaseResponse) {
 		f.Feedback = val
+	}
+}
+
+func WithConversationBaseResponseImpactAnalytics(val utils.Nullable[ImpactAnalytics]) ConversationBaseResponseOption {
+	return func(f *ConversationBaseResponse) {
+		f.ImpactAnalytics = val
 	}
 }
 
@@ -644,6 +651,54 @@ func (o *ConversationBaseResponse) SetFeedback(v []FeedbackResponse) *Conversati
 	return o
 }
 
+// GetImpactAnalytics returns the ImpactAnalytics field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ConversationBaseResponse) GetImpactAnalytics() ImpactAnalytics {
+	if o == nil || o.ImpactAnalytics.Get() == nil {
+		var ret ImpactAnalytics
+
+		return ret
+	}
+
+	return *o.ImpactAnalytics.Get()
+}
+
+// GetImpactAnalyticsOk returns a tuple with the ImpactAnalytics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ConversationBaseResponse) GetImpactAnalyticsOk() (*ImpactAnalytics, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.ImpactAnalytics.Get(), o.ImpactAnalytics.IsSet()
+}
+
+// HasImpactAnalytics returns a boolean if a field has been set.
+func (o *ConversationBaseResponse) HasImpactAnalytics() bool {
+	if o != nil && o.ImpactAnalytics.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetImpactAnalytics gets a reference to the given utils.Nullable[ImpactAnalytics] and assigns it to the ImpactAnalytics field.
+func (o *ConversationBaseResponse) SetImpactAnalytics(v *ImpactAnalytics) *ConversationBaseResponse {
+	o.ImpactAnalytics.Set(v)
+
+	return o
+}
+
+// SetImpactAnalyticsNil sets the value for ImpactAnalytics to be an explicit nil.
+func (o *ConversationBaseResponse) SetImpactAnalyticsNil() {
+	o.ImpactAnalytics.Set(nil)
+}
+
+// UnsetImpactAnalytics ensures that no value is present for ImpactAnalytics, not even an explicit nil.
+func (o *ConversationBaseResponse) UnsetImpactAnalytics() {
+	o.ImpactAnalytics.Unset()
+}
+
 func (o ConversationBaseResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["id"] = o.Id
@@ -692,6 +747,10 @@ func (o ConversationBaseResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["feedback"] = o.Feedback
 	}
 
+	if o.ImpactAnalytics.IsSet() {
+		toSerialize["impactAnalytics"] = o.ImpactAnalytics.Get()
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConversationBaseResponse: %w", err)
@@ -716,6 +775,7 @@ func (o ConversationBaseResponse) String() string {
 	out += fmt.Sprintf("  totalTokens=%v\n", o.TotalTokens)
 	out += fmt.Sprintf("  conversationMetadata=%v\n", o.ConversationMetadata)
 	out += fmt.Sprintf("  feedback=%v\n", o.Feedback)
+	out += fmt.Sprintf("  impactAnalytics=%v\n", o.ImpactAnalytics)
 
 	return fmt.Sprintf("ConversationBaseResponse {\n%s}", out)
 }

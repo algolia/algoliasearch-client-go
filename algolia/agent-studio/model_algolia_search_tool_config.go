@@ -8,20 +8,45 @@ import (
 
 // AlgoliaSearchToolConfig struct for AlgoliaSearchToolConfig.
 type AlgoliaSearchToolConfig struct {
-	Name    string                         `json:"name"`
-	Type    string                         `json:"type"`
-	Indices []AlgoliaSearchToolIndexConfig `json:"indices"`
+	Name                 string                         `json:"name"`
+	Type                 string                         `json:"type"`
+	Indices              []AlgoliaSearchToolIndexConfig `json:"indices"`
+	Mode                 *ModeEnum                      `json:"mode,omitempty"`
+	AllowUnlistedIndices *bool                          `json:"allowUnlistedIndices,omitempty"`
+}
+
+type AlgoliaSearchToolConfigOption func(f *AlgoliaSearchToolConfig)
+
+func WithAlgoliaSearchToolConfigMode(val ModeEnum) AlgoliaSearchToolConfigOption {
+	return func(f *AlgoliaSearchToolConfig) {
+		f.Mode = &val
+	}
+}
+
+func WithAlgoliaSearchToolConfigAllowUnlistedIndices(val bool) AlgoliaSearchToolConfigOption {
+	return func(f *AlgoliaSearchToolConfig) {
+		f.AllowUnlistedIndices = &val
+	}
 }
 
 // NewAlgoliaSearchToolConfig instantiates a new AlgoliaSearchToolConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewAlgoliaSearchToolConfig(name string, type_ string, indices []AlgoliaSearchToolIndexConfig) *AlgoliaSearchToolConfig {
+func NewAlgoliaSearchToolConfig(
+	name string,
+	type_ string,
+	indices []AlgoliaSearchToolIndexConfig,
+	opts ...AlgoliaSearchToolConfigOption,
+) *AlgoliaSearchToolConfig {
 	this := &AlgoliaSearchToolConfig{}
 	this.Name = name
 	this.Type = type_
+
 	this.Indices = indices
+	for _, opt := range opts {
+		opt(this)
+	}
 
 	return this
 }
@@ -115,11 +140,93 @@ func (o *AlgoliaSearchToolConfig) SetIndices(v []AlgoliaSearchToolIndexConfig) *
 	return o
 }
 
+// GetMode returns the Mode field value if set, zero value otherwise.
+func (o *AlgoliaSearchToolConfig) GetMode() ModeEnum {
+	if o == nil || o.Mode == nil {
+		var ret ModeEnum
+
+		return ret
+	}
+
+	return *o.Mode
+}
+
+// GetModeOk returns a tuple with the Mode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AlgoliaSearchToolConfig) GetModeOk() (*ModeEnum, bool) {
+	if o == nil || o.Mode == nil {
+		return nil, false
+	}
+
+	return o.Mode, true
+}
+
+// HasMode returns a boolean if a field has been set.
+func (o *AlgoliaSearchToolConfig) HasMode() bool {
+	if o != nil && o.Mode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMode gets a reference to the given ModeEnum and assigns it to the Mode field.
+func (o *AlgoliaSearchToolConfig) SetMode(v ModeEnum) *AlgoliaSearchToolConfig {
+	o.Mode = &v
+
+	return o
+}
+
+// GetAllowUnlistedIndices returns the AllowUnlistedIndices field value if set, zero value otherwise.
+func (o *AlgoliaSearchToolConfig) GetAllowUnlistedIndices() bool {
+	if o == nil || o.AllowUnlistedIndices == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AllowUnlistedIndices
+}
+
+// GetAllowUnlistedIndicesOk returns a tuple with the AllowUnlistedIndices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AlgoliaSearchToolConfig) GetAllowUnlistedIndicesOk() (*bool, bool) {
+	if o == nil || o.AllowUnlistedIndices == nil {
+		return nil, false
+	}
+
+	return o.AllowUnlistedIndices, true
+}
+
+// HasAllowUnlistedIndices returns a boolean if a field has been set.
+func (o *AlgoliaSearchToolConfig) HasAllowUnlistedIndices() bool {
+	if o != nil && o.AllowUnlistedIndices != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowUnlistedIndices gets a reference to the given bool and assigns it to the AllowUnlistedIndices field.
+func (o *AlgoliaSearchToolConfig) SetAllowUnlistedIndices(v bool) *AlgoliaSearchToolConfig {
+	o.AllowUnlistedIndices = &v
+
+	return o
+}
+
 func (o AlgoliaSearchToolConfig) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+
 	toSerialize["indices"] = o.Indices
+	if o.Mode != nil {
+		toSerialize["mode"] = o.Mode
+	}
+
+	if o.AllowUnlistedIndices != nil {
+		toSerialize["allowUnlistedIndices"] = o.AllowUnlistedIndices
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -134,6 +241,8 @@ func (o AlgoliaSearchToolConfig) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  indices=%v\n", o.Indices)
+	out += fmt.Sprintf("  mode=%v\n", o.Mode)
+	out += fmt.Sprintf("  allowUnlistedIndices=%v\n", o.AllowUnlistedIndices)
 
 	return fmt.Sprintf("AlgoliaSearchToolConfig {\n%s}", out)
 }

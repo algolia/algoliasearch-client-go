@@ -12,7 +12,7 @@ import (
 type AzureOpenAIProviderInput struct {
 	ApiKey        string `json:"apiKey"`
 	AzureEndpoint string `json:"azureEndpoint"`
-	// Azure model deployment name is required.
+	// Azure model deployment name.
 	AzureDeployment string                 `json:"azureDeployment"`
 	ApiVersion      utils.Nullable[string] `json:"apiVersion,omitempty"`
 }

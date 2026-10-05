@@ -4,21 +4,23 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // UserMessageV5 struct for UserMessageV5.
 type UserMessageV5 struct {
-	Id       *string                `json:"id,omitempty"`
-	Role     string                 `json:"role"`
-	Parts    []TextPartV5           `json:"parts,omitempty"`
-	Metadata *UserMessageMetadataV5 `json:"metadata,omitempty"`
+	Id       utils.Nullable[string]                `json:"id,omitempty"`
+	Role     string                                `json:"role"`
+	Parts    []TextPartV5                          `json:"parts,omitempty"`
+	Metadata utils.Nullable[UserMessageMetadataV5] `json:"metadata,omitempty"`
 }
 
 type UserMessageV5Option func(f *UserMessageV5)
 
-func WithUserMessageV5Id(val string) UserMessageV5Option {
+func WithUserMessageV5Id(val utils.Nullable[string]) UserMessageV5Option {
 	return func(f *UserMessageV5) {
-		f.Id = &val
+		f.Id = val
 	}
 }
 
@@ -28,9 +30,9 @@ func WithUserMessageV5Parts(val []TextPartV5) UserMessageV5Option {
 	}
 }
 
-func WithUserMessageV5Metadata(val UserMessageMetadataV5) UserMessageV5Option {
+func WithUserMessageV5Metadata(val utils.Nullable[UserMessageMetadataV5]) UserMessageV5Option {
 	return func(f *UserMessageV5) {
-		f.Metadata = &val
+		f.Metadata = val
 	}
 }
 
@@ -54,41 +56,52 @@ func NewEmptyUserMessageV5() *UserMessageV5 {
 	return &UserMessageV5{}
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserMessageV5) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || o.Id.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.Id
+	return *o.Id.Get()
 }
 
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UserMessageV5) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Id, true
+	return o.Id.Get(), o.Id.IsSet()
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *UserMessageV5) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && o.Id.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId gets a reference to the given utils.Nullable[string] and assigns it to the Id field.
 func (o *UserMessageV5) SetId(v string) *UserMessageV5 {
-	o.Id = &v
+	o.Id.Set(&v)
 
 	return o
+}
+
+// SetIdNil sets the value for Id to be an explicit nil.
+func (o *UserMessageV5) SetIdNil() {
+	o.Id.Set(nil)
+}
+
+// UnsetId ensures that no value is present for Id, not even an explicit nil.
+func (o *UserMessageV5) UnsetId() {
+	o.Id.Unset()
 }
 
 // GetRole returns the Role field value.
@@ -156,47 +169,58 @@ func (o *UserMessageV5) SetParts(v []TextPartV5) *UserMessageV5 {
 	return o
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserMessageV5) GetMetadata() UserMessageMetadataV5 {
-	if o == nil || o.Metadata == nil {
+	if o == nil || o.Metadata.Get() == nil {
 		var ret UserMessageMetadataV5
 
 		return ret
 	}
 
-	return *o.Metadata
+	return *o.Metadata.Get()
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UserMessageV5) GetMetadataOk() (*UserMessageMetadataV5, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Metadata, true
+	return o.Metadata.Get(), o.Metadata.IsSet()
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *UserMessageV5) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && o.Metadata.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMetadata gets a reference to the given UserMessageMetadataV5 and assigns it to the Metadata field.
+// SetMetadata gets a reference to the given utils.Nullable[UserMessageMetadataV5] and assigns it to the Metadata field.
 func (o *UserMessageV5) SetMetadata(v *UserMessageMetadataV5) *UserMessageV5 {
-	o.Metadata = v
+	o.Metadata.Set(v)
 
 	return o
 }
 
+// SetMetadataNil sets the value for Metadata to be an explicit nil.
+func (o *UserMessageV5) SetMetadataNil() {
+	o.Metadata.Set(nil)
+}
+
+// UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil.
+func (o *UserMessageV5) UnsetMetadata() {
+	o.Metadata.Unset()
+}
+
 func (o UserMessageV5) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Id.IsSet() {
+		toSerialize["id"] = o.Id.Get()
 	}
 
 	toSerialize["role"] = o.Role
@@ -204,8 +228,8 @@ func (o UserMessageV5) MarshalJSON() ([]byte, error) {
 		toSerialize["parts"] = o.Parts
 	}
 
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
+	if o.Metadata.IsSet() {
+		toSerialize["metadata"] = o.Metadata.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)

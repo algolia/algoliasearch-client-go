@@ -13,12 +13,14 @@ type CompatibilityMode string
 const (
 	COMPATIBILITY_MODE_AI_SDK_4 CompatibilityMode = "ai-sdk-4"
 	COMPATIBILITY_MODE_AI_SDK_5 CompatibilityMode = "ai-sdk-5"
+	COMPATIBILITY_MODE_AG_UI    CompatibilityMode = "ag-ui"
 )
 
 // All allowed values of CompatibilityMode enum.
 var AllowedCompatibilityModeEnumValues = []CompatibilityMode{
 	"ai-sdk-4",
 	"ai-sdk-5",
+	"ag-ui",
 }
 
 // NewCompatibilityModeFromValue returns a pointer to a valid CompatibilityMode.

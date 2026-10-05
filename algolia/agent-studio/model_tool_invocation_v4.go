@@ -4,20 +4,22 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// ToolInvocationV4 Model for tool invocation in a Message.
+// ToolInvocationV4 A tool invocation in a message.
 type ToolInvocationV4 struct {
-	ToolCallId       string         `json:"toolCallId"`
-	ToolName         string         `json:"toolName"`
-	Args             map[string]any `json:"args,omitempty"`
-	Result           map[string]any `json:"result,omitempty"`
-	Step             *int32         `json:"step,omitempty"`
-	State            *string        `json:"state,omitempty"`
-	ProviderOptions  map[string]any `json:"providerOptions,omitempty"`
-	RequiresApproval *bool          `json:"requiresApproval,omitempty"`
-	Description      *string        `json:"description,omitempty"`
-	ArgsHash         *string        `json:"argsHash,omitempty"`
+	ToolCallId       string                 `json:"toolCallId"`
+	ToolName         string                 `json:"toolName"`
+	Args             map[string]any         `json:"args,omitempty"`
+	Result           map[string]any         `json:"result,omitempty"`
+	Step             utils.Nullable[int32]  `json:"step,omitempty"`
+	State            utils.Nullable[string] `json:"state,omitempty"`
+	ProviderOptions  map[string]any         `json:"providerOptions,omitempty"`
+	RequiresApproval utils.Nullable[bool]   `json:"requiresApproval,omitempty"`
+	Description      utils.Nullable[string] `json:"description,omitempty"`
+	ArgsHash         utils.Nullable[string] `json:"argsHash,omitempty"`
 }
 
 type ToolInvocationV4Option func(f *ToolInvocationV4)
@@ -34,15 +36,15 @@ func WithToolInvocationV4Result(val map[string]any) ToolInvocationV4Option {
 	}
 }
 
-func WithToolInvocationV4Step(val int32) ToolInvocationV4Option {
+func WithToolInvocationV4Step(val utils.Nullable[int32]) ToolInvocationV4Option {
 	return func(f *ToolInvocationV4) {
-		f.Step = &val
+		f.Step = val
 	}
 }
 
-func WithToolInvocationV4State(val string) ToolInvocationV4Option {
+func WithToolInvocationV4State(val utils.Nullable[string]) ToolInvocationV4Option {
 	return func(f *ToolInvocationV4) {
-		f.State = &val
+		f.State = val
 	}
 }
 
@@ -52,21 +54,21 @@ func WithToolInvocationV4ProviderOptions(val map[string]any) ToolInvocationV4Opt
 	}
 }
 
-func WithToolInvocationV4RequiresApproval(val bool) ToolInvocationV4Option {
+func WithToolInvocationV4RequiresApproval(val utils.Nullable[bool]) ToolInvocationV4Option {
 	return func(f *ToolInvocationV4) {
-		f.RequiresApproval = &val
+		f.RequiresApproval = val
 	}
 }
 
-func WithToolInvocationV4Description(val string) ToolInvocationV4Option {
+func WithToolInvocationV4Description(val utils.Nullable[string]) ToolInvocationV4Option {
 	return func(f *ToolInvocationV4) {
-		f.Description = &val
+		f.Description = val
 	}
 }
 
-func WithToolInvocationV4ArgsHash(val string) ToolInvocationV4Option {
+func WithToolInvocationV4ArgsHash(val utils.Nullable[string]) ToolInvocationV4Option {
 	return func(f *ToolInvocationV4) {
-		f.ArgsHash = &val
+		f.ArgsHash = val
 	}
 }
 
@@ -184,9 +186,9 @@ func (o *ToolInvocationV4) SetArgs(v map[string]any) *ToolInvocationV4 {
 	return o
 }
 
-// GetResult returns the Result field value if set, zero value otherwise.
+// GetResult returns the Result field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetResult() map[string]any {
-	if o == nil || o.Result == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -197,6 +199,7 @@ func (o *ToolInvocationV4) GetResult() map[string]any {
 
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetResultOk() (map[string]any, bool) {
 	if o == nil || o.Result == nil {
 		return nil, false
@@ -221,83 +224,105 @@ func (o *ToolInvocationV4) SetResult(v map[string]any) *ToolInvocationV4 {
 	return o
 }
 
-// GetStep returns the Step field value if set, zero value otherwise.
+// GetStep returns the Step field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetStep() int32 {
-	if o == nil || o.Step == nil {
+	if o == nil || o.Step.Get() == nil {
 		var ret int32
 
 		return ret
 	}
 
-	return *o.Step
+	return *o.Step.Get()
 }
 
 // GetStepOk returns a tuple with the Step field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetStepOk() (*int32, bool) {
-	if o == nil || o.Step == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Step, true
+	return o.Step.Get(), o.Step.IsSet()
 }
 
 // HasStep returns a boolean if a field has been set.
 func (o *ToolInvocationV4) HasStep() bool {
-	if o != nil && o.Step != nil {
+	if o != nil && o.Step.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetStep gets a reference to the given int32 and assigns it to the Step field.
+// SetStep gets a reference to the given utils.Nullable[int32] and assigns it to the Step field.
 func (o *ToolInvocationV4) SetStep(v int32) *ToolInvocationV4 {
-	o.Step = &v
+	o.Step.Set(&v)
 
 	return o
 }
 
-// GetState returns the State field value if set, zero value otherwise.
+// SetStepNil sets the value for Step to be an explicit nil.
+func (o *ToolInvocationV4) SetStepNil() {
+	o.Step.Set(nil)
+}
+
+// UnsetStep ensures that no value is present for Step, not even an explicit nil.
+func (o *ToolInvocationV4) UnsetStep() {
+	o.Step.Unset()
+}
+
+// GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || o.State.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.State
+	return *o.State.Get()
 }
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.State, true
+	return o.State.Get(), o.State.IsSet()
 }
 
 // HasState returns a boolean if a field has been set.
 func (o *ToolInvocationV4) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && o.State.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetState gets a reference to the given string and assigns it to the State field.
+// SetState gets a reference to the given utils.Nullable[string] and assigns it to the State field.
 func (o *ToolInvocationV4) SetState(v string) *ToolInvocationV4 {
-	o.State = &v
+	o.State.Set(&v)
 
 	return o
 }
 
-// GetProviderOptions returns the ProviderOptions field value if set, zero value otherwise.
+// SetStateNil sets the value for State to be an explicit nil.
+func (o *ToolInvocationV4) SetStateNil() {
+	o.State.Set(nil)
+}
+
+// UnsetState ensures that no value is present for State, not even an explicit nil.
+func (o *ToolInvocationV4) UnsetState() {
+	o.State.Unset()
+}
+
+// GetProviderOptions returns the ProviderOptions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetProviderOptions() map[string]any {
-	if o == nil || o.ProviderOptions == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -308,6 +333,7 @@ func (o *ToolInvocationV4) GetProviderOptions() map[string]any {
 
 // GetProviderOptionsOk returns a tuple with the ProviderOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetProviderOptionsOk() (map[string]any, bool) {
 	if o == nil || o.ProviderOptions == nil {
 		return nil, false
@@ -332,115 +358,148 @@ func (o *ToolInvocationV4) SetProviderOptions(v map[string]any) *ToolInvocationV
 	return o
 }
 
-// GetRequiresApproval returns the RequiresApproval field value if set, zero value otherwise.
+// GetRequiresApproval returns the RequiresApproval field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetRequiresApproval() bool {
-	if o == nil || o.RequiresApproval == nil {
+	if o == nil || o.RequiresApproval.Get() == nil {
 		var ret bool
 
 		return ret
 	}
 
-	return *o.RequiresApproval
+	return *o.RequiresApproval.Get()
 }
 
 // GetRequiresApprovalOk returns a tuple with the RequiresApproval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetRequiresApprovalOk() (*bool, bool) {
-	if o == nil || o.RequiresApproval == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.RequiresApproval, true
+	return o.RequiresApproval.Get(), o.RequiresApproval.IsSet()
 }
 
 // HasRequiresApproval returns a boolean if a field has been set.
 func (o *ToolInvocationV4) HasRequiresApproval() bool {
-	if o != nil && o.RequiresApproval != nil {
+	if o != nil && o.RequiresApproval.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetRequiresApproval gets a reference to the given bool and assigns it to the RequiresApproval field.
+// SetRequiresApproval gets a reference to the given utils.Nullable[bool] and assigns it to the RequiresApproval field.
 func (o *ToolInvocationV4) SetRequiresApproval(v bool) *ToolInvocationV4 {
-	o.RequiresApproval = &v
+	o.RequiresApproval.Set(&v)
 
 	return o
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// SetRequiresApprovalNil sets the value for RequiresApproval to be an explicit nil.
+func (o *ToolInvocationV4) SetRequiresApprovalNil() {
+	o.RequiresApproval.Set(nil)
+}
+
+// UnsetRequiresApproval ensures that no value is present for RequiresApproval, not even an explicit nil.
+func (o *ToolInvocationV4) UnsetRequiresApproval() {
+	o.RequiresApproval.Unset()
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || o.Description.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.Description
+	return *o.Description.Get()
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.Description, true
+	return o.Description.Get(), o.Description.IsSet()
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ToolInvocationV4) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && o.Description.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription gets a reference to the given utils.Nullable[string] and assigns it to the Description field.
 func (o *ToolInvocationV4) SetDescription(v string) *ToolInvocationV4 {
-	o.Description = &v
+	o.Description.Set(&v)
 
 	return o
 }
 
-// GetArgsHash returns the ArgsHash field value if set, zero value otherwise.
+// SetDescriptionNil sets the value for Description to be an explicit nil.
+func (o *ToolInvocationV4) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
+
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil.
+func (o *ToolInvocationV4) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetArgsHash returns the ArgsHash field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolInvocationV4) GetArgsHash() string {
-	if o == nil || o.ArgsHash == nil {
+	if o == nil || o.ArgsHash.Get() == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.ArgsHash
+	return *o.ArgsHash.Get()
 }
 
 // GetArgsHashOk returns a tuple with the ArgsHash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ToolInvocationV4) GetArgsHashOk() (*string, bool) {
-	if o == nil || o.ArgsHash == nil {
+	if o == nil {
 		return nil, false
 	}
 
-	return o.ArgsHash, true
+	return o.ArgsHash.Get(), o.ArgsHash.IsSet()
 }
 
 // HasArgsHash returns a boolean if a field has been set.
 func (o *ToolInvocationV4) HasArgsHash() bool {
-	if o != nil && o.ArgsHash != nil {
+	if o != nil && o.ArgsHash.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetArgsHash gets a reference to the given string and assigns it to the ArgsHash field.
+// SetArgsHash gets a reference to the given utils.Nullable[string] and assigns it to the ArgsHash field.
 func (o *ToolInvocationV4) SetArgsHash(v string) *ToolInvocationV4 {
-	o.ArgsHash = &v
+	o.ArgsHash.Set(&v)
 
 	return o
+}
+
+// SetArgsHashNil sets the value for ArgsHash to be an explicit nil.
+func (o *ToolInvocationV4) SetArgsHashNil() {
+	o.ArgsHash.Set(nil)
+}
+
+// UnsetArgsHash ensures that no value is present for ArgsHash, not even an explicit nil.
+func (o *ToolInvocationV4) UnsetArgsHash() {
+	o.ArgsHash.Unset()
 }
 
 func (o ToolInvocationV4) MarshalJSON() ([]byte, error) {
@@ -456,28 +515,28 @@ func (o ToolInvocationV4) MarshalJSON() ([]byte, error) {
 		toSerialize["result"] = o.Result
 	}
 
-	if o.Step != nil {
-		toSerialize["step"] = o.Step
+	if o.Step.IsSet() {
+		toSerialize["step"] = o.Step.Get()
 	}
 
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	if o.State.IsSet() {
+		toSerialize["state"] = o.State.Get()
 	}
 
 	if o.ProviderOptions != nil {
 		toSerialize["providerOptions"] = o.ProviderOptions
 	}
 
-	if o.RequiresApproval != nil {
-		toSerialize["requiresApproval"] = o.RequiresApproval
+	if o.RequiresApproval.IsSet() {
+		toSerialize["requiresApproval"] = o.RequiresApproval.Get()
 	}
 
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
 	}
 
-	if o.ArgsHash != nil {
-		toSerialize["argsHash"] = o.ArgsHash
+	if o.ArgsHash.IsSet() {
+		toSerialize["argsHash"] = o.ArgsHash.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)

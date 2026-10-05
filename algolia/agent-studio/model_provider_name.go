@@ -16,6 +16,7 @@ const (
 	PROVIDER_NAME_GOOGLE_GENAI      ProviderName = "google_genai"
 	PROVIDER_NAME_DEEPSEEK          ProviderName = "deepseek"
 	PROVIDER_NAME_OPENAI_COMPATIBLE ProviderName = "openai_compatible"
+	PROVIDER_NAME_XAI               ProviderName = "xai"
 	PROVIDER_NAME_ANTHROPIC         ProviderName = "anthropic"
 )
 
@@ -26,6 +27,7 @@ var AllowedProviderNameEnumValues = []ProviderName{
 	"google_genai",
 	"deepseek",
 	"openai_compatible",
+	"xai",
 	"anthropic",
 }
 

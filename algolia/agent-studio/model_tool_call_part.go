@@ -14,11 +14,18 @@ type ToolCallPart struct {
 	ToolCallId       string               `json:"toolCallId"`
 	ToolName         string               `json:"toolName"`
 	Args             any                  `json:"args"`
+	RawArgs          map[string]any       `json:"rawArgs,omitempty"`
 	RequiresApproval utils.Nullable[bool] `json:"requiresApproval,omitempty"`
 	ProviderOptions  map[string]any       `json:"providerOptions,omitempty"`
 }
 
 type ToolCallPartOption func(f *ToolCallPart)
+
+func WithToolCallPartRawArgs(val map[string]any) ToolCallPartOption {
+	return func(f *ToolCallPart) {
+		f.RawArgs = val
+	}
+}
 
 func WithToolCallPartRequiresApproval(val utils.Nullable[bool]) ToolCallPartOption {
 	return func(f *ToolCallPart) {
@@ -169,6 +176,44 @@ func (o *ToolCallPart) SetArgs(v any) *ToolCallPart {
 	return o
 }
 
+// GetRawArgs returns the RawArgs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolCallPart) GetRawArgs() map[string]any {
+	if o == nil {
+		var ret map[string]any
+
+		return ret
+	}
+
+	return o.RawArgs
+}
+
+// GetRawArgsOk returns a tuple with the RawArgs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolCallPart) GetRawArgsOk() (map[string]any, bool) {
+	if o == nil || o.RawArgs == nil {
+		return nil, false
+	}
+
+	return o.RawArgs, true
+}
+
+// HasRawArgs returns a boolean if a field has been set.
+func (o *ToolCallPart) HasRawArgs() bool {
+	if o != nil && o.RawArgs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRawArgs gets a reference to the given map[string]any and assigns it to the RawArgs field.
+func (o *ToolCallPart) SetRawArgs(v map[string]any) *ToolCallPart {
+	o.RawArgs = v
+
+	return o
+}
+
 // GetRequiresApproval returns the RequiresApproval field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolCallPart) GetRequiresApproval() bool {
 	if o == nil || o.RequiresApproval.Get() == nil {
@@ -265,6 +310,10 @@ func (o ToolCallPart) MarshalJSON() ([]byte, error) {
 		toSerialize["args"] = o.Args
 	}
 
+	if o.RawArgs != nil {
+		toSerialize["rawArgs"] = o.RawArgs
+	}
+
 	if o.RequiresApproval.IsSet() {
 		toSerialize["requiresApproval"] = o.RequiresApproval.Get()
 	}
@@ -287,6 +336,7 @@ func (o ToolCallPart) String() string {
 	out += fmt.Sprintf("  toolCallId=%v\n", o.ToolCallId)
 	out += fmt.Sprintf("  toolName=%v\n", o.ToolName)
 	out += fmt.Sprintf("  args=%v\n", o.Args)
+	out += fmt.Sprintf("  rawArgs=%v\n", o.RawArgs)
 	out += fmt.Sprintf("  requiresApproval=%v\n", o.RequiresApproval)
 	out += fmt.Sprintf("  providerOptions=%v\n", o.ProviderOptions)
 

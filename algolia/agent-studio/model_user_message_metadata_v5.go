@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// UserMessageMetadataV5 Client-supplied metadata on a v5 user message.  `turn_context` is namespaced so other callers can use `metadata` for unrelated purposes without collision. Unknown keys are preserved and ignored by this pipeline.  Note: `turn_context` is deliberately typed `dict[str, Any]` (not `TurnContext`). The metadata is parsed eagerly with the request body, but cap/charset validation must be deferred to `extract_turn_context_v5` so the kill-switch (`TURN_CONTEXT_ENABLED=false`) can silently drop payloads instead of 422-ing. See `test_invalid_metadata_does_not_raise_at_model_construction`.
+// UserMessageMetadataV5 Client-supplied metadata on a v5 user message.  `turn_context` is namespaced so other callers can use `metadata` for unrelated purposes without collision. Unknown keys are preserved and ignored by this pipeline.  `turn_context` accepts any JSON object (arbitrarily nested values, no size caps). A value that cannot be serialized as JSON is rejected with a 422.
 type UserMessageMetadataV5 struct {
 	TurnContext          map[string]any `json:"turnContext,omitempty"`
 	AdditionalProperties map[string]any `json:"-"`
@@ -38,9 +38,9 @@ func NewEmptyUserMessageMetadataV5() *UserMessageMetadataV5 {
 	return &UserMessageMetadataV5{}
 }
 
-// GetTurnContext returns the TurnContext field value if set, zero value otherwise.
+// GetTurnContext returns the TurnContext field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UserMessageMetadataV5) GetTurnContext() map[string]any {
-	if o == nil || o.TurnContext == nil {
+	if o == nil {
 		var ret map[string]any
 
 		return ret
@@ -51,6 +51,7 @@ func (o *UserMessageMetadataV5) GetTurnContext() map[string]any {
 
 // GetTurnContextOk returns a tuple with the TurnContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *UserMessageMetadataV5) GetTurnContextOk() (map[string]any, bool) {
 	if o == nil || o.TurnContext == nil {
 		return nil, false

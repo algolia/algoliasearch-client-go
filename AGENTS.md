@@ -41,25 +41,10 @@ Before editing ANY file, verify it's hand-written by checking `config/generation
 
 ## Language Conventions
 
-### Naming
-
-- **Files**: `snake_case.go`
-- **Packages**: `lowercase` single word
-- **Variables/Functions**: `camelCase` (unexported), `PascalCase` (exported)
-- **Types/Interfaces**: `PascalCase`
-- **Constants**: `PascalCase` (exported), `camelCase` (unexported)
-
 ### Formatting
 
 - `gofmt` / `goimports` standard formatting
 - Run: `yarn cli format go clients/algoliasearch-client-go`
-
-### Go Idioms
-
-- Accept interfaces, return structs
-- Errors as values, not exceptions
-- Use `context.Context` for cancellation
-- Prefer composition over inheritance
 
 ### Dependencies
 
@@ -118,34 +103,6 @@ type APIError struct {
 ```
 
 ## Common Gotchas
-
-### Context Usage
-
-```go
-// Always pass context for cancellation
-ctx := context.Background()
-response, err := client.Search(ctx, params)
-
-// With timeout
-ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-defer cancel()
-response, err := client.Search(ctx, params)
-```
-
-### Error Checking
-
-```go
-// ALWAYS check errors
-response, err := client.Search(ctx, params)
-if err != nil {
-    // Handle error - don't ignore!
-    var apiErr *errs.APIError
-    if errors.As(err, &apiErr) {
-        // Handle API error
-    }
-    return err
-}
-```
 
 ### Pointer vs Value
 

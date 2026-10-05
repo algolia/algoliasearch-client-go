@@ -21,7 +21,7 @@ import (
 	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
-// APIClient manages communication with the Agent Studio API API v0.1.0
+// APIClient manages communication with the Agent Studio API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	appID     string

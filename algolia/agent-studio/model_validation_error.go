@@ -8,40 +8,20 @@ import (
 
 // ValidationError struct for ValidationError.
 type ValidationError struct {
-	Loc   []LocationItemUnion `json:"loc"`
-	Msg   string              `json:"msg"`
-	Type  string              `json:"type"`
-	Input any                 `json:"input,omitempty"`
-	Ctx   map[string]any      `json:"ctx,omitempty"`
-}
-
-type ValidationErrorOption func(f *ValidationError)
-
-func WithValidationErrorInput(val any) ValidationErrorOption {
-	return func(f *ValidationError) {
-		f.Input = val
-	}
-}
-
-func WithValidationErrorCtx(val map[string]any) ValidationErrorOption {
-	return func(f *ValidationError) {
-		f.Ctx = val
-	}
+	Loc  []LocationItemUnion `json:"loc"`
+	Msg  string              `json:"msg"`
+	Type string              `json:"type"`
 }
 
 // NewValidationError instantiates a new ValidationError object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewValidationError(loc []LocationItemUnion, msg string, type_ string, opts ...ValidationErrorOption) *ValidationError {
+func NewValidationError(loc []LocationItemUnion, msg string, type_ string) *ValidationError {
 	this := &ValidationError{}
 	this.Loc = loc
 	this.Msg = msg
-
 	this.Type = type_
-	for _, opt := range opts {
-		opt(this)
-	}
 
 	return this
 }
@@ -135,94 +115,11 @@ func (o *ValidationError) SetType(v string) *ValidationError {
 	return o
 }
 
-// GetInput returns the Input field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ValidationError) GetInput() any {
-	if o == nil {
-		var ret any
-
-		return ret
-	}
-
-	return o.Input
-}
-
-// GetInputOk returns a tuple with the Input field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *ValidationError) GetInputOk() (*any, bool) {
-	if o == nil || o.Input == nil {
-		return nil, false
-	}
-
-	return &o.Input, true
-}
-
-// HasInput returns a boolean if a field has been set.
-func (o *ValidationError) HasInput() bool {
-	if o != nil && o.Input != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInput gets a reference to the given any and assigns it to the Input field.
-func (o *ValidationError) SetInput(v any) *ValidationError {
-	o.Input = v
-
-	return o
-}
-
-// GetCtx returns the Ctx field value if set, zero value otherwise.
-func (o *ValidationError) GetCtx() map[string]any {
-	if o == nil || o.Ctx == nil {
-		var ret map[string]any
-
-		return ret
-	}
-
-	return o.Ctx
-}
-
-// GetCtxOk returns a tuple with the Ctx field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ValidationError) GetCtxOk() (map[string]any, bool) {
-	if o == nil || o.Ctx == nil {
-		return nil, false
-	}
-
-	return o.Ctx, true
-}
-
-// HasCtx returns a boolean if a field has been set.
-func (o *ValidationError) HasCtx() bool {
-	if o != nil && o.Ctx != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCtx gets a reference to the given map[string]any and assigns it to the Ctx field.
-func (o *ValidationError) SetCtx(v map[string]any) *ValidationError {
-	o.Ctx = v
-
-	return o
-}
-
 func (o ValidationError) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["loc"] = o.Loc
 	toSerialize["msg"] = o.Msg
-
 	toSerialize["type"] = o.Type
-	if o.Input != nil {
-		toSerialize["input"] = o.Input
-	}
-
-	if o.Ctx != nil {
-		toSerialize["ctx"] = o.Ctx
-	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -237,8 +134,6 @@ func (o ValidationError) String() string {
 	out += fmt.Sprintf("  loc=%v\n", o.Loc)
 	out += fmt.Sprintf("  msg=%v\n", o.Msg)
 	out += fmt.Sprintf("  type=%v\n", o.Type)
-	out += fmt.Sprintf("  input=%v\n", o.Input)
-	out += fmt.Sprintf("  ctx=%v\n", o.Ctx)
 
 	return fmt.Sprintf("ValidationError {\n%s}", out)
 }

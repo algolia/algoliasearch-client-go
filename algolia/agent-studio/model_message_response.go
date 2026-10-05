@@ -10,16 +10,22 @@ import (
 
 // MessageResponse Response model for a message.
 type MessageResponse struct {
-	Id             string                 `json:"id"`
-	ConversationId string                 `json:"conversationId"`
-	Role           MessageRole            `json:"role"`
-	Parts          []MessagePart          `json:"parts"`
-	CreatedAt      string                 `json:"createdAt"`
-	UpdatedAt      string                 `json:"updatedAt"`
-	Model          utils.Nullable[string] `json:"model,omitempty"`
-	InputTokens    utils.Nullable[int32]  `json:"inputTokens,omitempty"`
-	OutputTokens   utils.Nullable[int32]  `json:"outputTokens,omitempty"`
-	TurnContext    map[string]string      `json:"turnContext,omitempty"`
+	Id                 string                           `json:"id"`
+	ConversationId     string                           `json:"conversationId"`
+	Role               MessageRole                      `json:"role"`
+	Parts              []MessagePart                    `json:"parts"`
+	CreatedAt          string                           `json:"createdAt"`
+	UpdatedAt          string                           `json:"updatedAt"`
+	Model              utils.Nullable[string]           `json:"model,omitempty"`
+	InputTokens        utils.Nullable[int32]            `json:"inputTokens,omitempty"`
+	OutputTokens       utils.Nullable[int32]            `json:"outputTokens,omitempty"`
+	ReasoningTokens    utils.Nullable[int32]            `json:"reasoningTokens,omitempty"`
+	InputTokenDetails  map[string]int32                 `json:"inputTokenDetails,omitempty"`
+	OutputTokenDetails map[string]int32                 `json:"outputTokenDetails,omitempty"`
+	IsCacheHit         utils.Nullable[bool]             `json:"isCacheHit,omitempty"`
+	TurnContext        map[string]any                   `json:"turnContext,omitempty"`
+	Events             []MessageEvent                   `json:"events,omitempty"`
+	Guardrail          utils.Nullable[GuardrailOutcome] `json:"guardrail,omitempty"`
 }
 
 type MessageResponseOption func(f *MessageResponse)
@@ -42,9 +48,45 @@ func WithMessageResponseOutputTokens(val utils.Nullable[int32]) MessageResponseO
 	}
 }
 
-func WithMessageResponseTurnContext(val map[string]string) MessageResponseOption {
+func WithMessageResponseReasoningTokens(val utils.Nullable[int32]) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.ReasoningTokens = val
+	}
+}
+
+func WithMessageResponseInputTokenDetails(val map[string]int32) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.InputTokenDetails = val
+	}
+}
+
+func WithMessageResponseOutputTokenDetails(val map[string]int32) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.OutputTokenDetails = val
+	}
+}
+
+func WithMessageResponseIsCacheHit(val utils.Nullable[bool]) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.IsCacheHit = val
+	}
+}
+
+func WithMessageResponseTurnContext(val map[string]any) MessageResponseOption {
 	return func(f *MessageResponse) {
 		f.TurnContext = val
+	}
+}
+
+func WithMessageResponseEvents(val []MessageEvent) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.Events = val
+	}
+}
+
+func WithMessageResponseGuardrail(val utils.Nullable[GuardrailOutcome]) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.Guardrail = val
 	}
 }
 
@@ -393,10 +435,182 @@ func (o *MessageResponse) UnsetOutputTokens() {
 	o.OutputTokens.Unset()
 }
 
-// GetTurnContext returns the TurnContext field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MessageResponse) GetTurnContext() map[string]string {
+// GetReasoningTokens returns the ReasoningTokens field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetReasoningTokens() int32 {
+	if o == nil || o.ReasoningTokens.Get() == nil {
+		var ret int32
+
+		return ret
+	}
+
+	return *o.ReasoningTokens.Get()
+}
+
+// GetReasoningTokensOk returns a tuple with the ReasoningTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetReasoningTokensOk() (*int32, bool) {
 	if o == nil {
-		var ret map[string]string
+		return nil, false
+	}
+
+	return o.ReasoningTokens.Get(), o.ReasoningTokens.IsSet()
+}
+
+// HasReasoningTokens returns a boolean if a field has been set.
+func (o *MessageResponse) HasReasoningTokens() bool {
+	if o != nil && o.ReasoningTokens.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetReasoningTokens gets a reference to the given utils.Nullable[int32] and assigns it to the ReasoningTokens field.
+func (o *MessageResponse) SetReasoningTokens(v int32) *MessageResponse {
+	o.ReasoningTokens.Set(&v)
+
+	return o
+}
+
+// SetReasoningTokensNil sets the value for ReasoningTokens to be an explicit nil.
+func (o *MessageResponse) SetReasoningTokensNil() {
+	o.ReasoningTokens.Set(nil)
+}
+
+// UnsetReasoningTokens ensures that no value is present for ReasoningTokens, not even an explicit nil.
+func (o *MessageResponse) UnsetReasoningTokens() {
+	o.ReasoningTokens.Unset()
+}
+
+// GetInputTokenDetails returns the InputTokenDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetInputTokenDetails() map[string]int32 {
+	if o == nil {
+		var ret map[string]int32
+
+		return ret
+	}
+
+	return o.InputTokenDetails
+}
+
+// GetInputTokenDetailsOk returns a tuple with the InputTokenDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetInputTokenDetailsOk() (*map[string]int32, bool) {
+	if o == nil || o.InputTokenDetails == nil {
+		return nil, false
+	}
+
+	return &o.InputTokenDetails, true
+}
+
+// HasInputTokenDetails returns a boolean if a field has been set.
+func (o *MessageResponse) HasInputTokenDetails() bool {
+	if o != nil && o.InputTokenDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInputTokenDetails gets a reference to the given map[string]int32 and assigns it to the InputTokenDetails field.
+func (o *MessageResponse) SetInputTokenDetails(v map[string]int32) *MessageResponse {
+	o.InputTokenDetails = v
+
+	return o
+}
+
+// GetOutputTokenDetails returns the OutputTokenDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetOutputTokenDetails() map[string]int32 {
+	if o == nil {
+		var ret map[string]int32
+
+		return ret
+	}
+
+	return o.OutputTokenDetails
+}
+
+// GetOutputTokenDetailsOk returns a tuple with the OutputTokenDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetOutputTokenDetailsOk() (*map[string]int32, bool) {
+	if o == nil || o.OutputTokenDetails == nil {
+		return nil, false
+	}
+
+	return &o.OutputTokenDetails, true
+}
+
+// HasOutputTokenDetails returns a boolean if a field has been set.
+func (o *MessageResponse) HasOutputTokenDetails() bool {
+	if o != nil && o.OutputTokenDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputTokenDetails gets a reference to the given map[string]int32 and assigns it to the OutputTokenDetails field.
+func (o *MessageResponse) SetOutputTokenDetails(v map[string]int32) *MessageResponse {
+	o.OutputTokenDetails = v
+
+	return o
+}
+
+// GetIsCacheHit returns the IsCacheHit field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetIsCacheHit() bool {
+	if o == nil || o.IsCacheHit.Get() == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.IsCacheHit.Get()
+}
+
+// GetIsCacheHitOk returns a tuple with the IsCacheHit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetIsCacheHitOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.IsCacheHit.Get(), o.IsCacheHit.IsSet()
+}
+
+// HasIsCacheHit returns a boolean if a field has been set.
+func (o *MessageResponse) HasIsCacheHit() bool {
+	if o != nil && o.IsCacheHit.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCacheHit gets a reference to the given utils.Nullable[bool] and assigns it to the IsCacheHit field.
+func (o *MessageResponse) SetIsCacheHit(v bool) *MessageResponse {
+	o.IsCacheHit.Set(&v)
+
+	return o
+}
+
+// SetIsCacheHitNil sets the value for IsCacheHit to be an explicit nil.
+func (o *MessageResponse) SetIsCacheHitNil() {
+	o.IsCacheHit.Set(nil)
+}
+
+// UnsetIsCacheHit ensures that no value is present for IsCacheHit, not even an explicit nil.
+func (o *MessageResponse) UnsetIsCacheHit() {
+	o.IsCacheHit.Unset()
+}
+
+// GetTurnContext returns the TurnContext field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetTurnContext() map[string]any {
+	if o == nil {
+		var ret map[string]any
 
 		return ret
 	}
@@ -407,12 +621,12 @@ func (o *MessageResponse) GetTurnContext() map[string]string {
 // GetTurnContextOk returns a tuple with the TurnContext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned.
-func (o *MessageResponse) GetTurnContextOk() (*map[string]string, bool) {
+func (o *MessageResponse) GetTurnContextOk() (map[string]any, bool) {
 	if o == nil || o.TurnContext == nil {
 		return nil, false
 	}
 
-	return &o.TurnContext, true
+	return o.TurnContext, true
 }
 
 // HasTurnContext returns a boolean if a field has been set.
@@ -424,11 +638,96 @@ func (o *MessageResponse) HasTurnContext() bool {
 	return false
 }
 
-// SetTurnContext gets a reference to the given map[string]string and assigns it to the TurnContext field.
-func (o *MessageResponse) SetTurnContext(v map[string]string) *MessageResponse {
+// SetTurnContext gets a reference to the given map[string]any and assigns it to the TurnContext field.
+func (o *MessageResponse) SetTurnContext(v map[string]any) *MessageResponse {
 	o.TurnContext = v
 
 	return o
+}
+
+// GetEvents returns the Events field value if set, zero value otherwise.
+func (o *MessageResponse) GetEvents() []MessageEvent {
+	if o == nil || o.Events == nil {
+		var ret []MessageEvent
+
+		return ret
+	}
+
+	return o.Events
+}
+
+// GetEventsOk returns a tuple with the Events field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MessageResponse) GetEventsOk() ([]MessageEvent, bool) {
+	if o == nil || o.Events == nil {
+		return nil, false
+	}
+
+	return o.Events, true
+}
+
+// HasEvents returns a boolean if a field has been set.
+func (o *MessageResponse) HasEvents() bool {
+	if o != nil && o.Events != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEvents gets a reference to the given []MessageEvent and assigns it to the Events field.
+func (o *MessageResponse) SetEvents(v []MessageEvent) *MessageResponse {
+	o.Events = v
+
+	return o
+}
+
+// GetGuardrail returns the Guardrail field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetGuardrail() GuardrailOutcome {
+	if o == nil || o.Guardrail.Get() == nil {
+		var ret GuardrailOutcome
+
+		return ret
+	}
+
+	return *o.Guardrail.Get()
+}
+
+// GetGuardrailOk returns a tuple with the Guardrail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetGuardrailOk() (*GuardrailOutcome, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.Guardrail.Get(), o.Guardrail.IsSet()
+}
+
+// HasGuardrail returns a boolean if a field has been set.
+func (o *MessageResponse) HasGuardrail() bool {
+	if o != nil && o.Guardrail.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetGuardrail gets a reference to the given utils.Nullable[GuardrailOutcome] and assigns it to the Guardrail field.
+func (o *MessageResponse) SetGuardrail(v *GuardrailOutcome) *MessageResponse {
+	o.Guardrail.Set(v)
+
+	return o
+}
+
+// SetGuardrailNil sets the value for Guardrail to be an explicit nil.
+func (o *MessageResponse) SetGuardrailNil() {
+	o.Guardrail.Set(nil)
+}
+
+// UnsetGuardrail ensures that no value is present for Guardrail, not even an explicit nil.
+func (o *MessageResponse) UnsetGuardrail() {
+	o.Guardrail.Unset()
 }
 
 func (o MessageResponse) MarshalJSON() ([]byte, error) {
@@ -452,8 +751,32 @@ func (o MessageResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["outputTokens"] = o.OutputTokens.Get()
 	}
 
+	if o.ReasoningTokens.IsSet() {
+		toSerialize["reasoningTokens"] = o.ReasoningTokens.Get()
+	}
+
+	if o.InputTokenDetails != nil {
+		toSerialize["inputTokenDetails"] = o.InputTokenDetails
+	}
+
+	if o.OutputTokenDetails != nil {
+		toSerialize["outputTokenDetails"] = o.OutputTokenDetails
+	}
+
+	if o.IsCacheHit.IsSet() {
+		toSerialize["isCacheHit"] = o.IsCacheHit.Get()
+	}
+
 	if o.TurnContext != nil {
 		toSerialize["turnContext"] = o.TurnContext
+	}
+
+	if o.Events != nil {
+		toSerialize["events"] = o.Events
+	}
+
+	if o.Guardrail.IsSet() {
+		toSerialize["guardrail"] = o.Guardrail.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -475,7 +798,13 @@ func (o MessageResponse) String() string {
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 	out += fmt.Sprintf("  inputTokens=%v\n", o.InputTokens)
 	out += fmt.Sprintf("  outputTokens=%v\n", o.OutputTokens)
+	out += fmt.Sprintf("  reasoningTokens=%v\n", o.ReasoningTokens)
+	out += fmt.Sprintf("  inputTokenDetails=%v\n", o.InputTokenDetails)
+	out += fmt.Sprintf("  outputTokenDetails=%v\n", o.OutputTokenDetails)
+	out += fmt.Sprintf("  isCacheHit=%v\n", o.IsCacheHit)
 	out += fmt.Sprintf("  turnContext=%v\n", o.TurnContext)
+	out += fmt.Sprintf("  events=%v\n", o.Events)
+	out += fmt.Sprintf("  guardrail=%v\n", o.Guardrail)
 
 	return fmt.Sprintf("MessageResponse {\n%s}", out)
 }
