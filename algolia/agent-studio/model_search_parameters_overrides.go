@@ -10,14 +10,20 @@ import (
 
 // SearchParametersOverrides Algolia Search API parameters that can be predefined for the search tool. Reference: https://www.algolia.com/doc/api-reference/search-api-parameters/  A subset of SearchParameters of specific params we allow for runtime override.
 type SearchParametersOverrides struct {
-	Filters                      *string                              `json:"filters,omitempty"`
-	AttributesToRetrieve         []string                             `json:"attributesToRetrieve,omitempty"`
-	RestrictSearchableAttributes []string                             `json:"restrictSearchableAttributes,omitempty"`
-	Distinct                     utils.Nullable[DistinctUnion]        `json:"distinct,omitempty"`
-	UserToken                    *string                              `json:"userToken,omitempty"`
-	EnablePersonalization        *bool                                `json:"enablePersonalization,omitempty"`
-	PersonalizationImpact        *int32                               `json:"personalizationImpact,omitempty"`
-	OptionalFilters              utils.Nullable[OptionalFiltersUnion] `json:"optionalFilters,omitempty"`
+	Filters                      *string                                `json:"filters,omitempty"`
+	AttributesToRetrieve         []string                               `json:"attributesToRetrieve,omitempty"`
+	RestrictSearchableAttributes []string                               `json:"restrictSearchableAttributes,omitempty"`
+	Distinct                     utils.Nullable[DistinctUnion]          `json:"distinct,omitempty"`
+	UserToken                    *string                                `json:"userToken,omitempty"`
+	EnablePersonalization        *bool                                  `json:"enablePersonalization,omitempty"`
+	PersonalizationImpact        *int32                                 `json:"personalizationImpact,omitempty"`
+	OptionalFilters              utils.Nullable[OptionalFiltersUnion]   `json:"optionalFilters,omitempty"`
+	AroundLatLng                 *string                                `json:"aroundLatLng,omitempty"`
+	AroundRadius                 utils.Nullable[AroundRadiusUnion]      `json:"aroundRadius,omitempty"`
+	AroundPrecision              utils.Nullable[AroundPrecisionUnion]   `json:"aroundPrecision,omitempty"`
+	MinimumAroundRadius          *int32                                 `json:"minimumAroundRadius,omitempty"`
+	InsideBoundingBox            utils.Nullable[InsideBoundingBoxUnion] `json:"insideBoundingBox,omitempty"`
+	InsidePolygon                utils.Nullable[InsidePolygonUnion]     `json:"insidePolygon,omitempty"`
 }
 
 type SearchParametersOverridesOption func(f *SearchParametersOverrides)
@@ -67,6 +73,42 @@ func WithSearchParametersOverridesPersonalizationImpact(val int32) SearchParamet
 func WithSearchParametersOverridesOptionalFilters(val utils.Nullable[OptionalFiltersUnion]) SearchParametersOverridesOption {
 	return func(f *SearchParametersOverrides) {
 		f.OptionalFilters = val
+	}
+}
+
+func WithSearchParametersOverridesAroundLatLng(val string) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.AroundLatLng = &val
+	}
+}
+
+func WithSearchParametersOverridesAroundRadius(val utils.Nullable[AroundRadiusUnion]) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.AroundRadius = val
+	}
+}
+
+func WithSearchParametersOverridesAroundPrecision(val utils.Nullable[AroundPrecisionUnion]) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.AroundPrecision = val
+	}
+}
+
+func WithSearchParametersOverridesMinimumAroundRadius(val int32) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.MinimumAroundRadius = &val
+	}
+}
+
+func WithSearchParametersOverridesInsideBoundingBox(val utils.Nullable[InsideBoundingBoxUnion]) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.InsideBoundingBox = val
+	}
+}
+
+func WithSearchParametersOverridesInsidePolygon(val utils.Nullable[InsidePolygonUnion]) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.InsidePolygon = val
 	}
 }
 
@@ -406,6 +448,272 @@ func (o *SearchParametersOverrides) UnsetOptionalFilters() {
 	o.OptionalFilters.Unset()
 }
 
+// GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
+func (o *SearchParametersOverrides) GetAroundLatLng() string {
+	if o == nil || o.AroundLatLng == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.AroundLatLng
+}
+
+// GetAroundLatLngOk returns a tuple with the AroundLatLng field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchParametersOverrides) GetAroundLatLngOk() (*string, bool) {
+	if o == nil || o.AroundLatLng == nil {
+		return nil, false
+	}
+
+	return o.AroundLatLng, true
+}
+
+// HasAroundLatLng returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasAroundLatLng() bool {
+	if o != nil && o.AroundLatLng != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAroundLatLng gets a reference to the given string and assigns it to the AroundLatLng field.
+func (o *SearchParametersOverrides) SetAroundLatLng(v string) *SearchParametersOverrides {
+	o.AroundLatLng = &v
+
+	return o
+}
+
+// GetAroundRadius returns the AroundRadius field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchParametersOverrides) GetAroundRadius() AroundRadiusUnion {
+	if o == nil || o.AroundRadius.Get() == nil {
+		var ret AroundRadiusUnion
+
+		return ret
+	}
+
+	return *o.AroundRadius.Get()
+}
+
+// GetAroundRadiusOk returns a tuple with the AroundRadius field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchParametersOverrides) GetAroundRadiusOk() (*AroundRadiusUnion, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.AroundRadius.Get(), o.AroundRadius.IsSet()
+}
+
+// HasAroundRadius returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasAroundRadius() bool {
+	if o != nil && o.AroundRadius.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAroundRadius gets a reference to the given utils.Nullable[AroundRadiusUnion] and assigns it to the AroundRadius field.
+func (o *SearchParametersOverrides) SetAroundRadius(v *AroundRadiusUnion) *SearchParametersOverrides {
+	o.AroundRadius.Set(v)
+
+	return o
+}
+
+// SetAroundRadiusNil sets the value for AroundRadius to be an explicit nil.
+func (o *SearchParametersOverrides) SetAroundRadiusNil() {
+	o.AroundRadius.Set(nil)
+}
+
+// UnsetAroundRadius ensures that no value is present for AroundRadius, not even an explicit nil.
+func (o *SearchParametersOverrides) UnsetAroundRadius() {
+	o.AroundRadius.Unset()
+}
+
+// GetAroundPrecision returns the AroundPrecision field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchParametersOverrides) GetAroundPrecision() AroundPrecisionUnion {
+	if o == nil || o.AroundPrecision.Get() == nil {
+		var ret AroundPrecisionUnion
+
+		return ret
+	}
+
+	return *o.AroundPrecision.Get()
+}
+
+// GetAroundPrecisionOk returns a tuple with the AroundPrecision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchParametersOverrides) GetAroundPrecisionOk() (*AroundPrecisionUnion, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.AroundPrecision.Get(), o.AroundPrecision.IsSet()
+}
+
+// HasAroundPrecision returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasAroundPrecision() bool {
+	if o != nil && o.AroundPrecision.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAroundPrecision gets a reference to the given utils.Nullable[AroundPrecisionUnion] and assigns it to the AroundPrecision field.
+func (o *SearchParametersOverrides) SetAroundPrecision(v *AroundPrecisionUnion) *SearchParametersOverrides {
+	o.AroundPrecision.Set(v)
+
+	return o
+}
+
+// SetAroundPrecisionNil sets the value for AroundPrecision to be an explicit nil.
+func (o *SearchParametersOverrides) SetAroundPrecisionNil() {
+	o.AroundPrecision.Set(nil)
+}
+
+// UnsetAroundPrecision ensures that no value is present for AroundPrecision, not even an explicit nil.
+func (o *SearchParametersOverrides) UnsetAroundPrecision() {
+	o.AroundPrecision.Unset()
+}
+
+// GetMinimumAroundRadius returns the MinimumAroundRadius field value if set, zero value otherwise.
+func (o *SearchParametersOverrides) GetMinimumAroundRadius() int32 {
+	if o == nil || o.MinimumAroundRadius == nil {
+		var ret int32
+
+		return ret
+	}
+
+	return *o.MinimumAroundRadius
+}
+
+// GetMinimumAroundRadiusOk returns a tuple with the MinimumAroundRadius field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchParametersOverrides) GetMinimumAroundRadiusOk() (*int32, bool) {
+	if o == nil || o.MinimumAroundRadius == nil {
+		return nil, false
+	}
+
+	return o.MinimumAroundRadius, true
+}
+
+// HasMinimumAroundRadius returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasMinimumAroundRadius() bool {
+	if o != nil && o.MinimumAroundRadius != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMinimumAroundRadius gets a reference to the given int32 and assigns it to the MinimumAroundRadius field.
+func (o *SearchParametersOverrides) SetMinimumAroundRadius(v int32) *SearchParametersOverrides {
+	o.MinimumAroundRadius = &v
+
+	return o
+}
+
+// GetInsideBoundingBox returns the InsideBoundingBox field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchParametersOverrides) GetInsideBoundingBox() InsideBoundingBoxUnion {
+	if o == nil || o.InsideBoundingBox.Get() == nil {
+		var ret InsideBoundingBoxUnion
+
+		return ret
+	}
+
+	return *o.InsideBoundingBox.Get()
+}
+
+// GetInsideBoundingBoxOk returns a tuple with the InsideBoundingBox field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchParametersOverrides) GetInsideBoundingBoxOk() (*InsideBoundingBoxUnion, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.InsideBoundingBox.Get(), o.InsideBoundingBox.IsSet()
+}
+
+// HasInsideBoundingBox returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasInsideBoundingBox() bool {
+	if o != nil && o.InsideBoundingBox.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInsideBoundingBox gets a reference to the given utils.Nullable[InsideBoundingBoxUnion] and assigns it to the InsideBoundingBox field.
+func (o *SearchParametersOverrides) SetInsideBoundingBox(v *InsideBoundingBoxUnion) *SearchParametersOverrides {
+	o.InsideBoundingBox.Set(v)
+
+	return o
+}
+
+// SetInsideBoundingBoxNil sets the value for InsideBoundingBox to be an explicit nil.
+func (o *SearchParametersOverrides) SetInsideBoundingBoxNil() {
+	o.InsideBoundingBox.Set(nil)
+}
+
+// UnsetInsideBoundingBox ensures that no value is present for InsideBoundingBox, not even an explicit nil.
+func (o *SearchParametersOverrides) UnsetInsideBoundingBox() {
+	o.InsideBoundingBox.Unset()
+}
+
+// GetInsidePolygon returns the InsidePolygon field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchParametersOverrides) GetInsidePolygon() InsidePolygonUnion {
+	if o == nil || o.InsidePolygon.Get() == nil {
+		var ret InsidePolygonUnion
+
+		return ret
+	}
+
+	return *o.InsidePolygon.Get()
+}
+
+// GetInsidePolygonOk returns a tuple with the InsidePolygon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchParametersOverrides) GetInsidePolygonOk() (*InsidePolygonUnion, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.InsidePolygon.Get(), o.InsidePolygon.IsSet()
+}
+
+// HasInsidePolygon returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasInsidePolygon() bool {
+	if o != nil && o.InsidePolygon.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInsidePolygon gets a reference to the given utils.Nullable[InsidePolygonUnion] and assigns it to the InsidePolygon field.
+func (o *SearchParametersOverrides) SetInsidePolygon(v *InsidePolygonUnion) *SearchParametersOverrides {
+	o.InsidePolygon.Set(v)
+
+	return o
+}
+
+// SetInsidePolygonNil sets the value for InsidePolygon to be an explicit nil.
+func (o *SearchParametersOverrides) SetInsidePolygonNil() {
+	o.InsidePolygon.Set(nil)
+}
+
+// UnsetInsidePolygon ensures that no value is present for InsidePolygon, not even an explicit nil.
+func (o *SearchParametersOverrides) UnsetInsidePolygon() {
+	o.InsidePolygon.Unset()
+}
+
 func (o SearchParametersOverrides) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Filters != nil {
@@ -440,6 +748,30 @@ func (o SearchParametersOverrides) MarshalJSON() ([]byte, error) {
 		toSerialize["optionalFilters"] = o.OptionalFilters.Get()
 	}
 
+	if o.AroundLatLng != nil {
+		toSerialize["aroundLatLng"] = o.AroundLatLng
+	}
+
+	if o.AroundRadius.IsSet() {
+		toSerialize["aroundRadius"] = o.AroundRadius.Get()
+	}
+
+	if o.AroundPrecision.IsSet() {
+		toSerialize["aroundPrecision"] = o.AroundPrecision.Get()
+	}
+
+	if o.MinimumAroundRadius != nil {
+		toSerialize["minimumAroundRadius"] = o.MinimumAroundRadius
+	}
+
+	if o.InsideBoundingBox.IsSet() {
+		toSerialize["insideBoundingBox"] = o.InsideBoundingBox.Get()
+	}
+
+	if o.InsidePolygon.IsSet() {
+		toSerialize["insidePolygon"] = o.InsidePolygon.Get()
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchParametersOverrides: %w", err)
@@ -458,6 +790,12 @@ func (o SearchParametersOverrides) String() string {
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  personalizationImpact=%v\n", o.PersonalizationImpact)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
+	out += fmt.Sprintf("  aroundLatLng=%v\n", o.AroundLatLng)
+	out += fmt.Sprintf("  aroundRadius=%v\n", o.AroundRadius)
+	out += fmt.Sprintf("  aroundPrecision=%v\n", o.AroundPrecision)
+	out += fmt.Sprintf("  minimumAroundRadius=%v\n", o.MinimumAroundRadius)
+	out += fmt.Sprintf("  insideBoundingBox=%v\n", o.InsideBoundingBox)
+	out += fmt.Sprintf("  insidePolygon=%v\n", o.InsidePolygon)
 
 	return fmt.Sprintf("SearchParametersOverrides {\n%s}", out)
 }
