@@ -10,20 +10,21 @@ import (
 
 // SearchParametersOverrides Algolia Search API parameters that can be predefined for the search tool. Reference: https://www.algolia.com/doc/api-reference/search-api-parameters/  A subset of SearchParameters of specific params we allow for runtime override.
 type SearchParametersOverrides struct {
-	Filters                      *string                                `json:"filters,omitempty"`
-	AttributesToRetrieve         []string                               `json:"attributesToRetrieve,omitempty"`
-	RestrictSearchableAttributes []string                               `json:"restrictSearchableAttributes,omitempty"`
-	Distinct                     utils.Nullable[DistinctUnion]          `json:"distinct,omitempty"`
-	UserToken                    *string                                `json:"userToken,omitempty"`
-	EnablePersonalization        *bool                                  `json:"enablePersonalization,omitempty"`
-	PersonalizationImpact        *int32                                 `json:"personalizationImpact,omitempty"`
-	OptionalFilters              utils.Nullable[OptionalFiltersUnion]   `json:"optionalFilters,omitempty"`
-	AroundLatLng                 *string                                `json:"aroundLatLng,omitempty"`
-	AroundRadius                 utils.Nullable[AroundRadiusUnion]      `json:"aroundRadius,omitempty"`
-	AroundPrecision              utils.Nullable[AroundPrecisionUnion]   `json:"aroundPrecision,omitempty"`
-	MinimumAroundRadius          *int32                                 `json:"minimumAroundRadius,omitempty"`
-	InsideBoundingBox            utils.Nullable[InsideBoundingBoxUnion] `json:"insideBoundingBox,omitempty"`
-	InsidePolygon                utils.Nullable[InsidePolygonUnion]     `json:"insidePolygon,omitempty"`
+	Filters                      *string                                                    `json:"filters,omitempty"`
+	AttributesToRetrieve         []string                                                   `json:"attributesToRetrieve,omitempty"`
+	RestrictSearchableAttributes []string                                                   `json:"restrictSearchableAttributes,omitempty"`
+	Distinct                     utils.Nullable[DistinctUnion]                              `json:"distinct,omitempty"`
+	UserToken                    *string                                                    `json:"userToken,omitempty"`
+	EnablePersonalization        *bool                                                      `json:"enablePersonalization,omitempty"`
+	PersonalizationImpact        *int32                                                     `json:"personalizationImpact,omitempty"`
+	OptionalFilters              utils.Nullable[OptionalFiltersUnion]                       `json:"optionalFilters,omitempty"`
+	FacetFilters                 utils.Nullable[FacetFiltersUnionSearchParametersOverrides] `json:"facetFilters,omitempty"`
+	AroundLatLng                 *string                                                    `json:"aroundLatLng,omitempty"`
+	AroundRadius                 utils.Nullable[AroundRadiusUnion]                          `json:"aroundRadius,omitempty"`
+	AroundPrecision              utils.Nullable[AroundPrecisionUnion]                       `json:"aroundPrecision,omitempty"`
+	MinimumAroundRadius          *int32                                                     `json:"minimumAroundRadius,omitempty"`
+	InsideBoundingBox            utils.Nullable[InsideBoundingBoxUnion]                     `json:"insideBoundingBox,omitempty"`
+	InsidePolygon                utils.Nullable[InsidePolygonUnion]                         `json:"insidePolygon,omitempty"`
 }
 
 type SearchParametersOverridesOption func(f *SearchParametersOverrides)
@@ -73,6 +74,12 @@ func WithSearchParametersOverridesPersonalizationImpact(val int32) SearchParamet
 func WithSearchParametersOverridesOptionalFilters(val utils.Nullable[OptionalFiltersUnion]) SearchParametersOverridesOption {
 	return func(f *SearchParametersOverrides) {
 		f.OptionalFilters = val
+	}
+}
+
+func WithSearchParametersOverridesFacetFilters(val utils.Nullable[FacetFiltersUnionSearchParametersOverrides]) SearchParametersOverridesOption {
+	return func(f *SearchParametersOverrides) {
+		f.FacetFilters = val
 	}
 }
 
@@ -448,6 +455,54 @@ func (o *SearchParametersOverrides) UnsetOptionalFilters() {
 	o.OptionalFilters.Unset()
 }
 
+// GetFacetFilters returns the FacetFilters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SearchParametersOverrides) GetFacetFilters() FacetFiltersUnionSearchParametersOverrides {
+	if o == nil || o.FacetFilters.Get() == nil {
+		var ret FacetFiltersUnionSearchParametersOverrides
+
+		return ret
+	}
+
+	return *o.FacetFilters.Get()
+}
+
+// GetFacetFiltersOk returns a tuple with the FacetFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *SearchParametersOverrides) GetFacetFiltersOk() (*FacetFiltersUnionSearchParametersOverrides, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.FacetFilters.Get(), o.FacetFilters.IsSet()
+}
+
+// HasFacetFilters returns a boolean if a field has been set.
+func (o *SearchParametersOverrides) HasFacetFilters() bool {
+	if o != nil && o.FacetFilters.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFacetFilters gets a reference to the given utils.Nullable[FacetFiltersUnionSearchParametersOverrides] and assigns it to the FacetFilters field.
+func (o *SearchParametersOverrides) SetFacetFilters(v *FacetFiltersUnionSearchParametersOverrides) *SearchParametersOverrides {
+	o.FacetFilters.Set(v)
+
+	return o
+}
+
+// SetFacetFiltersNil sets the value for FacetFilters to be an explicit nil.
+func (o *SearchParametersOverrides) SetFacetFiltersNil() {
+	o.FacetFilters.Set(nil)
+}
+
+// UnsetFacetFilters ensures that no value is present for FacetFilters, not even an explicit nil.
+func (o *SearchParametersOverrides) UnsetFacetFilters() {
+	o.FacetFilters.Unset()
+}
+
 // GetAroundLatLng returns the AroundLatLng field value if set, zero value otherwise.
 func (o *SearchParametersOverrides) GetAroundLatLng() string {
 	if o == nil || o.AroundLatLng == nil {
@@ -748,6 +803,10 @@ func (o SearchParametersOverrides) MarshalJSON() ([]byte, error) {
 		toSerialize["optionalFilters"] = o.OptionalFilters.Get()
 	}
 
+	if o.FacetFilters.IsSet() {
+		toSerialize["facetFilters"] = o.FacetFilters.Get()
+	}
+
 	if o.AroundLatLng != nil {
 		toSerialize["aroundLatLng"] = o.AroundLatLng
 	}
@@ -790,6 +849,7 @@ func (o SearchParametersOverrides) String() string {
 	out += fmt.Sprintf("  enablePersonalization=%v\n", o.EnablePersonalization)
 	out += fmt.Sprintf("  personalizationImpact=%v\n", o.PersonalizationImpact)
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
+	out += fmt.Sprintf("  facetFilters=%v\n", o.FacetFilters)
 	out += fmt.Sprintf("  aroundLatLng=%v\n", o.AroundLatLng)
 	out += fmt.Sprintf("  aroundRadius=%v\n", o.AroundRadius)
 	out += fmt.Sprintf("  aroundPrecision=%v\n", o.AroundPrecision)

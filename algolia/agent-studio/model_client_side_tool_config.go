@@ -12,18 +12,38 @@ type ClientSideToolConfig struct {
 	Type        string                `json:"type"`
 	Description string                `json:"description"`
 	InputSchema ClientToolsArgsSchema `json:"inputSchema"`
+	// Server-side declaration that this tool is display/render-only: a resolved result ends the turn and the model is not re-invoked on it (CR-11753). The client's terminal claim on a tool result is honored only when this agrees; leave false for data tools whose result the model must reason about.
+	IsTerminal *bool `json:"isTerminal,omitempty"`
+}
+
+type ClientSideToolConfigOption func(f *ClientSideToolConfig)
+
+func WithClientSideToolConfigIsTerminal(val bool) ClientSideToolConfigOption {
+	return func(f *ClientSideToolConfig) {
+		f.IsTerminal = &val
+	}
 }
 
 // NewClientSideToolConfig instantiates a new ClientSideToolConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewClientSideToolConfig(name string, type_ string, description string, inputSchema ClientToolsArgsSchema) *ClientSideToolConfig {
+func NewClientSideToolConfig(
+	name string,
+	type_ string,
+	description string,
+	inputSchema ClientToolsArgsSchema,
+	opts ...ClientSideToolConfigOption,
+) *ClientSideToolConfig {
 	this := &ClientSideToolConfig{}
 	this.Name = name
 	this.Type = type_
 	this.Description = description
+
 	this.InputSchema = inputSchema
+	for _, opt := range opts {
+		opt(this)
+	}
 
 	return this
 }
@@ -145,12 +165,53 @@ func (o *ClientSideToolConfig) SetInputSchema(v *ClientToolsArgsSchema) *ClientS
 	return o
 }
 
+// GetIsTerminal returns the IsTerminal field value if set, zero value otherwise.
+func (o *ClientSideToolConfig) GetIsTerminal() bool {
+	if o == nil || o.IsTerminal == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.IsTerminal
+}
+
+// GetIsTerminalOk returns a tuple with the IsTerminal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClientSideToolConfig) GetIsTerminalOk() (*bool, bool) {
+	if o == nil || o.IsTerminal == nil {
+		return nil, false
+	}
+
+	return o.IsTerminal, true
+}
+
+// HasIsTerminal returns a boolean if a field has been set.
+func (o *ClientSideToolConfig) HasIsTerminal() bool {
+	if o != nil && o.IsTerminal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsTerminal gets a reference to the given bool and assigns it to the IsTerminal field.
+func (o *ClientSideToolConfig) SetIsTerminal(v bool) *ClientSideToolConfig {
+	o.IsTerminal = &v
+
+	return o
+}
+
 func (o ClientSideToolConfig) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
 	toSerialize["description"] = o.Description
+
 	toSerialize["inputSchema"] = o.InputSchema
+	if o.IsTerminal != nil {
+		toSerialize["isTerminal"] = o.IsTerminal
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -166,6 +227,7 @@ func (o ClientSideToolConfig) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 	out += fmt.Sprintf("  inputSchema=%v\n", o.InputSchema)
+	out += fmt.Sprintf("  isTerminal=%v\n", o.IsTerminal)
 
 	return fmt.Sprintf("ClientSideToolConfig {\n%s}", out)
 }

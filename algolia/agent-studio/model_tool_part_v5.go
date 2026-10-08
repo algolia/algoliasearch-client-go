@@ -18,6 +18,7 @@ type ToolPartV5 struct {
 	Output           map[string]any         `json:"output,omitempty"`
 	OutputMetadata   map[string]any         `json:"outputMetadata,omitempty"`
 	ErrorText        utils.Nullable[string] `json:"errorText,omitempty"`
+	Terminal         utils.Nullable[bool]   `json:"terminal,omitempty"`
 	ProviderOptions  map[string]any         `json:"providerOptions,omitempty"`
 	RequiresApproval utils.Nullable[bool]   `json:"requiresApproval,omitempty"`
 	Description      utils.Nullable[string] `json:"description,omitempty"`
@@ -59,6 +60,12 @@ func WithToolPartV5OutputMetadata(val map[string]any) ToolPartV5Option {
 func WithToolPartV5ErrorText(val utils.Nullable[string]) ToolPartV5Option {
 	return func(f *ToolPartV5) {
 		f.ErrorText = val
+	}
+}
+
+func WithToolPartV5Terminal(val utils.Nullable[bool]) ToolPartV5Option {
+	return func(f *ToolPartV5) {
+		f.Terminal = val
 	}
 }
 
@@ -400,6 +407,54 @@ func (o *ToolPartV5) UnsetErrorText() {
 	o.ErrorText.Unset()
 }
 
+// GetTerminal returns the Terminal field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ToolPartV5) GetTerminal() bool {
+	if o == nil || o.Terminal.Get() == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.Terminal.Get()
+}
+
+// GetTerminalOk returns a tuple with the Terminal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *ToolPartV5) GetTerminalOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.Terminal.Get(), o.Terminal.IsSet()
+}
+
+// HasTerminal returns a boolean if a field has been set.
+func (o *ToolPartV5) HasTerminal() bool {
+	if o != nil && o.Terminal.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTerminal gets a reference to the given utils.Nullable[bool] and assigns it to the Terminal field.
+func (o *ToolPartV5) SetTerminal(v bool) *ToolPartV5 {
+	o.Terminal.Set(&v)
+
+	return o
+}
+
+// SetTerminalNil sets the value for Terminal to be an explicit nil.
+func (o *ToolPartV5) SetTerminalNil() {
+	o.Terminal.Set(nil)
+}
+
+// UnsetTerminal ensures that no value is present for Terminal, not even an explicit nil.
+func (o *ToolPartV5) UnsetTerminal() {
+	o.Terminal.Unset()
+}
+
 // GetProviderOptions returns the ProviderOptions field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ToolPartV5) GetProviderOptions() map[string]any {
 	if o == nil {
@@ -611,6 +666,10 @@ func (o ToolPartV5) MarshalJSON() ([]byte, error) {
 		toSerialize["errorText"] = o.ErrorText.Get()
 	}
 
+	if o.Terminal.IsSet() {
+		toSerialize["terminal"] = o.Terminal.Get()
+	}
+
 	if o.ProviderOptions != nil {
 		toSerialize["providerOptions"] = o.ProviderOptions
 	}
@@ -645,6 +704,7 @@ func (o ToolPartV5) String() string {
 	out += fmt.Sprintf("  output=%v\n", o.Output)
 	out += fmt.Sprintf("  outputMetadata=%v\n", o.OutputMetadata)
 	out += fmt.Sprintf("  errorText=%v\n", o.ErrorText)
+	out += fmt.Sprintf("  terminal=%v\n", o.Terminal)
 	out += fmt.Sprintf("  providerOptions=%v\n", o.ProviderOptions)
 	out += fmt.Sprintf("  requiresApproval=%v\n", o.RequiresApproval)
 	out += fmt.Sprintf("  description=%v\n", o.Description)
