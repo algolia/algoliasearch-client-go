@@ -17,8 +17,10 @@ type SourceUpdateCommercetools struct {
 	// Predicate to filter out specific products when indexing. For more information, see [Query Predicate](https://docs.commercetools.com/api/predicates/query).
 	ProductQueryPredicate *string `json:"productQueryPredicate,omitempty"`
 	// When set to true, the connector indexes objects with all images attributes instead of only the URLs.
-	UseImagesObjects *bool                      `json:"useImagesObjects,omitempty"`
-	CustomFields     *CommercetoolsCustomFields `json:"customFields,omitempty"`
+	UseImagesObjects *bool `json:"useImagesObjects,omitempty"`
+	// When set to true, the connector uses the complete category path (e.g. \"Root > Level 1 > Category name\") in `categoriesCustomFields`.
+	CategoriesCustomFieldsFullPath *bool                      `json:"categoriesCustomFieldsFullPath,omitempty"`
+	CustomFields                   *CommercetoolsCustomFields `json:"customFields,omitempty"`
 }
 
 type SourceUpdateCommercetoolsOption func(f *SourceUpdateCommercetools)
@@ -56,6 +58,12 @@ func WithSourceUpdateCommercetoolsProductQueryPredicate(val string) SourceUpdate
 func WithSourceUpdateCommercetoolsUseImagesObjects(val bool) SourceUpdateCommercetoolsOption {
 	return func(f *SourceUpdateCommercetools) {
 		f.UseImagesObjects = &val
+	}
+}
+
+func WithSourceUpdateCommercetoolsCategoriesCustomFieldsFullPath(val bool) SourceUpdateCommercetoolsOption {
+	return func(f *SourceUpdateCommercetools) {
+		f.CategoriesCustomFieldsFullPath = &val
 	}
 }
 
@@ -305,6 +313,43 @@ func (o *SourceUpdateCommercetools) SetUseImagesObjects(v bool) *SourceUpdateCom
 	return o
 }
 
+// GetCategoriesCustomFieldsFullPath returns the CategoriesCustomFieldsFullPath field value if set, zero value otherwise.
+func (o *SourceUpdateCommercetools) GetCategoriesCustomFieldsFullPath() bool {
+	if o == nil || o.CategoriesCustomFieldsFullPath == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.CategoriesCustomFieldsFullPath
+}
+
+// GetCategoriesCustomFieldsFullPathOk returns a tuple with the CategoriesCustomFieldsFullPath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceUpdateCommercetools) GetCategoriesCustomFieldsFullPathOk() (*bool, bool) {
+	if o == nil || o.CategoriesCustomFieldsFullPath == nil {
+		return nil, false
+	}
+
+	return o.CategoriesCustomFieldsFullPath, true
+}
+
+// HasCategoriesCustomFieldsFullPath returns a boolean if a field has been set.
+func (o *SourceUpdateCommercetools) HasCategoriesCustomFieldsFullPath() bool {
+	if o != nil && o.CategoriesCustomFieldsFullPath != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCategoriesCustomFieldsFullPath gets a reference to the given bool and assigns it to the CategoriesCustomFieldsFullPath field.
+func (o *SourceUpdateCommercetools) SetCategoriesCustomFieldsFullPath(v bool) *SourceUpdateCommercetools {
+	o.CategoriesCustomFieldsFullPath = &v
+
+	return o
+}
+
 // GetCustomFields returns the CustomFields field value if set, zero value otherwise.
 func (o *SourceUpdateCommercetools) GetCustomFields() CommercetoolsCustomFields {
 	if o == nil || o.CustomFields == nil {
@@ -368,6 +413,10 @@ func (o SourceUpdateCommercetools) MarshalJSON() ([]byte, error) {
 		toSerialize["useImagesObjects"] = o.UseImagesObjects
 	}
 
+	if o.CategoriesCustomFieldsFullPath != nil {
+		toSerialize["categoriesCustomFieldsFullPath"] = o.CategoriesCustomFieldsFullPath
+	}
+
 	if o.CustomFields != nil {
 		toSerialize["customFields"] = o.CustomFields
 	}
@@ -388,6 +437,7 @@ func (o SourceUpdateCommercetools) String() string {
 	out += fmt.Sprintf("  fallbackIsInStockValue=%v\n", o.FallbackIsInStockValue)
 	out += fmt.Sprintf("  productQueryPredicate=%v\n", o.ProductQueryPredicate)
 	out += fmt.Sprintf("  useImagesObjects=%v\n", o.UseImagesObjects)
+	out += fmt.Sprintf("  categoriesCustomFieldsFullPath=%v\n", o.CategoriesCustomFieldsFullPath)
 	out += fmt.Sprintf("  customFields=%v\n", o.CustomFields)
 
 	return fmt.Sprintf("SourceUpdateCommercetools {\n%s}", out)
