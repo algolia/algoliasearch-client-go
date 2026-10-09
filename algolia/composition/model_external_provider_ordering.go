@@ -6,18 +6,18 @@ import (
 	"fmt"
 )
 
-// ExternalProviderOrdering Ordering to apply on the items retrieved from the external provider. 'default' uses the relevance ranking from the Algolia retrieval step. 'providerDefined' uses the ordering returned by the external provider.
+// ExternalProviderOrdering Ordering to apply on the items retrieved from the external provider. 'algoliaDefined' uses the relevance ranking from the Algolia retrieval step. 'providerDefined' uses the ordering returned by the external provider.
 type ExternalProviderOrdering string
 
 // List of externalProviderOrdering.
 const (
-	EXTERNAL_PROVIDER_ORDERING_DEFAULT          ExternalProviderOrdering = "default"
+	EXTERNAL_PROVIDER_ORDERING_ALGOLIA_DEFINED  ExternalProviderOrdering = "algoliaDefined"
 	EXTERNAL_PROVIDER_ORDERING_PROVIDER_DEFINED ExternalProviderOrdering = "providerDefined"
 )
 
 // All allowed values of ExternalProviderOrdering enum.
 var AllowedExternalProviderOrderingEnumValues = []ExternalProviderOrdering{
-	"default",
+	"algoliaDefined",
 	"providerDefined",
 }
 
