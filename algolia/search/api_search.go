@@ -6081,7 +6081,6 @@ Notes:
 **Copy**
 
 - If the source index doesn't exist, copying creates a new index with 0 records and default settings.
-- API keys from the source index are merged with the existing keys in the destination index.
 - You can't copy the `enableReRanking`, `mode`, and `replicas` settings.
 - You can't copy to a destination index that already has replicas.
 - Be aware of the [size limits](https://www.algolia.com/doc/guides/scaling/algolia-service-limits/#application-record-and-index-limits).
@@ -6160,7 +6159,6 @@ Notes:
 **Copy**
 
 - If the source index doesn't exist, copying creates a new index with 0 records and default settings.
-- API keys from the source index are merged with the existing keys in the destination index.
 - You can't copy the `enableReRanking`, `mode`, and `replicas` settings.
 - You can't copy to a destination index that already has replicas.
 - Be aware of the [size limits](https://www.algolia.com/doc/guides/scaling/algolia-service-limits/#application-record-and-index-limits).
