@@ -9,6 +9,7 @@ import (
 // TaskCreateResponse API response for creating a task.
 type TaskCreateResponse struct {
 	// Universally unique identifier (UUID) of a task.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TaskID string `json:"taskID"`
 	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
@@ -106,4 +107,25 @@ func (o TaskCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("TaskCreateResponse {\n%s}", out)
+}
+
+// TaskCreateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskCreateResponseFieldExamples = map[string]string{
+	"taskID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskCreateResponse) FieldExample(field string) string {
+	return TaskCreateResponseFieldExamples[field]
+}
+
+// TaskCreateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskCreateResponseFieldDescriptions = map[string]string{
+	"taskID":    "Universally unique identifier (UUID) of a task.",
+	"createdAt": "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskCreateResponse) FieldDescription(field string) string {
+	return TaskCreateResponseFieldDescriptions[field]
 }

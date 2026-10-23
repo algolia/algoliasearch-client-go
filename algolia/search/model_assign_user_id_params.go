@@ -9,6 +9,7 @@ import (
 // AssignUserIdParams Assign userID parameters.
 type AssignUserIdParams struct {
 	// Cluster name.
+	// Example: c11-test
 	Cluster string `json:"cluster"`
 }
 
@@ -73,4 +74,24 @@ func (o AssignUserIdParams) String() string {
 	out += fmt.Sprintf("  cluster=%v\n", o.Cluster)
 
 	return fmt.Sprintf("AssignUserIdParams {\n%s}", out)
+}
+
+// AssignUserIdParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var AssignUserIdParamsFieldExamples = map[string]string{
+	"cluster": "c11-test",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AssignUserIdParams) FieldExample(field string) string {
+	return AssignUserIdParamsFieldExamples[field]
+}
+
+// AssignUserIdParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AssignUserIdParamsFieldDescriptions = map[string]string{
+	"cluster": "Cluster name.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AssignUserIdParams) FieldDescription(field string) string {
+	return AssignUserIdParamsFieldDescriptions[field]
 }

@@ -9,6 +9,7 @@ import (
 // GetUserTokenResponse struct for GetUserTokenResponse.
 type GetUserTokenResponse struct {
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: test-user-123
 	UserToken string `json:"userToken"`
 	// Date and time of the last event from this user, in RFC 3339 format.
 	LastEventAt string `json:"lastEventAt"`
@@ -139,4 +140,26 @@ func (o GetUserTokenResponse) String() string {
 	out += fmt.Sprintf("  scores=%v\n", o.Scores)
 
 	return fmt.Sprintf("GetUserTokenResponse {\n%s}", out)
+}
+
+// GetUserTokenResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetUserTokenResponseFieldExamples = map[string]string{
+	"userToken": "test-user-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetUserTokenResponse) FieldExample(field string) string {
+	return GetUserTokenResponseFieldExamples[field]
+}
+
+// GetUserTokenResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetUserTokenResponseFieldDescriptions = map[string]string{
+	"userToken":   "Unique pseudonymous or anonymous user identifier.\n\nThis helps with analytics and click and conversion events.\nFor more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"lastEventAt": "Date and time of the last event from this user, in RFC 3339 format.",
+	"scores":      "Scores for different facet values.\n\nScores represent the user affinity for a user profile towards specific facet values,\ngiven the personalization strategy and past events.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetUserTokenResponse) FieldDescription(field string) string {
+	return GetUserTokenResponseFieldDescriptions[field]
 }

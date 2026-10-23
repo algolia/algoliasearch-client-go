@@ -74,3 +74,13 @@ func (o TransformationCode) String() string {
 
 	return fmt.Sprintf("TransformationCode {\n%s}", out)
 }
+
+// TransformationCodeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationCodeFieldDescriptions = map[string]string{
+	"code": "The source code of the transformation.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationCode) FieldDescription(field string) string {
+	return TransformationCodeFieldDescriptions[field]
+}

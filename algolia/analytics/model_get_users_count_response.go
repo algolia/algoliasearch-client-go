@@ -107,3 +107,14 @@ func (o GetUsersCountResponse) String() string {
 
 	return fmt.Sprintf("GetUsersCountResponse {\n%s}", out)
 }
+
+// GetUsersCountResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetUsersCountResponseFieldDescriptions = map[string]string{
+	"count": "Number of unique users.",
+	"dates": "Daily number of unique users.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetUsersCountResponse) FieldDescription(field string) string {
+	return GetUsersCountResponseFieldDescriptions[field]
+}

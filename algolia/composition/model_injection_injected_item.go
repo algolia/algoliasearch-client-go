@@ -231,3 +231,14 @@ func (o InjectionInjectedItem) String() string {
 
 	return fmt.Sprintf("InjectionInjectedItem {\n%s}", out)
 }
+
+// InjectionInjectedItemFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectionInjectedItemFieldDescriptions = map[string]string{
+	"key":      "injected Item unique identifier.",
+	"metadata": "Used to add metadata to the results of the injectedItem.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectionInjectedItem) FieldDescription(field string) string {
+	return InjectionInjectedItemFieldDescriptions[field]
+}

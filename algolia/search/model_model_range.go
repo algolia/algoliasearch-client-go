@@ -9,6 +9,7 @@ import (
 // ModelRange Range object with lower and upper values in meters to define custom ranges.
 type ModelRange struct {
 	// Lower boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.
+	// Example: 20
 	From *int32 `json:"from,omitempty"`
 	// Upper boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.
 	Value *int32 `json:"value,omitempty"`
@@ -144,4 +145,25 @@ func (o ModelRange) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 
 	return fmt.Sprintf("ModelRange {\n%s}", out)
+}
+
+// ModelRangeFieldExamples maps each field (by its JSON name) to its spec example value.
+var ModelRangeFieldExamples = map[string]string{
+	"from": "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ModelRange) FieldExample(field string) string {
+	return ModelRangeFieldExamples[field]
+}
+
+// ModelRangeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ModelRangeFieldDescriptions = map[string]string{
+	"from":  "Lower boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.",
+	"value": "Upper boundary of a range in meters. The Geo ranking criterion considers all records within the range to be equal.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ModelRange) FieldDescription(field string) string {
+	return ModelRangeFieldDescriptions[field]
 }

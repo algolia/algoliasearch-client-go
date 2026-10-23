@@ -173,3 +173,16 @@ func (o Episode) String() string {
 
 	return fmt.Sprintf("Episode {\n%s}", out)
 }
+
+// EpisodeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EpisodeFieldDescriptions = map[string]string{
+	"observation": "What user wanted + key context (1-2 sentences). Include prior failed attempts if they informed the approach.",
+	"thoughts":    "WHY this approach was chosen, which constraints/preferences drove decisions (1-3 sentences). Capture reasoning that applies to similar future scenarios.",
+	"action":      "What was done with PRECISE details (1-3 sentences). WITH tool calls: use arrow notation `tool(param:value) → feedback → tool(refined_param:new_value)`. WITHOUT tool calls: capture communication/workflow pattern.",
+	"result":      "Learned pattern + effectiveness (1-3 sentences). What worked and WHY it's replicable. Note efficiency: multi-turn refinements, which results were relevant, what made final attempt succeed. Use strict `param:value` syntax for learnings. Format: 'For [context], use [param:value] because [reason]'.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Episode) FieldDescription(field string) string {
+	return EpisodeFieldDescriptions[field]
+}

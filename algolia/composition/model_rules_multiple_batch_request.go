@@ -105,3 +105,13 @@ func (o RulesMultipleBatchRequest) String() string {
 
 	return fmt.Sprintf("RulesMultipleBatchRequest {\n%s}", out)
 }
+
+// RulesMultipleBatchRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RulesMultipleBatchRequestFieldDescriptions = map[string]string{
+	"action": "Type of Composition Batch operation.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RulesMultipleBatchRequest) FieldDescription(field string) string {
+	return RulesMultipleBatchRequestFieldDescriptions[field]
+}

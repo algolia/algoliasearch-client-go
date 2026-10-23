@@ -9,10 +9,13 @@ import (
 // DailySearchesNoClicks struct for DailySearchesNoClicks.
 type DailySearchesNoClicks struct {
 	// Search query.
+	// Example: separator
 	Search string `json:"search"`
 	// Number of tracked searches.
+	// Example: 7
 	Count int32 `json:"count"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits int32 `json:"nbHits"`
 }
 
@@ -139,4 +142,28 @@ func (o DailySearchesNoClicks) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 
 	return fmt.Sprintf("DailySearchesNoClicks {\n%s}", out)
+}
+
+// DailySearchesNoClicksFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailySearchesNoClicksFieldExamples = map[string]string{
+	"search": "separator",
+	"count":  "7",
+	"nbHits": "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailySearchesNoClicks) FieldExample(field string) string {
+	return DailySearchesNoClicksFieldExamples[field]
+}
+
+// DailySearchesNoClicksFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailySearchesNoClicksFieldDescriptions = map[string]string{
+	"search": "Search query.",
+	"count":  "Number of tracked searches.",
+	"nbHits": "Number of results (hits).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailySearchesNoClicks) FieldDescription(field string) string {
+	return DailySearchesNoClicksFieldDescriptions[field]
 }

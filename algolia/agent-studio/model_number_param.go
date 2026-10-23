@@ -201,3 +201,13 @@ func (o NumberParam) String() string {
 
 	return fmt.Sprintf("NumberParam {\n%s}", out)
 }
+
+// NumberParamFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var NumberParamFieldDescriptions = map[string]string{
+	"constraint": "Constraints for a number parameter.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o NumberParam) FieldDescription(field string) string {
+	return NumberParamFieldDescriptions[field]
+}

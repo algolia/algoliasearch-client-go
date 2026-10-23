@@ -195,3 +195,15 @@ func (o HierarchyPathEntry) String() string {
 
 	return fmt.Sprintf("HierarchyPathEntry {\n%s}", out)
 }
+
+// HierarchyPathEntryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var HierarchyPathEntryFieldDescriptions = map[string]string{
+	"facetName":  "Facet attribute name at this hierarchy level, for example, `categories.lvl0`.",
+	"facetValue": "Facet value at this level of the category hierarchy.",
+	"depth":      "Depth level in the category hierarchy, starting at 0.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o HierarchyPathEntry) FieldDescription(field string) string {
+	return HierarchyPathEntryFieldDescriptions[field]
+}

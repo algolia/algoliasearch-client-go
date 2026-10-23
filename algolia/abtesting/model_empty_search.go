@@ -95,3 +95,13 @@ func (o EmptySearch) String() string {
 
 	return fmt.Sprintf("EmptySearch {\n%s}", out)
 }
+
+// EmptySearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EmptySearchFieldDescriptions = map[string]string{
+	"exclude": "Whether to exclude empty searches when calculating A/B test results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EmptySearch) FieldDescription(field string) string {
+	return EmptySearchFieldDescriptions[field]
+}

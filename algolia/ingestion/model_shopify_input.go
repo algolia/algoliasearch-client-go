@@ -105,3 +105,13 @@ func (o ShopifyInput) String() string {
 
 	return fmt.Sprintf("ShopifyInput {\n%s}", out)
 }
+
+// ShopifyInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ShopifyInputFieldDescriptions = map[string]string{
+	"market": "Represents a market in Shopify.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ShopifyInput) FieldDescription(field string) string {
+	return ShopifyInputFieldDescriptions[field]
+}

@@ -78,3 +78,13 @@ func (o TimeseriesResponse) String() string {
 
 	return fmt.Sprintf("TimeseriesResponse {\n%s}", out)
 }
+
+// TimeseriesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TimeseriesResponseFieldDescriptions = map[string]string{
+	"series": "One entry per `groupBy` combination. `null` when the query matched no data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TimeseriesResponse) FieldDescription(field string) string {
+	return TimeseriesResponseFieldDescriptions[field]
+}

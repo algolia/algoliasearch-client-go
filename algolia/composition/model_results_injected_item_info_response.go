@@ -9,6 +9,7 @@ import (
 // ResultsInjectedItemInfoResponse struct for ResultsInjectedItemInfoResponse.
 type ResultsInjectedItemInfoResponse struct {
 	// The key of the injected group.
+	// Example: men-sponsored-group
 	Key                  string                                        `json:"key"`
 	AppliedRules         []ResultsInjectedItemAppliedRulesInfoResponse `json:"appliedRules,omitempty"`
 	AdditionalProperties map[string]any                                `json:"-"`
@@ -187,4 +188,24 @@ func (o ResultsInjectedItemInfoResponse) String() string {
 	}
 
 	return fmt.Sprintf("ResultsInjectedItemInfoResponse {\n%s}", out)
+}
+
+// ResultsInjectedItemInfoResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ResultsInjectedItemInfoResponseFieldExamples = map[string]string{
+	"key": "men-sponsored-group",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ResultsInjectedItemInfoResponse) FieldExample(field string) string {
+	return ResultsInjectedItemInfoResponseFieldExamples[field]
+}
+
+// ResultsInjectedItemInfoResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ResultsInjectedItemInfoResponseFieldDescriptions = map[string]string{
+	"key": "The key of the injected group.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ResultsInjectedItemInfoResponse) FieldDescription(field string) string {
+	return ResultsInjectedItemInfoResponseFieldDescriptions[field]
 }

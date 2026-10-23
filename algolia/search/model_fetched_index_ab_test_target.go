@@ -9,6 +9,7 @@ import (
 // FetchedIndexAbTestTarget A/B test target criteria. Only present for v2 and later tests.
 type FetchedIndexAbTestTarget struct {
 	// Index name to match. Use `*` to target the entire application.
+	// Example: movies
 	IndexName string `json:"indexName"`
 }
 
@@ -73,4 +74,24 @@ func (o FetchedIndexAbTestTarget) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 
 	return fmt.Sprintf("FetchedIndexAbTestTarget {\n%s}", out)
+}
+
+// FetchedIndexAbTestTargetFieldExamples maps each field (by its JSON name) to its spec example value.
+var FetchedIndexAbTestTargetFieldExamples = map[string]string{
+	"indexName": "movies",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FetchedIndexAbTestTarget) FieldExample(field string) string {
+	return FetchedIndexAbTestTargetFieldExamples[field]
+}
+
+// FetchedIndexAbTestTargetFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FetchedIndexAbTestTargetFieldDescriptions = map[string]string{
+	"indexName": "Index name to match. Use `*` to target the entire application.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FetchedIndexAbTestTarget) FieldDescription(field string) string {
+	return FetchedIndexAbTestTargetFieldDescriptions[field]
 }

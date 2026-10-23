@@ -9,10 +9,13 @@ import (
 // GetNoResultsRateResponse struct for GetNoResultsRateResponse.
 type GetNoResultsRateResponse struct {
 	// No results rate: calculated as the number of searches with zero results divided by the total number of searches.
+	// Example: 0.49
 	Rate float64 `json:"rate"`
 	// Number of searches.
+	// Example: 504
 	Count int32 `json:"count"`
 	// Number of searches without any results.
+	// Example: 54
 	NoResultCount int32 `json:"noResultCount"`
 	// Daily no results rates.
 	Dates []DailyNoResultsRates `json:"dates"`
@@ -172,4 +175,29 @@ func (o GetNoResultsRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 
 	return fmt.Sprintf("GetNoResultsRateResponse {\n%s}", out)
+}
+
+// GetNoResultsRateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetNoResultsRateResponseFieldExamples = map[string]string{
+	"rate":          "0.49",
+	"count":         "504",
+	"noResultCount": "54",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetNoResultsRateResponse) FieldExample(field string) string {
+	return GetNoResultsRateResponseFieldExamples[field]
+}
+
+// GetNoResultsRateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetNoResultsRateResponseFieldDescriptions = map[string]string{
+	"rate":          "No results rate: calculated as the number of searches with zero results divided by the total number of searches.\n",
+	"count":         "Number of searches.",
+	"noResultCount": "Number of searches without any results.",
+	"dates":         "Daily no results rates.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetNoResultsRateResponse) FieldDescription(field string) string {
+	return GetNoResultsRateResponseFieldDescriptions[field]
 }

@@ -569,3 +569,14 @@ func (o AgentConfigUpdate) String() string {
 
 	return fmt.Sprintf("AgentConfigUpdate {\n%s}", out)
 }
+
+// AgentConfigUpdateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AgentConfigUpdateFieldDescriptions = map[string]string{
+	"instructions": "The agent prompt: defines the agent's role, tone, and goals. Guides how it answers using the provided context. Corresponds to the 'Agent prompt' field in the dashboard.",
+	"systemPrompt": "The system prompt: defines system-level rules and constraints. Guides how the agent uses tools, features, and generates context. Prepended before `instructions` in the final prompt sent to the LLM. Typically injected by an agent template — modify with caution, as changes may affect behavior, tool usage, or response accuracy. Corresponds to the 'System prompt' field in the dashboard.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AgentConfigUpdate) FieldDescription(field string) string {
+	return AgentConfigUpdateFieldDescriptions[field]
+}

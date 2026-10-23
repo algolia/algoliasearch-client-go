@@ -9,14 +9,19 @@ import (
 // ConfigStatus struct for ConfigStatus.
 type ConfigStatus struct {
 	// Name of the Query Suggestions index (case-sensitive).
+	// Example: ALGOLIA_INDEX_NAME
 	IndexName *string `json:"indexName,omitempty"`
 	// Whether the creation or update of the Query Suggestions index is in progress.
+	// Example: false
 	IsRunning *bool `json:"isRunning,omitempty"`
 	// Date and time when the Query Suggestions index was last built, in RFC 3339 format.
+	// Example: 2023-07-05T08:03:53Z
 	LastBuiltAt *string `json:"lastBuiltAt,omitempty"`
 	// Date and time when the Query Suggestions index was last updated successfully.
+	// Example: 2023-07-05T08:03:53Z
 	LastSuccessfulBuiltAt *string `json:"lastSuccessfulBuiltAt,omitempty"`
 	// Duration of the last successful build in seconds.
+	// Example: 28
 	LastSuccessfulBuildDuration *string `json:"lastSuccessfulBuildDuration,omitempty"`
 }
 
@@ -294,4 +299,32 @@ func (o ConfigStatus) String() string {
 	out += fmt.Sprintf("  lastSuccessfulBuildDuration=%v\n", o.LastSuccessfulBuildDuration)
 
 	return fmt.Sprintf("ConfigStatus {\n%s}", out)
+}
+
+// ConfigStatusFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConfigStatusFieldExamples = map[string]string{
+	"indexName":                   "ALGOLIA_INDEX_NAME",
+	"isRunning":                   "false",
+	"lastBuiltAt":                 "2023-07-05T08:03:53Z",
+	"lastSuccessfulBuiltAt":       "2023-07-05T08:03:53Z",
+	"lastSuccessfulBuildDuration": "28",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ConfigStatus) FieldExample(field string) string {
+	return ConfigStatusFieldExamples[field]
+}
+
+// ConfigStatusFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConfigStatusFieldDescriptions = map[string]string{
+	"indexName":                   "Name of the Query Suggestions index (case-sensitive).",
+	"isRunning":                   "Whether the creation or update of the Query Suggestions index is in progress.",
+	"lastBuiltAt":                 "Date and time when the Query Suggestions index was last built, in RFC 3339 format.",
+	"lastSuccessfulBuiltAt":       "Date and time when the Query Suggestions index was last updated successfully.",
+	"lastSuccessfulBuildDuration": "Duration of the last successful build in seconds.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConfigStatus) FieldDescription(field string) string {
+	return ConfigStatusFieldDescriptions[field]
 }

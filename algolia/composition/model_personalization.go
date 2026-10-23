@@ -195,3 +195,15 @@ func (o Personalization) String() string {
 
 	return fmt.Sprintf("Personalization {\n%s}", out)
 }
+
+// PersonalizationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PersonalizationFieldDescriptions = map[string]string{
+	"filtersScore": "The score of the filters.",
+	"rankingScore": "The score of the ranking.",
+	"score":        "The score of the event.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Personalization) FieldDescription(field string) string {
+	return PersonalizationFieldDescriptions[field]
+}

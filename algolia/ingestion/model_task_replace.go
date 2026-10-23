@@ -9,10 +9,12 @@ import (
 // TaskReplace API request body for updating a task.
 type TaskReplace struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID      string      `json:"destinationID"`
 	Action             ActionType  `json:"action"`
 	SubscriptionAction *ActionType `json:"subscriptionAction,omitempty"`
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron *string `json:"cron,omitempty"`
 	// Whether the task is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -507,4 +509,34 @@ func (o TaskReplace) String() string {
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 
 	return fmt.Sprintf("TaskReplace {\n%s}", out)
+}
+
+// TaskReplaceFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskReplaceFieldExamples = map[string]string{
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"cron":          "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskReplace) FieldExample(field string) string {
+	return TaskReplaceFieldExamples[field]
+}
+
+// TaskReplaceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskReplaceFieldDescriptions = map[string]string{
+	"destinationID":      "Universally unique identifier (UUID) of a destination resource.",
+	"action":             "Action to perform on the Algolia index.",
+	"subscriptionAction": "Action to perform on the Algolia index.",
+	"cron":               "Cron expression for the task's schedule.",
+	"enabled":            "Whether the task is enabled.",
+	"failureThreshold":   "Maximum accepted percentage of failures for a task run to finish successfully.",
+	"input":              "Configuration of the task, depending on its type.",
+	"cursor":             "Date and time when the last cursor was created, in RFC 3339 format.",
+	"notifications":      "Notifications settings for a task.",
+	"policies":           "Set of rules for a task.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskReplace) FieldDescription(field string) string {
+	return TaskReplaceFieldDescriptions[field]
 }

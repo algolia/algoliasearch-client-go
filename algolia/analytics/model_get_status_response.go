@@ -11,6 +11,7 @@ import (
 // GetStatusResponse struct for GetStatusResponse.
 type GetStatusResponse struct {
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	UpdatedAt utils.Nullable[string] `json:"updatedAt"`
 }
 
@@ -77,4 +78,24 @@ func (o GetStatusResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("GetStatusResponse {\n%s}", out)
+}
+
+// GetStatusResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetStatusResponseFieldExamples = map[string]string{
+	"updatedAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetStatusResponse) FieldExample(field string) string {
+	return GetStatusResponseFieldExamples[field]
+}
+
+// GetStatusResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetStatusResponseFieldDescriptions = map[string]string{
+	"updatedAt": "Date and time when the object was updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetStatusResponse) FieldDescription(field string) string {
+	return GetStatusResponseFieldDescriptions[field]
 }

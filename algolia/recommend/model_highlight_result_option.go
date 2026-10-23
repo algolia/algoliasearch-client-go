@@ -9,9 +9,11 @@ import (
 // HighlightResultOption Surround words that match the query with HTML tags for highlighting.
 type HighlightResultOption struct {
 	// Highlighted attribute value, including HTML tags.
+	// Example: <em>George</em> <em>Clo</em>oney
 	Value      string     `json:"value"`
 	MatchLevel MatchLevel `json:"matchLevel"`
 	// List of matched words from the search query.
+	// Example: ["action"]
 	MatchedWords []string `json:"matchedWords"`
 	// Whether the entire attribute value is highlighted.
 	FullyHighlighted *bool `json:"fullyHighlighted,omitempty"`
@@ -199,4 +201,28 @@ func (o HighlightResultOption) String() string {
 	out += fmt.Sprintf("  fullyHighlighted=%v\n", o.FullyHighlighted)
 
 	return fmt.Sprintf("HighlightResultOption {\n%s}", out)
+}
+
+// HighlightResultOptionFieldExamples maps each field (by its JSON name) to its spec example value.
+var HighlightResultOptionFieldExamples = map[string]string{
+	"value":        "<em>George</em> <em>Clo</em>oney",
+	"matchedWords": "[\"action\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o HighlightResultOption) FieldExample(field string) string {
+	return HighlightResultOptionFieldExamples[field]
+}
+
+// HighlightResultOptionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var HighlightResultOptionFieldDescriptions = map[string]string{
+	"value":            "Highlighted attribute value, including HTML tags.",
+	"matchLevel":       "Whether the whole query string matches or only a part.",
+	"matchedWords":     "List of matched words from the search query.",
+	"fullyHighlighted": "Whether the entire attribute value is highlighted.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o HighlightResultOption) FieldDescription(field string) string {
+	return HighlightResultOptionFieldDescriptions[field]
 }

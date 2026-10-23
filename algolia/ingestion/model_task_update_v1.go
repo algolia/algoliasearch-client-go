@@ -9,6 +9,7 @@ import (
 // TaskUpdateV1 API request body for updating a task using the V1 shape. Use methods and types that don't contain the V1 suffix.
 type TaskUpdateV1 struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID *string             `json:"destinationID,omitempty"`
 	Trigger       *TriggerUpdateInput `json:"trigger,omitempty"`
 	Input         *TaskInput          `json:"input,omitempty"`
@@ -292,4 +293,28 @@ func (o TaskUpdateV1) String() string {
 	out += fmt.Sprintf("  failureThreshold=%v\n", o.FailureThreshold)
 
 	return fmt.Sprintf("TaskUpdateV1 {\n%s}", out)
+}
+
+// TaskUpdateV1FieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskUpdateV1FieldExamples = map[string]string{
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskUpdateV1) FieldExample(field string) string {
+	return TaskUpdateV1FieldExamples[field]
+}
+
+// TaskUpdateV1FieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskUpdateV1FieldDescriptions = map[string]string{
+	"destinationID":    "Universally unique identifier (UUID) of a destination resource.",
+	"trigger":          "Trigger for a task update.",
+	"input":            "Configuration of the task, depending on its type.",
+	"enabled":          "Whether the task is enabled.",
+	"failureThreshold": "Maximum accepted percentage of failures for a task run to finish successfully.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskUpdateV1) FieldDescription(field string) string {
+	return TaskUpdateV1FieldDescriptions[field]
 }

@@ -229,3 +229,15 @@ func (o ContextTrimRequest) String() string {
 
 	return fmt.Sprintf("ContextTrimRequest {\n%s}", out)
 }
+
+// ContextTrimRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ContextTrimRequestFieldDescriptions = map[string]string{
+	"keepLastMessages":  "Keep only the last N messages, dropping older ones. Applied before the token budget.",
+	"maxTokensEstimate": "Drop oldest messages until the estimated token total fits this budget (heuristic).",
+	"dropToolParts":     "Strip tool-invocation/result parts from the messages that are kept. Applied before the token budget, so the budget counts only surviving content.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ContextTrimRequest) FieldDescription(field string) string {
+	return ContextTrimRequestFieldDescriptions[field]
+}

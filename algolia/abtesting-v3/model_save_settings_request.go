@@ -95,3 +95,13 @@ func (o SaveSettingsRequest) String() string {
 
 	return fmt.Sprintf("SaveSettingsRequest {\n%s}", out)
 }
+
+// SaveSettingsRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SaveSettingsRequestFieldDescriptions = map[string]string{
+	"saveFeaturesSettings": "Whether to also capture the variant's index settings and feature-specific settings. This must be true for A/B tests whose variants use different indices so that the captured variant settings can later be applied.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SaveSettingsRequest) FieldDescription(field string) string {
+	return SaveSettingsRequestFieldDescriptions[field]
+}

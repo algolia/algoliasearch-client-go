@@ -9,8 +9,10 @@ import (
 // Condition Condition that triggers the rule. If not specified, the rule is triggered for all recommendations.
 type Condition struct {
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
+	// Example: (category:Book OR category:Ebook) AND _tags:published
 	Filters *string `json:"filters,omitempty"`
 	// An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter. For example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`. A rule context must only contain alphanumeric characters.
+	// Example: mobile
 	Context *string `json:"context,omitempty"`
 }
 
@@ -144,4 +146,26 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  context=%v\n", o.Context)
 
 	return fmt.Sprintf("Condition {\n%s}", out)
+}
+
+// ConditionFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConditionFieldExamples = map[string]string{
+	"filters": "(category:Book OR category:Ebook) AND _tags:published",
+	"context": "mobile",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Condition) FieldExample(field string) string {
+	return ConditionFieldExamples[field]
+}
+
+// ConditionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConditionFieldDescriptions = map[string]string{
+	"filters": "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
+	"context": "An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter.\nFor example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`.\nA rule context must only contain alphanumeric characters.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Condition) FieldDescription(field string) string {
+	return ConditionFieldDescriptions[field]
 }

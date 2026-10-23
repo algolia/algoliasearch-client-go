@@ -245,3 +245,16 @@ func (o FacetStats) String() string {
 
 	return fmt.Sprintf("FacetStats {\n%s}", out)
 }
+
+// FacetStatsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FacetStatsFieldDescriptions = map[string]string{
+	"min": "Minimum value in the results.",
+	"max": "Maximum value in the results.",
+	"avg": "Average facet value in the results.",
+	"sum": "Sum of all values in the results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FacetStats) FieldDescription(field string) string {
+	return FacetStatsFieldDescriptions[field]
+}

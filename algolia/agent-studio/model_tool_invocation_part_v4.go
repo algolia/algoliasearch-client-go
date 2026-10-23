@@ -128,3 +128,13 @@ func (o ToolInvocationPartV4) String() string {
 
 	return fmt.Sprintf("ToolInvocationPartV4 {\n%s}", out)
 }
+
+// ToolInvocationPartV4FieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ToolInvocationPartV4FieldDescriptions = map[string]string{
+	"toolInvocation": "A tool invocation in a message.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ToolInvocationPartV4) FieldDescription(field string) string {
+	return ToolInvocationPartV4FieldDescriptions[field]
+}

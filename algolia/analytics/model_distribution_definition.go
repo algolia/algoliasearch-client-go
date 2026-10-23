@@ -11,10 +11,12 @@ type DistributionDefinition struct {
 	// Domain the field belongs to.
 	Domain *string `json:"domain,omitempty"`
 	// Numeric field to bucket into a histogram.
+	// Example: clickPosition
 	Kind string `json:"kind"`
 	// Set to true for continuous kinds; use float bins.
 	Continuous *bool `json:"continuous,omitempty"`
 	// Bin edges.
+	// Example: [1,2,3,4,5,6,7,8,9,10,11,21,-1]
 	Bins []BinEdge `json:"bins"`
 }
 
@@ -212,4 +214,28 @@ func (o DistributionDefinition) String() string {
 	out += fmt.Sprintf("  bins=%v\n", o.Bins)
 
 	return fmt.Sprintf("DistributionDefinition {\n%s}", out)
+}
+
+// DistributionDefinitionFieldExamples maps each field (by its JSON name) to its spec example value.
+var DistributionDefinitionFieldExamples = map[string]string{
+	"kind": "clickPosition",
+	"bins": "[1,2,3,4,5,6,7,8,9,10,11,21,-1]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DistributionDefinition) FieldExample(field string) string {
+	return DistributionDefinitionFieldExamples[field]
+}
+
+// DistributionDefinitionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DistributionDefinitionFieldDescriptions = map[string]string{
+	"domain":     "Domain the field belongs to.",
+	"kind":       "Numeric field to bucket into a histogram.",
+	"continuous": "Set to true for continuous kinds; use float bins.",
+	"bins":       "Bin edges.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DistributionDefinition) FieldDescription(field string) string {
+	return DistributionDefinitionFieldDescriptions[field]
 }

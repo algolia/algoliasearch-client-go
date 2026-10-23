@@ -145,3 +145,14 @@ func (o AuthBasicPartial) String() string {
 
 	return fmt.Sprintf("AuthBasicPartial {\n%s}", out)
 }
+
+// AuthBasicPartialFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthBasicPartialFieldDescriptions = map[string]string{
+	"username": "Username.",
+	"password": "Password. This field is `null` in the API response.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthBasicPartial) FieldDescription(field string) string {
+	return AuthBasicPartialFieldDescriptions[field]
+}

@@ -195,3 +195,15 @@ func (o MappingKitAction) String() string {
 
 	return fmt.Sprintf("MappingKitAction {\n%s}", out)
 }
+
+// MappingKitActionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MappingKitActionFieldDescriptions = map[string]string{
+	"id":      "ID to uniquely identify this action.",
+	"enabled": "Whether this action has any effect.",
+	"trigger": "Condition which must be satisfied to apply the action. If this evaluates to false, the action is not applied, and the process attempts to apply the next action, if any.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MappingKitAction) FieldDescription(field string) string {
+	return MappingKitActionFieldDescriptions[field]
+}

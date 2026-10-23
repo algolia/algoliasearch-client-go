@@ -145,3 +145,14 @@ func (o TimeRange) String() string {
 
 	return fmt.Sprintf("TimeRange {\n%s}", out)
 }
+
+// TimeRangeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TimeRangeFieldDescriptions = map[string]string{
+	"from":  "Timestamp when the rule should start to be active, measured in seconds since the Unix epoch.",
+	"until": "Timestamp when the rule should stop to be active, measured in seconds since the Unix epoch.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TimeRange) FieldDescription(field string) string {
+	return TimeRangeFieldDescriptions[field]
+}

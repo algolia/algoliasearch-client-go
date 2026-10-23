@@ -9,12 +9,16 @@ import (
 // DailyNoClickRates struct for DailyNoClickRates.
 type DailyNoClickRates struct {
 	// No click rate: calculated as the number of tracked searches without clicks divided by the number of tracked searches.
+	// Example: 0.15
 	Rate float64 `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	Count int32 `json:"count"`
 	// Number of times this search was returned as a result without any click.
+	// Example: 15
 	NoClickCount int32 `json:"noClickCount"`
 	// Date in the format YYYY-MM-DD.
+	// Example: 2023-06-14
 	Date string `json:"date"`
 }
 
@@ -172,4 +176,30 @@ func (o DailyNoClickRates) String() string {
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 
 	return fmt.Sprintf("DailyNoClickRates {\n%s}", out)
+}
+
+// DailyNoClickRatesFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailyNoClickRatesFieldExamples = map[string]string{
+	"rate":         "0.15",
+	"count":        "2",
+	"noClickCount": "15",
+	"date":         "2023-06-14",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailyNoClickRates) FieldExample(field string) string {
+	return DailyNoClickRatesFieldExamples[field]
+}
+
+// DailyNoClickRatesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailyNoClickRatesFieldDescriptions = map[string]string{
+	"rate":         "No click rate: calculated as the number of tracked searches without clicks divided by the number of tracked searches.\n",
+	"count":        "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"noClickCount": "Number of times this search was returned as a result without any click.",
+	"date":         "Date in the format YYYY-MM-DD.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailyNoClickRates) FieldDescription(field string) string {
+	return DailyNoClickRatesFieldDescriptions[field]
 }

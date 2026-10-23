@@ -735,3 +735,26 @@ func (o MemoryRecord) String() string {
 
 	return fmt.Sprintf("MemoryRecord {\n%s}", out)
 }
+
+// MemoryRecordFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MemoryRecordFieldDescriptions = map[string]string{
+	"memoryType":     "The type of the stored memory.",
+	"episode":        "Episodic memory schema following LangMem's OTAR pattern:\nObservation → Thoughts → Action → Result\n\nCaptures complete interaction experiences for agent learning.\nSee https://langchain-ai.github.io/langmem/concepts/conceptual_guide/#episodic-memory-past-experiences.",
+	"text":           "Self-contained, first-person memory for long-term recall.",
+	"rawExtract":     "Verbatim conversation extract, not paraphrased.",
+	"keywords":       "Keywords for retrieval: entities, context, search terms.",
+	"topics":         "Topics that classify the memory. Each must be one of: [complaints, entertainment, family, feedback, finance, food, goals, health, history, hobbies, learning, praise, preferences, schedule, shopping, technical, travel, work].",
+	"_tags":          "Arbitrary labels/themes for flexible categorization (e.g., 'Q1-goals', 'paris-trip', 'vip-customer').",
+	"recallTriggers": "Phrases that cause the API to recall this memory.",
+	"objectID":       "ObjectID of existing memory to update. Leave empty for new memory.",
+	"appId":          "Application ID.",
+	"agentIDs":       "Agent IDs with access: ['agent1'], ['*'] for all, ['*', '-agent1'] to exclude.",
+	"userID":         "User ID.",
+	"createdAt":      "Epoch seconds.",
+	"updatedAt":      "Epoch seconds.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MemoryRecord) FieldDescription(field string) string {
+	return MemoryRecordFieldDescriptions[field]
+}

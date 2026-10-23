@@ -11,18 +11,25 @@ import (
 // ABTest struct for ABTest.
 type ABTest struct {
 	// Unique A/B test identifier.
+	// Example: 224
 	AbTestID int32 `json:"abTestID"`
 	// Date and time when the A/B test was last updated, in RFC 3339 format.
+	// Example: 2023-06-15T15:06:44.400601Z
 	UpdatedAt string `json:"updatedAt"`
 	// Date and time when the A/B test was created, in RFC 3339 format.
+	// Example: 2023-06-15T15:06:04.249906Z
 	CreatedAt string `json:"createdAt"`
 	// End date and time of the A/B test, in RFC 3339 format.
+	// Example: 2023-06-17T00:00:00Z
 	EndAt string `json:"endAt"`
 	// Date and time when the A/B test was stopped, in RFC 3339 format.
+	// Example: 2023-06-15T15:06:44.400601Z
 	StoppedAt utils.Nullable[string] `json:"stoppedAt,omitempty"`
 	// A/B test name.
+	// Example: Custom ranking sales rank test
 	Name string `json:"name"`
 	// Expected outcome of the A/B test.
+	// Example: Enabling the feature increases conversion rate
 	Hypothesis string `json:"hypothesis"`
 	Status     Status `json:"status"`
 	// A/B test variants.  The first variant is your _control_ index, typically your production index. All of the additional variants are indexes with changed settings that you want to test against the control.
@@ -481,4 +488,40 @@ func (o ABTest) String() string {
 	out += fmt.Sprintf("  decision=%v\n", o.Decision)
 
 	return fmt.Sprintf("ABTest {\n%s}", out)
+}
+
+// ABTestFieldExamples maps each field (by its JSON name) to its spec example value.
+var ABTestFieldExamples = map[string]string{
+	"abTestID":   "224",
+	"updatedAt":  "2023-06-15T15:06:44.400601Z",
+	"createdAt":  "2023-06-15T15:06:04.249906Z",
+	"endAt":      "2023-06-17T00:00:00Z",
+	"stoppedAt":  "2023-06-15T15:06:44.400601Z",
+	"name":       "Custom ranking sales rank test",
+	"hypothesis": "Enabling the feature increases conversion rate",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ABTest) FieldExample(field string) string {
+	return ABTestFieldExamples[field]
+}
+
+// ABTestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ABTestFieldDescriptions = map[string]string{
+	"abTestID":      "Unique A/B test identifier.",
+	"updatedAt":     "Date and time when the A/B test was last updated, in RFC 3339 format.",
+	"createdAt":     "Date and time when the A/B test was created, in RFC 3339 format.",
+	"endAt":         "End date and time of the A/B test, in RFC 3339 format.",
+	"stoppedAt":     "Date and time when the A/B test was stopped, in RFC 3339 format.",
+	"name":          "A/B test name.",
+	"hypothesis":    "Expected outcome of the A/B test.",
+	"status":        "A/B test status.\n\n- `active`. The A/B test is live and search traffic is split between the two variants.\n- `stopped`. You stopped the A/B test. The A/B test data is still available for analysis.\n- `expired`. The A/B test was automatically stopped after reaching its end date.\n- `failed`. Creating the A/B test failed.\n",
+	"variants":      "A/B test variants.\n\nThe first variant is your _control_ index, typically your production index.\nAll of the additional variants are indexes with changed settings that you want to test against the control.\n",
+	"configuration": "A/B test configuration.",
+	"decision":      "Outcome of the A/B test once a winner has been declared.\nOnly present when a winning variant has been declared, so its presence indicates the test has been decided.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ABTest) FieldDescription(field string) string {
+	return ABTestFieldDescriptions[field]
 }

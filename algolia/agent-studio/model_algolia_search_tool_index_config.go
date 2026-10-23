@@ -282,3 +282,14 @@ func (o AlgoliaSearchToolIndexConfig) String() string {
 
 	return fmt.Sprintf("AlgoliaSearchToolIndexConfig {\n%s}", out)
 }
+
+// AlgoliaSearchToolIndexConfigFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AlgoliaSearchToolIndexConfigFieldDescriptions = map[string]string{
+	"searchParameters": "Algolia Search API parameters that can be predefined for the search tool.\nReference: https://www.algolia.com/doc/api-reference/search-api-parameters/\n\nThe search tool supports the relevant subset of search parameters in the context of agentic interactions.",
+	"searchControls":   "Structured search parameters configuration for an Algolia index.\n\nEach parameter controls whether it is exposed to the LLM, its default value,\noptional constraints, and merge behavior.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AlgoliaSearchToolIndexConfig) FieldDescription(field string) string {
+	return AlgoliaSearchToolIndexConfigFieldDescriptions[field]
+}

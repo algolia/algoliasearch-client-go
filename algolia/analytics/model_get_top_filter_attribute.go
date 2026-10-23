@@ -9,8 +9,10 @@ import (
 // GetTopFilterAttribute struct for GetTopFilterAttribute.
 type GetTopFilterAttribute struct {
 	// Attribute name.
+	// Example: url
 	Attribute string `json:"attribute"`
 	// Number of occurrences.
+	// Example: 2
 	Count int32 `json:"count"`
 }
 
@@ -106,4 +108,26 @@ func (o GetTopFilterAttribute) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("GetTopFilterAttribute {\n%s}", out)
+}
+
+// GetTopFilterAttributeFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetTopFilterAttributeFieldExamples = map[string]string{
+	"attribute": "url",
+	"count":     "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetTopFilterAttribute) FieldExample(field string) string {
+	return GetTopFilterAttributeFieldExamples[field]
+}
+
+// GetTopFilterAttributeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetTopFilterAttributeFieldDescriptions = map[string]string{
+	"attribute": "Attribute name.",
+	"count":     "Number of occurrences.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetTopFilterAttribute) FieldDescription(field string) string {
+	return GetTopFilterAttributeFieldDescriptions[field]
 }

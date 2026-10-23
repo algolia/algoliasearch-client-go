@@ -13,6 +13,7 @@ type SearchResultsItem struct {
 	// Variant ID. This is only included in the response for indices that are part of an A/B test.
 	AbTestVariantID *int32 `json:"abTestVariantID,omitempty"`
 	// Computed geographical location.
+	// Example: 40.71,-74.01
 	AroundLatLng *string `json:"aroundLatLng,omitempty"`
 	// Distance from a central coordinate provided by `aroundLatLng`.
 	AutomaticRadius *string     `json:"automaticRadius,omitempty"`
@@ -29,20 +30,26 @@ type SearchResultsItem struct {
 	// Deprecated
 	ExhaustiveTypo *bool `json:"exhaustiveTypo,omitempty"`
 	// Facet counts.
+	// Example: {category={food=1, tech=42}}
 	Facets *map[string]map[string]int32 `json:"facets,omitempty"`
 	// Statistics for numerical facets.
 	FacetsStats *map[string]FacetStats `json:"facets_stats,omitempty"`
 	// Index name used for the query.
+	// Example: indexName
 	Index *string `json:"index,omitempty"`
 	// Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.
+	// Example: indexNameAlt
 	IndexUsed *string `json:"indexUsed,omitempty"`
 	// Warnings about the query.
 	Message *string `json:"message,omitempty"`
 	// Number of hits selected and sorted by the relevant sort algorithm.
+	// Example: 20
 	NbSortedHits *int32 `json:"nbSortedHits,omitempty"`
 	// Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.
+	// Example: george clo
 	ParsedQuery *string `json:"parsedQuery,omitempty"`
 	// Time the server took to process the request, in milliseconds.
+	// Example: 20
 	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
 	// Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.
 	ProcessingTimingsMS map[string]any `json:"processingTimingsMS,omitempty"`
@@ -51,30 +58,41 @@ type SearchResultsItem struct {
 	Redirect          *Redirect         `json:"redirect,omitempty"`
 	RenderingContent  *RenderingContent `json:"renderingContent,omitempty"`
 	// Time the server took to process the request, in milliseconds.
+	// Example: 20
 	ServerTimeMS *int32 `json:"serverTimeMS,omitempty"`
 	// Host name of the server that processed the request.
+	// Example: c2-uk-3.algolia.net
 	ServerUsed *string `json:"serverUsed,omitempty"`
 	// An object with custom data.  You can store up to 32kB as custom data.
+	// Example: {settingID=f2a7b51e3503acc6a39b3784ffb84300, pluginVersion=1.6.0}
 	UserData any `json:"userData,omitempty"`
 	// Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics).
+	// Example: a00dbc80a8d13c4565a442e7e2dca80a
 	QueryID *string `json:"queryID,omitempty"`
 	// Whether automatic events collection is enabled for the application.
 	AutomaticInsights *bool `json:"_automaticInsights,omitempty"`
 	// Search results (hits).  Hits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.
 	Hits []Hit `json:"hits,omitempty"`
 	// Number of hits returned per page.
+	// Example: 20
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits *int32 `json:"nbHits,omitempty"`
 	// Number of pages of results.
+	// Example: 1
 	NbPages *int32 `json:"nbPages,omitempty"`
 	// The current page of the results.
+	// Example: 0
 	Page *int32 `json:"page,omitempty"`
 	// URL-encoded string of all search parameters.
+	// Example: query=a&hitsPerPage=20
 	Params *string `json:"params,omitempty"`
 	// The search query string.
+	// Example: shoes
 	Query *string `json:"query,omitempty"`
 	// The ID of the feed.
+	// Example: products-feed
 	FeedID       *string                                   `json:"feedID,omitempty"`
 	Compositions map[string]ResultsCompositionInfoResponse `json:"compositions"`
 }
@@ -1788,4 +1806,74 @@ func (o SearchResultsItem) String() string {
 	out += fmt.Sprintf("  compositions=%v\n", o.Compositions)
 
 	return fmt.Sprintf("SearchResultsItem {\n%s}", out)
+}
+
+// SearchResultsItemFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchResultsItemFieldExamples = map[string]string{
+	"aroundLatLng":     "40.71,-74.01",
+	"facets":           "{category={food=1, tech=42}}",
+	"index":            "indexName",
+	"indexUsed":        "indexNameAlt",
+	"nbSortedHits":     "20",
+	"parsedQuery":      "george clo",
+	"processingTimeMS": "20",
+	"serverTimeMS":     "20",
+	"serverUsed":       "c2-uk-3.algolia.net",
+	"userData":         "{settingID=f2a7b51e3503acc6a39b3784ffb84300, pluginVersion=1.6.0}",
+	"queryID":          "a00dbc80a8d13c4565a442e7e2dca80a",
+	"hitsPerPage":      "20",
+	"nbHits":           "20",
+	"nbPages":          "1",
+	"page":             "0",
+	"params":           "query=a&hitsPerPage=20",
+	"query":            "shoes",
+	"feedID":           "products-feed",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchResultsItem) FieldExample(field string) string {
+	return SearchResultsItemFieldExamples[field]
+}
+
+// SearchResultsItemFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchResultsItemFieldDescriptions = map[string]string{
+	"abTestID":              "A/B test ID. This is only included in the response for indices that are part of an A/B test.",
+	"abTestVariantID":       "Variant ID. This is only included in the response for indices that are part of an A/B test.",
+	"aroundLatLng":          "Computed geographical location.",
+	"automaticRadius":       "Distance from a central coordinate provided by `aroundLatLng`.",
+	"exhaustive":            "Whether certain properties of the search response are calculated exhaustive (exact) or approximated.",
+	"appliedRules":          "Rules applied to the query.",
+	"exhaustiveFacetsCount": "See the `facetsCount` field of the `exhaustive` object in the response.",
+	"exhaustiveNbHits":      "See the `nbHits` field of the `exhaustive` object in the response.",
+	"exhaustiveTypo":        "See the `typo` field of the `exhaustive` object in the response.",
+	"facets":                "Facet counts.",
+	"facets_stats":          "Statistics for numerical facets.",
+	"index":                 "Index name used for the query.",
+	"indexUsed":             "Index name used for the query. During A/B testing, the targeted index isn't always the index used by the query.",
+	"message":               "Warnings about the query.",
+	"nbSortedHits":          "Number of hits selected and sorted by the relevant sort algorithm.",
+	"parsedQuery":           "Post-[normalization](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/#what-does-normalization-mean) query string that will be searched.",
+	"processingTimeMS":      "Time the server took to process the request, in milliseconds.",
+	"processingTimingsMS":   "Experimental. List of processing steps and their times, in milliseconds. You can use this list to investigate performance issues.",
+	"queryAfterRemoval":     "Markup text indicating which parts of the original query have been removed to retrieve a non-empty result set.",
+	"redirect":              "[Redirect results to a URL](https://www.algolia.com/doc/guides/managing-results/rules/merchandising-and-promoting/how-to/redirects), this this parameter is for internal use only.\n",
+	"renderingContent":      "Extra data that can be used in the search UI.\n\nYou can use this to control aspects of your search UI, such as the order of facet names and values\nwithout changing your frontend code.\n",
+	"serverTimeMS":          "Time the server took to process the request, in milliseconds.",
+	"serverUsed":            "Host name of the server that processed the request.",
+	"userData":              "An object with custom data.\n\nYou can store up to 32kB as custom data.\n",
+	"queryID":               "Unique identifier for the query. This is used for [click analytics](https://www.algolia.com/doc/guides/analytics/click-analytics).",
+	"_automaticInsights":    "Whether automatic events collection is enabled for the application.",
+	"hits":                  "Search results (hits).\n\nHits are records from your index that match the search criteria, augmented with additional attributes, such as, for highlighting.\n",
+	"hitsPerPage":           "Number of hits returned per page.",
+	"nbHits":                "Number of results (hits).",
+	"nbPages":               "Number of pages of results.",
+	"page":                  "The current page of the results.",
+	"params":                "URL-encoded string of all search parameters.",
+	"query":                 "The search query string.",
+	"feedID":                "The ID of the feed.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchResultsItem) FieldDescription(field string) string {
+	return SearchResultsItemFieldDescriptions[field]
 }

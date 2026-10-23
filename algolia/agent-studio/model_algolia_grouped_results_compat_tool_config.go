@@ -381,3 +381,17 @@ func (o AlgoliaGroupedResultsCompatToolConfig) String() string {
 
 	return fmt.Sprintf("AlgoliaGroupedResultsCompatToolConfig {\n%s}", out)
 }
+
+// AlgoliaGroupedResultsCompatToolConfigFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AlgoliaGroupedResultsCompatToolConfigFieldDescriptions = map[string]string{
+	"isTerminal":         "When true, a successful tool invocation ends the agent graph (no further LLM turn). Use for chat experiences where the tool payload IS the final response. Leave false to let the main LLM produce a concluding assistant message after the tool runs.",
+	"minGroups":          "Minimum number of result groups.",
+	"maxGroups":          "Maximum number of result groups.",
+	"minResultsPerGroup": "Minimum hits per group.",
+	"maxResultsPerGroup": "Maximum hits per group.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AlgoliaGroupedResultsCompatToolConfig) FieldDescription(field string) string {
+	return AlgoliaGroupedResultsCompatToolConfigFieldDescriptions[field]
+}

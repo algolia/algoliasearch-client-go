@@ -9,10 +9,13 @@ import (
 // LogQuery struct for LogQuery.
 type LogQuery struct {
 	// Index targeted by the query.
+	// Example: products
 	IndexName *string `json:"index_name,omitempty"`
 	// A user identifier.
+	// Example: 93.189.166.128
 	UserToken *string `json:"user_token,omitempty"`
 	// Unique query identifier.
+	// Example: 96f59a3145dd9bd8963dc223950507c8
 	QueryId *string `json:"query_id,omitempty"`
 }
 
@@ -194,4 +197,28 @@ func (o LogQuery) String() string {
 	out += fmt.Sprintf("  query_id=%v\n", o.QueryId)
 
 	return fmt.Sprintf("LogQuery {\n%s}", out)
+}
+
+// LogQueryFieldExamples maps each field (by its JSON name) to its spec example value.
+var LogQueryFieldExamples = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"index_name": "products",
+	"user_token": "93.189.166.128",
+	"query_id":   "96f59a3145dd9bd8963dc223950507c8",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o LogQuery) FieldExample(field string) string {
+	return LogQueryFieldExamples[field]
+}
+
+// LogQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var LogQueryFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"index_name": "Index targeted by the query.",
+	"user_token": "A user identifier.",
+	"query_id":   "Unique query identifier.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o LogQuery) FieldDescription(field string) string {
+	return LogQueryFieldDescriptions[field]
 }

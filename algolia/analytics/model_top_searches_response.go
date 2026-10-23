@@ -74,3 +74,13 @@ func (o TopSearchesResponse) String() string {
 
 	return fmt.Sprintf("TopSearchesResponse {\n%s}", out)
 }
+
+// TopSearchesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopSearchesResponseFieldDescriptions = map[string]string{
+	"searches": "Most popular searches and their number of search results (hits).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopSearchesResponse) FieldDescription(field string) string {
+	return TopSearchesResponseFieldDescriptions[field]
+}

@@ -95,3 +95,13 @@ func (o Outliers) String() string {
 
 	return fmt.Sprintf("Outliers {\n%s}", out)
 }
+
+// OutliersFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OutliersFieldDescriptions = map[string]string{
+	"exclude": "Whether to exclude outliers when calculating A/B test results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Outliers) FieldDescription(field string) string {
+	return OutliersFieldDescriptions[field]
+}

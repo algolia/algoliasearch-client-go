@@ -9,8 +9,10 @@ import (
 // BatchResponse struct for BatchResponse.
 type BatchResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 	// Unique record identifiers.
+	// Example: ["record-1","record-2"]
 	ObjectIDs []string `json:"objectIDs"`
 }
 
@@ -106,4 +108,26 @@ func (o BatchResponse) String() string {
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
 
 	return fmt.Sprintf("BatchResponse {\n%s}", out)
+}
+
+// BatchResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var BatchResponseFieldExamples = map[string]string{
+	"taskID":    "1514562690001",
+	"objectIDs": "[\"record-1\",\"record-2\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o BatchResponse) FieldExample(field string) string {
+	return BatchResponseFieldExamples[field]
+}
+
+// BatchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BatchResponseFieldDescriptions = map[string]string{
+	"taskID":    "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+	"objectIDs": "Unique record identifiers.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BatchResponse) FieldDescription(field string) string {
+	return BatchResponseFieldDescriptions[field]
 }

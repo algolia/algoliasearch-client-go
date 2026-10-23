@@ -544,3 +544,23 @@ func (o MetricResult) String() string {
 
 	return fmt.Sprintf("MetricResult {\n%s}", out)
 }
+
+// MetricResultFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricResultFieldDescriptions = map[string]string{
+	"name":          "Metric name. Revenue per search results use `revenue_per_search`.",
+	"updatedAt":     "Date and time when the metric was last updated, in RFC 3339 format.",
+	"value":         "Metric value. For `revenue_per_search`, this is the winsorized mean revenue per search in the specified currency.",
+	"valueCIHigh":   "The upper bound of the 95% confidence interval for the metric value. The confidence interval is calculated using\neither the relative ratio or relative difference between the metric values for the control and the variant.\nRelative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate),\nwhile relative difference is used for continuous metrics (e.g., revenue).\n",
+	"valueCILow":    "The lower bound of the 95% confidence interval for the metric value. The confidence interval is calculated using\neither the relative ratio or relative difference between the metric values for the control and the variant.\nRelative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate),\nwhile relative difference is used for continuous metrics (e.g., revenue).\n",
+	"pValue":        "P-value for this variant compared to the control.\nOmitted when no p-value is available for this metric.\n",
+	"dimension":     "Dimension defined during test creation. For revenue metrics, including `revenue_per_search`, this is the currency.",
+	"metadata":      "Metric specific metadata.",
+	"criticalValue": "The value that was computed during error correction. It is used to determine significance of the metric pValue.\nThe critical value is calculated using Bonferroni or Benjamini-Hochberg corrections, based on the given\nconfiguration during the A/B test creation.\n",
+	"significant":   "Whether the pValue is significant or not based on the critical value and the error correction algorithm used.\n",
+	"bayesian":      "Bayesian inference results for this variant metric.\nOmitted when Bayesian results aren't requested or no Bayesian result is available for this metric.\nIndividual inference fields can be omitted when their values aren't available.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MetricResult) FieldDescription(field string) string {
+	return MetricResultFieldDescriptions[field]
+}

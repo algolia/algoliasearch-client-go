@@ -9,8 +9,10 @@ import (
 // Decision Outcome of the A/B test once a winner has been declared. Only present when a winning variant has been declared, so its presence indicates the test has been decided.
 type Decision struct {
 	// Identifier of the declared winning variant. The control variant is 1.
+	// Example: 2
 	WinnerVariantId int32 `json:"winnerVariantId"`
 	// Date and time when the winning variant was declared, in RFC 3339 format.
+	// Example: 2026-06-16T00:00:00Z
 	DeclaredAt string `json:"declaredAt"`
 }
 
@@ -106,4 +108,26 @@ func (o Decision) String() string {
 	out += fmt.Sprintf("  declaredAt=%v\n", o.DeclaredAt)
 
 	return fmt.Sprintf("Decision {\n%s}", out)
+}
+
+// DecisionFieldExamples maps each field (by its JSON name) to its spec example value.
+var DecisionFieldExamples = map[string]string{
+	"winnerVariantId": "2",
+	"declaredAt":      "2026-06-16T00:00:00Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Decision) FieldExample(field string) string {
+	return DecisionFieldExamples[field]
+}
+
+// DecisionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DecisionFieldDescriptions = map[string]string{
+	"winnerVariantId": "Identifier of the declared winning variant. The control variant is 1.",
+	"declaredAt":      "Date and time when the winning variant was declared, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Decision) FieldDescription(field string) string {
+	return DecisionFieldDescriptions[field]
 }

@@ -9,6 +9,7 @@ import (
 // SourceCreateResponse struct for SourceCreateResponse.
 type SourceCreateResponse struct {
 	// Universally uniqud identifier (UUID) of a source.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	SourceID string `json:"sourceID"`
 	// Descriptive name of the source.
 	Name string `json:"name"`
@@ -139,4 +140,26 @@ func (o SourceCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("SourceCreateResponse {\n%s}", out)
+}
+
+// SourceCreateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceCreateResponseFieldExamples = map[string]string{
+	"sourceID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceCreateResponse) FieldExample(field string) string {
+	return SourceCreateResponseFieldExamples[field]
+}
+
+// SourceCreateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceCreateResponseFieldDescriptions = map[string]string{
+	"sourceID":  "Universally uniqud identifier (UUID) of a source.",
+	"name":      "Descriptive name of the source.",
+	"createdAt": "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceCreateResponse) FieldDescription(field string) string {
+	return SourceCreateResponseFieldDescriptions[field]
 }

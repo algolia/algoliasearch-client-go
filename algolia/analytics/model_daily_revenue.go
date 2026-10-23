@@ -11,6 +11,7 @@ type DailyRevenue struct {
 	// Revenue associated with this search: broken down by currency.
 	Currencies map[string]CurrencyCode `json:"currencies"`
 	// Date in the format YYYY-MM-DD.
+	// Example: 2023-06-14
 	Date string `json:"date"`
 }
 
@@ -106,4 +107,25 @@ func (o DailyRevenue) String() string {
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 
 	return fmt.Sprintf("DailyRevenue {\n%s}", out)
+}
+
+// DailyRevenueFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailyRevenueFieldExamples = map[string]string{
+	"date": "2023-06-14",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailyRevenue) FieldExample(field string) string {
+	return DailyRevenueFieldExamples[field]
+}
+
+// DailyRevenueFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailyRevenueFieldDescriptions = map[string]string{
+	"currencies": "Revenue associated with this search: broken down by currency.\n",
+	"date":       "Date in the format YYYY-MM-DD.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailyRevenue) FieldDescription(field string) string {
+	return DailyRevenueFieldDescriptions[field]
 }

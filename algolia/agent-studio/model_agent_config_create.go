@@ -15,10 +15,11 @@ type AgentConfigCreate struct {
 	// The agent prompt: defines the agent's role, tone, and goals. Guides how it answers using the provided context. Corresponds to the 'Agent prompt' field in the dashboard.
 	Instructions string `json:"instructions"`
 	// The system prompt: defines system-level rules and constraints. Guides how the agent uses tools, features, and generates context. Prepended before `instructions` in the final prompt sent to the LLM. Typically injected by an agent template — modify with caution, as changes may affect behavior, tool usage, or response accuracy. Corresponds to the 'System prompt' field in the dashboard.
-	SystemPrompt *string           `json:"systemPrompt,omitempty"`
-	TemplateType *string           `json:"templateType,omitempty"`
-	Config       map[string]any    `json:"config,omitempty"`
-	Tools        []ToolConfigInput `json:"tools,omitempty"`
+	SystemPrompt *string `json:"systemPrompt,omitempty"`
+	TemplateType *string `json:"templateType,omitempty"`
+	// Example: {"sendUsage":true,"sendReasoning":true,"temperature":0.7,"max_tokens":1500,"reasoning":"{summary: auto}","features":"[memory]"}
+	Config map[string]any    `json:"config,omitempty"`
+	Tools  []ToolConfigInput `json:"tools,omitempty"`
 }
 
 type AgentConfigCreateOption func(f *AgentConfigCreate)
@@ -455,4 +456,25 @@ func (o AgentConfigCreate) String() string {
 	out += fmt.Sprintf("  tools=%v\n", o.Tools)
 
 	return fmt.Sprintf("AgentConfigCreate {\n%s}", out)
+}
+
+// AgentConfigCreateFieldExamples maps each field (by its JSON name) to its spec example value.
+var AgentConfigCreateFieldExamples = map[string]string{
+	"config": "{\"sendUsage\":true,\"sendReasoning\":true,\"temperature\":0.7,\"max_tokens\":1500,\"reasoning\":\"{summary: auto}\",\"features\":\"[memory]\"}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AgentConfigCreate) FieldExample(field string) string {
+	return AgentConfigCreateFieldExamples[field]
+}
+
+// AgentConfigCreateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AgentConfigCreateFieldDescriptions = map[string]string{
+	"instructions": "The agent prompt: defines the agent's role, tone, and goals. Guides how it answers using the provided context. Corresponds to the 'Agent prompt' field in the dashboard.",
+	"systemPrompt": "The system prompt: defines system-level rules and constraints. Guides how the agent uses tools, features, and generates context. Prepended before `instructions` in the final prompt sent to the LLM. Typically injected by an agent template — modify with caution, as changes may affect behavior, tool usage, or response accuracy. Corresponds to the 'System prompt' field in the dashboard.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AgentConfigCreate) FieldDescription(field string) string {
+	return AgentConfigCreateFieldDescriptions[field]
 }

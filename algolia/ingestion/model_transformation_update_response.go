@@ -9,6 +9,7 @@ import (
 // TransformationUpdateResponse API response for updating a transformation.
 type TransformationUpdateResponse struct {
 	// Universally unique identifier (UUID) of a transformation.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TransformationID string `json:"transformationID"`
 	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
@@ -106,4 +107,25 @@ func (o TransformationUpdateResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("TransformationUpdateResponse {\n%s}", out)
+}
+
+// TransformationUpdateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var TransformationUpdateResponseFieldExamples = map[string]string{
+	"transformationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TransformationUpdateResponse) FieldExample(field string) string {
+	return TransformationUpdateResponseFieldExamples[field]
+}
+
+// TransformationUpdateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationUpdateResponseFieldDescriptions = map[string]string{
+	"transformationID": "Universally unique identifier (UUID) of a transformation.",
+	"updatedAt":        "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationUpdateResponse) FieldDescription(field string) string {
+	return TransformationUpdateResponseFieldDescriptions[field]
 }

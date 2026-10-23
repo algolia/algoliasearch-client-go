@@ -295,3 +295,17 @@ func (o ContextCompactRequest) String() string {
 
 	return fmt.Sprintf("ContextCompactRequest {\n%s}", out)
 }
+
+// ContextCompactRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ContextCompactRequestFieldDescriptions = map[string]string{
+	"providerID":           "Provider UUID for LLM credentials.",
+	"model":                "Model name (e.g., gpt-4o-mini).",
+	"keepLastMessages":     "Number of trailing messages kept verbatim; everything older is summarized.",
+	"instructions":         "Extra guidance for the summarizer (e.g. 'keep every product reference'). Appended inside the server-owned prompt frame, so it steers the summary without the model echoing your wording back into it.",
+	"targetTokensEstimate": "Desired size of the final summary, in tokens. Translated into word-count guidance for the summarizer (best-effort, not a hard cap). Omit to let the summarizer default to a concise summary.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ContextCompactRequest) FieldDescription(field string) string {
+	return ContextCompactRequestFieldDescriptions[field]
+}

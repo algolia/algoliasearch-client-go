@@ -9,6 +9,7 @@ import (
 // TrendingFacetsQuery struct for TrendingFacetsQuery.
 type TrendingFacetsQuery struct {
 	// Index name (case-sensitive).
+	// Example: products
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
@@ -234,4 +235,28 @@ func (o TrendingFacetsQuery) String() string {
 	out += fmt.Sprintf("  model=%v\n", o.Model)
 
 	return fmt.Sprintf("TrendingFacetsQuery {\n%s}", out)
+}
+
+// TrendingFacetsQueryFieldExamples maps each field (by its JSON name) to its spec example value.
+var TrendingFacetsQueryFieldExamples = map[string]string{
+	"indexName": "products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TrendingFacetsQuery) FieldExample(field string) string {
+	return TrendingFacetsQueryFieldExamples[field]
+}
+
+// TrendingFacetsQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TrendingFacetsQueryFieldDescriptions = map[string]string{
+	"indexName":          "Index name (case-sensitive).",
+	"threshold":          "Minimum score a recommendation must have to be included in the response.",
+	"maxRecommendations": "Maximum number of recommendations to retrieve.\nBy default, all recommendations are returned and no fallback request is made.\nDepending on the available recommendations and the other request parameters,\nthe actual number of recommendations may be lower than this value.\n",
+	"facetName":          "Facet attribute for which to retrieve trending facet values.",
+	"model":              "Trending facet values model.\n\nThis model recommends trending facet values for the specified facet attribute.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TrendingFacetsQuery) FieldDescription(field string) string {
+	return TrendingFacetsQueryFieldDescriptions[field]
 }

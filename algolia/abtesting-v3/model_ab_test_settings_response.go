@@ -107,3 +107,14 @@ func (o ABTestSettingsResponse) String() string {
 
 	return fmt.Sprintf("ABTestSettingsResponse {\n%s}", out)
 }
+
+// ABTestSettingsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ABTestSettingsResponseFieldDescriptions = map[string]string{
+	"abtestSettings":    "Captured settings for each variant of the A/B test.",
+	"controlIndexInUse": "Whether another active A/B test is using the control index.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ABTestSettingsResponse) FieldDescription(field string) string {
+	return ABTestSettingsResponseFieldDescriptions[field]
+}

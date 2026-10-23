@@ -11,12 +11,15 @@ import (
 // Event An event describe a step of the task execution flow.
 type Event struct {
 	// Universally unique identifier (UUID) of an event.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	EventID string `json:"eventID"`
 	// Universally unique identifier (UUID) of a task run.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	RunID  string                      `json:"runID"`
 	Status utils.Nullable[EventStatus] `json:"status"`
 	Type   EventType                   `json:"type"`
 	// The extracted record batch size.
+	// Example: 10
 	BatchSize int32          `json:"batchSize"`
 	Data      map[string]any `json:"data,omitempty"`
 	// Date and time when the resource was published, in RFC 3339 format.
@@ -305,4 +308,29 @@ func (o Event) String() string {
 	out += fmt.Sprintf("  publishedAt=%v\n", o.PublishedAt)
 
 	return fmt.Sprintf("Event {\n%s}", out)
+}
+
+// EventFieldExamples maps each field (by its JSON name) to its spec example value.
+var EventFieldExamples = map[string]string{
+	"eventID":   "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"runID":     "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"batchSize": "10",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Event) FieldExample(field string) string {
+	return EventFieldExamples[field]
+}
+
+// EventFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EventFieldDescriptions = map[string]string{
+	"eventID":     "Universally unique identifier (UUID) of an event.",
+	"runID":       "Universally unique identifier (UUID) of a task run.",
+	"batchSize":   "The extracted record batch size.",
+	"publishedAt": "Date and time when the resource was published, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Event) FieldDescription(field string) string {
+	return EventFieldDescriptions[field]
 }

@@ -130,3 +130,14 @@ func (o SecretKeyCreate) String() string {
 
 	return fmt.Sprintf("SecretKeyCreate {\n%s}", out)
 }
+
+// SecretKeyCreateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SecretKeyCreateFieldDescriptions = map[string]string{
+	"name":     "The name of the secret key.",
+	"agentIds": "List of agent IDs this secret key is associated with.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SecretKeyCreate) FieldDescription(field string) string {
+	return SecretKeyCreateFieldDescriptions[field]
+}

@@ -128,3 +128,13 @@ func (o SearchMethodParams) String() string {
 
 	return fmt.Sprintf("SearchMethodParams {\n%s}", out)
 }
+
+// SearchMethodParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchMethodParamsFieldDescriptions = map[string]string{
+	"strategy": "Strategy for multiple search queries:\n\n- `none`. Run all queries.\n- `stopIfEnoughMatches`. Run the queries one by one, stopping as soon as a query matches at least the `hitsPerPage` number of results.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchMethodParams) FieldDescription(field string) string {
+	return SearchMethodParamsFieldDescriptions[field]
+}

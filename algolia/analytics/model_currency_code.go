@@ -9,8 +9,10 @@ import (
 // CurrencyCode Currency code.
 type CurrencyCode struct {
 	// Currency code.
+	// Example: USD
 	Currency *string `json:"currency,omitempty"`
 	// Revenue associated with this search in this currency.
+	// Example: 999.98
 	Revenue *float32 `json:"revenue,omitempty"`
 }
 
@@ -144,4 +146,26 @@ func (o CurrencyCode) String() string {
 	out += fmt.Sprintf("  revenue=%v\n", o.Revenue)
 
 	return fmt.Sprintf("CurrencyCode {\n%s}", out)
+}
+
+// CurrencyCodeFieldExamples maps each field (by its JSON name) to its spec example value.
+var CurrencyCodeFieldExamples = map[string]string{
+	"currency": "USD",
+	"revenue":  "999.98",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o CurrencyCode) FieldExample(field string) string {
+	return CurrencyCodeFieldExamples[field]
+}
+
+// CurrencyCodeFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CurrencyCodeFieldDescriptions = map[string]string{
+	"currency": "Currency code.",
+	"revenue":  "Revenue associated with this search in this currency.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CurrencyCode) FieldDescription(field string) string {
+	return CurrencyCodeFieldDescriptions[field]
 }

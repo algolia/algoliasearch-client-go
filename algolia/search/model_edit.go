@@ -194,3 +194,15 @@ func (o Edit) String() string {
 
 	return fmt.Sprintf("Edit {\n%s}", out)
 }
+
+// EditFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EditFieldDescriptions = map[string]string{
+	"type":   "Type of edit.",
+	"delete": "Text or patterns to remove from the query string.",
+	"insert": "Text to be added in place of the deleted text inside the query string.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Edit) FieldDescription(field string) string {
+	return EditFieldDescriptions[field]
+}

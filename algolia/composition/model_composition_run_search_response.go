@@ -188,3 +188,13 @@ func (o CompositionRunSearchResponse) String() string {
 
 	return fmt.Sprintf("CompositionRunSearchResponse {\n%s}", out)
 }
+
+// CompositionRunSearchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompositionRunSearchResponseFieldDescriptions = map[string]string{
+	"objectID": "The objectID of the composition which generated this result set.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CompositionRunSearchResponse) FieldDescription(field string) string {
+	return CompositionRunSearchResponseFieldDescriptions[field]
+}

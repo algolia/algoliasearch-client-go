@@ -145,3 +145,14 @@ func (o TransformationError) String() string {
 
 	return fmt.Sprintf("TransformationError {\n%s}", out)
 }
+
+// TransformationErrorFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationErrorFieldDescriptions = map[string]string{
+	"code":    "The error status code.",
+	"message": "A descriptive message explaining the failure.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationError) FieldDescription(field string) string {
+	return TransformationErrorFieldDescriptions[field]
+}

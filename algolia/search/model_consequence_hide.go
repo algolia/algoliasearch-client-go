@@ -9,6 +9,7 @@ import (
 // ConsequenceHide Object ID of the record to hide.
 type ConsequenceHide struct {
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID string `json:"objectID"`
 }
 
@@ -73,4 +74,24 @@ func (o ConsequenceHide) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 
 	return fmt.Sprintf("ConsequenceHide {\n%s}", out)
+}
+
+// ConsequenceHideFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConsequenceHideFieldExamples = map[string]string{
+	"objectID": "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ConsequenceHide) FieldExample(field string) string {
+	return ConsequenceHideFieldExamples[field]
+}
+
+// ConsequenceHideFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConsequenceHideFieldDescriptions = map[string]string{
+	"objectID": "Unique record identifier.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConsequenceHide) FieldDescription(field string) string {
+	return ConsequenceHideFieldDescriptions[field]
 }

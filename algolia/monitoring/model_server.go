@@ -9,14 +9,18 @@ import (
 // Server struct for Server.
 type Server struct {
 	// Server name.
+	// Example: c16-de-1
 	Name   *string `json:"name,omitempty"`
 	Region *Region `json:"region,omitempty"`
 	// Included to support legacy applications. Use `is_replica` instead.
+	// Example: false
 	// Deprecated
 	IsSlave *bool `json:"is_slave,omitempty"`
 	// Whether this server is a replica of another server.
+	// Example: false
 	IsReplica *bool `json:"is_replica,omitempty"`
 	// Name of the cluster to which this server belongs.
+	// Example: c16-de
 	Cluster *string       `json:"cluster,omitempty"`
 	Status  *ServerStatus `json:"status,omitempty"`
 	Type    *Type         `json:"type,omitempty"`
@@ -395,4 +399,31 @@ func (o Server) String() string {
 	out += fmt.Sprintf("  type=%v\n", o.Type)
 
 	return fmt.Sprintf("Server {\n%s}", out)
+}
+
+// ServerFieldExamples maps each field (by its JSON name) to its spec example value.
+var ServerFieldExamples = map[string]string{
+	"name":       "c16-de-1",
+	"is_slave":   "false",
+	"is_replica": "false",
+	"cluster":    "c16-de",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Server) FieldExample(field string) string {
+	return ServerFieldExamples[field]
+}
+
+// ServerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ServerFieldDescriptions = map[string]string{
+	"name":       "Server name.",
+	"region":     "Region where the cluster is located.",
+	"is_slave":   "Included to support legacy applications.\nUse `is_replica` instead.\n",
+	"is_replica": "Whether this server is a replica of another server.",
+	"cluster":    "Name of the cluster to which this server belongs.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Server) FieldDescription(field string) string {
+	return ServerFieldDescriptions[field]
 }

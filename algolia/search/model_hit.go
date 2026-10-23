@@ -9,6 +9,7 @@ import (
 // Hit Search result.  A hit is a record from your index, augmented with special attributes for highlighting, snippeting, and ranking.
 type Hit struct {
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID string `json:"objectID"`
 	// Surround words that match the query with HTML tags for highlighting.
 	HighlightResult *map[string]HighlightResult `json:"_highlightResult,omitempty"`
@@ -363,4 +364,27 @@ func (o Hit) String() string {
 	}
 
 	return fmt.Sprintf("Hit {\n%s}", out)
+}
+
+// HitFieldExamples maps each field (by its JSON name) to its spec example value.
+var HitFieldExamples = map[string]string{
+	"objectID": "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Hit) FieldExample(field string) string {
+	return HitFieldExamples[field]
+}
+
+// HitFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var HitFieldDescriptions = map[string]string{
+	"objectID":         "Unique record identifier.",
+	"_highlightResult": "Surround words that match the query with HTML tags for highlighting.",
+	"_snippetResult":   "Snippets that show the context around a matching search query.",
+	"_rankingInfo":     "Object with detailed information about the record's ranking.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Hit) FieldDescription(field string) string {
+	return HitFieldDescriptions[field]
 }

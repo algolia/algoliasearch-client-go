@@ -9,13 +9,17 @@ import (
 // Composition struct for Composition.
 type Composition struct {
 	// Composition unique identifier.
+	// Example: my_composition_object_id
 	ObjectID string `json:"objectID"`
 	// Composition name.
+	// Example: my lovely crafted composition
 	Name string `json:"name"`
 	// Composition description.
+	// Example: my lovely crafted composition that is used for X purpose
 	Description *string             `json:"description,omitempty"`
 	Behavior    CompositionBehavior `json:"behavior"`
 	// A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. The sorting indices MUST be related to the associated main targeted index in the composition. Each key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.  When a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced with the sorting strategy index it is mapped to.  Up to 20 sorting strategies can be defined.
+	// Example: {"Price (asc)":"products-low-to-high","Price (desc)":"products-high-to-low"}
 	SortingStrategy *map[string]string `json:"sortingStrategy,omitempty"`
 }
 
@@ -244,4 +248,31 @@ func (o Composition) String() string {
 	out += fmt.Sprintf("  sortingStrategy=%v\n", o.SortingStrategy)
 
 	return fmt.Sprintf("Composition {\n%s}", out)
+}
+
+// CompositionFieldExamples maps each field (by its JSON name) to its spec example value.
+var CompositionFieldExamples = map[string]string{
+	"objectID":        "my_composition_object_id",
+	"name":            "my lovely crafted composition",
+	"description":     "my lovely crafted composition that is used for X purpose",
+	"sortingStrategy": "{\"Price (asc)\":\"products-low-to-high\",\"Price (desc)\":\"products-high-to-low\"}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Composition) FieldExample(field string) string {
+	return CompositionFieldExamples[field]
+}
+
+// CompositionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompositionFieldDescriptions = map[string]string{
+	"objectID":        "Composition unique identifier.",
+	"name":            "Composition name.",
+	"description":     "Composition description.",
+	"behavior":        "An object containing either an `injection` or `multifeed` behavior schema, but not both.",
+	"sortingStrategy": "A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. The sorting indices MUST be related to the associated main targeted index in the composition.\nEach key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.\n\nWhen a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced\nwith the sorting strategy index it is mapped to.\n\nUp to 20 sorting strategies can be defined.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Composition) FieldDescription(field string) string {
+	return CompositionFieldDescriptions[field]
 }

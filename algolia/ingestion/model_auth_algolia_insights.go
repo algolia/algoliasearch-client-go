@@ -107,3 +107,14 @@ func (o AuthAlgoliaInsights) String() string {
 
 	return fmt.Sprintf("AuthAlgoliaInsights {\n%s}", out)
 }
+
+// AuthAlgoliaInsightsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthAlgoliaInsightsFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"appID":  "Algolia application ID.",
+	"apiKey": "Algolia API key with the ACL: `search`.\nThis field is `null` in the API response.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthAlgoliaInsights) FieldDescription(field string) string {
+	return AuthAlgoliaInsightsFieldDescriptions[field]
+}

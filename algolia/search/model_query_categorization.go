@@ -293,3 +293,17 @@ func (o QueryCategorization) String() string {
 
 	return fmt.Sprintf("QueryCategorization {\n%s}", out)
 }
+
+// QueryCategorizationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var QueryCategorizationFieldDescriptions = map[string]string{
+	"normalizedQuery": "Processed and normalized version of the original search query.",
+	"count":           "Number of times this normalized query was observed during the training window.",
+	"type":            "Classification of the query scope.",
+	"categories":      "List of category predictions with confidence levels.",
+	"autofiltering":   "Result of automatic filtering applied by Query Categorization.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o QueryCategorization) FieldDescription(field string) string {
+	return QueryCategorizationFieldDescriptions[field]
+}

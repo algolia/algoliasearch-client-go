@@ -9,10 +9,13 @@ import (
 // StandardEntries Turn off the built-in Algolia stop words for specific languages. Only `stopwords` is supported. The keys of the `stopwords` object are [language ISO codes](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages) of languages with a built-in stop-word dictionary.
 type StandardEntries struct {
 	// Key-value pair of a language ISO code and a boolean value.
+	// Example: {"fr":false}
 	Plurals map[string]bool `json:"plurals,omitempty"`
 	// Key-value pair of a language ISO code and a boolean value.
+	// Example: {"fr":false}
 	Stopwords map[string]bool `json:"stopwords,omitempty"`
 	// Key-value pair of a language ISO code and a boolean value.
+	// Example: {"fr":false}
 	Compounds map[string]bool `json:"compounds,omitempty"`
 }
 
@@ -197,4 +200,28 @@ func (o StandardEntries) String() string {
 	out += fmt.Sprintf("  compounds=%v\n", o.Compounds)
 
 	return fmt.Sprintf("StandardEntries {\n%s}", out)
+}
+
+// StandardEntriesFieldExamples maps each field (by its JSON name) to its spec example value.
+var StandardEntriesFieldExamples = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"plurals":   "{\"fr\":false}",
+	"stopwords": "{\"fr\":false}",
+	"compounds": "{\"fr\":false}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o StandardEntries) FieldExample(field string) string {
+	return StandardEntriesFieldExamples[field]
+}
+
+// StandardEntriesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var StandardEntriesFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"plurals":   "Key-value pair of a language ISO code and a boolean value.",
+	"stopwords": "Key-value pair of a language ISO code and a boolean value.",
+	"compounds": "Key-value pair of a language ISO code and a boolean value.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o StandardEntries) FieldDescription(field string) string {
+	return StandardEntriesFieldDescriptions[field]
 }

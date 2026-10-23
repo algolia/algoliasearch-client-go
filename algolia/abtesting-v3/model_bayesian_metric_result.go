@@ -9,10 +9,13 @@ import (
 // BayesianMetricResult Bayesian inference results for this variant metric. Omitted when Bayesian results aren't requested or no Bayesian result is available for this metric. Individual inference fields can be omitted when their values aren't available.
 type BayesianMetricResult struct {
 	// Probability that this variant is better than the control.
+	// Example: 0.991
 	ProbabilityToBeBetter *float64 `json:"probabilityToBeBetter,omitempty"`
 	// Lower bound of the 95% credible interval for the relative effect (variant/control minus 1).
+	// Example: 0.04
 	RelativeEffectCILow *float64 `json:"relativeEffectCILow,omitempty"`
 	// Upper bound of the 95% credible interval for the relative effect (variant/control minus 1).
+	// Example: 0.39
 	RelativeEffectCIHigh *float64        `json:"relativeEffectCIHigh,omitempty"`
 	Evidence             *MetricEvidence `json:"evidence,omitempty"`
 }
@@ -243,4 +246,29 @@ func (o BayesianMetricResult) String() string {
 	out += fmt.Sprintf("  evidence=%v\n", o.Evidence)
 
 	return fmt.Sprintf("BayesianMetricResult {\n%s}", out)
+}
+
+// BayesianMetricResultFieldExamples maps each field (by its JSON name) to its spec example value.
+var BayesianMetricResultFieldExamples = map[string]string{
+	"probabilityToBeBetter": "0.991",
+	"relativeEffectCILow":   "0.04",
+	"relativeEffectCIHigh":  "0.39",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o BayesianMetricResult) FieldExample(field string) string {
+	return BayesianMetricResultFieldExamples[field]
+}
+
+// BayesianMetricResultFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BayesianMetricResultFieldDescriptions = map[string]string{
+	"probabilityToBeBetter": "Probability that this variant is better than the control.",
+	"relativeEffectCILow":   "Lower bound of the 95% credible interval for the relative effect (variant/control minus 1).",
+	"relativeEffectCIHigh":  "Upper bound of the 95% credible interval for the relative effect (variant/control minus 1).",
+	"evidence":              "Evidence status for this variant metric's comparison with the control.\nOnly present when the API has an evidence status for the comparison. Omitted when evidence isn't applicable or no status exists.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BayesianMetricResult) FieldDescription(field string) string {
+	return BayesianMetricResultFieldDescriptions[field]
 }

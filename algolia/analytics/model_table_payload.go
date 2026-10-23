@@ -9,6 +9,7 @@ import (
 // TablePayload When `groupBy` is set, `orderBy` is required.
 type TablePayload struct {
 	// Default domain propagated to entries that omit their own.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Fields to aggregate.
 	Metrics []FieldReference `json:"metrics"`
@@ -411,4 +412,31 @@ func (o TablePayload) String() string {
 	out += fmt.Sprintf("  offset=%v\n", o.Offset)
 
 	return fmt.Sprintf("TablePayload {\n%s}", out)
+}
+
+// TablePayloadFieldExamples maps each field (by its JSON name) to its spec example value.
+var TablePayloadFieldExamples = map[string]string{
+	"domain": "core",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TablePayload) FieldExample(field string) string {
+	return TablePayloadFieldExamples[field]
+}
+
+// TablePayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TablePayloadFieldDescriptions = map[string]string{
+	"domain":     "Default domain propagated to entries that omit their own.",
+	"metrics":    "Fields to aggregate.",
+	"groupBy":    "Fields to split rows by.",
+	"filters":    "Filter conditions.",
+	"parameters": "Literal values referenced by the query.",
+	"orderBy":    "Sort specification. Required when `groupBy` is set.",
+	"limit":      "Maximum number of rows to return.",
+	"offset":     "Number of rows to skip.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TablePayload) FieldDescription(field string) string {
+	return TablePayloadFieldDescriptions[field]
 }

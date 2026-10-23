@@ -180,3 +180,15 @@ func (o AutomaticFacetFilter) String() string {
 
 	return fmt.Sprintf("AutomaticFacetFilter {\n%s}", out)
 }
+
+// AutomaticFacetFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AutomaticFacetFilterFieldDescriptions = map[string]string{
+	"facet":       "Facet name to be applied as filter.\nThe name must match placeholders in the `pattern` parameter.\nFor example, with `pattern: {facet:genre}`, `automaticFacetFilters` must be `genre`.\n",
+	"score":       "Filter scores to give different weights to individual filters.",
+	"disjunctive": "Whether the filter is disjunctive or conjunctive.\n\nIf true the filter has multiple matches, multiple occurrences are combined with the logical `OR` operation.\nIf false, multiple occurrences are combined with the logical `AND` operation.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AutomaticFacetFilter) FieldDescription(field string) string {
+	return AutomaticFacetFilterFieldDescriptions[field]
+}

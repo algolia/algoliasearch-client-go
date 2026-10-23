@@ -9,6 +9,7 @@ import (
 // MetricDate struct for MetricDate.
 type MetricDate struct {
 	// Date where the metric was updated, in RFC 3339 format.
+	// Example: 2025-06-15
 	Date *string `json:"date,omitempty"`
 	// All ABTest metrics that were defined during test creation.
 	Metrics []MetricResult `json:"metrics,omitempty"`
@@ -144,4 +145,25 @@ func (o MetricDate) String() string {
 	out += fmt.Sprintf("  metrics=%v\n", o.Metrics)
 
 	return fmt.Sprintf("MetricDate {\n%s}", out)
+}
+
+// MetricDateFieldExamples maps each field (by its JSON name) to its spec example value.
+var MetricDateFieldExamples = map[string]string{
+	"date": "2025-06-15",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o MetricDate) FieldExample(field string) string {
+	return MetricDateFieldExamples[field]
+}
+
+// MetricDateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricDateFieldDescriptions = map[string]string{
+	"date":    "Date where the metric was updated, in RFC 3339 format.",
+	"metrics": "All ABTest metrics that were defined during test creation.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MetricDate) FieldDescription(field string) string {
+	return MetricDateFieldDescriptions[field]
 }

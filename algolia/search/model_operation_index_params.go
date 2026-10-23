@@ -10,6 +10,7 @@ import (
 type OperationIndexParams struct {
 	Operation OperationType `json:"operation"`
 	// Index name (case-sensitive).
+	// Example: products
 	Destination string `json:"destination"`
 	// **Only for copying.**  If you specify a scope, only the selected scopes are copied. Records and the other scopes are left unchanged. If you omit the `scope` parameter, everything is copied: records, settings, synonyms, and rules.
 	Scope []ScopeType `json:"scope,omitempty"`
@@ -161,4 +162,26 @@ func (o OperationIndexParams) String() string {
 	out += fmt.Sprintf("  scope=%v\n", o.Scope)
 
 	return fmt.Sprintf("OperationIndexParams {\n%s}", out)
+}
+
+// OperationIndexParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var OperationIndexParamsFieldExamples = map[string]string{
+	"destination": "products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o OperationIndexParams) FieldExample(field string) string {
+	return OperationIndexParamsFieldExamples[field]
+}
+
+// OperationIndexParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OperationIndexParamsFieldDescriptions = map[string]string{
+	"operation":   "Operation to perform on the index.",
+	"destination": "Index name (case-sensitive).",
+	"scope":       "**Only for copying.**\n\nIf you specify a scope, only the selected scopes are copied. Records and the other scopes are left unchanged.\nIf you omit the `scope` parameter, everything is copied: records, settings, synonyms, and rules.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o OperationIndexParams) FieldDescription(field string) string {
+	return OperationIndexParamsFieldDescriptions[field]
 }

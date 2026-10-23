@@ -128,3 +128,13 @@ func (o DataGuardrailViolationPartV5) String() string {
 
 	return fmt.Sprintf("DataGuardrailViolationPartV5 {\n%s}", out)
 }
+
+// DataGuardrailViolationPartV5FieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DataGuardrailViolationPartV5FieldDescriptions = map[string]string{
+	"data": "Payload of a persisted ``data-guardrail-violation`` part.\n\nThe response stream sends the same fields: ``category``, ``guardrailType``, and\n``fallbackResponse``. Unknown keys are tolerated so a newer client that carries extra\nviolation detail still round-trips without a 422.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DataGuardrailViolationPartV5) FieldDescription(field string) string {
+	return DataGuardrailViolationPartV5FieldDescriptions[field]
+}

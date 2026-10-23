@@ -779,3 +779,14 @@ func (o ConversationBaseResponse) String() string {
 
 	return fmt.Sprintf("ConversationBaseResponse {\n%s}", out)
 }
+
+// ConversationBaseResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConversationBaseResponseFieldDescriptions = map[string]string{
+	"conversationMetadata": "Public metadata exposed on conversation responses.",
+	"impactAnalytics":      "Views, clicks, and conversions attributed to the conversation.\n\nReturned only when ``includeImpactAnalytics=true``. ``null`` means the API could not supply\nthe data -- NOT that there are zero outcomes -- and the response sets ``analyticsDegraded``\nto ``true``. Render that case as a data-load error rather than as zero-value badges.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConversationBaseResponse) FieldDescription(field string) string {
+	return ConversationBaseResponseFieldDescriptions[field]
+}

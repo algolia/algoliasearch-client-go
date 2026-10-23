@@ -195,3 +195,15 @@ func (o FeatureFilters) String() string {
 
 	return fmt.Sprintf("FeatureFilters {\n%s}", out)
 }
+
+// FeatureFiltersFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FeatureFiltersFieldDescriptions = map[string]string{
+	"dynamicReRanking":   "Whether to apply Dynamic Re-Ranking feature filters.",
+	"aiPerso":            "Whether to apply AI Personalization feature filters.",
+	"multiSignalRanking": "Whether to apply Multi-Signal Re-Ranking feature filters.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FeatureFilters) FieldDescription(field string) string {
+	return FeatureFiltersFieldDescriptions[field]
+}

@@ -73,3 +73,13 @@ func (o DictionarySettingsParams) String() string {
 
 	return fmt.Sprintf("DictionarySettingsParams {\n%s}", out)
 }
+
+// DictionarySettingsParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DictionarySettingsParamsFieldDescriptions = map[string]string{
+	"disableStandardEntries": "Turn off the built-in Algolia stop words for specific languages.\nOnly `stopwords` is supported.\nThe keys of the `stopwords` object are [language ISO codes](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages) of languages with a built-in stop-word dictionary.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DictionarySettingsParams) FieldDescription(field string) string {
+	return DictionarySettingsParamsFieldDescriptions[field]
+}

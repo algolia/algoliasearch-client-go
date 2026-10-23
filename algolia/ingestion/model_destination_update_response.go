@@ -9,6 +9,7 @@ import (
 // DestinationUpdateResponse API response for updating a destination.
 type DestinationUpdateResponse struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID string `json:"destinationID"`
 	// Descriptive name for the resource.
 	Name string `json:"name"`
@@ -139,4 +140,26 @@ func (o DestinationUpdateResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("DestinationUpdateResponse {\n%s}", out)
+}
+
+// DestinationUpdateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var DestinationUpdateResponseFieldExamples = map[string]string{
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DestinationUpdateResponse) FieldExample(field string) string {
+	return DestinationUpdateResponseFieldExamples[field]
+}
+
+// DestinationUpdateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DestinationUpdateResponseFieldDescriptions = map[string]string{
+	"destinationID": "Universally unique identifier (UUID) of a destination resource.",
+	"name":          "Descriptive name for the resource.",
+	"updatedAt":     "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DestinationUpdateResponse) FieldDescription(field string) string {
+	return DestinationUpdateResponseFieldDescriptions[field]
 }

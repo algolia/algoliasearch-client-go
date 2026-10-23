@@ -12,14 +12,17 @@ import (
 type DeleteByParams struct {
 	FacetFilters *FacetFilters `json:"facetFilters,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
+	// Example: (category:Book OR category:Ebook) AND _tags:published
 	Filters        *string         `json:"filters,omitempty"`
 	NumericFilters *NumericFilters `json:"numericFilters,omitempty"`
 	TagFilters     *TagFilters     `json:"tagFilters,omitempty"`
 	// Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.  Only records included within a circle around this central location are included in the results. The radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings. This parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.
+	// Example: 40.71,-74.01
 	AroundLatLng      *string                           `json:"aroundLatLng,omitempty"`
 	AroundRadius      *AroundRadius                     `json:"aroundRadius,omitempty"`
 	InsideBoundingBox utils.Nullable[InsideBoundingBox] `json:"insideBoundingBox,omitempty"`
 	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
+	// Example: [[47.3165,4.9665,47.3424,5.0201,47.32,4.9],[40.9234,2.1185,38.643,1.9916,39.2587,2.0104]]
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 }
 
@@ -452,4 +455,32 @@ func (o DeleteByParams) String() string {
 	out += fmt.Sprintf("  insidePolygon=%v\n", o.InsidePolygon)
 
 	return fmt.Sprintf("DeleteByParams {\n%s}", out)
+}
+
+// DeleteByParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var DeleteByParamsFieldExamples = map[string]string{
+	"filters":       "(category:Book OR category:Ebook) AND _tags:published",
+	"aroundLatLng":  "40.71,-74.01",
+	"insidePolygon": "[[47.3165,4.9665,47.3424,5.0201,47.32,4.9],[40.9234,2.1185,38.643,1.9916,39.2587,2.0104]]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DeleteByParams) FieldExample(field string) string {
+	return DeleteByParamsFieldExamples[field]
+}
+
+// DeleteByParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeleteByParamsFieldDescriptions = map[string]string{
+	"facetFilters":   "Filter the search by facet values, so that only records with the same facet values are retrieved.\n\n**Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**\n\n- `[filter1, filter2]` is interpreted as `filter1 AND filter2`.\n- `[[filter1, filter2], filter3]` is interpreted as `filter1 OR filter2 AND filter3`.\n- `facet:-value` is interpreted as `NOT facet:value`.\n\nWhile it's best to avoid attributes that start with a `-`, you can still filter them by escaping with a backslash:\n`facet:\\-value`.\n",
+	"filters":        "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
+	"numericFilters": "Filter by numeric facets.\n\n**Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**\n\nYou can use numeric comparison operators: `<`, `<=`, `=`, `!=`, `>`, `>=`.\nComparisons are precise up to 3 decimals.\nYou can also provide ranges: `facet:<lower> TO <upper>`. The range includes the lower and upper boundaries.\nThe same combination rules apply as for `facetFilters`.\n",
+	"tagFilters":     "Filter the search by values of the special `_tags` attribute.\n\n**Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**\n\nDifferent from regular facets, `_tags` can only be used for filtering (including or excluding records).\nYou won't get a facet count.\nThe same combination and escaping rules apply as for `facetFilters`.\n",
+	"aroundLatLng":   "Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.\n\nOnly records included within a circle around this central location are included in the results.\nThe radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings.\nThis parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.\n",
+	"aroundRadius":   "Maximum radius for a search around a central location.\n\nThis parameter works in combination with the `aroundLatLng` and `aroundLatLngViaIP` parameters.\nBy default, the search radius is determined automatically from the density of hits around the central location.\nThe search radius is small if there are many hits close to the central coordinates.\n",
+	"insidePolygon":  "Coordinates of a polygon in which to search.\n\nPolygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude.\nProvide multiple polygons as nested arrays.\nFor more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).\nThis parameter is ignored if you also specify `insideBoundingBox`.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeleteByParams) FieldDescription(field string) string {
+	return DeleteByParamsFieldDescriptions[field]
 }

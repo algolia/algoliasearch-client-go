@@ -74,3 +74,13 @@ func (o AllowedDomainBulkDelete) String() string {
 
 	return fmt.Sprintf("AllowedDomainBulkDelete {\n%s}", out)
 }
+
+// AllowedDomainBulkDeleteFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AllowedDomainBulkDeleteFieldDescriptions = map[string]string{
+	"domainIds": "IDs of allowed domain records to delete.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AllowedDomainBulkDelete) FieldDescription(field string) string {
+	return AllowedDomainBulkDeleteFieldDescriptions[field]
+}

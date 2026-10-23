@@ -245,3 +245,16 @@ func (o AutoFilteringResult) String() string {
 
 	return fmt.Sprintf("AutoFilteringResult {\n%s}", out)
 }
+
+// AutoFilteringResultFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AutoFilteringResultFieldDescriptions = map[string]string{
+	"enabled":         "Whether automatic filtering was applied to this query.",
+	"maxDepth":        "Maximum category hierarchy depth used for filtering.",
+	"facetFilters":    "Facet filters automatically applied to the query.",
+	"optionalFilters": "Optional filters automatically applied to boost relevant categories.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AutoFilteringResult) FieldDescription(field string) string {
+	return AutoFilteringResultFieldDescriptions[field]
+}

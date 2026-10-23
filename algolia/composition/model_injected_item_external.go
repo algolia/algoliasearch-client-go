@@ -9,6 +9,7 @@ import (
 // InjectedItemExternal struct for InjectedItemExternal.
 type InjectedItemExternal struct {
 	// Algolia index used to retrieve records.
+	// Example: Products
 	Index    string                        `json:"index"`
 	Ordering *ExternalOrdering             `json:"ordering,omitempty"`
 	Params   *BaseInjectionQueryParameters `json:"params,omitempty"`
@@ -177,4 +178,25 @@ func (o InjectedItemExternal) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
 	return fmt.Sprintf("InjectedItemExternal {\n%s}", out)
+}
+
+// InjectedItemExternalFieldExamples maps each field (by its JSON name) to its spec example value.
+var InjectedItemExternalFieldExamples = map[string]string{
+	"index": "Products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o InjectedItemExternal) FieldExample(field string) string {
+	return InjectedItemExternalFieldExamples[field]
+}
+
+// InjectedItemExternalFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectedItemExternalFieldDescriptions = map[string]string{
+	"index":    "Algolia index used to retrieve records.",
+	"ordering": "Ordering to apply on the injected items coming from the external source. 'default' means the items will be ordered as they are in the index (natural relevance) in the smart group. 'userDefined' means the order in which the objectIDs are provided in the run request payload will be preserved in the smart group.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectedItemExternal) FieldDescription(field string) string {
+	return InjectedItemExternalFieldDescriptions[field]
 }

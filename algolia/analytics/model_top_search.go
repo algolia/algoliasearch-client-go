@@ -9,10 +9,13 @@ import (
 // TopSearch struct for TopSearch.
 type TopSearch struct {
 	// Search query.
+	// Example: separator
 	Search string `json:"search"`
 	// Number of searches.
+	// Example: 504
 	Count int32 `json:"count"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits int32 `json:"nbHits"`
 }
 
@@ -139,4 +142,28 @@ func (o TopSearch) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 
 	return fmt.Sprintf("TopSearch {\n%s}", out)
+}
+
+// TopSearchFieldExamples maps each field (by its JSON name) to its spec example value.
+var TopSearchFieldExamples = map[string]string{
+	"search": "separator",
+	"count":  "504",
+	"nbHits": "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TopSearch) FieldExample(field string) string {
+	return TopSearchFieldExamples[field]
+}
+
+// TopSearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopSearchFieldDescriptions = map[string]string{
+	"search": "Search query.",
+	"count":  "Number of searches.",
+	"nbHits": "Number of results (hits).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopSearch) FieldDescription(field string) string {
+	return TopSearchFieldDescriptions[field]
 }

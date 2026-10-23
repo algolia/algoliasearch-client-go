@@ -9,8 +9,10 @@ import (
 // PromoteObjectID Record to promote.
 type PromoteObjectID struct {
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID string `json:"objectID"`
 	// Position in the search results where you want to show the promoted records.
+	// Example: 0
 	Position int32 `json:"position"`
 }
 
@@ -106,4 +108,26 @@ func (o PromoteObjectID) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 
 	return fmt.Sprintf("PromoteObjectID {\n%s}", out)
+}
+
+// PromoteObjectIDFieldExamples maps each field (by its JSON name) to its spec example value.
+var PromoteObjectIDFieldExamples = map[string]string{
+	"objectID": "test-record-123",
+	"position": "0",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o PromoteObjectID) FieldExample(field string) string {
+	return PromoteObjectIDFieldExamples[field]
+}
+
+// PromoteObjectIDFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PromoteObjectIDFieldDescriptions = map[string]string{
+	"objectID": "Unique record identifier.",
+	"position": "Position in the search results where you want to show the promoted records.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PromoteObjectID) FieldDescription(field string) string {
+	return PromoteObjectIDFieldDescriptions[field]
 }

@@ -9,6 +9,7 @@ import (
 // AuthGoogleServiceAccount Credentials for authenticating with a Google service account, such as BigQuery.
 type AuthGoogleServiceAccount struct {
 	// Email address of the Google service account.
+	// Example: service-account-name@project-id.iam.gserviceaccount.com
 	ClientEmail string `json:"clientEmail"`
 	// Private key of the Google service account. This field is `null` in the API response.
 	PrivateKey string `json:"privateKey"`
@@ -106,4 +107,25 @@ func (o AuthGoogleServiceAccount) String() string {
 	out += fmt.Sprintf("  privateKey=%v\n", o.PrivateKey)
 
 	return fmt.Sprintf("AuthGoogleServiceAccount {\n%s}", out)
+}
+
+// AuthGoogleServiceAccountFieldExamples maps each field (by its JSON name) to its spec example value.
+var AuthGoogleServiceAccountFieldExamples = map[string]string{
+	"clientEmail": "service-account-name@project-id.iam.gserviceaccount.com",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AuthGoogleServiceAccount) FieldExample(field string) string {
+	return AuthGoogleServiceAccountFieldExamples[field]
+}
+
+// AuthGoogleServiceAccountFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthGoogleServiceAccountFieldDescriptions = map[string]string{
+	"clientEmail": "Email address of the Google service account.",
+	"privateKey":  "Private key of the Google service account. This field is `null` in the API response.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthGoogleServiceAccount) FieldDescription(field string) string {
+	return AuthGoogleServiceAccountFieldDescriptions[field]
 }

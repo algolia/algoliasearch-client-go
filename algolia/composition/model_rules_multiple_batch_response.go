@@ -9,6 +9,7 @@ import (
 // RulesMultipleBatchResponse struct for RulesMultipleBatchResponse.
 type RulesMultipleBatchResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 }
 
@@ -73,4 +74,24 @@ func (o RulesMultipleBatchResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 
 	return fmt.Sprintf("RulesMultipleBatchResponse {\n%s}", out)
+}
+
+// RulesMultipleBatchResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var RulesMultipleBatchResponseFieldExamples = map[string]string{
+	"taskID": "1514562690001",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RulesMultipleBatchResponse) FieldExample(field string) string {
+	return RulesMultipleBatchResponseFieldExamples[field]
+}
+
+// RulesMultipleBatchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RulesMultipleBatchResponseFieldDescriptions = map[string]string{
+	"taskID": "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RulesMultipleBatchResponse) FieldDescription(field string) string {
+	return RulesMultipleBatchResponseFieldDescriptions[field]
 }

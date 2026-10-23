@@ -244,3 +244,16 @@ func (o SearchSynonymsParams) String() string {
 
 	return fmt.Sprintf("SearchSynonymsParams {\n%s}", out)
 }
+
+// SearchSynonymsParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchSynonymsParamsFieldDescriptions = map[string]string{
+	"query":       "Search query.",
+	"type":        "Synonym type.",
+	"page":        "Page of search results to retrieve.",
+	"hitsPerPage": "Number of hits per page.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchSynonymsParams) FieldDescription(field string) string {
+	return SearchSynonymsParamsFieldDescriptions[field]
+}

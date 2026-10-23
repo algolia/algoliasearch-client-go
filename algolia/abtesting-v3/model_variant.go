@@ -9,17 +9,22 @@ import (
 // Variant struct for Variant.
 type Variant struct {
 	// Description for this variant.
+	// Example: Current production index
 	Description string `json:"description"`
 	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.
+	// Example: 0
 	EstimatedSampleSize *int32 `json:"estimatedSampleSize,omitempty"`
 	// Index name of the A/B test variant (case-sensitive).
+	// Example: delcourt_production
 	Index string `json:"index"`
 	// Percentage of search requests each variant receives.
+	// Example: 60
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// All ABTest metrics that were defined during test creation.
 	Metrics  []MetricResult   `json:"metrics"`
 	Metadata *VariantMetadata `json:"metadata,omitempty"`
 	// Search parameters applied to this variant when the same index is used for multiple variants. Only present if custom search parameters were provided during test creation.
+	// Example: {"enablePersonalization":true,"personalizationImpact":50}
 	CustomSearchParameters map[string]any `json:"customSearchParameters,omitempty"`
 }
 
@@ -328,4 +333,34 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  customSearchParameters=%v\n", o.CustomSearchParameters)
 
 	return fmt.Sprintf("Variant {\n%s}", out)
+}
+
+// VariantFieldExamples maps each field (by its JSON name) to its spec example value.
+var VariantFieldExamples = map[string]string{
+	"description":            "Current production index",
+	"estimatedSampleSize":    "0",
+	"index":                  "delcourt_production",
+	"trafficPercentage":      "60",
+	"customSearchParameters": "{\"enablePersonalization\":true,\"personalizationImpact\":50}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Variant) FieldExample(field string) string {
+	return VariantFieldExamples[field]
+}
+
+// VariantFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var VariantFieldDescriptions = map[string]string{
+	"description":            "Description for this variant.",
+	"estimatedSampleSize":    "Estimated number of searches required to achieve the desired statistical significance.\n\nThe A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.\n",
+	"index":                  "Index name of the A/B test variant (case-sensitive).",
+	"trafficPercentage":      "Percentage of search requests each variant receives.",
+	"metrics":                "All ABTest metrics that were defined during test creation.",
+	"metadata":               "Variant specific metadata.",
+	"customSearchParameters": "Search parameters applied to this variant when the same index is used for multiple variants.\nOnly present if custom search parameters were provided during test creation.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Variant) FieldDescription(field string) string {
+	return VariantFieldDescriptions[field]
 }

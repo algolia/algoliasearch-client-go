@@ -11,6 +11,7 @@ import (
 // Destination Destinations are Algolia resources like indices or event streams.
 type Destination struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID string          `json:"destinationID"`
 	Type          DestinationType `json:"type"`
 	// Descriptive name for the resource.
@@ -23,6 +24,7 @@ type Destination struct {
 	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID  *string  `json:"authenticationID,omitempty"`
 	TransformationIDs []string `json:"transformationIDs,omitempty"`
 }
@@ -413,4 +415,31 @@ func (o Destination) String() string {
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
 
 	return fmt.Sprintf("Destination {\n%s}", out)
+}
+
+// DestinationFieldExamples maps each field (by its JSON name) to its spec example value.
+var DestinationFieldExamples = map[string]string{
+	"destinationID":    "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Destination) FieldExample(field string) string {
+	return DestinationFieldExamples[field]
+}
+
+// DestinationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DestinationFieldDescriptions = map[string]string{
+	"destinationID":    "Universally unique identifier (UUID) of a destination resource.",
+	"type":             "Destination type.\n\n- `search`.\n  Data is stored in an Algolia index.\n\n- `insights`.\n  Data is recorded as user events in the Insights API.\n",
+	"name":             "Descriptive name for the resource.",
+	"owner":            "Owner of the resource.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+	"updatedAt":        "Date and time when the resource was last updated, in RFC 3339 format.",
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Destination) FieldDescription(field string) string {
+	return DestinationFieldDescriptions[field]
 }

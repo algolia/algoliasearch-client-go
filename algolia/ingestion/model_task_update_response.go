@@ -9,6 +9,7 @@ import (
 // TaskUpdateResponse API response for updating a task.
 type TaskUpdateResponse struct {
 	// Universally unique identifier (UUID) of a task.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TaskID string `json:"taskID"`
 	// Date and time when the resource was last updated, in RFC 3339 format.
 	UpdatedAt string `json:"updatedAt"`
@@ -106,4 +107,25 @@ func (o TaskUpdateResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("TaskUpdateResponse {\n%s}", out)
+}
+
+// TaskUpdateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskUpdateResponseFieldExamples = map[string]string{
+	"taskID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskUpdateResponse) FieldExample(field string) string {
+	return TaskUpdateResponseFieldExamples[field]
+}
+
+// TaskUpdateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskUpdateResponseFieldDescriptions = map[string]string{
+	"taskID":    "Universally unique identifier (UUID) of a task.",
+	"updatedAt": "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskUpdateResponse) FieldDescription(field string) string {
+	return TaskUpdateResponseFieldDescriptions[field]
 }

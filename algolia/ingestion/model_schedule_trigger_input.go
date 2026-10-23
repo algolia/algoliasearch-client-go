@@ -10,6 +10,7 @@ import (
 type ScheduleTriggerInput struct {
 	Type ScheduleTriggerType `json:"type"`
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron string `json:"cron"`
 }
 
@@ -105,4 +106,25 @@ func (o ScheduleTriggerInput) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 
 	return fmt.Sprintf("ScheduleTriggerInput {\n%s}", out)
+}
+
+// ScheduleTriggerInputFieldExamples maps each field (by its JSON name) to its spec example value.
+var ScheduleTriggerInputFieldExamples = map[string]string{
+	"cron": "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ScheduleTriggerInput) FieldExample(field string) string {
+	return ScheduleTriggerInputFieldExamples[field]
+}
+
+// ScheduleTriggerInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ScheduleTriggerInputFieldDescriptions = map[string]string{
+	"type": "Task runs on a schedule.",
+	"cron": "Cron expression for the task's schedule.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ScheduleTriggerInput) FieldDescription(field string) string {
+	return ScheduleTriggerInputFieldDescriptions[field]
 }

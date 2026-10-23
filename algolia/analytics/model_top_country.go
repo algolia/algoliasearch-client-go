@@ -9,8 +9,10 @@ import (
 // TopCountry struct for TopCountry.
 type TopCountry struct {
 	// Country code.
+	// Example: UK
 	Country string `json:"country"`
 	// Number of occurrences.
+	// Example: 2
 	Count int32 `json:"count"`
 }
 
@@ -106,4 +108,26 @@ func (o TopCountry) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("TopCountry {\n%s}", out)
+}
+
+// TopCountryFieldExamples maps each field (by its JSON name) to its spec example value.
+var TopCountryFieldExamples = map[string]string{
+	"country": "UK",
+	"count":   "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TopCountry) FieldExample(field string) string {
+	return TopCountryFieldExamples[field]
+}
+
+// TopCountryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopCountryFieldDescriptions = map[string]string{
+	"country": "Country code.",
+	"count":   "Number of occurrences.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopCountry) FieldDescription(field string) string {
+	return TopCountryFieldDescriptions[field]
 }

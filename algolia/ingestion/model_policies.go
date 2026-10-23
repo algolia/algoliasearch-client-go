@@ -95,3 +95,13 @@ func (o Policies) String() string {
 
 	return fmt.Sprintf("Policies {\n%s}", out)
 }
+
+// PoliciesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PoliciesFieldDescriptions = map[string]string{
+	"criticalThreshold": "The number of critical failures in a row before blocking the task and sending a notification.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Policies) FieldDescription(field string) string {
+	return PoliciesFieldDescriptions[field]
+}

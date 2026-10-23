@@ -145,3 +145,13 @@ func (o HitMetadata) String() string {
 
 	return fmt.Sprintf("HitMetadata {\n%s}", out)
 }
+
+// HitMetadataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var HitMetadataFieldDescriptions = map[string]string{
+	"_injectedItemKey": "The key of the injectedItem that inserted this metadata. Only present when the injectedItem's `metadata.hits.addItemKey` is `true`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o HitMetadata) FieldDescription(field string) string {
+	return HitMetadataFieldDescriptions[field]
+}

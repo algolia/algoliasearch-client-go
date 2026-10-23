@@ -13,18 +13,24 @@ type PurchasedObjectIDsAfterSearch struct {
 	EventType    ConversionEvent `json:"eventType"`
 	EventSubtype PurchaseEvent   `json:"eventSubtype"`
 	// Index name (case-sensitive) to which the event's items belong.
+	// Example: ALGOLIA_INDEX_NAME
 	Index string `json:"index"`
 	// Object IDs of the records that are part of the event.
+	// Example: ["object-1","object-2","object-3"]
 	ObjectIDs []string `json:"objectIDs"`
 	// Anonymous or pseudonymous user identifier.  Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: test-user-1
 	UserToken string `json:"userToken"`
 	// Identifier for authenticated users.  When the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`. This lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions. Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: c6a52c02-d0c7-4b53-8ce3-2b8fd202f3f9
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
 	// Three-letter [currency code](https://www.iso.org/iso-4217-currency-codes.html).
+	// Example: EUR
 	Currency *string `json:"currency,omitempty"`
 	// Extra information about the records involved in a purchase or add-to-cart events.  If provided, it must be the same length as `objectIDs`.
 	ObjectData []ObjectDataAfterSearch `json:"objectData"`
 	// Timestamp of the event, measured in milliseconds since the Unix epoch. Must be no older than 30 days. If not provided, we use the time at which the request was received.
+	// Example: 1687193127
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	Value     *Value `json:"value,omitempty"`
 }
@@ -483,4 +489,37 @@ func (o PurchasedObjectIDsAfterSearch) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 
 	return fmt.Sprintf("PurchasedObjectIDsAfterSearch {\n%s}", out)
+}
+
+// PurchasedObjectIDsAfterSearchFieldExamples maps each field (by its JSON name) to its spec example value.
+var PurchasedObjectIDsAfterSearchFieldExamples = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"index":                  "ALGOLIA_INDEX_NAME",
+	"objectIDs":              "[\"object-1\",\"object-2\",\"object-3\"]",
+	"userToken":              "test-user-1",
+	"authenticatedUserToken": "c6a52c02-d0c7-4b53-8ce3-2b8fd202f3f9",
+	"currency":               "EUR",
+	"timestamp":              "1687193127",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o PurchasedObjectIDsAfterSearch) FieldExample(field string) string {
+	return PurchasedObjectIDsAfterSearchFieldExamples[field]
+}
+
+// PurchasedObjectIDsAfterSearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PurchasedObjectIDsAfterSearchFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"eventName":              "Event name, up to 64 ASCII characters.\n\nConsider naming events consistently—for example, by adopting Segment's\n[object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework)\nframework.\n",
+	"index":                  "Index name (case-sensitive) to which the event's items belong.",
+	"objectIDs":              "Object IDs of the records that are part of the event.",
+	"userToken":              "Anonymous or pseudonymous user identifier.\n\nDon't use personally identifiable information in user tokens.\nFor more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"authenticatedUserToken": "Identifier for authenticated users.\n\nWhen the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`.\nThis lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions.\nDon't use personally identifiable information in user tokens.\nFor more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"currency":               "Three-letter [currency code](https://www.iso.org/iso-4217-currency-codes.html).",
+	"objectData":             "Extra information about the records involved in a purchase or add-to-cart events.\n\nIf provided, it must be the same length as `objectIDs`.\n",
+	"timestamp":              "Timestamp of the event, measured in milliseconds since the Unix epoch. Must be no older than 30 days.\nIf not provided, we use the time at which the request was received.\n",
+	"value":                  "Total monetary value of this event in units of `currency`.\nThis should be equal to the sum of `price` times `quantity`.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PurchasedObjectIDsAfterSearch) FieldDescription(field string) string {
+	return PurchasedObjectIDsAfterSearchFieldDescriptions[field]
 }

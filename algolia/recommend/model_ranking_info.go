@@ -618,3 +618,23 @@ func (o RankingInfo) String() string {
 
 	return fmt.Sprintf("RankingInfo {\n%s}", out)
 }
+
+// RankingInfoFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RankingInfoFieldDescriptions = map[string]string{
+	"filters":             "Whether a filter matched the query.",
+	"firstMatchedWord":    "Position of the first matched word in the best matching attribute of the record.",
+	"geoDistance":         "Distance between the geo location in the search query and the best matching geo location in the record, divided by the geo precision (in meters).",
+	"geoPrecision":        "Precision used when computing the geo distance, in meters.",
+	"nbExactWords":        "Number of exactly matched words.",
+	"nbTypos":             "Number of typos encountered when matching the record.",
+	"promoted":            "Whether the record was promoted by a rule.",
+	"proximityDistance":   "Number of words between multiple matches in the query plus 1. For single word queries, `proximityDistance` is 0.",
+	"userScore":           "Overall ranking of the record, expressed as a single integer. This attribute is internal.",
+	"words":               "Number of matched words.",
+	"promotedByReRanking": "Whether the record is re-ranked.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RankingInfo) FieldDescription(field string) string {
+	return RankingInfoFieldDescriptions[field]
+}

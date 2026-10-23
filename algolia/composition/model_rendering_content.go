@@ -192,3 +192,15 @@ func (o RenderingContent) String() string {
 
 	return fmt.Sprintf("RenderingContent {\n%s}", out)
 }
+
+// RenderingContentFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RenderingContentFieldDescriptions = map[string]string{
+	"facetOrdering": "Order of facet names and facet values in your UI.",
+	"redirect":      "The redirect rule container.",
+	"widgets":       "Widgets returned from any rules that are applied to the current search.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RenderingContent) FieldDescription(field string) string {
+	return RenderingContentFieldDescriptions[field]
+}

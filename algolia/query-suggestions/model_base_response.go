@@ -145,3 +145,14 @@ func (o BaseResponse) String() string {
 
 	return fmt.Sprintf("BaseResponse {\n%s}", out)
 }
+
+// BaseResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BaseResponseFieldDescriptions = map[string]string{
+	"status":  "HTTP status code.",
+	"message": "Details about the response, such as error messages.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BaseResponse) FieldDescription(field string) string {
+	return BaseResponseFieldDescriptions[field]
+}

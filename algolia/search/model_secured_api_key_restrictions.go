@@ -16,6 +16,7 @@ type SecuredApiKeyRestrictions struct {
 	// Index names or patterns that this API key can access. By default, an API key can access all indices in the same application.  You can use leading and trailing wildcard characters (`*`):  - `dev_*` matches all indices starting with \"dev_\". - `*_dev` matches all indices ending with \"_dev\". - `*_products_*` matches all indices containing \"_products_\".
 	RestrictIndices []string `json:"restrictIndices,omitempty"`
 	// IP network that are allowed to use this key.  You can only add a single source, but you can provide a range of IP addresses. Use this to protect against API key leaking and reuse.
+	// Example: 192.168.1.0/24
 	RestrictSources *string `json:"restrictSources,omitempty"`
 	// Pseudonymous user identifier to restrict usage of this API key to specific users.  By default, rate limits are set based on IP addresses. This can be an issue if many users search from the same IP address. To avoid this, add a user token to each generated API key.
 	UserToken *string `json:"userToken,omitempty"`
@@ -343,4 +344,29 @@ func (o SecuredApiKeyRestrictions) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 
 	return fmt.Sprintf("SecuredApiKeyRestrictions {\n%s}", out)
+}
+
+// SecuredApiKeyRestrictionsFieldExamples maps each field (by its JSON name) to its spec example value.
+var SecuredApiKeyRestrictionsFieldExamples = map[string]string{
+	"restrictSources": "192.168.1.0/24",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SecuredApiKeyRestrictions) FieldExample(field string) string {
+	return SecuredApiKeyRestrictionsFieldExamples[field]
+}
+
+// SecuredApiKeyRestrictionsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SecuredApiKeyRestrictionsFieldDescriptions = map[string]string{
+	"searchParams":    "Each parameter value, including the `query` must not be larger than 512 bytes.",
+	"filters":         "Filters that apply to every search made with the secured API key.\nExtra filters added at search time will be combined with `AND`.\nFor example, if you set `group:admin` as fixed filter on your generated API key,\nand add `groups:visitors` to the search query, the complete set of filters will be `group:admin AND groups:visitors`.\n",
+	"validUntil":      "Timestamp when the secured API key expires, measured in seconds since the Unix epoch.",
+	"restrictIndices": "Index names or patterns that this API key can access.\nBy default, an API key can access all indices in the same application.\n\nYou can use leading and trailing wildcard characters (`*`):\n\n- `dev_*` matches all indices starting with \"dev_\".\n- `*_dev` matches all indices ending with \"_dev\".\n- `*_products_*` matches all indices containing \"_products_\".\n",
+	"restrictSources": "IP network that are allowed to use this key.\n\nYou can only add a single source, but you can provide a range of IP addresses.\nUse this to protect against API key leaking and reuse.\n",
+	"userToken":       "Pseudonymous user identifier to restrict usage of this API key to specific users.\n\nBy default, rate limits are set based on IP addresses. This can be an issue if many users search from the same IP address.\nTo avoid this, add a user token to each generated API key.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SecuredApiKeyRestrictions) FieldDescription(field string) string {
+	return SecuredApiKeyRestrictionsFieldDescriptions[field]
 }

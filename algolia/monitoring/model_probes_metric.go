@@ -145,3 +145,14 @@ func (o ProbesMetric) String() string {
 
 	return fmt.Sprintf("ProbesMetric {\n%s}", out)
 }
+
+// ProbesMetricFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ProbesMetricFieldDescriptions = map[string]string{
+	"t": "Timestamp, measured in milliseconds since the Unix epoch.",
+	"v": "Value of the metric.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ProbesMetric) FieldDescription(field string) string {
+	return ProbesMetricFieldDescriptions[field]
+}

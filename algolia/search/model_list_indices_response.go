@@ -11,6 +11,7 @@ type ListIndicesResponse struct {
 	// All indices in your Algolia application.
 	Items []FetchedIndex `json:"items"`
 	// Number of pages.
+	// Example: 100
 	NbPages *int32 `json:"nbPages,omitempty"`
 }
 
@@ -129,4 +130,25 @@ func (o ListIndicesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 
 	return fmt.Sprintf("ListIndicesResponse {\n%s}", out)
+}
+
+// ListIndicesResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ListIndicesResponseFieldExamples = map[string]string{
+	"nbPages": "100",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ListIndicesResponse) FieldExample(field string) string {
+	return ListIndicesResponseFieldExamples[field]
+}
+
+// ListIndicesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListIndicesResponseFieldDescriptions = map[string]string{
+	"items":   "All indices in your Algolia application.",
+	"nbPages": "Number of pages.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListIndicesResponse) FieldDescription(field string) string {
+	return ListIndicesResponseFieldDescriptions[field]
 }

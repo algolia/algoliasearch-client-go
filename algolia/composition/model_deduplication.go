@@ -73,3 +73,13 @@ func (o Deduplication) String() string {
 
 	return fmt.Sprintf("Deduplication {\n%s}", out)
 }
+
+// DeduplicationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeduplicationFieldDescriptions = map[string]string{
+	"positioning": "Deduplication positioning configures how a duplicate result should be resolved between an injected item and main search results.\nCurrent configuration supports:\n- 'highest': always select the item in the highest position, and remove duplicates that appear lower in the results.\n- 'highestInjected': duplicate result will be moved to its highest possible injected position, but not higher. \n  If a duplicate appears higher in main search results, it will be removed to stay it's intended group position (which could be lower than main).\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Deduplication) FieldDescription(field string) string {
+	return DeduplicationFieldDescriptions[field]
+}

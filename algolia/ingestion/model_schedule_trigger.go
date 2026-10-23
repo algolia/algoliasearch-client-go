@@ -10,6 +10,7 @@ import (
 type ScheduleTrigger struct {
 	Type ScheduleTriggerType `json:"type"`
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron string `json:"cron"`
 	// The last time the scheduled task ran in RFC 3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
@@ -195,4 +196,27 @@ func (o ScheduleTrigger) String() string {
 	out += fmt.Sprintf("  nextRun=%v\n", o.NextRun)
 
 	return fmt.Sprintf("ScheduleTrigger {\n%s}", out)
+}
+
+// ScheduleTriggerFieldExamples maps each field (by its JSON name) to its spec example value.
+var ScheduleTriggerFieldExamples = map[string]string{
+	"cron": "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ScheduleTrigger) FieldExample(field string) string {
+	return ScheduleTriggerFieldExamples[field]
+}
+
+// ScheduleTriggerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ScheduleTriggerFieldDescriptions = map[string]string{
+	"type":    "Task runs on a schedule.",
+	"cron":    "Cron expression for the task's schedule.",
+	"lastRun": "The last time the scheduled task ran in RFC 3339 format.",
+	"nextRun": "The next scheduled run of the task in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ScheduleTrigger) FieldDescription(field string) string {
+	return ScheduleTriggerFieldDescriptions[field]
 }

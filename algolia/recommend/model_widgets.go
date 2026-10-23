@@ -144,3 +144,14 @@ func (o Widgets) String() string {
 
 	return fmt.Sprintf("Widgets {\n%s}", out)
 }
+
+// WidgetsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var WidgetsFieldDescriptions = map[string]string{
+	"banners":    "Banners defined in the Merchandising Studio for a given search.",
+	"resultCard": "Agent Studio Result Card to display for a given search.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Widgets) FieldDescription(field string) string {
+	return WidgetsFieldDescriptions[field]
+}

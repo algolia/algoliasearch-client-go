@@ -9,6 +9,7 @@ import (
 // RuleMetadata Rule metadata.
 type RuleMetadata struct {
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	LastUpdate *string `json:"lastUpdate,omitempty"`
 }
 
@@ -94,4 +95,24 @@ func (o RuleMetadata) String() string {
 	out += fmt.Sprintf("  lastUpdate=%v\n", o.LastUpdate)
 
 	return fmt.Sprintf("RuleMetadata {\n%s}", out)
+}
+
+// RuleMetadataFieldExamples maps each field (by its JSON name) to its spec example value.
+var RuleMetadataFieldExamples = map[string]string{
+	"lastUpdate": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RuleMetadata) FieldExample(field string) string {
+	return RuleMetadataFieldExamples[field]
+}
+
+// RuleMetadataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RuleMetadataFieldDescriptions = map[string]string{
+	"lastUpdate": "Date and time when the object was updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RuleMetadata) FieldDescription(field string) string {
+	return RuleMetadataFieldDescriptions[field]
 }

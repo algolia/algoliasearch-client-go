@@ -163,3 +163,15 @@ func (o DockerStreams) String() string {
 
 	return fmt.Sprintf("DockerStreams {\n%s}", out)
 }
+
+// DockerStreamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DockerStreamsFieldDescriptions = map[string]string{
+	"name":       "The name of the stream to fetch the data from (e.g. table name).",
+	"properties": "The properties of the stream to select (e.g. column).",
+	"syncMode":   "The strategy to use to fetch the data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DockerStreams) FieldDescription(field string) string {
+	return DockerStreamsFieldDescriptions[field]
+}

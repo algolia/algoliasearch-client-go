@@ -9,8 +9,10 @@ import (
 // FetchedIndexAbTestVariant A/B test variant for an index.
 type FetchedIndexAbTestVariant struct {
 	// Index name of the variant. Only present for v0/v1 tests; in v2 this moves into `payload`.
+	// Example: movies
 	IndexName *string `json:"indexName,omitempty"`
 	// Percentage of search traffic routed to this variant.
+	// Example: 50
 	Percentage int32 `json:"percentage"`
 	// URL-encoded custom search parameters applied to this variant. Only present for v0/v1 tests; in v2 this moves into `payload`.
 	CustomSearchParameters *string `json:"customSearchParameters,omitempty"`
@@ -228,4 +230,28 @@ func (o FetchedIndexAbTestVariant) String() string {
 	out += fmt.Sprintf("  payload=%v\n", o.Payload)
 
 	return fmt.Sprintf("FetchedIndexAbTestVariant {\n%s}", out)
+}
+
+// FetchedIndexAbTestVariantFieldExamples maps each field (by its JSON name) to its spec example value.
+var FetchedIndexAbTestVariantFieldExamples = map[string]string{
+	"indexName":  "movies",
+	"percentage": "50",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FetchedIndexAbTestVariant) FieldExample(field string) string {
+	return FetchedIndexAbTestVariantFieldExamples[field]
+}
+
+// FetchedIndexAbTestVariantFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FetchedIndexAbTestVariantFieldDescriptions = map[string]string{
+	"indexName":              "Index name of the variant. Only present for v0/v1 tests; in v2 this moves into `payload`.",
+	"percentage":             "Percentage of search traffic routed to this variant.",
+	"customSearchParameters": "URL-encoded custom search parameters applied to this variant. Only present for v0/v1 tests; in v2 this moves into `payload`.",
+	"payload":                "Type-specific configuration. Only present for v2 and later tests. Shape depends on the parent A/B test's `type`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FetchedIndexAbTestVariant) FieldDescription(field string) string {
+	return FetchedIndexAbTestVariantFieldDescriptions[field]
 }

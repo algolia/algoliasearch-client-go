@@ -137,3 +137,14 @@ func (o RunListResponse) String() string {
 
 	return fmt.Sprintf("RunListResponse {\n%s}", out)
 }
+
+// RunListResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RunListResponseFieldDescriptions = map[string]string{
+	"pagination": "Paginated API response.",
+	"window":     "Time window by which to filter the observability data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RunListResponse) FieldDescription(field string) string {
+	return RunListResponseFieldDescriptions[field]
+}

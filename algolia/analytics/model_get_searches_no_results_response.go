@@ -74,3 +74,13 @@ func (o GetSearchesNoResultsResponse) String() string {
 
 	return fmt.Sprintf("GetSearchesNoResultsResponse {\n%s}", out)
 }
+
+// GetSearchesNoResultsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetSearchesNoResultsResponseFieldDescriptions = map[string]string{
+	"searches": "Searches without results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetSearchesNoResultsResponse) FieldDescription(field string) string {
+	return GetSearchesNoResultsResponseFieldDescriptions[field]
+}

@@ -74,3 +74,13 @@ func (o TopHitsResponseWithRevenueAnalytics) String() string {
 
 	return fmt.Sprintf("TopHitsResponseWithRevenueAnalytics {\n%s}", out)
 }
+
+// TopHitsResponseWithRevenueAnalyticsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopHitsResponseWithRevenueAnalyticsFieldDescriptions = map[string]string{
+	"hits": "Most frequent search results with click, conversion, and revenue metrics.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopHitsResponseWithRevenueAnalytics) FieldDescription(field string) string {
+	return TopHitsResponseWithRevenueAnalyticsFieldDescriptions[field]
+}

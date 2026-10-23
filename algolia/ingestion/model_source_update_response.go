@@ -9,6 +9,7 @@ import (
 // SourceUpdateResponse struct for SourceUpdateResponse.
 type SourceUpdateResponse struct {
 	// Universally uniqud identifier (UUID) of a source.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	SourceID string `json:"sourceID"`
 	// Descriptive name of the source.
 	Name string `json:"name"`
@@ -139,4 +140,26 @@ func (o SourceUpdateResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("SourceUpdateResponse {\n%s}", out)
+}
+
+// SourceUpdateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceUpdateResponseFieldExamples = map[string]string{
+	"sourceID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceUpdateResponse) FieldExample(field string) string {
+	return SourceUpdateResponseFieldExamples[field]
+}
+
+// SourceUpdateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceUpdateResponseFieldDescriptions = map[string]string{
+	"sourceID":  "Universally uniqud identifier (UUID) of a source.",
+	"name":      "Descriptive name of the source.",
+	"updatedAt": "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceUpdateResponse) FieldDescription(field string) string {
+	return SourceUpdateResponseFieldDescriptions[field]
 }

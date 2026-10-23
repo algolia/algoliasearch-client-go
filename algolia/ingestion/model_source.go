@@ -11,6 +11,7 @@ import (
 // Source struct for Source.
 type Source struct {
 	// Universally uniqud identifier (UUID) of a source.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	SourceID string     `json:"sourceID"`
 	Type     SourceType `json:"type"`
 	Name     string     `json:"name"`
@@ -18,6 +19,7 @@ type Source struct {
 	Owner utils.Nullable[string] `json:"owner,omitempty"`
 	Input *SourceInput           `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
@@ -372,4 +374,29 @@ func (o Source) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("Source {\n%s}", out)
+}
+
+// SourceFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceFieldExamples = map[string]string{
+	"sourceID":         "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Source) FieldExample(field string) string {
+	return SourceFieldExamples[field]
+}
+
+// SourceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceFieldDescriptions = map[string]string{
+	"sourceID":         "Universally uniqud identifier (UUID) of a source.",
+	"owner":            "Owner of the resource.",
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+	"updatedAt":        "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Source) FieldDescription(field string) string {
+	return SourceFieldDescriptions[field]
 }

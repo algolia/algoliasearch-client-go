@@ -280,3 +280,16 @@ func (o TransformationTry) String() string {
 
 	return fmt.Sprintf("TransformationTry {\n%s}", out)
 }
+
+// TransformationTryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationTryFieldDescriptions = map[string]string{
+	"code":         "It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.",
+	"type":         "The type of transformation, which can be either 'code' or 'noCode'.",
+	"input":        "The input for the transformation, which can be either code or a no-code configuration.",
+	"sampleRecord": "The record to apply the given code to.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationTry) FieldDescription(field string) string {
+	return TransformationTryFieldDescriptions[field]
+}

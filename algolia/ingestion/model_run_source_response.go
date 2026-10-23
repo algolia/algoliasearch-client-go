@@ -107,3 +107,14 @@ func (o RunSourceResponse) String() string {
 
 	return fmt.Sprintf("RunSourceResponse {\n%s}", out)
 }
+
+// RunSourceResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RunSourceResponseFieldDescriptions = map[string]string{
+	"taskWithRunID": "Map of taskID sent for reindex with the corresponding runID.",
+	"createdAt":     "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RunSourceResponse) FieldDescription(field string) string {
+	return RunSourceResponseFieldDescriptions[field]
+}

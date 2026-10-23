@@ -145,3 +145,14 @@ func (o AuthAlgoliaPartial) String() string {
 
 	return fmt.Sprintf("AuthAlgoliaPartial {\n%s}", out)
 }
+
+// AuthAlgoliaPartialFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthAlgoliaPartialFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"appID":  "Algolia application ID.",
+	"apiKey": "Algolia API key with the ACL: `addObject`, `deleteObject`, `settings`, `editSettings`, `listIndexes`, `deleteIndex`.\nThis field is `null` in the API response.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthAlgoliaPartial) FieldDescription(field string) string {
+	return AuthAlgoliaPartialFieldDescriptions[field]
+}

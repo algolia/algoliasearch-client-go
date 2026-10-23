@@ -105,3 +105,13 @@ func (o MappingInput) String() string {
 
 	return fmt.Sprintf("MappingInput {\n%s}", out)
 }
+
+// MappingInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MappingInputFieldDescriptions = map[string]string{
+	"format": "Mapping format schema.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MappingInput) FieldDescription(field string) string {
+	return MappingInputFieldDescriptions[field]
+}

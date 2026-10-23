@@ -173,3 +173,16 @@ func (o DomainCatalog) String() string {
 
 	return fmt.Sprintf("DomainCatalog {\n%s}", out)
 }
+
+// DomainCatalogFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DomainCatalogFieldDescriptions = map[string]string{
+	"metrics":       "Fields usable as metrics.",
+	"filters":       "Fields usable as filters.",
+	"groups":        "Fields usable in `groupBy`.",
+	"distributions": "Fields usable in distributions.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DomainCatalog) FieldDescription(field string) string {
+	return DomainCatalogFieldDescriptions[field]
+}

@@ -9,6 +9,7 @@ import (
 // TrendingItemsQuery struct for TrendingItemsQuery.
 type TrendingItemsQuery struct {
 	// Index name (case-sensitive).
+	// Example: products
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
@@ -392,4 +393,31 @@ func (o TrendingItemsQuery) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
 	return fmt.Sprintf("TrendingItemsQuery {\n%s}", out)
+}
+
+// TrendingItemsQueryFieldExamples maps each field (by its JSON name) to its spec example value.
+var TrendingItemsQueryFieldExamples = map[string]string{
+	"indexName": "products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TrendingItemsQuery) FieldExample(field string) string {
+	return TrendingItemsQueryFieldExamples[field]
+}
+
+// TrendingItemsQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TrendingItemsQueryFieldDescriptions = map[string]string{
+	"indexName":          "Index name (case-sensitive).",
+	"threshold":          "Minimum score a recommendation must have to be included in the response.",
+	"maxRecommendations": "Maximum number of recommendations to retrieve.\nBy default, all recommendations are returned and no fallback request is made.\nDepending on the available recommendations and the other request parameters,\nthe actual number of recommendations may be lower than this value.\n",
+	"queryParameters":    "Search parameters for filtering the recommendations.",
+	"facetName":          "Facet attribute. To be used in combination with `facetValue`.\nIf specified, only recommendations matching the facet filter will be returned.\n",
+	"facetValue":         "Facet value. To be used in combination with `facetName`.\nIf specified, only recommendations matching the facet filter will be returned.\n",
+	"model":              "Trending items model.\n\nTrending items are determined from the number of conversion events collected on them.\n",
+	"fallbackParameters": "Search parameters to use for a fallback request if there aren't enough recommendations.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TrendingItemsQuery) FieldDescription(field string) string {
+	return TrendingItemsQueryFieldDescriptions[field]
 }

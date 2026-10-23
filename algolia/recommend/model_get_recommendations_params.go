@@ -74,3 +74,13 @@ func (o GetRecommendationsParams) String() string {
 
 	return fmt.Sprintf("GetRecommendationsParams {\n%s}", out)
 }
+
+// GetRecommendationsParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetRecommendationsParamsFieldDescriptions = map[string]string{
+	"requests": "Recommendation request with parameters depending on the requested model.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetRecommendationsParams) FieldDescription(field string) string {
+	return GetRecommendationsParamsFieldDescriptions[field]
+}

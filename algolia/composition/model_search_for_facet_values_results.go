@@ -14,6 +14,7 @@ type SearchForFacetValuesResults struct {
 	// Whether the facet count is exhaustive (true) or approximate (false). For more information, see [Why are my facet and hit counts not accurate](https://support.algolia.com/hc/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate).
 	ExhaustiveFacetsCount bool `json:"exhaustiveFacetsCount"`
 	// Time the server took to process the request, in milliseconds.
+	// Example: 20
 	ProcessingTimeMS *int32 `json:"processingTimeMS,omitempty"`
 }
 
@@ -199,4 +200,26 @@ func (o SearchForFacetValuesResults) String() string {
 	out += fmt.Sprintf("  processingTimeMS=%v\n", o.ProcessingTimeMS)
 
 	return fmt.Sprintf("SearchForFacetValuesResults {\n%s}", out)
+}
+
+// SearchForFacetValuesResultsFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchForFacetValuesResultsFieldExamples = map[string]string{
+	"processingTimeMS": "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchForFacetValuesResults) FieldExample(field string) string {
+	return SearchForFacetValuesResultsFieldExamples[field]
+}
+
+// SearchForFacetValuesResultsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchForFacetValuesResultsFieldDescriptions = map[string]string{
+	"facetHits":             "Matching facet values.",
+	"exhaustiveFacetsCount": "Whether the facet count is exhaustive (true) or approximate (false).\nFor more information, see [Why are my facet and hit counts not accurate](https://support.algolia.com/hc/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate).\n",
+	"processingTimeMS":      "Time the server took to process the request, in milliseconds.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchForFacetValuesResults) FieldDescription(field string) string {
+	return SearchForFacetValuesResultsFieldDescriptions[field]
 }

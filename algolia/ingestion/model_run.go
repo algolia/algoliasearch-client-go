@@ -9,9 +9,11 @@ import (
 // Run struct for Run.
 type Run struct {
 	// Universally unique identifier (UUID) of a task run.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	RunID string `json:"runID"`
 	AppID string `json:"appID"`
 	// Universally unique identifier (UUID) of a task.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TaskID   string       `json:"taskID"`
 	Status   RunStatus    `json:"status"`
 	Progress *RunProgress `json:"progress,omitempty"`
@@ -589,4 +591,35 @@ func (o Run) String() string {
 	out += fmt.Sprintf("  finishedAt=%v\n", o.FinishedAt)
 
 	return fmt.Sprintf("Run {\n%s}", out)
+}
+
+// RunFieldExamples maps each field (by its JSON name) to its spec example value.
+var RunFieldExamples = map[string]string{
+	"runID":  "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"taskID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Run) FieldExample(field string) string {
+	return RunFieldExamples[field]
+}
+
+// RunFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RunFieldDescriptions = map[string]string{
+	"runID":            "Universally unique identifier (UUID) of a task run.",
+	"taskID":           "Universally unique identifier (UUID) of a task.",
+	"status":           "Task run status.",
+	"outcome":          "Task run outcome.",
+	"failureThreshold": "Maximum accepted percentage of failures for a task run to finish successfully.",
+	"reason":           "More information about the task run's outcome.",
+	"reasonCode":       "A code for the task run's outcome. A readable description of the code is included in the `reason` response property.",
+	"type":             "Task run type.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+	"startedAt":        "Date and time when the task started, in RFC 3339 format.",
+	"finishedAt":       "Date and time when the task finished, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Run) FieldDescription(field string) string {
+	return RunFieldDescriptions[field]
 }

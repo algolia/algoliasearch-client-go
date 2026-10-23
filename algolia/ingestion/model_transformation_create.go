@@ -331,3 +331,18 @@ func (o TransformationCreate) String() string {
 
 	return fmt.Sprintf("TransformationCreate {\n%s}", out)
 }
+
+// TransformationCreateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationCreateFieldDescriptions = map[string]string{
+	"code":              "It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.",
+	"name":              "The uniquely identified name of your transformation.",
+	"type":              "The type of transformation, which can be either 'code' or 'noCode'.",
+	"input":             "The input for the transformation, which can be either code or a no-code configuration.",
+	"description":       "A descriptive name for your transformation of what it does.",
+	"authenticationIDs": "The authentications associated with the current transformation.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationCreate) FieldDescription(field string) string {
+	return TransformationCreateFieldDescriptions[field]
+}

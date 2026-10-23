@@ -139,3 +139,15 @@ func (o EventsScoring) String() string {
 
 	return fmt.Sprintf("EventsScoring {\n%s}", out)
 }
+
+// EventsScoringFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EventsScoringFieldDescriptions = map[string]string{
+	"score":     "Event score.",
+	"eventName": "Event name.",
+	"eventType": "Event type.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EventsScoring) FieldDescription(field string) string {
+	return EventsScoringFieldDescriptions[field]
+}

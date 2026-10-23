@@ -9,8 +9,10 @@ import (
 // BatchAssignUserIdsParams Assign userID parameters.
 type BatchAssignUserIdsParams struct {
 	// Cluster name.
+	// Example: c11-test
 	Cluster string `json:"cluster"`
 	// User IDs to assign.
+	// Example: ["einstein","bohr","feynman"]
 	Users []string `json:"users"`
 }
 
@@ -106,4 +108,26 @@ func (o BatchAssignUserIdsParams) String() string {
 	out += fmt.Sprintf("  users=%v\n", o.Users)
 
 	return fmt.Sprintf("BatchAssignUserIdsParams {\n%s}", out)
+}
+
+// BatchAssignUserIdsParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var BatchAssignUserIdsParamsFieldExamples = map[string]string{
+	"cluster": "c11-test",
+	"users":   "[\"einstein\",\"bohr\",\"feynman\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o BatchAssignUserIdsParams) FieldExample(field string) string {
+	return BatchAssignUserIdsParamsFieldExamples[field]
+}
+
+// BatchAssignUserIdsParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BatchAssignUserIdsParamsFieldDescriptions = map[string]string{
+	"cluster": "Cluster name.",
+	"users":   "User IDs to assign.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BatchAssignUserIdsParams) FieldDescription(field string) string {
+	return BatchAssignUserIdsParamsFieldDescriptions[field]
 }

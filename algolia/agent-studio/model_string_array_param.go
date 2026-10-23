@@ -251,3 +251,13 @@ func (o StringArrayParam) String() string {
 
 	return fmt.Sprintf("StringArrayParam {\n%s}", out)
 }
+
+// StringArrayParamFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var StringArrayParamFieldDescriptions = map[string]string{
+	"constraint": "Constraints for a string array parameter.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o StringArrayParam) FieldDescription(field string) string {
+	return StringArrayParamFieldDescriptions[field]
+}

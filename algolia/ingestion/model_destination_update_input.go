@@ -194,3 +194,15 @@ func (o DestinationUpdateInput) String() string {
 
 	return fmt.Sprintf("DestinationUpdateInput {\n%s}", out)
 }
+
+// DestinationUpdateInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DestinationUpdateInputFieldDescriptions = map[string]string{
+	"indexName":           "Algolia index name (case-sensitive).",
+	"recordType":          "Record type for ecommerce sources.",
+	"attributesToExclude": "Attributes from your source to exclude from Algolia records.\n\nNot all your data attributes will be useful for searching.\nKeeping your Algolia records small increases indexing and search performance.\n\n- Exclude nested attributes with `.` notation. For example, `foo.bar` indexes the `foo` attribute and all its children **except** the `bar` attribute.\n- Exclude attributes from arrays with `[i]`, where `i` is the index of the array element.\n  For example, `foo.[0].bar` only excludes the `bar` attribute from the first element of the `foo` array, but indexes the complete `foo` attribute for all other elements.\n  Use `*` as wildcard: `foo.[*].bar` excludes `bar` from all elements of the `foo` array.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DestinationUpdateInput) FieldDescription(field string) string {
+	return DestinationUpdateInputFieldDescriptions[field]
+}

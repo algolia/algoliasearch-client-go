@@ -9,12 +9,16 @@ import (
 // UserHit struct for UserHit.
 type UserHit struct {
 	// Unique identifier of the user who makes the search request.
+	// Example: user1
 	UserID string `json:"userID"`
 	// Cluster name.
+	// Example: c11-test
 	ClusterName string `json:"clusterName"`
 	// Number of records in the cluster.
+	// Example: 3
 	NbRecords int32 `json:"nbRecords"`
 	// Data size taken by all the users assigned to the cluster.
+	// Example: 481
 	DataSize int32 `json:"dataSize"`
 	// userID of the requested user. Same as userID.
 	ObjectID        string              `json:"objectID"`
@@ -237,4 +241,31 @@ func (o UserHit) String() string {
 	out += fmt.Sprintf("  _highlightResult=%v\n", o.HighlightResult)
 
 	return fmt.Sprintf("UserHit {\n%s}", out)
+}
+
+// UserHitFieldExamples maps each field (by its JSON name) to its spec example value.
+var UserHitFieldExamples = map[string]string{
+	"userID":      "user1",
+	"clusterName": "c11-test",
+	"nbRecords":   "3",
+	"dataSize":    "481",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o UserHit) FieldExample(field string) string {
+	return UserHitFieldExamples[field]
+}
+
+// UserHitFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var UserHitFieldDescriptions = map[string]string{
+	"userID":      "Unique identifier of the user who makes the search request.",
+	"clusterName": "Cluster name.",
+	"nbRecords":   "Number of records in the cluster.",
+	"dataSize":    "Data size taken by all the users assigned to the cluster.",
+	"objectID":    "userID of the requested user. Same as userID.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o UserHit) FieldDescription(field string) string {
+	return UserHitFieldDescriptions[field]
 }

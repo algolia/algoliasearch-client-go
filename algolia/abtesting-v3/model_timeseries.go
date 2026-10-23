@@ -9,6 +9,7 @@ import (
 // Timeseries struct for Timeseries.
 type Timeseries struct {
 	// Unique A/B test identifier.
+	// Example: 224
 	AbTestID int32 `json:"abTestID"`
 	// A/B test timeseries variants.  The first variant is your _control_ index, typically your production index. All of the additional variants are indexes with changed settings that you want to test against the control.
 	Variants []TimeseriesVariant `json:"variants"`
@@ -106,4 +107,25 @@ func (o Timeseries) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 
 	return fmt.Sprintf("Timeseries {\n%s}", out)
+}
+
+// TimeseriesFieldExamples maps each field (by its JSON name) to its spec example value.
+var TimeseriesFieldExamples = map[string]string{
+	"abTestID": "224",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Timeseries) FieldExample(field string) string {
+	return TimeseriesFieldExamples[field]
+}
+
+// TimeseriesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TimeseriesFieldDescriptions = map[string]string{
+	"abTestID": "Unique A/B test identifier.",
+	"variants": "A/B test timeseries variants.\n\nThe first variant is your _control_ index, typically your production index.\nAll of the additional variants are indexes with changed settings that you want to test against the control.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Timeseries) FieldDescription(field string) string {
+	return TimeseriesFieldDescriptions[field]
 }

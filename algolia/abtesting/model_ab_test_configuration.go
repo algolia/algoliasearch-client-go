@@ -241,3 +241,16 @@ func (o ABTestConfiguration) String() string {
 
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }
+
+// ABTestConfigurationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ABTestConfigurationFieldDescriptions = map[string]string{
+	"featureFilters":          "Configuration of feature-based filters applied to the A/B test population.",
+	"outliers":                "Configuration for handling outliers.",
+	"emptySearch":             "Configuration for handling empty searches.",
+	"minimumDetectableEffect": "Configuration for the smallest difference between test variants you want to detect.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ABTestConfiguration) FieldDescription(field string) string {
+	return ABTestConfigurationFieldDescriptions[field]
+}

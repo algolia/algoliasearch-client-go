@@ -145,3 +145,14 @@ func (o TimeEntry) String() string {
 
 	return fmt.Sprintf("TimeEntry {\n%s}", out)
 }
+
+// TimeEntryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TimeEntryFieldDescriptions = map[string]string{
+	"t": "Timestamp, measured in milliseconds since the Unix epoch.",
+	"v": "Time in ms.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TimeEntry) FieldDescription(field string) string {
+	return TimeEntryFieldDescriptions[field]
+}

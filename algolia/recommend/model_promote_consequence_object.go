@@ -9,6 +9,7 @@ import (
 // PromoteConsequenceObject Object ID and position of the recommendation you want to pin.
 type PromoteConsequenceObject struct {
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID *string `json:"objectID,omitempty"`
 	// Index in the list of recommendations where to place this item.
 	Position *int32 `json:"position,omitempty"`
@@ -144,4 +145,25 @@ func (o PromoteConsequenceObject) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 
 	return fmt.Sprintf("PromoteConsequenceObject {\n%s}", out)
+}
+
+// PromoteConsequenceObjectFieldExamples maps each field (by its JSON name) to its spec example value.
+var PromoteConsequenceObjectFieldExamples = map[string]string{
+	"objectID": "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o PromoteConsequenceObject) FieldExample(field string) string {
+	return PromoteConsequenceObjectFieldExamples[field]
+}
+
+// PromoteConsequenceObjectFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PromoteConsequenceObjectFieldDescriptions = map[string]string{
+	"objectID": "Unique record identifier.",
+	"position": "Index in the list of recommendations where to place this item.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PromoteConsequenceObject) FieldDescription(field string) string {
+	return PromoteConsequenceObjectFieldDescriptions[field]
 }

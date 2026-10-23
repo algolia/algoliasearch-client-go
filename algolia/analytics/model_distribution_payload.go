@@ -9,6 +9,7 @@ import (
 // DistributionPayload struct for DistributionPayload.
 type DistributionPayload struct {
 	// Default domain propagated to entries that omit their own.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Histogram specifications.
 	Distributions []DistributionDefinition `json:"distributions"`
@@ -216,4 +217,27 @@ func (o DistributionPayload) String() string {
 	out += fmt.Sprintf("  parameters=%v\n", o.Parameters)
 
 	return fmt.Sprintf("DistributionPayload {\n%s}", out)
+}
+
+// DistributionPayloadFieldExamples maps each field (by its JSON name) to its spec example value.
+var DistributionPayloadFieldExamples = map[string]string{
+	"domain": "core",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DistributionPayload) FieldExample(field string) string {
+	return DistributionPayloadFieldExamples[field]
+}
+
+// DistributionPayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DistributionPayloadFieldDescriptions = map[string]string{
+	"domain":        "Default domain propagated to entries that omit their own.",
+	"distributions": "Histogram specifications.",
+	"filters":       "Filter conditions.",
+	"parameters":    "Literal values referenced by the query.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DistributionPayload) FieldDescription(field string) string {
+	return DistributionPayloadFieldDescriptions[field]
 }

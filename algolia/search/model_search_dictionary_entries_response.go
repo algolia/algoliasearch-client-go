@@ -13,8 +13,10 @@ type SearchDictionaryEntriesResponse struct {
 	// Requested page of the API response.  Algolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).  - `hitsPerPage`: sets the number of search results (_hits_) displayed per page. - `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.  For example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.
 	Page int32 `json:"page"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits int32 `json:"nbHits"`
 	// Number of pages of results.
+	// Example: 1
 	NbPages int32 `json:"nbPages"`
 }
 
@@ -172,4 +174,28 @@ func (o SearchDictionaryEntriesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 
 	return fmt.Sprintf("SearchDictionaryEntriesResponse {\n%s}", out)
+}
+
+// SearchDictionaryEntriesResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchDictionaryEntriesResponseFieldExamples = map[string]string{
+	"nbHits":  "20",
+	"nbPages": "1",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchDictionaryEntriesResponse) FieldExample(field string) string {
+	return SearchDictionaryEntriesResponseFieldExamples[field]
+}
+
+// SearchDictionaryEntriesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchDictionaryEntriesResponseFieldDescriptions = map[string]string{
+	"hits":    "Dictionary entries matching the search criteria.",
+	"page":    "Requested page of the API response.\n\nAlgolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).\n\n- `hitsPerPage`: sets the number of search results (_hits_) displayed per page.\n- `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.\n\nFor example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.\n",
+	"nbHits":  "Number of results (hits).",
+	"nbPages": "Number of pages of results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchDictionaryEntriesResponse) FieldDescription(field string) string {
+	return SearchDictionaryEntriesResponseFieldDescriptions[field]
 }

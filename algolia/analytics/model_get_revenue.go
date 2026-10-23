@@ -107,3 +107,14 @@ func (o GetRevenue) String() string {
 
 	return fmt.Sprintf("GetRevenue {\n%s}", out)
 }
+
+// GetRevenueFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetRevenueFieldDescriptions = map[string]string{
+	"currencies": "Revenue associated with this search: broken down by currency.\n",
+	"dates":      "Daily revenue.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetRevenue) FieldDescription(field string) string {
+	return GetRevenueFieldDescriptions[field]
+}

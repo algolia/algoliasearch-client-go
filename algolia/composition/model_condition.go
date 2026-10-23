@@ -9,13 +9,17 @@ import (
 // Condition struct for Condition.
 type Condition struct {
 	// Query pattern that triggers the rule.  You can use either a literal string, or a special pattern `{facet:ATTRIBUTE}`, where `ATTRIBUTE` is a facet name. The rule is triggered if the query matches the literal string or a value of the specified facet. For example, with `pattern: {facet:genre}`, the rule is triggered when users search for a genre, such as \"comedy\".
+	// Example: {facet:genre}
 	Pattern   *string    `json:"pattern,omitempty"`
 	Anchoring *Anchoring `json:"anchoring,omitempty"`
 	// An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter. For example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`. A rule context must only contain alphanumeric characters.
+	// Example: mobile
 	Context *string `json:"context,omitempty"`
 	// Filters that trigger the rule.  You can add add filters using the syntax `facet:value` so that the rule is triggered, when the specific filter is selected. You can use `filters` on its own or combine it with the `pattern` parameter.
+	// Example: genre:comedy
 	Filters *string `json:"filters,omitempty"`
 	// Sort criteria that trigger the rule.  You can trigger composition rules based on the selected sorting strategy set by the parameter `sortBy`. The rule will trigger if the value passed to `sortBy` matches the one defined in the condition.
+	// Example: price-low-to-high
 	SortBy *string `json:"sortBy,omitempty"`
 }
 
@@ -293,4 +297,31 @@ func (o Condition) String() string {
 	out += fmt.Sprintf("  sortBy=%v\n", o.SortBy)
 
 	return fmt.Sprintf("Condition {\n%s}", out)
+}
+
+// ConditionFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConditionFieldExamples = map[string]string{
+	"pattern": "{facet:genre}",
+	"context": "mobile",
+	"filters": "genre:comedy",
+	"sortBy":  "price-low-to-high",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Condition) FieldExample(field string) string {
+	return ConditionFieldExamples[field]
+}
+
+// ConditionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConditionFieldDescriptions = map[string]string{
+	"pattern":   "Query pattern that triggers the rule.\n\nYou can use either a literal string, or a special pattern `{facet:ATTRIBUTE}`, where `ATTRIBUTE` is a facet name.\nThe rule is triggered if the query matches the literal string or a value of the specified facet.\nFor example, with `pattern: {facet:genre}`, the rule is triggered when users search for a genre, such as \"comedy\".\n",
+	"anchoring": "Which part of the search query the pattern should match:\n\n- `startsWith`. The pattern must match the beginning of the query.\n- `endsWith`. The pattern must match the end of the query.\n- `is`. The pattern must match the query exactly.\n- `contains`. The pattern must match anywhere in the query.\n\nEmpty queries are only allowed as patterns with `anchoring: is`.\n",
+	"context":   "An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter.\nFor example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`.\nA rule context must only contain alphanumeric characters.\n",
+	"filters":   "Filters that trigger the rule.\n\nYou can add add filters using the syntax `facet:value` so that the rule is triggered, when the specific filter is selected.\nYou can use `filters` on its own or combine it with the `pattern` parameter.\n",
+	"sortBy":    "Sort criteria that trigger the rule.\n\nYou can trigger composition rules based on the selected sorting strategy set by the parameter `sortBy`.\nThe rule will trigger if the value passed to `sortBy` matches the one defined in the condition.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Condition) FieldDescription(field string) string {
+	return ConditionFieldDescriptions[field]
 }

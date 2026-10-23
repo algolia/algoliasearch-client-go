@@ -9,6 +9,7 @@ import (
 // DailyUsers struct for DailyUsers.
 type DailyUsers struct {
 	// Date in the format YYYY-MM-DD.
+	// Example: 2023-06-14
 	Date string `json:"date"`
 	// Number of unique users.
 	Count int32 `json:"count"`
@@ -106,4 +107,25 @@ func (o DailyUsers) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("DailyUsers {\n%s}", out)
+}
+
+// DailyUsersFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailyUsersFieldExamples = map[string]string{
+	"date": "2023-06-14",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailyUsers) FieldExample(field string) string {
+	return DailyUsersFieldExamples[field]
+}
+
+// DailyUsersFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailyUsersFieldDescriptions = map[string]string{
+	"date":  "Date in the format YYYY-MM-DD.",
+	"count": "Number of unique users.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailyUsers) FieldDescription(field string) string {
+	return DailyUsersFieldDescriptions[field]
 }

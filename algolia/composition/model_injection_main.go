@@ -94,3 +94,13 @@ func (o InjectionMain) String() string {
 
 	return fmt.Sprintf("InjectionMain {\n%s}", out)
 }
+
+// InjectionMainFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectionMainFieldDescriptions = map[string]string{
+	"source": "Source to be used to retrieve organic result set.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectionMain) FieldDescription(field string) string {
+	return InjectionMainFieldDescriptions[field]
+}

@@ -198,3 +198,15 @@ func (o CommercetoolsCustomFields) String() string {
 
 	return fmt.Sprintf("CommercetoolsCustomFields {\n%s}", out)
 }
+
+// CommercetoolsCustomFieldsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CommercetoolsCustomFieldsFieldDescriptions = map[string]string{
+	"inventory": "Inventory custom fields.",
+	"price":     "Price custom fields.",
+	"category":  "Category custom fields.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CommercetoolsCustomFields) FieldDescription(field string) string {
+	return CommercetoolsCustomFieldsFieldDescriptions[field]
+}

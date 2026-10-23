@@ -74,3 +74,13 @@ func (o AllowedDomainCreate) String() string {
 
 	return fmt.Sprintf("AllowedDomainCreate {\n%s}", out)
 }
+
+// AllowedDomainCreateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AllowedDomainCreateFieldDescriptions = map[string]string{
+	"domain": "Domain or pattern, e.g. https://app.example.com or *.example.com.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AllowedDomainCreate) FieldDescription(field string) string {
+	return AllowedDomainCreateFieldDescriptions[field]
+}

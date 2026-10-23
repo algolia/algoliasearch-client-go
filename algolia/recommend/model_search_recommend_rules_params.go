@@ -11,6 +11,7 @@ type SearchRecommendRulesParams struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Only search for rules with matching context.
+	// Example: mobile
 	Context *string `json:"context,omitempty"`
 	// Requested page of the API response.  Algolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).  - `hitsPerPage`: sets the number of search results (_hits_) displayed per page. - `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.  For example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.
 	Page *int32 `json:"page,omitempty"`
@@ -19,8 +20,10 @@ type SearchRecommendRulesParams struct {
 	// Whether to only show rules where the value of their `enabled` property matches this parameter. If absent, show all rules, regardless of their `enabled` property.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Filter expression. This only searches for rules matching the filter expression.
+	// Example: objectID:rr-123456
 	Filters *string `json:"filters,omitempty"`
 	// Include facets and facet values in the response. Use `['*']` to include all facets.
+	// Example: ["*"]
 	Facets []string `json:"facets,omitempty"`
 	// Maximum number of values to return for each facet.
 	MaxValuesPerFacet *int32 `json:"maxValuesPerFacet,omitempty"`
@@ -444,4 +447,33 @@ func (o SearchRecommendRulesParams) String() string {
 	out += fmt.Sprintf("  maxValuesPerFacet=%v\n", o.MaxValuesPerFacet)
 
 	return fmt.Sprintf("SearchRecommendRulesParams {\n%s}", out)
+}
+
+// SearchRecommendRulesParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchRecommendRulesParamsFieldExamples = map[string]string{
+	"context": "mobile",
+	"filters": "objectID:rr-123456",
+	"facets":  "[\"*\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchRecommendRulesParams) FieldExample(field string) string {
+	return SearchRecommendRulesParamsFieldExamples[field]
+}
+
+// SearchRecommendRulesParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchRecommendRulesParamsFieldDescriptions = map[string]string{
+	"query":             "Search query.",
+	"context":           "Only search for rules with matching context.",
+	"page":              "Requested page of the API response.\n\nAlgolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).\n\n- `hitsPerPage`: sets the number of search results (_hits_) displayed per page.\n- `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.\n\nFor example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.\n",
+	"hitsPerPage":       "Maximum number of hits per page.\n\nAlgolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).\n\n- `hitsPerPage`: sets the number of search results (_hits_) displayed per page.\n- `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.\n\nFor example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.\n",
+	"enabled":           "Whether to only show rules where the value of their `enabled` property matches this parameter.\nIf absent, show all rules, regardless of their `enabled` property.\n",
+	"filters":           "Filter expression. This only searches for rules matching the filter expression.",
+	"facets":            "Include facets and facet values in the response. Use `['*']` to include all facets.",
+	"maxValuesPerFacet": "Maximum number of values to return for each facet.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchRecommendRulesParams) FieldDescription(field string) string {
+	return SearchRecommendRulesParamsFieldDescriptions[field]
 }

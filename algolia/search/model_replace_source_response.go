@@ -9,6 +9,7 @@ import (
 // ReplaceSourceResponse struct for ReplaceSourceResponse.
 type ReplaceSourceResponse struct {
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	UpdatedAt string `json:"updatedAt"`
 }
 
@@ -73,4 +74,24 @@ func (o ReplaceSourceResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("ReplaceSourceResponse {\n%s}", out)
+}
+
+// ReplaceSourceResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ReplaceSourceResponseFieldExamples = map[string]string{
+	"updatedAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ReplaceSourceResponse) FieldExample(field string) string {
+	return ReplaceSourceResponseFieldExamples[field]
+}
+
+// ReplaceSourceResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ReplaceSourceResponseFieldDescriptions = map[string]string{
+	"updatedAt": "Date and time when the object was updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ReplaceSourceResponse) FieldDescription(field string) string {
+	return ReplaceSourceResponseFieldDescriptions[field]
 }

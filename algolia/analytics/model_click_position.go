@@ -9,8 +9,10 @@ import (
 // ClickPosition Click position.
 type ClickPosition struct {
 	// Range of positions in the search results, using the pattern `[start,end]`.  For positions 11 and up, click events are summed over the specified range. `-1` indicates the end of the list of search results.
+	// Example: [21,-1]
 	Position []int32 `json:"position,omitempty"`
 	// Number of times this search has been clicked at that position.
+	// Example: 24
 	ClickCount *int32 `json:"clickCount,omitempty"`
 }
 
@@ -144,4 +146,26 @@ func (o ClickPosition) String() string {
 	out += fmt.Sprintf("  clickCount=%v\n", o.ClickCount)
 
 	return fmt.Sprintf("ClickPosition {\n%s}", out)
+}
+
+// ClickPositionFieldExamples maps each field (by its JSON name) to its spec example value.
+var ClickPositionFieldExamples = map[string]string{
+	"position":   "[21,-1]",
+	"clickCount": "24",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ClickPosition) FieldExample(field string) string {
+	return ClickPositionFieldExamples[field]
+}
+
+// ClickPositionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ClickPositionFieldDescriptions = map[string]string{
+	"position":   "Range of positions in the search results, using the pattern `[start,end]`.\n\nFor positions 11 and up, click events are summed over the specified range.\n`-1` indicates the end of the list of search results.\n",
+	"clickCount": "Number of times this search has been clicked at that position.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ClickPosition) FieldDescription(field string) string {
+	return ClickPositionFieldDescriptions[field]
 }

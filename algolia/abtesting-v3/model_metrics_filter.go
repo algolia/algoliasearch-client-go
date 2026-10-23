@@ -9,8 +9,10 @@ import (
 // MetricsFilter Boolean filter applied to the A/B test population. Each filter targets a boolean metric and decides whether to include (true) or exclude (false) matching records.
 type MetricsFilter struct {
 	// Metric domain (for example `abtesting`, `personalization`).
+	// Example: abtesting
 	Domain string `json:"domain"`
 	// Public metric name.
+	// Example: isOutlier
 	Name string `json:"name"`
 	// Whether the experiment should record the effects of this filter.
 	TrackEffects *bool `json:"trackEffects,omitempty"`
@@ -212,4 +214,28 @@ func (o MetricsFilter) String() string {
 	out += fmt.Sprintf("  includes=%v\n", o.Includes)
 
 	return fmt.Sprintf("MetricsFilter {\n%s}", out)
+}
+
+// MetricsFilterFieldExamples maps each field (by its JSON name) to its spec example value.
+var MetricsFilterFieldExamples = map[string]string{
+	"domain": "abtesting",
+	"name":   "isOutlier",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o MetricsFilter) FieldExample(field string) string {
+	return MetricsFilterFieldExamples[field]
+}
+
+// MetricsFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricsFilterFieldDescriptions = map[string]string{
+	"domain":       "Metric domain (for example `abtesting`, `personalization`).",
+	"name":         "Public metric name.",
+	"trackEffects": "Whether the experiment should record the effects of this filter.",
+	"includes":     "If true, keep items that match the filter; if false, exclude them.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MetricsFilter) FieldDescription(field string) string {
+	return MetricsFilterFieldDescriptions[field]
 }

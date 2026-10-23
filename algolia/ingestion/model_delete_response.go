@@ -74,3 +74,13 @@ func (o DeleteResponse) String() string {
 
 	return fmt.Sprintf("DeleteResponse {\n%s}", out)
 }
+
+// DeleteResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeleteResponseFieldDescriptions = map[string]string{
+	"deletedAt": "Date and time when the resource was deleted, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeleteResponse) FieldDescription(field string) string {
+	return DeleteResponseFieldDescriptions[field]
+}

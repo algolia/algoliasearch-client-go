@@ -298,3 +298,14 @@ func (o AguiCompletionRequest) String() string {
 
 	return fmt.Sprintf("AguiCompletionRequest {\n%s}", out)
 }
+
+// AguiCompletionRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AguiCompletionRequestFieldDescriptions = map[string]string{
+	"threadId": "Conversation (thread) id.",
+	"runId":    "Identifier for the current AG-UI run.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AguiCompletionRequest) FieldDescription(field string) string {
+	return AguiCompletionRequestFieldDescriptions[field]
+}

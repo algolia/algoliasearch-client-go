@@ -11,10 +11,13 @@ import (
 // GetAddToCartRateResponse struct for GetAddToCartRateResponse.
 type GetAddToCartRateResponse struct {
 	// Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.1
 	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of add-to-cart events from this search.
+	// Example: 10
 	AddToCartCount int32 `json:"addToCartCount"`
 	// Daily add-to-cart rates.
 	Dates []DailyAddToCartRates `json:"dates"`
@@ -181,4 +184,29 @@ func (o GetAddToCartRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 
 	return fmt.Sprintf("GetAddToCartRateResponse {\n%s}", out)
+}
+
+// GetAddToCartRateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetAddToCartRateResponseFieldExamples = map[string]string{
+	"rate":               "0.1",
+	"trackedSearchCount": "2",
+	"addToCartCount":     "10",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetAddToCartRateResponse) FieldExample(field string) string {
+	return GetAddToCartRateResponseFieldExamples[field]
+}
+
+// GetAddToCartRateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetAddToCartRateResponseFieldDescriptions = map[string]string{
+	"rate":               "Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"trackedSearchCount": "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"addToCartCount":     "Number of add-to-cart events from this search.",
+	"dates":              "Daily add-to-cart rates.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetAddToCartRateResponse) FieldDescription(field string) string {
+	return GetAddToCartRateResponseFieldDescriptions[field]
 }

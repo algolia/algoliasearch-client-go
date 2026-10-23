@@ -94,3 +94,13 @@ func (o ResponseExtensions) String() string {
 
 	return fmt.Sprintf("ResponseExtensions {\n%s}", out)
 }
+
+// ResponseExtensionsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ResponseExtensionsFieldDescriptions = map[string]string{
+	"queryCategorization": "Query Categorization prediction returned by the AI model.\nThis field is empty when the model cannot categorize the query.\nSee [Query Categorization](https://www.algolia.com/doc/guides/algolia-ai/query-categorization/).\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ResponseExtensions) FieldDescription(field string) string {
+	return ResponseExtensionsFieldDescriptions[field]
+}

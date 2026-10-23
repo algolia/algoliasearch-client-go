@@ -473,3 +473,19 @@ func (o IndexSearchParameters) String() string {
 
 	return fmt.Sprintf("IndexSearchParameters {\n%s}", out)
 }
+
+// IndexSearchParametersFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var IndexSearchParametersFieldDescriptions = map[string]string{
+	"query":                "A text search parameter with exposure control.",
+	"hitsPerPage":          "A number search parameter with exposure control and optional constraints.",
+	"page":                 "A number search parameter with exposure control and optional constraints.",
+	"attributesToRetrieve": "A string array search parameter with exposure control, constraints, and merge behavior.",
+	"responseFields":       "A string array search parameter with exposure control, constraints, and merge behavior.",
+	"distinct":             "A boolean search parameter with exposure control.",
+	"facets":               "A facets parameter that is always hidden from the LLM.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o IndexSearchParameters) FieldDescription(field string) string {
+	return IndexSearchParametersFieldDescriptions[field]
+}

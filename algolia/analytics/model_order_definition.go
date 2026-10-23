@@ -11,6 +11,7 @@ type OrderDefinition struct {
 	// Domain the field belongs to.
 	Domain *string `json:"domain,omitempty"`
 	// Field to sort by. Must appear in `metrics` or `groupBy`.
+	// Example: searchesCount
 	Kind      string         `json:"kind"`
 	Direction OrderDirection `json:"direction"`
 }
@@ -161,4 +162,26 @@ func (o OrderDefinition) String() string {
 	out += fmt.Sprintf("  direction=%v\n", o.Direction)
 
 	return fmt.Sprintf("OrderDefinition {\n%s}", out)
+}
+
+// OrderDefinitionFieldExamples maps each field (by its JSON name) to its spec example value.
+var OrderDefinitionFieldExamples = map[string]string{
+	"kind": "searchesCount",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o OrderDefinition) FieldExample(field string) string {
+	return OrderDefinitionFieldExamples[field]
+}
+
+// OrderDefinitionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OrderDefinitionFieldDescriptions = map[string]string{
+	"domain":    "Domain the field belongs to.",
+	"kind":      "Field to sort by. Must appear in `metrics` or `groupBy`.",
+	"direction": "Sort direction.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o OrderDefinition) FieldDescription(field string) string {
+	return OrderDefinitionFieldDescriptions[field]
 }

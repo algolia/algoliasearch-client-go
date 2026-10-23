@@ -9,10 +9,13 @@ import (
 // FetchedIndexAbTest A/B test metadata. Only present if the index is part of an active A/B test.
 type FetchedIndexAbTest struct {
 	// A/B test ID.
+	// Example: 12345
 	Id int32 `json:"id"`
 	// A/B test schema version. Only present for v2 and later tests.
+	// Example: 2
 	Version *int32 `json:"version,omitempty"`
 	// A/B test type. Only present for v2 and later tests. Currently always `index-configuration`.
+	// Example: index-configuration
 	Type   *string                   `json:"type,omitempty"`
 	Target *FetchedIndexAbTestTarget `json:"target,omitempty"`
 	// A/B test variants.
@@ -262,4 +265,30 @@ func (o FetchedIndexAbTest) String() string {
 	out += fmt.Sprintf("  variants=%v\n", o.Variants)
 
 	return fmt.Sprintf("FetchedIndexAbTest {\n%s}", out)
+}
+
+// FetchedIndexAbTestFieldExamples maps each field (by its JSON name) to its spec example value.
+var FetchedIndexAbTestFieldExamples = map[string]string{
+	"id":      "12345",
+	"version": "2",
+	"type":    "index-configuration",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FetchedIndexAbTest) FieldExample(field string) string {
+	return FetchedIndexAbTestFieldExamples[field]
+}
+
+// FetchedIndexAbTestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FetchedIndexAbTestFieldDescriptions = map[string]string{
+	"id":       "A/B test ID.",
+	"version":  "A/B test schema version. Only present for v2 and later tests.",
+	"type":     "A/B test type. Only present for v2 and later tests. Currently always `index-configuration`.",
+	"target":   "A/B test target criteria. Only present for v2 and later tests.",
+	"variants": "A/B test variants.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FetchedIndexAbTest) FieldDescription(field string) string {
+	return FetchedIndexAbTestFieldDescriptions[field]
 }

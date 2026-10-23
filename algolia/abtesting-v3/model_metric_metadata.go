@@ -11,6 +11,7 @@ type MetricMetadata struct {
 	// Only present for `revenue` metrics. It is the amount exceeding the 95th percentile of global revenue transactions involved in the AB Test. This amount is not considered when calculating statistical significance. It is tied to a per revenue-currency pair contrary to other global filter effects (such as outliers and empty search count).
 	WinsorizedValue *float64 `json:"winsorizedValue,omitempty"`
 	// Mean value for this metric.
+	// Example: 53.7
 	Mean *float64 `json:"mean,omitempty"`
 }
 
@@ -144,4 +145,25 @@ func (o MetricMetadata) String() string {
 	out += fmt.Sprintf("  mean=%v\n", o.Mean)
 
 	return fmt.Sprintf("MetricMetadata {\n%s}", out)
+}
+
+// MetricMetadataFieldExamples maps each field (by its JSON name) to its spec example value.
+var MetricMetadataFieldExamples = map[string]string{
+	"mean": "53.7",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o MetricMetadata) FieldExample(field string) string {
+	return MetricMetadataFieldExamples[field]
+}
+
+// MetricMetadataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricMetadataFieldDescriptions = map[string]string{
+	"winsorizedValue": "Only present for `revenue` metrics.\nIt is the amount exceeding the 95th percentile of global revenue transactions involved in the AB Test. This amount is not considered when calculating statistical significance.\nIt is tied to a per revenue-currency pair contrary to other\nglobal filter effects (such as outliers and empty search count).\n",
+	"mean":            "Mean value for this metric.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MetricMetadata) FieldDescription(field string) string {
+	return MetricMetadataFieldDescriptions[field]
 }

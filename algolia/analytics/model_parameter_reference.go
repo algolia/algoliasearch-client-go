@@ -9,8 +9,10 @@ import (
 // ParameterReference struct for ParameterReference.
 type ParameterReference struct {
 	// Domain the parameter belongs to.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Parameter identifier that resolves to a value supplied in `parameters`.
+	// Example: country
 	Kind string `json:"kind"`
 }
 
@@ -129,4 +131,26 @@ func (o ParameterReference) String() string {
 	out += fmt.Sprintf("  kind=%v\n", o.Kind)
 
 	return fmt.Sprintf("ParameterReference {\n%s}", out)
+}
+
+// ParameterReferenceFieldExamples maps each field (by its JSON name) to its spec example value.
+var ParameterReferenceFieldExamples = map[string]string{
+	"domain": "core",
+	"kind":   "country",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ParameterReference) FieldExample(field string) string {
+	return ParameterReferenceFieldExamples[field]
+}
+
+// ParameterReferenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ParameterReferenceFieldDescriptions = map[string]string{
+	"domain": "Domain the parameter belongs to.",
+	"kind":   "Parameter identifier that resolves to a value supplied in `parameters`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ParameterReference) FieldDescription(field string) string {
+	return ParameterReferenceFieldDescriptions[field]
 }

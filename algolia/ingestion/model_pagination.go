@@ -173,3 +173,16 @@ func (o Pagination) String() string {
 
 	return fmt.Sprintf("Pagination {\n%s}", out)
 }
+
+// PaginationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PaginationFieldDescriptions = map[string]string{
+	"nbPages":      "Number of pages in the API response.",
+	"page":         "Page of the API response to retrieve.",
+	"nbItems":      "Number of items in the API response.",
+	"itemsPerPage": "Number of items per page.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Pagination) FieldDescription(field string) string {
+	return PaginationFieldDescriptions[field]
+}

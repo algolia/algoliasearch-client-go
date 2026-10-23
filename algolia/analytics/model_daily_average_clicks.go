@@ -11,10 +11,13 @@ import (
 // DailyAverageClicks struct for DailyAverageClicks.
 type DailyAverageClicks struct {
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 2.035
 	Average utils.Nullable[float64] `json:"average"`
 	// Number of clicks associated with this search.
+	// Example: 162
 	ClickCount int32 `json:"clickCount"`
 	// Date in the format YYYY-MM-DD.
+	// Example: 2023-06-14
 	Date string `json:"date"`
 }
 
@@ -143,4 +146,28 @@ func (o DailyAverageClicks) String() string {
 	out += fmt.Sprintf("  date=%v\n", o.Date)
 
 	return fmt.Sprintf("DailyAverageClicks {\n%s}", out)
+}
+
+// DailyAverageClicksFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailyAverageClicksFieldExamples = map[string]string{
+	"average":    "2.035",
+	"clickCount": "162",
+	"date":       "2023-06-14",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailyAverageClicks) FieldExample(field string) string {
+	return DailyAverageClicksFieldExamples[field]
+}
+
+// DailyAverageClicksFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailyAverageClicksFieldDescriptions = map[string]string{
+	"average":    "Average position of a clicked search result in the list of search results.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"clickCount": "Number of clicks associated with this search.",
+	"date":       "Date in the format YYYY-MM-DD.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailyAverageClicks) FieldDescription(field string) string {
+	return DailyAverageClicksFieldDescriptions[field]
 }

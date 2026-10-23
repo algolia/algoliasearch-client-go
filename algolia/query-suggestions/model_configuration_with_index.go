@@ -18,6 +18,7 @@ type ConfigurationWithIndex struct {
 	// Whether to include suggestions with special characters.
 	AllowSpecialCharacters *bool `json:"allowSpecialCharacters,omitempty"`
 	// Name of the Query Suggestions index (case-sensitive).
+	// Example: ALGOLIA_INDEX_NAME
 	IndexName string `json:"indexName"`
 }
 
@@ -313,4 +314,29 @@ func (o ConfigurationWithIndex) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 
 	return fmt.Sprintf("ConfigurationWithIndex {\n%s}", out)
+}
+
+// ConfigurationWithIndexFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConfigurationWithIndexFieldExamples = map[string]string{
+	"indexName": "ALGOLIA_INDEX_NAME",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ConfigurationWithIndex) FieldExample(field string) string {
+	return ConfigurationWithIndexFieldExamples[field]
+}
+
+// ConfigurationWithIndexFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConfigurationWithIndexFieldDescriptions = map[string]string{
+	"sourceIndices":          "Algolia indices from which to get the popular searches for query suggestions.",
+	"languages":              "Languages for deduplicating singular and plural suggestions.\nIf specified, only the more popular form is included.\n",
+	"exclude":                "Words or regular expressions to exclude from the suggestions.",
+	"enablePersonalization":  "Whether to turn on personalized query suggestions.",
+	"allowSpecialCharacters": "Whether to include suggestions with special characters.",
+	"indexName":              "Name of the Query Suggestions index (case-sensitive).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConfigurationWithIndex) FieldDescription(field string) string {
+	return ConfigurationWithIndexFieldDescriptions[field]
 }

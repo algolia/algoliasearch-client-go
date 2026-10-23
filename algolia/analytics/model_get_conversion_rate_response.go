@@ -11,10 +11,13 @@ import (
 // GetConversionRateResponse struct for GetConversionRateResponse.
 type GetConversionRateResponse struct {
 	// Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.05
 	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of conversions from this search.
+	// Example: 10
 	ConversionCount int32 `json:"conversionCount"`
 	// Daily conversion rates.
 	Dates []DailyConversionRates `json:"dates"`
@@ -181,4 +184,29 @@ func (o GetConversionRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 
 	return fmt.Sprintf("GetConversionRateResponse {\n%s}", out)
+}
+
+// GetConversionRateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetConversionRateResponseFieldExamples = map[string]string{
+	"rate":               "0.05",
+	"trackedSearchCount": "2",
+	"conversionCount":    "10",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetConversionRateResponse) FieldExample(field string) string {
+	return GetConversionRateResponseFieldExamples[field]
+}
+
+// GetConversionRateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetConversionRateResponseFieldDescriptions = map[string]string{
+	"rate":               "Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"trackedSearchCount": "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"conversionCount":    "Number of conversions from this search.",
+	"dates":              "Daily conversion rates.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetConversionRateResponse) FieldDescription(field string) string {
+	return GetConversionRateResponseFieldDescriptions[field]
 }

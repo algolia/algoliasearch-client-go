@@ -10,6 +10,7 @@ import (
 type RequestBody struct {
 	Params *Params `json:"params,omitempty"`
 	// A list of Feed IDs that specifies the order in which to order the results in the response.  The IDs should be a subset of those in the `feeds` object of the targeted `multifeed` Composition / Composition Rule, and only those specified will be processed.   The value overrides the value in the defined behavior, and when unspecified, the value defined in the behavior is used. When neither value is present, all feeds are processed.
+	// Example: ["feed-1","feed-3"]
 	FeedsOrder       []string          `json:"feedsOrder,omitempty"`
 	ExternalProvider *ExternalProvider `json:"externalProvider,omitempty"`
 }
@@ -192,4 +193,24 @@ func (o RequestBody) String() string {
 	out += fmt.Sprintf("  externalProvider=%v\n", o.ExternalProvider)
 
 	return fmt.Sprintf("RequestBody {\n%s}", out)
+}
+
+// RequestBodyFieldExamples maps each field (by its JSON name) to its spec example value.
+var RequestBodyFieldExamples = map[string]string{
+	"feedsOrder": "[\"feed-1\",\"feed-3\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RequestBody) FieldExample(field string) string {
+	return RequestBodyFieldExamples[field]
+}
+
+// RequestBodyFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RequestBodyFieldDescriptions = map[string]string{
+	"feedsOrder": "A list of Feed IDs that specifies the order in which to order the results in the response. \nThe IDs should be a subset of those in the `feeds` object of the targeted `multifeed` Composition / Composition Rule, and only those specified will be processed. \n\nThe value overrides the value in the defined behavior, and when unspecified, the value defined in the behavior is used. When neither value is present, all feeds are processed.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RequestBody) FieldDescription(field string) string {
+	return RequestBodyFieldDescriptions[field]
 }

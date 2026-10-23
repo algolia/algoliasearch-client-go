@@ -144,3 +144,14 @@ func (o Incident) String() string {
 
 	return fmt.Sprintf("Incident {\n%s}", out)
 }
+
+// IncidentFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var IncidentFieldDescriptions = map[string]string{
+	"title":  "Description of the incident.",
+	"status": "Status of the cluster.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Incident) FieldDescription(field string) string {
+	return IncidentFieldDescriptions[field]
+}

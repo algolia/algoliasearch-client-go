@@ -246,3 +246,14 @@ func (o SearchResponse) String() string {
 
 	return fmt.Sprintf("SearchResponse {\n%s}", out)
 }
+
+// SearchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchResponseFieldDescriptions = map[string]string{
+	"results": "Search results.",
+	"errors":  "Non-critical errors encountered while processing the request that may have affected the returned results (for example, an external provider failure that fell back to another result set).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchResponse) FieldDescription(field string) string {
+	return SearchResponseFieldDescriptions[field]
+}

@@ -9,6 +9,7 @@ import (
 // GetObjectsResponse struct for GetObjectsResponse.
 type GetObjectsResponse struct {
 	// An optional status message.
+	// Example: Index INDEX_NAME does not exist.
 	Message *string `json:"message,omitempty"`
 	// Retrieved records.
 	Results []map[string]any `json:"results"`
@@ -129,4 +130,25 @@ func (o GetObjectsResponse) String() string {
 	out += fmt.Sprintf("  results=%v\n", o.Results)
 
 	return fmt.Sprintf("GetObjectsResponse {\n%s}", out)
+}
+
+// GetObjectsResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetObjectsResponseFieldExamples = map[string]string{
+	"message": "Index INDEX_NAME does not exist.",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetObjectsResponse) FieldExample(field string) string {
+	return GetObjectsResponseFieldExamples[field]
+}
+
+// GetObjectsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetObjectsResponseFieldDescriptions = map[string]string{
+	"message": "An optional status message.",
+	"results": "Retrieved records.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetObjectsResponse) FieldDescription(field string) string {
+	return GetObjectsResponseFieldDescriptions[field]
 }

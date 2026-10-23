@@ -9,10 +9,12 @@ import (
 // AddABTestsRequest struct for AddABTestsRequest.
 type AddABTestsRequest struct {
 	// A/B test name.
+	// Example: Custom ranking sales rank test
 	Name string `json:"name"`
 	// A/B test variants.
 	Variants []AddABTestsVariant `json:"variants"`
 	// End date and time of the A/B test, in RFC 3339 format.
+	// Example: 2023-06-17T00:00:00Z
 	EndAt string `json:"endAt"`
 }
 
@@ -139,4 +141,27 @@ func (o AddABTestsRequest) String() string {
 	out += fmt.Sprintf("  endAt=%v\n", o.EndAt)
 
 	return fmt.Sprintf("AddABTestsRequest {\n%s}", out)
+}
+
+// AddABTestsRequestFieldExamples maps each field (by its JSON name) to its spec example value.
+var AddABTestsRequestFieldExamples = map[string]string{
+	"name":  "Custom ranking sales rank test",
+	"endAt": "2023-06-17T00:00:00Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AddABTestsRequest) FieldExample(field string) string {
+	return AddABTestsRequestFieldExamples[field]
+}
+
+// AddABTestsRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AddABTestsRequestFieldDescriptions = map[string]string{
+	"name":     "A/B test name.",
+	"variants": "A/B test variants.",
+	"endAt":    "End date and time of the A/B test, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AddABTestsRequest) FieldDescription(field string) string {
+	return AddABTestsRequestFieldDescriptions[field]
 }

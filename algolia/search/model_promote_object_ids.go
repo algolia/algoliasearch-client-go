@@ -11,6 +11,7 @@ type PromoteObjectIDs struct {
 	// Object IDs of the records you want to promote.  The records are placed as a group at the `position`. For example, if you want to promote four records to position `0`, they will be the first four search results.
 	ObjectIDs []string `json:"objectIDs"`
 	// Position in the search results where you want to show the promoted records.
+	// Example: 0
 	Position int32 `json:"position"`
 }
 
@@ -106,4 +107,25 @@ func (o PromoteObjectIDs) String() string {
 	out += fmt.Sprintf("  position=%v\n", o.Position)
 
 	return fmt.Sprintf("PromoteObjectIDs {\n%s}", out)
+}
+
+// PromoteObjectIDsFieldExamples maps each field (by its JSON name) to its spec example value.
+var PromoteObjectIDsFieldExamples = map[string]string{
+	"position": "0",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o PromoteObjectIDs) FieldExample(field string) string {
+	return PromoteObjectIDsFieldExamples[field]
+}
+
+// PromoteObjectIDsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PromoteObjectIDsFieldDescriptions = map[string]string{
+	"objectIDs": "Object IDs of the records you want to promote.\n\nThe records are placed as a group at the `position`.\nFor example, if you want to promote four records to position `0`,\nthey will be the first four search results.\n",
+	"position":  "Position in the search results where you want to show the promoted records.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PromoteObjectIDs) FieldDescription(field string) string {
+	return PromoteObjectIDsFieldDescriptions[field]
 }

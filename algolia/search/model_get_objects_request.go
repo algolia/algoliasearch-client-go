@@ -9,10 +9,13 @@ import (
 // GetObjectsRequest Request body for retrieving records.
 type GetObjectsRequest struct {
 	// Attributes to retrieve. If not specified, all retrievable attributes are returned.
+	// Example: ["author","title","content"]
 	AttributesToRetrieve []string `json:"attributesToRetrieve,omitempty"`
 	// Object ID for the record to retrieve.
+	// Example: product-1
 	ObjectID string `json:"objectID"`
 	// Index from which to retrieve the records.
+	// Example: books
 	IndexName string `json:"indexName"`
 }
 
@@ -162,4 +165,28 @@ func (o GetObjectsRequest) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 
 	return fmt.Sprintf("GetObjectsRequest {\n%s}", out)
+}
+
+// GetObjectsRequestFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetObjectsRequestFieldExamples = map[string]string{
+	"attributesToRetrieve": "[\"author\",\"title\",\"content\"]",
+	"objectID":             "product-1",
+	"indexName":            "books",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetObjectsRequest) FieldExample(field string) string {
+	return GetObjectsRequestFieldExamples[field]
+}
+
+// GetObjectsRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetObjectsRequestFieldDescriptions = map[string]string{
+	"attributesToRetrieve": "Attributes to retrieve.\nIf not specified, all retrievable attributes are returned.\n",
+	"objectID":             "Object ID for the record to retrieve.",
+	"indexName":            "Index from which to retrieve the records.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetObjectsRequest) FieldDescription(field string) string {
+	return GetObjectsRequestFieldDescriptions[field]
 }

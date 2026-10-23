@@ -292,3 +292,15 @@ func (o AgentCompletionRequest) String() string {
 
 	return fmt.Sprintf("AgentCompletionRequest {\n%s}", out)
 }
+
+// AgentCompletionRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AgentCompletionRequestFieldDescriptions = map[string]string{
+	"configuration": "Dynamic configuration for testing agents.",
+	"id":            "Optional conversation id.",
+	"toolApprovals": "Approval decisions for pending tool calls keyed by toolCallId.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AgentCompletionRequest) FieldDescription(field string) string {
+	return AgentCompletionRequestFieldDescriptions[field]
+}

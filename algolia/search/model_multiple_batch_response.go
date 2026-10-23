@@ -11,6 +11,7 @@ type MultipleBatchResponse struct {
 	// Task IDs. One for each index.
 	TaskID map[string]int64 `json:"taskID"`
 	// Unique record identifiers.
+	// Example: ["record-1","record-2"]
 	ObjectIDs []string `json:"objectIDs"`
 }
 
@@ -106,4 +107,25 @@ func (o MultipleBatchResponse) String() string {
 	out += fmt.Sprintf("  objectIDs=%v\n", o.ObjectIDs)
 
 	return fmt.Sprintf("MultipleBatchResponse {\n%s}", out)
+}
+
+// MultipleBatchResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var MultipleBatchResponseFieldExamples = map[string]string{
+	"objectIDs": "[\"record-1\",\"record-2\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o MultipleBatchResponse) FieldExample(field string) string {
+	return MultipleBatchResponseFieldExamples[field]
+}
+
+// MultipleBatchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MultipleBatchResponseFieldDescriptions = map[string]string{
+	"taskID":    "Task IDs. One for each index.",
+	"objectIDs": "Unique record identifiers.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MultipleBatchResponse) FieldDescription(field string) string {
+	return MultipleBatchResponseFieldDescriptions[field]
 }

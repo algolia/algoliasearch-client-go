@@ -11,6 +11,7 @@ type SearchSynonymsResponse struct {
 	// Matching synonyms.
 	Hits []SynonymHit `json:"hits"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits               int32          `json:"nbHits"`
 	AdditionalProperties map[string]any `json:"-"`
 }
@@ -165,4 +166,25 @@ func (o SearchSynonymsResponse) String() string {
 	}
 
 	return fmt.Sprintf("SearchSynonymsResponse {\n%s}", out)
+}
+
+// SearchSynonymsResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchSynonymsResponseFieldExamples = map[string]string{
+	"nbHits": "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchSynonymsResponse) FieldExample(field string) string {
+	return SearchSynonymsResponseFieldExamples[field]
+}
+
+// SearchSynonymsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchSynonymsResponseFieldDescriptions = map[string]string{
+	"hits":   "Matching synonyms.",
+	"nbHits": "Number of results (hits).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchSynonymsResponse) FieldDescription(field string) string {
+	return SearchSynonymsResponseFieldDescriptions[field]
 }

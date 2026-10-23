@@ -9,8 +9,10 @@ import (
 // TaskUpdate API request body for partially updating a task.
 type TaskUpdate struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID *string `json:"destinationID,omitempty"`
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron  *string    `json:"cron,omitempty"`
 	Input *TaskInput `json:"input,omitempty"`
 	// Whether the task is enabled.
@@ -440,4 +442,32 @@ func (o TaskUpdate) String() string {
 	out += fmt.Sprintf("  policies=%v\n", o.Policies)
 
 	return fmt.Sprintf("TaskUpdate {\n%s}", out)
+}
+
+// TaskUpdateFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskUpdateFieldExamples = map[string]string{
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"cron":          "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskUpdate) FieldExample(field string) string {
+	return TaskUpdateFieldExamples[field]
+}
+
+// TaskUpdateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskUpdateFieldDescriptions = map[string]string{
+	"destinationID":      "Universally unique identifier (UUID) of a destination resource.",
+	"cron":               "Cron expression for the task's schedule.",
+	"input":              "Configuration of the task, depending on its type.",
+	"enabled":            "Whether the task is enabled.",
+	"subscriptionAction": "Action to perform on the Algolia index.",
+	"failureThreshold":   "Maximum accepted percentage of failures for a task run to finish successfully.",
+	"notifications":      "Notifications settings for a task.",
+	"policies":           "Set of rules for a task.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskUpdate) FieldDescription(field string) string {
+	return TaskUpdateFieldDescriptions[field]
 }

@@ -149,3 +149,15 @@ func (o Languages) String() string {
 
 	return fmt.Sprintf("Languages {\n%s}", out)
 }
+
+// LanguagesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var LanguagesFieldDescriptions = map[string]string{
+	"plurals":   "Dictionary type. If `null`, this dictionary type isn't supported for the language.",
+	"stopwords": "Dictionary type. If `null`, this dictionary type isn't supported for the language.",
+	"compounds": "Dictionary type. If `null`, this dictionary type isn't supported for the language.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Languages) FieldDescription(field string) string {
+	return LanguagesFieldDescriptions[field]
+}

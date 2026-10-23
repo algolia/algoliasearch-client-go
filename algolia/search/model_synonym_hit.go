@@ -9,19 +9,26 @@ import (
 // SynonymHit Synonym object.
 type SynonymHit struct {
 	// Unique identifier of a synonym object.
+	// Example: synonymID
 	ObjectID string      `json:"objectID"`
 	Type     SynonymType `json:"type"`
 	// Words or phrases considered equivalent.
+	// Example: ["vehicle","auto"]
 	Synonyms []string `json:"synonyms,omitempty"`
 	// Word or phrase to appear in query strings (for [`onewaysynonym`s](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/one-way-synonyms)).
+	// Example: car
 	Input *string `json:"input,omitempty"`
 	// Word or phrase to appear in query strings (for [`altcorrection1` and `altcorrection2`](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-alternative-corrections)).
+	// Example: car
 	Word *string `json:"word,omitempty"`
 	// Words to be matched in records.
+	// Example: ["vehicle","auto"]
 	Corrections []string `json:"corrections,omitempty"`
 	// [Placeholder token](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-placeholders) to be put inside records.
+	// Example: <Street>
 	Placeholder *string `json:"placeholder,omitempty"`
 	// Query words that will match the [placeholder token](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-placeholders).
+	// Example: ["street","st"]
 	Replacements []string `json:"replacements,omitempty"`
 }
 
@@ -411,4 +418,37 @@ func (o SynonymHit) String() string {
 	out += fmt.Sprintf("  replacements=%v\n", o.Replacements)
 
 	return fmt.Sprintf("SynonymHit {\n%s}", out)
+}
+
+// SynonymHitFieldExamples maps each field (by its JSON name) to its spec example value.
+var SynonymHitFieldExamples = map[string]string{
+	"objectID":     "synonymID",
+	"synonyms":     "[\"vehicle\",\"auto\"]",
+	"input":        "car",
+	"word":         "car",
+	"corrections":  "[\"vehicle\",\"auto\"]",
+	"placeholder":  "<Street>",
+	"replacements": "[\"street\",\"st\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SynonymHit) FieldExample(field string) string {
+	return SynonymHitFieldExamples[field]
+}
+
+// SynonymHitFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SynonymHitFieldDescriptions = map[string]string{
+	"objectID":     "Unique identifier of a synonym object.",
+	"type":         "Synonym type.",
+	"synonyms":     "Words or phrases considered equivalent.",
+	"input":        "Word or phrase to appear in query strings (for [`onewaysynonym`s](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/one-way-synonyms)).",
+	"word":         "Word or phrase to appear in query strings (for [`altcorrection1` and `altcorrection2`](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-alternative-corrections)).",
+	"corrections":  "Words to be matched in records.",
+	"placeholder":  "[Placeholder token](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-placeholders) to be put inside records.\n",
+	"replacements": "Query words that will match the [placeholder token](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/adding-synonyms/in-depth/synonyms-placeholders).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SynonymHit) FieldDescription(field string) string {
+	return SynonymHitFieldDescriptions[field]
 }

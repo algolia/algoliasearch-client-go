@@ -145,3 +145,14 @@ func (o Facet) String() string {
 
 	return fmt.Sprintf("Facet {\n%s}", out)
 }
+
+// FacetFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FacetFieldDescriptions = map[string]string{
+	"attribute": "Facet name.",
+	"amount":    "Number of suggestions.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Facet) FieldDescription(field string) string {
+	return FacetFieldDescriptions[field]
+}

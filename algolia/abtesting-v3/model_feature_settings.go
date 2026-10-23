@@ -9,6 +9,7 @@ import (
 // FeatureSettings Feature-specific settings captured for a variant.
 type FeatureSettings struct {
 	// Name of the feature the settings belong to.
+	// Example: drr
 	Name string `json:"name"`
 	// Feature settings payload. The shape depends on the feature.
 	Settings any `json:"settings"`
@@ -111,4 +112,25 @@ func (o FeatureSettings) String() string {
 	out += fmt.Sprintf("  settings=%v\n", o.Settings)
 
 	return fmt.Sprintf("FeatureSettings {\n%s}", out)
+}
+
+// FeatureSettingsFieldExamples maps each field (by its JSON name) to its spec example value.
+var FeatureSettingsFieldExamples = map[string]string{
+	"name": "drr",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FeatureSettings) FieldExample(field string) string {
+	return FeatureSettingsFieldExamples[field]
+}
+
+// FeatureSettingsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FeatureSettingsFieldDescriptions = map[string]string{
+	"name":     "Name of the feature the settings belong to.",
+	"settings": "Feature settings payload. The shape depends on the feature.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FeatureSettings) FieldDescription(field string) string {
+	return FeatureSettingsFieldDescriptions[field]
 }

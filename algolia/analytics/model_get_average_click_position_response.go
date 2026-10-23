@@ -11,8 +11,10 @@ import (
 // GetAverageClickPositionResponse struct for GetAverageClickPositionResponse.
 type GetAverageClickPositionResponse struct {
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 2.035
 	Average utils.Nullable[float64] `json:"average"`
 	// Number of clicks associated with this search.
+	// Example: 162
 	ClickCount int32 `json:"clickCount"`
 	// Daily average click positions.
 	Dates []DailyAverageClicks `json:"dates"`
@@ -147,4 +149,27 @@ func (o GetAverageClickPositionResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 
 	return fmt.Sprintf("GetAverageClickPositionResponse {\n%s}", out)
+}
+
+// GetAverageClickPositionResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetAverageClickPositionResponseFieldExamples = map[string]string{
+	"average":    "2.035",
+	"clickCount": "162",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetAverageClickPositionResponse) FieldExample(field string) string {
+	return GetAverageClickPositionResponseFieldExamples[field]
+}
+
+// GetAverageClickPositionResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetAverageClickPositionResponseFieldDescriptions = map[string]string{
+	"average":    "Average position of a clicked search result in the list of search results.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"clickCount": "Number of clicks associated with this search.",
+	"dates":      "Daily average click positions.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetAverageClickPositionResponse) FieldDescription(field string) string {
+	return GetAverageClickPositionResponseFieldDescriptions[field]
 }

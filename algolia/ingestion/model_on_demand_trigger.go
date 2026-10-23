@@ -129,3 +129,14 @@ func (o OnDemandTrigger) String() string {
 
 	return fmt.Sprintf("OnDemandTrigger {\n%s}", out)
 }
+
+// OnDemandTriggerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OnDemandTriggerFieldDescriptions = map[string]string{
+	"type":    "Task is run manually, with the `/run` endpoint.",
+	"lastRun": "The last time the scheduled task ran in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o OnDemandTrigger) FieldDescription(field string) string {
+	return OnDemandTriggerFieldDescriptions[field]
+}

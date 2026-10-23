@@ -130,3 +130,14 @@ func (o SourceAlgoliaIndex) String() string {
 
 	return fmt.Sprintf("SourceAlgoliaIndex {\n%s}", out)
 }
+
+// SourceAlgoliaIndexFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceAlgoliaIndexFieldDescriptions = map[string]string{
+	"indexName": "Name of the Algolia index to read records from.",
+	"filters":   "SQL-like filter expression applied while browsing the source index.\nSee [filters](https://www.algolia.com/doc/api-reference/api-parameters/filters/).\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceAlgoliaIndex) FieldDescription(field string) string {
+	return SourceAlgoliaIndexFieldDescriptions[field]
+}

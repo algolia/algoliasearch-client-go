@@ -10,6 +10,7 @@ import (
 type ObjectData struct {
 	Price *Price `json:"price,omitempty"`
 	// Quantity of a product that has been purchased or added to the cart. The total purchase value is the sum of `quantity` multiplied with the `price` for each purchased item.
+	// Example: 2
 	Quantity *int32    `json:"quantity,omitempty"`
 	Discount *Discount `json:"discount,omitempty"`
 }
@@ -192,4 +193,26 @@ func (o ObjectData) String() string {
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
 
 	return fmt.Sprintf("ObjectData {\n%s}", out)
+}
+
+// ObjectDataFieldExamples maps each field (by its JSON name) to its spec example value.
+var ObjectDataFieldExamples = map[string]string{
+	"quantity": "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ObjectData) FieldExample(field string) string {
+	return ObjectDataFieldExamples[field]
+}
+
+// ObjectDataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ObjectDataFieldDescriptions = map[string]string{
+	"price":    "Final price of a single product, including any discounts, in units of `currency`.",
+	"quantity": "Quantity of a product that has been purchased or added to the cart.\nThe total purchase value is the sum of `quantity` multiplied with the `price` for each purchased item.\n",
+	"discount": "Absolute value of the discount for this product, in units of `currency`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ObjectData) FieldDescription(field string) string {
+	return ObjectDataFieldDescriptions[field]
 }

@@ -9,6 +9,7 @@ import (
 // InjectedItemSearch struct for InjectedItemSearch.
 type InjectedItemSearch struct {
 	// Algolia index used to retrieve records.
+	// Example: Products
 	Index  string                        `json:"index"`
 	Params *BaseInjectionQueryParameters `json:"params,omitempty"`
 }
@@ -128,4 +129,24 @@ func (o InjectedItemSearch) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
 	return fmt.Sprintf("InjectedItemSearch {\n%s}", out)
+}
+
+// InjectedItemSearchFieldExamples maps each field (by its JSON name) to its spec example value.
+var InjectedItemSearchFieldExamples = map[string]string{
+	"index": "Products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o InjectedItemSearch) FieldExample(field string) string {
+	return InjectedItemSearchFieldExamples[field]
+}
+
+// InjectedItemSearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectedItemSearchFieldDescriptions = map[string]string{
+	"index": "Algolia index used to retrieve records.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectedItemSearch) FieldDescription(field string) string {
+	return InjectedItemSearchFieldDescriptions[field]
 }

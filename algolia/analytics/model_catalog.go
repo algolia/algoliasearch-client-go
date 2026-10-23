@@ -74,3 +74,13 @@ func (o Catalog) String() string {
 
 	return fmt.Sprintf("Catalog {\n%s}", out)
 }
+
+// CatalogFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CatalogFieldDescriptions = map[string]string{
+	"domains": "Catalog entries grouped by domain.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Catalog) FieldDescription(field string) string {
+	return CatalogFieldDescriptions[field]
+}

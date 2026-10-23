@@ -173,3 +173,14 @@ func (o ContextResponse) String() string {
 
 	return fmt.Sprintf("ContextResponse {\n%s}", out)
 }
+
+// ContextResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ContextResponseFieldDescriptions = map[string]string{
+	"stats":      "Before/after accounting for a context operation.\n\n``tokens*Estimate`` fields are heuristic, not an authoritative provider count.\n``messages_dropped`` is the net reduction in message count (``messages_before -\nmessages_after``); for compaction the summarized tail is replaced by a single summary\nmessage, so this reflects the net change rather than a raw delete count.",
+	"compaction": "Compaction-specific telemetry, returned only by ``/context/compact``.\n\n``compacted`` makes the short-conversation passthrough detectable: without it a caller\ncannot tell a no-op from a summary that happened to be short.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ContextResponse) FieldDescription(field string) string {
+	return ContextResponseFieldDescriptions[field]
+}

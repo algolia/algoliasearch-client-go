@@ -9,8 +9,10 @@ import (
 // SearchForFacetValuesRequest struct for SearchForFacetValuesRequest.
 type SearchForFacetValuesRequest struct {
 	// Search parameters as a URL-encoded query string.
+	// Example: hitsPerPage=2&getRankingInfo=1
 	Params *string `json:"params,omitempty"`
 	// Text to search inside the facet's values.
+	// Example: george
 	FacetQuery *string `json:"facetQuery,omitempty"`
 	// Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).
 	MaxFacetHits *int32 `json:"maxFacetHits,omitempty"`
@@ -194,4 +196,27 @@ func (o SearchForFacetValuesRequest) String() string {
 	out += fmt.Sprintf("  maxFacetHits=%v\n", o.MaxFacetHits)
 
 	return fmt.Sprintf("SearchForFacetValuesRequest {\n%s}", out)
+}
+
+// SearchForFacetValuesRequestFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchForFacetValuesRequestFieldExamples = map[string]string{
+	"params":     "hitsPerPage=2&getRankingInfo=1",
+	"facetQuery": "george",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchForFacetValuesRequest) FieldExample(field string) string {
+	return SearchForFacetValuesRequestFieldExamples[field]
+}
+
+// SearchForFacetValuesRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchForFacetValuesRequestFieldDescriptions = map[string]string{
+	"params":       "Search parameters as a URL-encoded query string.",
+	"facetQuery":   "Text to search inside the facet's values.",
+	"maxFacetHits": "Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchForFacetValuesRequest) FieldDescription(field string) string {
+	return SearchForFacetValuesRequestFieldDescriptions[field]
 }

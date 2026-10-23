@@ -9,6 +9,7 @@ import (
 // VariantSettings Settings captured for one A/B test variant.
 type VariantSettings struct {
 	// One-based index of the variant within the A/B test. The control is variant 1.
+	// Example: 2
 	VariantId int32 `json:"variantId"`
 	// Whether the variant's settings have been applied to the control index.
 	Applied bool `json:"applied"`
@@ -17,12 +18,16 @@ type VariantSettings struct {
 	// Index settings captured for the variant.
 	IndexSettings map[string]any `json:"indexSettings,omitempty"`
 	// Date and time when the variant's settings were applied to the control index, in RFC 3339 format.
+	// Example: 2023-06-17T00:00:00Z
 	ApplyTimestamp *string `json:"applyTimestamp,omitempty"`
 	// Date and time when the applied settings were reverted on the control index, in RFC 3339 format.
+	// Example: 2023-06-18T00:00:00Z
 	RevertTimestamp *string `json:"revertTimestamp,omitempty"`
 	// Date and time when the variant's settings were captured, in RFC 3339 format.
+	// Example: 2023-06-16T00:00:00Z
 	DeclaredTimestamp *string `json:"declaredTimestamp,omitempty"`
 	// Date and time when the captured settings expired, in RFC 3339 format.
+	// Example: 2023-07-16T00:00:00Z
 	ExpiredTimestamp *string `json:"expiredTimestamp,omitempty"`
 }
 
@@ -412,4 +417,35 @@ func (o VariantSettings) String() string {
 	out += fmt.Sprintf("  expiredTimestamp=%v\n", o.ExpiredTimestamp)
 
 	return fmt.Sprintf("VariantSettings {\n%s}", out)
+}
+
+// VariantSettingsFieldExamples maps each field (by its JSON name) to its spec example value.
+var VariantSettingsFieldExamples = map[string]string{
+	"variantId":         "2",
+	"applyTimestamp":    "2023-06-17T00:00:00Z",
+	"revertTimestamp":   "2023-06-18T00:00:00Z",
+	"declaredTimestamp": "2023-06-16T00:00:00Z",
+	"expiredTimestamp":  "2023-07-16T00:00:00Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o VariantSettings) FieldExample(field string) string {
+	return VariantSettingsFieldExamples[field]
+}
+
+// VariantSettingsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var VariantSettingsFieldDescriptions = map[string]string{
+	"variantId":         "One-based index of the variant within the A/B test. The control is variant 1.",
+	"applied":           "Whether the variant's settings have been applied to the control index.",
+	"featuresSettings":  "Feature-specific settings captured for the variant.",
+	"indexSettings":     "Index settings captured for the variant.",
+	"applyTimestamp":    "Date and time when the variant's settings were applied to the control index, in RFC 3339 format.",
+	"revertTimestamp":   "Date and time when the applied settings were reverted on the control index, in RFC 3339 format.",
+	"declaredTimestamp": "Date and time when the variant's settings were captured, in RFC 3339 format.",
+	"expiredTimestamp":  "Date and time when the captured settings expired, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o VariantSettings) FieldDescription(field string) string {
+	return VariantSettingsFieldDescriptions[field]
 }

@@ -10,6 +10,7 @@ import (
 type SearchUserIdsParams struct {
 	Query string `json:"query"`
 	// Cluster name.
+	// Example: c11-test
 	ClusterName *string `json:"clusterName,omitempty"`
 	// Page of search results to retrieve.
 	Page *int32 `json:"page,omitempty"`
@@ -228,4 +229,26 @@ func (o SearchUserIdsParams) String() string {
 	out += fmt.Sprintf("  hitsPerPage=%v\n", o.HitsPerPage)
 
 	return fmt.Sprintf("SearchUserIdsParams {\n%s}", out)
+}
+
+// SearchUserIdsParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchUserIdsParamsFieldExamples = map[string]string{
+	"clusterName": "c11-test",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchUserIdsParams) FieldExample(field string) string {
+	return SearchUserIdsParamsFieldExamples[field]
+}
+
+// SearchUserIdsParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchUserIdsParamsFieldDescriptions = map[string]string{
+	"clusterName": "Cluster name.",
+	"page":        "Page of search results to retrieve.",
+	"hitsPerPage": "Number of hits per page.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchUserIdsParams) FieldDescription(field string) string {
+	return SearchUserIdsParamsFieldDescriptions[field]
 }

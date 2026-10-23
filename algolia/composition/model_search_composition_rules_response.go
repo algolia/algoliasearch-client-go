@@ -173,3 +173,16 @@ func (o SearchCompositionRulesResponse) String() string {
 
 	return fmt.Sprintf("SearchCompositionRulesResponse {\n%s}", out)
 }
+
+// SearchCompositionRulesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchCompositionRulesResponseFieldDescriptions = map[string]string{
+	"hits":    "Composition rules that matched the search criteria.",
+	"nbHits":  "Number of composition rules that matched the search criteria.",
+	"page":    "Current page.",
+	"nbPages": "Number of pages.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchCompositionRulesResponse) FieldDescription(field string) string {
+	return SearchCompositionRulesResponseFieldDescriptions[field]
+}

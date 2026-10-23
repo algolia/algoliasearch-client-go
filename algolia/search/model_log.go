@@ -9,34 +9,49 @@ import (
 // Log struct for Log.
 type Log struct {
 	// Correlation ID of the logged API request, also returned in that request's `Correlation-ID` response header.
+	// Example: MyAppl-1tMcE-a7BqLm2Pd0Z
 	Cid *string `json:"cid,omitempty"`
 	// Date and time of the API request, in RFC 3339 format.
+	// Example: 2023-03-08T12:34:56Z
 	Timestamp string `json:"timestamp"`
 	// HTTP method of the request.
+	// Example: GET
 	Method string `json:"method"`
 	// HTTP status code of the response.
+	// Example: 200
 	AnswerCode string `json:"answer_code"`
 	// Request body.
+	// Example: {\n \"requests\": [\n  {\n   \"indexName\": \"best_buy\",\n   \"params\": \"query=&hitsPerPage=10&page=0&attributesToRetrieve=*&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&getRankingInfo=1&facets=%5B%22brand%22%2C%22categories%22%2C%22free_shipping%22%2C%22type%22%5D&tagFilters=\"\n  }\n ]\n}\n
 	QueryBody string `json:"query_body"`
 	// Response body.
+	// Example: 'n{\n "results": [\n  {\n   "hits": [\n    {\n     "name": "Amazon - Fire TV Stick",\n     "description": "Amazon Fire TV Stick connects to your TV's HDMI port. Just grab and go to enjoy Netflix, Prime Instant Video, Hulu Plus, YouTube.com, music, and much more.",\n     "brand": "Amazon",\n     "categories": [\n      "TV & Home Theater",\n      "Streaming Media Players"\n     ],\n     "hierarchicalCategories": {\n      "lvl0": "TV & Home Theater",\n      "lvl1": "TV & Home Theater > Streaming Media Players"\n     },\n     "type": "Streaming media player",\n     "price": 39.99,\n     "price_range": "1 }\n   ]\n  }\n ]\n}'
 	Answer string `json:"answer"`
 	// URL of the API endpoint.
+	// Example: /1/indexes
 	Url string `json:"url"`
 	// IP address of the client that performed the request.
+	// Example: 93.184.216.34
 	Ip string `json:"ip"`
 	// Request headers (API keys are obfuscated).
+	// Example: User-Agent: curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8x zlib/1.2.5\nHost: example.com\nAccept: */*\nContent-Type: application/json; charset=utf-8\nX-Algolia-API-Key: 20f***************************\nX-Algolia-Application-Id: MyApplicationID\n
 	QueryHeaders string `json:"query_headers"`
 	// SHA1 signature of the log entry.
+	// Example: 26c53bd7e38ca71f4741b71994cd94a600b7ac68
 	Sha1 string `json:"sha1"`
 	// Number of API requests.
+	// Example: 1
 	NbApiCalls *string `json:"nb_api_calls,omitempty"`
 	// Processing time for the query in milliseconds. This doesn't include latency due to the network.
+	// Example: 2
 	ProcessingTimeMs string `json:"processing_time_ms"`
 	// Index targeted by the query.
+	// Example: products
 	Index *string `json:"index,omitempty"`
 	// Query parameters sent with the request.
+	// Example: query=georgia&attributesToRetrieve=name,city,country
 	QueryParams *string `json:"query_params,omitempty"`
 	// Number of search results (hits) returned for the query.
+	// Example: 1
 	QueryNbHits *string `json:"query_nb_hits,omitempty"`
 	// Queries performed for the given request.
 	InnerQueries []LogQuery `json:"inner_queries,omitempty"`
@@ -688,4 +703,53 @@ func (o Log) String() string {
 	out += fmt.Sprintf("  inner_queries=%v\n", o.InnerQueries)
 
 	return fmt.Sprintf("Log {\n%s}", out)
+}
+
+// LogFieldExamples maps each field (by its JSON name) to its spec example value.
+var LogFieldExamples = map[string]string{
+	"cid":                "MyAppl-1tMcE-a7BqLm2Pd0Z",
+	"timestamp":          "2023-03-08T12:34:56Z",
+	"method":             "GET",
+	"answer_code":        "200",
+	"query_body":         "{\\n \\\"requests\\\": [\\n  {\\n   \\\"indexName\\\": \\\"best_buy\\\",\\n   \\\"params\\\": \\\"query=&hitsPerPage=10&page=0&attributesToRetrieve=*&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&getRankingInfo=1&facets=%5B%22brand%22%2C%22categories%22%2C%22free_shipping%22%2C%22type%22%5D&tagFilters=\\\"\\n  }\\n ]\\n}\\n",
+	"answer":             "'n{\\n \"results\": [\\n  {\\n   \"hits\": [\\n    {\\n     \"name\": \"Amazon - Fire TV Stick\",\\n     \"description\": \"Amazon Fire TV Stick connects to your TV's HDMI port. Just grab and go to enjoy Netflix, Prime Instant Video, Hulu Plus, YouTube.com, music, and much more.\",\\n     \"brand\": \"Amazon\",\\n     \"categories\": [\\n      \"TV & Home Theater\",\\n      \"Streaming Media Players\"\\n     ],\\n     \"hierarchicalCategories\": {\\n      \"lvl0\": \"TV & Home Theater\",\\n      \"lvl1\": \"TV & Home Theater > Streaming Media Players\"\\n     },\\n     \"type\": \"Streaming media player\",\\n     \"price\": 39.99,\\n     \"price_range\": \"1 }\\n   ]\\n  }\\n ]\\n}'\n",
+	"url":                "/1/indexes",
+	"ip":                 "93.184.216.34",
+	"query_headers":      "User-Agent: curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8x zlib/1.2.5\\nHost: example.com\\nAccept: */*\\nContent-Type: application/json; charset=utf-8\\nX-Algolia-API-Key: 20f***************************\\nX-Algolia-Application-Id: MyApplicationID\\n",
+	"sha1":               "26c53bd7e38ca71f4741b71994cd94a600b7ac68",
+	"nb_api_calls":       "1",
+	"processing_time_ms": "2",
+	"index":              "products",
+	"query_params":       "query=georgia&attributesToRetrieve=name,city,country",
+	"query_nb_hits":      "1",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Log) FieldExample(field string) string {
+	return LogFieldExamples[field]
+}
+
+// LogFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var LogFieldDescriptions = map[string]string{
+	"cid":                "Correlation ID of the logged API request, also returned in that request's `Correlation-ID` response header.",
+	"timestamp":          "Date and time of the API request, in RFC 3339 format.",
+	"method":             "HTTP method of the request.",
+	"answer_code":        "HTTP status code of the response.",
+	"query_body":         "Request body.",
+	"answer":             "Response body.",
+	"url":                "URL of the API endpoint.",
+	"ip":                 "IP address of the client that performed the request.",
+	"query_headers":      "Request headers (API keys are obfuscated).",
+	"sha1":               "SHA1 signature of the log entry.",
+	"nb_api_calls":       "Number of API requests.",
+	"processing_time_ms": "Processing time for the query in milliseconds.\nThis doesn't include latency due to the network.\n",
+	"index":              "Index targeted by the query.",
+	"query_params":       "Query parameters sent with the request.",
+	"query_nb_hits":      "Number of search results (hits) returned for the query.",
+	"inner_queries":      "Queries performed for the given request.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Log) FieldDescription(field string) string {
+	return LogFieldDescriptions[field]
 }

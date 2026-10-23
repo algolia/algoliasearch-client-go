@@ -73,3 +73,13 @@ func (o GetTaskResponse) String() string {
 
 	return fmt.Sprintf("GetTaskResponse {\n%s}", out)
 }
+
+// GetTaskResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetTaskResponseFieldDescriptions = map[string]string{
+	"status": "Task status, `published` if the task is completed, `notPublished` otherwise.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetTaskResponse) FieldDescription(field string) string {
+	return GetTaskResponseFieldDescriptions[field]
+}

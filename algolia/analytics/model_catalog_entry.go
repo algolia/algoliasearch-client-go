@@ -173,3 +173,16 @@ func (o CatalogEntry) String() string {
 
 	return fmt.Sprintf("CatalogEntry {\n%s}", out)
 }
+
+// CatalogEntryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CatalogEntryFieldDescriptions = map[string]string{
+	"kind":        "Field identifier.",
+	"description": "Human-readable description of the field.",
+	"roots":       "Root stages the field depends on. Two fields are combinable in one query only when their roots intersect.",
+	"requires":    "Public ACL identifiers required to read the field, for example `revenueAnalyticsEnabled`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CatalogEntry) FieldDescription(field string) string {
+	return CatalogEntryFieldDescriptions[field]
+}

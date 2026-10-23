@@ -179,3 +179,15 @@ func (o SourceJSON) String() string {
 
 	return fmt.Sprintf("SourceJSON {\n%s}", out)
 }
+
+// SourceJSONFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceJSONFieldDescriptions = map[string]string{
+	"url":            "URL of the file.",
+	"uniqueIDColumn": "Name of a column that contains a unique ID which will be used as `objectID` in Algolia.",
+	"method":         "HTTP method to be used for retrieving your data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceJSON) FieldDescription(field string) string {
+	return SourceJSONFieldDescriptions[field]
+}

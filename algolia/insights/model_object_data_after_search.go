@@ -9,9 +9,11 @@ import (
 // ObjectDataAfterSearch struct for ObjectDataAfterSearch.
 type ObjectDataAfterSearch struct {
 	// Unique identifier for a search query, used to track purchase events with multiple records that originate from different searches.
+	// Example: 3e48cd0616e466948dd85abf5c3fbbe2
 	QueryID *string `json:"queryID,omitempty"`
 	Price   *Price  `json:"price,omitempty"`
 	// Quantity of a product that has been purchased or added to the cart. The total purchase value is the sum of `quantity` multiplied with the `price` for each purchased item.
+	// Example: 2
 	Quantity *int32    `json:"quantity,omitempty"`
 	Discount *Discount `json:"discount,omitempty"`
 }
@@ -242,4 +244,28 @@ func (o ObjectDataAfterSearch) String() string {
 	out += fmt.Sprintf("  discount=%v\n", o.Discount)
 
 	return fmt.Sprintf("ObjectDataAfterSearch {\n%s}", out)
+}
+
+// ObjectDataAfterSearchFieldExamples maps each field (by its JSON name) to its spec example value.
+var ObjectDataAfterSearchFieldExamples = map[string]string{
+	"queryID":  "3e48cd0616e466948dd85abf5c3fbbe2",
+	"quantity": "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ObjectDataAfterSearch) FieldExample(field string) string {
+	return ObjectDataAfterSearchFieldExamples[field]
+}
+
+// ObjectDataAfterSearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ObjectDataAfterSearchFieldDescriptions = map[string]string{
+	"queryID":  "Unique identifier for a search query, used to track purchase events with multiple records that originate from different searches.",
+	"price":    "Final price of a single product, including any discounts, in units of `currency`.",
+	"quantity": "Quantity of a product that has been purchased or added to the cart.\nThe total purchase value is the sum of `quantity` multiplied with the `price` for each purchased item.\n",
+	"discount": "Absolute value of the discount for this product, in units of `currency`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ObjectDataAfterSearch) FieldDescription(field string) string {
+	return ObjectDataAfterSearchFieldDescriptions[field]
 }

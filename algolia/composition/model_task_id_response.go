@@ -9,6 +9,7 @@ import (
 // TaskIDResponse struct for TaskIDResponse.
 type TaskIDResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 }
 
@@ -73,4 +74,24 @@ func (o TaskIDResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 
 	return fmt.Sprintf("TaskIDResponse {\n%s}", out)
+}
+
+// TaskIDResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskIDResponseFieldExamples = map[string]string{
+	"taskID": "1514562690001",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskIDResponse) FieldExample(field string) string {
+	return TaskIDResponseFieldExamples[field]
+}
+
+// TaskIDResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskIDResponseFieldDescriptions = map[string]string{
+	"taskID": "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskIDResponse) FieldDescription(field string) string {
+	return TaskIDResponseFieldDescriptions[field]
 }

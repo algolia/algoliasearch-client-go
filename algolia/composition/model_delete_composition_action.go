@@ -9,6 +9,7 @@ import (
 // DeleteCompositionAction Operation arguments when deleting.
 type DeleteCompositionAction struct {
 	// Composition unique identifier.
+	// Example: my_composition_object_id
 	ObjectID string `json:"objectID"`
 }
 
@@ -73,4 +74,24 @@ func (o DeleteCompositionAction) String() string {
 	out += fmt.Sprintf("  objectID=%v\n", o.ObjectID)
 
 	return fmt.Sprintf("DeleteCompositionAction {\n%s}", out)
+}
+
+// DeleteCompositionActionFieldExamples maps each field (by its JSON name) to its spec example value.
+var DeleteCompositionActionFieldExamples = map[string]string{
+	"objectID": "my_composition_object_id",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DeleteCompositionAction) FieldExample(field string) string {
+	return DeleteCompositionActionFieldExamples[field]
+}
+
+// DeleteCompositionActionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeleteCompositionActionFieldDescriptions = map[string]string{
+	"objectID": "Composition unique identifier.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeleteCompositionAction) FieldDescription(field string) string {
+	return DeleteCompositionActionFieldDescriptions[field]
 }

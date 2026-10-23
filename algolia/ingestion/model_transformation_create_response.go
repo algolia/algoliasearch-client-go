@@ -9,6 +9,7 @@ import (
 // TransformationCreateResponse API response for creating a transformation.
 type TransformationCreateResponse struct {
 	// Universally unique identifier (UUID) of a transformation.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TransformationID string `json:"transformationID"`
 	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
@@ -106,4 +107,25 @@ func (o TransformationCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("TransformationCreateResponse {\n%s}", out)
+}
+
+// TransformationCreateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var TransformationCreateResponseFieldExamples = map[string]string{
+	"transformationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TransformationCreateResponse) FieldExample(field string) string {
+	return TransformationCreateResponseFieldExamples[field]
+}
+
+// TransformationCreateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationCreateResponseFieldDescriptions = map[string]string{
+	"transformationID": "Universally unique identifier (UUID) of a transformation.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TransformationCreateResponse) FieldDescription(field string) string {
+	return TransformationCreateResponseFieldDescriptions[field]
 }

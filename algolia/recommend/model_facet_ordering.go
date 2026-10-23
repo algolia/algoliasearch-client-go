@@ -144,3 +144,14 @@ func (o FacetOrdering) String() string {
 
 	return fmt.Sprintf("FacetOrdering {\n%s}", out)
 }
+
+// FacetOrderingFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FacetOrderingFieldDescriptions = map[string]string{
+	"facets": "Order of facet names.",
+	"values": "Order of facet values. One object for each facet.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FacetOrdering) FieldDescription(field string) string {
+	return FacetOrderingFieldDescriptions[field]
+}

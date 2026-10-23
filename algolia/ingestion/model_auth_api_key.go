@@ -74,3 +74,13 @@ func (o AuthAPIKey) String() string {
 
 	return fmt.Sprintf("AuthAPIKey {\n%s}", out)
 }
+
+// AuthAPIKeyFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthAPIKeyFieldDescriptions = map[string]string{
+	"key": "API key. This field is `null` in the API response.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthAPIKey) FieldDescription(field string) string {
+	return AuthAPIKeyFieldDescriptions[field]
+}

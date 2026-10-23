@@ -9,6 +9,7 @@ import (
 // ScalarPayload struct for ScalarPayload.
 type ScalarPayload struct {
 	// Default domain propagated to entries that omit their own.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Fields to aggregate.
 	Metrics []FieldReference `json:"metrics"`
@@ -212,4 +213,27 @@ func (o ScalarPayload) String() string {
 	out += fmt.Sprintf("  parameters=%v\n", o.Parameters)
 
 	return fmt.Sprintf("ScalarPayload {\n%s}", out)
+}
+
+// ScalarPayloadFieldExamples maps each field (by its JSON name) to its spec example value.
+var ScalarPayloadFieldExamples = map[string]string{
+	"domain": "core",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ScalarPayload) FieldExample(field string) string {
+	return ScalarPayloadFieldExamples[field]
+}
+
+// ScalarPayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ScalarPayloadFieldDescriptions = map[string]string{
+	"domain":     "Default domain propagated to entries that omit their own.",
+	"metrics":    "Fields to aggregate.",
+	"filters":    "Filter conditions.",
+	"parameters": "Literal values referenced by the query.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ScalarPayload) FieldDescription(field string) string {
+	return ScalarPayloadFieldDescriptions[field]
 }

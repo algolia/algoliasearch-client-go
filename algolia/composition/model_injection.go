@@ -178,3 +178,15 @@ func (o Injection) String() string {
 
 	return fmt.Sprintf("Injection {\n%s}", out)
 }
+
+// InjectionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectionFieldDescriptions = map[string]string{
+	"main":          "Main defines the organic result set of the injection.",
+	"injectedItems": "list of injected items of the current Composition.",
+	"deduplication": "Deduplication configures the methods used to resolve duplicate items between main search results and injected group results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Injection) FieldDescription(field string) string {
+	return InjectionFieldDescriptions[field]
+}

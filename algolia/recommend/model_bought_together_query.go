@@ -9,6 +9,7 @@ import (
 // BoughtTogetherQuery struct for BoughtTogetherQuery.
 type BoughtTogetherQuery struct {
 	// Index name (case-sensitive).
+	// Example: products
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
@@ -17,6 +18,7 @@ type BoughtTogetherQuery struct {
 	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	Model              FbtModel               `json:"model"`
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID           string          `json:"objectID"`
 	FallbackParameters *FallbackParams `json:"fallbackParameters,omitempty"`
 }
@@ -332,4 +334,31 @@ func (o BoughtTogetherQuery) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
 	return fmt.Sprintf("BoughtTogetherQuery {\n%s}", out)
+}
+
+// BoughtTogetherQueryFieldExamples maps each field (by its JSON name) to its spec example value.
+var BoughtTogetherQueryFieldExamples = map[string]string{
+	"indexName": "products",
+	"objectID":  "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o BoughtTogetherQuery) FieldExample(field string) string {
+	return BoughtTogetherQueryFieldExamples[field]
+}
+
+// BoughtTogetherQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BoughtTogetherQueryFieldDescriptions = map[string]string{
+	"indexName":          "Index name (case-sensitive).",
+	"threshold":          "Minimum score a recommendation must have to be included in the response.",
+	"maxRecommendations": "Maximum number of recommendations to retrieve.\nBy default, all recommendations are returned and no fallback request is made.\nDepending on the available recommendations and the other request parameters,\nthe actual number of recommendations may be lower than this value.\n",
+	"queryParameters":    "Search parameters for filtering the recommendations.",
+	"model":              "Frequently bought together model.\n\nThis model recommends items that have been purchased within 1 day with the item with the ID `objectID`.\n",
+	"objectID":           "Unique record identifier.",
+	"fallbackParameters": "Search parameters to use for a fallback request if there aren't enough recommendations.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BoughtTogetherQuery) FieldDescription(field string) string {
+	return BoughtTogetherQueryFieldDescriptions[field]
 }

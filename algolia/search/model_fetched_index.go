@@ -9,31 +9,41 @@ import (
 // FetchedIndex struct for FetchedIndex.
 type FetchedIndex struct {
 	// Index name.
+	// Example: movies
 	Name string `json:"name"`
 	// Index creation date. An empty string means that the index has no records.
+	// Example: 2022-09-19T16:36:44.471Z
 	CreatedAt string `json:"createdAt"`
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	UpdatedAt string `json:"updatedAt"`
 	// Number of records contained in the index.
+	// Example: 100
 	Entries int32 `json:"entries"`
 	// Number of bytes of the index in minified format.
+	// Example: 48450
 	DataSize int64 `json:"dataSize"`
 	// Number of bytes of the index binary file.
+	// Example: 112927
 	FileSize int64 `json:"fileSize"`
 	// Last build time.
+	// Example: 3
 	LastBuildTimeS int32 `json:"lastBuildTimeS"`
 	// Number of pending indexing operations. This value is deprecated and should not be used.
 	NumberOfPendingTasks int32 `json:"numberOfPendingTasks"`
 	// A boolean which says whether the index has pending tasks. This value is deprecated and should not be used.
 	PendingTask bool `json:"pendingTask"`
 	// Only present if the index is a replica. Contains the name of the related primary index.
+	// Example: T02
 	Primary *string `json:"primary,omitempty"`
 	// Only present if the index is a primary index with replicas. Contains the names of all linked replicas.
+	// Example: ["T02_push","T2replica"]
 	Replicas []string `json:"replicas,omitempty"`
 	// Only present if the index is a [virtual replica](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-alphabetically/#virtual-replicas).
 	Virtual *bool               `json:"virtual,omitempty"`
 	AbTest  *FetchedIndexAbTest `json:"abTest,omitempty"`
 	// Name of the index that owns the A/B test configuration. Only present when this index participates in an A/B test configured on another index.
+	// Example: movies_dev_a
 	SourceABTest *string `json:"sourceABTest,omitempty"`
 }
 
@@ -603,4 +613,46 @@ func (o FetchedIndex) String() string {
 	out += fmt.Sprintf("  sourceABTest=%v\n", o.SourceABTest)
 
 	return fmt.Sprintf("FetchedIndex {\n%s}", out)
+}
+
+// FetchedIndexFieldExamples maps each field (by its JSON name) to its spec example value.
+var FetchedIndexFieldExamples = map[string]string{
+	"name":           "movies",
+	"createdAt":      "2022-09-19T16:36:44.471Z",
+	"updatedAt":      "2023-07-04T12:49:15Z",
+	"entries":        "100",
+	"dataSize":       "48450",
+	"fileSize":       "112927",
+	"lastBuildTimeS": "3",
+	"primary":        "T02",
+	"replicas":       "[\"T02_push\",\"T2replica\"]",
+	"sourceABTest":   "movies_dev_a",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FetchedIndex) FieldExample(field string) string {
+	return FetchedIndexFieldExamples[field]
+}
+
+// FetchedIndexFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FetchedIndexFieldDescriptions = map[string]string{
+	"name":                 "Index name.",
+	"createdAt":            "Index creation date. An empty string means that the index has no records.",
+	"updatedAt":            "Date and time when the object was updated, in RFC 3339 format.",
+	"entries":              "Number of records contained in the index.",
+	"dataSize":             "Number of bytes of the index in minified format.",
+	"fileSize":             "Number of bytes of the index binary file.",
+	"lastBuildTimeS":       "Last build time.",
+	"numberOfPendingTasks": "Number of pending indexing operations. This value is deprecated and should not be used.",
+	"pendingTask":          "A boolean which says whether the index has pending tasks. This value is deprecated and should not be used.",
+	"primary":              "Only present if the index is a replica. Contains the name of the related primary index.",
+	"replicas":             "Only present if the index is a primary index with replicas. Contains the names of all linked replicas.",
+	"virtual":              "Only present if the index is a [virtual replica](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-alphabetically/#virtual-replicas).",
+	"abTest":               "A/B test metadata. Only present if the index is part of an active A/B test.",
+	"sourceABTest":         "Name of the index that owns the A/B test configuration. Only present when this index participates in an A/B test configured on another index.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FetchedIndex) FieldDescription(field string) string {
+	return FetchedIndexFieldDescriptions[field]
 }

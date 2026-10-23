@@ -9,6 +9,7 @@ import (
 // SetPersonalizationStrategyResponse struct for SetPersonalizationStrategyResponse.
 type SetPersonalizationStrategyResponse struct {
 	// A message confirming the strategy update.
+	// Example: Strategy was successfully updated.
 	Message string `json:"message"`
 }
 
@@ -73,4 +74,24 @@ func (o SetPersonalizationStrategyResponse) String() string {
 	out += fmt.Sprintf("  message=%v\n", o.Message)
 
 	return fmt.Sprintf("SetPersonalizationStrategyResponse {\n%s}", out)
+}
+
+// SetPersonalizationStrategyResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SetPersonalizationStrategyResponseFieldExamples = map[string]string{
+	"message": "Strategy was successfully updated.",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SetPersonalizationStrategyResponse) FieldExample(field string) string {
+	return SetPersonalizationStrategyResponseFieldExamples[field]
+}
+
+// SetPersonalizationStrategyResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SetPersonalizationStrategyResponseFieldDescriptions = map[string]string{
+	"message": "A message confirming the strategy update.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SetPersonalizationStrategyResponse) FieldDescription(field string) string {
+	return SetPersonalizationStrategyResponseFieldDescriptions[field]
 }

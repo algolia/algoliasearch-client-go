@@ -295,3 +295,17 @@ func (o Metrics) String() string {
 
 	return fmt.Sprintf("Metrics {\n%s}", out)
 }
+
+// MetricsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricsFieldDescriptions = map[string]string{
+	"cpu_usage":          "CPU idleness in %.",
+	"ram_indexing_usage": "RAM used for indexing in MB.",
+	"ram_search_usage":   "RAM used for search in MB.",
+	"ssd_usage":          "Solid-state disk (SSD) usage expressed as % of RAM. \n0% means no SSD usage. A value of 50% indicates 32&nbsp;GB SSD usage for a machine with 64&nbsp;RAM.\n",
+	"avg_build_time":     "Average build time of the indices in seconds.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Metrics) FieldDescription(field string) string {
+	return MetricsFieldDescriptions[field]
+}

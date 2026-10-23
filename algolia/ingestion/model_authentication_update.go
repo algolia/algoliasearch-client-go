@@ -144,3 +144,13 @@ func (o AuthenticationUpdate) String() string {
 
 	return fmt.Sprintf("AuthenticationUpdate {\n%s}", out)
 }
+
+// AuthenticationUpdateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthenticationUpdateFieldDescriptions = map[string]string{
+	"name": "Descriptive name for the resource.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthenticationUpdate) FieldDescription(field string) string {
+	return AuthenticationUpdateFieldDescriptions[field]
+}

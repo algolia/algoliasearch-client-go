@@ -9,9 +9,11 @@ import (
 // GetTopFiltersNoResultsValue struct for GetTopFiltersNoResultsValue.
 type GetTopFiltersNoResultsValue struct {
 	// Attribute name.
+	// Example: url
 	Attribute string   `json:"attribute"`
 	Operator  Operator `json:"operator"`
 	// Attribute value.
+	// Example: integration
 	Value string `json:"value"`
 }
 
@@ -138,4 +140,27 @@ func (o GetTopFiltersNoResultsValue) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 
 	return fmt.Sprintf("GetTopFiltersNoResultsValue {\n%s}", out)
+}
+
+// GetTopFiltersNoResultsValueFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetTopFiltersNoResultsValueFieldExamples = map[string]string{
+	"attribute": "url",
+	"value":     "integration",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetTopFiltersNoResultsValue) FieldExample(field string) string {
+	return GetTopFiltersNoResultsValueFieldExamples[field]
+}
+
+// GetTopFiltersNoResultsValueFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetTopFiltersNoResultsValueFieldDescriptions = map[string]string{
+	"attribute": "Attribute name.",
+	"operator":  "Character that characterizes how the filter is applied.\n\nFor example, for a facet filter `facet:value`, `:` is the operator.\nFor a numeric filter `count>50`, `>` is the operator.\n",
+	"value":     "Attribute value.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetTopFiltersNoResultsValue) FieldDescription(field string) string {
+	return GetTopFiltersNoResultsValueFieldDescriptions[field]
 }

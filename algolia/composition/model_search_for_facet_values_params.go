@@ -194,3 +194,14 @@ func (o SearchForFacetValuesParams) String() string {
 
 	return fmt.Sprintf("SearchForFacetValuesParams {\n%s}", out)
 }
+
+// SearchForFacetValuesParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchForFacetValuesParamsFieldDescriptions = map[string]string{
+	"query":        "Search query.",
+	"maxFacetHits": "Maximum number of facet values to return when [searching for facet values](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#search-for-facet-values).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchForFacetValuesParams) FieldDescription(field string) string {
+	return SearchForFacetValuesParamsFieldDescriptions[field]
+}

@@ -9,8 +9,10 @@ import (
 // AddApiKeyResponse struct for AddApiKeyResponse.
 type AddApiKeyResponse struct {
 	// API key.
+	// Example: 13ad45b4d0a2f6ea65ecbddf6aa260f2
 	Key string `json:"key"`
 	// Date and time when the object was created, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	CreatedAt string `json:"createdAt"`
 }
 
@@ -106,4 +108,26 @@ func (o AddApiKeyResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("AddApiKeyResponse {\n%s}", out)
+}
+
+// AddApiKeyResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var AddApiKeyResponseFieldExamples = map[string]string{
+	"key":       "13ad45b4d0a2f6ea65ecbddf6aa260f2",
+	"createdAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AddApiKeyResponse) FieldExample(field string) string {
+	return AddApiKeyResponseFieldExamples[field]
+}
+
+// AddApiKeyResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AddApiKeyResponseFieldDescriptions = map[string]string{
+	"key":       "API key.",
+	"createdAt": "Date and time when the object was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AddApiKeyResponse) FieldDescription(field string) string {
+	return AddApiKeyResponseFieldDescriptions[field]
 }

@@ -365,3 +365,18 @@ func (o CompactionStats) String() string {
 
 	return fmt.Sprintf("CompactionStats {\n%s}", out)
 }
+
+// CompactionStatsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompactionStatsFieldDescriptions = map[string]string{
+	"compacted":                  "Whether a summary was actually produced. `false` means the payload passed through untouched (nothing older than the kept tail, or no summarizable text).",
+	"chunksProcessed":            "Number of transcript chunks summarized in the map phase. 0 on passthrough, 1 when the transcript fit in a single summarizer call.",
+	"passes":                     "Number of summarizer rounds. 1 for a direct summary; 2+ when chunk summaries had to be merged (map-reduce).",
+	"summarizerPromptTokens":     "Provider-reported input tokens summed across every summarizer call. Null when the provider reported no usage metadata.",
+	"summarizerCompletionTokens": "Provider-reported output tokens summed across every summarizer call. Null when the provider reported no usage metadata.",
+	"targetTokensEstimate":       "The requested output budget, echoed back when `targetTokensEstimate` was set.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CompactionStats) FieldDescription(field string) string {
+	return CompactionStatsFieldDescriptions[field]
+}

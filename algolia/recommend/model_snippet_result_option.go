@@ -9,6 +9,7 @@ import (
 // SnippetResultOption Snippets that show the context around a matching search query.
 type SnippetResultOption struct {
 	// Highlighted attribute value, including HTML tags.
+	// Example: <em>George</em> <em>Clo</em>oney
 	Value      string     `json:"value"`
 	MatchLevel MatchLevel `json:"matchLevel"`
 }
@@ -105,4 +106,25 @@ func (o SnippetResultOption) String() string {
 	out += fmt.Sprintf("  matchLevel=%v\n", o.MatchLevel)
 
 	return fmt.Sprintf("SnippetResultOption {\n%s}", out)
+}
+
+// SnippetResultOptionFieldExamples maps each field (by its JSON name) to its spec example value.
+var SnippetResultOptionFieldExamples = map[string]string{
+	"value": "<em>George</em> <em>Clo</em>oney",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SnippetResultOption) FieldExample(field string) string {
+	return SnippetResultOptionFieldExamples[field]
+}
+
+// SnippetResultOptionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SnippetResultOptionFieldDescriptions = map[string]string{
+	"value":      "Highlighted attribute value, including HTML tags.",
+	"matchLevel": "Whether the whole query string matches or only a part.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SnippetResultOption) FieldDescription(field string) string {
+	return SnippetResultOptionFieldDescriptions[field]
 }

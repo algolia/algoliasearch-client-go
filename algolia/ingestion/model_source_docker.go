@@ -9,6 +9,7 @@ import (
 // SourceDocker Specific configuration attributes of a `docker` source.
 type SourceDocker struct {
 	// Name of the connector.
+	// Example: zendesk
 	Image string `json:"image"`
 	// Configuration of the spec.
 	Configuration map[string]any `json:"configuration"`
@@ -106,4 +107,25 @@ func (o SourceDocker) String() string {
 	out += fmt.Sprintf("  configuration=%v\n", o.Configuration)
 
 	return fmt.Sprintf("SourceDocker {\n%s}", out)
+}
+
+// SourceDockerFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceDockerFieldExamples = map[string]string{
+	"image": "zendesk",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceDocker) FieldExample(field string) string {
+	return SourceDockerFieldExamples[field]
+}
+
+// SourceDockerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceDockerFieldDescriptions = map[string]string{
+	"image":         "Name of the connector.",
+	"configuration": "Configuration of the spec.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceDocker) FieldDescription(field string) string {
+	return SourceDockerFieldDescriptions[field]
 }

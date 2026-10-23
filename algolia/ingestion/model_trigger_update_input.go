@@ -9,6 +9,7 @@ import (
 // TriggerUpdateInput Trigger for a task update.
 type TriggerUpdateInput struct {
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron string `json:"cron"`
 }
 
@@ -73,4 +74,24 @@ func (o TriggerUpdateInput) String() string {
 	out += fmt.Sprintf("  cron=%v\n", o.Cron)
 
 	return fmt.Sprintf("TriggerUpdateInput {\n%s}", out)
+}
+
+// TriggerUpdateInputFieldExamples maps each field (by its JSON name) to its spec example value.
+var TriggerUpdateInputFieldExamples = map[string]string{
+	"cron": "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TriggerUpdateInput) FieldExample(field string) string {
+	return TriggerUpdateInputFieldExamples[field]
+}
+
+// TriggerUpdateInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TriggerUpdateInputFieldDescriptions = map[string]string{
+	"cron": "Cron expression for the task's schedule.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TriggerUpdateInput) FieldDescription(field string) string {
+	return TriggerUpdateInputFieldDescriptions[field]
 }

@@ -15,6 +15,7 @@ type Params struct {
 	// Tags to apply to the query for [segmenting analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
 	// Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.  Only records included within a circle around this central location are included in the results. The radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings. This parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.
+	// Example: 40.71,-74.01
 	AroundLatLng *string `json:"aroundLatLng,omitempty"`
 	// Whether to obtain the coordinates from the request's IP address.
 	AroundLatLngViaIP *bool            `json:"aroundLatLngViaIP,omitempty"`
@@ -32,17 +33,21 @@ type Params struct {
 	EnableRules  *bool         `json:"enableRules,omitempty"`
 	FacetFilters *FacetFilters `json:"facetFilters,omitempty"`
 	// Facets for which to retrieve facet values that match the search criteria and the number of matching facet values. To retrieve all facets, use the wildcard character `*`. To retrieve disjunctive facets lists, annotate any facets with the `disjunctive` modifier. For more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts) and [disjunctive faceting for Smart Groups](https://www.algolia.com/doc/guides/managing-results/compositions/search-based-groups#facets-including-disjunctive-faceting).
+	// Example: ["category","disjunctive(brand)","price"]
 	Facets []string `json:"facets,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
+	// Example: (category:Book OR category:Ebook) AND _tags:published
 	Filters *string `json:"filters,omitempty"`
 	// Whether the run response should include detailed ranking information.
 	GetRankingInfo *bool `json:"getRankingInfo,omitempty"`
 	// Number of hits per page.
 	HitsPerPage *int32 `json:"hitsPerPage,omitempty"`
 	// An object containing keys corresponding to the `key`s from an injection's `injectedItems` and values containing a list of hits to inject.
+	// Example: {"my-group-key":{"items":[{"objectID":"my-object-1","metadata":{"my-field":"my-value"}},{"objectID":"my-object-2","metadata":{"my-field":"my-value-2"}}]},"my-other-group-key":{"items":[{"objectID":"my-other-object-1"},{"objectID":"my-other-object-2"}]}}
 	InjectedItems     *map[string]ExternalInjectedItem  `json:"injectedItems,omitempty"`
 	InsideBoundingBox utils.Nullable[InsideBoundingBox] `json:"insideBoundingBox,omitempty"`
 	// Coordinates of a polygon in which to search.  Polygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude. Provide multiple polygons as nested arrays. For more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas). This parameter is ignored if you also specify `insideBoundingBox`.
+	// Example: [[47.3165,4.9665,47.3424,5.0201,47.32,4.9],[40.9234,2.1185,38.643,1.9916,39.2587,2.0104]]
 	InsidePolygon [][]float64 `json:"insidePolygon,omitempty"`
 	// Minimum radius (in meters) for a search around a location when `aroundRadius` isn't set.
 	MinimumAroundRadius *int32 `json:"minimumAroundRadius,omitempty"`
@@ -55,14 +60,19 @@ type Params struct {
 	// Search query.
 	Query *string `json:"query,omitempty"`
 	// Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries. This setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings. This setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages. To support this, place the CJK language **first**. **Always specify a query language.** If you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages), or the languages you specified with the `ignorePlurals` or `removeStopWords` parameters. This can lead to unexpected search results. For more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations).
+	// Example: ["es"]
 	QueryLanguages []SupportedLanguage `json:"queryLanguages,omitempty"`
 	// Relevancy threshold below which less relevant results aren't included in the results. You can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#standard-and-virtual-replicas). Use this setting to strike a balance between the relevance and number of returned results.
+	// Example: 90
 	RelevancyStrictness *int32 `json:"relevancyStrictness,omitempty"`
 	// Assigns a rule context to the run query. [Rule contexts](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#assign-context) are strings that you can use to trigger matching rules.
+	// Example: ["mobile"]
 	RuleContexts []string `json:"ruleContexts,omitempty"`
 	// Indicates which sorting strategy to apply for the request. The value must match one of the labels defined in the \"sortingStrategy\" mapping. For example, \"Price (asc)\", see Upsert Composition. At runtime, this label is used to look up the corresponding index or replica configured in \"sortingStrategy\", and the query is executed using that index instead of main's.  In addition to \"sortingStrategy\", this parameter is also used to apply a matching Composition Rule that contains a condition defined to trigger on \"sortBy\", see Composition Rules.  If no value is provided or an invalid value, no sorting strategy is applied.
+	// Example: Price (asc)
 	SortBy *string `json:"sortBy,omitempty"`
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: test-user-123
 	UserToken *string `json:"userToken,omitempty"`
 }
 
@@ -1551,4 +1561,61 @@ func (o Params) String() string {
 	out += fmt.Sprintf("  userToken=%v\n", o.UserToken)
 
 	return fmt.Sprintf("Params {\n%s}", out)
+}
+
+// ParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var ParamsFieldExamples = map[string]string{
+	"aroundLatLng":        "40.71,-74.01",
+	"facets":              "[\"category\",\"disjunctive(brand)\",\"price\"]",
+	"filters":             "(category:Book OR category:Ebook) AND _tags:published",
+	"injectedItems":       "{\"my-group-key\":{\"items\":[{\"objectID\":\"my-object-1\",\"metadata\":{\"my-field\":\"my-value\"}},{\"objectID\":\"my-object-2\",\"metadata\":{\"my-field\":\"my-value-2\"}}]},\"my-other-group-key\":{\"items\":[{\"objectID\":\"my-other-object-1\"},{\"objectID\":\"my-other-object-2\"}]}}",
+	"insidePolygon":       "[[47.3165,4.9665,47.3424,5.0201,47.32,4.9],[40.9234,2.1185,38.643,1.9916,39.2587,2.0104]]",
+	"queryLanguages":      "[\"es\"]",
+	"relevancyStrictness": "90",
+	"ruleContexts":        "[\"mobile\"]",
+	"sortBy":              "Price (asc)",
+	"userToken":           "test-user-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Params) FieldExample(field string) string {
+	return ParamsFieldExamples[field]
+}
+
+// ParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ParamsFieldDescriptions = map[string]string{
+	"analytics":             "Whether this search will be included in Analytics.",
+	"analyticsTags":         "Tags to apply to the query for [segmenting analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).",
+	"aroundLatLng":          "Coordinates for the center of a circle, expressed as a comma-separated string of latitude and longitude.\n\nOnly records included within a circle around this central location are included in the results.\nThe radius of the circle is determined by the `aroundRadius` and `minimumAroundRadius` settings.\nThis parameter is ignored if you also specify `insidePolygon` or `insideBoundingBox`.\n",
+	"aroundLatLngViaIP":     "Whether to obtain the coordinates from the request's IP address.",
+	"aroundRadius":          "Maximum radius for a search around a central location.\n\nThis parameter works in combination with the `aroundLatLng` and `aroundLatLngViaIP` parameters.\nBy default, the search radius is determined automatically from the density of hits around the central location.\nThe search radius is small if there are many hits close to the central coordinates.\n",
+	"aroundPrecision":       "Precision of a coordinate-based search in meters to group results with similar distances.\n\nThe Geo ranking criterion considers all matches within the same range of distances to be equal.\n",
+	"clickAnalytics":        "Whether to include a `queryID` attribute in the response.\nThe query ID is a unique identifier for a search query and is required for tracking [click and conversion events](https://www.algolia.com/doc/guides/sending-events/getting-started).\n",
+	"enableABTest":          "Whether to enable index level A/B testing for this run request.\nIf the composition mixes multiple indices, the A/B test is ignored.\n",
+	"enablePersonalization": "Whether to enable Personalization.",
+	"enableReRanking":       "Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking).\nThis setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.\n",
+	"enableRules":           "Whether to enable composition rules.",
+	"facetFilters":          "Filter the search by facet values, so that only records with the same facet values are retrieved.\n\n**Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**\n\n- `[filter1, filter2]` is interpreted as `filter1 AND filter2`.\n- `[[filter1, filter2], filter3]` is interpreted as `filter1 OR filter2 AND filter3`.\n- `facet:-value` is interpreted as `NOT facet:value`.\n\nWhile it's best to avoid attributes that start with a `-`, you can still filter them by escaping with a backslash:\n`facet:\\-value`.\n",
+	"facets":                "Facets for which to retrieve facet values that match the search criteria and the number of matching facet values.\nTo retrieve all facets, use the wildcard character `*`.\nTo retrieve disjunctive facets lists, annotate any facets with the `disjunctive` modifier.\nFor more information, see [facets](https://www.algolia.com/doc/guides/managing-results/refine-results/faceting/#contextual-facet-values-and-counts) and [disjunctive faceting for Smart Groups](https://www.algolia.com/doc/guides/managing-results/compositions/search-based-groups#facets-including-disjunctive-faceting).\n",
+	"filters":               "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
+	"getRankingInfo":        "Whether the run response should include detailed ranking information.",
+	"hitsPerPage":           "Number of hits per page.",
+	"injectedItems":         "An object containing keys corresponding to the `key`s from an injection's `injectedItems` and values containing a list of hits to inject.\n",
+	"insidePolygon":         "Coordinates of a polygon in which to search.\n\nPolygons are defined by 3 to 10,000 points. Each point is represented by its latitude and longitude.\nProvide multiple polygons as nested arrays.\nFor more information, see [filtering inside polygons](https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/#filtering-inside-rectangular-or-polygonal-areas).\nThis parameter is ignored if you also specify `insideBoundingBox`.\n",
+	"minimumAroundRadius":   "Minimum radius (in meters) for a search around a location when `aroundRadius` isn't set.",
+	"naturalLanguages":      "ISO language codes that adjust settings that are useful for processing natural language queries (as opposed to keyword searches).\n- Sets `removeStopWords` and `ignorePlurals` to the list of provided languages.\n- Sets `removeWordsIfNoResults` to `allOptional`.\n- Adds a `natural_language` attribute to `ruleContexts` and `analyticsTags`.\n",
+	"numericFilters":        "Filter by numeric facets.\n\n**Prefer using the `filters` parameter, which supports all filter types and combinations with boolean operators.**\n\nYou can use numeric comparison operators: `<`, `<=`, `=`, `!=`, `>`, `>=`.\nComparisons are precise up to 3 decimals.\nYou can also provide ranges: `facet:<lower> TO <upper>`. The range includes the lower and upper boundaries.\nThe same combination rules apply as for `facetFilters`.\n",
+	"optionalFilters":       "Filters to promote or demote records in the search results.\n\nOptional filters work like facet filters, but they don't exclude records from the search results.\nRecords that match the optional filter rank before records that don't match.\nIf you're using a negative filter `facet:-value`, matching records rank after records that don't match.\n\n- Optional filters are applied _after_ sort-by attributes.\n- Optional filters are applied _before_ custom ranking attributes (in the default [ranking](https://www.algolia.com/doc/guides/managing-results/relevance-overview/in-depth/ranking-criteria)).\n- Optional filters don't work with numeric attributes.\n- On virtual replicas, optional filters are applied _after_ the replica's [relevant sort](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/relevant-sort).\n",
+	"page":                  "Page of search results to retrieve.",
+	"query":                 "Search query.",
+	"queryLanguages":        "Languages for language-specific query processing steps such as plurals, stop-word removal, and word-detection dictionaries.\nThis setting sets a default list of languages used by the `removeStopWords` and `ignorePlurals` settings.\nThis setting also sets a dictionary for word detection in the logogram-based [CJK](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/normalization/#normalization-for-logogram-based-languages-cjk) languages.\nTo support this, place the CJK language **first**.\n**Always specify a query language.**\nIf you don't specify an indexing language, the search engine uses all [supported languages](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/supported-languages),\nor the languages you specified with the `ignorePlurals` or `removeStopWords` parameters.\nThis can lead to unexpected search results.\nFor more information, see [Language-specific configuration](https://www.algolia.com/doc/guides/managing-results/optimize-search-results/handling-natural-languages-nlp/in-depth/language-specific-configurations).\n",
+	"relevancyStrictness":   "Relevancy threshold below which less relevant results aren't included in the results.\nYou can only set `relevancyStrictness` on [virtual replica indices](https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/in-depth/replicas/#standard-and-virtual-replicas).\nUse this setting to strike a balance between the relevance and number of returned results.\n",
+	"ruleContexts":          "Assigns a rule context to the run query.\n[Rule contexts](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/how-to/customize-search-results-by-platform/#assign-context) are strings that you can use to trigger matching rules.\n",
+	"sortBy":                "Indicates which sorting strategy to apply for the request.\nThe value must match one of the labels defined in the \"sortingStrategy\" mapping. For example, \"Price (asc)\", see Upsert Composition.\nAt runtime, this label is used to look up the corresponding index or replica configured in \"sortingStrategy\", and the query is executed using that index instead of main's.\n\nIn addition to \"sortingStrategy\", this parameter is also used to apply a matching Composition Rule that contains a condition defined to trigger on \"sortBy\", see Composition Rules.\n\nIf no value is provided or an invalid value, no sorting strategy is applied.\n",
+	"userToken":             "Unique pseudonymous or anonymous user identifier.\n\nThis helps with analytics and click and conversion events.\nFor more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Params) FieldDescription(field string) string {
+	return ParamsFieldDescriptions[field]
 }

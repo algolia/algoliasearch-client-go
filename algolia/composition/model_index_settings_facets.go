@@ -95,3 +95,13 @@ func (o IndexSettingsFacets) String() string {
 
 	return fmt.Sprintf("IndexSettingsFacets {\n%s}", out)
 }
+
+// IndexSettingsFacetsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var IndexSettingsFacetsFieldDescriptions = map[string]string{
+	"order": "Explicit order of facets or facet values.\n\nThis setting lets you always show specific facets or facet values at the top of the list.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o IndexSettingsFacets) FieldDescription(field string) string {
+	return IndexSettingsFacetsFieldDescriptions[field]
+}

@@ -143,3 +143,14 @@ func (o Banner) String() string {
 
 	return fmt.Sprintf("Banner {\n%s}", out)
 }
+
+// BannerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BannerFieldDescriptions = map[string]string{
+	"image": "Image to show inside a banner.",
+	"link":  "Link for a banner defined in the Merchandising Studio.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Banner) FieldDescription(field string) string {
+	return BannerFieldDescriptions[field]
+}

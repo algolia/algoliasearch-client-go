@@ -11,43 +11,62 @@ import (
 // Variant struct for Variant.
 type Variant struct {
 	// Number of add-to-cart events for this variant.
+	// Example: 0
 	AddToCartCount int32 `json:"addToCartCount"`
 	// [Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.
+	// Example: 0
 	AddToCartRate utils.Nullable[float64] `json:"addToCartRate,omitempty"`
 	// [Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.
+	// Example: 29.12342
 	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition,omitempty"`
 	// Number of click events for this variant.
+	// Example: 65131
 	ClickCount int32 `json:"clickCount"`
 	// [Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.
+	// Example: 0.22219857724813036
 	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate,omitempty"`
 	// Number of click events for this variant.
+	// Example: 4785
 	ConversionCount int32 `json:"conversionCount"`
 	// [Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.
+	// Example: 0.14546725846658964
 	ConversionRate utils.Nullable[float64] `json:"conversionRate,omitempty"`
 	// A/B test currencies.
+	// Example: {"USD":{"currency":"USD","revenue":120,"mean":53.7,"standardDeviation":12.3,"winsorizedAmount":23},"EUR":{"currency":"EUR","revenue":100,"mean":43.7,"standardDeviation":10.3,"winsorizedAmount":10}}
 	Currencies *map[string]Currency `json:"currencies,omitempty"`
 	// Description for this variant.
+	// Example: Current production index
 	Description *string `json:"description,omitempty"`
 	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `mininmumDetectableEffect` setting for this number to be included in the response.
+	// Example: 0
 	EstimatedSampleSize *int32         `json:"estimatedSampleSize,omitempty"`
 	FilterEffects       *FilterEffects `json:"filterEffects,omitempty"`
 	// Index name of the A/B test variant (case-sensitive).
+	// Example: delcourt_production
 	Index string `json:"index"`
 	// Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.
+	// Example: 0
 	NoResultCount utils.Nullable[int32] `json:"noResultCount"`
 	// Number of purchase events for this variant.
+	// Example: 0
 	PurchaseCount int32 `json:"purchaseCount"`
 	// [Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.
+	// Example: 0
 	PurchaseRate utils.Nullable[float64] `json:"purchaseRate,omitempty"`
 	// Number of searches for this variant.
+	// Example: 86269
 	SearchCount utils.Nullable[int32] `json:"searchCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedSearchCount *int32 `json:"trackedSearchCount,omitempty"`
 	// Percentage of search requests each variant receives.
+	// Example: 60
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Number of users that made searches to this variant.
+	// Example: 55501
 	UserCount utils.Nullable[int32] `json:"userCount"`
 	// Number of users that made tracked searches to this variant.
+	// Example: 55501
 	TrackedUserCount utils.Nullable[int32] `json:"trackedUserCount"`
 }
 
@@ -954,4 +973,61 @@ func (o Variant) String() string {
 	out += fmt.Sprintf("  trackedUserCount=%v\n", o.TrackedUserCount)
 
 	return fmt.Sprintf("Variant {\n%s}", out)
+}
+
+// VariantFieldExamples maps each field (by its JSON name) to its spec example value.
+var VariantFieldExamples = map[string]string{
+	"addToCartCount":       "0",
+	"addToCartRate":        "0",
+	"averageClickPosition": "29.12342",
+	"clickCount":           "65131",
+	"clickThroughRate":     "0.22219857724813036",
+	"conversionCount":      "4785",
+	"conversionRate":       "0.14546725846658964",
+	"currencies":           "{\"USD\":{\"currency\":\"USD\",\"revenue\":120,\"mean\":53.7,\"standardDeviation\":12.3,\"winsorizedAmount\":23},\"EUR\":{\"currency\":\"EUR\",\"revenue\":100,\"mean\":43.7,\"standardDeviation\":10.3,\"winsorizedAmount\":10}}",
+	"description":          "Current production index",
+	"estimatedSampleSize":  "0",
+	"index":                "delcourt_production",
+	"noResultCount":        "0",
+	"purchaseCount":        "0",
+	"purchaseRate":         "0",
+	"searchCount":          "86269",
+	"trackedSearchCount":   "2",
+	"trafficPercentage":    "60",
+	"userCount":            "55501",
+	"trackedUserCount":     "55501",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Variant) FieldExample(field string) string {
+	return VariantFieldExamples[field]
+}
+
+// VariantFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var VariantFieldDescriptions = map[string]string{
+	"addToCartCount":       "Number of add-to-cart events for this variant.",
+	"addToCartRate":        "[Add-to-cart rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#add-to-cart-rate) for this variant.\n",
+	"averageClickPosition": "[Average click position](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-position) for this variant.\n",
+	"clickCount":           "Number of click events for this variant.",
+	"clickThroughRate":     "[Click-through rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#click-through-rate) for this variant.\n",
+	"conversionCount":      "Number of click events for this variant.",
+	"conversionRate":       "[Conversion rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#conversion-rate) for this variant.\n",
+	"currencies":           "A/B test currencies.",
+	"description":          "Description for this variant.",
+	"estimatedSampleSize":  "Estimated number of searches required to achieve the desired statistical significance.\n\nThe A/B test configuration must include a `mininmumDetectableEffect` setting for this number to be included in the response.\n",
+	"filterEffects":        "A/B test filter effects resulting from configuration settings.",
+	"index":                "Index name of the A/B test variant (case-sensitive).",
+	"noResultCount":        "Number of [searches without results](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#searches-without-results) for this variant.",
+	"purchaseCount":        "Number of purchase events for this variant.",
+	"purchaseRate":         "[Purchase rate](https://www.algolia.com/doc/guides/search-analytics/concepts/metrics/#purchase-rate) for this variant.\n",
+	"searchCount":          "Number of searches for this variant.",
+	"trackedSearchCount":   "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"trafficPercentage":    "Percentage of search requests each variant receives.",
+	"userCount":            "Number of users that made searches to this variant.",
+	"trackedUserCount":     "Number of users that made tracked searches to this variant.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Variant) FieldDescription(field string) string {
+	return VariantFieldDescriptions[field]
 }

@@ -130,3 +130,14 @@ func (o SourceShopify) String() string {
 
 	return fmt.Sprintf("SourceShopify {\n%s}", out)
 }
+
+// SourceShopifyFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceShopifyFieldDescriptions = map[string]string{
+	"featureFlags": "Feature flags for the Shopify source.",
+	"shopURL":      "URL of the Shopify store.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceShopify) FieldDescription(field string) string {
+	return SourceShopifyFieldDescriptions[field]
+}

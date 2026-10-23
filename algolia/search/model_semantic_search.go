@@ -96,3 +96,13 @@ func (o SemanticSearch) String() string {
 
 	return fmt.Sprintf("SemanticSearch {\n%s}", out)
 }
+
+// SemanticSearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SemanticSearchFieldDescriptions = map[string]string{
+	"eventSources": "Indices from which to collect click and conversion events.\n\nIf null, the current index and all its replicas are used.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SemanticSearch) FieldDescription(field string) string {
+	return SemanticSearchFieldDescriptions[field]
+}

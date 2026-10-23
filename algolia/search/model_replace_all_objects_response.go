@@ -142,3 +142,15 @@ func (o ReplaceAllObjectsResponse) String() string {
 
 	return fmt.Sprintf("ReplaceAllObjectsResponse {\n%s}", out)
 }
+
+// ReplaceAllObjectsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ReplaceAllObjectsResponseFieldDescriptions = map[string]string{
+	"copyOperationResponse": "Response, taskID, and update timestamp.",
+	"batchResponses":        "The response of the `batch` request(s).",
+	"moveOperationResponse": "Response, taskID, and update timestamp.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ReplaceAllObjectsResponse) FieldDescription(field string) string {
+	return ReplaceAllObjectsResponseFieldDescriptions[field]
+}

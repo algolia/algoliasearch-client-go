@@ -73,3 +73,13 @@ func (o StreamingTrigger) String() string {
 
 	return fmt.Sprintf("StreamingTrigger {\n%s}", out)
 }
+
+// StreamingTriggerFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var StreamingTriggerFieldDescriptions = map[string]string{
+	"type": "Task runs continuously.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o StreamingTrigger) FieldDescription(field string) string {
+	return StreamingTriggerFieldDescriptions[field]
+}

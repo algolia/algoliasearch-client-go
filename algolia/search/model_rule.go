@@ -14,6 +14,7 @@ type Rule struct {
 	Conditions  []Condition `json:"conditions,omitempty"`
 	Consequence Consequence `json:"consequence"`
 	// Description of the rule's purpose to help you distinguish between different rules.
+	// Example: Display a promotional banner
 	Description *string `json:"description,omitempty"`
 	// Whether the rule is active.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -458,4 +459,29 @@ func (o Rule) String() string {
 	out += fmt.Sprintf("  condition=%v\n", o.Condition)
 
 	return fmt.Sprintf("Rule {\n%s}", out)
+}
+
+// RuleFieldExamples maps each field (by its JSON name) to its spec example value.
+var RuleFieldExamples = map[string]string{
+	"description": "Display a promotional banner",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Rule) FieldExample(field string) string {
+	return RuleFieldExamples[field]
+}
+
+// RuleFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RuleFieldDescriptions = map[string]string{
+	"objectID":    "Unique identifier of a rule object.",
+	"conditions":  "Conditions that trigger a rule.\n\nSome consequences require specific conditions or don't require any condition.\nFor more information, see [Conditions](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#conditions).\n",
+	"consequence": "Effect of the rule.\n\nFor more information, see [Consequences](https://www.algolia.com/doc/guides/managing-results/rules/rules-overview/#consequences).\n",
+	"description": "Description of the rule's purpose to help you distinguish between different rules.",
+	"enabled":     "Whether the rule is active.",
+	"validity":    "Time periods when the rule is active.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Rule) FieldDescription(field string) string {
+	return RuleFieldDescriptions[field]
 }

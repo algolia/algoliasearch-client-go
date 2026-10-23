@@ -9,8 +9,10 @@ import (
 // OutliersFilter Outliers removed from the A/B test as a result of configuration settings.
 type OutliersFilter struct {
 	// Number of users removed from the A/B test.
+	// Example: 1
 	UsersCount *int32 `json:"usersCount,omitempty"`
 	// Number of tracked searches removed from the A/B test.
+	// Example: 237
 	TrackedSearchesCount *int32 `json:"trackedSearchesCount,omitempty"`
 }
 
@@ -144,4 +146,26 @@ func (o OutliersFilter) String() string {
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
 
 	return fmt.Sprintf("OutliersFilter {\n%s}", out)
+}
+
+// OutliersFilterFieldExamples maps each field (by its JSON name) to its spec example value.
+var OutliersFilterFieldExamples = map[string]string{
+	"usersCount":           "1",
+	"trackedSearchesCount": "237",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o OutliersFilter) FieldExample(field string) string {
+	return OutliersFilterFieldExamples[field]
+}
+
+// OutliersFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OutliersFilterFieldDescriptions = map[string]string{
+	"usersCount":           "Number of users removed from the A/B test.",
+	"trackedSearchesCount": "Number of tracked searches removed from the A/B test.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o OutliersFilter) FieldDescription(field string) string {
+	return OutliersFilterFieldDescriptions[field]
 }

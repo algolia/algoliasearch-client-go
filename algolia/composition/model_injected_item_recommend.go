@@ -9,6 +9,7 @@ import (
 // InjectedItemRecommend struct for InjectedItemRecommend.
 type InjectedItemRecommend struct {
 	// Index to retrieve recommendations from.
+	// Example: Products
 	IndexName string `json:"indexName"`
 	Model     Model  `json:"model"`
 	// Minimum score a recommendation must have to be included.
@@ -242,4 +243,26 @@ func (o InjectedItemRecommend) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
 	return fmt.Sprintf("InjectedItemRecommend {\n%s}", out)
+}
+
+// InjectedItemRecommendFieldExamples maps each field (by its JSON name) to its spec example value.
+var InjectedItemRecommendFieldExamples = map[string]string{
+	"indexName": "Products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o InjectedItemRecommend) FieldExample(field string) string {
+	return InjectedItemRecommendFieldExamples[field]
+}
+
+// InjectedItemRecommendFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectedItemRecommendFieldDescriptions = map[string]string{
+	"indexName": "Index to retrieve recommendations from.",
+	"model":     "Recommendation model to use for retrieving recommendations.",
+	"threshold": "Minimum score a recommendation must have to be included.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectedItemRecommend) FieldDescription(field string) string {
+	return InjectedItemRecommendFieldDescriptions[field]
 }

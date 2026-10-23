@@ -11,8 +11,10 @@ type ParamsConsequence struct {
 	// Filter recommendations that match or don't match the same `facet:facet_value` combination as the viewed item.
 	AutomaticFacetFilters []AutoFacetFilter `json:"automaticFacetFilters,omitempty"`
 	// Filter expression to only include items that match the filter criteria in the response.  You can use these filter expressions:  - **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`. - **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive). - **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value. - **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive). - **Boolean filters.** `<facet>: true | false`.  You can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:  - You can only combine filters of the same type with `OR`.   **Not supported:** `facet:value OR num > 3`. - You can't use `NOT` with combinations of filters.   **Not supported:** `NOT(facet:value OR facet:value)` - You can't combine conjunctions (`AND`) with `OR`.   **Not supported:** `facet:value OR (facet:value AND facet:value)`  Use quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes. If a facet attribute is an array, the filter matches if it matches at least one element of the array.  For more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).
+	// Example: (category:Book OR category:Ebook) AND _tags:published
 	Filters *string `json:"filters,omitempty"`
 	// Filters to promote or demote records in the search results.  Optional filters work like facet filters, but they don't exclude records from the search results. Records that match the optional filter rank before records that don't match. Matches with higher weights (`<score=N>`) rank before matches with lower weights. If you're using a negative filter `facet:-value`, matching records rank after records that don't match.
+	// Example: ["category:books<score=1>","category:-movies<score=1>"]
 	OptionalFilters []string `json:"optionalFilters,omitempty"`
 }
 
@@ -194,4 +196,27 @@ func (o ParamsConsequence) String() string {
 	out += fmt.Sprintf("  optionalFilters=%v\n", o.OptionalFilters)
 
 	return fmt.Sprintf("ParamsConsequence {\n%s}", out)
+}
+
+// ParamsConsequenceFieldExamples maps each field (by its JSON name) to its spec example value.
+var ParamsConsequenceFieldExamples = map[string]string{
+	"filters":         "(category:Book OR category:Ebook) AND _tags:published",
+	"optionalFilters": "[\"category:books<score=1>\",\"category:-movies<score=1>\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ParamsConsequence) FieldExample(field string) string {
+	return ParamsConsequenceFieldExamples[field]
+}
+
+// ParamsConsequenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ParamsConsequenceFieldDescriptions = map[string]string{
+	"automaticFacetFilters": "Filter recommendations that match or don't match the same `facet:facet_value` combination as the viewed item.",
+	"filters":               "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
+	"optionalFilters":       "Filters to promote or demote records in the search results.\n\nOptional filters work like facet filters, but they don't exclude records from the search results.\nRecords that match the optional filter rank before records that don't match.\nMatches with higher weights (`<score=N>`) rank before matches with lower weights.\nIf you're using a negative filter `facet:-value`, matching records rank after records that don't match.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ParamsConsequence) FieldDescription(field string) string {
+	return ParamsConsequenceFieldDescriptions[field]
 }

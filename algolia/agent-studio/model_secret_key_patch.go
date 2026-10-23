@@ -159,3 +159,14 @@ func (o SecretKeyPatch) String() string {
 
 	return fmt.Sprintf("SecretKeyPatch {\n%s}", out)
 }
+
+// SecretKeyPatchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SecretKeyPatchFieldDescriptions = map[string]string{
+	"name":     "The new name of the secret key.",
+	"agentIds": "Updated list of agent IDs this secret key is associated with.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SecretKeyPatch) FieldDescription(field string) string {
+	return SecretKeyPatchFieldDescriptions[field]
+}

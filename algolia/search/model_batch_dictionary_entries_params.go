@@ -133,3 +133,14 @@ func (o BatchDictionaryEntriesParams) String() string {
 
 	return fmt.Sprintf("BatchDictionaryEntriesParams {\n%s}", out)
 }
+
+// BatchDictionaryEntriesParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BatchDictionaryEntriesParamsFieldDescriptions = map[string]string{
+	"clearExistingDictionaryEntries": "Whether to replace all custom entries in the dictionary with the ones sent with this request.",
+	"requests":                       "List of additions and deletions to your dictionaries.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BatchDictionaryEntriesParams) FieldDescription(field string) string {
+	return BatchDictionaryEntriesParamsFieldDescriptions[field]
+}

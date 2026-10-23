@@ -9,6 +9,7 @@ import (
 // DeleteSourceResponse struct for DeleteSourceResponse.
 type DeleteSourceResponse struct {
 	// Date and time when the object was deleted, in RFC 3339 format.
+	// Example: 2023-06-27T14:42:38.831Z
 	DeletedAt string `json:"deletedAt"`
 }
 
@@ -73,4 +74,24 @@ func (o DeleteSourceResponse) String() string {
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
 
 	return fmt.Sprintf("DeleteSourceResponse {\n%s}", out)
+}
+
+// DeleteSourceResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var DeleteSourceResponseFieldExamples = map[string]string{
+	"deletedAt": "2023-06-27T14:42:38.831Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DeleteSourceResponse) FieldExample(field string) string {
+	return DeleteSourceResponseFieldExamples[field]
+}
+
+// DeleteSourceResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeleteSourceResponseFieldDescriptions = map[string]string{
+	"deletedAt": "Date and time when the object was deleted, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeleteSourceResponse) FieldDescription(field string) string {
+	return DeleteSourceResponseFieldDescriptions[field]
 }

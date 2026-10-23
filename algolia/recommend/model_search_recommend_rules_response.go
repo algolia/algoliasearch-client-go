@@ -11,10 +11,12 @@ type SearchRecommendRulesResponse struct {
 	// Recommend rules that match the search criteria.
 	Hits []RecommendRule `json:"hits"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits int32 `json:"nbHits"`
 	// Page of search results to retrieve.
 	Page int32 `json:"page"`
 	// Number of pages of results.
+	// Example: 1
 	NbPages int32 `json:"nbPages"`
 }
 
@@ -172,4 +174,28 @@ func (o SearchRecommendRulesResponse) String() string {
 	out += fmt.Sprintf("  nbPages=%v\n", o.NbPages)
 
 	return fmt.Sprintf("SearchRecommendRulesResponse {\n%s}", out)
+}
+
+// SearchRecommendRulesResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchRecommendRulesResponseFieldExamples = map[string]string{
+	"nbHits":  "20",
+	"nbPages": "1",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchRecommendRulesResponse) FieldExample(field string) string {
+	return SearchRecommendRulesResponseFieldExamples[field]
+}
+
+// SearchRecommendRulesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchRecommendRulesResponseFieldDescriptions = map[string]string{
+	"hits":    "Recommend rules that match the search criteria.",
+	"nbHits":  "Number of results (hits).",
+	"page":    "Page of search results to retrieve.",
+	"nbPages": "Number of pages of results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchRecommendRulesResponse) FieldDescription(field string) string {
+	return SearchRecommendRulesResponseFieldDescriptions[field]
 }

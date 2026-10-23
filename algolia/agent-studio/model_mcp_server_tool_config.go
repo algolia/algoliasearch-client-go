@@ -344,3 +344,13 @@ func (o McpServerToolConfig) String() string {
 
 	return fmt.Sprintf("McpServerToolConfig {\n%s}", out)
 }
+
+// McpServerToolConfigFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var McpServerToolConfigFieldDescriptions = map[string]string{
+	"id": "Stable unique identifier for this MCP tool.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o McpServerToolConfig) FieldDescription(field string) string {
+	return McpServerToolConfigFieldDescriptions[field]
+}

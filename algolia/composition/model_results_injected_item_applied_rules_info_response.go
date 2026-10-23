@@ -74,3 +74,13 @@ func (o ResultsInjectedItemAppliedRulesInfoResponse) String() string {
 
 	return fmt.Sprintf("ResultsInjectedItemAppliedRulesInfoResponse {\n%s}", out)
 }
+
+// ResultsInjectedItemAppliedRulesInfoResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ResultsInjectedItemAppliedRulesInfoResponseFieldDescriptions = map[string]string{
+	"objectID": "The objectID of the applied index level rule on this injected group.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ResultsInjectedItemAppliedRulesInfoResponse) FieldDescription(field string) string {
+	return ResultsInjectedItemAppliedRulesInfoResponseFieldDescriptions[field]
+}

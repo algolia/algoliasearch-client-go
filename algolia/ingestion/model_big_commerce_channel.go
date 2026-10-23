@@ -11,6 +11,7 @@ type BigCommerceChannel struct {
 	// ID of the BigCommerce channel.
 	Id int32 `json:"id"`
 	// Currencies for the given channel.
+	// Example: ["usd","eur"]
 	Currencies []string `json:"currencies,omitempty"`
 }
 
@@ -129,4 +130,25 @@ func (o BigCommerceChannel) String() string {
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 
 	return fmt.Sprintf("BigCommerceChannel {\n%s}", out)
+}
+
+// BigCommerceChannelFieldExamples maps each field (by its JSON name) to its spec example value.
+var BigCommerceChannelFieldExamples = map[string]string{
+	"currencies": "[\"usd\",\"eur\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o BigCommerceChannel) FieldExample(field string) string {
+	return BigCommerceChannelFieldExamples[field]
+}
+
+// BigCommerceChannelFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var BigCommerceChannelFieldDescriptions = map[string]string{
+	"id":         "ID of the BigCommerce channel.",
+	"currencies": "Currencies for the given channel.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o BigCommerceChannel) FieldDescription(field string) string {
+	return BigCommerceChannelFieldDescriptions[field]
 }

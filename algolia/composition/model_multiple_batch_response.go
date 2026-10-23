@@ -74,3 +74,13 @@ func (o MultipleBatchResponse) String() string {
 
 	return fmt.Sprintf("MultipleBatchResponse {\n%s}", out)
 }
+
+// MultipleBatchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MultipleBatchResponseFieldDescriptions = map[string]string{
+	"taskID": "Task IDs. One for each index.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MultipleBatchResponse) FieldDescription(field string) string {
+	return MultipleBatchResponseFieldDescriptions[field]
+}

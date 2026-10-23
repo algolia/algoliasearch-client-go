@@ -280,3 +280,17 @@ func (o AuthOAuth) String() string {
 
 	return fmt.Sprintf("AuthOAuth {\n%s}", out)
 }
+
+// AuthOAuthFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthOAuthFieldDescriptions = map[string]string{
+	"url":           "URL for the OAuth endpoint.",
+	"client_id":     "Client ID.",
+	"client_secret": "Client secret. This field is `null` in the API response.",
+	"code":          "Authorization code.\nUsed during an `authorization_code` grant type flow, to request an access_token when creating/updating the authentication.\nThis field is not returned in the API response.\n",
+	"scope":         "OAuth scope.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthOAuth) FieldDescription(field string) string {
+	return AuthOAuthFieldDescriptions[field]
+}

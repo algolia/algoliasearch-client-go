@@ -144,3 +144,15 @@ func (o PersonalizationStrategyParams) String() string {
 
 	return fmt.Sprintf("PersonalizationStrategyParams {\n%s}", out)
 }
+
+// PersonalizationStrategyParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PersonalizationStrategyParamsFieldDescriptions = map[string]string{
+	"eventsScoring":         "Scores associated with each event.\n\nThe higher the scores, the higher the impact of those events on the personalization of search results.\n",
+	"facetsScoring":         "Scores associated with each facet.\n\nThe higher the scores, the higher the impact of those events on the personalization of search results.\n",
+	"personalizationImpact": "Impact of personalization on the search results.\n\nIf set to 0, personalization has no impact on the search results.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PersonalizationStrategyParams) FieldDescription(field string) string {
+	return PersonalizationStrategyParamsFieldDescriptions[field]
+}

@@ -78,3 +78,13 @@ func (o GetTopFiltersNoResultsResponse) String() string {
 
 	return fmt.Sprintf("GetTopFiltersNoResultsResponse {\n%s}", out)
 }
+
+// GetTopFiltersNoResultsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetTopFiltersNoResultsResponseFieldDescriptions = map[string]string{
+	"values": "Filters for searches without any results.\nIf null, the search term specified with the `search` parameter isn't a search without results,\nor the `search` parameter is absent from the request.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetTopFiltersNoResultsResponse) FieldDescription(field string) string {
+	return GetTopFiltersNoResultsResponseFieldDescriptions[field]
+}

@@ -11,12 +11,16 @@ import (
 // Task struct for Task.
 type Task struct {
 	// Universally unique identifier (UUID) of a task.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TaskID string `json:"taskID"`
 	// Universally uniqud identifier (UUID) of a source.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	SourceID string `json:"sourceID"`
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID string `json:"destinationID"`
 	// Cron expression for the task's schedule.
+	// Example: * * 1 * *
 	Cron *string `json:"cron,omitempty"`
 	// The last time the scheduled task ran in RFC 3339 format.
 	LastRun *string `json:"lastRun,omitempty"`
@@ -803,4 +807,43 @@ func (o Task) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("Task {\n%s}", out)
+}
+
+// TaskFieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskFieldExamples = map[string]string{
+	"taskID":        "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"sourceID":      "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"cron":          "* * 1 * *",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Task) FieldExample(field string) string {
+	return TaskFieldExamples[field]
+}
+
+// TaskFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskFieldDescriptions = map[string]string{
+	"taskID":             "Universally unique identifier (UUID) of a task.",
+	"sourceID":           "Universally uniqud identifier (UUID) of a source.",
+	"destinationID":      "Universally unique identifier (UUID) of a destination resource.",
+	"cron":               "Cron expression for the task's schedule.",
+	"lastRun":            "The last time the scheduled task ran in RFC 3339 format.",
+	"nextRun":            "The next scheduled run of the task in RFC 3339 format.",
+	"owner":              "Owner of the resource.",
+	"input":              "Configuration of the task, depending on its type.",
+	"enabled":            "Whether the task is enabled.",
+	"failureThreshold":   "Maximum accepted percentage of failures for a task run to finish successfully.",
+	"action":             "Action to perform on the Algolia index.",
+	"subscriptionAction": "Action to perform on the Algolia index.",
+	"cursor":             "Date and time when the last cursor was created, in RFC 3339 format.",
+	"notifications":      "Notifications settings for a task.",
+	"policies":           "Set of rules for a task.",
+	"createdAt":          "Date and time when the resource was created, in RFC 3339 format.",
+	"updatedAt":          "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Task) FieldDescription(field string) string {
+	return TaskFieldDescriptions[field]
 }

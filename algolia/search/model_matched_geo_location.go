@@ -195,3 +195,15 @@ func (o MatchedGeoLocation) String() string {
 
 	return fmt.Sprintf("MatchedGeoLocation {\n%s}", out)
 }
+
+// MatchedGeoLocationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MatchedGeoLocationFieldDescriptions = map[string]string{
+	"lat":      "Latitude of the matched location.",
+	"lng":      "Longitude of the matched location.",
+	"distance": "Distance between the matched location and the search location (in meters).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MatchedGeoLocation) FieldDescription(field string) string {
+	return MatchedGeoLocationFieldDescriptions[field]
+}

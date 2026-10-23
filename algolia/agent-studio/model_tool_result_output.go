@@ -110,3 +110,13 @@ func (o ToolResultOutput) String() string {
 
 	return fmt.Sprintf("ToolResultOutput {\n%s}", out)
 }
+
+// ToolResultOutputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ToolResultOutputFieldDescriptions = map[string]string{
+	"type": "The valid 'type' of tool results.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ToolResultOutput) FieldDescription(field string) string {
+	return ToolResultOutputFieldDescriptions[field]
+}

@@ -9,8 +9,10 @@ import (
 // FacetHits struct for FacetHits.
 type FacetHits struct {
 	// Facet value.
+	// Example: Mobile phone
 	Value string `json:"value"`
 	// Highlighted attribute value, including HTML tags.
+	// Example: <em>George</em> <em>Clo</em>oney
 	Highlighted string `json:"highlighted"`
 	// Number of records with this facet value. [The count may be approximated](https://support.algolia.com/hc/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate).
 	Count int32 `json:"count"`
@@ -139,4 +141,27 @@ func (o FacetHits) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("FacetHits {\n%s}", out)
+}
+
+// FacetHitsFieldExamples maps each field (by its JSON name) to its spec example value.
+var FacetHitsFieldExamples = map[string]string{
+	"value":       "Mobile phone",
+	"highlighted": "<em>George</em> <em>Clo</em>oney",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FacetHits) FieldExample(field string) string {
+	return FacetHitsFieldExamples[field]
+}
+
+// FacetHitsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FacetHitsFieldDescriptions = map[string]string{
+	"value":       "Facet value.",
+	"highlighted": "Highlighted attribute value, including HTML tags.",
+	"count":       "Number of records with this facet value. [The count may be approximated](https://support.algolia.com/hc/articles/4406975248145-Why-are-my-facet-and-hit-counts-not-accurate).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FacetHits) FieldDescription(field string) string {
+	return FacetHitsFieldDescriptions[field]
 }

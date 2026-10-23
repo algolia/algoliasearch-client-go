@@ -17,6 +17,7 @@ type Consequence struct {
 	Hide     []ConsequenceHide    `json:"hide,omitempty"`
 	Redirect *ConsequenceRedirect `json:"redirect,omitempty"`
 	// A JSON object with custom data that will be appended to the `userData` array in the response. This object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.
+	// Example: {"settingID":"f2a7b51e3503acc6a39b3784ffb84300","pluginVersion":"1.6.0"}
 	UserData map[string]any `json:"userData,omitempty"`
 }
 
@@ -342,4 +343,28 @@ func (o Consequence) String() string {
 	out += fmt.Sprintf("  userData=%v\n", o.UserData)
 
 	return fmt.Sprintf("Consequence {\n%s}", out)
+}
+
+// ConsequenceFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConsequenceFieldExamples = map[string]string{
+	"userData": "{\"settingID\":\"f2a7b51e3503acc6a39b3784ffb84300\",\"pluginVersion\":\"1.6.0\"}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Consequence) FieldExample(field string) string {
+	return ConsequenceFieldExamples[field]
+}
+
+// ConsequenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConsequenceFieldDescriptions = map[string]string{
+	"promote":        "Records you want to pin to a specific position in the search results.\n\nYou can promote up to 300 records, either individually, or as groups of up to 100 records each.\n",
+	"filterPromotes": "Determines whether promoted records must also match active filters for the consequence to apply.\n\nThis ensures user-applied filters take priority and irrelevant matches aren't shown.\nFor example, if you promote a record with `color: red` but the user filters for `color: blue`,\nthe \"red\" record won't be shown.\n\n> In the Algolia dashboard, when you use the **Pin an item** consequence, `filterPromotes` appears as the checkbox: **Pinned items must match active filters to be displayed.** For examples, see [Promote results with rules](https://www.algolia.com/doc/guides/managing-results/rules/merchandising-and-promoting/how-to/promote-hits/#promote-results-matching-active-filters).\n",
+	"hide":           "Records you want to hide from the search results.",
+	"redirect":       "Redirect to a virtual replica index.\n\nThis consequence is only valid for rules with `scope: redirect`.\n",
+	"userData":       "A JSON object with custom data that will be appended to the `userData` array in the response.\nThis object isn't interpreted by the API and is limited to 1&nbsp;kB of minified JSON.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Consequence) FieldDescription(field string) string {
+	return ConsequenceFieldDescriptions[field]
 }

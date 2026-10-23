@@ -74,3 +74,13 @@ func (o ProcessingError) String() string {
 
 	return fmt.Sprintf("ProcessingError {\n%s}", out)
 }
+
+// ProcessingErrorFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ProcessingErrorFieldDescriptions = map[string]string{
+	"message": "Description of the non-critical error.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ProcessingError) FieldDescription(field string) string {
+	return ProcessingErrorFieldDescriptions[field]
+}

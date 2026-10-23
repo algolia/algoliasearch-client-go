@@ -13,6 +13,7 @@ type SourceGA4BigQueryExport struct {
 	// BigQuery dataset ID that the BigQuery export writes to.
 	DatasetID string `json:"datasetID"`
 	// Prefix of the tables that the BigQuery Export writes to.
+	// Example: events_intraday_
 	TablePrefix string `json:"tablePrefix"`
 }
 
@@ -139,4 +140,26 @@ func (o SourceGA4BigQueryExport) String() string {
 	out += fmt.Sprintf("  tablePrefix=%v\n", o.TablePrefix)
 
 	return fmt.Sprintf("SourceGA4BigQueryExport {\n%s}", out)
+}
+
+// SourceGA4BigQueryExportFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceGA4BigQueryExportFieldExamples = map[string]string{
+	"tablePrefix": "events_intraday_",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceGA4BigQueryExport) FieldExample(field string) string {
+	return SourceGA4BigQueryExportFieldExamples[field]
+}
+
+// SourceGA4BigQueryExportFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceGA4BigQueryExportFieldDescriptions = map[string]string{
+	"projectID":   "GCP project ID that the BigQuery export writes to.",
+	"datasetID":   "BigQuery dataset ID that the BigQuery export writes to.",
+	"tablePrefix": "Prefix of the tables that the BigQuery Export writes to.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceGA4BigQueryExport) FieldDescription(field string) string {
+	return SourceGA4BigQueryExportFieldDescriptions[field]
 }

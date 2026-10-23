@@ -130,3 +130,14 @@ func (o HasPendingMappingsResponse) String() string {
 
 	return fmt.Sprintf("HasPendingMappingsResponse {\n%s}", out)
 }
+
+// HasPendingMappingsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var HasPendingMappingsResponseFieldDescriptions = map[string]string{
+	"pending":  "Whether there are clusters undergoing migration, creation, or deletion.",
+	"clusters": "Cluster pending mapping state: migrating, creating, deleting.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o HasPendingMappingsResponse) FieldDescription(field string) string {
+	return HasPendingMappingsResponseFieldDescriptions[field]
+}

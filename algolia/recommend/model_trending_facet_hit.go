@@ -163,3 +163,15 @@ func (o TrendingFacetHit) String() string {
 
 	return fmt.Sprintf("TrendingFacetHit {\n%s}", out)
 }
+
+// TrendingFacetHitFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TrendingFacetHitFieldDescriptions = map[string]string{
+	"_score":     "Recommendation score.",
+	"facetName":  "Facet attribute. To be used in combination with `facetValue`.\nIf specified, only recommendations matching the facet filter will be returned.\n",
+	"facetValue": "Facet value. To be used in combination with `facetName`.\nIf specified, only recommendations matching the facet filter will be returned.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TrendingFacetHit) FieldDescription(field string) string {
+	return TrendingFacetHitFieldDescriptions[field]
+}

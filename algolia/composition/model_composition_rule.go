@@ -9,17 +9,20 @@ import (
 // CompositionRule struct for CompositionRule.
 type CompositionRule struct {
 	// Composition rule unique identifier.
+	// Example: my_composition_rule_object_id
 	ObjectID string `json:"objectID"`
 	// Conditions that trigger a composition rule.
 	Conditions  []Condition                `json:"conditions,omitempty"`
 	Consequence CompositionRuleConsequence `json:"consequence"`
 	// Description of the rule's purpose to help you distinguish between different rules.
+	// Example: Display a promotional banner
 	Description *string `json:"description,omitempty"`
 	// Whether the rule is active.
 	Enabled *bool `json:"enabled,omitempty"`
 	// Time periods when the rule is active.
 	Validity []TimeRange `json:"validity,omitempty"`
 	// A list of tags.
+	// Example: ["conditional"]
 	Tags []string `json:"tags,omitempty"`
 }
 
@@ -361,4 +364,32 @@ func (o CompositionRule) String() string {
 	out += fmt.Sprintf("  tags=%v\n", o.Tags)
 
 	return fmt.Sprintf("CompositionRule {\n%s}", out)
+}
+
+// CompositionRuleFieldExamples maps each field (by its JSON name) to its spec example value.
+var CompositionRuleFieldExamples = map[string]string{
+	"objectID":    "my_composition_rule_object_id",
+	"description": "Display a promotional banner",
+	"tags":        "[\"conditional\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o CompositionRule) FieldExample(field string) string {
+	return CompositionRuleFieldExamples[field]
+}
+
+// CompositionRuleFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompositionRuleFieldDescriptions = map[string]string{
+	"objectID":    "Composition rule unique identifier.",
+	"conditions":  "Conditions that trigger a composition rule.",
+	"consequence": "Effect of the rule.",
+	"description": "Description of the rule's purpose to help you distinguish between different rules.",
+	"enabled":     "Whether the rule is active.",
+	"validity":    "Time periods when the rule is active.",
+	"tags":        "A list of tags.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CompositionRule) FieldDescription(field string) string {
+	return CompositionRuleFieldDescriptions[field]
 }

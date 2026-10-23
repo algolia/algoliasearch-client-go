@@ -8,7 +8,9 @@ import (
 
 // CompositionIdRankingInfo struct for CompositionIdRankingInfo.
 type CompositionIdRankingInfo struct {
-	Index           string `json:"index"`
+	// Example: products
+	Index string `json:"index"`
+	// Example: sponsored-products
 	InjectedItemKey string `json:"injectedItemKey"`
 }
 
@@ -104,4 +106,15 @@ func (o CompositionIdRankingInfo) String() string {
 	out += fmt.Sprintf("  injectedItemKey=%v\n", o.InjectedItemKey)
 
 	return fmt.Sprintf("CompositionIdRankingInfo {\n%s}", out)
+}
+
+// CompositionIdRankingInfoFieldExamples maps each field (by its JSON name) to its spec example value.
+var CompositionIdRankingInfoFieldExamples = map[string]string{
+	"index":           "products",
+	"injectedItemKey": "sponsored-products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o CompositionIdRankingInfo) FieldExample(field string) string {
+	return CompositionIdRankingInfoFieldExamples[field]
 }

@@ -280,3 +280,17 @@ func (o Configuration) String() string {
 
 	return fmt.Sprintf("Configuration {\n%s}", out)
 }
+
+// ConfigurationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConfigurationFieldDescriptions = map[string]string{
+	"sourceIndices":          "Algolia indices from which to get the popular searches for query suggestions.",
+	"languages":              "Languages for deduplicating singular and plural suggestions.\nIf specified, only the more popular form is included.\n",
+	"exclude":                "Words or regular expressions to exclude from the suggestions.",
+	"enablePersonalization":  "Whether to turn on personalized query suggestions.",
+	"allowSpecialCharacters": "Whether to include suggestions with special characters.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Configuration) FieldDescription(field string) string {
+	return ConfigurationFieldDescriptions[field]
+}

@@ -227,3 +227,16 @@ func (o TaskRequest) String() string {
 
 	return fmt.Sprintf("TaskRequest {\n%s}", out)
 }
+
+// TaskRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskRequestFieldDescriptions = map[string]string{
+	"task":          "ID of the configured task to run.",
+	"kind":          "Supported task behaviors used for default task resolution.",
+	"input":         "Arbitrary JSON input passed to the task as data.",
+	"configuration": "Dynamic configuration for testing agents.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskRequest) FieldDescription(field string) string {
+	return TaskRequestFieldDescriptions[field]
+}

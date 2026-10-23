@@ -137,3 +137,14 @@ func (o ListEventsResponse) String() string {
 
 	return fmt.Sprintf("ListEventsResponse {\n%s}", out)
 }
+
+// ListEventsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListEventsResponseFieldDescriptions = map[string]string{
+	"pagination": "Paginated API response.",
+	"window":     "Time window by which to filter the observability data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListEventsResponse) FieldDescription(field string) string {
+	return ListEventsResponseFieldDescriptions[field]
+}

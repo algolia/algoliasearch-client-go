@@ -9,10 +9,13 @@ import (
 // ABTestResponse struct for ABTestResponse.
 type ABTestResponse struct {
 	// Index name of the A/B test variant (case-sensitive).
+	// Example: delcourt_production
 	Index string `json:"index"`
 	// Unique A/B test identifier.
+	// Example: 224
 	AbTestID int32 `json:"abTestID"`
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 }
 
@@ -139,4 +142,28 @@ func (o ABTestResponse) String() string {
 	out += fmt.Sprintf("  taskID=%v\n", o.TaskID)
 
 	return fmt.Sprintf("ABTestResponse {\n%s}", out)
+}
+
+// ABTestResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ABTestResponseFieldExamples = map[string]string{
+	"index":    "delcourt_production",
+	"abTestID": "224",
+	"taskID":   "1514562690001",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ABTestResponse) FieldExample(field string) string {
+	return ABTestResponseFieldExamples[field]
+}
+
+// ABTestResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ABTestResponseFieldDescriptions = map[string]string{
+	"index":    "Index name of the A/B test variant (case-sensitive).",
+	"abTestID": "Unique A/B test identifier.",
+	"taskID":   "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ABTestResponse) FieldDescription(field string) string {
+	return ABTestResponseFieldDescriptions[field]
 }

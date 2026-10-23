@@ -9,8 +9,10 @@ import (
 // TopHit struct for TopHit.
 type TopHit struct {
 	// Object ID of a record returned as a search result.
+	// Example: method-export-rules-php
 	Hit string `json:"hit"`
 	// Number of occurrences.
+	// Example: 2
 	Count int32 `json:"count"`
 }
 
@@ -106,4 +108,26 @@ func (o TopHit) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("TopHit {\n%s}", out)
+}
+
+// TopHitFieldExamples maps each field (by its JSON name) to its spec example value.
+var TopHitFieldExamples = map[string]string{
+	"hit":   "method-export-rules-php",
+	"count": "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TopHit) FieldExample(field string) string {
+	return TopHitFieldExamples[field]
+}
+
+// TopHitFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopHitFieldDescriptions = map[string]string{
+	"hit":   "Object ID of a record returned as a search result.",
+	"count": "Number of occurrences.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopHit) FieldDescription(field string) string {
+	return TopHitFieldDescriptions[field]
 }

@@ -9,10 +9,13 @@ import (
 // InjectedItemExternalProvider struct for InjectedItemExternalProvider.
 type InjectedItemExternalProvider struct {
 	// Algolia index used to fetch the records.
+	// Example: Products
 	Index string `json:"index"`
 	// Identifier of the external provider configuration.
+	// Example: my-rmn-connection
 	ConfigurationID string `json:"configurationID"`
 	// Default values for the configuration placeholders that are not reserved Composition placeholders.
+	// Example: {campaign_id=winter-sale, customer_id=user123}
 	ConfigurationParams map[string]any                `json:"configurationParams,omitempty"`
 	Ordering            *ExternalProviderOrdering     `json:"ordering,omitempty"`
 	Params              *BaseInjectionQueryParameters `json:"params,omitempty"`
@@ -260,4 +263,29 @@ func (o InjectedItemExternalProvider) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
 	return fmt.Sprintf("InjectedItemExternalProvider {\n%s}", out)
+}
+
+// InjectedItemExternalProviderFieldExamples maps each field (by its JSON name) to its spec example value.
+var InjectedItemExternalProviderFieldExamples = map[string]string{
+	"index":               "Products",
+	"configurationID":     "my-rmn-connection",
+	"configurationParams": "{campaign_id=winter-sale, customer_id=user123}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o InjectedItemExternalProvider) FieldExample(field string) string {
+	return InjectedItemExternalProviderFieldExamples[field]
+}
+
+// InjectedItemExternalProviderFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectedItemExternalProviderFieldDescriptions = map[string]string{
+	"index":               "Algolia index used to fetch the records.",
+	"configurationID":     "Identifier of the external provider configuration.",
+	"configurationParams": "Default values for the configuration placeholders that are not reserved Composition placeholders.",
+	"ordering":            "Ordering to apply on the items retrieved from the external provider. 'algoliaDefined' uses the relevance ranking from the Algolia retrieval step. 'providerDefined' uses the ordering returned by the external provider.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectedItemExternalProvider) FieldDescription(field string) string {
+	return InjectedItemExternalProviderFieldDescriptions[field]
 }

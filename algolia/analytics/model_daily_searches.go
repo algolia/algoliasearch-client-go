@@ -9,8 +9,10 @@ import (
 // DailySearches struct for DailySearches.
 type DailySearches struct {
 	// Date in the format YYYY-MM-DD.
+	// Example: 2023-06-14
 	Date string `json:"date"`
 	// Number of occurrences.
+	// Example: 2
 	Count int32 `json:"count"`
 }
 
@@ -106,4 +108,26 @@ func (o DailySearches) String() string {
 	out += fmt.Sprintf("  count=%v\n", o.Count)
 
 	return fmt.Sprintf("DailySearches {\n%s}", out)
+}
+
+// DailySearchesFieldExamples maps each field (by its JSON name) to its spec example value.
+var DailySearchesFieldExamples = map[string]string{
+	"date":  "2023-06-14",
+	"count": "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DailySearches) FieldExample(field string) string {
+	return DailySearchesFieldExamples[field]
+}
+
+// DailySearchesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DailySearchesFieldDescriptions = map[string]string{
+	"date":  "Date in the format YYYY-MM-DD.",
+	"count": "Number of occurrences.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DailySearches) FieldDescription(field string) string {
+	return DailySearchesFieldDescriptions[field]
 }

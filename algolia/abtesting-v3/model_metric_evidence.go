@@ -73,3 +73,13 @@ func (o MetricEvidence) String() string {
 
 	return fmt.Sprintf("MetricEvidence {\n%s}", out)
 }
+
+// MetricEvidenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MetricEvidenceFieldDescriptions = map[string]string{
+	"status": "Whether this variant metric's result is trustworthy yet.\nThis doesn't mean the A/B test has ended, and it doesn't declare a winning variant.\n\n- `enough`. Enough evidence has accumulated to trust this metric's result for this variant.\n- `not_enough`. Evidence was computed but hasn't reached the threshold yet.\n- `collecting`. Evidence is still accumulating, so it's too early to report a verdict.\n- `no_data`. No usable data for this variant metric, and none is expected for it.\n- `unavailable`. Evidence can't be computed for this variant metric's comparison.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MetricEvidence) FieldDescription(field string) string {
+	return MetricEvidenceFieldDescriptions[field]
+}

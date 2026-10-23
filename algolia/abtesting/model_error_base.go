@@ -8,6 +8,7 @@ import (
 
 // ErrorBase Error.
 type ErrorBase struct {
+	// Example: Invalid Application-Id or API-Key
 	Message              *string        `json:"message,omitempty"`
 	AdditionalProperties map[string]any `json:"-"`
 }
@@ -143,4 +144,14 @@ func (o ErrorBase) String() string {
 	}
 
 	return fmt.Sprintf("ErrorBase {\n%s}", out)
+}
+
+// ErrorBaseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ErrorBaseFieldExamples = map[string]string{
+	"message": "Invalid Application-Id or API-Key",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ErrorBase) FieldExample(field string) string {
+	return ErrorBaseFieldExamples[field]
 }

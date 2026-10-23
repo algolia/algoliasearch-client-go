@@ -12,6 +12,7 @@ type DestinationUpdate struct {
 	Name  *string                 `json:"name,omitempty"`
 	Input *DestinationUpdateInput `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID  *string  `json:"authenticationID,omitempty"`
 	TransformationIDs []string `json:"transformationIDs,omitempty"`
 }
@@ -242,4 +243,25 @@ func (o DestinationUpdate) String() string {
 	out += fmt.Sprintf("  transformationIDs=%v\n", o.TransformationIDs)
 
 	return fmt.Sprintf("DestinationUpdate {\n%s}", out)
+}
+
+// DestinationUpdateFieldExamples maps each field (by its JSON name) to its spec example value.
+var DestinationUpdateFieldExamples = map[string]string{
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DestinationUpdate) FieldExample(field string) string {
+	return DestinationUpdateFieldExamples[field]
+}
+
+// DestinationUpdateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DestinationUpdateFieldDescriptions = map[string]string{
+	"name":             "Descriptive name for the resource.",
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DestinationUpdate) FieldDescription(field string) string {
+	return DestinationUpdateFieldDescriptions[field]
 }

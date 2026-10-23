@@ -362,3 +362,18 @@ func (o SourceBigQuery) String() string {
 
 	return fmt.Sprintf("SourceBigQuery {\n%s}", out)
 }
+
+// SourceBigQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceBigQueryFieldDescriptions = map[string]string{
+	"projectID":        "Project ID of the BigQuery source.",
+	"datasetID":        "Dataset ID of the BigQuery source.",
+	"table":            "Table name for the BigQuery export.",
+	"tablePrefix":      "Table prefix for a Google Analytics 4 data export to BigQuery.",
+	"customSQLRequest": "Custom SQL request to extract data from the BigQuery table.",
+	"uniqueIDColumn":   "Name of a column that contains a unique ID which will be used as `objectID` in Algolia.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceBigQuery) FieldDescription(field string) string {
+	return SourceBigQueryFieldDescriptions[field]
+}

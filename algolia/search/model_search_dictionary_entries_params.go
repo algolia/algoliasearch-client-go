@@ -229,3 +229,16 @@ func (o SearchDictionaryEntriesParams) String() string {
 
 	return fmt.Sprintf("SearchDictionaryEntriesParams {\n%s}", out)
 }
+
+// SearchDictionaryEntriesParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchDictionaryEntriesParamsFieldDescriptions = map[string]string{
+	"query":       "Search query.",
+	"page":        "Page of search results to retrieve.",
+	"hitsPerPage": "Number of hits per page.",
+	"language":    "ISO code for a supported language.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchDictionaryEntriesParams) FieldDescription(field string) string {
+	return SearchDictionaryEntriesParamsFieldDescriptions[field]
+}

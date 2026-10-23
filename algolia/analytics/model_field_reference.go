@@ -9,8 +9,10 @@ import (
 // FieldReference struct for FieldReference.
 type FieldReference struct {
 	// Domain the field belongs to. Defaults to the payload's top-level `domain` when omitted.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Field identifier within the domain, as listed by the `/3/patterns/fields` catalog.
+	// Example: searchesCount
 	Kind string `json:"kind"`
 }
 
@@ -129,4 +131,26 @@ func (o FieldReference) String() string {
 	out += fmt.Sprintf("  kind=%v\n", o.Kind)
 
 	return fmt.Sprintf("FieldReference {\n%s}", out)
+}
+
+// FieldReferenceFieldExamples maps each field (by its JSON name) to its spec example value.
+var FieldReferenceFieldExamples = map[string]string{
+	"domain": "core",
+	"kind":   "searchesCount",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FieldReference) FieldExample(field string) string {
+	return FieldReferenceFieldExamples[field]
+}
+
+// FieldReferenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FieldReferenceFieldDescriptions = map[string]string{
+	"domain": "Domain the field belongs to. Defaults to the payload's top-level `domain` when omitted.",
+	"kind":   "Field identifier within the domain, as listed by the `/3/patterns/fields` catalog.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FieldReference) FieldDescription(field string) string {
+	return FieldReferenceFieldDescriptions[field]
 }

@@ -9,6 +9,7 @@ import (
 // PushTaskRecords struct for PushTaskRecords.
 type PushTaskRecords struct {
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID             string         `json:"objectID"`
 	AdditionalProperties map[string]any `json:"-"`
 }
@@ -123,4 +124,24 @@ func (o PushTaskRecords) String() string {
 	}
 
 	return fmt.Sprintf("PushTaskRecords {\n%s}", out)
+}
+
+// PushTaskRecordsFieldExamples maps each field (by its JSON name) to its spec example value.
+var PushTaskRecordsFieldExamples = map[string]string{
+	"objectID": "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o PushTaskRecords) FieldExample(field string) string {
+	return PushTaskRecordsFieldExamples[field]
+}
+
+// PushTaskRecordsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PushTaskRecordsFieldDescriptions = map[string]string{
+	"objectID": "Unique record identifier.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PushTaskRecords) FieldDescription(field string) string {
+	return PushTaskRecordsFieldDescriptions[field]
 }

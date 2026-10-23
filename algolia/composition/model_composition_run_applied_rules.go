@@ -74,3 +74,13 @@ func (o CompositionRunAppliedRules) String() string {
 
 	return fmt.Sprintf("CompositionRunAppliedRules {\n%s}", out)
 }
+
+// CompositionRunAppliedRulesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompositionRunAppliedRulesFieldDescriptions = map[string]string{
+	"objectID": "The objectID of the applied composition rule on this query.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CompositionRunAppliedRules) FieldDescription(field string) string {
+	return CompositionRunAppliedRulesFieldDescriptions[field]
+}

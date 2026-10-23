@@ -194,3 +194,15 @@ func (o Consequence) String() string {
 
 	return fmt.Sprintf("Consequence {\n%s}", out)
 }
+
+// ConsequenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConsequenceFieldDescriptions = map[string]string{
+	"hide":    "Exclude items from recommendations.",
+	"promote": "Place items at specific positions in the list of recommendations.",
+	"params":  "Filter or boost recommendations matching a facet filter.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Consequence) FieldDescription(field string) string {
+	return ConsequenceFieldDescriptions[field]
+}

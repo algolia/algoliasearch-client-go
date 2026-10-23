@@ -9,8 +9,10 @@ import (
 // EmptySearchFilter Empty searches removed from the A/B test as a result of configuration settings.
 type EmptySearchFilter struct {
 	// Number of users removed from the A/B test.
+	// Example: 1
 	UsersCount *int32 `json:"usersCount,omitempty"`
 	// Number of tracked searches removed from the A/B test.
+	// Example: 237
 	TrackedSearchesCount *int32 `json:"trackedSearchesCount,omitempty"`
 }
 
@@ -144,4 +146,26 @@ func (o EmptySearchFilter) String() string {
 	out += fmt.Sprintf("  trackedSearchesCount=%v\n", o.TrackedSearchesCount)
 
 	return fmt.Sprintf("EmptySearchFilter {\n%s}", out)
+}
+
+// EmptySearchFilterFieldExamples maps each field (by its JSON name) to its spec example value.
+var EmptySearchFilterFieldExamples = map[string]string{
+	"usersCount":           "1",
+	"trackedSearchesCount": "237",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o EmptySearchFilter) FieldExample(field string) string {
+	return EmptySearchFilterFieldExamples[field]
+}
+
+// EmptySearchFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EmptySearchFilterFieldDescriptions = map[string]string{
+	"usersCount":           "Number of users removed from the A/B test.",
+	"trackedSearchesCount": "Number of tracked searches removed from the A/B test.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EmptySearchFilter) FieldDescription(field string) string {
+	return EmptySearchFilterFieldDescriptions[field]
 }

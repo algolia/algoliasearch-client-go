@@ -9,24 +9,32 @@ import (
 // GetApiKeyResponse struct for GetApiKeyResponse.
 type GetApiKeyResponse struct {
 	// API key.
+	// Example: 13ad45b4d0a2f6ea65ecbddf6aa260f2
 	Value string `json:"value"`
 	// Timestamp when the object was created, in milliseconds since the Unix epoch.
+	// Example: 1656345570000
 	CreatedAt int64 `json:"createdAt"`
 	// Permissions that determine the type of API requests this key can make. The required ACL is listed in each endpoint's reference. For more information, see [access control list](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).
+	// Example: [search, addObject]
 	Acl []Acl `json:"acl"`
 	// Description of an API key to help you identify this API key.
+	// Example: Used for indexing by the CLI
 	Description *string `json:"description,omitempty"`
 	// Index names or patterns that this API key can access. By default, an API key can access all indices in the same application.  You can use leading and trailing wildcard characters (`*`):  - `dev_*` matches all indices starting with \"dev_\". - `*_dev` matches all indices ending with \"_dev\". - `*_products_*` matches all indices containing \"_products_\".
+	// Example: [dev_*, prod_en_products]
 	Indexes []string `json:"indexes,omitempty"`
 	// Maximum number of results this API key can retrieve in one query. By default, there's no limit.
 	MaxHitsPerQuery *int32 `json:"maxHitsPerQuery,omitempty"`
 	// Maximum number of API requests allowed per IP address or [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken) per hour.  If this limit is reached, the API returns an error with status code `429`. By default, there's no limit.
 	MaxQueriesPerIPPerHour *int32 `json:"maxQueriesPerIPPerHour,omitempty"`
 	// Query parameters to add when making API requests with this API key.  To restrict this API key to specific IP addresses, add the `restrictSources` parameter. You can only add a single source, but you can provide a range of IP addresses.  Creating an API key fails if the request is made from an IP address outside the restricted range.
+	// Example: typoTolerance=strict&restrictSources=192.168.1.0/24
 	QueryParameters *string `json:"queryParameters,omitempty"`
 	// Allowed HTTP referrers for this API key.  By default, all referrers are allowed. You can use leading and trailing wildcard characters (`*`):  - `https://algolia.com/_*` allows all referrers starting with \"https://algolia.com/\". - `*.algolia.com` allows all referrers ending with \".algolia.com\". - `*algolia.com*` allows all referrers in the domain \"algolia.com\".  Like all HTTP headers, referrers can be spoofed. Don't rely on them to secure your data. For more information, see [HTTP referrer restrictions](https://www.algolia.com/doc/guides/security/security-best-practices/#http-referrer-restrictions).
+	// Example: [*algolia.com*]
 	Referers []string `json:"referers,omitempty"`
 	// Duration (in seconds) after which the API key expires. By default, API keys don't expire.
+	// Example: 86400
 	Validity *int32 `json:"validity,omitempty"`
 }
 
@@ -495,4 +503,40 @@ func (o GetApiKeyResponse) String() string {
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 
 	return fmt.Sprintf("GetApiKeyResponse {\n%s}", out)
+}
+
+// GetApiKeyResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetApiKeyResponseFieldExamples = map[string]string{
+	"value":           "13ad45b4d0a2f6ea65ecbddf6aa260f2",
+	"createdAt":       "1656345570000",
+	"acl":             "[search, addObject]",
+	"description":     "Used for indexing by the CLI",
+	"indexes":         "[dev_*, prod_en_products]",
+	"queryParameters": "typoTolerance=strict&restrictSources=192.168.1.0/24",
+	"referers":        "[*algolia.com*]",
+	"validity":        "86400",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetApiKeyResponse) FieldExample(field string) string {
+	return GetApiKeyResponseFieldExamples[field]
+}
+
+// GetApiKeyResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetApiKeyResponseFieldDescriptions = map[string]string{
+	"value":                  "API key.",
+	"createdAt":              "Timestamp when the object was created, in milliseconds since the Unix epoch.",
+	"acl":                    "Permissions that determine the type of API requests this key can make.\nThe required ACL is listed in each endpoint's reference.\nFor more information, see [access control list](https://www.algolia.com/doc/guides/security/api-keys/#access-control-list-acl).\n",
+	"description":            "Description of an API key to help you identify this API key.",
+	"indexes":                "Index names or patterns that this API key can access.\nBy default, an API key can access all indices in the same application.\n\nYou can use leading and trailing wildcard characters (`*`):\n\n- `dev_*` matches all indices starting with \"dev_\".\n- `*_dev` matches all indices ending with \"_dev\".\n- `*_products_*` matches all indices containing \"_products_\".\n",
+	"maxHitsPerQuery":        "Maximum number of results this API key can retrieve in one query.\nBy default, there's no limit.\n",
+	"maxQueriesPerIPPerHour": "Maximum number of API requests allowed per IP address or [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken) per hour.\n\nIf this limit is reached, the API returns an error with status code `429`.\nBy default, there's no limit.\n",
+	"queryParameters":        "Query parameters to add when making API requests with this API key.\n\nTo restrict this API key to specific IP addresses, add the `restrictSources` parameter.\nYou can only add a single source, but you can provide a range of IP addresses.\n\nCreating an API key fails if the request is made from an IP address outside the restricted range.\n",
+	"referers":               "Allowed HTTP referrers for this API key.\n\nBy default, all referrers are allowed.\nYou can use leading and trailing wildcard characters (`*`):\n\n- `https://algolia.com/*` allows all referrers starting with \"https://algolia.com/\".\n- `*.algolia.com` allows all referrers ending with \".algolia.com\".\n- `*algolia.com*` allows all referrers in the domain \"algolia.com\".\n\nLike all HTTP headers, referrers can be spoofed. Don't rely on them to secure your data.\nFor more information, see [HTTP referrer restrictions](https://www.algolia.com/doc/guides/security/security-best-practices/#http-referrer-restrictions).\n",
+	"validity":               "Duration (in seconds) after which the API key expires.\nBy default, API keys don't expire.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetApiKeyResponse) FieldDescription(field string) string {
+	return GetApiKeyResponseFieldDescriptions[field]
 }

@@ -12,6 +12,7 @@ type MultipleBatchRequest struct {
 	// Operation arguments (varies with specified `action`).
 	Body map[string]any `json:"body,omitempty"`
 	// Index name (case-sensitive).
+	// Example: products
 	IndexName string `json:"indexName"`
 }
 
@@ -162,4 +163,26 @@ func (o MultipleBatchRequest) String() string {
 	out += fmt.Sprintf("  indexName=%v\n", o.IndexName)
 
 	return fmt.Sprintf("MultipleBatchRequest {\n%s}", out)
+}
+
+// MultipleBatchRequestFieldExamples maps each field (by its JSON name) to its spec example value.
+var MultipleBatchRequestFieldExamples = map[string]string{
+	"indexName": "products",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o MultipleBatchRequest) FieldExample(field string) string {
+	return MultipleBatchRequestFieldExamples[field]
+}
+
+// MultipleBatchRequestFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MultipleBatchRequestFieldDescriptions = map[string]string{
+	"action":    "Which indexing operation to perform:\n\n- `addObject`: adds records to an index.\n   Equivalent to the \"Add a new record (with auto-generated object ID)\" operation.\n- `updateObject`: adds or replaces records in an index.\n   Equivalent to the \"Add or replace a record\" operation.\n- `partialUpdateObject`: adds or updates attributes within records.\n   Equivalent to the \"Add or update attributes\" operation with the `createIfNoExists` parameter set to true.\n   (If a record with the specified `objectID` doesn't exist in the specified index, this action adds the record to the index).\n- `partialUpdateObjectNoCreate`: same as `partialUpdateObject`, but with `createIfNoExists` set to false.\n   (A record isn't added to the index if its `objectID` doesn't exist).\n- `deleteObject`: delete records from an index.\n  Equivalent to the \"Delete a record\" operation.\n- `delete`. Delete an index. Equivalent to the \"Delete an index\" operation.\n- `clear`: delete all records from an index. Equivalent to the \"Delete all records from an index operation\".\n",
+	"body":      "Operation arguments (varies with specified `action`).",
+	"indexName": "Index name (case-sensitive).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MultipleBatchRequest) FieldDescription(field string) string {
+	return MultipleBatchRequestFieldDescriptions[field]
 }

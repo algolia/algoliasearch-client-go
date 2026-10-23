@@ -145,3 +145,14 @@ func (o EventsResponse) String() string {
 
 	return fmt.Sprintf("EventsResponse {\n%s}", out)
 }
+
+// EventsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EventsResponseFieldDescriptions = map[string]string{
+	"message": "Details about the response, such as error messages.",
+	"status":  "The HTTP status code of the response.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EventsResponse) FieldDescription(field string) string {
+	return EventsResponseFieldDescriptions[field]
+}

@@ -9,12 +9,16 @@ import (
 // UserId Unique user ID.
 type UserId struct {
 	// Unique identifier of the user who makes the search request.
+	// Example: user1
 	UserID string `json:"userID"`
 	// Cluster to which the user is assigned.
+	// Example: c1-test
 	ClusterName string `json:"clusterName"`
 	// Number of records belonging to the user.
+	// Example: 42
 	NbRecords int32 `json:"nbRecords"`
 	// Data size used by the user.
+	// Example: 0
 	DataSize int32 `json:"dataSize"`
 }
 
@@ -172,4 +176,30 @@ func (o UserId) String() string {
 	out += fmt.Sprintf("  dataSize=%v\n", o.DataSize)
 
 	return fmt.Sprintf("UserId {\n%s}", out)
+}
+
+// UserIdFieldExamples maps each field (by its JSON name) to its spec example value.
+var UserIdFieldExamples = map[string]string{
+	"userID":      "user1",
+	"clusterName": "c1-test",
+	"nbRecords":   "42",
+	"dataSize":    "0",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o UserId) FieldExample(field string) string {
+	return UserIdFieldExamples[field]
+}
+
+// UserIdFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var UserIdFieldDescriptions = map[string]string{
+	"userID":      "Unique identifier of the user who makes the search request.",
+	"clusterName": "Cluster to which the user is assigned.",
+	"nbRecords":   "Number of records belonging to the user.",
+	"dataSize":    "Data size used by the user.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o UserId) FieldDescription(field string) string {
+	return UserIdFieldDescriptions[field]
 }

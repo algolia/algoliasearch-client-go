@@ -9,6 +9,7 @@ import (
 // DestinationCreateResponse API response for creating a new destination.
 type DestinationCreateResponse struct {
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID string `json:"destinationID"`
 	// Descriptive name for the resource.
 	Name string `json:"name"`
@@ -139,4 +140,26 @@ func (o DestinationCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("DestinationCreateResponse {\n%s}", out)
+}
+
+// DestinationCreateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var DestinationCreateResponseFieldExamples = map[string]string{
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DestinationCreateResponse) FieldExample(field string) string {
+	return DestinationCreateResponseFieldExamples[field]
+}
+
+// DestinationCreateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DestinationCreateResponseFieldDescriptions = map[string]string{
+	"destinationID": "Universally unique identifier (UUID) of a destination resource.",
+	"name":          "Descriptive name for the resource.",
+	"createdAt":     "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DestinationCreateResponse) FieldDescription(field string) string {
+	return DestinationCreateResponseFieldDescriptions[field]
 }

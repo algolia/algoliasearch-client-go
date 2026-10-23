@@ -11,6 +11,7 @@ type ParameterDefinition struct {
 	// Domain the parameter belongs to.
 	Domain *string `json:"domain,omitempty"`
 	// Parameter identifier, for example `indices`, `startDate`, `endDate`, `tags`, or `country`.
+	// Example: indices
 	Kind  string         `json:"kind"`
 	Value ParameterValue `json:"value"`
 }
@@ -161,4 +162,26 @@ func (o ParameterDefinition) String() string {
 	out += fmt.Sprintf("  value=%v\n", o.Value)
 
 	return fmt.Sprintf("ParameterDefinition {\n%s}", out)
+}
+
+// ParameterDefinitionFieldExamples maps each field (by its JSON name) to its spec example value.
+var ParameterDefinitionFieldExamples = map[string]string{
+	"kind": "indices",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ParameterDefinition) FieldExample(field string) string {
+	return ParameterDefinitionFieldExamples[field]
+}
+
+// ParameterDefinitionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ParameterDefinitionFieldDescriptions = map[string]string{
+	"domain": "Domain the parameter belongs to.",
+	"kind":   "Parameter identifier, for example `indices`, `startDate`, `endDate`, `tags`, or `country`.",
+	"value":  "Literal value. Its JSON type depends on `kind` (array of strings for `indices`, string for dates, tags, and country, number for numeric operands, and so on).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ParameterDefinition) FieldDescription(field string) string {
+	return ParameterDefinitionFieldDescriptions[field]
 }

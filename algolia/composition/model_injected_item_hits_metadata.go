@@ -145,3 +145,14 @@ func (o InjectedItemHitsMetadata) String() string {
 
 	return fmt.Sprintf("InjectedItemHitsMetadata {\n%s}", out)
 }
+
+// InjectedItemHitsMetadataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InjectedItemHitsMetadataFieldDescriptions = map[string]string{
+	"addItemKey": "When true, each affected hit's `_extra` object includes an `_injectedItemKey` field identifying the injectedItem that inserted it. Defaults to false, meaning hits don't include `_injectedItemKey`. To identify injected hits without this flag, define your own key-value pairs in `extra`.",
+	"extra":      "The user-defined key-value pairs that will be placed in the `_extra` field of each affected hit.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InjectedItemHitsMetadata) FieldDescription(field string) string {
+	return InjectedItemHitsMetadataFieldDescriptions[field]
+}

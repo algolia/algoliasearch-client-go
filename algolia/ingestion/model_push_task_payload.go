@@ -105,3 +105,13 @@ func (o PushTaskPayload) String() string {
 
 	return fmt.Sprintf("PushTaskPayload {\n%s}", out)
 }
+
+// PushTaskPayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var PushTaskPayloadFieldDescriptions = map[string]string{
+	"action": "Which indexing operation to perform:\n\n- `addObject`: adds records to an index.\n   Equivalent to the \"Add a new record (with auto-generated object ID)\" operation.\n- `updateObject`: adds or replaces records in an index.\n   Equivalent to the \"Add or replace a record\" operation.\n- `partialUpdateObject`: adds or updates attributes within records.\n   Equivalent to the \"Add or update attributes\" operation with the `createIfNoExists` parameter set to true.\n   (If a record with the specified `objectID` doesn't exist in the specified index, this action adds the record to the index).\n- `partialUpdateObjectNoCreate`: same as `partialUpdateObject`, but with `createIfNoExists` set to false.\n   (A record isn't added to the index if its `objectID` doesn't exist).\n- `deleteObject`: delete records from an index.\n  Equivalent to the \"Delete a record\" operation.\n- `delete`. Delete an index. Equivalent to the \"Delete an index\" operation.\n- `clear`: delete all records from an index. Equivalent to the \"Delete all records from an index operation\".\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o PushTaskPayload) FieldDescription(field string) string {
+	return PushTaskPayloadFieldDescriptions[field]
+}

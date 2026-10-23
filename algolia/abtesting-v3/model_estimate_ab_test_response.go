@@ -9,6 +9,7 @@ import (
 // EstimateABTestResponse struct for EstimateABTestResponse.
 type EstimateABTestResponse struct {
 	// Estimated number of days needed to reach the sample sizes required for detecting the configured effect. This value is based on historical traffic.
+	// Example: 21
 	DurationDays *int64 `json:"durationDays,omitempty"`
 	// Sample size estimates for each variant. The first element is the control variant. Each element is the estimated number of searches required to achieve the desired statistical significance.
 	SampleSizes []int64 `json:"sampleSizes,omitempty"`
@@ -144,4 +145,25 @@ func (o EstimateABTestResponse) String() string {
 	out += fmt.Sprintf("  sampleSizes=%v\n", o.SampleSizes)
 
 	return fmt.Sprintf("EstimateABTestResponse {\n%s}", out)
+}
+
+// EstimateABTestResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var EstimateABTestResponseFieldExamples = map[string]string{
+	"durationDays": "21",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o EstimateABTestResponse) FieldExample(field string) string {
+	return EstimateABTestResponseFieldExamples[field]
+}
+
+// EstimateABTestResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EstimateABTestResponseFieldDescriptions = map[string]string{
+	"durationDays": "Estimated number of days needed to reach the sample sizes required for detecting the configured effect. This value is based on historical traffic.",
+	"sampleSizes":  "Sample size estimates for each variant. The first element is the control variant.\nEach element is the estimated number of searches required to achieve the desired statistical significance.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EstimateABTestResponse) FieldDescription(field string) string {
+	return EstimateABTestResponseFieldDescriptions[field]
 }

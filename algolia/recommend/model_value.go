@@ -194,3 +194,15 @@ func (o Value) String() string {
 
 	return fmt.Sprintf("Value {\n%s}", out)
 }
+
+// ValueFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ValueFieldDescriptions = map[string]string{
+	"order":           "Explicit order of facets or facet values.\n\nThis setting lets you always show specific facets or facet values at the top of the list.\n",
+	"sortRemainingBy": "Order of facet values that aren't explicitly positioned with the `order` setting.\n\n- `count`.\n  Order remaining facet values by decreasing count.\n  The count is the number of matching records containing this facet value.\n\n- `alpha`.\n  Sort facet values alphabetically.\n\n- `hidden`.\n  Don't show facet values that aren't explicitly positioned.\n",
+	"hide":            "Hide facet values.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Value) FieldDescription(field string) string {
+	return ValueFieldDescriptions[field]
+}

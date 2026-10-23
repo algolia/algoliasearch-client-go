@@ -14,6 +14,7 @@ type SearchRulesParams struct {
 	Query     *string    `json:"query,omitempty"`
 	Anchoring *Anchoring `json:"anchoring,omitempty"`
 	// Only return rules that match the context (exact match).
+	// Example: mobile
 	Context *string `json:"context,omitempty"`
 	// Requested page of the API response.  Algolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).  - `hitsPerPage`: sets the number of search results (_hits_) displayed per page. - `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.  For example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.
 	Page *int32 `json:"page,omitempty"`
@@ -356,4 +357,29 @@ func (o SearchRulesParams) String() string {
 	out += fmt.Sprintf("  enabled=%v\n", o.Enabled)
 
 	return fmt.Sprintf("SearchRulesParams {\n%s}", out)
+}
+
+// SearchRulesParamsFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchRulesParamsFieldExamples = map[string]string{
+	"context": "mobile",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchRulesParams) FieldExample(field string) string {
+	return SearchRulesParamsFieldExamples[field]
+}
+
+// SearchRulesParamsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchRulesParamsFieldDescriptions = map[string]string{
+	"query":       "Search query for rules.",
+	"anchoring":   "Which part of the search query the pattern should match:\n\n- `startsWith`. The pattern must match the beginning of the query.\n- `endsWith`. The pattern must match the end of the query.\n- `is`. The pattern must match the query exactly.\n- `contains`. The pattern must match anywhere in the query.\n\nEmpty queries are only allowed as patterns with `anchoring: is`.\n",
+	"context":     "Only return rules that match the context (exact match).",
+	"page":        "Requested page of the API response.\n\nAlgolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).\n\n- `hitsPerPage`: sets the number of search results (_hits_) displayed per page.\n- `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.\n\nFor example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.\n",
+	"hitsPerPage": "Maximum number of hits per page.\n\nAlgolia uses `page` and `hitsPerPage` to control how search results are displayed ([paginated](https://www.algolia.com/doc/guides/building-search-ui/ui-and-ux-patterns/pagination/js)).\n\n- `hitsPerPage`: sets the number of search results (_hits_) displayed per page.\n- `page`: specifies the page number of the search results you want to retrieve. Page numbering starts at 0, so the first page is `page=0`, the second is `page=1`, and so on.\n\nFor example, to display 10 results per page starting from the third page, set `hitsPerPage` to 10 and `page` to 2.\n",
+	"enabled":     "If `true`, return only enabled rules.\nIf `false`, return only inactive rules.\nBy default, _all_ rules are returned.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchRulesParams) FieldDescription(field string) string {
+	return SearchRulesParamsFieldDescriptions[field]
 }

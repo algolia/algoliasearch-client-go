@@ -9,6 +9,7 @@ import (
 // CreatedAtResponse Response and creation timestamp.
 type CreatedAtResponse struct {
 	// Date and time when the object was created, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	CreatedAt string `json:"createdAt"`
 }
 
@@ -73,4 +74,24 @@ func (o CreatedAtResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("CreatedAtResponse {\n%s}", out)
+}
+
+// CreatedAtResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var CreatedAtResponseFieldExamples = map[string]string{
+	"createdAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o CreatedAtResponse) FieldExample(field string) string {
+	return CreatedAtResponseFieldExamples[field]
+}
+
+// CreatedAtResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CreatedAtResponseFieldDescriptions = map[string]string{
+	"createdAt": "Date and time when the object was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CreatedAtResponse) FieldDescription(field string) string {
+	return CreatedAtResponseFieldDescriptions[field]
 }

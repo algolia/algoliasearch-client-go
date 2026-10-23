@@ -11,6 +11,7 @@ type ConfigurationResponse struct {
 	// Algolia application ID to which this Query Suggestions configuration belongs.
 	AppID string `json:"appID"`
 	// Name of the Query Suggestions index (case-sensitive).
+	// Example: ALGOLIA_INDEX_NAME
 	IndexName string `json:"indexName"`
 	// Algolia indices from which to get the popular searches for query suggestions.
 	SourceIndices []SourceIndex `json:"sourceIndices"`
@@ -284,4 +285,30 @@ func (o ConfigurationResponse) String() string {
 	out += fmt.Sprintf("  allowSpecialCharacters=%v\n", o.AllowSpecialCharacters)
 
 	return fmt.Sprintf("ConfigurationResponse {\n%s}", out)
+}
+
+// ConfigurationResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ConfigurationResponseFieldExamples = map[string]string{
+	"indexName": "ALGOLIA_INDEX_NAME",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ConfigurationResponse) FieldExample(field string) string {
+	return ConfigurationResponseFieldExamples[field]
+}
+
+// ConfigurationResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConfigurationResponseFieldDescriptions = map[string]string{
+	"appID":                  "Algolia application ID to which this Query Suggestions configuration belongs.",
+	"indexName":              "Name of the Query Suggestions index (case-sensitive).",
+	"sourceIndices":          "Algolia indices from which to get the popular searches for query suggestions.",
+	"languages":              "Languages for deduplicating singular and plural suggestions.\nIf specified, only the more popular form is included.\n",
+	"exclude":                "Words or regular expressions to exclude from the suggestions.",
+	"enablePersonalization":  "Whether to turn on personalized query suggestions.",
+	"allowSpecialCharacters": "Whether to include suggestions with special characters.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConfigurationResponse) FieldDescription(field string) string {
+	return ConfigurationResponseFieldDescriptions[field]
 }

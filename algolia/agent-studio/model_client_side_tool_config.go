@@ -231,3 +231,13 @@ func (o ClientSideToolConfig) String() string {
 
 	return fmt.Sprintf("ClientSideToolConfig {\n%s}", out)
 }
+
+// ClientSideToolConfigFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ClientSideToolConfigFieldDescriptions = map[string]string{
+	"isTerminal": "Server-side declaration that this tool is display/render-only: a resolved result ends the turn and the model is not re-invoked on it (CR-11753). The client's terminal claim on a tool result is honored only when this agrees; leave false for data tools whose result the model must reason about.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ClientSideToolConfig) FieldDescription(field string) string {
+	return ClientSideToolConfigFieldDescriptions[field]
+}

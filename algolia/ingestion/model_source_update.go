@@ -12,6 +12,7 @@ type SourceUpdate struct {
 	Name  *string            `json:"name,omitempty"`
 	Input *SourceUpdateInput `json:"input,omitempty"`
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID *string `json:"authenticationID,omitempty"`
 }
 
@@ -193,4 +194,25 @@ func (o SourceUpdate) String() string {
 	out += fmt.Sprintf("  authenticationID=%v\n", o.AuthenticationID)
 
 	return fmt.Sprintf("SourceUpdate {\n%s}", out)
+}
+
+// SourceUpdateFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceUpdateFieldExamples = map[string]string{
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceUpdate) FieldExample(field string) string {
+	return SourceUpdateFieldExamples[field]
+}
+
+// SourceUpdateFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceUpdateFieldDescriptions = map[string]string{
+	"name":             "Descriptive name of the source.",
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceUpdate) FieldDescription(field string) string {
+	return SourceUpdateFieldDescriptions[field]
 }

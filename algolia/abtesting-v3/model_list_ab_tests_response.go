@@ -11,8 +11,10 @@ type ListABTestsResponse struct {
 	// A/B tests.
 	Abtests []ABTest `json:"abtests"`
 	// Number of A/B tests.
+	// Example: 10
 	Count int32 `json:"count"`
 	// Number of retrievable A/B tests.
+	// Example: 12
 	Total int32 `json:"total"`
 }
 
@@ -144,4 +146,27 @@ func (o ListABTestsResponse) String() string {
 	out += fmt.Sprintf("  total=%v\n", o.Total)
 
 	return fmt.Sprintf("ListABTestsResponse {\n%s}", out)
+}
+
+// ListABTestsResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ListABTestsResponseFieldExamples = map[string]string{
+	"count": "10",
+	"total": "12",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ListABTestsResponse) FieldExample(field string) string {
+	return ListABTestsResponseFieldExamples[field]
+}
+
+// ListABTestsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListABTestsResponseFieldDescriptions = map[string]string{
+	"abtests": "A/B tests.",
+	"count":   "Number of A/B tests.",
+	"total":   "Number of retrievable A/B tests.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListABTestsResponse) FieldDescription(field string) string {
+	return ListABTestsResponseFieldDescriptions[field]
 }

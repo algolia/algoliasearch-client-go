@@ -9,6 +9,7 @@ import (
 // RunResponse API response for running a task.
 type RunResponse struct {
 	// Universally unique identifier (UUID) of a task run.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	RunID string `json:"runID"`
 	// Date and time when the resource was created, in RFC 3339 format.
 	CreatedAt string `json:"createdAt"`
@@ -106,4 +107,25 @@ func (o RunResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("RunResponse {\n%s}", out)
+}
+
+// RunResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var RunResponseFieldExamples = map[string]string{
+	"runID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RunResponse) FieldExample(field string) string {
+	return RunResponseFieldExamples[field]
+}
+
+// RunResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RunResponseFieldDescriptions = map[string]string{
+	"runID":     "Universally unique identifier (UUID) of a task run.",
+	"createdAt": "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RunResponse) FieldDescription(field string) string {
+	return RunResponseFieldDescriptions[field]
 }

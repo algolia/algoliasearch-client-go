@@ -9,6 +9,7 @@ import (
 // DeleteUserProfileResponse struct for DeleteUserProfileResponse.
 type DeleteUserProfileResponse struct {
 	// Unique pseudonymous or anonymous user identifier.  This helps with analytics and click and conversion events. For more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: test-user-123
 	UserToken string `json:"userToken"`
 	// Date and time when the user profile can be safely considered to be deleted. Any events received after the `deletedUntil` date start a new user profile.
 	DeletedUntil string `json:"deletedUntil"`
@@ -106,4 +107,25 @@ func (o DeleteUserProfileResponse) String() string {
 	out += fmt.Sprintf("  deletedUntil=%v\n", o.DeletedUntil)
 
 	return fmt.Sprintf("DeleteUserProfileResponse {\n%s}", out)
+}
+
+// DeleteUserProfileResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var DeleteUserProfileResponseFieldExamples = map[string]string{
+	"userToken": "test-user-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DeleteUserProfileResponse) FieldExample(field string) string {
+	return DeleteUserProfileResponseFieldExamples[field]
+}
+
+// DeleteUserProfileResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeleteUserProfileResponseFieldDescriptions = map[string]string{
+	"userToken":    "Unique pseudonymous or anonymous user identifier.\n\nThis helps with analytics and click and conversion events.\nFor more information, see [user token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"deletedUntil": "Date and time when the user profile can be safely considered to be deleted.\nAny events received after the `deletedUntil` date start a new user profile.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeleteUserProfileResponse) FieldDescription(field string) string {
+	return DeleteUserProfileResponseFieldDescriptions[field]
 }

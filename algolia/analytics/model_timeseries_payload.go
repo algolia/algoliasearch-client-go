@@ -9,6 +9,7 @@ import (
 // TimeseriesPayload struct for TimeseriesPayload.
 type TimeseriesPayload struct {
 	// Default domain propagated to entries that omit their own.
+	// Example: core
 	Domain *string `json:"domain,omitempty"`
 	// Fields to aggregate.
 	Metrics []FieldReference `json:"metrics"`
@@ -361,4 +362,30 @@ func (o TimeseriesPayload) String() string {
 	out += fmt.Sprintf("  offset=%v\n", o.Offset)
 
 	return fmt.Sprintf("TimeseriesPayload {\n%s}", out)
+}
+
+// TimeseriesPayloadFieldExamples maps each field (by its JSON name) to its spec example value.
+var TimeseriesPayloadFieldExamples = map[string]string{
+	"domain": "core",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TimeseriesPayload) FieldExample(field string) string {
+	return TimeseriesPayloadFieldExamples[field]
+}
+
+// TimeseriesPayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TimeseriesPayloadFieldDescriptions = map[string]string{
+	"domain":     "Default domain propagated to entries that omit their own.",
+	"metrics":    "Fields to aggregate.",
+	"groupBy":    "Fields to split the series by.",
+	"filters":    "Filter conditions.",
+	"parameters": "Literal values referenced by the query.",
+	"limit":      "Maximum number of series (groupBy values) to return.",
+	"offset":     "Number of series to skip.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TimeseriesPayload) FieldDescription(field string) string {
+	return TimeseriesPayloadFieldDescriptions[field]
 }

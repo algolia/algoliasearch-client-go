@@ -74,3 +74,13 @@ func (o InsightsEvents) String() string {
 
 	return fmt.Sprintf("InsightsEvents {\n%s}", out)
 }
+
+// InsightsEventsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InsightsEventsFieldDescriptions = map[string]string{
+	"events": "Click and conversion events.\n\n**All** events must be valid, otherwise the API returns an error.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o InsightsEvents) FieldDescription(field string) string {
+	return InsightsEventsFieldDescriptions[field]
+}

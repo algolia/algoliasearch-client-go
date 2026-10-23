@@ -9,8 +9,10 @@ import (
 // SourceIndex Configuration of an Algolia index for Query Suggestions.
 type SourceIndex struct {
 	// Name of the Algolia index (case-sensitive) to use as source for query suggestions.
+	// Example: products
 	IndexName string `json:"indexName"`
 	// If true, Query Suggestions uses all replica indices to find popular searches. If false, only the primary index is used.
+	// Example: false
 	Replicas *bool `json:"replicas,omitempty"`
 	// Analytics tags for filtering the popular searches. For more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).
 	AnalyticsTags []string `json:"analyticsTags,omitempty"`
@@ -433,4 +435,32 @@ func (o SourceIndex) String() string {
 	out += fmt.Sprintf("  external=%v\n", o.External)
 
 	return fmt.Sprintf("SourceIndex {\n%s}", out)
+}
+
+// SourceIndexFieldExamples maps each field (by its JSON name) to its spec example value.
+var SourceIndexFieldExamples = map[string]string{
+	"indexName": "products",
+	"replicas":  "false",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SourceIndex) FieldExample(field string) string {
+	return SourceIndexFieldExamples[field]
+}
+
+// SourceIndexFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceIndexFieldDescriptions = map[string]string{
+	"indexName":     "Name of the Algolia index (case-sensitive) to use as source for query suggestions.",
+	"replicas":      "If true, Query Suggestions uses all replica indices to find popular searches.\nIf false, only the primary index is used.\n",
+	"analyticsTags": "Analytics tags for filtering the popular searches.\nFor more information, see [Segment your analytics data](https://www.algolia.com/doc/guides/search-analytics/guides/segments).\n",
+	"facets":        "Facets to use as top categories with your suggestions.\n\nIf provided, Query Suggestions adds the top facet values to each suggestion.\n",
+	"minHits":       "Minimum number of hits required to be included as a suggestion.\n\nA search query must at least generate `minHits` search results to be included in the Query Suggestions index.\n",
+	"minLetters":    "Minimum letters required to be included as a suggestion.\n\nA search query must be at least `minLetters` long to be included in the Query Suggestions index.\n",
+	"generate":      "Facets used for generating query suggestions from facet values.\n\nFor example, if you set `generate: [\"color\", \"brand\"]`, combinations from the facet values are added as query suggestions,\nsuch as \"blue adidas\", \"red adidas\", \"blue nike\", \"red nike\", etc.\n\nYou can include nested lists.\n",
+	"external":      "Algolia indices with popular searches to use as query suggestions.\n\nRecords of these indices must have these attributes:\n\n- `query`: search query which will be added as a suggestion\n- `count`: measure of popularity of that search query\n\nFor example, you can export popular searches from an external analytics provider, such as Google Analytics or Adobe Analytics,\nand feed this data into an Algolia index.\nYou can use this index to generate query suggestions until your Algolia Analytics has collected enough data.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceIndex) FieldDescription(field string) string {
+	return SourceIndexFieldDescriptions[field]
 }

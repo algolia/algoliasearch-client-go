@@ -9,8 +9,10 @@ import (
 // UpdateApiKeyResponse struct for UpdateApiKeyResponse.
 type UpdateApiKeyResponse struct {
 	// API key.
+	// Example: 13ad45b4d0a2f6ea65ecbddf6aa260f2
 	Key string `json:"key"`
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	UpdatedAt string `json:"updatedAt"`
 }
 
@@ -106,4 +108,26 @@ func (o UpdateApiKeyResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("UpdateApiKeyResponse {\n%s}", out)
+}
+
+// UpdateApiKeyResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var UpdateApiKeyResponseFieldExamples = map[string]string{
+	"key":       "13ad45b4d0a2f6ea65ecbddf6aa260f2",
+	"updatedAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o UpdateApiKeyResponse) FieldExample(field string) string {
+	return UpdateApiKeyResponseFieldExamples[field]
+}
+
+// UpdateApiKeyResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var UpdateApiKeyResponseFieldDescriptions = map[string]string{
+	"key":       "API key.",
+	"updatedAt": "Date and time when the object was updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o UpdateApiKeyResponse) FieldDescription(field string) string {
+	return UpdateApiKeyResponseFieldDescriptions[field]
 }

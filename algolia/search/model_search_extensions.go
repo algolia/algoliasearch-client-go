@@ -94,3 +94,13 @@ func (o SearchExtensions) String() string {
 
 	return fmt.Sprintf("SearchExtensions {\n%s}", out)
 }
+
+// SearchExtensionsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchExtensionsFieldDescriptions = map[string]string{
+	"queryCategorization": "Parameters for the [Query Categorization](https://www.algolia.com/doc/guides/algolia-ai/query-categorization/) AI feature.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchExtensions) FieldDescription(field string) string {
+	return SearchExtensionsFieldDescriptions[field]
+}

@@ -11,6 +11,7 @@ import (
 // Authentication Resource representing the information required to authenticate with a source or a destination.
 type Authentication struct {
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID string             `json:"authenticationID"`
 	Type             AuthenticationType `json:"type"`
 	// Descriptive name for the resource.
@@ -374,4 +375,30 @@ func (o Authentication) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("Authentication {\n%s}", out)
+}
+
+// AuthenticationFieldExamples maps each field (by its JSON name) to its spec example value.
+var AuthenticationFieldExamples = map[string]string{
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Authentication) FieldExample(field string) string {
+	return AuthenticationFieldExamples[field]
+}
+
+// AuthenticationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthenticationFieldDescriptions = map[string]string{
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+	"type":             "Type of authentication. This determines the type of credentials required in the `input` object.",
+	"name":             "Descriptive name for the resource.",
+	"platform":         "Name of an ecommerce platform with which to authenticate.\nThis determines which authentication type you can select.\n",
+	"owner":            "Owner of the resource.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+	"updatedAt":        "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Authentication) FieldDescription(field string) string {
+	return AuthenticationFieldDescriptions[field]
 }

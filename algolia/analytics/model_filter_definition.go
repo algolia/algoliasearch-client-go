@@ -11,8 +11,10 @@ type FilterDefinition struct {
 	// Domain the field belongs to.
 	Domain *string `json:"domain,omitempty"`
 	// Field to filter on. With no `operator`, the field must be boolean.
+	// Example: country
 	Kind string `json:"kind"`
 	// Comparison operator applied to a filter field, one of: `=`, `!=`, `>`, `<`, `>=`, `<=`, `IN`, `TAG_TREE`, `CONTAINS`, `STARTS_WITH`, `CONTAINS_PREFIX`. Requires a `parameter` to carry the operand.
+	// Example: =
 	Operator  *string             `json:"operator,omitempty"`
 	Parameter *ParameterReference `json:"parameter,omitempty"`
 }
@@ -227,4 +229,27 @@ func (o FilterDefinition) String() string {
 	out += fmt.Sprintf("  parameter=%v\n", o.Parameter)
 
 	return fmt.Sprintf("FilterDefinition {\n%s}", out)
+}
+
+// FilterDefinitionFieldExamples maps each field (by its JSON name) to its spec example value.
+var FilterDefinitionFieldExamples = map[string]string{
+	"kind":     "country",
+	"operator": "=",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o FilterDefinition) FieldExample(field string) string {
+	return FilterDefinitionFieldExamples[field]
+}
+
+// FilterDefinitionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FilterDefinitionFieldDescriptions = map[string]string{
+	"domain":   "Domain the field belongs to.",
+	"kind":     "Field to filter on. With no `operator`, the field must be boolean.",
+	"operator": "Comparison operator applied to a filter field, one of: `=`, `!=`, `>`, `<`, `>=`, `<=`, `IN`, `TAG_TREE`, `CONTAINS`, `STARTS_WITH`, `CONTAINS_PREFIX`. Requires a `parameter` to carry the operand.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FilterDefinition) FieldDescription(field string) string {
+	return FilterDefinitionFieldDescriptions[field]
 }

@@ -11,26 +11,37 @@ import (
 // TopHitWithRevenueAnalytics struct for TopHitWithRevenueAnalytics.
 type TopHitWithRevenueAnalytics struct {
 	// Object ID of a record returned as a search result.
+	// Example: method-export-rules-php
 	Hit string `json:"hit"`
 	// Number of occurrences.
+	// Example: 2
 	Count int32 `json:"count"`
 	// Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.49
 	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.05
 	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedHitCount int32 `json:"trackedHitCount"`
 	// Number of clicks associated with this search.
+	// Example: 162
 	ClickCount int32 `json:"clickCount"`
 	// Number of conversions from this search.
+	// Example: 10
 	ConversionCount int32 `json:"conversionCount"`
 	// Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.1
 	AddToCartRate utils.Nullable[float64] `json:"addToCartRate"`
 	// Number of add-to-cart events from this search.
+	// Example: 10
 	AddToCartCount int32 `json:"addToCartCount"`
 	// Purchase rate: calculated as the number of tracked searches with at least one purchase event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.05
 	PurchaseRate utils.Nullable[float64] `json:"purchaseRate"`
 	// Number of purchase events from this search.
+	// Example: 10
 	PurchaseCount int32 `json:"purchaseCount"`
 	// Revenue associated with this search: broken down by currency.
 	Currencies map[string]CurrencyCode `json:"currencies"`
@@ -459,4 +470,45 @@ func (o TopHitWithRevenueAnalytics) String() string {
 	out += fmt.Sprintf("  currencies=%v\n", o.Currencies)
 
 	return fmt.Sprintf("TopHitWithRevenueAnalytics {\n%s}", out)
+}
+
+// TopHitWithRevenueAnalyticsFieldExamples maps each field (by its JSON name) to its spec example value.
+var TopHitWithRevenueAnalyticsFieldExamples = map[string]string{
+	"hit":              "method-export-rules-php",
+	"count":            "2",
+	"clickThroughRate": "0.49",
+	"conversionRate":   "0.05",
+	"trackedHitCount":  "2",
+	"clickCount":       "162",
+	"conversionCount":  "10",
+	"addToCartRate":    "0.1",
+	"addToCartCount":   "10",
+	"purchaseRate":     "0.05",
+	"purchaseCount":    "10",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TopHitWithRevenueAnalytics) FieldExample(field string) string {
+	return TopHitWithRevenueAnalyticsFieldExamples[field]
+}
+
+// TopHitWithRevenueAnalyticsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopHitWithRevenueAnalyticsFieldDescriptions = map[string]string{
+	"hit":              "Object ID of a record returned as a search result.",
+	"count":            "Number of occurrences.",
+	"clickThroughRate": "Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"conversionRate":   "Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"trackedHitCount":  "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"clickCount":       "Number of clicks associated with this search.",
+	"conversionCount":  "Number of conversions from this search.",
+	"addToCartRate":    "Add-to-cart rate: calculated as the number of tracked searches with at least one add-to-cart event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"addToCartCount":   "Number of add-to-cart events from this search.",
+	"purchaseRate":     "Purchase rate: calculated as the number of tracked searches with at least one purchase event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"purchaseCount":    "Number of purchase events from this search.",
+	"currencies":       "Revenue associated with this search: broken down by currency.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopHitWithRevenueAnalytics) FieldDescription(field string) string {
+	return TopHitWithRevenueAnalyticsFieldDescriptions[field]
 }

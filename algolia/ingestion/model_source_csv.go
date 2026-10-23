@@ -279,3 +279,17 @@ func (o SourceCSV) String() string {
 
 	return fmt.Sprintf("SourceCSV {\n%s}", out)
 }
+
+// SourceCSVFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SourceCSVFieldDescriptions = map[string]string{
+	"url":            "URL of the file.",
+	"uniqueIDColumn": "Name of a column that contains a unique ID which will be used as `objectID` in Algolia.",
+	"mapping":        "Key-value pairs of column names and their expected types.\n",
+	"method":         "HTTP method to be used for retrieving your data.",
+	"delimiter":      "The character used to split the value on each line, default to a comma (\\r, \\n, 0xFFFD, and space are forbidden).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SourceCSV) FieldDescription(field string) string {
+	return SourceCSVFieldDescriptions[field]
+}

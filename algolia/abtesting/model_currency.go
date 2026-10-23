@@ -9,14 +9,19 @@ import (
 // Currency struct for Currency.
 type Currency struct {
 	// Currency code.
+	// Example: USD
 	Currency *string `json:"currency,omitempty"`
 	// Revenue for this currency.
+	// Example: 120
 	Revenue *float64 `json:"revenue,omitempty"`
 	// Mean for this currency.
+	// Example: 53.7
 	Mean *float64 `json:"mean,omitempty"`
 	// Standard deviation for this currency.
+	// Example: 12.3
 	StandardDeviation *float64 `json:"standardDeviation,omitempty"`
 	// The amount of revenue for this currency that was removed after capping purchase amounts to the 95th percentile.
+	// Example: 23
 	WinsorizedAmount *float64 `json:"winsorizedAmount,omitempty"`
 }
 
@@ -294,4 +299,32 @@ func (o Currency) String() string {
 	out += fmt.Sprintf("  winsorizedAmount=%v\n", o.WinsorizedAmount)
 
 	return fmt.Sprintf("Currency {\n%s}", out)
+}
+
+// CurrencyFieldExamples maps each field (by its JSON name) to its spec example value.
+var CurrencyFieldExamples = map[string]string{
+	"currency":          "USD",
+	"revenue":           "120",
+	"mean":              "53.7",
+	"standardDeviation": "12.3",
+	"winsorizedAmount":  "23",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Currency) FieldExample(field string) string {
+	return CurrencyFieldExamples[field]
+}
+
+// CurrencyFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CurrencyFieldDescriptions = map[string]string{
+	"currency":          "Currency code.",
+	"revenue":           "Revenue for this currency.",
+	"mean":              "Mean for this currency.",
+	"standardDeviation": "Standard deviation for this currency.",
+	"winsorizedAmount":  "The amount of revenue for this currency that was removed after capping purchase amounts to the 95th percentile.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Currency) FieldDescription(field string) string {
+	return CurrencyFieldDescriptions[field]
 }

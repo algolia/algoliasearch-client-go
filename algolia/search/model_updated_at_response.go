@@ -9,8 +9,10 @@ import (
 // UpdatedAtResponse Response, taskID, and update timestamp.
 type UpdatedAtResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 	// Date and time when the object was updated, in RFC 3339 format.
+	// Example: 2023-07-04T12:49:15Z
 	UpdatedAt string `json:"updatedAt"`
 }
 
@@ -106,4 +108,26 @@ func (o UpdatedAtResponse) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("UpdatedAtResponse {\n%s}", out)
+}
+
+// UpdatedAtResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var UpdatedAtResponseFieldExamples = map[string]string{
+	"taskID":    "1514562690001",
+	"updatedAt": "2023-07-04T12:49:15Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o UpdatedAtResponse) FieldExample(field string) string {
+	return UpdatedAtResponseFieldExamples[field]
+}
+
+// UpdatedAtResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var UpdatedAtResponseFieldDescriptions = map[string]string{
+	"taskID":    "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+	"updatedAt": "Date and time when the object was updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o UpdatedAtResponse) FieldDescription(field string) string {
+	return UpdatedAtResponseFieldDescriptions[field]
 }

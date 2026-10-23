@@ -95,3 +95,13 @@ func (o EmailNotifications) String() string {
 
 	return fmt.Sprintf("EmailNotifications {\n%s}", out)
 }
+
+// EmailNotificationsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var EmailNotificationsFieldDescriptions = map[string]string{
+	"enabled": "Whether to send email notifications, note that this doesn't prevent the task from being blocked.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o EmailNotifications) FieldDescription(field string) string {
+	return EmailNotificationsFieldDescriptions[field]
+}

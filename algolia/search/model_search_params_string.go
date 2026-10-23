@@ -9,6 +9,7 @@ import (
 // SearchParamsString Search parameters as query string.
 type SearchParamsString struct {
 	// Search parameters as a URL-encoded query string.
+	// Example: hitsPerPage=2&getRankingInfo=1
 	Params *string `json:"params,omitempty"`
 }
 
@@ -94,4 +95,24 @@ func (o SearchParamsString) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 
 	return fmt.Sprintf("SearchParamsString {\n%s}", out)
+}
+
+// SearchParamsStringFieldExamples maps each field (by its JSON name) to its spec example value.
+var SearchParamsStringFieldExamples = map[string]string{
+	"params": "hitsPerPage=2&getRankingInfo=1",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o SearchParamsString) FieldExample(field string) string {
+	return SearchParamsStringFieldExamples[field]
+}
+
+// SearchParamsStringFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchParamsStringFieldDescriptions = map[string]string{
+	"params": "Search parameters as a URL-encoded query string.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchParamsString) FieldDescription(field string) string {
+	return SearchParamsStringFieldDescriptions[field]
 }

@@ -130,3 +130,14 @@ func (o Multifeed) String() string {
 
 	return fmt.Sprintf("Multifeed {\n%s}", out)
 }
+
+// MultifeedFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MultifeedFieldDescriptions = map[string]string{
+	"feeds":      "A key-value store of Feed ID to Feed. Currently, the only supported Feed type is an Injection.",
+	"feedsOrder": "A list of Feed IDs that specifies the order in which to order the results in the response. The IDs should be a subset of those in the Feeds object, and only those specified will be processed. When this field is not set, all Feeds are processed and returned with a default ordering.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Multifeed) FieldDescription(field string) string {
+	return MultifeedFieldDescriptions[field]
+}

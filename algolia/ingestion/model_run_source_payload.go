@@ -294,3 +294,17 @@ func (o RunSourcePayload) String() string {
 
 	return fmt.Sprintf("RunSourcePayload {\n%s}", out)
 }
+
+// RunSourcePayloadFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RunSourcePayloadFieldDescriptions = map[string]string{
+	"indexToInclude": "List of index names to include in reindex/update.",
+	"indexToExclude": "List of index names to exclude in reindex/update.",
+	"entityIDs":      "List of entityIDs to update.",
+	"entityType":     "Type of entity to update.",
+	"runMetadata":    "Additional information that will be passed to the created runs.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RunSourcePayload) FieldDescription(field string) string {
+	return RunSourcePayloadFieldDescriptions[field]
+}

@@ -9,10 +9,13 @@ import (
 // AbTestsVariant struct for AbTestsVariant.
 type AbTestsVariant struct {
 	// Index name of the A/B test variant (case-sensitive).
+	// Example: delcourt_production
 	Index string `json:"index"`
 	// Percentage of search requests each variant receives.
+	// Example: 60
 	TrafficPercentage int32 `json:"trafficPercentage"`
 	// Description for this variant.
+	// Example: Current production index
 	Description *string `json:"description,omitempty"`
 }
 
@@ -162,4 +165,28 @@ func (o AbTestsVariant) String() string {
 	out += fmt.Sprintf("  description=%v\n", o.Description)
 
 	return fmt.Sprintf("AbTestsVariant {\n%s}", out)
+}
+
+// AbTestsVariantFieldExamples maps each field (by its JSON name) to its spec example value.
+var AbTestsVariantFieldExamples = map[string]string{
+	"index":             "delcourt_production",
+	"trafficPercentage": "60",
+	"description":       "Current production index",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AbTestsVariant) FieldExample(field string) string {
+	return AbTestsVariantFieldExamples[field]
+}
+
+// AbTestsVariantFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AbTestsVariantFieldDescriptions = map[string]string{
+	"index":             "Index name of the A/B test variant (case-sensitive).",
+	"trafficPercentage": "Percentage of search requests each variant receives.",
+	"description":       "Description for this variant.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AbTestsVariant) FieldDescription(field string) string {
+	return AbTestsVariantFieldDescriptions[field]
 }

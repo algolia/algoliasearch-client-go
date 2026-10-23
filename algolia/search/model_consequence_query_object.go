@@ -145,3 +145,14 @@ func (o ConsequenceQueryObject) String() string {
 
 	return fmt.Sprintf("ConsequenceQueryObject {\n%s}", out)
 }
+
+// ConsequenceQueryObjectFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ConsequenceQueryObjectFieldDescriptions = map[string]string{
+	"remove": "Words to remove from the search query.",
+	"edits":  "Changes to make to the search query.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ConsequenceQueryObject) FieldDescription(field string) string {
+	return ConsequenceQueryObjectFieldDescriptions[field]
+}

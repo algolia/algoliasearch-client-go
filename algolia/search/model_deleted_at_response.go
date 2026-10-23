@@ -9,8 +9,10 @@ import (
 // DeletedAtResponse Response, taskID, and deletion timestamp.
 type DeletedAtResponse struct {
 	// Unique identifier of a task.  A successful API response means that a task was added to a queue. It might not run immediately. You can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.
+	// Example: 1514562690001
 	TaskID int64 `json:"taskID"`
 	// Date and time when the object was deleted, in RFC 3339 format.
+	// Example: 2023-06-27T14:42:38.831Z
 	DeletedAt string `json:"deletedAt"`
 }
 
@@ -106,4 +108,26 @@ func (o DeletedAtResponse) String() string {
 	out += fmt.Sprintf("  deletedAt=%v\n", o.DeletedAt)
 
 	return fmt.Sprintf("DeletedAtResponse {\n%s}", out)
+}
+
+// DeletedAtResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var DeletedAtResponseFieldExamples = map[string]string{
+	"taskID":    "1514562690001",
+	"deletedAt": "2023-06-27T14:42:38.831Z",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DeletedAtResponse) FieldExample(field string) string {
+	return DeletedAtResponseFieldExamples[field]
+}
+
+// DeletedAtResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DeletedAtResponseFieldDescriptions = map[string]string{
+	"taskID":    "Unique identifier of a task.\n\nA successful API response means that a task was added to a queue.\nIt might not run immediately.\nYou can check the task's progress with the [`task` operation](https://www.algolia.com/doc/rest-api/search/get-task) and this task ID.\n",
+	"deletedAt": "Date and time when the object was deleted, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DeletedAtResponse) FieldDescription(field string) string {
+	return DeletedAtResponseFieldDescriptions[field]
 }

@@ -11,24 +11,33 @@ import (
 // TopSearchWithAnalytics struct for TopSearchWithAnalytics.
 type TopSearchWithAnalytics struct {
 	// Search query.
+	// Example: separator
 	Search string `json:"search"`
 	// Number of searches.
+	// Example: 504
 	Count int32 `json:"count"`
 	// Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.49
 	ClickThroughRate utils.Nullable[float64] `json:"clickThroughRate"`
 	// Average position of a clicked search result in the list of search results. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 2.035
 	AverageClickPosition utils.Nullable[float64] `json:"averageClickPosition"`
 	// List of positions in the search results and clicks associated with this search.
 	ClickPositions []ClickPosition `json:"clickPositions"`
 	// Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.05
 	ConversionRate utils.Nullable[float64] `json:"conversionRate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Number of clicks associated with this search.
+	// Example: 162
 	ClickCount int32 `json:"clickCount"`
 	// Number of conversions from this search.
+	// Example: 10
 	ConversionCount int32 `json:"conversionCount"`
 	// Number of results (hits).
+	// Example: 20
 	NbHits int32 `json:"nbHits"`
 }
 
@@ -389,4 +398,41 @@ func (o TopSearchWithAnalytics) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 
 	return fmt.Sprintf("TopSearchWithAnalytics {\n%s}", out)
+}
+
+// TopSearchWithAnalyticsFieldExamples maps each field (by its JSON name) to its spec example value.
+var TopSearchWithAnalyticsFieldExamples = map[string]string{
+	"search":               "separator",
+	"count":                "504",
+	"clickThroughRate":     "0.49",
+	"averageClickPosition": "2.035",
+	"conversionRate":       "0.05",
+	"trackedSearchCount":   "2",
+	"clickCount":           "162",
+	"conversionCount":      "10",
+	"nbHits":               "20",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TopSearchWithAnalytics) FieldExample(field string) string {
+	return TopSearchWithAnalyticsFieldExamples[field]
+}
+
+// TopSearchWithAnalyticsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TopSearchWithAnalyticsFieldDescriptions = map[string]string{
+	"search":               "Search query.",
+	"count":                "Number of searches.",
+	"clickThroughRate":     "Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"averageClickPosition": "Average position of a clicked search result in the list of search results.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"clickPositions":       "List of positions in the search results and clicks associated with this search.",
+	"conversionRate":       "Conversion rate: calculated as the number of tracked searches with at least one conversion event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"trackedSearchCount":   "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"clickCount":           "Number of clicks associated with this search.",
+	"conversionCount":      "Number of conversions from this search.",
+	"nbHits":               "Number of results (hits).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TopSearchWithAnalytics) FieldDescription(field string) string {
+	return TopSearchWithAnalyticsFieldDescriptions[field]
 }

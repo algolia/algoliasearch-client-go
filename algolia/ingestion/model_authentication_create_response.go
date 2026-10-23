@@ -9,6 +9,7 @@ import (
 // AuthenticationCreateResponse API response for the successful creation of an authentication resource.
 type AuthenticationCreateResponse struct {
 	// Universally unique identifier (UUID) of an authentication resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	AuthenticationID string `json:"authenticationID"`
 	// Descriptive name for the resource.
 	Name string `json:"name"`
@@ -139,4 +140,26 @@ func (o AuthenticationCreateResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("AuthenticationCreateResponse {\n%s}", out)
+}
+
+// AuthenticationCreateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var AuthenticationCreateResponseFieldExamples = map[string]string{
+	"authenticationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o AuthenticationCreateResponse) FieldExample(field string) string {
+	return AuthenticationCreateResponseFieldExamples[field]
+}
+
+// AuthenticationCreateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AuthenticationCreateResponseFieldDescriptions = map[string]string{
+	"authenticationID": "Universally unique identifier (UUID) of an authentication resource.",
+	"name":             "Descriptive name for the resource.",
+	"createdAt":        "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AuthenticationCreateResponse) FieldDescription(field string) string {
+	return AuthenticationCreateResponseFieldDescriptions[field]
 }

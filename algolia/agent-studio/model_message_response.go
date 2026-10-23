@@ -808,3 +808,14 @@ func (o MessageResponse) String() string {
 
 	return fmt.Sprintf("MessageResponse {\n%s}", out)
 }
+
+// MessageResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var MessageResponseFieldDescriptions = map[string]string{
+	"role":      "Role of a message in the conversation.",
+	"guardrail": "Minimal record of a guardrail decision, persisted on a blocked assistant message.\n\nPresent only when a guardrail blocks a turn (the persisted parts are then just the\nfallback text); ``null`` on ordinary messages. Lets a blocked turn be told apart from a\nshort reply using conversation data alone.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o MessageResponse) FieldDescription(field string) string {
+	return MessageResponseFieldDescriptions[field]
+}

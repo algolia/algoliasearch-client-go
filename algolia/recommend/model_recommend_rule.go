@@ -14,6 +14,7 @@ type RecommendRule struct {
 	Condition   *Condition   `json:"condition,omitempty"`
 	Consequence *Consequence `json:"consequence,omitempty"`
 	// Description of the rule's purpose. This can be helpful for display in the Algolia dashboard.
+	// Example: Boost on-sale items
 	Description *string `json:"description,omitempty"`
 	// Indicates whether to enable the rule. If it isn't enabled, it isn't applied at query time.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -391,4 +392,30 @@ func (o RecommendRule) String() string {
 	out += fmt.Sprintf("  validity=%v\n", o.Validity)
 
 	return fmt.Sprintf("RecommendRule {\n%s}", out)
+}
+
+// RecommendRuleFieldExamples maps each field (by its JSON name) to its spec example value.
+var RecommendRuleFieldExamples = map[string]string{
+	"description": "Boost on-sale items",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RecommendRule) FieldExample(field string) string {
+	return RecommendRuleFieldExamples[field]
+}
+
+// RecommendRuleFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RecommendRuleFieldDescriptions = map[string]string{
+	"_metadata":   "Rule metadata.",
+	"objectID":    "Unique identifier of a rule object.",
+	"condition":   "Condition that triggers the rule.\nIf not specified, the rule is triggered for all recommendations.\n",
+	"consequence": "Effect of the rule.",
+	"description": "Description of the rule's purpose. This can be helpful for display in the Algolia dashboard.",
+	"enabled":     "Indicates whether to enable the rule. If it isn't enabled, it isn't applied at query time.",
+	"validity":    "Time periods when the rule is active.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RecommendRule) FieldDescription(field string) string {
+	return RecommendRuleFieldDescriptions[field]
 }

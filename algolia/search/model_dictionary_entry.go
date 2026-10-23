@@ -9,13 +9,17 @@ import (
 // DictionaryEntry Dictionary entry.
 type DictionaryEntry struct {
 	// Unique identifier for the dictionary entry.
+	// Example: 828afd405e1f4fe950b6b98c2c43c032
 	ObjectID string             `json:"objectID"`
 	Language *SupportedLanguage `json:"language,omitempty"`
 	// Matching dictionary word for `stopwords` and `compounds` dictionaries.
+	// Example: the
 	Word *string `json:"word,omitempty"`
 	// Matching words in the `plurals` dictionary including declensions.
+	// Example: ["cheval","cheveaux"]
 	Words []string `json:"words,omitempty"`
 	// Invividual components of a compound word in the `compounds` dictionary.
+	// Example: ["kopf","schmerz","tablette"]
 	Decomposition        []string              `json:"decomposition,omitempty"`
 	State                *DictionaryEntryState `json:"state,omitempty"`
 	Type                 *DictionaryEntryType  `json:"type,omitempty"`
@@ -480,4 +484,33 @@ func (o DictionaryEntry) String() string {
 	}
 
 	return fmt.Sprintf("DictionaryEntry {\n%s}", out)
+}
+
+// DictionaryEntryFieldExamples maps each field (by its JSON name) to its spec example value.
+var DictionaryEntryFieldExamples = map[string]string{
+	"objectID":      "828afd405e1f4fe950b6b98c2c43c032",
+	"word":          "the",
+	"words":         "[\"cheval\",\"cheveaux\"]",
+	"decomposition": "[\"kopf\",\"schmerz\",\"tablette\"]",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o DictionaryEntry) FieldExample(field string) string {
+	return DictionaryEntryFieldExamples[field]
+}
+
+// DictionaryEntryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var DictionaryEntryFieldDescriptions = map[string]string{
+	"objectID":      "Unique identifier for the dictionary entry.",
+	"language":      "ISO code for a supported language.",
+	"word":          "Matching dictionary word for `stopwords` and `compounds` dictionaries.",
+	"words":         "Matching words in the `plurals` dictionary including declensions.",
+	"decomposition": "Invividual components of a compound word in the `compounds` dictionary.",
+	"state":         "Whether a dictionary entry is active.",
+	"type":          "Whether a dictionary entry is provided by Algolia (standard), or has been added by you (custom).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o DictionaryEntry) FieldDescription(field string) string {
+	return DictionaryEntryFieldDescriptions[field]
 }

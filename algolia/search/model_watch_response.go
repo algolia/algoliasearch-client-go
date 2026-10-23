@@ -9,8 +9,10 @@ import (
 // WatchResponse struct for WatchResponse.
 type WatchResponse struct {
 	// Universally unique identifier (UUID) of a task run.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	RunID string `json:"runID"`
 	// Universally unique identifier (UUID) of an event.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	EventID *string `json:"eventID,omitempty"`
 	// This field is always null when used with the Push endpoint. When used for a source discover or source validate run, it will include the sampled data of the source.
 	Data []map[string]any `json:"data,omitempty"`
@@ -329,4 +331,30 @@ func (o WatchResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 
 	return fmt.Sprintf("WatchResponse {\n%s}", out)
+}
+
+// WatchResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var WatchResponseFieldExamples = map[string]string{
+	"runID":   "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"eventID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o WatchResponse) FieldExample(field string) string {
+	return WatchResponseFieldExamples[field]
+}
+
+// WatchResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var WatchResponseFieldDescriptions = map[string]string{
+	"runID":     "Universally unique identifier (UUID) of a task run.",
+	"eventID":   "Universally unique identifier (UUID) of an event.",
+	"data":      "This field is always null when used with the Push endpoint.\nWhen used for a source discover or source validate run, it will include the sampled data of the source.\n",
+	"events":    "in case of error, observability events will be added to the response.",
+	"message":   "a message describing the outcome of the operation that has been ran (push, discover or validate) run.",
+	"createdAt": "Date and time when the resource was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o WatchResponse) FieldDescription(field string) string {
+	return WatchResponseFieldDescriptions[field]
 }

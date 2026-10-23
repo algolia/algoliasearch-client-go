@@ -74,3 +74,13 @@ func (o ListClustersResponse) String() string {
 
 	return fmt.Sprintf("ListClustersResponse {\n%s}", out)
 }
+
+// ListClustersResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListClustersResponseFieldDescriptions = map[string]string{
+	"topUsers": "Key-value pairs with cluster names as keys and lists of users with the highest number of records per cluster as values.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListClustersResponse) FieldDescription(field string) string {
+	return ListClustersResponseFieldDescriptions[field]
+}

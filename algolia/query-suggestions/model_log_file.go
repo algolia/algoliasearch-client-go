@@ -9,11 +9,14 @@ import (
 // LogFile struct for LogFile.
 type LogFile struct {
 	// Date and time of the log entry, in RFC 3339 format.
+	// Example: 2023-07-05T08:03:33.898076171Z
 	Timestamp *string   `json:"timestamp,omitempty"`
 	Level     *LogLevel `json:"level,omitempty"`
 	// Details about this log entry.
+	// Example: skipping query "Brooke Adams": not enough search results, got 1, expected 5
 	Message *string `json:"message,omitempty"`
 	// Level indicating the position of a suggestion in a hierarchy of records.  For example, a `contextLevel` of 1 indicates that this suggestion belongs to a previous suggestion with `contextLevel` 0.
+	// Example: 1
 	ContextLevel *int32 `json:"contextLevel,omitempty"`
 }
 
@@ -243,4 +246,29 @@ func (o LogFile) String() string {
 	out += fmt.Sprintf("  contextLevel=%v\n", o.ContextLevel)
 
 	return fmt.Sprintf("LogFile {\n%s}", out)
+}
+
+// LogFileFieldExamples maps each field (by its JSON name) to its spec example value.
+var LogFileFieldExamples = map[string]string{
+	"timestamp":    "2023-07-05T08:03:33.898076171Z",
+	"message":      "skipping query \"Brooke Adams\": not enough search results, got 1, expected 5",
+	"contextLevel": "1",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o LogFile) FieldExample(field string) string {
+	return LogFileFieldExamples[field]
+}
+
+// LogFileFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var LogFileFieldDescriptions = map[string]string{
+	"timestamp":    "Date and time of the log entry, in RFC 3339 format.",
+	"level":        "Type of log entry.\n\n- `SKIP`. A query is skipped because it doesn't match the conditions for successful inclusion. For example, when a query doesn't generate enough search results.\n- `INFO`. An informative log entry.\n- `ERROR`. The Query Suggestions process encountered an error.\n",
+	"message":      "Details about this log entry.",
+	"contextLevel": "Level indicating the position of a suggestion in a hierarchy of records.\n\nFor example, a `contextLevel` of 1 indicates that this suggestion belongs to a previous suggestion with `contextLevel` 0.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o LogFile) FieldDescription(field string) string {
+	return LogFileFieldDescriptions[field]
 }

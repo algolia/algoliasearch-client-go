@@ -192,3 +192,13 @@ func (o ForwardedProps) String() string {
 
 	return fmt.Sprintf("ForwardedProps {\n%s}", out)
 }
+
+// ForwardedPropsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ForwardedPropsFieldDescriptions = map[string]string{
+	"configuration": "Dynamic configuration for testing agents.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ForwardedProps) FieldDescription(field string) string {
+	return ForwardedPropsFieldDescriptions[field]
+}

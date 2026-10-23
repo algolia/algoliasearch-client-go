@@ -291,3 +291,17 @@ func (o ABTestConfiguration) String() string {
 
 	return fmt.Sprintf("ABTestConfiguration {\n%s}", out)
 }
+
+// ABTestConfigurationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ABTestConfigurationFieldDescriptions = map[string]string{
+	"minimumDetectableEffect": "Configuration for the smallest difference between test variants you want to detect, used to estimate the required sample size.",
+	"filters":                 "List of metric filters applied to the test population.",
+	"errorCorrection":         "Multiple-testing correction method applied when evaluating metric significance.",
+	"method":                  "A/B test statistical analysis method.\nWhen omitted, new A/B tests use `bayesian`.\nThey use `frequentist` instead only if no primary metric that supports Bayesian analysis is available.\nThe selected method is saved in the A/B test configuration.\nOlder A/B tests, created before methods were saved, may have no method in their configuration.\nThese tests use `frequentist`.\n",
+	"primaryMetric":           "Primary metric for Bayesian analysis. Required when `method` is `bayesian`.\nWhen `method` is omitted and the test defaults to `bayesian`, the default primary metric is `conversion_rate`,\nor the first metric in `metrics` that supports Bayesian analysis if `metrics` doesn't include conversion rate.\nIf the request includes a non-empty `metrics` list, this metric must be in that list.\nRevenue per search requires access to revenue analytics.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ABTestConfiguration) FieldDescription(field string) string {
+	return ABTestConfigurationFieldDescriptions[field]
+}

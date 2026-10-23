@@ -11,6 +11,7 @@ import (
 // Transformation struct for Transformation.
 type Transformation struct {
 	// Universally unique identifier (UUID) of a transformation.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	TransformationID string `json:"transformationID"`
 	// The authentications associated with the current transformation.
 	AuthenticationIDs []string `json:"authenticationIDs,omitempty"`
@@ -484,4 +485,33 @@ func (o Transformation) String() string {
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 
 	return fmt.Sprintf("Transformation {\n%s}", out)
+}
+
+// TransformationFieldExamples maps each field (by its JSON name) to its spec example value.
+var TransformationFieldExamples = map[string]string{
+	"transformationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Transformation) FieldExample(field string) string {
+	return TransformationFieldExamples[field]
+}
+
+// TransformationFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TransformationFieldDescriptions = map[string]string{
+	"transformationID":  "Universally unique identifier (UUID) of a transformation.",
+	"authenticationIDs": "The authentications associated with the current transformation.",
+	"code":              "It is deprecated. Use the `input` field with proper `type` instead to specify the transformation code.",
+	"type":              "The type of transformation, which can be either 'code' or 'noCode'.",
+	"input":             "The input for the transformation, which can be either code or a no-code configuration.",
+	"name":              "The uniquely identified name of your transformation.",
+	"description":       "A descriptive name for your transformation of what it does.",
+	"owner":             "Owner of the resource.",
+	"createdAt":         "Date and time when the resource was created, in RFC 3339 format.",
+	"updatedAt":         "Date and time when the resource was last updated, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Transformation) FieldDescription(field string) string {
+	return TransformationFieldDescriptions[field]
 }

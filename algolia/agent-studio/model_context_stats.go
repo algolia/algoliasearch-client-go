@@ -212,3 +212,17 @@ func (o ContextStats) String() string {
 
 	return fmt.Sprintf("ContextStats {\n%s}", out)
 }
+
+// ContextStatsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ContextStatsFieldDescriptions = map[string]string{
+	"messagesBefore":       "Message count before the operation.",
+	"messagesAfter":        "Message count after the operation.",
+	"tokensBeforeEstimate": "Estimated token count before the operation.",
+	"tokensAfterEstimate":  "Estimated token count after the operation.",
+	"messagesDropped":      "Net reduction in message count (before - after).",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ContextStats) FieldDescription(field string) string {
+	return ContextStatsFieldDescriptions[field]
+}

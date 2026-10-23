@@ -9,6 +9,7 @@ import (
 // ExternalProvider struct for ExternalProvider.
 type ExternalProvider struct {
 	// Values for non-prefixed configuration placeholders, overriding the composition source's `configurationParams` and the configuration's `defaults`.
+	// Example: {"customer_id":"customer123"}
 	ConfigurationParams map[string]any `json:"configurationParams,omitempty"`
 }
 
@@ -94,4 +95,24 @@ func (o ExternalProvider) String() string {
 	out += fmt.Sprintf("  configurationParams=%v\n", o.ConfigurationParams)
 
 	return fmt.Sprintf("ExternalProvider {\n%s}", out)
+}
+
+// ExternalProviderFieldExamples maps each field (by its JSON name) to its spec example value.
+var ExternalProviderFieldExamples = map[string]string{
+	"configurationParams": "{\"customer_id\":\"customer123\"}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ExternalProvider) FieldExample(field string) string {
+	return ExternalProviderFieldExamples[field]
+}
+
+// ExternalProviderFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ExternalProviderFieldDescriptions = map[string]string{
+	"configurationParams": "Values for non-prefixed configuration placeholders, overriding the composition source's `configurationParams` and the configuration's `defaults`.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ExternalProvider) FieldDescription(field string) string {
+	return ExternalProviderFieldDescriptions[field]
 }

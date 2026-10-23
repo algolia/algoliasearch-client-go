@@ -105,3 +105,13 @@ func (o ListAuthenticationsResponse) String() string {
 
 	return fmt.Sprintf("ListAuthenticationsResponse {\n%s}", out)
 }
+
+// ListAuthenticationsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListAuthenticationsResponseFieldDescriptions = map[string]string{
+	"pagination": "Paginated API response.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListAuthenticationsResponse) FieldDescription(field string) string {
+	return ListAuthenticationsResponseFieldDescriptions[field]
+}

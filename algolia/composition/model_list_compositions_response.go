@@ -11,12 +11,16 @@ type ListCompositionsResponse struct {
 	// All compositions in your Algolia application.
 	Items []Composition `json:"items"`
 	// Number of pages.
+	// Example: 100
 	NbPages int32 `json:"nbPages"`
 	// Current page.
+	// Example: 0
 	Page int32 `json:"page"`
 	// Number of items per page.
+	// Example: 20
 	HitsPerPage int32 `json:"hitsPerPage"`
 	// Number of items.
+	// Example: 200
 	NbHits int32 `json:"nbHits"`
 }
 
@@ -205,4 +209,31 @@ func (o ListCompositionsResponse) String() string {
 	out += fmt.Sprintf("  nbHits=%v\n", o.NbHits)
 
 	return fmt.Sprintf("ListCompositionsResponse {\n%s}", out)
+}
+
+// ListCompositionsResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var ListCompositionsResponseFieldExamples = map[string]string{
+	"nbPages":     "100",
+	"page":        "0",
+	"hitsPerPage": "20",
+	"nbHits":      "200",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ListCompositionsResponse) FieldExample(field string) string {
+	return ListCompositionsResponseFieldExamples[field]
+}
+
+// ListCompositionsResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ListCompositionsResponseFieldDescriptions = map[string]string{
+	"items":       "All compositions in your Algolia application.",
+	"nbPages":     "Number of pages.",
+	"page":        "Current page.",
+	"hitsPerPage": "Number of items per page.",
+	"nbHits":      "Number of items.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ListCompositionsResponse) FieldDescription(field string) string {
+	return ListCompositionsResponseFieldDescriptions[field]
 }

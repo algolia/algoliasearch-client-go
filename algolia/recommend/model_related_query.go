@@ -9,6 +9,7 @@ import (
 // RelatedQuery struct for RelatedQuery.
 type RelatedQuery struct {
 	// Index name (case-sensitive).
+	// Example: products
 	IndexName string `json:"indexName"`
 	// Minimum score a recommendation must have to be included in the response.
 	Threshold float64 `json:"threshold"`
@@ -17,6 +18,7 @@ type RelatedQuery struct {
 	QueryParameters    *RecommendSearchParams `json:"queryParameters,omitempty"`
 	Model              RelatedModel           `json:"model"`
 	// Unique record identifier.
+	// Example: test-record-123
 	ObjectID           string          `json:"objectID"`
 	FallbackParameters *FallbackParams `json:"fallbackParameters,omitempty"`
 }
@@ -326,4 +328,31 @@ func (o RelatedQuery) String() string {
 	out += fmt.Sprintf("  fallbackParameters=%v\n", o.FallbackParameters)
 
 	return fmt.Sprintf("RelatedQuery {\n%s}", out)
+}
+
+// RelatedQueryFieldExamples maps each field (by its JSON name) to its spec example value.
+var RelatedQueryFieldExamples = map[string]string{
+	"indexName": "products",
+	"objectID":  "test-record-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o RelatedQuery) FieldExample(field string) string {
+	return RelatedQueryFieldExamples[field]
+}
+
+// RelatedQueryFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RelatedQueryFieldDescriptions = map[string]string{
+	"indexName":          "Index name (case-sensitive).",
+	"threshold":          "Minimum score a recommendation must have to be included in the response.",
+	"maxRecommendations": "Maximum number of recommendations to retrieve.\nBy default, all recommendations are returned and no fallback request is made.\nDepending on the available recommendations and the other request parameters,\nthe actual number of recommendations may be lower than this value.\n",
+	"queryParameters":    "Search parameters for filtering the recommendations.",
+	"model":              "Related products or similar content model.\n\nThis model recommends items that are similar to the item with the ID `objectID`.\nSimilarity is determined from the user interactions and attributes.\n",
+	"objectID":           "Unique record identifier.",
+	"fallbackParameters": "Search parameters to use for a fallback request if there aren't enough recommendations.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RelatedQuery) FieldDescription(field string) string {
+	return RelatedQueryFieldDescriptions[field]
 }

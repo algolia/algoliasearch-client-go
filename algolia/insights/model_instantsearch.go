@@ -12,12 +12,16 @@ type Instantsearch struct {
 	EventName string             `json:"eventName"`
 	EventType InstantsearchEvent `json:"eventType"`
 	// Anonymous or pseudonymous user identifier.  Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: test-user-1
 	UserToken string `json:"userToken"`
 	// Identifier for authenticated users.  When the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`. This lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions. Don't use personally identifiable information in user tokens. For more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).
+	// Example: c6a52c02-d0c7-4b53-8ce3-2b8fd202f3f9
 	AuthenticatedUserToken *string `json:"authenticatedUserToken,omitempty"`
 	// Timestamp of the event, measured in milliseconds since the Unix epoch. Must be no older than 30 days. If not provided, we use the time at which the request was received.
+	// Example: 1687193127
 	Timestamp *int64 `json:"timestamp,omitempty"`
 	// Unique identifier for an agent session. Used to correlate instantsearch events with a specific agent interaction.
+	// Example: agent-session-123
 	AgentID *string `json:"agentID,omitempty"`
 }
 
@@ -294,4 +298,31 @@ func (o Instantsearch) String() string {
 	out += fmt.Sprintf("  agentID=%v\n", o.AgentID)
 
 	return fmt.Sprintf("Instantsearch {\n%s}", out)
+}
+
+// InstantsearchFieldExamples maps each field (by its JSON name) to its spec example value.
+var InstantsearchFieldExamples = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"userToken":              "test-user-1",
+	"authenticatedUserToken": "c6a52c02-d0c7-4b53-8ce3-2b8fd202f3f9",
+	"timestamp":              "1687193127",
+	"agentID":                "agent-session-123",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o Instantsearch) FieldExample(field string) string {
+	return InstantsearchFieldExamples[field]
+}
+
+// InstantsearchFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var InstantsearchFieldDescriptions = map[string]string{ //nolint:gosec // spec metadata, not credentials
+	"eventName":              "Event name, up to 64 ASCII characters.\n\nConsider naming events consistently—for example, by adopting Segment's\n[object-action](https://segment.com/academy/collecting-data/naming-conventions-for-clean-data/#the-object-action-framework)\nframework.\n",
+	"userToken":              "Anonymous or pseudonymous user identifier.\n\nDon't use personally identifiable information in user tokens.\nFor more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"authenticatedUserToken": "Identifier for authenticated users.\n\nWhen the user signs in, you can get an identifier from your system and send it as `authenticatedUserToken`.\nThis lets you keep using the `userToken` from before the user signed in, while providing a reliable way to identify users across sessions.\nDon't use personally identifiable information in user tokens.\nFor more information, see [User token](https://www.algolia.com/doc/guides/sending-events/concepts/usertoken).\n",
+	"timestamp":              "Timestamp of the event, measured in milliseconds since the Unix epoch. Must be no older than 30 days.\nIf not provided, we use the time at which the request was received.\n",
+	"agentID":                "Unique identifier for an agent session. Used to correlate instantsearch events with a specific agent interaction.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Instantsearch) FieldDescription(field string) string {
+	return InstantsearchFieldDescriptions[field]
 }

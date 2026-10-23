@@ -73,3 +73,13 @@ func (o CompositionRuleConsequence) String() string {
 
 	return fmt.Sprintf("CompositionRuleConsequence {\n%s}", out)
 }
+
+// CompositionRuleConsequenceFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var CompositionRuleConsequenceFieldDescriptions = map[string]string{
+	"behavior": "An object containing either an `injection` or `multifeed` behavior schema, but not both.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o CompositionRuleConsequence) FieldDescription(field string) string {
+	return CompositionRuleConsequenceFieldDescriptions[field]
+}

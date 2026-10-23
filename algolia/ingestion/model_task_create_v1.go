@@ -9,8 +9,10 @@ import (
 // TaskCreateV1 API request body for creating a task using the V1 shape. Use methods and types that don't contain the V1 suffix.
 type TaskCreateV1 struct {
 	// Universally uniqud identifier (UUID) of a source.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	SourceID string `json:"sourceID"`
 	// Universally unique identifier (UUID) of a destination resource.
+	// Example: 6c02aeb1-775e-418e-870b-1faccd4b2c0f
 	DestinationID string            `json:"destinationID"`
 	Trigger       TaskCreateTrigger `json:"trigger"`
 	Action        ActionType        `json:"action"`
@@ -375,4 +377,31 @@ func (o TaskCreateV1) String() string {
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 
 	return fmt.Sprintf("TaskCreateV1 {\n%s}", out)
+}
+
+// TaskCreateV1FieldExamples maps each field (by its JSON name) to its spec example value.
+var TaskCreateV1FieldExamples = map[string]string{
+	"sourceID":      "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+	"destinationID": "6c02aeb1-775e-418e-870b-1faccd4b2c0f",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o TaskCreateV1) FieldExample(field string) string {
+	return TaskCreateV1FieldExamples[field]
+}
+
+// TaskCreateV1FieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var TaskCreateV1FieldDescriptions = map[string]string{
+	"sourceID":         "Universally uniqud identifier (UUID) of a source.",
+	"destinationID":    "Universally unique identifier (UUID) of a destination resource.",
+	"action":           "Action to perform on the Algolia index.",
+	"enabled":          "Whether the task is enabled.",
+	"failureThreshold": "Maximum accepted percentage of failures for a task run to finish successfully.",
+	"input":            "Configuration of the task, depending on its type.",
+	"cursor":           "Date and time when the last cursor was created, in RFC 3339 format.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o TaskCreateV1) FieldDescription(field string) string {
+	return TaskCreateV1FieldDescriptions[field]
 }

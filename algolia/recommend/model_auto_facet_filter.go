@@ -145,3 +145,14 @@ func (o AutoFacetFilter) String() string {
 
 	return fmt.Sprintf("AutoFacetFilter {\n%s}", out)
 }
+
+// AutoFacetFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AutoFacetFilterFieldDescriptions = map[string]string{
+	"facet":    "Facet attribute.",
+	"negative": "Whether the filter is negative.\nIf true, recommendations must not have the same value for the `facet` attribute.\nIf false, recommendations must have the same value for the `facet` attribute.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AutoFacetFilter) FieldDescription(field string) string {
+	return AutoFacetFilterFieldDescriptions[field]
+}

@@ -205,3 +205,17 @@ func (o RedirectRuleIndexMetadata) String() string {
 
 	return fmt.Sprintf("RedirectRuleIndexMetadata {\n%s}", out)
 }
+
+// RedirectRuleIndexMetadataFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var RedirectRuleIndexMetadataFieldDescriptions = map[string]string{
+	"source":  "Source index for the redirect rule.",
+	"dest":    "Destination index for the redirect rule.",
+	"reason":  "Reason for the redirect rule.",
+	"succeed": "Redirect rule status.",
+	"data":    "Redirect rule data.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o RedirectRuleIndexMetadata) FieldDescription(field string) string {
+	return RedirectRuleIndexMetadataFieldDescriptions[field]
+}

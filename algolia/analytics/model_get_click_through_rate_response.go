@@ -11,10 +11,13 @@ import (
 // GetClickThroughRateResponse struct for GetClickThroughRateResponse.
 type GetClickThroughRateResponse struct {
 	// Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches. If null, Algolia didn't receive any search requests with `clickAnalytics` set to true.
+	// Example: 0.49
 	Rate utils.Nullable[float64] `json:"rate"`
 	// Number of clicks associated with this search.
+	// Example: 162
 	ClickCount int32 `json:"clickCount"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
+	// Example: 2
 	TrackedSearchCount int32 `json:"trackedSearchCount"`
 	// Daily click-through rates.
 	Dates []DailyClickThroughRates `json:"dates"`
@@ -181,4 +184,29 @@ func (o GetClickThroughRateResponse) String() string {
 	out += fmt.Sprintf("  dates=%v\n", o.Dates)
 
 	return fmt.Sprintf("GetClickThroughRateResponse {\n%s}", out)
+}
+
+// GetClickThroughRateResponseFieldExamples maps each field (by its JSON name) to its spec example value.
+var GetClickThroughRateResponseFieldExamples = map[string]string{
+	"rate":               "0.49",
+	"clickCount":         "162",
+	"trackedSearchCount": "2",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o GetClickThroughRateResponse) FieldExample(field string) string {
+	return GetClickThroughRateResponseFieldExamples[field]
+}
+
+// GetClickThroughRateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var GetClickThroughRateResponseFieldDescriptions = map[string]string{
+	"rate":               "Click-through rate: calculated as the number of tracked searches with at least one click event divided by the number of tracked searches.\nIf null, Algolia didn't receive any search requests with `clickAnalytics` set to true.\n",
+	"clickCount":         "Number of clicks associated with this search.",
+	"trackedSearchCount": "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
+	"dates":              "Daily click-through rates.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o GetClickThroughRateResponse) FieldDescription(field string) string {
+	return GetClickThroughRateResponseFieldDescriptions[field]
 }

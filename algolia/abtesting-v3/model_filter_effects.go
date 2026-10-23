@@ -143,3 +143,14 @@ func (o FilterEffects) String() string {
 
 	return fmt.Sprintf("FilterEffects {\n%s}", out)
 }
+
+// FilterEffectsFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var FilterEffectsFieldDescriptions = map[string]string{
+	"outliers":    "Outliers removed from the A/B test as a result of configuration settings.",
+	"emptySearch": "Empty searches removed from the A/B test as a result of configuration settings.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o FilterEffects) FieldDescription(field string) string {
+	return FilterEffectsFieldDescriptions[field]
+}

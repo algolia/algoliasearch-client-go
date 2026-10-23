@@ -249,3 +249,13 @@ func (o UserMessageV5) String() string {
 
 	return fmt.Sprintf("UserMessageV5 {\n%s}", out)
 }
+
+// UserMessageV5FieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var UserMessageV5FieldDescriptions = map[string]string{
+	"metadata": "Client-supplied metadata on a v5 user message.\n\n`turn_context` is namespaced so other callers can use `metadata` for unrelated\npurposes without collision. Unknown keys are preserved and ignored by this pipeline.\n\n`turn_context` accepts any JSON object (arbitrarily nested values, no size caps).\nA value that cannot be serialized as JSON is rejected with a 422.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o UserMessageV5) FieldDescription(field string) string {
+	return UserMessageV5FieldDescriptions[field]
+}

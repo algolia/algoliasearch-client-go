@@ -163,3 +163,15 @@ func (o Series) String() string {
 
 	return fmt.Sprintf("Series {\n%s}", out)
 }
+
+// SeriesFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SeriesFieldDescriptions = map[string]string{
+	"key":    "The `groupBy` values identifying this series. Absent when the query has no `groupBy`.",
+	"totals": "Metric totals over the whole period.",
+	"dates":  "Per-day metric breakdown.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o Series) FieldDescription(field string) string {
+	return SeriesFieldDescriptions[field]
+}

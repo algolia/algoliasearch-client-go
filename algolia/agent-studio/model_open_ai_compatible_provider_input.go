@@ -138,3 +138,13 @@ func (o OpenAICompatibleProviderInput) String() string {
 
 	return fmt.Sprintf("OpenAICompatibleProviderInput {\n%s}", out)
 }
+
+// OpenAICompatibleProviderInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var OpenAICompatibleProviderInputFieldDescriptions = map[string]string{
+	"defaultModel": "Default model for this provider. Used for validation and as fallback when no model is specified at agent level.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o OpenAICompatibleProviderInput) FieldDescription(field string) string {
+	return OpenAICompatibleProviderInputFieldDescriptions[field]
+}

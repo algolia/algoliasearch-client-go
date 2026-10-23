@@ -11,6 +11,7 @@ type ExternalInjection struct {
 	// An objectID injected from an external source and also present in the targeted index.
 	ObjectID string `json:"objectID"`
 	// User-defined key-values that will be added to the injected item in the response. This is identical to Hits metadata defined in Composition or Composition Rule, with the benefit of being set at runtime.
+	// Example: {"my-field":"my-value"}
 	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
@@ -129,4 +130,25 @@ func (o ExternalInjection) String() string {
 	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 
 	return fmt.Sprintf("ExternalInjection {\n%s}", out)
+}
+
+// ExternalInjectionFieldExamples maps each field (by its JSON name) to its spec example value.
+var ExternalInjectionFieldExamples = map[string]string{
+	"metadata": "{\"my-field\":\"my-value\"}",
+}
+
+// FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
+func (o ExternalInjection) FieldExample(field string) string {
+	return ExternalInjectionFieldExamples[field]
+}
+
+// ExternalInjectionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var ExternalInjectionFieldDescriptions = map[string]string{
+	"objectID": "An objectID injected from an external source and also present in the targeted index.",
+	"metadata": "User-defined key-values that will be added to the injected item in the response.\nThis is identical to Hits metadata defined in Composition or Composition Rule,\nwith the benefit of being set at runtime.\n",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o ExternalInjection) FieldDescription(field string) string {
+	return ExternalInjectionFieldDescriptions[field]
 }

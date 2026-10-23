@@ -173,3 +173,16 @@ func (o SearchRulesResponse) String() string {
 
 	return fmt.Sprintf("SearchRulesResponse {\n%s}", out)
 }
+
+// SearchRulesResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var SearchRulesResponseFieldDescriptions = map[string]string{
+	"hits":    "Rules that matched the search criteria.",
+	"nbHits":  "Number of rules that matched the search criteria.",
+	"page":    "Current page.",
+	"nbPages": "Number of pages.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o SearchRulesResponse) FieldDescription(field string) string {
+	return SearchRulesResponseFieldDescriptions[field]
+}
