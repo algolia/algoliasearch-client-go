@@ -6,16 +6,20 @@ import (
 	"fmt"
 )
 
-// PrimaryMetric Primary metric for Bayesian analysis. Required when `method` is `bayesian`. When `method` is omitted and the test defaults to `bayesian`, the default primary metric is `conversion_rate`, or the first metric in `metrics` that supports Bayesian analysis if `metrics` doesn't include conversion rate. If the request includes a non-empty `metrics` list, this metric must be in that list. Revenue per search requires access to revenue analytics.
+// PrimaryMetric Primary metric for Bayesian analysis. Required when `method` is `bayesian`. When `method` is omitted and the test defaults to `bayesian`, the default primary metric is `conversion_rate`, or the first metric in `metrics` that supports Bayesian analysis if `metrics` doesn't include conversion rate. If the request includes a non-empty `metrics` list, this metric must be in that list. User-level rates (`*_users_rate`) are the share of tracked users with at least one such search. Add-to-cart rates, purchase rates, and revenue per search require access to revenue analytics.
 type PrimaryMetric string
 
 // List of PrimaryMetric.
 const (
-	PRIMARY_METRIC_ADD_TO_CART_RATE   PrimaryMetric = "add_to_cart_rate"
-	PRIMARY_METRIC_CLICK_THROUGH_RATE PrimaryMetric = "click_through_rate"
-	PRIMARY_METRIC_CONVERSION_RATE    PrimaryMetric = "conversion_rate"
-	PRIMARY_METRIC_PURCHASE_RATE      PrimaryMetric = "purchase_rate"
-	PRIMARY_METRIC_REVENUE_PER_SEARCH PrimaryMetric = "revenue_per_search"
+	PRIMARY_METRIC_ADD_TO_CART_RATE       PrimaryMetric = "add_to_cart_rate"
+	PRIMARY_METRIC_CLICK_THROUGH_RATE     PrimaryMetric = "click_through_rate"
+	PRIMARY_METRIC_CONVERSION_RATE        PrimaryMetric = "conversion_rate"
+	PRIMARY_METRIC_PURCHASE_RATE          PrimaryMetric = "purchase_rate"
+	PRIMARY_METRIC_REVENUE_PER_SEARCH     PrimaryMetric = "revenue_per_search"
+	PRIMARY_METRIC_ADD_TO_CART_USERS_RATE PrimaryMetric = "add_to_cart_users_rate"
+	PRIMARY_METRIC_CLICKED_USERS_RATE     PrimaryMetric = "clicked_users_rate"
+	PRIMARY_METRIC_CONVERTED_USERS_RATE   PrimaryMetric = "converted_users_rate"
+	PRIMARY_METRIC_PURCHASE_USERS_RATE    PrimaryMetric = "purchase_users_rate"
 )
 
 // All allowed values of PrimaryMetric enum.
@@ -25,6 +29,10 @@ var AllowedPrimaryMetricEnumValues = []PrimaryMetric{
 	"conversion_rate",
 	"purchase_rate",
 	"revenue_per_search",
+	"add_to_cart_users_rate",
+	"clicked_users_rate",
+	"converted_users_rate",
+	"purchase_users_rate",
 }
 
 // NewPrimaryMetricFromValue returns a pointer to a valid PrimaryMetric.

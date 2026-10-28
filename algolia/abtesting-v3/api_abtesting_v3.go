@@ -1574,7 +1574,7 @@ GetTimeseries calls the API and returns the raw response from it.
 	  @param id int32 - Unique A/B test identifier.
 	  @param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	  @param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	  @param metric []MetricName - List of metrics to retrieve. If not specified, all metrics are returned.
+	  @param metric []MetricName - Metrics to retrieve, as a comma-separated list. If not specified, all metrics are returned.
 
 
 	  @param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
@@ -1637,7 +1637,7 @@ Request can be constructed by NewApiGetTimeseriesRequest with parameters below.
 	@param id int32 - Unique A/B test identifier.
 	@param startDate string - Start date of the period to analyze, in `YYYY-MM-DD` format.
 	@param endDate string - End date of the period to analyze, in `YYYY-MM-DD` format.
-	@param metric []MetricName - List of metrics to retrieve. If not specified, all metrics are returned.
+	@param metric []MetricName - Metrics to retrieve, as a comma-separated list. If not specified, all metrics are returned.
 
 
 	@param methods []AnalysisMethod - Statistical analysis results to include, as a comma-separated list. When omitted, each test uses its configured method, or `frequentist` if no method is configured. Request both methods to include both sets of available results. This doesn't change the test configuration or compute missing results. Duplicate values aren't allowed.
