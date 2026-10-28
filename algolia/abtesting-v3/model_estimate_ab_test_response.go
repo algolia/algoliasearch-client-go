@@ -11,7 +11,7 @@ type EstimateABTestResponse struct {
 	// Estimated number of days needed to reach the sample sizes required for detecting the configured effect. This value is based on historical traffic.
 	// Example: 21
 	DurationDays *int64 `json:"durationDays,omitempty"`
-	// Sample size estimates for each variant. The first element is the control variant. Each element is the estimated number of searches required to achieve the desired statistical significance.
+	// Sample size estimates for each variant. The first element is the control variant. Each element is the estimated number of searches, or users for user-level rates (metrics ending in `UsersRate`), required to achieve the desired statistical significance.
 	SampleSizes []int64 `json:"sampleSizes,omitempty"`
 }
 
@@ -160,7 +160,7 @@ func (o EstimateABTestResponse) FieldExample(field string) string {
 // EstimateABTestResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var EstimateABTestResponseFieldDescriptions = map[string]string{
 	"durationDays": "Estimated number of days needed to reach the sample sizes required for detecting the configured effect. This value is based on historical traffic.",
-	"sampleSizes":  "Sample size estimates for each variant. The first element is the control variant.\nEach element is the estimated number of searches required to achieve the desired statistical significance.\n",
+	"sampleSizes":  "Sample size estimates for each variant. The first element is the control variant.\nEach element is the estimated number of searches, or users for user-level rates (metrics ending in `UsersRate`), required to achieve the desired statistical significance.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.

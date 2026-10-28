@@ -6,16 +6,20 @@ import (
 	"fmt"
 )
 
-// EffectMetric Metric for which you want to detect the smallest relative difference.
+// EffectMetric Metric for which you want to detect the smallest relative difference. Metrics ending in `UsersRate` are user-level rates: the share of tracked users with at least one search with a click, conversion, add-to-cart, or purchase. For these metrics, sample sizes count users instead of searches.
 type EffectMetric string
 
 // List of EffectMetric.
 const (
-	EFFECT_METRIC_ADD_TO_CART_RATE   EffectMetric = "addToCartRate"
-	EFFECT_METRIC_CLICK_THROUGH_RATE EffectMetric = "clickThroughRate"
-	EFFECT_METRIC_CONVERSION_RATE    EffectMetric = "conversionRate"
-	EFFECT_METRIC_PURCHASE_RATE      EffectMetric = "purchaseRate"
-	EFFECT_METRIC_NO_RESULTS_RATE    EffectMetric = "noResultsRate"
+	EFFECT_METRIC_ADD_TO_CART_RATE       EffectMetric = "addToCartRate"
+	EFFECT_METRIC_CLICK_THROUGH_RATE     EffectMetric = "clickThroughRate"
+	EFFECT_METRIC_CONVERSION_RATE        EffectMetric = "conversionRate"
+	EFFECT_METRIC_PURCHASE_RATE          EffectMetric = "purchaseRate"
+	EFFECT_METRIC_NO_RESULTS_RATE        EffectMetric = "noResultsRate"
+	EFFECT_METRIC_ADD_TO_CART_USERS_RATE EffectMetric = "addToCartUsersRate"
+	EFFECT_METRIC_CLICKED_USERS_RATE     EffectMetric = "clickedUsersRate"
+	EFFECT_METRIC_CONVERTED_USERS_RATE   EffectMetric = "convertedUsersRate"
+	EFFECT_METRIC_PURCHASE_USERS_RATE    EffectMetric = "purchaseUsersRate"
 )
 
 // All allowed values of EffectMetric enum.
@@ -25,6 +29,10 @@ var AllowedEffectMetricEnumValues = []EffectMetric{
 	"conversionRate",
 	"purchaseRate",
 	"noResultsRate",
+	"addToCartUsersRate",
+	"clickedUsersRate",
+	"convertedUsersRate",
+	"purchaseUsersRate",
 }
 
 // NewEffectMetricFromValue returns a pointer to a valid EffectMetric.

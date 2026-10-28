@@ -11,7 +11,7 @@ type Variant struct {
 	// Description for this variant.
 	// Example: Current production index
 	Description string `json:"description"`
-	// Estimated number of searches required to achieve the desired statistical significance.  The A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.
+	// Estimated number of searches, or users for user-level rates (metrics ending in `UsersRate`), required to achieve the desired statistical significance.  The A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.
 	// Example: 0
 	EstimatedSampleSize *int32 `json:"estimatedSampleSize,omitempty"`
 	// Index name of the A/B test variant (case-sensitive).
@@ -352,7 +352,7 @@ func (o Variant) FieldExample(field string) string {
 // VariantFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var VariantFieldDescriptions = map[string]string{
 	"description":            "Description for this variant.",
-	"estimatedSampleSize":    "Estimated number of searches required to achieve the desired statistical significance.\n\nThe A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.\n",
+	"estimatedSampleSize":    "Estimated number of searches, or users for user-level rates (metrics ending in `UsersRate`), required to achieve the desired statistical significance.\n\nThe A/B test configuration must include a `minimumDetectableEffect` setting for this number to be included in the response.\n",
 	"index":                  "Index name of the A/B test variant (case-sensitive).",
 	"trafficPercentage":      "Percentage of search requests each variant receives.",
 	"metrics":                "All ABTest metrics that were defined during test creation.",
