@@ -18,7 +18,7 @@ type Composition struct {
 	// Example: my lovely crafted composition that is used for X purpose
 	Description *string             `json:"description,omitempty"`
 	Behavior    CompositionBehavior `json:"behavior"`
-	// A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. The sorting indices MUST be related to the associated main targeted index in the composition. Each key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.  When a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced with the sorting strategy index it is mapped to.  Up to 20 sorting strategies can be defined.
+	// A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. When the composition is run, the API ignores a sorting index that is unrelated to the targeted indices. The response reports it in the `errors` field. Each key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.  When a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced with the sorting strategy index it is mapped to.  Up to 20 sorting strategies can be defined.
 	// Example: {"Price (asc)":"products-low-to-high","Price (desc)":"products-high-to-low"}
 	SortingStrategy *map[string]string `json:"sortingStrategy,omitempty"`
 }
@@ -269,7 +269,7 @@ var CompositionFieldDescriptions = map[string]string{
 	"name":            "Composition name.",
 	"description":     "Composition description.",
 	"behavior":        "An object containing either an `injection` or `multifeed` behavior schema, but not both.",
-	"sortingStrategy": "A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. The sorting indices MUST be related to the associated main targeted index in the composition.\nEach key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.\n\nWhen a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced\nwith the sorting strategy index it is mapped to.\n\nUp to 20 sorting strategies can be defined.\n",
+	"sortingStrategy": "A mapping of sorting labels to the indices (or replicas) that implement those sorting rules. When the composition is run, the API ignores a sorting index that is unrelated to the targeted indices. The response reports it in the `errors` field.\nEach key is the label your frontend sends at runtime (for example, \"Price (asc)\"), and each value is the name of the index that should be queried when that label is selected.\n\nWhen a request includes a \"sortBy\" parameter, the platform looks up the corresponding index in this mapping and uses it to execute the query. The main targeted index is replaced\nwith the sorting strategy index it is mapped to.\n\nUp to 20 sorting strategies can be defined.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.

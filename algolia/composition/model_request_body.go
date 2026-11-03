@@ -13,6 +13,9 @@ type RequestBody struct {
 	// Example: ["feed-1","feed-3"]
 	FeedsOrder       []string          `json:"feedsOrder,omitempty"`
 	ExternalProvider *ExternalProvider `json:"externalProvider,omitempty"`
+	// Per-feed parameters for `multifeed` compositions. Each key is a feed ID.  Feed `params` take precedence over the root `params`. A feed inherits every root key it doesn't set. A feed value replaces the root value instead of combining with it. This applies to every key, including `filters`, `facetFilters`, `optionalFilters`, and `analyticsTags`. For example, `filters` must repeat the common values. An empty value such as `filters: \"\"` discards the root value.  The API validates feed `params` like the root `params`. An unsupported parameter returns a 400 error.  A feed ID may not exist in the composition (for example, because a rule removed it). The response reports it in the `errors` field but request still succeeds.  Rules match once per request, against the root `params` only.
+	// Example: {"organic":{"params":{"filters":"category:shoes","hitsPerPage":20}},"banner":{"params":{"hitsPerPage":2,"sortBy":""}}}
+	Feeds *map[string]FeedRequest `json:"feeds,omitempty"`
 }
 
 type RequestBodyOption func(f *RequestBody)
@@ -32,6 +35,12 @@ func WithRequestBodyFeedsOrder(val []string) RequestBodyOption {
 func WithRequestBodyExternalProvider(val ExternalProvider) RequestBodyOption {
 	return func(f *RequestBody) {
 		f.ExternalProvider = &val
+	}
+}
+
+func WithRequestBodyFeeds(val map[string]FeedRequest) RequestBodyOption {
+	return func(f *RequestBody) {
+		f.Feeds = &val
 	}
 }
 
@@ -164,6 +173,43 @@ func (o *RequestBody) SetExternalProvider(v *ExternalProvider) *RequestBody {
 	return o
 }
 
+// GetFeeds returns the Feeds field value if set, zero value otherwise.
+func (o *RequestBody) GetFeeds() map[string]FeedRequest {
+	if o == nil || o.Feeds == nil {
+		var ret map[string]FeedRequest
+
+		return ret
+	}
+
+	return *o.Feeds
+}
+
+// GetFeedsOk returns a tuple with the Feeds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestBody) GetFeedsOk() (*map[string]FeedRequest, bool) {
+	if o == nil || o.Feeds == nil {
+		return nil, false
+	}
+
+	return o.Feeds, true
+}
+
+// HasFeeds returns a boolean if a field has been set.
+func (o *RequestBody) HasFeeds() bool {
+	if o != nil && o.Feeds != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFeeds gets a reference to the given map[string]FeedRequest and assigns it to the Feeds field.
+func (o *RequestBody) SetFeeds(v map[string]FeedRequest) *RequestBody {
+	o.Feeds = &v
+
+	return o
+}
+
 func (o RequestBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Params != nil {
@@ -176,6 +222,10 @@ func (o RequestBody) MarshalJSON() ([]byte, error) {
 
 	if o.ExternalProvider != nil {
 		toSerialize["externalProvider"] = o.ExternalProvider
+	}
+
+	if o.Feeds != nil {
+		toSerialize["feeds"] = o.Feeds
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -191,6 +241,7 @@ func (o RequestBody) String() string {
 	out += fmt.Sprintf("  params=%v\n", o.Params)
 	out += fmt.Sprintf("  feedsOrder=%v\n", o.FeedsOrder)
 	out += fmt.Sprintf("  externalProvider=%v\n", o.ExternalProvider)
+	out += fmt.Sprintf("  feeds=%v\n", o.Feeds)
 
 	return fmt.Sprintf("RequestBody {\n%s}", out)
 }
@@ -198,6 +249,7 @@ func (o RequestBody) String() string {
 // RequestBodyFieldExamples maps each field (by its JSON name) to its spec example value.
 var RequestBodyFieldExamples = map[string]string{
 	"feedsOrder": "[\"feed-1\",\"feed-3\"]",
+	"feeds":      "{\"organic\":{\"params\":{\"filters\":\"category:shoes\",\"hitsPerPage\":20}},\"banner\":{\"params\":{\"hitsPerPage\":2,\"sortBy\":\"\"}}}",
 }
 
 // FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
@@ -208,6 +260,7 @@ func (o RequestBody) FieldExample(field string) string {
 // RequestBodyFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var RequestBodyFieldDescriptions = map[string]string{
 	"feedsOrder": "A list of Feed IDs that specifies the order in which to order the results in the response. \nThe IDs should be a subset of those in the `feeds` object of the targeted `multifeed` Composition / Composition Rule, and only those specified will be processed. \n\nThe value overrides the value in the defined behavior, and when unspecified, the value defined in the behavior is used. When neither value is present, all feeds are processed.\n",
+	"feeds":      "Per-feed parameters for `multifeed` compositions. Each key is a feed ID.\n\nFeed `params` take precedence over the root `params`.\nA feed inherits every root key it doesn't set.\nA feed value replaces the root value instead of combining with it.\nThis applies to every key, including `filters`, `facetFilters`, `optionalFilters`, and `analyticsTags`.\nFor example, `filters` must repeat the common values.\nAn empty value such as `filters: \"\"` discards the root value.\n\nThe API validates feed `params` like the root `params`.\nAn unsupported parameter returns a 400 error.\n\nA feed ID may not exist in the composition (for example, because a rule removed it).\nThe response reports it in the `errors` field but request still succeeds.\n\nRules match once per request, against the root `params` only.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
