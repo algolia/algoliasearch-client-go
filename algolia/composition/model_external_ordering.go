@@ -6,17 +6,19 @@ import (
 	"fmt"
 )
 
-// ExternalOrdering Ordering to apply on the injected items coming from the external source. 'default' means the items will be ordered as they are in the index (natural relevance) in the smart group. 'userDefined' means the order in which the objectIDs are provided in the run request payload will be preserved in the smart group.
+// ExternalOrdering Ordering to apply on the injected items coming from the external source. 'algoliaDefined' means the items will be ordered as they are in the index (natural relevance) in the smart group. 'userDefined' means the order in which the objectIDs are provided in the run request payload will be preserved in the smart group.
 type ExternalOrdering string
 
 // List of externalOrdering.
 const (
-	EXTERNAL_ORDERING_DEFAULT      ExternalOrdering = "default"
-	EXTERNAL_ORDERING_USER_DEFINED ExternalOrdering = "userDefined"
+	EXTERNAL_ORDERING_ALGOLIA_DEFINED ExternalOrdering = "algoliaDefined"
+	EXTERNAL_ORDERING_DEFAULT         ExternalOrdering = "default"
+	EXTERNAL_ORDERING_USER_DEFINED    ExternalOrdering = "userDefined"
 )
 
 // All allowed values of ExternalOrdering enum.
 var AllowedExternalOrderingEnumValues = []ExternalOrdering{
+	"algoliaDefined",
 	"default",
 	"userDefined",
 }

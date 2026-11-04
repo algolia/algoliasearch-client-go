@@ -193,7 +193,7 @@ func (o InjectedItemExternal) FieldExample(field string) string {
 // InjectedItemExternalFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var InjectedItemExternalFieldDescriptions = map[string]string{
 	"index":    "Algolia index used to retrieve records.",
-	"ordering": "Ordering to apply on the injected items coming from the external source. 'default' means the items will be ordered as they are in the index (natural relevance) in the smart group. 'userDefined' means the order in which the objectIDs are provided in the run request payload will be preserved in the smart group.",
+	"ordering": "Ordering to apply on the injected items coming from the external source. 'algoliaDefined' means the items will be ordered as they are in the index (natural relevance) in the smart group. 'userDefined' means the order in which the objectIDs are provided in the run request payload will be preserved in the smart group.",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
