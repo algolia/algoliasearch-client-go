@@ -8,13 +8,13 @@ import (
 
 // GetNoClickRateResponse struct for GetNoClickRateResponse.
 type GetNoClickRateResponse struct {
-	// No click rate: calculated as the number of tracked searches without clicks divided by the number of tracked searches.
+	// No click rate: calculated as the number of tracked searches with results whose query didn't get any click in the time range, divided by the number of tracked searches with results.
 	// Example: 0.15
 	Rate float64 `json:"rate"`
 	// Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.
 	// Example: 2
 	Count int32 `json:"count"`
-	// Number of times this search was returned as a result without any click.
+	// Number of tracked searches with results whose query didn't get any click in the time range.
 	// Example: 15
 	NoClickCount int32 `json:"noClickCount"`
 	// Daily no click rates.
@@ -191,9 +191,9 @@ func (o GetNoClickRateResponse) FieldExample(field string) string {
 
 // GetNoClickRateResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var GetNoClickRateResponseFieldDescriptions = map[string]string{
-	"rate":         "No click rate: calculated as the number of tracked searches without clicks divided by the number of tracked searches.\n",
+	"rate":         "No click rate: calculated as the number of tracked searches with results whose query didn't get any click in the time range, divided by the number of tracked searches with results.\n",
 	"count":        "Number of tracked searches. Tracked searches are search requests where the `clickAnalytics` parameter is true.",
-	"noClickCount": "Number of times this search was returned as a result without any click.",
+	"noClickCount": "Number of tracked searches with results whose query didn't get any click in the time range.",
 	"dates":        "Daily no click rates.",
 }
 

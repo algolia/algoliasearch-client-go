@@ -1830,9 +1830,12 @@ func (r ApiGetNoClickRateRequest) WithTags(tags string) ApiGetNoClickRateRequest
 /*
 GetNoClickRate calls the API and returns the raw response from it.
 
-	Retrieves the fraction of searches that didn't lead to any click within a time range, including a daily breakdown.
+	Retrieves the fraction of searches whose query didn't lead to any click within a time range, including a daily breakdown.
 
-It also returns the number of tracked searches and tracked searches without clicks.
+Only tracked searches with at least one result are counted.
+A search counts as a search without clicks only when no search for the same query got a click in the time range,
+so the rate for a whole time range is usually lower than its daily rates.
+It also returns the number of these searches and of searches without clicks.
 
 By default, the analyzed period includes the last eight days including the current day.
 
@@ -1896,8 +1899,11 @@ func (c *APIClient) GetNoClickRateWithHTTPInfo(r ApiGetNoClickRateRequest, opts 
 /*
 GetNoClickRate casts the HTTP response body to a defined struct.
 
-Retrieves the fraction of searches that didn't lead to any click within a time range, including a daily breakdown.
-It also returns the number of tracked searches and tracked searches without clicks.
+Retrieves the fraction of searches whose query didn't lead to any click within a time range, including a daily breakdown.
+Only tracked searches with at least one result are counted.
+A search counts as a search without clicks only when no search for the same query got a click in the time range,
+so the rate for a whole time range is usually lower than its daily rates.
+It also returns the number of these searches and of searches without clicks.
 
 By default, the analyzed period includes the last eight days including the current day.
 
