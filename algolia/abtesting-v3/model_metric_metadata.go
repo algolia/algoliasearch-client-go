@@ -13,6 +13,9 @@ type MetricMetadata struct {
 	// Mean value for this metric.
 	// Example: 53.7
 	Mean *float64 `json:"mean,omitempty"`
+	// Only present for `winsorized_revenue_per_user`. Number of tracked users in this variant with a tracked purchase in the metric's currency (`dimension`), plus tracked users with no tracked purchase in any currency. Users who purchased only in other currencies are excluded. It's the sample size behind the mean, p-value, and intervals, and differs from the overall `user_count` metric. Omitted when the variant has no record for that currency.
+	// Example: 4100
+	UserCount *int64 `json:"userCount,omitempty"`
 }
 
 type MetricMetadataOption func(f *MetricMetadata)
@@ -26,6 +29,12 @@ func WithMetricMetadataWinsorizedValue(val float64) MetricMetadataOption {
 func WithMetricMetadataMean(val float64) MetricMetadataOption {
 	return func(f *MetricMetadata) {
 		f.Mean = &val
+	}
+}
+
+func WithMetricMetadataUserCount(val int64) MetricMetadataOption {
+	return func(f *MetricMetadata) {
+		f.UserCount = &val
 	}
 }
 
@@ -121,6 +130,43 @@ func (o *MetricMetadata) SetMean(v float64) *MetricMetadata {
 	return o
 }
 
+// GetUserCount returns the UserCount field value if set, zero value otherwise.
+func (o *MetricMetadata) GetUserCount() int64 {
+	if o == nil || o.UserCount == nil {
+		var ret int64
+
+		return ret
+	}
+
+	return *o.UserCount
+}
+
+// GetUserCountOk returns a tuple with the UserCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricMetadata) GetUserCountOk() (*int64, bool) {
+	if o == nil || o.UserCount == nil {
+		return nil, false
+	}
+
+	return o.UserCount, true
+}
+
+// HasUserCount returns a boolean if a field has been set.
+func (o *MetricMetadata) HasUserCount() bool {
+	if o != nil && o.UserCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserCount gets a reference to the given int64 and assigns it to the UserCount field.
+func (o *MetricMetadata) SetUserCount(v int64) *MetricMetadata {
+	o.UserCount = &v
+
+	return o
+}
+
 func (o MetricMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.WinsorizedValue != nil {
@@ -129,6 +175,10 @@ func (o MetricMetadata) MarshalJSON() ([]byte, error) {
 
 	if o.Mean != nil {
 		toSerialize["mean"] = o.Mean
+	}
+
+	if o.UserCount != nil {
+		toSerialize["userCount"] = o.UserCount
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -143,13 +193,15 @@ func (o MetricMetadata) String() string {
 	out := ""
 	out += fmt.Sprintf("  winsorizedValue=%v\n", o.WinsorizedValue)
 	out += fmt.Sprintf("  mean=%v\n", o.Mean)
+	out += fmt.Sprintf("  userCount=%v\n", o.UserCount)
 
 	return fmt.Sprintf("MetricMetadata {\n%s}", out)
 }
 
 // MetricMetadataFieldExamples maps each field (by its JSON name) to its spec example value.
 var MetricMetadataFieldExamples = map[string]string{
-	"mean": "53.7",
+	"mean":      "53.7",
+	"userCount": "4100",
 }
 
 // FieldExample returns the spec example for a field by its JSON name, or an empty string if the field has no example.
@@ -161,6 +213,7 @@ func (o MetricMetadata) FieldExample(field string) string {
 var MetricMetadataFieldDescriptions = map[string]string{
 	"winsorizedValue": "Only present for `revenue` metrics.\nIt is the amount exceeding the 95th percentile of global revenue transactions involved in the AB Test. This amount is not considered when calculating statistical significance.\nIt is tied to a per revenue-currency pair contrary to other\nglobal filter effects (such as outliers and empty search count).\n",
 	"mean":            "Mean value for this metric.",
+	"userCount":       "Only present for `winsorized_revenue_per_user`.\nNumber of tracked users in this variant with a tracked purchase in the metric's currency (`dimension`), plus tracked users with no tracked purchase in any currency.\nUsers who purchased only in other currencies are excluded.\nIt's the sample size behind the mean, p-value, and intervals, and differs from the overall `user_count` metric.\nOmitted when the variant has no record for that currency.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.

@@ -20,7 +20,7 @@ type MetricResult struct {
 	ValueCILow *float64 `json:"valueCILow,omitempty"`
 	// P-value for this variant compared to the control. Omitted when no p-value is available for this metric.
 	PValue *float64 `json:"pValue,omitempty"`
-	// Dimension defined during test creation. For revenue metrics, including `revenue_per_search`, this is the currency.
+	// Dimension defined during test creation. For revenue metrics, including `revenue_per_search` and `winsorized_revenue_per_user`, this is the currency.
 	Dimension *string         `json:"dimension,omitempty"`
 	Metadata  *MetricMetadata `json:"metadata,omitempty"`
 	// The value that was computed during error correction. It is used to determine significance of the metric pValue. The critical value is calculated using Bonferroni or Benjamini-Hochberg corrections, based on the given configuration during the A/B test creation.
@@ -553,7 +553,7 @@ var MetricResultFieldDescriptions = map[string]string{
 	"valueCIHigh":   "The upper bound of the 95% confidence interval for the metric value. The confidence interval is calculated using\neither the relative ratio or relative difference between the metric values for the control and the variant.\nRelative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate),\nwhile relative difference is used for continuous metrics (e.g., revenue).\n",
 	"valueCILow":    "The lower bound of the 95% confidence interval for the metric value. The confidence interval is calculated using\neither the relative ratio or relative difference between the metric values for the control and the variant.\nRelative ratio is used for metrics that are ratios (e.g., click-through rate, conversion rate),\nwhile relative difference is used for continuous metrics (e.g., revenue).\n",
 	"pValue":        "P-value for this variant compared to the control.\nOmitted when no p-value is available for this metric.\n",
-	"dimension":     "Dimension defined during test creation. For revenue metrics, including `revenue_per_search`, this is the currency.",
+	"dimension":     "Dimension defined during test creation. For revenue metrics, including `revenue_per_search` and `winsorized_revenue_per_user`, this is the currency.",
 	"metadata":      "Metric specific metadata.",
 	"criticalValue": "The value that was computed during error correction. It is used to determine significance of the metric pValue.\nThe critical value is calculated using Bonferroni or Benjamini-Hochberg corrections, based on the given\nconfiguration during the A/B test creation.\n",
 	"significant":   "Whether the pValue is significant or not based on the critical value and the error correction algorithm used.\n",

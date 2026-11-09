@@ -38,6 +38,7 @@ const (
 	METRIC_NAME_CONVERTED_USERS_RATE             MetricName = "converted_users_rate"
 	METRIC_NAME_ADD_TO_CART_USERS_RATE           MetricName = "add_to_cart_users_rate"
 	METRIC_NAME_PURCHASE_USERS_RATE              MetricName = "purchase_users_rate"
+	METRIC_NAME_USERS_WITH_NO_RESULTS_RATE       MetricName = "users_with_no_results_rate"
 	METRIC_NAME_AVG_CLICK_THROUGH_RATE_PER_USER  MetricName = "avg_click_through_rate_per_user"
 	METRIC_NAME_AVG_CONVERSION_RATE_PER_USER     MetricName = "avg_conversion_rate_per_user"
 	METRIC_NAME_AVG_PURCHASE_RATE_PER_USER       MetricName = "avg_purchase_rate_per_user"
@@ -76,6 +77,7 @@ var AllowedMetricNameEnumValues = []MetricName{
 	"converted_users_rate",
 	"add_to_cart_users_rate",
 	"purchase_users_rate",
+	"users_with_no_results_rate",
 	"avg_click_through_rate_per_user",
 	"avg_conversion_rate_per_user",
 	"avg_purchase_rate_per_user",
