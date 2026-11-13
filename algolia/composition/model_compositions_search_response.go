@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-// CompositionsSearchResponse struct for CompositionsSearchResponse.
+// CompositionsSearchResponse Information about the compositions processed by the run request. Only present when `getRankingInfo` is `true`.
 type CompositionsSearchResponse struct {
 	Run                  []CompositionRunSearchResponse `json:"run"`
 	AdditionalProperties map[string]any                 `json:"-"`
