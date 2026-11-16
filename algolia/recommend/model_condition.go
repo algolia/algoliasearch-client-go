@@ -13,7 +13,8 @@ type Condition struct {
 	Filters *string `json:"filters,omitempty"`
 	// An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter. For example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`. A rule context must only contain alphanumeric characters.
 	// Example: mobile
-	Context *string `json:"context,omitempty"`
+	Context      *string       `json:"context,omitempty"`
+	RequestScope *RequestScope `json:"requestScope,omitempty"`
 }
 
 type ConditionOption func(f *Condition)
@@ -27,6 +28,12 @@ func WithConditionFilters(val string) ConditionOption {
 func WithConditionContext(val string) ConditionOption {
 	return func(f *Condition) {
 		f.Context = &val
+	}
+}
+
+func WithConditionRequestScope(val RequestScope) ConditionOption {
+	return func(f *Condition) {
+		f.RequestScope = &val
 	}
 }
 
@@ -122,6 +129,43 @@ func (o *Condition) SetContext(v string) *Condition {
 	return o
 }
 
+// GetRequestScope returns the RequestScope field value if set, zero value otherwise.
+func (o *Condition) GetRequestScope() RequestScope {
+	if o == nil || o.RequestScope == nil {
+		var ret RequestScope
+
+		return ret
+	}
+
+	return *o.RequestScope
+}
+
+// GetRequestScopeOk returns a tuple with the RequestScope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Condition) GetRequestScopeOk() (*RequestScope, bool) {
+	if o == nil || o.RequestScope == nil {
+		return nil, false
+	}
+
+	return o.RequestScope, true
+}
+
+// HasRequestScope returns a boolean if a field has been set.
+func (o *Condition) HasRequestScope() bool {
+	if o != nil && o.RequestScope != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestScope gets a reference to the given RequestScope and assigns it to the RequestScope field.
+func (o *Condition) SetRequestScope(v *RequestScope) *Condition {
+	o.RequestScope = v
+
+	return o
+}
+
 func (o Condition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Filters != nil {
@@ -130,6 +174,10 @@ func (o Condition) MarshalJSON() ([]byte, error) {
 
 	if o.Context != nil {
 		toSerialize["context"] = o.Context
+	}
+
+	if o.RequestScope != nil {
+		toSerialize["requestScope"] = o.RequestScope
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -144,6 +192,7 @@ func (o Condition) String() string {
 	out := ""
 	out += fmt.Sprintf("  filters=%v\n", o.Filters)
 	out += fmt.Sprintf("  context=%v\n", o.Context)
+	out += fmt.Sprintf("  requestScope=%v\n", o.RequestScope)
 
 	return fmt.Sprintf("Condition {\n%s}", out)
 }
@@ -161,8 +210,9 @@ func (o Condition) FieldExample(field string) string {
 
 // ConditionFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var ConditionFieldDescriptions = map[string]string{
-	"filters": "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
-	"context": "An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter.\nFor example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`.\nA rule context must only contain alphanumeric characters.\n",
+	"filters":      "Filter expression to only include items that match the filter criteria in the response.\n\nYou can use these filter expressions:\n\n- **Numeric filters.** `<facet> <op> <number>`, where `<op>` is one of `<`, `<=`, `=`, `!=`, `>`, `>=`.\n- **Ranges.** `<facet>:<lower> TO <upper>`, where `<lower>` and `<upper>` are the lower and upper limits of the range (inclusive).\n- **Facet filters.** `<facet>:<value>`, where `<facet>` is a facet attribute (case-sensitive) and `<value>` a facet value.\n- **Tag filters.** `_tags:<value>` or just `<value>` (case-sensitive).\n- **Boolean filters.** `<facet>: true | false`.\n\nYou can combine filters with `AND`, `OR`, and `NOT` operators with the following restrictions:\n\n- You can only combine filters of the same type with `OR`.\n  **Not supported:** `facet:value OR num > 3`.\n- You can't use `NOT` with combinations of filters.\n  **Not supported:** `NOT(facet:value OR facet:value)`\n- You can't combine conjunctions (`AND`) with `OR`.\n  **Not supported:** `facet:value OR (facet:value AND facet:value)`\n\nUse quotes if the facet attribute name or facet value contains spaces, keywords (`OR`, `AND`, `NOT`), or quotes.\nIf a facet attribute is an array, the filter matches if it matches at least one element of the array.\n\nFor more information, see [Filters](https://www.algolia.com/doc/guides/managing-results/refine-results/filtering).\n",
+	"context":      "An additional restriction that only triggers the rule, when the search has the same value as `ruleContexts` parameter.\nFor example, if `context: mobile`, the rule is only triggered when the search request has a matching `ruleContexts: mobile`.\nA rule context must only contain alphanumeric characters.\n",
+	"requestScope": "Facet that a Trending Items request must target for the rule to apply.\n\nOnly available for the `trending-items` model.\nRules without `requestScope` apply to all Trending Items requests.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.

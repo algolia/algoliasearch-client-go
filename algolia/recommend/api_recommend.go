@@ -188,6 +188,10 @@ Recommend Rules are similar to Search Rules, except that the conditions and cons
 - Consequence `params` only covers filtering parameters.
 - Consequence `automaticFacetFilters` doesn't require a facet value placeholder (it tries to match the data source item's attributes instead).
 
+Trending Items requests have no source item, so rules for the `trending-items` model differ:
+- Condition `filters` and consequence `automaticFacetFilters` are unavailable.
+- Condition `requestScope` applies the rule to requests without a facet, or to requests for a specific facet.
+
 	    Required API Key ACLs:
 	    - editSettings
 
@@ -251,6 +255,10 @@ Recommend Rules are similar to Search Rules, except that the conditions and cons
 - Condition `filters` accepts numeric filters.
 - Consequence `params` only covers filtering parameters.
 - Consequence `automaticFacetFilters` doesn't require a facet value placeholder (it tries to match the data source item's attributes instead).
+
+Trending Items requests have no source item, so rules for the `trending-items` model differ:
+- Condition `filters` and consequence `automaticFacetFilters` are unavailable.
+- Condition `requestScope` applies the rule to requests without a facet, or to requests for a specific facet.
 
 Required API Key ACLs:
   - editSettings

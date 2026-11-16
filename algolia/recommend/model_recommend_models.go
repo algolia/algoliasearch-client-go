@@ -13,16 +13,16 @@ type RecommendModels string
 const (
 	RECOMMEND_MODELS_RELATED_PRODUCTS RecommendModels = "related-products"
 	RECOMMEND_MODELS_BOUGHT_TOGETHER  RecommendModels = "bought-together"
-	RECOMMEND_MODELS_TRENDING_FACETS  RecommendModels = "trending-facets"
 	RECOMMEND_MODELS_TRENDING_ITEMS   RecommendModels = "trending-items"
+	RECOMMEND_MODELS_LOOKING_SIMILAR  RecommendModels = "looking-similar"
 )
 
 // All allowed values of RecommendModels enum.
 var AllowedRecommendModelsEnumValues = []RecommendModels{
 	"related-products",
 	"bought-together",
-	"trending-facets",
 	"trending-items",
+	"looking-similar",
 }
 
 // NewRecommendModelsFromValue returns a pointer to a valid RecommendModels.
