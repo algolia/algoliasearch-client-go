@@ -8,16 +8,17 @@ import (
 
 // MetricsFilter Boolean filter applied to the A/B test population. Each filter targets a boolean metric and decides whether to include (true) or exclude (false) matching records.
 type MetricsFilter struct {
-	// Metric domain (for example `abtesting`, `personalization`).
+	// Metric domain (for example `abtesting`, `core`, `personalization`).
 	// Example: abtesting
 	Domain string `json:"domain"`
 	// Public metric name.
 	// Example: isOutlier
 	Name string `json:"name"`
-	// Whether the experiment should record the effects of this filter.
+	// Whether the experiment should record the effects of this filter. Not supported by `core.hasExactCategoryFilter`.
 	TrackEffects *bool `json:"trackEffects,omitempty"`
-	// If true, keep items that match the filter; if false, exclude them.
-	Includes *bool `json:"includes,omitempty"`
+	// If true, keep items that match the filter; if false, exclude them. Defaults to false.
+	Includes   *bool                    `json:"includes,omitempty"`
+	Parameters *MetricsFilterParameters `json:"parameters,omitempty"`
 }
 
 type MetricsFilterOption func(f *MetricsFilter)
@@ -31,6 +32,12 @@ func WithMetricsFilterTrackEffects(val bool) MetricsFilterOption {
 func WithMetricsFilterIncludes(val bool) MetricsFilterOption {
 	return func(f *MetricsFilter) {
 		f.Includes = &val
+	}
+}
+
+func WithMetricsFilterParameters(val MetricsFilterParameters) MetricsFilterOption {
+	return func(f *MetricsFilter) {
+		f.Parameters = &val
 	}
 }
 
@@ -185,6 +192,43 @@ func (o *MetricsFilter) SetIncludes(v bool) *MetricsFilter {
 	return o
 }
 
+// GetParameters returns the Parameters field value if set, zero value otherwise.
+func (o *MetricsFilter) GetParameters() MetricsFilterParameters {
+	if o == nil || o.Parameters == nil {
+		var ret MetricsFilterParameters
+
+		return ret
+	}
+
+	return *o.Parameters
+}
+
+// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricsFilter) GetParametersOk() (*MetricsFilterParameters, bool) {
+	if o == nil || o.Parameters == nil {
+		return nil, false
+	}
+
+	return o.Parameters, true
+}
+
+// HasParameters returns a boolean if a field has been set.
+func (o *MetricsFilter) HasParameters() bool {
+	if o != nil && o.Parameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParameters gets a reference to the given MetricsFilterParameters and assigns it to the Parameters field.
+func (o *MetricsFilter) SetParameters(v *MetricsFilterParameters) *MetricsFilter {
+	o.Parameters = v
+
+	return o
+}
+
 func (o MetricsFilter) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["domain"] = o.Domain
@@ -196,6 +240,10 @@ func (o MetricsFilter) MarshalJSON() ([]byte, error) {
 
 	if o.Includes != nil {
 		toSerialize["includes"] = o.Includes
+	}
+
+	if o.Parameters != nil {
+		toSerialize["parameters"] = o.Parameters
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -212,6 +260,7 @@ func (o MetricsFilter) String() string {
 	out += fmt.Sprintf("  name=%v\n", o.Name)
 	out += fmt.Sprintf("  trackEffects=%v\n", o.TrackEffects)
 	out += fmt.Sprintf("  includes=%v\n", o.Includes)
+	out += fmt.Sprintf("  parameters=%v\n", o.Parameters)
 
 	return fmt.Sprintf("MetricsFilter {\n%s}", out)
 }
@@ -229,10 +278,11 @@ func (o MetricsFilter) FieldExample(field string) string {
 
 // MetricsFilterFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var MetricsFilterFieldDescriptions = map[string]string{
-	"domain":       "Metric domain (for example `abtesting`, `personalization`).",
+	"domain":       "Metric domain (for example `abtesting`, `core`, `personalization`).",
 	"name":         "Public metric name.",
-	"trackEffects": "Whether the experiment should record the effects of this filter.",
-	"includes":     "If true, keep items that match the filter; if false, exclude them.",
+	"trackEffects": "Whether the experiment should record the effects of this filter. Not supported by `core.hasExactCategoryFilter`.",
+	"includes":     "If true, keep items that match the filter; if false, exclude them. Defaults to false.",
+	"parameters":   "Values for a filter that needs them.\nThe `core.hasExactCategoryFilter` filter requires both properties and matches the searches that had the exact filter `<filterAttribute>:<filterValue>`.\nOptional filters and filters in an OR group don't match.\nWith `includes` false or omitted, the test counts every search except those searches.\nA test can have at most one `core.hasExactCategoryFilter` filter.\nOther filters don't accept parameters.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
