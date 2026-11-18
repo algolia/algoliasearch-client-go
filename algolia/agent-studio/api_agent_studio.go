@@ -3605,7 +3605,7 @@ GetAgent calls the API and returns the raw response from it.
 	  Retrieve details of the specified agent.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiGetAgentRequest with parameters below.
 	  @param agentId string - The agentId.
@@ -3649,7 +3649,7 @@ GetAgent casts the HTTP response body to a defined struct.
 Retrieve details of the specified agent.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiGetAgentRequest with parameters below.
 
@@ -3732,7 +3732,7 @@ GetAllowedDomain calls the API and returns the raw response from it.
 	  Get a single allowed domain by id.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiGetAllowedDomainRequest with parameters below.
 	  @param domainId string - The domainId.
@@ -3782,7 +3782,7 @@ GetAllowedDomain casts the HTTP response body to a defined struct.
 Get a single allowed domain by id.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiGetAllowedDomainRequest with parameters below.
 
@@ -4159,7 +4159,7 @@ GetProvider calls the API and returns the raw response from it.
 	  Get Provider.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiGetProviderRequest with parameters below.
 	  @param providerId string - The providerId.
@@ -4203,7 +4203,7 @@ GetProvider casts the HTTP response body to a defined struct.
 Get Provider.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiGetProviderRequest with parameters below.
 
@@ -4635,7 +4635,7 @@ ListAgentAllowedDomains calls the API and returns the raw response from it.
 	  List all allowed domain patterns for this agent.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiListAgentAllowedDomainsRequest with parameters below.
 	  @param agentId string - The agentId.
@@ -4679,7 +4679,7 @@ ListAgentAllowedDomains casts the HTTP response body to a defined struct.
 List all allowed domain patterns for this agent.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiListAgentAllowedDomainsRequest with parameters below.
 
@@ -5170,7 +5170,7 @@ ListAgents calls the API and returns the raw response from it.
 	  List all agents with pagination and filtering.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiListAgentsRequest with parameters below.
 	  @param page int32 - Page number.
@@ -5223,7 +5223,7 @@ ListAgents casts the HTTP response body to a defined struct.
 List all agents with pagination and filtering.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiListAgentsRequest with parameters below.
 
@@ -5371,7 +5371,7 @@ ListProviderModels calls the API and returns the raw response from it.
 	  Get available models for a specific provider.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiListProviderModelsRequest with parameters below.
 	  @param providerId string - The providerId.
@@ -5415,7 +5415,7 @@ ListProviderModels casts the HTTP response body to a defined struct.
 Get available models for a specific provider.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiListProviderModelsRequest with parameters below.
 
@@ -5509,7 +5509,7 @@ ListProviders calls the API and returns the raw response from it.
 	  List Providers.
 
 	    Required API Key ACLs:
-	    - settings
+	    - editSettings
 
 	Request can be constructed by NewApiListProvidersRequest with parameters below.
 	  @param page int32 - Page number.
@@ -5557,7 +5557,7 @@ ListProviders casts the HTTP response body to a defined struct.
 List Providers.
 
 Required API Key ACLs:
-  - settings
+  - editSettings
 
 Request can be constructed by NewApiListProvidersRequest with parameters below.
 

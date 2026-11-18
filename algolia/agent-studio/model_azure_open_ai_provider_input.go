@@ -14,10 +14,17 @@ type AzureOpenAIProviderInput struct {
 	AzureEndpoint string `json:"azureEndpoint"`
 	// Azure model deployment name.
 	AzureDeployment string                 `json:"azureDeployment"`
+	ApiMode         *ApiModeEnum           `json:"apiMode,omitempty"`
 	ApiVersion      utils.Nullable[string] `json:"apiVersion,omitempty"`
 }
 
 type AzureOpenAIProviderInputOption func(f *AzureOpenAIProviderInput)
+
+func WithAzureOpenAIProviderInputApiMode(val ApiModeEnum) AzureOpenAIProviderInputOption {
+	return func(f *AzureOpenAIProviderInput) {
+		f.ApiMode = &val
+	}
+}
 
 func WithAzureOpenAIProviderInputApiVersion(val utils.Nullable[string]) AzureOpenAIProviderInputOption {
 	return func(f *AzureOpenAIProviderInput) {
@@ -136,6 +143,43 @@ func (o *AzureOpenAIProviderInput) SetAzureDeployment(v string) *AzureOpenAIProv
 	return o
 }
 
+// GetApiMode returns the ApiMode field value if set, zero value otherwise.
+func (o *AzureOpenAIProviderInput) GetApiMode() ApiModeEnum {
+	if o == nil || o.ApiMode == nil {
+		var ret ApiModeEnum
+
+		return ret
+	}
+
+	return *o.ApiMode
+}
+
+// GetApiModeOk returns a tuple with the ApiMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AzureOpenAIProviderInput) GetApiModeOk() (*ApiModeEnum, bool) {
+	if o == nil || o.ApiMode == nil {
+		return nil, false
+	}
+
+	return o.ApiMode, true
+}
+
+// HasApiMode returns a boolean if a field has been set.
+func (o *AzureOpenAIProviderInput) HasApiMode() bool {
+	if o != nil && o.ApiMode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApiMode gets a reference to the given ApiModeEnum and assigns it to the ApiMode field.
+func (o *AzureOpenAIProviderInput) SetApiMode(v ApiModeEnum) *AzureOpenAIProviderInput {
+	o.ApiMode = &v
+
+	return o
+}
+
 // GetApiVersion returns the ApiVersion field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AzureOpenAIProviderInput) GetApiVersion() string {
 	if o == nil || o.ApiVersion.Get() == nil {
@@ -190,6 +234,10 @@ func (o AzureOpenAIProviderInput) MarshalJSON() ([]byte, error) {
 	toSerialize["azureEndpoint"] = o.AzureEndpoint
 
 	toSerialize["azureDeployment"] = o.AzureDeployment
+	if o.ApiMode != nil {
+		toSerialize["apiMode"] = o.ApiMode
+	}
+
 	if o.ApiVersion.IsSet() {
 		toSerialize["apiVersion"] = o.ApiVersion.Get()
 	}
@@ -207,6 +255,7 @@ func (o AzureOpenAIProviderInput) String() string {
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
 	out += fmt.Sprintf("  azureEndpoint=%v\n", o.AzureEndpoint)
 	out += fmt.Sprintf("  azureDeployment=%v\n", o.AzureDeployment)
+	out += fmt.Sprintf("  apiMode=%v\n", o.ApiMode)
 	out += fmt.Sprintf("  apiVersion=%v\n", o.ApiVersion)
 
 	return fmt.Sprintf("AzureOpenAIProviderInput {\n%s}", out)

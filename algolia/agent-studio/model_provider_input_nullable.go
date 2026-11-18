@@ -13,8 +13,10 @@ type ProviderInputNullable struct {
 	AnthropicProviderInput        *AnthropicProviderInput
 	AzureOpenAIProviderInput      *AzureOpenAIProviderInput
 	BaseProviderInput             *BaseProviderInput
+	MistralProviderInput          *MistralProviderInput
 	OpenAICompatibleProviderInput *OpenAICompatibleProviderInput
 	OpenAIProviderInput           *OpenAIProviderInput
+	VertexAIProviderInput         *VertexAIProviderInput
 	XAIProviderInput              *XAIProviderInput
 }
 
@@ -57,6 +59,20 @@ func AnthropicProviderInputAsProviderInputNullable(v *AnthropicProviderInput) *P
 func XAIProviderInputAsProviderInputNullable(v *XAIProviderInput) *ProviderInputNullable {
 	return &ProviderInputNullable{
 		XAIProviderInput: v,
+	}
+}
+
+// MistralProviderInputAsProviderInputNullable is a convenience function that returns MistralProviderInput wrapped in ProviderInputNullable.
+func MistralProviderInputAsProviderInputNullable(v *MistralProviderInput) *ProviderInputNullable {
+	return &ProviderInputNullable{
+		MistralProviderInput: v,
+	}
+}
+
+// VertexAIProviderInputAsProviderInputNullable is a convenience function that returns VertexAIProviderInput wrapped in ProviderInputNullable.
+func VertexAIProviderInputAsProviderInputNullable(v *VertexAIProviderInput) *ProviderInputNullable {
+	return &ProviderInputNullable{
+		VertexAIProviderInput: v,
 	}
 }
 
@@ -106,6 +122,16 @@ func (dst *ProviderInputNullable) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.XAIProviderInput = nil
 	}
+	// try to unmarshal data into MistralProviderInput
+	err = json.Unmarshal(data, &dst.MistralProviderInput)
+	if err != nil {
+		dst.MistralProviderInput = nil
+	}
+	// try to unmarshal data into VertexAIProviderInput
+	err = json.Unmarshal(data, &dst.VertexAIProviderInput)
+	if err != nil {
+		dst.VertexAIProviderInput = nil
+	}
 
 	// check if at least one type was successfully unmarshaled
 	if dst.AnthropicProviderInput != nil {
@@ -120,11 +146,19 @@ func (dst *ProviderInputNullable) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	if dst.MistralProviderInput != nil {
+		return nil
+	}
+
 	if dst.OpenAICompatibleProviderInput != nil {
 		return nil
 	}
 
 	if dst.OpenAIProviderInput != nil {
+		return nil
+	}
+
+	if dst.VertexAIProviderInput != nil {
 		return nil
 	}
 
@@ -164,6 +198,15 @@ func (src ProviderInputNullable) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.MistralProviderInput != nil {
+		serialized, err := json.Marshal(&src.MistralProviderInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of MistralProviderInput of ProviderInputNullable: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.OpenAICompatibleProviderInput != nil {
 		serialized, err := json.Marshal(&src.OpenAICompatibleProviderInput)
 		if err != nil {
@@ -177,6 +220,15 @@ func (src ProviderInputNullable) MarshalJSON() ([]byte, error) {
 		serialized, err := json.Marshal(&src.OpenAIProviderInput)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal one of OpenAIProviderInput of ProviderInputNullable: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	if src.VertexAIProviderInput != nil {
+		serialized, err := json.Marshal(&src.VertexAIProviderInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of VertexAIProviderInput of ProviderInputNullable: %w", err)
 		}
 
 		return serialized, nil
@@ -208,12 +260,20 @@ func (obj ProviderInputNullable) GetActualInstance() any {
 		return *obj.BaseProviderInput
 	}
 
+	if obj.MistralProviderInput != nil {
+		return *obj.MistralProviderInput
+	}
+
 	if obj.OpenAICompatibleProviderInput != nil {
 		return *obj.OpenAICompatibleProviderInput
 	}
 
 	if obj.OpenAIProviderInput != nil {
 		return *obj.OpenAIProviderInput
+	}
+
+	if obj.VertexAIProviderInput != nil {
+		return *obj.VertexAIProviderInput
 	}
 
 	if obj.XAIProviderInput != nil {

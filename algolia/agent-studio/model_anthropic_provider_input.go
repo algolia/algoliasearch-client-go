@@ -12,6 +12,8 @@ import (
 type AnthropicProviderInput struct {
 	ApiKey  string                 `json:"apiKey"`
 	BaseUrl utils.Nullable[string] `json:"baseUrl,omitempty"`
+	// Required for API keys not scoped to a single workspace (sk-ant-usr-...). Sent as the anthropic-workspace-id header on every request.
+	WorkspaceId utils.Nullable[string] `json:"workspaceId,omitempty"`
 }
 
 type AnthropicProviderInputOption func(f *AnthropicProviderInput)
@@ -19,6 +21,12 @@ type AnthropicProviderInputOption func(f *AnthropicProviderInput)
 func WithAnthropicProviderInputBaseUrl(val utils.Nullable[string]) AnthropicProviderInputOption {
 	return func(f *AnthropicProviderInput) {
 		f.BaseUrl = val
+	}
+}
+
+func WithAnthropicProviderInputWorkspaceId(val utils.Nullable[string]) AnthropicProviderInputOption {
+	return func(f *AnthropicProviderInput) {
+		f.WorkspaceId = val
 	}
 }
 
@@ -118,12 +126,64 @@ func (o *AnthropicProviderInput) UnsetBaseUrl() {
 	o.BaseUrl.Unset()
 }
 
+// GetWorkspaceId returns the WorkspaceId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AnthropicProviderInput) GetWorkspaceId() string {
+	if o == nil || o.WorkspaceId.Get() == nil {
+		var ret string
+
+		return ret
+	}
+
+	return *o.WorkspaceId.Get()
+}
+
+// GetWorkspaceIdOk returns a tuple with the WorkspaceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *AnthropicProviderInput) GetWorkspaceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+
+	return o.WorkspaceId.Get(), o.WorkspaceId.IsSet()
+}
+
+// HasWorkspaceId returns a boolean if a field has been set.
+func (o *AnthropicProviderInput) HasWorkspaceId() bool {
+	if o != nil && o.WorkspaceId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceId gets a reference to the given utils.Nullable[string] and assigns it to the WorkspaceId field.
+func (o *AnthropicProviderInput) SetWorkspaceId(v string) *AnthropicProviderInput {
+	o.WorkspaceId.Set(&v)
+
+	return o
+}
+
+// SetWorkspaceIdNil sets the value for WorkspaceId to be an explicit nil.
+func (o *AnthropicProviderInput) SetWorkspaceIdNil() {
+	o.WorkspaceId.Set(nil)
+}
+
+// UnsetWorkspaceId ensures that no value is present for WorkspaceId, not even an explicit nil.
+func (o *AnthropicProviderInput) UnsetWorkspaceId() {
+	o.WorkspaceId.Unset()
+}
+
 func (o AnthropicProviderInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 
 	toSerialize["apiKey"] = o.ApiKey
 	if o.BaseUrl.IsSet() {
 		toSerialize["baseUrl"] = o.BaseUrl.Get()
+	}
+
+	if o.WorkspaceId.IsSet() {
+		toSerialize["workspaceId"] = o.WorkspaceId.Get()
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -138,6 +198,17 @@ func (o AnthropicProviderInput) String() string {
 	out := ""
 	out += fmt.Sprintf("  apiKey=%v\n", o.ApiKey)
 	out += fmt.Sprintf("  baseUrl=%v\n", o.BaseUrl)
+	out += fmt.Sprintf("  workspaceId=%v\n", o.WorkspaceId)
 
 	return fmt.Sprintf("AnthropicProviderInput {\n%s}", out)
+}
+
+// AnthropicProviderInputFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
+var AnthropicProviderInputFieldDescriptions = map[string]string{
+	"workspaceId": "Required for API keys not scoped to a single workspace (sk-ant-usr-...). Sent as the anthropic-workspace-id header on every request.",
+}
+
+// FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
+func (o AnthropicProviderInput) FieldDescription(field string) string {
+	return AnthropicProviderInputFieldDescriptions[field]
 }

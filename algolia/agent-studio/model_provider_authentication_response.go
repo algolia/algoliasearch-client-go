@@ -10,14 +10,13 @@ import (
 
 // ProviderAuthenticationResponse struct for ProviderAuthenticationResponse.
 type ProviderAuthenticationResponse struct {
-	Id               string                 `json:"id"`
-	Name             string                 `json:"name"`
-	ProviderName     string                 `json:"providerName"`
-	Input            InputUnion             `json:"input"`
-	CreatedAt        string                 `json:"createdAt"`
-	UpdatedAt        string                 `json:"updatedAt"`
-	LastUsedAt       utils.Nullable[string] `json:"lastUsedAt,omitempty"`
-	IsAlgoliaManaged *bool                  `json:"isAlgoliaManaged,omitempty"`
+	Id           string                                   `json:"id"`
+	Name         string                                   `json:"name"`
+	ProviderName string                                   `json:"providerName"`
+	Input        InputUnionProviderAuthenticationResponse `json:"input"`
+	CreatedAt    string                                   `json:"createdAt"`
+	UpdatedAt    string                                   `json:"updatedAt"`
+	LastUsedAt   utils.Nullable[string]                   `json:"lastUsedAt,omitempty"`
 }
 
 type ProviderAuthenticationResponseOption func(f *ProviderAuthenticationResponse)
@@ -25,12 +24,6 @@ type ProviderAuthenticationResponseOption func(f *ProviderAuthenticationResponse
 func WithProviderAuthenticationResponseLastUsedAt(val utils.Nullable[string]) ProviderAuthenticationResponseOption {
 	return func(f *ProviderAuthenticationResponse) {
 		f.LastUsedAt = val
-	}
-}
-
-func WithProviderAuthenticationResponseIsAlgoliaManaged(val bool) ProviderAuthenticationResponseOption {
-	return func(f *ProviderAuthenticationResponse) {
-		f.IsAlgoliaManaged = &val
 	}
 }
 
@@ -42,7 +35,7 @@ func NewProviderAuthenticationResponse(
 	id string,
 	name string,
 	providerName string,
-	input InputUnion,
+	input InputUnionProviderAuthenticationResponse,
 	createdAt string,
 	updatedAt string,
 	opts ...ProviderAuthenticationResponseOption,
@@ -152,9 +145,9 @@ func (o *ProviderAuthenticationResponse) SetProviderName(v string) *ProviderAuth
 }
 
 // GetInput returns the Input field value.
-func (o *ProviderAuthenticationResponse) GetInput() InputUnion {
+func (o *ProviderAuthenticationResponse) GetInput() InputUnionProviderAuthenticationResponse {
 	if o == nil {
-		var ret InputUnion
+		var ret InputUnionProviderAuthenticationResponse
 
 		return ret
 	}
@@ -164,7 +157,7 @@ func (o *ProviderAuthenticationResponse) GetInput() InputUnion {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *ProviderAuthenticationResponse) GetInputOk() (*InputUnion, bool) {
+func (o *ProviderAuthenticationResponse) GetInputOk() (*InputUnionProviderAuthenticationResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -173,7 +166,7 @@ func (o *ProviderAuthenticationResponse) GetInputOk() (*InputUnion, bool) {
 }
 
 // SetInput sets field value.
-func (o *ProviderAuthenticationResponse) SetInput(v *InputUnion) *ProviderAuthenticationResponse {
+func (o *ProviderAuthenticationResponse) SetInput(v *InputUnionProviderAuthenticationResponse) *ProviderAuthenticationResponse {
 	o.Input = *v
 
 	return o
@@ -283,43 +276,6 @@ func (o *ProviderAuthenticationResponse) UnsetLastUsedAt() {
 	o.LastUsedAt.Unset()
 }
 
-// GetIsAlgoliaManaged returns the IsAlgoliaManaged field value if set, zero value otherwise.
-func (o *ProviderAuthenticationResponse) GetIsAlgoliaManaged() bool {
-	if o == nil || o.IsAlgoliaManaged == nil {
-		var ret bool
-
-		return ret
-	}
-
-	return *o.IsAlgoliaManaged
-}
-
-// GetIsAlgoliaManagedOk returns a tuple with the IsAlgoliaManaged field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProviderAuthenticationResponse) GetIsAlgoliaManagedOk() (*bool, bool) {
-	if o == nil || o.IsAlgoliaManaged == nil {
-		return nil, false
-	}
-
-	return o.IsAlgoliaManaged, true
-}
-
-// HasIsAlgoliaManaged returns a boolean if a field has been set.
-func (o *ProviderAuthenticationResponse) HasIsAlgoliaManaged() bool {
-	if o != nil && o.IsAlgoliaManaged != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIsAlgoliaManaged gets a reference to the given bool and assigns it to the IsAlgoliaManaged field.
-func (o *ProviderAuthenticationResponse) SetIsAlgoliaManaged(v bool) *ProviderAuthenticationResponse {
-	o.IsAlgoliaManaged = &v
-
-	return o
-}
-
 func (o ProviderAuthenticationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["id"] = o.Id
@@ -331,10 +287,6 @@ func (o ProviderAuthenticationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize["updatedAt"] = o.UpdatedAt
 	if o.LastUsedAt.IsSet() {
 		toSerialize["lastUsedAt"] = o.LastUsedAt.Get()
-	}
-
-	if o.IsAlgoliaManaged != nil {
-		toSerialize["isAlgoliaManaged"] = o.IsAlgoliaManaged
 	}
 
 	serialized, err := json.Marshal(toSerialize)
@@ -354,7 +306,6 @@ func (o ProviderAuthenticationResponse) String() string {
 	out += fmt.Sprintf("  createdAt=%v\n", o.CreatedAt)
 	out += fmt.Sprintf("  updatedAt=%v\n", o.UpdatedAt)
 	out += fmt.Sprintf("  lastUsedAt=%v\n", o.LastUsedAt)
-	out += fmt.Sprintf("  isAlgoliaManaged=%v\n", o.IsAlgoliaManaged)
 
 	return fmt.Sprintf("ProviderAuthenticationResponse {\n%s}", out)
 }

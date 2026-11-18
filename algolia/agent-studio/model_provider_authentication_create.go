@@ -8,16 +8,16 @@ import (
 
 // ProviderAuthenticationCreate struct for ProviderAuthenticationCreate.
 type ProviderAuthenticationCreate struct {
-	Name         string        `json:"name"`
-	ProviderName ProviderName  `json:"providerName"`
-	Input        ProviderInput `json:"input"`
+	Name         string       `json:"name"`
+	ProviderName ProviderName `json:"providerName"`
+	Input        InputUnion   `json:"input"`
 }
 
 // NewProviderAuthenticationCreate instantiates a new ProviderAuthenticationCreate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewProviderAuthenticationCreate(name string, providerName ProviderName, input ProviderInput) *ProviderAuthenticationCreate {
+func NewProviderAuthenticationCreate(name string, providerName ProviderName, input InputUnion) *ProviderAuthenticationCreate {
 	this := &ProviderAuthenticationCreate{}
 	this.Name = name
 	this.ProviderName = providerName
@@ -88,9 +88,9 @@ func (o *ProviderAuthenticationCreate) SetProviderName(v ProviderName) *Provider
 }
 
 // GetInput returns the Input field value.
-func (o *ProviderAuthenticationCreate) GetInput() ProviderInput {
+func (o *ProviderAuthenticationCreate) GetInput() InputUnion {
 	if o == nil {
-		var ret ProviderInput
+		var ret InputUnion
 
 		return ret
 	}
@@ -100,7 +100,7 @@ func (o *ProviderAuthenticationCreate) GetInput() ProviderInput {
 
 // GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
-func (o *ProviderAuthenticationCreate) GetInputOk() (*ProviderInput, bool) {
+func (o *ProviderAuthenticationCreate) GetInputOk() (*InputUnion, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -109,7 +109,7 @@ func (o *ProviderAuthenticationCreate) GetInputOk() (*ProviderInput, bool) {
 }
 
 // SetInput sets field value.
-func (o *ProviderAuthenticationCreate) SetInput(v *ProviderInput) *ProviderAuthenticationCreate {
+func (o *ProviderAuthenticationCreate) SetInput(v *InputUnion) *ProviderAuthenticationCreate {
 	o.Input = *v
 
 	return o

@@ -26,6 +26,7 @@ type MessageResponse struct {
 	TurnContext        map[string]any                   `json:"turnContext,omitempty"`
 	Events             []MessageEvent                   `json:"events,omitempty"`
 	Guardrail          utils.Nullable[GuardrailOutcome] `json:"guardrail,omitempty"`
+	Metadata           map[string]any                   `json:"metadata,omitempty"`
 }
 
 type MessageResponseOption func(f *MessageResponse)
@@ -87,6 +88,12 @@ func WithMessageResponseEvents(val []MessageEvent) MessageResponseOption {
 func WithMessageResponseGuardrail(val utils.Nullable[GuardrailOutcome]) MessageResponseOption {
 	return func(f *MessageResponse) {
 		f.Guardrail = val
+	}
+}
+
+func WithMessageResponseMetadata(val map[string]any) MessageResponseOption {
+	return func(f *MessageResponse) {
+		f.Metadata = val
 	}
 }
 
@@ -730,6 +737,44 @@ func (o *MessageResponse) UnsetGuardrail() {
 	o.Guardrail.Unset()
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MessageResponse) GetMetadata() map[string]any {
+	if o == nil {
+		var ret map[string]any
+
+		return ret
+	}
+
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned.
+func (o *MessageResponse) GetMetadataOk() (map[string]any, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *MessageResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]any and assigns it to the Metadata field.
+func (o *MessageResponse) SetMetadata(v map[string]any) *MessageResponse {
+	o.Metadata = v
+
+	return o
+}
+
 func (o MessageResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["id"] = o.Id
@@ -779,6 +824,10 @@ func (o MessageResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["guardrail"] = o.Guardrail.Get()
 	}
 
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal MessageResponse: %w", err)
@@ -805,6 +854,7 @@ func (o MessageResponse) String() string {
 	out += fmt.Sprintf("  turnContext=%v\n", o.TurnContext)
 	out += fmt.Sprintf("  events=%v\n", o.Events)
 	out += fmt.Sprintf("  guardrail=%v\n", o.Guardrail)
+	out += fmt.Sprintf("  metadata=%v\n", o.Metadata)
 
 	return fmt.Sprintf("MessageResponse {\n%s}", out)
 }

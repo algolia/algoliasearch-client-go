@@ -10,20 +10,16 @@ import (
 
 // InputUnion - struct for InputUnion.
 type InputUnion struct {
-	AnthropicProviderInput        *AnthropicProviderInput
-	AzureOpenAIProviderInput      *AzureOpenAIProviderInput
-	BaseProviderInput             *BaseProviderInput
-	ManagedProviderResponseInput  *ManagedProviderResponseInput
-	OpenAICompatibleProviderInput *OpenAICompatibleProviderInput
-	OpenAIProviderInput           *OpenAIProviderInput
-	XAIProviderInput              *XAIProviderInput
-}
-
-// AzureOpenAIProviderInputAsInputUnion is a convenience function that returns AzureOpenAIProviderInput wrapped in InputUnion.
-func AzureOpenAIProviderInputAsInputUnion(v *AzureOpenAIProviderInput) *InputUnion {
-	return &InputUnion{
-		AzureOpenAIProviderInput: v,
-	}
+	AlgoliaManagedLLMCreateInput   *AlgoliaManagedLLMCreateInput
+	AnthropicProviderInput         *AnthropicProviderInput
+	AzureOpenAIProviderCreateInput *AzureOpenAIProviderCreateInput
+	AzureOpenAIProviderInput       *AzureOpenAIProviderInput
+	BaseProviderInput              *BaseProviderInput
+	MistralProviderInput           *MistralProviderInput
+	OpenAICompatibleProviderInput  *OpenAICompatibleProviderInput
+	OpenAIProviderInput            *OpenAIProviderInput
+	VertexAIProviderInput          *VertexAIProviderInput
+	XAIProviderInput               *XAIProviderInput
 }
 
 // OpenAICompatibleProviderInputAsInputUnion is a convenience function that returns OpenAICompatibleProviderInput wrapped in InputUnion.
@@ -33,10 +29,24 @@ func OpenAICompatibleProviderInputAsInputUnion(v *OpenAICompatibleProviderInput)
 	}
 }
 
+// AzureOpenAIProviderCreateInputAsInputUnion is a convenience function that returns AzureOpenAIProviderCreateInput wrapped in InputUnion.
+func AzureOpenAIProviderCreateInputAsInputUnion(v *AzureOpenAIProviderCreateInput) *InputUnion {
+	return &InputUnion{
+		AzureOpenAIProviderCreateInput: v,
+	}
+}
+
 // OpenAIProviderInputAsInputUnion is a convenience function that returns OpenAIProviderInput wrapped in InputUnion.
 func OpenAIProviderInputAsInputUnion(v *OpenAIProviderInput) *InputUnion {
 	return &InputUnion{
 		OpenAIProviderInput: v,
+	}
+}
+
+// AzureOpenAIProviderInputAsInputUnion is a convenience function that returns AzureOpenAIProviderInput wrapped in InputUnion.
+func AzureOpenAIProviderInputAsInputUnion(v *AzureOpenAIProviderInput) *InputUnion {
+	return &InputUnion{
+		AzureOpenAIProviderInput: v,
 	}
 }
 
@@ -61,10 +71,24 @@ func XAIProviderInputAsInputUnion(v *XAIProviderInput) *InputUnion {
 	}
 }
 
-// ManagedProviderResponseInputAsInputUnion is a convenience function that returns ManagedProviderResponseInput wrapped in InputUnion.
-func ManagedProviderResponseInputAsInputUnion(v *ManagedProviderResponseInput) *InputUnion {
+// MistralProviderInputAsInputUnion is a convenience function that returns MistralProviderInput wrapped in InputUnion.
+func MistralProviderInputAsInputUnion(v *MistralProviderInput) *InputUnion {
 	return &InputUnion{
-		ManagedProviderResponseInput: v,
+		MistralProviderInput: v,
+	}
+}
+
+// VertexAIProviderInputAsInputUnion is a convenience function that returns VertexAIProviderInput wrapped in InputUnion.
+func VertexAIProviderInputAsInputUnion(v *VertexAIProviderInput) *InputUnion {
+	return &InputUnion{
+		VertexAIProviderInput: v,
+	}
+}
+
+// AlgoliaManagedLLMCreateInputAsInputUnion is a convenience function that returns AlgoliaManagedLLMCreateInput wrapped in InputUnion.
+func AlgoliaManagedLLMCreateInputAsInputUnion(v *AlgoliaManagedLLMCreateInput) *InputUnion {
+	return &InputUnion{
+		AlgoliaManagedLLMCreateInput: v,
 	}
 }
 
@@ -76,14 +100,6 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 	)
 
 	_ = json.Unmarshal(data, &jsonDict)
-	if utils.HasKey(jsonDict, "azureDeployment") && utils.HasKey(jsonDict, "azureEndpoint") {
-		// try to unmarshal data into AzureOpenAIProviderInput
-		err = json.Unmarshal(data, &dst.AzureOpenAIProviderInput)
-		if err != nil {
-			dst.AzureOpenAIProviderInput = nil
-		}
-	}
-
 	if utils.HasKey(jsonDict, "baseUrl") && utils.HasKey(jsonDict, "defaultModel") {
 		// try to unmarshal data into OpenAICompatibleProviderInput
 		err = json.Unmarshal(data, &dst.OpenAICompatibleProviderInput)
@@ -91,10 +107,20 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 			dst.OpenAICompatibleProviderInput = nil
 		}
 	}
+	// try to unmarshal data into AzureOpenAIProviderCreateInput
+	err = json.Unmarshal(data, &dst.AzureOpenAIProviderCreateInput)
+	if err != nil {
+		dst.AzureOpenAIProviderCreateInput = nil
+	}
 	// try to unmarshal data into OpenAIProviderInput
 	err = json.Unmarshal(data, &dst.OpenAIProviderInput)
 	if err != nil {
 		dst.OpenAIProviderInput = nil
+	}
+	// try to unmarshal data into AzureOpenAIProviderInput
+	err = json.Unmarshal(data, &dst.AzureOpenAIProviderInput)
+	if err != nil {
+		dst.AzureOpenAIProviderInput = nil
 	}
 	// try to unmarshal data into BaseProviderInput
 	err = json.Unmarshal(data, &dst.BaseProviderInput)
@@ -111,14 +137,32 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.XAIProviderInput = nil
 	}
-	// try to unmarshal data into ManagedProviderResponseInput
-	err = json.Unmarshal(data, &dst.ManagedProviderResponseInput)
+	// try to unmarshal data into MistralProviderInput
+	err = json.Unmarshal(data, &dst.MistralProviderInput)
 	if err != nil {
-		dst.ManagedProviderResponseInput = nil
+		dst.MistralProviderInput = nil
+	}
+	// try to unmarshal data into VertexAIProviderInput
+	err = json.Unmarshal(data, &dst.VertexAIProviderInput)
+	if err != nil {
+		dst.VertexAIProviderInput = nil
+	}
+	// try to unmarshal data into AlgoliaManagedLLMCreateInput
+	err = json.Unmarshal(data, &dst.AlgoliaManagedLLMCreateInput)
+	if err != nil {
+		dst.AlgoliaManagedLLMCreateInput = nil
 	}
 
 	// check if at least one type was successfully unmarshaled
+	if dst.AlgoliaManagedLLMCreateInput != nil {
+		return nil
+	}
+
 	if dst.AnthropicProviderInput != nil {
+		return nil
+	}
+
+	if dst.AzureOpenAIProviderCreateInput != nil {
 		return nil
 	}
 
@@ -130,7 +174,7 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if dst.ManagedProviderResponseInput != nil {
+	if dst.MistralProviderInput != nil {
 		return nil
 	}
 
@@ -139,6 +183,10 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 	}
 
 	if dst.OpenAIProviderInput != nil {
+		return nil
+	}
+
+	if dst.VertexAIProviderInput != nil {
 		return nil
 	}
 
@@ -151,10 +199,28 @@ func (dst *InputUnion) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src InputUnion) MarshalJSON() ([]byte, error) {
+	if src.AlgoliaManagedLLMCreateInput != nil {
+		serialized, err := json.Marshal(&src.AlgoliaManagedLLMCreateInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AlgoliaManagedLLMCreateInput of InputUnion: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.AnthropicProviderInput != nil {
 		serialized, err := json.Marshal(&src.AnthropicProviderInput)
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal one of AnthropicProviderInput of InputUnion: %w", err)
+		}
+
+		return serialized, nil
+	}
+
+	if src.AzureOpenAIProviderCreateInput != nil {
+		serialized, err := json.Marshal(&src.AzureOpenAIProviderCreateInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AzureOpenAIProviderCreateInput of InputUnion: %w", err)
 		}
 
 		return serialized, nil
@@ -178,10 +244,10 @@ func (src InputUnion) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
-	if src.ManagedProviderResponseInput != nil {
-		serialized, err := json.Marshal(&src.ManagedProviderResponseInput)
+	if src.MistralProviderInput != nil {
+		serialized, err := json.Marshal(&src.MistralProviderInput)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal one of ManagedProviderResponseInput of InputUnion: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal one of MistralProviderInput of InputUnion: %w", err)
 		}
 
 		return serialized, nil
@@ -205,6 +271,15 @@ func (src InputUnion) MarshalJSON() ([]byte, error) {
 		return serialized, nil
 	}
 
+	if src.VertexAIProviderInput != nil {
+		serialized, err := json.Marshal(&src.VertexAIProviderInput)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of VertexAIProviderInput of InputUnion: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.XAIProviderInput != nil {
 		serialized, err := json.Marshal(&src.XAIProviderInput)
 		if err != nil {
@@ -219,8 +294,16 @@ func (src InputUnion) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj InputUnion) GetActualInstance() any {
+	if obj.AlgoliaManagedLLMCreateInput != nil {
+		return *obj.AlgoliaManagedLLMCreateInput
+	}
+
 	if obj.AnthropicProviderInput != nil {
 		return *obj.AnthropicProviderInput
+	}
+
+	if obj.AzureOpenAIProviderCreateInput != nil {
+		return *obj.AzureOpenAIProviderCreateInput
 	}
 
 	if obj.AzureOpenAIProviderInput != nil {
@@ -231,8 +314,8 @@ func (obj InputUnion) GetActualInstance() any {
 		return *obj.BaseProviderInput
 	}
 
-	if obj.ManagedProviderResponseInput != nil {
-		return *obj.ManagedProviderResponseInput
+	if obj.MistralProviderInput != nil {
+		return *obj.MistralProviderInput
 	}
 
 	if obj.OpenAICompatibleProviderInput != nil {
@@ -241,6 +324,10 @@ func (obj InputUnion) GetActualInstance() any {
 
 	if obj.OpenAIProviderInput != nil {
 		return *obj.OpenAIProviderInput
+	}
+
+	if obj.VertexAIProviderInput != nil {
+		return *obj.VertexAIProviderInput
 	}
 
 	if obj.XAIProviderInput != nil {

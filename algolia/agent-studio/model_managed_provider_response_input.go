@@ -4,32 +4,20 @@ package agentStudio
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/algolia/algoliasearch-client-go/v4/algolia/utils"
 )
 
 // ManagedProviderResponseInput Response input for the Algolia-hosted provider. Limited by design.
 type ManagedProviderResponseInput struct {
-	DefaultModel utils.Nullable[string] `json:"defaultModel,omitempty"`
-}
-
-type ManagedProviderResponseInputOption func(f *ManagedProviderResponseInput)
-
-func WithManagedProviderResponseInputDefaultModel(val utils.Nullable[string]) ManagedProviderResponseInputOption {
-	return func(f *ManagedProviderResponseInput) {
-		f.DefaultModel = val
-	}
+	DefaultModel string `json:"defaultModel"`
 }
 
 // NewManagedProviderResponseInput instantiates a new ManagedProviderResponseInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewManagedProviderResponseInput(opts ...ManagedProviderResponseInputOption) *ManagedProviderResponseInput {
+func NewManagedProviderResponseInput(defaultModel string) *ManagedProviderResponseInput {
 	this := &ManagedProviderResponseInput{}
-	for _, opt := range opts {
-		opt(this)
-	}
+	this.DefaultModel = defaultModel
 
 	return this
 }
@@ -39,59 +27,37 @@ func NewEmptyManagedProviderResponseInput() *ManagedProviderResponseInput {
 	return &ManagedProviderResponseInput{}
 }
 
-// GetDefaultModel returns the DefaultModel field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetDefaultModel returns the DefaultModel field value.
 func (o *ManagedProviderResponseInput) GetDefaultModel() string {
-	if o == nil || o.DefaultModel.Get() == nil {
+	if o == nil {
 		var ret string
 
 		return ret
 	}
 
-	return *o.DefaultModel.Get()
+	return o.DefaultModel
 }
 
-// GetDefaultModelOk returns a tuple with the DefaultModel field value if set, nil otherwise
+// GetDefaultModelOk returns a tuple with the DefaultModel field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned.
 func (o *ManagedProviderResponseInput) GetDefaultModelOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
 
-	return o.DefaultModel.Get(), o.DefaultModel.IsSet()
+	return &o.DefaultModel, true
 }
 
-// HasDefaultModel returns a boolean if a field has been set.
-func (o *ManagedProviderResponseInput) HasDefaultModel() bool {
-	if o != nil && o.DefaultModel.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetDefaultModel gets a reference to the given utils.Nullable[string] and assigns it to the DefaultModel field.
+// SetDefaultModel sets field value.
 func (o *ManagedProviderResponseInput) SetDefaultModel(v string) *ManagedProviderResponseInput {
-	o.DefaultModel.Set(&v)
+	o.DefaultModel = v
 
 	return o
 }
 
-// SetDefaultModelNil sets the value for DefaultModel to be an explicit nil.
-func (o *ManagedProviderResponseInput) SetDefaultModelNil() {
-	o.DefaultModel.Set(nil)
-}
-
-// UnsetDefaultModel ensures that no value is present for DefaultModel, not even an explicit nil.
-func (o *ManagedProviderResponseInput) UnsetDefaultModel() {
-	o.DefaultModel.Unset()
-}
-
 func (o ManagedProviderResponseInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
-	if o.DefaultModel.IsSet() {
-		toSerialize["defaultModel"] = o.DefaultModel.Get()
-	}
+	toSerialize["defaultModel"] = o.DefaultModel
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
