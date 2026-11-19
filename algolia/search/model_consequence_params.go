@@ -154,6 +154,8 @@ type ConsequenceParams struct {
 	Query                         *ConsequenceQuery                    `json:"query,omitempty"`
 	AutomaticFacetFilters         *AutomaticFacetFilters               `json:"automaticFacetFilters,omitempty"`
 	AutomaticOptionalFacetFilters *AutomaticFacetFilters               `json:"automaticOptionalFacetFilters,omitempty"`
+	// Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.  Dynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.
+	AllowReRankingOnPersonalization *bool `json:"allowReRankingOnPersonalization,omitempty"`
 }
 
 type ConsequenceParamsOption func(f *ConsequenceParams)
@@ -611,6 +613,12 @@ func WithConsequenceParamsAutomaticFacetFilters(val AutomaticFacetFilters) Conse
 func WithConsequenceParamsAutomaticOptionalFacetFilters(val AutomaticFacetFilters) ConsequenceParamsOption {
 	return func(f *ConsequenceParams) {
 		f.AutomaticOptionalFacetFilters = &val
+	}
+}
+
+func WithConsequenceParamsAllowReRankingOnPersonalization(val bool) ConsequenceParamsOption {
+	return func(f *ConsequenceParams) {
+		f.AllowReRankingOnPersonalization = &val
 	}
 }
 
@@ -3477,6 +3485,43 @@ func (o *ConsequenceParams) SetAutomaticOptionalFacetFilters(v *AutomaticFacetFi
 	return o
 }
 
+// GetAllowReRankingOnPersonalization returns the AllowReRankingOnPersonalization field value if set, zero value otherwise.
+func (o *ConsequenceParams) GetAllowReRankingOnPersonalization() bool {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AllowReRankingOnPersonalization
+}
+
+// GetAllowReRankingOnPersonalizationOk returns a tuple with the AllowReRankingOnPersonalization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConsequenceParams) GetAllowReRankingOnPersonalizationOk() (*bool, bool) {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		return nil, false
+	}
+
+	return o.AllowReRankingOnPersonalization, true
+}
+
+// HasAllowReRankingOnPersonalization returns a boolean if a field has been set.
+func (o *ConsequenceParams) HasAllowReRankingOnPersonalization() bool {
+	if o != nil && o.AllowReRankingOnPersonalization != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowReRankingOnPersonalization gets a reference to the given bool and assigns it to the AllowReRankingOnPersonalization field.
+func (o *ConsequenceParams) SetAllowReRankingOnPersonalization(v bool) *ConsequenceParams {
+	o.AllowReRankingOnPersonalization = &v
+
+	return o
+}
+
 func (o ConsequenceParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.SimilarQuery != nil {
@@ -3783,6 +3828,10 @@ func (o ConsequenceParams) MarshalJSON() ([]byte, error) {
 		toSerialize["automaticOptionalFacetFilters"] = o.AutomaticOptionalFacetFilters
 	}
 
+	if o.AllowReRankingOnPersonalization != nil {
+		toSerialize["allowReRankingOnPersonalization"] = o.AllowReRankingOnPersonalization
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConsequenceParams: %w", err)
@@ -3869,6 +3918,7 @@ func (o ConsequenceParams) String() string {
 	out += fmt.Sprintf("  query=%v\n", o.Query)
 	out += fmt.Sprintf("  automaticFacetFilters=%v\n", o.AutomaticFacetFilters)
 	out += fmt.Sprintf("  automaticOptionalFacetFilters=%v\n", o.AutomaticOptionalFacetFilters)
+	out += fmt.Sprintf("  allowReRankingOnPersonalization=%v\n", o.AllowReRankingOnPersonalization)
 
 	return fmt.Sprintf("ConsequenceParams {\n%s}", out)
 }
@@ -3974,6 +4024,7 @@ var ConsequenceParamsFieldDescriptions = map[string]string{ //nolint:gosec // sp
 	"query":                                   "Replace or edit the search query.\n\nIf `consequenceQuery` is a string, the entire search query is replaced with that string.\nIf `consequenceQuery` is an object, it describes incremental edits made to the query.\n",
 	"automaticFacetFilters":                   "Filter to be applied to the search.\n\nYou can use this to respond to search queries that match a facet value.\nFor example, if users search for \"comedy\", which matches a facet value of the \"genre\" facet,\nyou can filter the results to show the top-ranked comedy movies.\n",
 	"automaticOptionalFacetFilters":           "Filter to be applied to the search.\n\nYou can use this to respond to search queries that match a facet value.\nFor example, if users search for \"comedy\", which matches a facet value of the \"genre\" facet,\nyou can filter the results to show the top-ranked comedy movies.\n",
+	"allowReRankingOnPersonalization":         "Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.\n\nDynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.

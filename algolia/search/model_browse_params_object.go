@@ -153,6 +153,8 @@ type BrowseParamsObject struct {
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking). This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
 	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
 	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
+	// Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.  Dynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.
+	AllowReRankingOnPersonalization *bool `json:"allowReRankingOnPersonalization,omitempty"`
 	// Cursor to get the next page of the response.  The parameter must match the value returned in the response of a previous request. The last page of the response does not return a `cursor` attribute.
 	// Example: jMDY3M2MwM2QwMWUxMmQwYWI0ZTN
 	Cursor *string `json:"cursor,omitempty"`
@@ -601,6 +603,12 @@ func WithBrowseParamsObjectEnableReRanking(val bool) BrowseParamsObjectOption {
 func WithBrowseParamsObjectReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) BrowseParamsObjectOption {
 	return func(f *BrowseParamsObject) {
 		f.ReRankingApplyFilter = val
+	}
+}
+
+func WithBrowseParamsObjectAllowReRankingOnPersonalization(val bool) BrowseParamsObjectOption {
+	return func(f *BrowseParamsObject) {
+		f.AllowReRankingOnPersonalization = &val
 	}
 }
 
@@ -3399,6 +3407,43 @@ func (o *BrowseParamsObject) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
+// GetAllowReRankingOnPersonalization returns the AllowReRankingOnPersonalization field value if set, zero value otherwise.
+func (o *BrowseParamsObject) GetAllowReRankingOnPersonalization() bool {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AllowReRankingOnPersonalization
+}
+
+// GetAllowReRankingOnPersonalizationOk returns a tuple with the AllowReRankingOnPersonalization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BrowseParamsObject) GetAllowReRankingOnPersonalizationOk() (*bool, bool) {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		return nil, false
+	}
+
+	return o.AllowReRankingOnPersonalization, true
+}
+
+// HasAllowReRankingOnPersonalization returns a boolean if a field has been set.
+func (o *BrowseParamsObject) HasAllowReRankingOnPersonalization() bool {
+	if o != nil && o.AllowReRankingOnPersonalization != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowReRankingOnPersonalization gets a reference to the given bool and assigns it to the AllowReRankingOnPersonalization field.
+func (o *BrowseParamsObject) SetAllowReRankingOnPersonalization(v bool) *BrowseParamsObject {
+	o.AllowReRankingOnPersonalization = &v
+
+	return o
+}
+
 // GetCursor returns the Cursor field value if set, zero value otherwise.
 func (o *BrowseParamsObject) GetCursor() string {
 	if o == nil || o.Cursor == nil {
@@ -3734,6 +3779,10 @@ func (o BrowseParamsObject) MarshalJSON() ([]byte, error) {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 
+	if o.AllowReRankingOnPersonalization != nil {
+		toSerialize["allowReRankingOnPersonalization"] = o.AllowReRankingOnPersonalization
+	}
+
 	if o.Cursor != nil {
 		toSerialize["cursor"] = o.Cursor
 	}
@@ -3822,6 +3871,7 @@ func (o BrowseParamsObject) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+	out += fmt.Sprintf("  allowReRankingOnPersonalization=%v\n", o.AllowReRankingOnPersonalization)
 	out += fmt.Sprintf("  cursor=%v\n", o.Cursor)
 
 	return fmt.Sprintf("BrowseParamsObject {\n%s}", out)
@@ -3927,6 +3977,7 @@ var BrowseParamsObjectFieldDescriptions = map[string]string{ //nolint:gosec // s
 	"renderingContent":                        "Extra data that can be used in the search UI.\n\nYou can use this to control aspects of your search UI, such as the order of facet names and values\nwithout changing your frontend code.\n",
 	"enableReRanking":                         "Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking).\nThis setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.\n",
 	"reRankingApplyFilter":                    "Restrict [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) to records that match these filters.\n",
+	"allowReRankingOnPersonalization":         "Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.\n\nDynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.\n",
 	"cursor":                                  "Cursor to get the next page of the response.\n\nThe parameter must match the value returned in the response of a previous request.\nThe last page of the response does not return a `cursor` attribute.\n",
 }
 

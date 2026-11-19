@@ -153,6 +153,8 @@ type SearchParamsObject struct {
 	// Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking). This setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.
 	EnableReRanking      *bool                                `json:"enableReRanking,omitempty"`
 	ReRankingApplyFilter utils.Nullable[ReRankingApplyFilter] `json:"reRankingApplyFilter,omitempty"`
+	// Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.  Dynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.
+	AllowReRankingOnPersonalization *bool `json:"allowReRankingOnPersonalization,omitempty"`
 }
 
 type SearchParamsObjectOption func(f *SearchParamsObject)
@@ -598,6 +600,12 @@ func WithSearchParamsObjectEnableReRanking(val bool) SearchParamsObjectOption {
 func WithSearchParamsObjectReRankingApplyFilter(val utils.Nullable[ReRankingApplyFilter]) SearchParamsObjectOption {
 	return func(f *SearchParamsObject) {
 		f.ReRankingApplyFilter = val
+	}
+}
+
+func WithSearchParamsObjectAllowReRankingOnPersonalization(val bool) SearchParamsObjectOption {
+	return func(f *SearchParamsObject) {
+		f.AllowReRankingOnPersonalization = &val
 	}
 }
 
@@ -3390,6 +3398,43 @@ func (o *SearchParamsObject) UnsetReRankingApplyFilter() {
 	o.ReRankingApplyFilter.Unset()
 }
 
+// GetAllowReRankingOnPersonalization returns the AllowReRankingOnPersonalization field value if set, zero value otherwise.
+func (o *SearchParamsObject) GetAllowReRankingOnPersonalization() bool {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.AllowReRankingOnPersonalization
+}
+
+// GetAllowReRankingOnPersonalizationOk returns a tuple with the AllowReRankingOnPersonalization field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SearchParamsObject) GetAllowReRankingOnPersonalizationOk() (*bool, bool) {
+	if o == nil || o.AllowReRankingOnPersonalization == nil {
+		return nil, false
+	}
+
+	return o.AllowReRankingOnPersonalization, true
+}
+
+// HasAllowReRankingOnPersonalization returns a boolean if a field has been set.
+func (o *SearchParamsObject) HasAllowReRankingOnPersonalization() bool {
+	if o != nil && o.AllowReRankingOnPersonalization != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowReRankingOnPersonalization gets a reference to the given bool and assigns it to the AllowReRankingOnPersonalization field.
+func (o *SearchParamsObject) SetAllowReRankingOnPersonalization(v bool) *SearchParamsObject {
+	o.AllowReRankingOnPersonalization = &v
+
+	return o
+}
+
 func (o SearchParamsObject) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	if o.Query != nil {
@@ -3688,6 +3733,10 @@ func (o SearchParamsObject) MarshalJSON() ([]byte, error) {
 		toSerialize["reRankingApplyFilter"] = o.ReRankingApplyFilter.Get()
 	}
 
+	if o.AllowReRankingOnPersonalization != nil {
+		toSerialize["allowReRankingOnPersonalization"] = o.AllowReRankingOnPersonalization
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal SearchParamsObject: %w", err)
@@ -3772,6 +3821,7 @@ func (o SearchParamsObject) String() string {
 	out += fmt.Sprintf("  renderingContent=%v\n", o.RenderingContent)
 	out += fmt.Sprintf("  enableReRanking=%v\n", o.EnableReRanking)
 	out += fmt.Sprintf("  reRankingApplyFilter=%v\n", o.ReRankingApplyFilter)
+	out += fmt.Sprintf("  allowReRankingOnPersonalization=%v\n", o.AllowReRankingOnPersonalization)
 
 	return fmt.Sprintf("SearchParamsObject {\n%s}", out)
 }
@@ -3875,6 +3925,7 @@ var SearchParamsObjectFieldDescriptions = map[string]string{ //nolint:gosec // s
 	"renderingContent":                        "Extra data that can be used in the search UI.\n\nYou can use this to control aspects of your search UI, such as the order of facet names and values\nwithout changing your frontend code.\n",
 	"enableReRanking":                         "Whether this search will use [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking).\nThis setting only has an effect if you activated Dynamic Re-Ranking for this index in the Algolia dashboard.\n",
 	"reRankingApplyFilter":                    "Restrict [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) to records that match these filters.\n",
+	"allowReRankingOnPersonalization":         "Whether [Dynamic Re-Ranking](https://www.algolia.com/doc/guides/algolia-ai/re-ranking) runs concurrently with Personalization.\n\nDynamic Re-Ranking isn't applied when `distinct` > 1, even if `allowReRankingOnPersonalization` is `true`.\n",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
