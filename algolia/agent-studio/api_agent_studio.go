@@ -928,6 +928,16 @@ func (r *ApiCreateAgentCompletionRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["ephemeral"]; ok {
+		err = json.Unmarshal(v, &r.ephemeral)
+		if err != nil {
+			err = json.Unmarshal(b, &r.ephemeral)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal ephemeral: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -941,6 +951,7 @@ type ApiCreateAgentCompletionRequest struct {
 	memory                  *bool
 	analytics               *bool
 	xAlgoliaSecureUserToken *string
+	ephemeral               *bool
 }
 
 // NewApiCreateAgentCompletionRequest creates an instance of the ApiCreateAgentCompletionRequest to be used for the API call.
@@ -991,6 +1002,13 @@ func (r ApiCreateAgentCompletionRequest) WithXAlgoliaSecureUserToken(xAlgoliaSec
 	return r
 }
 
+// WithEphemeral adds the ephemeral to the ApiCreateAgentCompletionRequest and returns the request for chaining.
+func (r ApiCreateAgentCompletionRequest) WithEphemeral(ephemeral bool) ApiCreateAgentCompletionRequest {
+	r.ephemeral = &ephemeral
+
+	return r
+}
+
 /*
 CreateAgentCompletion calls the API and returns the raw response from it.
 
@@ -1016,8 +1034,11 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
 	  @param memory bool - Set to false to disable memory (enabled by default).
 
 
-	  @param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
-	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+	@param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
+	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+
+
+	  @param ephemeral bool - Set to true to not retain the conversation: it is processed and analyzed like any other, but removed by the next cleanup run instead of being kept in the history. Overrides the agent's ephemeralConversations setting; omit to use it.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -1057,6 +1078,10 @@ func (c *APIClient) CreateAgentCompletionWithHTTPInfo(r ApiCreateAgentCompletion
 
 	if !utils.IsNilOrEmpty(r.analytics) {
 		conf.queryParams.Set("analytics", utils.QueryParameterToString(*r.analytics))
+	}
+
+	if !utils.IsNilOrEmpty(r.ephemeral) {
+		conf.queryParams.Set("ephemeral", utils.QueryParameterToString(*r.ephemeral))
 	}
 
 	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
@@ -1109,6 +1134,9 @@ Request can be constructed by NewApiCreateAgentCompletionRequest with parameters
 
 	@param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
 	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+
+
+	@param ephemeral bool - Set to true to not retain the conversation: it is processed and analyzed like any other, but removed by the next cleanup run instead of being kept in the history. Overrides the agent's ephemeralConversations setting; omit to use it.
 	@return map[string]any
 */
 func (c *APIClient) CreateAgentCompletion(r ApiCreateAgentCompletionRequest, opts ...RequestOption) (*map[string]any, error) {
@@ -1161,6 +1189,7 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
     @param memory bool - Set to false to disable memory (enabled by default).
     @param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
     @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+    @param ephemeral bool - Set to true to not retain the conversation: it is processed and analyzed like any other, but removed by the next cleanup run instead of being kept in the history. Overrides the agent's ephemeralConversations setting; omit to use it.
   @param opts ...RequestOption - Optional parameters for the API call
   @return sse.Decoder - A decoder over the raw events, each event's Data field contains a JSON-encoded map[string]any. The caller is responsible for closing it.
   @return error - An error if the API call fails
@@ -1200,6 +1229,10 @@ func (c *APIClient) CreateAgentCompletionStreamRaw(r ApiCreateAgentCompletionReq
 
 	if !utils.IsNilOrEmpty(r.analytics) {
 		conf.queryParams.Set("analytics", utils.QueryParameterToString(*r.analytics))
+	}
+
+	if !utils.IsNilOrEmpty(r.ephemeral) {
+		conf.queryParams.Set("ephemeral", utils.QueryParameterToString(*r.ephemeral))
 	}
 
 	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
@@ -1255,8 +1288,11 @@ Tool Approval Flow (for MCP tools with requiresApproval: true):
 	  @param memory bool - Set to false to disable memory (enabled by default).
 
 
-	  @param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
-	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+	@param analytics bool - Set to false to skip analytics for this completion (default: true). Disables Agent Studio BigQuery analytics, Algolia search analytics, click analytics, and query-suggestions training. Useful for offline-eval workflows.
+	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+
+
+	  @param ephemeral bool - Set to true to not retain the conversation: it is processed and analyzed like any other, but removed by the next cleanup run instead of being kept in the history. Overrides the agent's ephemeralConversations setting; omit to use it.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *sse.Stream[map[string]any] - A stream deserializing each event's payload. The caller is responsible for closing it.
 	@return error - An error if the API call fails
@@ -2710,6 +2746,16 @@ func (r *ApiDeleteAgentConversationsRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["ephemeral"]; ok {
+		err = json.Unmarshal(v, &r.ephemeral)
+		if err != nil {
+			err = json.Unmarshal(b, &r.ephemeral)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal ephemeral: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -2718,6 +2764,7 @@ type ApiDeleteAgentConversationsRequest struct {
 	agentId   string
 	startDate *string
 	endDate   *string
+	ephemeral *bool
 }
 
 // NewApiDeleteAgentConversationsRequest creates an instance of the ApiDeleteAgentConversationsRequest to be used for the API call.
@@ -2741,6 +2788,13 @@ func (r ApiDeleteAgentConversationsRequest) WithEndDate(endDate string) ApiDelet
 	return r
 }
 
+// WithEphemeral adds the ephemeral to the ApiDeleteAgentConversationsRequest and returns the request for chaining.
+func (r ApiDeleteAgentConversationsRequest) WithEphemeral(ephemeral bool) ApiDeleteAgentConversationsRequest {
+	r.ephemeral = &ephemeral
+
+	return r
+}
+
 /*
 DeleteAgentConversations calls the API and returns the raw response from it.
 
@@ -2753,6 +2807,7 @@ DeleteAgentConversations calls the API and returns the raw response from it.
 	  @param agentId string - The agentId.
 	  @param startDate string - Filter conversations created after this date (format: YYYY-MM-DD).
 	  @param endDate string - Filter conversations created before this date (format: YYYY-MM-DD).
+	  @param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -2783,6 +2838,10 @@ func (c *APIClient) DeleteAgentConversationsWithHTTPInfo(
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
 	}
 
+	if !utils.IsNilOrEmpty(r.ephemeral) {
+		conf.queryParams.Set("ephemeral", utils.QueryParameterToString(*r.ephemeral))
+	}
+
 	// optional params if any
 	for _, opt := range opts {
 		opt.apply(&conf)
@@ -2811,6 +2870,7 @@ Request can be constructed by NewApiDeleteAgentConversationsRequest with paramet
 	@param agentId string - The agentId.
 	@param startDate string - Filter conversations created after this date (format: YYYY-MM-DD).
 	@param endDate string - Filter conversations created before this date (format: YYYY-MM-DD).
+	@param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 */
 func (c *APIClient) DeleteAgentConversations(r ApiDeleteAgentConversationsRequest, opts ...RequestOption) error {
 	res, resBody, err := c.DeleteAgentConversationsWithHTTPInfo(r, opts...)
@@ -3441,6 +3501,16 @@ func (r *ApiExportConversationsRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["ephemeral"]; ok {
+		err = json.Unmarshal(v, &r.ephemeral)
+		if err != nil {
+			err = json.Unmarshal(b, &r.ephemeral)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal ephemeral: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -3449,6 +3519,7 @@ type ApiExportConversationsRequest struct {
 	agentId   string
 	startDate *string
 	endDate   *string
+	ephemeral *bool
 }
 
 // NewApiExportConversationsRequest creates an instance of the ApiExportConversationsRequest to be used for the API call.
@@ -3472,6 +3543,13 @@ func (r ApiExportConversationsRequest) WithEndDate(endDate string) ApiExportConv
 	return r
 }
 
+// WithEphemeral adds the ephemeral to the ApiExportConversationsRequest and returns the request for chaining.
+func (r ApiExportConversationsRequest) WithEphemeral(ephemeral bool) ApiExportConversationsRequest {
+	r.ephemeral = &ephemeral
+
+	return r
+}
+
 /*
 ExportConversations calls the API and returns the raw response from it.
 
@@ -3484,6 +3562,7 @@ ExportConversations calls the API and returns the raw response from it.
 	  @param agentId string - The agentId.
 	  @param startDate string - Filter conversations created after this date (format: YYYY-MM-DD).
 	  @param endDate string - Filter conversations created before this date (format: YYYY-MM-DD).
+	  @param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -3509,6 +3588,10 @@ func (c *APIClient) ExportConversationsWithHTTPInfo(r ApiExportConversationsRequ
 
 	if !utils.IsNilOrEmpty(r.endDate) {
 		conf.queryParams.Set("endDate", utils.QueryParameterToString(*r.endDate))
+	}
+
+	if !utils.IsNilOrEmpty(r.ephemeral) {
+		conf.queryParams.Set("ephemeral", utils.QueryParameterToString(*r.ephemeral))
 	}
 
 	// optional params if any
@@ -3539,6 +3622,7 @@ Request can be constructed by NewApiExportConversationsRequest with parameters b
 	@param agentId string - The agentId.
 	@param startDate string - Filter conversations created after this date (format: YYYY-MM-DD).
 	@param endDate string - Filter conversations created before this date (format: YYYY-MM-DD).
+	@param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 	@return []ConversationFullResponse
 */
 func (c *APIClient) ExportConversations(r ApiExportConversationsRequest, opts ...RequestOption) ([]ConversationFullResponse, error) {
@@ -4839,6 +4923,16 @@ func (r *ApiListAgentConversationsRequest) UnmarshalJSON(b []byte) error {
 		}
 	}
 
+	if v, ok := req["ephemeral"]; ok {
+		err = json.Unmarshal(v, &r.ephemeral)
+		if err != nil {
+			err = json.Unmarshal(b, &r.ephemeral)
+			if err != nil {
+				return fmt.Errorf("cannot unmarshal ephemeral: %w", err)
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -4856,6 +4950,7 @@ type ApiListAgentConversationsRequest struct {
 	converted               *bool
 	hasAlgoliaSearch        *bool
 	xAlgoliaSecureUserToken *string
+	ephemeral               *bool
 }
 
 // NewApiListAgentConversationsRequest creates an instance of the ApiListAgentConversationsRequest to be used for the API call.
@@ -4942,6 +5037,13 @@ func (r ApiListAgentConversationsRequest) WithXAlgoliaSecureUserToken(xAlgoliaSe
 	return r
 }
 
+// WithEphemeral adds the ephemeral to the ApiListAgentConversationsRequest and returns the request for chaining.
+func (r ApiListAgentConversationsRequest) WithEphemeral(ephemeral bool) ApiListAgentConversationsRequest {
+	r.ephemeral = &ephemeral
+
+	return r
+}
+
 /*
 ListAgentConversations calls the API and returns the raw response from it.
 
@@ -4963,6 +5065,7 @@ ListAgentConversations calls the API and returns the raw response from it.
 	  @param converted bool - Filter by conversations with at least one conversion.
 	  @param hasAlgoliaSearch bool - Filter by conversations where the search tool was used.
 	  @param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+	  @param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 	@param opts ...RequestOption - Optional parameters for the API call
 	@return *http.Response - The raw response from the API
 	@return []byte - The raw response body from the API
@@ -5022,6 +5125,10 @@ func (c *APIClient) ListAgentConversationsWithHTTPInfo(r ApiListAgentConversatio
 		conf.queryParams.Set("hasAlgoliaSearch", utils.QueryParameterToString(*r.hasAlgoliaSearch))
 	}
 
+	if !utils.IsNilOrEmpty(r.ephemeral) {
+		conf.queryParams.Set("ephemeral", utils.QueryParameterToString(*r.ephemeral))
+	}
+
 	if !utils.IsNilOrEmpty(r.xAlgoliaSecureUserToken) {
 		conf.headerParams["X-Algolia-Secure-User-Token"] = utils.ParameterToString(*r.xAlgoliaSecureUserToken)
 	}
@@ -5063,6 +5170,7 @@ Request can be constructed by NewApiListAgentConversationsRequest with parameter
 	@param converted bool - Filter by conversations with at least one conversion.
 	@param hasAlgoliaSearch bool - Filter by conversations where the search tool was used.
 	@param xAlgoliaSecureUserToken string - The X-Algolia-Secure-User-Token.
+	@param ephemeral bool - Filter by ephemeral (not retained) conversations; omit to include both.
 	@return PaginatedConversationsResponse
 */
 func (c *APIClient) ListAgentConversations(r ApiListAgentConversationsRequest, opts ...RequestOption) (*PaginatedConversationsResponse, error) {
@@ -5236,6 +5344,81 @@ func (c *APIClient) ListAgents(r ApiListAgentsRequest, opts ...RequestOption) (*
 	var returnValue *PaginatedAgentsResponse
 
 	res, resBody, err := c.ListAgentsWithHTTPInfo(r, opts...)
+	if err != nil {
+		return returnValue, err
+	}
+
+	if res == nil {
+		return returnValue, reportError("res is nil")
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode >= 300 {
+		return returnValue, c.decodeError(res, resBody)
+	}
+
+	err = c.decode(&returnValue, resBody)
+	if err != nil {
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+	}
+
+	return returnValue, nil
+}
+
+/*
+ListConversationUsage calls the API and returns the raw response from it.
+
+	  Live conversations counted against the per-application limit.
+
+	    Required API Key ACLs:
+	    - logs
+
+	Request can be constructed by NewApiListConversationUsageRequest with parameters below.
+	@param opts ...RequestOption - Optional parameters for the API call
+	@return *http.Response - The raw response from the API
+	@return []byte - The raw response body from the API
+	@return error - An error if the API call fails
+*/
+func (c *APIClient) ListConversationUsageWithHTTPInfo(opts ...RequestOption) (*http.Response, []byte, error) {
+	requestPath := "/agent-studio/1/configuration/conversation-usage"
+
+	conf := config{
+		context:      context.Background(),
+		queryParams:  url.Values{},
+		headerParams: map[string]string{},
+	}
+
+	// optional params if any
+	for _, opt := range opts {
+		opt.apply(&conf)
+	}
+
+	var postBody any
+
+	req, err := c.prepareRequest(conf.context, requestPath, http.MethodGet, postBody, conf.bodyParams, conf.headerParams, conf.queryParams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return c.callAPI(req, false, conf.timeouts)
+}
+
+/*
+ListConversationUsage casts the HTTP response body to a defined struct.
+
+Live conversations counted against the per-application limit.
+
+Required API Key ACLs:
+  - logs
+
+Request can be constructed by NewApiListConversationUsageRequest with parameters below.
+
+	@return ConversationUsageResponse
+*/
+func (c *APIClient) ListConversationUsage(opts ...RequestOption) (*ConversationUsageResponse, error) {
+	var returnValue *ConversationUsageResponse
+
+	res, resBody, err := c.ListConversationUsageWithHTTPInfo(opts...)
 	if err != nil {
 		return returnValue, err
 	}

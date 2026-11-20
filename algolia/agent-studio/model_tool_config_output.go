@@ -10,11 +10,12 @@ import (
 
 // ToolConfigOutput - struct for ToolConfigOutput.
 type ToolConfigOutput struct {
-	AlgoliaRecommendToolConfig *AlgoliaRecommendToolConfig
-	AlgoliaSearchToolConfig    *AlgoliaSearchToolConfig
-	ClientSideToolConfig       *ClientSideToolConfig
-	McpServerToolConfig        *McpServerToolConfig
-	UnknownToolConfig          *UnknownToolConfig
+	AlgoliaCompareProductsToolConfig *AlgoliaCompareProductsToolConfig
+	AlgoliaRecommendToolConfig       *AlgoliaRecommendToolConfig
+	AlgoliaSearchToolConfig          *AlgoliaSearchToolConfig
+	ClientSideToolConfig             *ClientSideToolConfig
+	McpServerToolConfig              *McpServerToolConfig
+	UnknownToolConfig                *UnknownToolConfig
 }
 
 // ClientSideToolConfigAsToolConfigOutput is a convenience function that returns ClientSideToolConfig wrapped in ToolConfigOutput.
@@ -45,6 +46,13 @@ func AlgoliaRecommendToolConfigAsToolConfigOutput(v *AlgoliaRecommendToolConfig)
 	}
 }
 
+// AlgoliaCompareProductsToolConfigAsToolConfigOutput is a convenience function that returns AlgoliaCompareProductsToolConfig wrapped in ToolConfigOutput.
+func AlgoliaCompareProductsToolConfigAsToolConfigOutput(v *AlgoliaCompareProductsToolConfig) *ToolConfigOutput {
+	return &ToolConfigOutput{
+		AlgoliaCompareProductsToolConfig: v,
+	}
+}
+
 // UnknownToolConfigAsToolConfigOutput is a convenience function that returns UnknownToolConfig wrapped in ToolConfigOutput.
 func UnknownToolConfigAsToolConfigOutput(v UnknownToolConfig) *ToolConfigOutput {
 	return &ToolConfigOutput{
@@ -62,6 +70,13 @@ func (dst *ToolConfigOutput) UnmarshalJSON(data []byte) error {
 	_ = json.Unmarshal(data, &jsonDict)
 	if typeValue, ok := jsonDict["type"]; ok {
 		switch typeValue {
+		case "algolia_compare_products":
+			err = json.Unmarshal(data, &dst.AlgoliaCompareProductsToolConfig)
+			if err == nil {
+				return nil
+			}
+
+			dst.AlgoliaCompareProductsToolConfig = nil
 		case "algolia_recommend":
 			err = json.Unmarshal(data, &dst.AlgoliaRecommendToolConfig)
 			if err == nil {
@@ -128,6 +143,11 @@ func (dst *ToolConfigOutput) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.AlgoliaRecommendToolConfig = nil
 	}
+	// try to unmarshal data into AlgoliaCompareProductsToolConfig
+	err = json.Unmarshal(data, &dst.AlgoliaCompareProductsToolConfig)
+	if err != nil {
+		dst.AlgoliaCompareProductsToolConfig = nil
+	}
 	// try to unmarshal data into UnknownToolConfig
 	err = json.Unmarshal(data, &dst.UnknownToolConfig)
 	if err != nil {
@@ -135,6 +155,10 @@ func (dst *ToolConfigOutput) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if at least one type was successfully unmarshaled
+	if dst.AlgoliaCompareProductsToolConfig != nil {
+		return nil
+	}
+
 	if dst.AlgoliaRecommendToolConfig != nil {
 		return nil
 	}
@@ -160,6 +184,15 @@ func (dst *ToolConfigOutput) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src ToolConfigOutput) MarshalJSON() ([]byte, error) {
+	if src.AlgoliaCompareProductsToolConfig != nil {
+		serialized, err := json.Marshal(&src.AlgoliaCompareProductsToolConfig)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AlgoliaCompareProductsToolConfig of ToolConfigOutput: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.AlgoliaRecommendToolConfig != nil {
 		serialized, err := json.Marshal(&src.AlgoliaRecommendToolConfig)
 		if err != nil {
@@ -210,6 +243,10 @@ func (src ToolConfigOutput) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj ToolConfigOutput) GetActualInstance() any {
+	if obj.AlgoliaCompareProductsToolConfig != nil {
+		return *obj.AlgoliaCompareProductsToolConfig
+	}
+
 	if obj.AlgoliaRecommendToolConfig != nil {
 		return *obj.AlgoliaRecommendToolConfig
 	}

@@ -27,6 +27,7 @@ type ConversationFullResponse struct {
 	ImpactAnalytics      utils.Nullable[ImpactAnalytics]      `json:"impactAnalytics,omitempty"`
 	Messages             []MessageResponse                    `json:"messages"`
 	AnalyticsDegraded    *bool                                `json:"analyticsDegraded,omitempty"`
+	IsEphemeral          *bool                                `json:"isEphemeral,omitempty"`
 }
 
 type ConversationFullResponseOption func(f *ConversationFullResponse)
@@ -100,6 +101,12 @@ func WithConversationFullResponseImpactAnalytics(val utils.Nullable[ImpactAnalyt
 func WithConversationFullResponseAnalyticsDegraded(val bool) ConversationFullResponseOption {
 	return func(f *ConversationFullResponse) {
 		f.AnalyticsDegraded = &val
+	}
+}
+
+func WithConversationFullResponseIsEphemeral(val bool) ConversationFullResponseOption {
+	return func(f *ConversationFullResponse) {
+		f.IsEphemeral = &val
 	}
 }
 
@@ -774,6 +781,43 @@ func (o *ConversationFullResponse) SetAnalyticsDegraded(v bool) *ConversationFul
 	return o
 }
 
+// GetIsEphemeral returns the IsEphemeral field value if set, zero value otherwise.
+func (o *ConversationFullResponse) GetIsEphemeral() bool {
+	if o == nil || o.IsEphemeral == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.IsEphemeral
+}
+
+// GetIsEphemeralOk returns a tuple with the IsEphemeral field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConversationFullResponse) GetIsEphemeralOk() (*bool, bool) {
+	if o == nil || o.IsEphemeral == nil {
+		return nil, false
+	}
+
+	return o.IsEphemeral, true
+}
+
+// HasIsEphemeral returns a boolean if a field has been set.
+func (o *ConversationFullResponse) HasIsEphemeral() bool {
+	if o != nil && o.IsEphemeral != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEphemeral gets a reference to the given bool and assigns it to the IsEphemeral field.
+func (o *ConversationFullResponse) SetIsEphemeral(v bool) *ConversationFullResponse {
+	o.IsEphemeral = &v
+
+	return o
+}
+
 func (o ConversationFullResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["id"] = o.Id
@@ -831,6 +875,10 @@ func (o ConversationFullResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["analyticsDegraded"] = o.AnalyticsDegraded
 	}
 
+	if o.IsEphemeral != nil {
+		toSerialize["isEphemeral"] = o.IsEphemeral
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConversationFullResponse: %w", err)
@@ -858,6 +906,7 @@ func (o ConversationFullResponse) String() string {
 	out += fmt.Sprintf("  impactAnalytics=%v\n", o.ImpactAnalytics)
 	out += fmt.Sprintf("  messages=%v\n", o.Messages)
 	out += fmt.Sprintf("  analyticsDegraded=%v\n", o.AnalyticsDegraded)
+	out += fmt.Sprintf("  isEphemeral=%v\n", o.IsEphemeral)
 
 	return fmt.Sprintf("ConversationFullResponse {\n%s}", out)
 }

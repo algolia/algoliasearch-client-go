@@ -25,6 +25,7 @@ type ConversationBaseResponse struct {
 	ConversationMetadata utils.Nullable[ConversationMetadata] `json:"conversationMetadata,omitempty"`
 	Feedback             []FeedbackResponse                   `json:"feedback,omitempty"`
 	ImpactAnalytics      utils.Nullable[ImpactAnalytics]      `json:"impactAnalytics,omitempty"`
+	IsEphemeral          *bool                                `json:"isEphemeral,omitempty"`
 }
 
 type ConversationBaseResponseOption func(f *ConversationBaseResponse)
@@ -92,6 +93,12 @@ func WithConversationBaseResponseFeedback(val []FeedbackResponse) ConversationBa
 func WithConversationBaseResponseImpactAnalytics(val utils.Nullable[ImpactAnalytics]) ConversationBaseResponseOption {
 	return func(f *ConversationBaseResponse) {
 		f.ImpactAnalytics = val
+	}
+}
+
+func WithConversationBaseResponseIsEphemeral(val bool) ConversationBaseResponseOption {
+	return func(f *ConversationBaseResponse) {
+		f.IsEphemeral = &val
 	}
 }
 
@@ -699,6 +706,43 @@ func (o *ConversationBaseResponse) UnsetImpactAnalytics() {
 	o.ImpactAnalytics.Unset()
 }
 
+// GetIsEphemeral returns the IsEphemeral field value if set, zero value otherwise.
+func (o *ConversationBaseResponse) GetIsEphemeral() bool {
+	if o == nil || o.IsEphemeral == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.IsEphemeral
+}
+
+// GetIsEphemeralOk returns a tuple with the IsEphemeral field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConversationBaseResponse) GetIsEphemeralOk() (*bool, bool) {
+	if o == nil || o.IsEphemeral == nil {
+		return nil, false
+	}
+
+	return o.IsEphemeral, true
+}
+
+// HasIsEphemeral returns a boolean if a field has been set.
+func (o *ConversationBaseResponse) HasIsEphemeral() bool {
+	if o != nil && o.IsEphemeral != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEphemeral gets a reference to the given bool and assigns it to the IsEphemeral field.
+func (o *ConversationBaseResponse) SetIsEphemeral(v bool) *ConversationBaseResponse {
+	o.IsEphemeral = &v
+
+	return o
+}
+
 func (o ConversationBaseResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
 	toSerialize["id"] = o.Id
@@ -751,6 +795,10 @@ func (o ConversationBaseResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["impactAnalytics"] = o.ImpactAnalytics.Get()
 	}
 
+	if o.IsEphemeral != nil {
+		toSerialize["isEphemeral"] = o.IsEphemeral
+	}
+
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
 		return nil, fmt.Errorf("failed to marshal ConversationBaseResponse: %w", err)
@@ -776,6 +824,7 @@ func (o ConversationBaseResponse) String() string {
 	out += fmt.Sprintf("  conversationMetadata=%v\n", o.ConversationMetadata)
 	out += fmt.Sprintf("  feedback=%v\n", o.Feedback)
 	out += fmt.Sprintf("  impactAnalytics=%v\n", o.ImpactAnalytics)
+	out += fmt.Sprintf("  isEphemeral=%v\n", o.IsEphemeral)
 
 	return fmt.Sprintf("ConversationBaseResponse {\n%s}", out)
 }

@@ -10,6 +10,7 @@ import (
 
 // ItemsUnion - struct for ItemsUnion.
 type ItemsUnion struct {
+	AlgoliaCompareProductsToolConfig      *AlgoliaCompareProductsToolConfig
 	AlgoliaGroupedResultsCompatToolConfig *AlgoliaGroupedResultsCompatToolConfig
 	AlgoliaGroupedResultsToolConfig       *AlgoliaGroupedResultsToolConfig
 	AlgoliaRecommendToolConfig            *AlgoliaRecommendToolConfig
@@ -61,6 +62,13 @@ func AlgoliaGroupedResultsCompatToolConfigAsItemsUnion(v *AlgoliaGroupedResultsC
 	}
 }
 
+// AlgoliaCompareProductsToolConfigAsItemsUnion is a convenience function that returns AlgoliaCompareProductsToolConfig wrapped in ItemsUnion.
+func AlgoliaCompareProductsToolConfigAsItemsUnion(v *AlgoliaCompareProductsToolConfig) *ItemsUnion {
+	return &ItemsUnion{
+		AlgoliaCompareProductsToolConfig: v,
+	}
+}
+
 // UnknownToolConfigAsItemsUnion is a convenience function that returns UnknownToolConfig wrapped in ItemsUnion.
 func UnknownToolConfigAsItemsUnion(v UnknownToolConfig) *ItemsUnion {
 	return &ItemsUnion{
@@ -78,6 +86,13 @@ func (dst *ItemsUnion) UnmarshalJSON(data []byte) error {
 	_ = json.Unmarshal(data, &jsonDict)
 	if typeValue, ok := jsonDict["type"]; ok {
 		switch typeValue {
+		case "algolia_compare_products":
+			err = json.Unmarshal(data, &dst.AlgoliaCompareProductsToolConfig)
+			if err == nil {
+				return nil
+			}
+
+			dst.AlgoliaCompareProductsToolConfig = nil
 		case "algolia_display_results":
 			err = json.Unmarshal(data, &dst.AlgoliaGroupedResultsCompatToolConfig)
 			if err == nil {
@@ -168,6 +183,11 @@ func (dst *ItemsUnion) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		dst.AlgoliaGroupedResultsCompatToolConfig = nil
 	}
+	// try to unmarshal data into AlgoliaCompareProductsToolConfig
+	err = json.Unmarshal(data, &dst.AlgoliaCompareProductsToolConfig)
+	if err != nil {
+		dst.AlgoliaCompareProductsToolConfig = nil
+	}
 	// try to unmarshal data into UnknownToolConfig
 	err = json.Unmarshal(data, &dst.UnknownToolConfig)
 	if err != nil {
@@ -175,6 +195,10 @@ func (dst *ItemsUnion) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if at least one type was successfully unmarshaled
+	if dst.AlgoliaCompareProductsToolConfig != nil {
+		return nil
+	}
+
 	if dst.AlgoliaGroupedResultsCompatToolConfig != nil {
 		return nil
 	}
@@ -208,6 +232,15 @@ func (dst *ItemsUnion) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON.
 func (src ItemsUnion) MarshalJSON() ([]byte, error) {
+	if src.AlgoliaCompareProductsToolConfig != nil {
+		serialized, err := json.Marshal(&src.AlgoliaCompareProductsToolConfig)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal one of AlgoliaCompareProductsToolConfig of ItemsUnion: %w", err)
+		}
+
+		return serialized, nil
+	}
+
 	if src.AlgoliaGroupedResultsCompatToolConfig != nil {
 		serialized, err := json.Marshal(&src.AlgoliaGroupedResultsCompatToolConfig)
 		if err != nil {
@@ -276,6 +309,10 @@ func (src ItemsUnion) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance.
 func (obj ItemsUnion) GetActualInstance() any {
+	if obj.AlgoliaCompareProductsToolConfig != nil {
+		return *obj.AlgoliaCompareProductsToolConfig
+	}
+
 	if obj.AlgoliaGroupedResultsCompatToolConfig != nil {
 		return *obj.AlgoliaGroupedResultsCompatToolConfig
 	}
