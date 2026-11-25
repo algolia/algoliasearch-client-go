@@ -9,15 +9,30 @@ import (
 // GetTaskResponse struct for GetTaskResponse.
 type GetTaskResponse struct {
 	Status TaskStatus `json:"status"`
+	// Indicates whether the index has pending tasks. This value is deprecated and always `false`. Don't use it.
+	// Deprecated
+	PendingTask *bool `json:"pendingTask,omitempty"`
+}
+
+type GetTaskResponseOption func(f *GetTaskResponse)
+
+func WithGetTaskResponsePendingTask(val bool) GetTaskResponseOption {
+	return func(f *GetTaskResponse) {
+		f.PendingTask = &val
+	}
 }
 
 // NewGetTaskResponse instantiates a new GetTaskResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed.
-func NewGetTaskResponse(status TaskStatus) *GetTaskResponse {
+func NewGetTaskResponse(status TaskStatus, opts ...GetTaskResponseOption) *GetTaskResponse {
 	this := &GetTaskResponse{}
+
 	this.Status = status
+	for _, opt := range opts {
+		opt(this)
+	}
 
 	return this
 }
@@ -55,9 +70,53 @@ func (o *GetTaskResponse) SetStatus(v TaskStatus) *GetTaskResponse {
 	return o
 }
 
+// GetPendingTask returns the PendingTask field value if set, zero value otherwise.
+// Deprecated.
+func (o *GetTaskResponse) GetPendingTask() bool {
+	if o == nil || o.PendingTask == nil {
+		var ret bool
+
+		return ret
+	}
+
+	return *o.PendingTask
+}
+
+// GetPendingTaskOk returns a tuple with the PendingTask field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// Deprecated.
+func (o *GetTaskResponse) GetPendingTaskOk() (*bool, bool) {
+	if o == nil || o.PendingTask == nil {
+		return nil, false
+	}
+
+	return o.PendingTask, true
+}
+
+// HasPendingTask returns a boolean if a field has been set.
+func (o *GetTaskResponse) HasPendingTask() bool {
+	if o != nil && o.PendingTask != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingTask gets a reference to the given bool and assigns it to the PendingTask field.
+// Deprecated.
+func (o *GetTaskResponse) SetPendingTask(v bool) *GetTaskResponse {
+	o.PendingTask = &v
+
+	return o
+}
+
 func (o GetTaskResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]any{}
+
 	toSerialize["status"] = o.Status
+	if o.PendingTask != nil {
+		toSerialize["pendingTask"] = o.PendingTask
+	}
 
 	serialized, err := json.Marshal(toSerialize)
 	if err != nil {
@@ -70,13 +129,15 @@ func (o GetTaskResponse) MarshalJSON() ([]byte, error) {
 func (o GetTaskResponse) String() string {
 	out := ""
 	out += fmt.Sprintf("  status=%v\n", o.Status)
+	out += fmt.Sprintf("  pendingTask=%v\n", o.PendingTask)
 
 	return fmt.Sprintf("GetTaskResponse {\n%s}", out)
 }
 
 // GetTaskResponseFieldDescriptions maps each field (by its JSON name) to its spec description, useful for displaying help for a field.
 var GetTaskResponseFieldDescriptions = map[string]string{
-	"status": "Task status, `published` if the task is completed, `notPublished` otherwise.",
+	"status":      "Task status, `published` if the task is completed, `notPublished` otherwise.",
+	"pendingTask": "Indicates whether the index has pending tasks. This value is deprecated and always `false`. Don't use it.",
 }
 
 // FieldDescription returns the spec description for a field by its JSON name, or an empty string if the field has no description.
