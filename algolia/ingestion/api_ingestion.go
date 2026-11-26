@@ -9469,11 +9469,36 @@ func (c *APIClient) ChunkedPush(
 				},
 				func(response *Event, err error) (bool, error) {
 					var apiErr *APIError
-					if errors.As(err, &apiErr) {
-						return apiErr.Status != 404, nil
+					if errors.As(err, &apiErr) && apiErr.Status == 404 {
+						return false, nil
 					}
 
-					return true, err
+					if err != nil {
+						return true, err
+					}
+
+					status := response.Status.Get()
+					if status == nil || *status == EVENT_STATUS_SUCCEEDED {
+						return true, nil
+					}
+
+					if *status == EVENT_STATUS_CREATED || *status == EVENT_STATUS_STARTED || *status == EVENT_STATUS_RETRIED {
+						return false, nil
+					}
+
+					reason := ""
+					if message, ok := response.Data["message"].(string); ok && message != "" {
+						reason = ": " + message
+					}
+
+					return true, reportError(
+						"ingestion push to index %s did not succeed: event %s of run %s has status %s%s",
+						indexName,
+						*resp.EventID,
+						resp.RunID,
+						*status,
+						reason,
+					)
 				},
 				WithTimeout(
 					func(count int) time.Duration { return time.Duration(min(1500*count, 5000)) * time.Millisecond },
