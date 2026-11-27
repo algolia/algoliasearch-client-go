@@ -208,13 +208,13 @@ hostLoop:
 	}
 
 	if t.exposeIntermediateNetworkErrors {
-		return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID, intermediateNetworkErrors...)
+		return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID, intermediateNetworkErrors...) //nolint:wrapcheck
 	}
 
 	// A fresh instance rather than the ErrNoMoreHostToTry singleton, so the
 	// Correlation-ID can ride along; errors.Is still matches the singleton
 	// through NoMoreHostToTryError.Is.
-	return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID)
+	return nil, nil, errs.NewNoMoreHostToTryErrorWithCorrelationID(lastCorrelationID) //nolint:wrapcheck
 }
 
 // maxErrorBodySize bounds the error body read of a failed streaming request,
@@ -336,7 +336,7 @@ func (t *Transport) RequestStream(ctx context.Context, req *http.Request, k call
 				)
 			}
 
-			return nil, errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID)
+			return nil, errs.NewHTTPStatusErrorWithCorrelationID(res.StatusCode, body, correlationID) //nolint:wrapcheck
 		}
 
 		return res, nil
@@ -417,7 +417,7 @@ func wrapRequestError(req *http.Request, err error) error {
 		// behaviour, we wrap the message into a custom netError that
 		// implements the net.Error interface if the original error was
 		// already a net.Error.
-		return errs.NetError(nerr, msg)
+		return errs.NetError(nerr, msg) //nolint:wrapcheck
 	}
 
 	return errors.New(msg)

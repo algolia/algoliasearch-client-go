@@ -289,7 +289,7 @@ func (c *APIClient) BatchRecommendRules(r ApiBatchRecommendRulesRequest, opts ..
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -425,7 +425,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -561,7 +561,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -724,7 +724,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -887,7 +887,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1036,7 +1036,7 @@ func (c *APIClient) DeleteRecommendRule(r ApiDeleteRecommendRuleRequest, opts ..
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1185,7 +1185,7 @@ func (c *APIClient) GetRecommendRule(r ApiGetRecommendRuleRequest, opts ...Reque
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1338,7 +1338,7 @@ func (c *APIClient) GetRecommendStatus(r ApiGetRecommendStatusRequest, opts ...R
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1461,7 +1461,7 @@ func (c *APIClient) GetRecommendations(r ApiGetRecommendationsRequest, opts ...R
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1624,7 +1624,7 @@ func (c *APIClient) SearchRecommendRules(r ApiSearchRecommendRulesRequest, opts 
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil

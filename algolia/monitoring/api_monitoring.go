@@ -240,7 +240,7 @@ func (c *APIClient) CustomDelete(r ApiCustomDeleteRequest, opts ...RequestOption
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -376,7 +376,7 @@ func (c *APIClient) CustomGet(r ApiCustomGetRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -539,7 +539,7 @@ func (c *APIClient) CustomPost(r ApiCustomPostRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -702,7 +702,7 @@ func (c *APIClient) CustomPut(r ApiCustomPutRequest, opts ...RequestOption) (*ma
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -812,7 +812,7 @@ func (c *APIClient) GetClusterIncidents(r ApiGetClusterIncidentsRequest, opts ..
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -922,7 +922,7 @@ func (c *APIClient) GetClusterStatus(r ApiGetClusterStatusRequest, opts ...Reque
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -992,7 +992,7 @@ func (c *APIClient) GetIncidents(opts ...RequestOption) (*IncidentsResponse, err
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1117,7 +1117,7 @@ func (c *APIClient) GetIndexingTime(r ApiGetIndexingTimeRequest, opts ...Request
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1227,7 +1227,7 @@ func (c *APIClient) GetLatency(r ApiGetLatencyRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1359,7 +1359,7 @@ func (c *APIClient) GetMetrics(r ApiGetMetricsRequest, opts ...RequestOption) (*
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1469,7 +1469,7 @@ func (c *APIClient) GetReachability(r ApiGetReachabilityRequest, opts ...Request
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1554,7 +1554,7 @@ func (c *APIClient) GetServers(opts ...RequestOption) (*InventoryResponse, error
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil
@@ -1624,7 +1624,7 @@ func (c *APIClient) GetStatus(opts ...RequestOption) (*StatusResponse, error) {
 
 	err = c.decode(&returnValue, resBody)
 	if err != nil {
-		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID"))
+		return returnValue, errs.NewDeserializationError(err, res.Header.Get("Correlation-ID")) //nolint:wrapcheck
 	}
 
 	return returnValue, nil

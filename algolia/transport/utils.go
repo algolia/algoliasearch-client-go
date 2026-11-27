@@ -10,7 +10,7 @@ func Shuffle(hosts []StatefulHost) []StatefulHost {
 	}
 
 	shuffled := make([]StatefulHost, len(hosts))
-	for i, v := range rand.Perm(len(hosts)) {
+	for i, v := range rand.Perm(len(hosts)) { //nolint:gosec // host shuffling for load spreading, not security-sensitive
 		shuffled[i] = hosts[v]
 	}
 
